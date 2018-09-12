@@ -67,3 +67,5 @@ Date    : 10/9/18
 		Made new code cleanup for our team.
 
 
+Other than the clang-format and resharper settings, as our team is living together in same house, every time we write a code,
+we can ask each other freely anytime about how are we going to clarify our code-style such as naming.
