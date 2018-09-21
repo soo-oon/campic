@@ -42,12 +42,10 @@ bool Application::Initialize()
 	 5 patameter : share resources*/
 	window = glfwCreateWindow(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), "Engine ver 0.1 ", NULL, NULL);
 
-        // 화면 resoultuon 받아 오는 함수를 이용해서 변수에 저장
-        mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-        // 화면 생성시 간지 나게 postion잡는다고 계산했습니당
-        glfwSetWindowMonitor(window, NULL, (mode->width/2.0f) - (screenSize.x/2.0f), (mode->height/2.0f) - (screenSize.y/2.0f), 
-            screenSize.x, screenSize.y, 0);
+	glfwSetWindowMonitor(window, NULL, (mode->width/2) - static_cast<int>(screenSize.x/2), (mode->height/2) - static_cast<int>(screenSize.y/2),
+            static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
 
 	title = "Engine ver 0.1 ";
 
@@ -60,14 +58,12 @@ bool Application::Initialize()
 
 	glfwMakeContextCurrent(window);
 
-        // 인풋 관련된 glfw  함수들
 	glfwSetWindowSizeCallback(window, window_resized);
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetCursorPosCallback(window, MousePositionCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 
-        // 인풋 초기화
-	Input::Initialize(screenSize.x, screenSize.y);
+	Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
 
 	glewExperimental = GL_TRUE;
 	GLenum errorCode = glewInit();
@@ -92,10 +88,9 @@ bool Application::Initialize()
 
 void Application::Update()
 {
-        Input::Triggerd_Reset(); //Trigger 할려면 업데이트 한번 받고 초기화 용으로 나두어야함
-	FullScreen();   // Full screen 확인용 함수
+	Input::Triggerd_Reset();
+	FullScreen();
 
-        // -- start -- fps 출력하기 위한 함수
 	float dt = (float)Game_Timer.GetElapsedSeconds();
 	Game_Timer.Reset();
 
@@ -113,17 +108,13 @@ void Application::Update()
 		glfwSetWindowTitle(window, title.c_str());
 		title = "Engine ver 0.1 ";
 	}
-        // -- end --
 
-        // -- start -- 화면 랜더 할려면 넣어야하는것들 나중에 display class만들면 한번에 치울거
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
-        //-- end --
 
-	PollEvent(); // 기본 윈도우 컨트롤 하는 키인풋을 처리함 이함수안에 여러 함수 들어가 있음
+	PollEvent();
 }
 
-// Save ALL Application Key event
 void Application::Key_Poll_Event()
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_F))
@@ -137,14 +128,12 @@ void Application::Key_Poll_Event()
 	}
 }
 
-// 종료될때
 void Application::ShutDown()
 {
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
-// fullscreen
 void Application::FullScreen()
 {
     if (fullScreenMode)
@@ -154,8 +143,8 @@ void Application::FullScreen()
     }
     else
     {
-        glfwSetWindowMonitor(window, NULL, (mode->width / 2.0f) - (screenSize.x / 2.0f), (mode->height / 2.0f) - (screenSize.y / 2.0f),
-            screenSize.x, screenSize.y, 0);
+        glfwSetWindowMonitor(window, NULL, (mode->width / 2) - static_cast<int>(screenSize.x / 2), (mode->height / 2) - static_cast<int>(screenSize.y / 2),
+            static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
     }
 }
 
@@ -165,8 +154,6 @@ void Application::PollEvent()
 	Key_Poll_Event();
 }
 
-
-// 그대로 나두어야함 나중에 설명드릴게요
 namespace
 {
 	void errorCallback(int errorCode, const char* errorDescription)

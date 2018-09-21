@@ -9,8 +9,8 @@ std::bitset<GLFW_KEY_LAST> Input::key_pressed;
 std::bitset<GLFW_KEY_LAST> Input::key_triggered;
 std::bitset<GLFW_KEY_LAST> Input::key_released;
 
-vector2 Input::mousePos;
-vector2 Input::windowSize;
+glm::vec2 Input::mousePos;
+glm::vec2 Input::windowSize;
 
 std::bitset<GLFW_MOUSE_BUTTON_LAST> Input::mouse_pressed;
 std::bitset<GLFW_MOUSE_BUTTON_LAST> Input::mouse_triggered;
@@ -116,14 +116,13 @@ void Input::SetMousePos(double x_pos, double y_pos)
 	mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos);
 }
 
-vector2 Input::GetMousePos()
+glm::vec2 Input::GetMousePos()
 {
 	return mousePos;
 }
 
 void Input::SetMousePressed(int button, int action)
 {
-	// TODO make double click
 	if (action == GLFW_PRESS)
 	{
 		mouse_trigger = true;
@@ -175,7 +174,6 @@ bool Input::IsMouseTriggered(int button)
 	return mouse_triggered[button];
 }
 
-// TODO
 bool Input::IsMouseDoubleClicked(int button)
 {
 	return mouse_doubleclick[button];

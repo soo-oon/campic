@@ -1,7 +1,7 @@
 #pragma once
 #include <bitset>
 #include <GLFW/glfw3.h>
-#include "vector2.hpp"
+#include <glm/vec2.hpp>
 
 class Input
 {
@@ -10,8 +10,8 @@ private:
 	static std::bitset<GLFW_KEY_LAST> key_triggered;
 	static std::bitset<GLFW_KEY_LAST> key_released;
 
-	static vector2 mousePos;
-	static vector2 windowSize;
+	static glm::vec2 mousePos;
+	static glm::vec2 windowSize;
 
 	static std::bitset<GLFW_MOUSE_BUTTON_LAST> mouse_pressed;
 	static std::bitset<GLFW_MOUSE_BUTTON_LAST> mouse_triggered;
@@ -22,7 +22,7 @@ private:
 	static bool key_trigger;
 
 public:
-        static void Triggerd_Reset();
+	static void Triggerd_Reset();
 
 	static void Initialize(int width, int height);
 	static void Reset(void);
@@ -36,7 +36,7 @@ public:
 	static bool IsKeyAnyReleased();
 
 	static void SetMousePos(double x_pos, double y_pos);
-	static vector2 GetMousePos();
+	static glm::vec2 GetMousePos();
 
 	static void SetMousePressed(int button, int action);
 	static bool IsMousePressed(int button);

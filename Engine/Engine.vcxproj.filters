@@ -1,69 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
     <Filter Include="Application">
-      <UniqueIdentifier>{526a4f10-e1b6-46f6-a07c-09157fe35710}</UniqueIdentifier>
+      <UniqueIdentifier>{5347c669-409b-424f-a089-30ffba14b17c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{d09ef746-b37d-4ceb-83dc-39afd480eaf7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Timer">
-      <UniqueIdentifier>{04bd6598-c4f1-430b-a552-6ab944dba797}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{feb65a5e-59b4-4cce-aff5-5238d50139f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Color">
-      <UniqueIdentifier>{9b0d89b6-3177-4c84-91ba-069cc2aa6650}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Shader">
-      <UniqueIdentifier>{2072a14d-4bc0-4660-8fea-dfda48101e35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\GLSL">
-      <UniqueIdentifier>{90adee2a-b409-46c4-9abe-75e0e65e481c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Texture">
-      <UniqueIdentifier>{29c9af6f-c09e-4ba5-ba81-60c498ced5e3}</UniqueIdentifier>
+      <UniqueIdentifier>{003df42e-b837-44df-91d4-e8f1bcee4088}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Graphics\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Graphics\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Graphics\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.hpp">
-      <Filter>Graphics\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="Input.cpp">
-      <Filter>Application</Filter>
+      <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="Input.hpp">
+      <Filter>Input</Filter>
+    </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Timer</Filter>
     </ClInclude>
-    <ClInclude Include="Color.hpp">
-      <Filter>Graphics\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.hpp">
-      <Filter>Graphics\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.hpp">
-      <Filter>Graphics\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.cpp">
-      <Filter>Graphics\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.hpp">
-      <Filter>Application</Filter>
-    </ClInclude>
+    <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Image.hpp" />
+    <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="Texture.hpp" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "Timer.hpp"
 #include <string>
 #include "Input.hpp"
+#include <glm/vec2.hpp>
 
 class Application
 {
@@ -25,8 +26,8 @@ public:
 
 	void PollEvent();
 
-	GLFWmonitor* monitor;
-        const GLFWvidmode* mode;
+	GLFWmonitor* monitor = nullptr;
+    const GLFWvidmode* mode = nullptr;
 
     GLFWwindow* GetWindow() { return window; }
 
@@ -41,6 +42,6 @@ private:
 
     std::string title;
     Timer Game_Timer{};
-    vector2 screenSize{};
-    vector2 fullscreenSize{};
+    glm::vec2 screenSize{};
+    glm::vec2 fullscreenSize{};
 };

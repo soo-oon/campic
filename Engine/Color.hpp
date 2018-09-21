@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vector4.hpp"
+#include <glm/vec4.hpp>
 
 struct Color
 {
@@ -16,5 +16,5 @@ struct Color
 	Color(ColorChannel red, ColorChannel green,
 		ColorChannel blue, ColorChannel alpha = 255);
 
-	vector4 RGBAfloat() const;
+	glm::vec4 RGBAfloat() const;
 };

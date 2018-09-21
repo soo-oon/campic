@@ -1,7 +1,4 @@
 #include <iostream>
-#include "vector2.hpp"
-#include "vector3.hpp"
-#include "affine2d.hpp"
 #include "Color.hpp"
 #include "Shader.hpp"
 
@@ -67,25 +64,25 @@ void Shader::SendUniformVariable(const std::string & name, GLint value)
     glUniform1i(glGetUniformLocation(handle_to_shader, name.c_str()), value);
 }
 
-void Shader::SendUniformVariable(const std::string & name, vector2 vector)
+void Shader::SendUniformVariable(const std::string & name, glm::vec2 vector)
 {
     Use();
 
     glUniform2fv(glGetUniformLocation(handle_to_shader, name.c_str()),1, &vector.x);
 }
 
-void Shader::SendUniformVariable(const std::string & name, vector3 vector)
+void Shader::SendUniformVariable(const std::string & name, glm::vec3 vector)
 {
     Use();
 
     glUniform3fv(glGetUniformLocation(handle_to_shader, name.c_str()), 1, &vector.x);
 }
 
-void Shader::SendUniformVariable(const std::string & name, const affine2d & affine_matrix)
+void Shader::SendUniformVariable(const std::string & name, const glm::mat3 & affine_matrix)
 {
     Use();
 
-    glUniformMatrix3fv(glGetUniformLocation(handle_to_shader, name.c_str()), 1, GL_TRUE,&affine_matrix.affine[0][0]);
+    glUniformMatrix3fv(glGetUniformLocation(handle_to_shader, name.c_str()), 1, GL_TRUE,&affine_matrix[0][0]);
 }
 
 void Shader::SendUniformVariable(const std::string & name, const Color color)
