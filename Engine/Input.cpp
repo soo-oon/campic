@@ -28,7 +28,7 @@ void Input::Triggerd_Reset()
     mouse_doubleclick.reset();
 }
 
-void Input::Initialize(int width, int height)
+void Input::Initialize(int width , int height)
 {
 	key_pressed.reset();
 	key_triggered.reset();

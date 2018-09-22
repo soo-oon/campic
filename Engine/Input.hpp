@@ -24,7 +24,7 @@ private:
 public:
 	static void Triggerd_Reset();
 
-	static void Initialize(int width, int height);
+	static void Initialize(int width=0, int height=0);
 	static void Reset(void);
 
 	static void SetKeyPressed(int key, int action);

@@ -2,12 +2,12 @@
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
-#include "Timer.hpp"
 #include <string>
+#include "System.hpp"
 #include "Input.hpp"
 #include <glm/vec2.hpp>
 
-class Application
+class Application : public System
 {
 public:
     Application() : screenSize(1280, 960)
@@ -15,33 +15,24 @@ public:
     
     ~Application(){};
 
-    bool Initialize();
-    void Update();
+    bool Initialize() override;
+    void Update(float dt) override;
+    void Quit() override;
 
-	void Key_Poll_Event();
-
-    void ShutDown();
-
+    void Key_Poll_Event();
+    void PollEvent();
     void FullScreen();
-
-	void PollEvent();
-
-	GLFWmonitor* monitor = nullptr;
-    const GLFWvidmode* mode = nullptr;
-
-    GLFWwindow* GetWindow() { return window; }
 
     bool Exit = false;
 
 private:
-    GLFWwindow* window = nullptr;
-    int frame_count = 0;
-    float frame_time = 0.0f;
+    GLFWmonitor* monitor = nullptr;
+    const GLFWvidmode* mode = nullptr;
 
+    GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
 
     std::string title;
-    Timer Game_Timer{};
     glm::vec2 screenSize{};
     glm::vec2 fullscreenSize{};
 };

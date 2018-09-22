@@ -1,17 +1,15 @@
 ﻿#include "Application.hpp"
+#include "Engine.hpp"
 
 int main()
 {
-	Application app;
+    Engine engine;
 
-	if (!app.Initialize())
-		return -1;
+    engine.Initialize();
+    
+    engine.Update();
+  
+    engine.ShutDown();
 
-	while (!app.Exit)
-	{
-		app.Update();
-	}
-	
-	app.ShutDown();
-	return 0;
+    return 0;
 }

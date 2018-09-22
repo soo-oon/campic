@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -129,9 +130,11 @@
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Image.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="System.hpp" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Timer.hpp" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 ﻿#include "Application.hpp"
 #include <iostream>
 #include <stdio.h>
-
+#include "Engine.hpp"
 
 namespace
 {
@@ -81,34 +81,15 @@ bool Application::Initialize()
 
 	glfwSwapInterval(true);
 
-	Game_Timer.Reset();
-
 	return true;
 }
 
-void Application::Update()
+void Application::Update(float /*dt*/)
 {
 	Input::Triggerd_Reset();
 	FullScreen();
 
-	float dt = (float)Game_Timer.GetElapsedSeconds();
-	Game_Timer.Reset();
-
-	++frame_count;
-	frame_time += dt;
-
-	if (frame_time >= 1.0f)
-	{
-		auto fps = frame_count / frame_time;
-		frame_count = 0;
-		frame_time = 0;
-
-		title += std::to_string((int)fps);
-
-		glfwSetWindowTitle(window, title.c_str());
-		title = "Engine ver 0.1 ";
-	}
-
+        // if Grphics made, then glClear put the grphics update.
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 
@@ -121,14 +102,9 @@ void Application::Key_Poll_Event()
 	{
 		fullScreenMode = !fullScreenMode;
 	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
-	{
-		Exit = true;
-	}
 }
 
-void Application::ShutDown()
+void Application::Quit()
 {
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -161,8 +137,8 @@ namespace
 		fprintf(stderr, "Error: %s\n", errorDescription);
 	}
 
-	void window_resized(GLFWwindow* window, int width, int height) {
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	void window_resized(GLFWwindow* window, int width, int height) 
+        {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(window);
 	}
