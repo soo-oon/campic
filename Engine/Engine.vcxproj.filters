@@ -20,6 +20,9 @@
     <Filter Include="System">
       <UniqueIdentifier>{a0fb0915-28da-42dd-b09e-949bfc2eec7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StateManager">
+      <UniqueIdentifier>{856ffa6f-4f06-42d1-8811-a87d5bfff7c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -42,6 +45,9 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>StateManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="Engine.hpp">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.hpp">
+      <Filter>StateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.hpp">
+      <Filter>StateManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

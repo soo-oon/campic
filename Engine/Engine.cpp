@@ -1,11 +1,13 @@
 #include "Engine.hpp"
 #include "Application.hpp"
+#include "StateManager.hpp"
 #include <iostream>
 #include "Input.hpp"
 
 bool Engine::Initialize()
 {
     AddSystem(new Application());
+    AddSystem(new StateManager());
 
     for (auto i : systems)
         i->Initialize();
