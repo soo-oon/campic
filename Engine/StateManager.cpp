@@ -11,6 +11,11 @@ void StateManager::SetStartStage(Stage * stage)
     m_pFirst = stage;
 }
 
+void StateManager::SetCurrentStage(Stage* stage)
+{
+    m_currentStage = stage;
+}
+
 void StateManager::SetPauseStage(Stage * stage)
 {
     m_pPaused = stage;
@@ -34,7 +39,7 @@ void StateManager::Pause()
 
 bool StateManager::Initialize()
 {
-    m_currentStage = stages[0];
+    m_currentStage = nullptr;
     m_pause = false;
     m_restart = false;
     return true;

@@ -3,6 +3,12 @@
 #include "System.hpp"
 #include "Timer.hpp"
 
+enum SystemList
+{
+    appication,
+    statemanager
+};
+
 class Engine
 {
 public:
@@ -10,6 +16,8 @@ public:
     void Update();
     void Quit();
     void ShutDown();
+
+    System* GetSystem(unsigned ID) { return systems[ID]; }
 
     void AddSystem(System* new_system);
 

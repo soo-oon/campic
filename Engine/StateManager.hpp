@@ -12,6 +12,7 @@ public:
 
     void AddStage(Stage* stage);
     void SetStartStage(Stage* stage);
+    void SetCurrentStage(Stage* stage);
     void SetPauseStage(Stage* stage);
     void ChangeStage(unsigned stageID);
     void Restart();
