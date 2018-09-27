@@ -119,7 +119,7 @@ void Application::FullScreen()
     }
     else
     {
-        glfwSetWindowMonitor(window, NULL, (mode->width / 2) - static_cast<int>(screenSize.x / 2), (mode->height / 2) - static_cast<int>(screenSize.y / 2),
+        glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2), (mode->height / 2) - static_cast<int>(screenSize.y / 2),
             static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
     }
 }

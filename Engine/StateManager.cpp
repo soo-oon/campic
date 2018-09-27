@@ -1,9 +1,20 @@
 #include "StateManager.hpp"
 #include "Stage.hpp"
 
+bool StateManager::Initialize()
+{
+	m_currentStage = nullptr;
+	m_pause = false;
+	m_restart = false;
+	return true;
+}
+
 void StateManager::AddStage(Stage * stage)
 {
     stages.push_back(stage);
+
+	if (m_currentStage == nullptr)
+		m_currentStage = stages[0];
 }
 
 void StateManager::SetStartStage(Stage * stage)
@@ -34,15 +45,6 @@ void StateManager::Restart()
 void StateManager::Pause()
 {
     m_pause = true;
-}
-
-
-bool StateManager::Initialize()
-{
-    m_currentStage = nullptr;
-    m_pause = false;
-    m_restart = false;
-    return true;
 }
 
 void StateManager::Update(float dt)

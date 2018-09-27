@@ -6,7 +6,7 @@
 enum SystemList
 {
     appication,
-    statemanager
+    statemanager,
 };
 
 class Engine

@@ -5,17 +5,15 @@
 
 int main()
 {
-    Engine engine;
+    Engine* engine = new Engine();
 
-    engine.Initialize();
+    engine->Initialize();
 
-    auto check = new example();
-    dynamic_cast<StateManager*>(engine.GetSystem(SystemList::statemanager))->AddStage(check);
-    dynamic_cast<StateManager*>(engine.GetSystem(SystemList::statemanager))->SetCurrentStage(check);
+    dynamic_cast<StateManager*>(engine->GetSystem(SystemList::statemanager))->AddStage(new example());
 
-    engine.Update();
+    engine->Update();
   
-    engine.ShutDown();
+    engine->ShutDown();
 
     return 0;
 }

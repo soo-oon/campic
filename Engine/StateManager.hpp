@@ -29,5 +29,3 @@ private:
     std::vector<Stage*> stages;
     bool m_restart, m_pause;
 };
-
-extern StateManager* ex;

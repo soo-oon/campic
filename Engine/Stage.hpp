@@ -1,5 +1,11 @@
 #pragma once
 
+enum StageList
+{
+	splash,
+
+};
+
 class Stage
 {
 public:
