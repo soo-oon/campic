@@ -8,6 +8,7 @@ bool Engine::Initialize()
 {
     AddSystem(new Application());
     AddSystem(new StateManager());
+    AddSystem(new Objectmanager());
 
     for (auto i : systems)
         i->Initialize();

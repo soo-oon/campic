@@ -2,11 +2,13 @@
 #include <vector>
 #include "System.hpp"
 #include "Timer.hpp"
+#include "Objectmanager.hpp"
 
 enum SystemList
 {
     appication,
     statemanager,
+    objectmanager,
 };
 
 class Engine
