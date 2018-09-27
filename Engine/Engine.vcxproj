@@ -124,22 +124,27 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Component.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="Image.hpp" />
     <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Object.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Stage.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="System.hpp" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="Transform.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

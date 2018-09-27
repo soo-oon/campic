@@ -49,6 +49,8 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>StateManager</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -84,5 +86,8 @@
     <ClInclude Include="Stage.hpp">
       <Filter>StateManager</Filter>
     </ClInclude>
+    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Transform.hpp" />
   </ItemGroup>
 </Project>
