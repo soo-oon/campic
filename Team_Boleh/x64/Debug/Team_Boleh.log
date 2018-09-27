@@ -1,3 +1,4 @@
 ﻿  example_level.cpp
-MSVCRTD.lib(initializers.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Source.cpp
+  Generating Code...
   Team_Boleh.vcxproj -> F:\Digipen_2학년_1학기\GAM200\Team Boleh\x64\Debug\Team_Boleh.exe
