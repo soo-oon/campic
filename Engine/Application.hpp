@@ -5,7 +5,7 @@
 #include <string>
 #include "System.hpp"
 #include "Input.hpp"
-#include <glm/vec2.hpp>
+#include "vector2.hpp"
 
 class Application : public System
 {
@@ -33,6 +33,6 @@ private:
     bool fullScreenMode = false;
 
     std::string title;
-    glm::vec2 screenSize{};
-    glm::vec2 fullscreenSize{};
+    vector2 screenSize{};
+	vector2 fullscreenSize{};
 };

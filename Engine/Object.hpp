@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Component.hpp"
+#include "Transform.hpp"
 
 class Object
 {

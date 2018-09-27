@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{0306D496-E7D2-4E9E-96DD-DAFCA3688AC8}</ProjectGuid>
-    <RootNamespace>Engine</RootNamespace>
+    <ProjectGuid>{EBFF4DBF-AA4C-4F9D-BB17-0CF8B3CAC2E5}</ProjectGuid>
+    <RootNamespace>MathLibrary</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -70,22 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
-    </ClCompile>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Math_Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Math_Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,7 +96,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Math_Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -111,7 +111,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Math_Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -119,43 +119,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Color.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="StateManager.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="affine2d.cpp" />
+    <ClCompile Include="control_angle.cpp" />
+    <ClCompile Include="matrix2.cpp" />
+    <ClCompile Include="vector2.cpp" />
+    <ClCompile Include="vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.hpp" />
-    <ClInclude Include="Color.hpp" />
-    <ClInclude Include="Component.hpp" />
-    <ClInclude Include="Engine.hpp" />
-    <ClInclude Include="Graphics.hpp" />
-    <ClInclude Include="Image.hpp" />
-    <ClInclude Include="Input.hpp" />
-    <ClInclude Include="Mesh.hpp" />
-    <ClInclude Include="Object.hpp" />
-    <ClInclude Include="Shader.hpp" />
-    <ClInclude Include="Sprite.hpp" />
-    <ClInclude Include="Stage.hpp" />
-    <ClInclude Include="StateManager.hpp" />
-    <ClInclude Include="System.hpp" />
-    <ClInclude Include="Texture.hpp" />
-    <ClInclude Include="Timer.hpp" />
-    <ClInclude Include="Transform.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Math_Library\Math_Library.vcxproj">
-      <Project>{ebff4dbf-aa4c-4f9d-bb17-0cf8b3cac2e5}</Project>
-    </ProjectReference>
+    <ClInclude Include="affine2d.hpp" />
+    <ClInclude Include="control_angle.hpp" />
+    <ClInclude Include="matrix2.hpp" />
+    <ClInclude Include="vector2.hpp" />
+    <ClInclude Include="vector3.hpp" />
+    <ClInclude Include="vector4.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

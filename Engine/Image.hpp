@@ -18,7 +18,7 @@ public:
     int GetPixelsBufferBytesSize() const;
 
 private:
-	unsigned char* pixel;
+	unsigned char* pixel = nullptr;
     int width = 0;
     int height = 0;
     static const int ChannelsPerColor = sizeof(Color::RGBA32);

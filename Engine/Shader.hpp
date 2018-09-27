@@ -3,9 +3,9 @@
 #include <GL\glew.h>
 #include <string>
 #include <map>
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
-#include <glm/mat3x3.hpp>
+#include "vector2.hpp"
+#include "vector3.hpp"
+#include "affine2d.hpp"
 
 class Shader
 {
@@ -22,11 +22,11 @@ public:
 
 	void SendUniformVariable(const std::string& name, GLint value);
 
-	void SendUniformVariable(const std::string& name, glm::vec2 vector);
+	void SendUniformVariable(const std::string& name, vector2 vector);
 
-	void SendUniformVariable(const std::string& name, glm::vec3 vector);
+	void SendUniformVariable(const std::string& name, vector3 vector);
 
-	void SendUniformVariable(const std::string& name, const glm::mat3& affine_matrix);
+	void SendUniformVariable(const std::string& name, const affine2d& affine_matrix);
 
 	void SendUniformVariable(const std::string& name, const Color color);
 

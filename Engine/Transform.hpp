@@ -11,25 +11,25 @@
 /******************************************************************************/
 #pragma once
 
-#include <glm/vec2.hpp>
-#include <glm/mat3x3.hpp>
+#include "vector2.hpp"
+#include "affine2d.hpp"
 
 class Transform
 {
 public:
     Transform() = default;
-    glm::mat3 GetModelToWorld() const;
-    glm::mat3 GetWorldToModel() const;
+    affine2d GetModelToWorld() const;
+	affine2d GetWorldToModel() const;
 
     float CalculateWorldDepth() const;
     float GetDepth() const;
     void SetDepth(float depth_value);
 
-    glm::vec2 GetTranslation() const;
-    void SetTranslation(const glm::vec2& translation_affin2d);
+    vector2 GetTranslation() const;
+    void SetTranslation(const vector2& translation_affin2d);
 
-	glm::vec2 GetScale() const;
-    void SetScale(const glm::vec2& scale_value);
+	vector2 GetScale() const;
+    void SetScale(const vector2& scale_value);
 
     float GetRotation() const;
     void SetRotation(float rotation_value);
@@ -38,8 +38,8 @@ public:
     void SetParent(const Transform* const transform_parent);
 
 private:
-	glm::vec2 translation{};
-	glm::vec2 scale{ 1.0f, 1.0f };
+	vector2 translation{};
+	vector2 scale{ 1.0f, 1.0f };
     float rotation = 0.0f;
     float depth = 0.0f;
     const Transform* parent = nullptr;
