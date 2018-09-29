@@ -9,6 +9,7 @@ enum SystemList
     appication,
     statemanager,
     objectmanager,
+	graphics
 };
 
 class Engine

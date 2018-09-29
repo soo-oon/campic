@@ -43,6 +43,8 @@ public:
     void AddPoint(vector2 point);
     void AddTextureCoordinate(vector2 texture_coordinate);
 
+	//void SetMesh(Mesh mesh_);
+
     void ClearColors();
     void ClearTextureCoordinates();
     void ClearPoints();

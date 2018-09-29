@@ -69,6 +69,7 @@ void Mesh::AddTextureCoordinate(vector2 texture_coordinate)
     textureCoordinates.push_back(texture_coordinate);
 }
 
+
 void Mesh::ClearColors()
 {
     colors.clear();

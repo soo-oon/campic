@@ -6,6 +6,7 @@
 #include "vector2.hpp"
 #include "vector3.hpp"
 #include "affine2d.hpp"
+#include "Color.hpp"
 
 class Shader
 {
@@ -28,7 +29,7 @@ public:
 
 	void SendUniformVariable(const std::string& name, const affine2d& affine_matrix);
 
-	void SendUniformVariable(const std::string& name, const Color color);
+	void SendUniformVariable(const std::string& name, Color color);
 
 	int GetVertexAttributeLocation(const std::string& vertex_field_name) const;
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "Objectmanager.hpp"
 
 enum StageList
 {
@@ -6,10 +7,10 @@ enum StageList
 
 };
 
-class Stage
+class State
 {
 public:
-    virtual ~Stage() {};
+    virtual ~State() {};
     //virtual void Load() = 0;
     virtual bool Initialize() = 0;
     virtual void Update(float dt) = 0;

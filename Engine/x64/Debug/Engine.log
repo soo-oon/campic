@@ -1,16 +1,2 @@
-﻿  Application.cpp
-  Color.cpp
-  Engine.cpp
-  Graphics.cpp
-  Image.cpp
-  Input.cpp
-  Mesh.cpp
-  Object.cpp
-  Shader.cpp
-  Sprite.cpp
-f:\digipen_2학년_1학기\gam200\team boleh\engine\sprite.cpp(61): error C2065: 'assery': undeclared identifier
-f:\digipen_2학년_1학기\gam200\team boleh\engine\sprite.cpp(62): error C2143: syntax error: missing ';' before '}'
-  StateManager.cpp
-  Texture.cpp
-  Transform.cpp
-  Generating Code...
+﻿  Engine.cpp
+  Engine.vcxproj -> F:\Digipen_2학년_1학기\GAM200\Team Boleh\x64\Debug\Engine.lib

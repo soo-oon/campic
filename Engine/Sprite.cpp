@@ -2,11 +2,6 @@
 #include <SOIL.h>
 #include <cassert>
 
-Sprite::~Sprite()
-{
-	DeleteSpriteTexture();
-}
-
 Sprite::Sprite(const Sprite & other)
 	: handle_to_texture(other.handle_to_texture), width(other.width),
 		height(other.height)
@@ -24,6 +19,23 @@ Sprite & Sprite::operator=(const Sprite & other)
 	return *this;
 }
 
+bool Sprite::Initialize()
+{
+	type = ComponentType::sprite;
+	piexel = nullptr;
+	handle_to_texture = 0;
+
+	return true;
+}
+
+void Sprite::Update(float /*dt*/)
+{ }
+
+void Sprite::Delete()
+{
+	UnLoadSprite();
+}
+
 bool Sprite::Texture_Load(const std::string & file_path)
 {
 	unsigned char* temp = SOIL_load_image(file_path.c_str(), &width, &height,
@@ -34,6 +46,7 @@ bool Sprite::Texture_Load(const std::string & file_path)
 
 	piexel = temp;
 
+	LoadSprite();
 	return true;
 }
 
@@ -76,7 +89,8 @@ void Sprite::ScreenShot(const std::string & file_path) const
 
 void Sprite::UnLoadSprite()
 {
-
+	DeleteSpriteTexture();
+	piexel = nullptr;
 }
 
 void Sprite::DeleteSpriteTexture()

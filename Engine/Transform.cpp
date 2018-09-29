@@ -1,14 +1,3 @@
-// Student
-// 
-// Team_Boleh
-// Engine
-// Transform.cpp
-// 
-// 2018
-// 09
-// 27
-// 5:16 PM
-
 #include "Transform.hpp"
 
 affine2d Transform::GetModelToWorld() const

@@ -9,32 +9,35 @@ bool StateManager::Initialize()
 	return true;
 }
 
-void StateManager::AddStage(Stage * stage)
+void StateManager::AddStage(State * state)
 {
-    stages.push_back(stage);
+    states.push_back(state);
 
 	if (m_currentStage == nullptr)
-		m_currentStage = stages[0];
+	{
+		m_currentStage = states[0];
+		m_currentStage->Initialize();
+	}
 }
 
-void StateManager::SetStartStage(Stage * stage)
+void StateManager::SetStartStage(State * state)
 {
-    m_pFirst = stage;
+    m_pFirst = state;
 }
 
-void StateManager::SetCurrentStage(Stage* stage)
+void StateManager::SetCurrentStage(State* state)
 {
-    m_currentStage = stage;
+    m_currentStage = state;
 }
 
-void StateManager::SetPauseStage(Stage * stage)
+void StateManager::SetPauseStage(State * state)
 {
-    m_pPaused = stage;
+    m_pPaused = state;
 }
 
 void StateManager::ChangeStage(unsigned stageID)
 {
-    m_currentStage = stages[stageID];
+    m_currentStage = states[stageID];
 }
 
 void StateManager::Restart()
@@ -63,5 +66,5 @@ void StateManager::Quit()
     delete m_pRestart;
     delete m_currentStage;
 
-    stages.clear();
+	states.clear();
 }

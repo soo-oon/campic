@@ -76,9 +76,6 @@ bool Application::Initialize()
 		glfwTerminate();
 		return false;
 	}
-
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-
 	glfwSwapInterval(true);
 
 	return true;
@@ -89,8 +86,6 @@ void Application::Update(float /*dt*/)
 	Input::Triggerd_Reset();
 	FullScreen();
 
-        // if Grphics made, then glClear put the grphics update.
-	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 
 	PollEvent();

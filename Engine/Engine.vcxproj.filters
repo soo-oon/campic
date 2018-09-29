@@ -34,15 +34,6 @@
     <ClCompile Include="Color.cpp">
       <Filter>Graphics_Part</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Graphics_Part</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Graphics_Part</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Graphics_Part</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>System</Filter>
     </ClCompile>
@@ -54,6 +45,12 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Shader.cpp">
+      <Filter>Graphics_Part</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSL.cpp" />
+    <ClCompile Include="Objectmanager.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -65,16 +62,7 @@
     <ClInclude Include="Timer.hpp">
       <Filter>Timer</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.hpp">
-      <Filter>Graphics_Part</Filter>
-    </ClInclude>
     <ClInclude Include="Color.hpp">
-      <Filter>Graphics_Part</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.hpp">
-      <Filter>Graphics_Part</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.hpp">
       <Filter>Graphics_Part</Filter>
     </ClInclude>
     <ClInclude Include="System.hpp">
@@ -95,5 +83,11 @@
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Sprite.hpp" />
+    <ClInclude Include="Shader.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSL.hpp" />
+    <ClInclude Include="test.hpp" />
+    <ClInclude Include="Objectmanager.hpp" />
   </ItemGroup>
 </Project>

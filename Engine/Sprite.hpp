@@ -8,18 +8,15 @@ class Sprite : public Component
 {
 public:
 	Sprite() = default;
-	~Sprite();
+	~Sprite() = default;
 	Sprite(const Sprite& other);
 	Sprite& operator=(const Sprite& other);
 
-	// TODO**********************
 	bool Initialize() override;
 	void Update(float dt) override;
 	void Delete() override;
-	//******************************
 
 	bool Texture_Load(const std::string& file_path);
-	void LoadSprite();
 	void Bind(unsigned int slot = 0);
 	void ScreenShot(const std::string& file_path) const;
 	void UnLoadSprite();
@@ -32,9 +29,11 @@ public:
 
 	GLuint GetTextureHandler() const { return handle_to_texture; }
 private:
-	unsigned char* piexel = nullptr;
-	GLuint handle_to_texture = 0;
+	void LoadSprite();
+
+	GLuint handle_to_texture;
 	int width = 0;
 	int height = 0;
 	static const int ChannelsPerColor = sizeof(Color::RGBA32);
+	unsigned char* piexel;
 };
