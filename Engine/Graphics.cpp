@@ -6,6 +6,7 @@ namespace
 	GLenum ToGLPrimitiveMode(PointListType primitive);
 }
 
+
 bool Graphics::Initialize()
 {
 	glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -33,6 +34,7 @@ void Graphics::Update(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
+	SetNDC();
 }
 
 void Graphics::Draw(Object& object)
@@ -63,6 +65,17 @@ void Graphics::Quit()
 	glDeleteBuffers(NumberOfVertexTypes, vertexBuffer);
 
 	shader.Delete();
+}
+
+void Graphics::SetNDC()
+{
+	affine2d temp = { (2.0f / displaysize.x), 0.0f, 0.0f,
+		0.0f, (2.0f / displaysize.y) , 0.0f,
+		0.0f, 0.0f, 1.0f };
+
+	projection = temp;
+
+	glViewport(0, 0, static_cast<GLsizei>(displaysize.x), static_cast<GLsizei>(displaysize.y));
 }
 
 void Graphics::Draw(const Transform& transform, const std::vector<Texture>& vertexes, PointListType draw_type,

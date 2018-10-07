@@ -34,6 +34,8 @@ void Engine::Update()
 		dynamic_cast<Graphics*>(systems.at(graphics))->Draw(*check);
 		dynamic_cast<Graphics*>(systems.at(graphics))->EndDraw();
 
+		dynamic_cast<Application*>(systems.at(appication))->SetDispalyAreaSize(dynamic_cast<Graphics*>(systems.at(graphics)));
+
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
 

@@ -29,6 +29,15 @@
     <Filter Include="Object">
       <UniqueIdentifier>{537027c7-5ea2-4a0c-90ac-0b850ee268de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics_Part\Shader">
+      <UniqueIdentifier>{782e69b2-5d39-4d79-8a66-3dafa31da2d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics_Part\Shader\GLSL">
+      <UniqueIdentifier>{62ff9e45-a19f-418a-8fb9-610d147f8e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics_Part\Vertex">
+      <UniqueIdentifier>{0b30029a-1272-485b-90c7-ba70a1f3bfc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -37,17 +46,11 @@
     <ClCompile Include="Input.cpp">
       <Filter>Application\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Graphics_Part</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="StateManager.cpp">
       <Filter>StateManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Graphics_Part</Filter>
     </ClCompile>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="PhysicsComponent.cpp">
@@ -62,20 +65,26 @@
     <ClCompile Include="Objectmanager.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Graphics_Part</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Graphics_Part</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
       <Filter>Graphics_Part</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Graphics_Part</Filter>
     </ClCompile>
-    <ClCompile Include="GLSL.cpp">
+    <ClCompile Include="Shader.cpp">
+      <Filter>Graphics_Part\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
       <Filter>Graphics_Part</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSL.cpp">
+      <Filter>Graphics_Part\Shader\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics_Part\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Graphics_Part\Vertex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +96,6 @@
     </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.hpp">
-      <Filter>Graphics_Part</Filter>
     </ClInclude>
     <ClInclude Include="System.hpp">
       <Filter>System</Filter>
@@ -104,9 +110,6 @@
       <Filter>StateManager</Filter>
     </ClInclude>
     <ClInclude Include="Component.hpp" />
-    <ClInclude Include="Shader.hpp">
-      <Filter>Graphics_Part</Filter>
-    </ClInclude>
     <ClInclude Include="test.hpp" />
     <ClInclude Include="PhysicsComponent.hpp">
       <Filter>Physics</Filter>
@@ -120,19 +123,28 @@
     <ClInclude Include="Object.hpp">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.hpp">
-      <Filter>Graphics_Part</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.hpp">
-      <Filter>Graphics_Part</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.hpp">
       <Filter>Graphics_Part</Filter>
     </ClInclude>
     <ClInclude Include="Transform.hpp">
       <Filter>Graphics_Part</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Graphics_Part\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
     <ClInclude Include="GLSL.hpp">
+      <Filter>Graphics_Part\Shader\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Graphics_Part\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>Graphics_Part\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
       <Filter>Graphics_Part</Filter>
     </ClInclude>
   </ItemGroup>
