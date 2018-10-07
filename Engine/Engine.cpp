@@ -9,6 +9,7 @@
 bool Engine::IsQuit;
 bool Engine::Initialize()
 {
+	systems.clear();
     AddSystem(new Application());
     AddSystem(new StateManager());
     AddSystem(new Objectmanager());
