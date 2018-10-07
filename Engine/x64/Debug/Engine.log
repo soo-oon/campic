@@ -1,13 +1,2 @@
-<<<<<<< HEAD
-﻿  WorldPhysics.cpp
-i:\2-1\project\engine\worldphysics.cpp(17): warning C4305: 'argument': truncation from 'double' to 'float'
-i:\2-1\project\engine\worldphysics.cpp(21): warning C4305: 'argument': truncation from 'double' to 'float'
-i:\2-1\project\engine\worldphysics.cpp(25): warning C4305: 'argument': truncation from 'double' to 'float'
-i:\2-1\project\engine\worldphysics.cpp(29): warning C4305: 'argument': truncation from 'double' to 'float'
-  Engine.vcxproj -> I:\2-1\Project\x64\Debug\Engine.lib
-=======
-﻿  Application.cpp
-  Engine.cpp
-  Generating Code...
+﻿  Engine.cpp
   Engine.vcxproj -> F:\Digipen_2학년_1학기\GAM200\Team Boleh\x64\Debug\Engine.lib
->>>>>>> master
