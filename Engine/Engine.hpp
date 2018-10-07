@@ -23,9 +23,9 @@ public:
     System* GetSystem(unsigned ID) { return systems[ID]; }
 
     void AddSystem(System* new_system);
+    static bool IsQuit;
 
 private:
-    bool IsQuit = false;
     Timer gameTimer{};
     float dt = 0;
     std::vector<System*> systems;

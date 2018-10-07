@@ -6,6 +6,7 @@
 #include "Input.hpp"
 #include "test.hpp"
 
+bool Engine::IsQuit;
 bool Engine::Initialize()
 {
     AddSystem(new Application());
@@ -17,7 +18,7 @@ bool Engine::Initialize()
         i->Initialize();
 
     gameTimer.Reset();
-
+	IsQuit = false;
     return true;
 }
 

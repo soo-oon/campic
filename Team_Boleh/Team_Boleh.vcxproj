@@ -80,7 +80,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\Release\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\soil\lib\x86</AdditionalLibraryDirectories>
@@ -97,7 +97,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)external\glew\lib\Release\$(PlatformTarget);$(SolutionDir)external\glfw\lib\$(PlatformTarget);$(SolutionDir)external\soil\lib\x64</AdditionalLibraryDirectories>
@@ -115,7 +115,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Engine;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -135,7 +135,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Engine;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

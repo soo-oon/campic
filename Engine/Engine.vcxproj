@@ -79,7 +79,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -91,7 +91,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,7 +104,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -121,7 +121,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)external\soil\src;$(SolutionDir)Math_Library</AdditionalIncludeDirectories>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

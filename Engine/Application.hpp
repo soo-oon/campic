@@ -10,10 +10,7 @@ class Graphics;
 
 class Application : public System
 {
-public:
-    Application() : screenSize(1280, 960)
-    {};
-    
+public:    
     ~Application(){};
 
     bool Initialize() override;
@@ -26,16 +23,15 @@ public:
     void PollEvent();
     void FullScreen();
 
-    bool Exit = false;
-
 private:
     GLFWmonitor* monitor = nullptr;
     const GLFWvidmode* mode = nullptr;
+	GLFWmonitor* mode_screen = nullptr;
 
     GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
 
     std::string title;
-    vector2 screenSize{};
-	vector2 fullscreenSize{};
+    vector2 screenSize;
+	vector2 temp_size{};
 };
