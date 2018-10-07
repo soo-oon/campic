@@ -29,6 +29,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{537027c7-5ea2-4a0c-90ac-0b850ee268de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{217cfc69-34e6-4e49-9346-4ff96ef17fc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -77,6 +80,7 @@
     <ClCompile Include="GLSL.cpp">
       <Filter>Graphics_Part</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -134,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="GLSL.hpp">
       <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
