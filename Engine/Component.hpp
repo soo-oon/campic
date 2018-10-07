@@ -4,6 +4,7 @@ enum ComponentType
 {
 	clear,
 	sprite,
+	physics,
 };
 
 class Component

@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.hpp"
-#include <glm/vec2.hpp>
 #include "Transform.hpp"
+#include "WorldPhysics.h"
 
 class Physics : public Component
 {
@@ -11,15 +11,16 @@ class Physics : public Component
 public:
 	void CollisionOn();
 	void SetMass(float mass);
-	void SetVelocity(glm::vec2 velocity);
-	void AddForce(glm::vec2 force);
+	void SetVelocity(vector2 velocity);
+	vector2 GetVelocity();
+	void AddForce(vector2 force);
 	bool Initialize();
 	void Update(float dt);
-	void ShutDown();
+	void Delete();
 private:
-	glm::vec2 force_accumlator; // mess 
-	glm::vec2 velocity;
-	glm::vec2 position;
+	vector2 force_accumlator; // mess 
+	vector2 velocity;
+	vector2 position;
 	float inverse_mass;
 	float rotation;
 	float torque;
