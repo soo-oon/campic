@@ -10,7 +10,11 @@ public:
 	void AddComponent(Component* component);
 	Component* GetComponent(unsigned ID);
 	void SetMesh(Mesh mesh_);
-	void SetTransform(Transform transform_);
+	void SetTranslation(const vector2& position);
+	void SetScale(const vector2& scale);
+	void SetRotation(float& rotation);
+	void SetDepth(float& depth);
+
 	Mesh& GetMesh();
 	Transform& GetTransform();
 

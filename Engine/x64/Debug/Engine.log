@@ -1,2 +1,9 @@
-﻿  Engine.cpp
+﻿  Application.cpp
+  Engine.cpp
+  Graphics.cpp
+  Object.cpp
+  Objectmanager.cpp
+  StateManager.cpp
+  test.cpp
+  Generating Code...
   Engine.vcxproj -> F:\Digipen_2학년_1학기\GAM200\Team Boleh\x64\Debug\Engine.lib
