@@ -1,17 +1,2 @@
-<<<<<<< HEAD
-﻿  Graphics.cpp
-  Object.cpp
-  Objectmanager.cpp
-  PhysicsComponent.cpp
-  Sprite.cpp
-  WorldPhysics.cpp
-f:\digipen_2학년_1학기\gam200\team boleh\engine\worldphysics.cpp(17): warning C4305: 'argument': truncation from 'double' to 'float'
-f:\digipen_2학년_1학기\gam200\team boleh\engine\worldphysics.cpp(21): warning C4305: 'argument': truncation from 'double' to 'float'
-f:\digipen_2학년_1학기\gam200\team boleh\engine\worldphysics.cpp(25): warning C4305: 'argument': truncation from 'double' to 'float'
-f:\digipen_2학년_1학기\gam200\team boleh\engine\worldphysics.cpp(29): warning C4305: 'argument': truncation from 'double' to 'float'
-  test.cpp
-  Generating Code...
-=======
-﻿  Engine.cpp
->>>>>>> master
+﻿  Collision.cpp
   Engine.vcxproj -> F:\Digipen_2학년_1학기\GAM200\Team Boleh\x64\Debug\Engine.lib
