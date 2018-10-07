@@ -23,6 +23,12 @@
     <Filter Include="StateManager">
       <UniqueIdentifier>{856ffa6f-4f06-42d1-8811-a87d5bfff7c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{d4b67f95-82f4-4b96-9bf8-ad4b87b3da93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{537027c7-5ea2-4a0c-90ac-0b850ee268de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -40,17 +46,37 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>StateManager</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Shader.cpp">
       <Filter>Graphics_Part</Filter>
     </ClCompile>
-    <ClCompile Include="GLSL.cpp" />
-    <ClCompile Include="Objectmanager.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldPhysics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Objectmanager.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Graphics_Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Graphics_Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics_Part</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Graphics_Part</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSL.cpp">
+      <Filter>Graphics_Part</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -77,17 +103,37 @@
     <ClInclude Include="Stage.hpp">
       <Filter>StateManager</Filter>
     </ClInclude>
-    <ClInclude Include="Object.hpp" />
     <ClInclude Include="Component.hpp" />
-    <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="Graphics.hpp" />
-    <ClInclude Include="Mesh.hpp" />
-    <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Shader.hpp">
       <Filter>Graphics_Part</Filter>
     </ClInclude>
-    <ClInclude Include="GLSL.hpp" />
     <ClInclude Include="test.hpp" />
-    <ClInclude Include="Objectmanager.hpp" />
+    <ClInclude Include="PhysicsComponent.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Objectmanager.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSL.hpp">
+      <Filter>Graphics_Part</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "test.hpp"
 #include "Stage.hpp"
 #include "Object.hpp"
+#include "Objectmanager.hpp"
 
 class example : public State
 {
@@ -10,6 +11,7 @@ public:
     void Update(float dt) override;
     void ShutDown() override;
 
+    Objectmanager object_manager;
 	Object temp;
 private:
 };
