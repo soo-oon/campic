@@ -8,14 +8,23 @@
 bool example::Initialize()
 {
 	object_manager.AddObject("test");
+<<<<<<< HEAD
 	check  = object_manager.FindObject("test");
 	check->AddComponent(new Sprite());
+=======
+	check = object_manager.FindObject("test");
+	check->AddComponent(new Sprite());
+	auto a = check->GetTransform();
+	check->AddComponent(new Physics());
+>>>>>>> master
 	check->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
 
-	check->SetScale({ 1.0f, 1.0f });
+	check->SetScale({ 150.0f, 150.0f });
 	check->SetTranslation({ 0,0 });
 	check->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	check->AddComponent(new Physics());
+
+	std::cout << a.GetTranslation().x << ", " << a.GetTranslation().y << std::endl;
 
     return true;
 }

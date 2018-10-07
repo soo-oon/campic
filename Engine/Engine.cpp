@@ -6,6 +6,7 @@
 #include "Input.hpp"
 #include "test.hpp"
 
+bool Engine::IsQuit;
 bool Engine::Initialize()
 {
     AddSystem(new Application());
@@ -17,7 +18,7 @@ bool Engine::Initialize()
         i->Initialize();
 
     gameTimer.Reset();
-
+	IsQuit = false;
     return true;
 }
 
@@ -33,6 +34,8 @@ void Engine::Update()
 		
 		dynamic_cast<Graphics*>(systems.at(graphics))->Draw(*check);
 		dynamic_cast<Graphics*>(systems.at(graphics))->EndDraw();
+
+		dynamic_cast<Application*>(systems.at(appication))->SetDispalyAreaSize(dynamic_cast<Graphics*>(systems.at(graphics)));
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

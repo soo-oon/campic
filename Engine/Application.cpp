@@ -2,9 +2,11 @@
 #include <iostream>
 #include <stdio.h>
 #include "Engine.hpp"
+#include "Graphics.hpp"
 
 namespace
 {
+	void Window_Exit(GLFWwindow* window);
 	void errorCallback(int errorCode, const char* errorDescription);
 	void window_resized(GLFWwindow* window, int width, int height);
 	void KeyCallback(GLFWwindow* window, int key, int scancode
@@ -23,7 +25,8 @@ bool Application::Initialize()
 		std::cerr << "GLFW Initialize failed" << '\n';
 		return false;
 	}
-
+	screenSize = vector2{ 1280, 960 };
+	temp_size = screenSize;
 	glfwWindowHint(GLFW_SAMPLES, 4);	// 4x anti
 
 	// We use OpenGL 3.3 version 
@@ -62,6 +65,7 @@ bool Application::Initialize()
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetCursorPosCallback(window, MousePositionCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
+	glfwSetWindowCloseCallback(window, Window_Exit);
 
 	Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
 
@@ -84,10 +88,7 @@ bool Application::Initialize()
 void Application::Update(float /*dt*/)
 {
 	Input::Triggerd_Reset();
-	FullScreen();
-
 	glfwSwapBuffers(window);
-
 	PollEvent();
 }
 
@@ -95,7 +96,8 @@ void Application::Key_Poll_Event()
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_F))
 	{
-		fullScreenMode = !fullScreenMode;
+		fullScreenMode = !fullScreenMode; 
+		FullScreen();
 	}
 }
 
@@ -105,15 +107,33 @@ void Application::Quit()
 	glfwTerminate();
 }
 
+void Application::SetDispalyAreaSize(Graphics* graphics)
+{
+	int w, h;
+
+	glfwGetWindowSize(window, &w, &h);
+	screenSize.x = static_cast<float>(w);
+	screenSize.y = static_cast<float>(h);
+	graphics->SetDisplaySize_G(screenSize);
+}
+
 void Application::FullScreen()
 {
-    if (fullScreenMode)
-    {
-        monitor = glfwGetPrimaryMonitor();
-        glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, 0);
+	if (fullScreenMode)
+	{
+		monitor = glfwGetPrimaryMonitor();
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+		screenSize.x = static_cast<float>(w);
+		screenSize.y = static_cast<float>(h);
+        glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
     }
     else
     {
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+		screenSize.x = static_cast<float>(w);
+		screenSize.y = static_cast<float>(h);
         glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2), (mode->height / 2) - static_cast<int>(screenSize.y / 2),
             static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
     }
@@ -127,16 +147,19 @@ void Application::PollEvent()
 
 namespace
 {
+	void Window_Exit(GLFWwindow* window)
+	{
+		Engine::IsQuit = true;
+	}
+
 	void errorCallback(int errorCode, const char* errorDescription)
 	{
 		fprintf(stderr, "Error: %s\n", errorDescription);
 	}
 
 	void window_resized(GLFWwindow* window, int width, int height) 
-        {
-		glClear(GL_COLOR_BUFFER_BIT);
-		glfwSwapBuffers(window);
-	}
+    {
+    }
 
 	void KeyCallback(GLFWwindow* window, int key, int scancode
 		, int action, int mods)

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Application.hpp"
 #include "Shader.hpp"
 #include "Transform.hpp"
 #include "Object.hpp"
@@ -17,8 +16,6 @@ enum class Type : int
 
 class Graphics : public System
 {
-	friend Application;
-
 public:
 	Graphics() = default;
 	~Graphics() = default;
@@ -29,8 +26,8 @@ public:
 	void EndDraw();
 	void Quit() override;
 
-	//void SetDisplayAreaSize(int new_width, int new_height);
-	//static void SetClearColor(Color color);
+	void SetNDC();
+	void SetDisplaySize_G(vector2 size) { displaysize = size; }
 
 private:
 	struct Texture
@@ -45,7 +42,8 @@ private:
 
 private:
 	static const int NumberOfVertexTypes = (int)Type::count;
-	vector2 displayAreaSize{};
+	vector2 displaysize{};
+
 	affine2d projection = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
 	unsigned int lastBoundTexture = 0;
 
