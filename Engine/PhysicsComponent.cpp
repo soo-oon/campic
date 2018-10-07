@@ -1,7 +1,6 @@
 #include "PhysicsComponent.hpp"
 
 
-
 void Physics::CollisionOn()
 {
 	collision_switch = true;
@@ -22,10 +21,15 @@ vector2 Physics::GetVelocity()
 {
 	return velocity;
 }
-bool Physics::Initialize()
+vector2 Physics::GetPosition()
+{
+	return position;
+}
+bool Physics::Initialize(Object* Ob)
 {
 	force_accumlator = { 0,0 };
 	velocity = { 0,0 };
+	position = Ob->GetTransform().GetTranslation();
 	return true;
 }
 void Physics::Update(float dt)

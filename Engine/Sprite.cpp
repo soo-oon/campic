@@ -19,7 +19,7 @@ Sprite & Sprite::operator=(const Sprite & other)
 	return *this;
 }
 
-bool Sprite::Initialize()
+bool Sprite::Initialize(Object* Ob)
 {
 	type = ComponentType::sprite;
 	piexel = nullptr;

@@ -12,7 +12,7 @@ public:
 	Sprite(const Sprite& other);
 	Sprite& operator=(const Sprite& other);
 
-	bool Initialize() override;
+	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
 	void Delete() override;
 

@@ -3,7 +3,7 @@
 void Object::AddComponent(Component* component)
 {
 	components.push_back(component);
-	component->Initialize();
+	component->Initialize(this);
 }
 
 Component* Object::GetComponent(unsigned ID)

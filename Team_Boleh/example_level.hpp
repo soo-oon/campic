@@ -3,6 +3,7 @@
 #include "Stage.hpp"
 #include "Object.hpp"
 #include "Objectmanager.hpp"
+#include "WorldPhysics.h"
 
 class example : public State
 {
@@ -13,5 +14,6 @@ public:
 
     Objectmanager object_manager;
 	Object temp;
+	WorldPhysics* world_physics;
 private:
 };
