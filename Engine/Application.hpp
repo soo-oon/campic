@@ -6,6 +6,7 @@
 #include "System.hpp"
 #include "Input.hpp"
 #include "vector2.hpp"
+class Graphics;
 
 class Application : public System
 {
@@ -18,6 +19,8 @@ public:
     bool Initialize() override;
     void Update(float dt) override;
     void Quit() override;
+
+	void SetDispalyAreaSize(Graphics* graphics);
 
     void Key_Poll_Event();
     void PollEvent();

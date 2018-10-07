@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "Engine.hpp"
+#include "Graphics.hpp"
 
 namespace
 {
@@ -86,6 +87,8 @@ void Application::Update(float /*dt*/)
 	Input::Triggerd_Reset();
 	FullScreen();
 
+	//std::cout << screenSize.x << ", " << screenSize.y << std::endl;
+
 	glfwSwapBuffers(window);
 
 	PollEvent();
@@ -103,6 +106,11 @@ void Application::Quit()
 {
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void Application::SetDispalyAreaSize(Graphics* graphics)
+{
+	graphics->SetDisplaySize_G(screenSize);
 }
 
 void Application::FullScreen()
@@ -133,10 +141,10 @@ namespace
 	}
 
 	void window_resized(GLFWwindow* window, int width, int height) 
-        {
+    {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(window);
-	}
+    }
 
 	void KeyCallback(GLFWwindow* window, int key, int scancode
 		, int action, int mods)

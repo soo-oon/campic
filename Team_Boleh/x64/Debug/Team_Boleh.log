@@ -1,0 +1,11 @@
+﻿  example_level.cpp
+  SOIL.lib(SOIL.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+MSVCRTD.lib(initializers.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating code
+  Finished generating code
+SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'F:\Digipen_2??_1??\GAM200\Team Boleh\x64\Debug\SOIL.pdb'; linking object as if no debug info
+SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'F:\Digipen_2??_1??\GAM200\Team Boleh\x64\Debug\SOIL.pdb'; linking object as if no debug info
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\Digipen_2??_1??\GAM200\Team Boleh\x64\Debug\SOIL.pdb'; linking object as if no debug info
+SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\Digipen_2??_1??\GAM200\Team Boleh\x64\Debug\SOIL.pdb'; linking object as if no debug info
+  Team_Boleh.vcxproj -> F:\Digipen_2학년_1학기\GAM200\Team Boleh\x64\Debug\Team_Boleh.exe
