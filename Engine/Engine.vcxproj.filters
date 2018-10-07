@@ -29,6 +29,7 @@
     <Filter Include="Object">
       <UniqueIdentifier>{537027c7-5ea2-4a0c-90ac-0b850ee268de}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Graphics_Part\Shader">
       <UniqueIdentifier>{782e69b2-5d39-4d79-8a66-3dafa31da2d8}</UniqueIdentifier>
     </Filter>
@@ -37,6 +38,8 @@
     </Filter>
     <Filter Include="Graphics_Part\Vertex">
       <UniqueIdentifier>{0b30029a-1272-485b-90c7-ba70a1f3bfc7}</UniqueIdentifier>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{217cfc69-34e6-4e49-9346-4ff96ef17fc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +89,7 @@
     <ClCompile Include="Color.cpp">
       <Filter>Graphics_Part\Vertex</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp">
@@ -146,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="Animation.hpp">
       <Filter>Graphics_Part</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
