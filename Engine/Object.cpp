@@ -21,10 +21,26 @@ void Object::SetMesh(Mesh mesh_)
 	mesh = mesh_;
 }
 
-void Object::SetTransform(Transform transform_)
+void Object::SetTranslation(const vector2& position)
 {
-	transform = transform_;
+	transform.SetTranslation(position);
 }
+
+void Object::SetScale(const vector2& scale)
+{
+	transform.SetScale(scale);
+}
+
+void Object::SetRotation(float& rotation)
+{
+	transform.SetRotation(rotation);
+}
+
+void Object::SetDepth(float& depth)
+{
+	transform.SetDepth(depth);
+}
+
 
 Mesh& Object::GetMesh()
 {

@@ -8,22 +8,14 @@ bool example::Initialize()
 {
 	object_manager.AddObject("test");
 	temp = *object_manager.FindObject("test");
-	temp.AddComponent(new Sprite());
-	temp.AddComponent(new Physics());
-	//dynamic_cast<Sprite*>(check.GetComponent(ComponentType::sprite))->Initialize();
-	temp.GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
-	temp.GetComponentByTemplate<Physics>()->SetVelocity(vector2(2, 0));
+	check->AddComponent(new Sprite());
+	check->AddComponent(new Physics());
+	check->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+	check->GetComponentByTemplate<Physics>()->SetVelocity(vector2(2, 0));
 
-	Transform temp_;
-	temp_.SetScale({ 1.0f, 1.0f });
-	temp_.SetTranslation({ 0,0 });
-
-
-	temp.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	temp.SetTransform(temp_);
-
-	check = &temp;
-
+	check->SetScale({ 1.0f, 1.0f });
+	check->SetTranslation({ 0,0 });
+	check->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 
     return true;
 }
