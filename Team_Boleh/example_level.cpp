@@ -11,17 +11,22 @@ bool example::Initialize()
     objectmanager->AddObject("test");
     check = objectmanager->FindObject("test");
 	check->SetScale({ 200.0f, 150.0f });
-	check->SetTranslation({ 0,0 });
+	check->SetTranslation({ 20,20 });
 	check->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-
 	check->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
-	auto a = check->GetTransform();
 	check->AddComponent(new Physics());
+
+	objectmanager->AddObject("sex");
+	test = objectmanager->FindObject("sex");
+	test->SetScale({ 200.0f, 150.0f });
+	test->SetTranslation({ -100, 100 });
+	test->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	test->AddComponent(new Physics());
+	
 
 	//check->AddComponent(new Sprite());
 	//check->GetComponentByTemplate<Sprite>()->Texture_Load("asset/animation_strange.png");
 	//check->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
-	std::cout << a.GetTranslation().x << ", " << a.GetTranslation().y << std::endl;
 
     return true;
 }
@@ -34,7 +39,10 @@ void example::Update(float dt)
 	check->SetTranslation(check->GetComponentByTemplate<Physics>()->GetPosition());
 	check->GetComponentByTemplate<Animation>()->Update(dt);
 
-	std::cout << check->GetComponentByTemplate<Physics>()->GetPosition().x << ", " << check->GetComponentByTemplate<Physics>()->GetPosition().y << std::endl;
+	test->GetComponentByTemplate<Physics>()->Update(dt);
+	test->SetTranslation(check->GetComponentByTemplate<Physics>()->GetPosition());
+	//obj->GetComponentByTemplate<Animation>()->Update(dt);
+	//std::cout << check->GetComponentByTemplate<Physics>()->GetPosition().x << ", " << check->GetComponentByTemplate<Physics>()->GetPosition().y << std::endl;
 }
 
 void example::ShutDown()

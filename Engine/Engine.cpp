@@ -36,7 +36,9 @@ void Engine::Update()
 
         State* state = dynamic_cast<StateManager*>(systems.at(statemanager))->GetCurrentState();
 
+		dynamic_cast<Application*>(systems.at(appication))->GetObjectManager(state->objectmanager);
         dynamic_cast<Graphics*>(systems.at(graphics))->Draw(state->objectmanager);
+
 	dynamic_cast<Graphics*>(systems.at(graphics))->EndDraw();
 
 	dynamic_cast<Application*>(systems.at(appication))->SetDispalyAreaSize(dynamic_cast<Graphics*>(systems.at(graphics)));

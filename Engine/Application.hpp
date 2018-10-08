@@ -9,8 +9,10 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "../Team_Boleh/example_level.hpp"
 
 class Graphics;
+class Objectmanager;
 
 class Application : public System
 {
@@ -22,7 +24,7 @@ public:
     void Quit() override;
 
 	void SetDispalyAreaSize(Graphics* graphics);
-
+	void GetObjectManager(Objectmanager* objectmanager);
     void Key_Poll_Event();
     void PollEvent();
     void FullScreen();

@@ -102,18 +102,6 @@ bool Application::Initialize()
 void Application::Update(float /*dt*/)
 {
 	Input::Triggerd_Reset();
-	
-	// Imgui draw/loop
-	bool show_demo_window = true;
-
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-
-	ImGui::ShowDemoWindow(&show_demo_window);
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	glfwSwapBuffers(window);
 	PollEvent();
@@ -142,6 +130,38 @@ void Application::SetDispalyAreaSize(Graphics* graphics)
 	screenSize.x = static_cast<float>(w);
 	screenSize.y = static_cast<float>(h);
 	graphics->SetDisplaySize_G(screenSize);
+}
+
+void Application::GetObjectManager(Objectmanager* objectmanager)
+{
+	// Imgui draw/loop
+	bool show_demo_window = true;
+
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::ShowDemoWindow(&show_demo_window);
+
+	ImGui::Begin("Example Level");
+	for (std::map<std::string, Object*>::iterator it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
+	{
+		float translation_x = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().x;
+		float translation_y = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().y;
+		ImGui::SliderFloat((*it).first.c_str(), &translation_x, 0, 100);
+		ImGui::SliderFloat((*it).first.c_str(), &translation_y, 0, 100);
+
+		objectmanager->FindObject((*it).first)->GetTransform().SetTranslation({ translation_x ,translation_y });
+
+	}
+	
+
+	std::cout << objectmanager->FindObject("test")->GetTransform().GetTranslation().x << ", " << objectmanager->FindObject("test")->GetTransform().GetTranslation().y << std::endl;
+	ImGui::End();
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 }
 
 void Application::FullScreen()
