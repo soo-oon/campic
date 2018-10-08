@@ -1,5 +1,4 @@
 #pragma once
-#include "test.hpp"
 #include "Stage.hpp"
 #include "Object.hpp"
 #include "Objectmanager.hpp"
@@ -15,9 +14,5 @@ public:
     bool Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
-
-    //Objectmanager* GetObjectManager() override { return objectmanager_; }
-    
-	//WorldPhysics* world_physics;
 private:
 };

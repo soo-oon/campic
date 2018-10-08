@@ -9,40 +9,31 @@
 bool example::Initialize()
 {
     objectmanager->AddObject("test");
-    check = objectmanager->FindObject("test");
-	check->SetScale({ 200.0f, 150.0f });
-	check->SetTranslation({ 20,20 });
-	check->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	check->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
-	check->AddComponent(new Physics());
+    objectmanager->AddObject("sex");
 
-	objectmanager->AddObject("sex");
-	test = objectmanager->FindObject("sex");
-	test->SetScale({ 200.0f, 150.0f });
-	test->SetTranslation({ -100, 100 });
-	test->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	test->AddComponent(new Physics());
-	
+    objectmanager->FindObject("test")->SetScale({ 200.0f, 150.0f });
+    objectmanager->FindObject("test")->SetTranslation({ 0, 0 });
+    objectmanager->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+    objectmanager->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
+    objectmanager->FindObject("test")->AddComponent(new Physics());
 
-	//check->AddComponent(new Sprite());
-	//check->GetComponentByTemplate<Sprite>()->Texture_Load("asset/animation_strange.png");
-	//check->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+    objectmanager->FindObject("sex")->SetScale({ 200.0f, 150.0f });
+	objectmanager->FindObject("sex")->SetTranslation({ -100, 100 });
+	objectmanager->FindObject("sex")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	objectmanager->FindObject("sex")->AddComponent(new Physics());
 
     return true;
 }
 
 void example::Update(float dt)
 {
-	world_physics->Movement_by_key(*check);
-	//world_physics->Movement(*check);
-	check->GetComponentByTemplate<Physics>()->Update(dt);
-	check->SetTranslation(check->GetComponentByTemplate<Physics>()->GetPosition());
-	check->GetComponentByTemplate<Animation>()->Update(dt);
+    world_physics->Movement_by_key(*objectmanager->FindObject("test"));
+    objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
+    objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
+    objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
-	test->GetComponentByTemplate<Physics>()->Update(dt);
-	test->SetTranslation(check->GetComponentByTemplate<Physics>()->GetPosition());
-	//obj->GetComponentByTemplate<Animation>()->Update(dt);
-	//std::cout << check->GetComponentByTemplate<Physics>()->GetPosition().x << ", " << check->GetComponentByTemplate<Physics>()->GetPosition().y << std::endl;
+     objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->Update(dt);
+     objectmanager->FindObject("sex")->SetTranslation(check->GetComponentByTemplate<Physics>()->GetPosition());
 }
 
 void example::ShutDown()

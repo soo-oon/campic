@@ -8,34 +8,34 @@
 class Object
 {
 public:
-	void AddComponent(Component* component);
-	Component* GetComponent(unsigned ID);
-	void SetMesh(Mesh mesh_);
-	void SetTranslation(const vector2& position);
-	void SetScale(const vector2& scale);
-	void SetRotation(float& rotation);
-	void SetDepth(float& depth);
+    void AddComponent(Component* component);
+    Component* GetComponent(unsigned ID);
+    void SetMesh(Mesh mesh_);
+    void SetTranslation(const vector2& position);
+    void SetScale(const vector2& scale);
+    void SetRotation(float& rotation);
+    void SetDepth(float& depth);
 
-	Mesh& GetMesh();
-	Transform& GetTransform(); 
-	template <typename COMPONENT>
-	COMPONENT* GetComponentByTemplate() const;
+    Mesh& GetMesh();
+    Transform& GetTransform();
+    template <typename COMPONENT>
+    COMPONENT* GetComponentByTemplate() const;
 
 private:
-	Mesh mesh{};
-	Transform transform{};
-	std::vector<Component*> components;
+    Mesh mesh{};
+    Transform transform{};
+    std::vector<Component*> components;
 };
 
-template<typename COMPONENT>
-COMPONENT * Object::GetComponentByTemplate() const
+template <typename COMPONENT>
+COMPONENT* Object::GetComponentByTemplate() const
 {
-	for (auto i : components)
-	{
-		if (typeid(COMPONENT) == typeid(*i))
-		{
-			return dynamic_cast<COMPONENT*>(i);
-		}
-	}
-	return nullptr;
+    for (auto i : components)
+    {
+        if (typeid(COMPONENT) == typeid(*i))
+        {
+            return dynamic_cast<COMPONENT*>(i);
+        }
+    }
+    return nullptr;
 }

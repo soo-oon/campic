@@ -28,158 +28,156 @@ void Input::Triggerd_Reset()
     mouse_doubleclick.reset();
 }
 
-void Input::Initialize(int width , int height)
+void Input::Initialize(int width, int height)
 {
-	key_pressed.reset();
-	key_triggered.reset();
-	key_released.reset();
+    key_pressed.reset();
+    key_triggered.reset();
+    key_released.reset();
 
-	mouse_pressed.reset();
-	mouse_triggered.reset();
-	mouse_doubleclick.reset();
-	mouse_released.reset();
+    mouse_pressed.reset();
+    mouse_triggered.reset();
+    mouse_doubleclick.reset();
+    mouse_released.reset();
 
-	windowSize.x = static_cast<float>(width);
-	windowSize.y = static_cast<float>(height);
-
+    windowSize.x = static_cast<float>(width);
+    windowSize.y = static_cast<float>(height);
 }
 
 void Input::Reset(void)
 {
-	key_pressed.reset();
-	key_triggered.reset();
-	key_released.reset();
+    key_pressed.reset();
+    key_triggered.reset();
+    key_released.reset();
 
-	mouse_pressed.reset();
-	mouse_triggered.reset();
-	mouse_doubleclick.reset();
+    mouse_pressed.reset();
+    mouse_triggered.reset();
+    mouse_doubleclick.reset();
 }
 
 void Input::SetKeyPressed(int key, int action)
 {
-	if (action == GLFW_PRESS)
-	{
-		key_trigger = true;
-		key_pressed.set(key);
-		key_released.reset(key);
-	}
-	else if (action == GLFW_RELEASE)
-	{
-		key_trigger = false;
-		key_released.set(key);
-		key_pressed.reset(key);
-	}
+    if (action == GLFW_PRESS)
+    {
+        key_trigger = true;
+        key_pressed.set(key);
+        key_released.reset(key);
+    }
+    else if (action == GLFW_RELEASE)
+    {
+        key_trigger = false;
+        key_released.set(key);
+        key_pressed.reset(key);
+    }
 
-	if (key_trigger)
-	{
-		key_triggered.set(key);
-	}
-	else
-	{
-		key_triggered.reset(key);
-	}
+    if (key_trigger)
+    {
+        key_triggered.set(key);
+    }
+    else
+    {
+        key_triggered.reset(key);
+    }
 }
 
 bool Input::IsKeyPressed(int key)
 {
-	return key_pressed[key];
+    return key_pressed[key];
 }
 
 bool Input::IsKeyTriggered(int key)
 {
-	return key_triggered[key];
+    return key_triggered[key];
 }
 
 bool Input::IsKeyReleased(int key)
 {
-	return key_released[key];
+    return key_released[key];
 }
 
 bool Input::IsKeyAnyPressed()
 {
-	return key_pressed.any();
+    return key_pressed.any();
 }
 
 bool Input::IsKeyAnyTriggered()
 {
-	return key_triggered.any();
+    return key_triggered.any();
 }
 
 bool Input::IsKeyAnyReleased()
 {
-	return key_released.any();
+    return key_released.any();
 }
 
 void Input::SetMousePos(double x_pos, double y_pos)
 {
-	mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos));
-	mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos);
+    mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos));
+    mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos);
 }
 
 vector2 Input::GetMousePos()
 {
-	return mousePos;
+    return mousePos;
 }
 
 void Input::SetMousePressed(int button, int action)
 {
-	if (action == GLFW_PRESS)
-	{
-		mouse_trigger = true;
+    if (action == GLFW_PRESS)
+    {
+        mouse_trigger = true;
 
-		mouse_pressed.set(button);
-		mouse_released.reset(button);
-	}
-	else if (action == GLFW_RELEASE)
-	{
+        mouse_pressed.set(button);
+        mouse_released.reset(button);
+    }
+    else if (action == GLFW_RELEASE)
+    {
+        static auto before = std::chrono::system_clock::now();
+        auto now = std::chrono::system_clock::now();
 
-            static auto before = std::chrono::system_clock::now();
-            auto now = std::chrono::system_clock::now();
+        double diff_ms = std::chrono::duration<double, std::milli>(now - before).count();
+        before = now;
 
-            double diff_ms = std::chrono::duration <double, std::milli>(now - before).count();
-            before = now;
+        if (diff_ms > 10 && diff_ms < 200)
+        {
+            mouse_doubleclick.set(button);
+        }
+        else
+        {
+            mouse_doubleclick.reset(button);
+        }
 
-            if (diff_ms > 10 && diff_ms < 200)
-            {
-                mouse_doubleclick.set(button);
-            }
-            else
-            {
-                mouse_doubleclick.reset(button);
-            }
+        mouse_trigger = false;
 
-		mouse_trigger = false;
+        mouse_pressed.reset(button);
+        mouse_released.set(button);
+    }
 
-		mouse_pressed.reset(button);
-		mouse_released.set(button);
-	}
-
-	if (mouse_trigger)
-	{
-		mouse_triggered.set(button);
-	}
-	else
-	{
-		mouse_triggered.reset(button);
-	}
+    if (mouse_trigger)
+    {
+        mouse_triggered.set(button);
+    }
+    else
+    {
+        mouse_triggered.reset(button);
+    }
 }
 
 bool Input::IsMousePressed(int button)
 {
-	return mouse_pressed[button];
+    return mouse_pressed[button];
 }
 
 bool Input::IsMouseTriggered(int button)
 {
-	return mouse_triggered[button];
+    return mouse_triggered[button];
 }
 
 bool Input::IsMouseDoubleClicked(int button)
 {
-	return mouse_doubleclick[button];
+    return mouse_doubleclick[button];
 }
 
 bool Input::IsMouseReleased(int button)
 {
-	return mouse_released[button];
+    return mouse_released[button];
 }

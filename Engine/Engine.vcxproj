@@ -150,7 +150,6 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="WorldPhysics.cpp" />
   </ItemGroup>
@@ -181,7 +180,6 @@
     <ClInclude Include="Stage.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="System.hpp" />
-    <ClInclude Include="test.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="WorldPhysics.h" />

@@ -4,23 +4,22 @@
 #include "Graphics.hpp"
 #include <iostream>
 #include "Input.hpp"
-#include "test.hpp"
 #include "Stage.hpp"
 
 bool Engine::IsQuit;
+
 bool Engine::Initialize()
 {
-	systems.clear();
+    systems.clear();
     AddSystem(new Application());
     AddSystem(new StateManager());
-    //AddSystem(new Objectmanager());
     AddSystem(new Graphics());
 
     for (auto i : systems)
         i->Initialize();
 
     gameTimer.Reset();
-	IsQuit = false;
+    IsQuit = false;
     return true;
 }
 
@@ -34,14 +33,13 @@ void Engine::Update()
         for (auto i : systems)
             i->Update(dt);
 
-        State* state = dynamic_cast<StateManager*>(systems.at(statemanager))->GetCurrentState();
+        State* state = GetSystemByTemplate<StateManager>()->GetCurrentState();
 
-		dynamic_cast<Application*>(systems.at(appication))->GetObjectManager(state->objectmanager);
-        dynamic_cast<Graphics*>(systems.at(graphics))->Draw(state->objectmanager);
-
-	dynamic_cast<Graphics*>(systems.at(graphics))->EndDraw();
-
-	dynamic_cast<Application*>(systems.at(appication))->SetDispalyAreaSize(dynamic_cast<Graphics*>(systems.at(graphics)));
+		GetSystemByTemplate<Application>->GetObjectManager(state->objectmanager);
+		
+        GetSystemByTemplate<Graphics>()->Draw(state->objectmanager);
+        GetSystemByTemplate<Graphics>()->EndDraw();
+        GetSystemByTemplate<Application>()->SetDispalyAreaSize(GetSystemByTemplate<Graphics>());
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
@@ -64,7 +62,7 @@ void Engine::ShutDown()
     systems.clear();
 }
 
-void Engine::AddSystem(System * new_system)
+void Engine::AddSystem(System* new_system)
 {
     systems.push_back(new_system);
 }
