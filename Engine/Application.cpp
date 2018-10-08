@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "Engine.hpp"
 #include "Graphics.hpp"
+#include <memory>
 
 namespace
 {
@@ -145,7 +146,7 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	ImGui::ShowDemoWindow(&show_demo_window);
 
 	ImGui::Begin("Example Level");
-	for (std::map<std::string, Object*>::iterator it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
+	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
 	{
 		float translation_x = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().x;
 		float translation_y = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().y;

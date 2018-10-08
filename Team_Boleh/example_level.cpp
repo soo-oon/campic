@@ -18,9 +18,11 @@ bool example::Initialize()
     objectmanager->FindObject("test")->AddComponent(new Physics());
 
     objectmanager->FindObject("sex")->SetScale({ 200.0f, 150.0f });
-	objectmanager->FindObject("sex")->SetTranslation({ -100, 100 });
-	objectmanager->FindObject("sex")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	objectmanager->FindObject("sex")->AddComponent(new Physics());
+    objectmanager->FindObject("sex")->SetTranslation({ -100, 100 });
+    objectmanager->FindObject("sex")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    objectmanager->FindObject("sex")->AddComponent(new Sprite());
+    objectmanager->FindObject("sex")->AddComponent(new Physics());
+    objectmanager->FindObject("sex")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
 
     return true;
 }
@@ -33,7 +35,7 @@ void example::Update(float dt)
     objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
      objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->Update(dt);
-     objectmanager->FindObject("sex")->SetTranslation(check->GetComponentByTemplate<Physics>()->GetPosition());
+     objectmanager->FindObject("sex")->SetTranslation(objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->GetPosition());
 }
 
 void example::ShutDown()

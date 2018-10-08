@@ -48,9 +48,14 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Collision.hpp" />
     <ClInclude Include="WorldPhysics.h" />
     <ClInclude Include="Input.hpp">
@@ -106,6 +111,17 @@
     </ClInclude>
     <ClInclude Include="Timer.hpp">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_glfw.h" />
+    <ClInclude Include="imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="Animation.hpp">
+      <Filter>Component\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

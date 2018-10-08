@@ -35,7 +35,7 @@ void Engine::Update()
 
         State* state = GetSystemByTemplate<StateManager>()->GetCurrentState();
 
-		GetSystemByTemplate<Application>->GetObjectManager(state->objectmanager);
+	GetSystemByTemplate<Application>()->GetObjectManager(state->objectmanager);
 		
         GetSystemByTemplate<Graphics>()->Draw(state->objectmanager);
         GetSystemByTemplate<Graphics>()->EndDraw();
