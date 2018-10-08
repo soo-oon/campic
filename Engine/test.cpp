@@ -2,3 +2,4 @@
 #include "Object.hpp"
 
 Object* check = new Object();
+Object* player = new Object();

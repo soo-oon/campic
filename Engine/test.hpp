@@ -2,3 +2,4 @@
 #include "Objectmanager.hpp"
 
 extern Object* check;
+extern Object* player;

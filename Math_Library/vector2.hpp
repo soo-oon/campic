@@ -58,6 +58,8 @@ vector2 operator*(float s, const vector2& v);
 
 float dot(vector2& v1, vector2& v2);
 
+float dot(const vector2& v1, const vector2& v2);
+
 vector2 perpendicular_to(vector2& v);
 
 vector2 normalize(vector2 v);

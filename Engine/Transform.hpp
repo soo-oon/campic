@@ -36,6 +36,7 @@ public:
 
     const Transform* GetParent() const;
     void SetParent(const Transform* const transform_parent);
+    affine2d GetTRS();
 
 private:
 	vector2 translation{};

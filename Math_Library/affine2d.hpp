@@ -13,6 +13,7 @@
 #pragma once
 
 #include "vector3.hpp"
+#include "vector2.hpp"
 
 struct affine2d
 {
@@ -41,6 +42,9 @@ struct affine2d
 
     vector3 operator*(vector3 v)const;
     vector3 operator*=(vector3 v);
+
+    vector2 operator*(vector2&& v)const;
+
 
     float operator()(int column, int row)const;
     float& operator()(int column, int row);

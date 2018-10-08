@@ -93,6 +93,18 @@ float& affine2d::operator()(int column, int row)
     return affine[column][row];
 }
 
+vector2 affine2d::operator*(vector2&& v) const
+{
+    vector2 v2;
+
+    v2.x = this->affine[0][0] * v.x + this->affine[0][1] * v.y
+        + this->affine[0][2];
+
+    v2.y = this->affine[1][0] * v.x + this->affine[1][1] * v.y
+        + this->affine[1][2];
+
+    return v2;
+}
 affine2d transpose(affine2d a)
 {
     affine2d c;
@@ -156,6 +168,7 @@ affine2d build_identity_affine()
 
     return c;
 }
+
 
 affine2d uniform_scale_affine(float a)
 {

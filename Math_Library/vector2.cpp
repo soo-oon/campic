@@ -143,6 +143,10 @@ float dot(vector2& v1, vector2& v2)
     return v1.x*v2.x + v1.y*v2.y;
 }
 
+float dot(const vector2& v1, const vector2& v2)
+{
+    return v1.x*v2.x + v1.y*v2.y;
+}
 vector2 perpendicular_to(vector2& v)
 {
     return vector2(-v.y, v.x);
