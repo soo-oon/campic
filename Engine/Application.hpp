@@ -6,6 +6,10 @@
 #include "System.hpp"
 #include "Input.hpp"
 #include "vector2.hpp"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 class Graphics;
 
 class Application : public System
