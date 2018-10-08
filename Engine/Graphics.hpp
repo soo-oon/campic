@@ -6,6 +6,9 @@
 #include "Sprite.hpp"
 #include "System.hpp"
 #include <vector>
+#include "Objectmanager.hpp"
+
+class Animation;
 
 enum class Type : int
 {
@@ -22,7 +25,7 @@ public:
 
 	bool Initialize() override;
 	void Update(float dt) override;
-	void Draw(Object& object);
+	void Draw(Objectmanager* objects);
 	void EndDraw();
 	void Quit() override;
 
@@ -30,14 +33,22 @@ public:
 	void SetDisplaySize_G(vector2 size) { displaysize = size; }
 
 private:
-	struct Texture
+	struct texture
 	{
 		vector2 position;
 		vector2 textureCoordinate;
 	};
+	struct animaition
+	{
+		vector2 position;
+		vector2 animationCoordinate;
+	};
 
-	void Draw(const Transform& transform, const std::vector<Texture>& vertexes, 
+	void Draw(const Transform& transform, const std::vector<texture>& vertexes, 
 		PointListType draw_type, const Color color, Sprite* sprite);
+	void Draw(const Transform& transform, const std::vector<animaition>& vertexes,
+		PointListType draw_type, const Color color, Sprite* sprite);
+
 	void DescribVertexPosition();
 
 private:
@@ -50,5 +61,6 @@ private:
 	Shader shader{};
 	GLuint vertexAttributes[NumberOfVertexTypes] = { 0 };
 	GLuint vertexBuffer[NumberOfVertexTypes] = { 0 };
-	std::vector<Texture> sprite{};
+	std::vector<texture> sprite{};
+	std::vector<animaition> animation{};
 };

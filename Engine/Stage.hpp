@@ -1,5 +1,7 @@
 #pragma once
 #include "Objectmanager.hpp"
+#include <vector2.hpp>
+#include "WorldPhysics.h"
 
 enum StageList
 {
@@ -15,5 +17,8 @@ public:
     virtual bool Initialize() = 0;
     virtual void Update(float dt) = 0;
     virtual void ShutDown() = 0;
+    Objectmanager* objectmanager;
+    WorldPhysics* world_physics;
+
     //virtual void Unload() = 0;
 };

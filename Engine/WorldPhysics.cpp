@@ -14,19 +14,19 @@ void WorldPhysics::Movement_by_key(Object& object_name)
 {
 	if(Input::IsKeyPressed(GLFW_KEY_UP))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, 0.05));
+		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, 5));
 	}
 	else if (Input::IsKeyPressed(GLFW_KEY_LEFT))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(-0.05, 0));
+		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(-5, 0));
 	}
 	else	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, -0.05));
+		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, -5));
 	}
 	else if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0.05, 0));
+		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(5, 0));
 	}
 	/*else if (Input::IsKeyAnyReleased())
 	{

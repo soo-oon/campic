@@ -1,5 +1,6 @@
 #include "Graphics.hpp"
 #include "GLSL.hpp"
+#include "Animation.hpp"
 
 namespace
 {
@@ -37,19 +38,35 @@ void Graphics::Update(float dt)
 	SetNDC();
 }
 
-void Graphics::Draw(Object& object)
+void Graphics::Draw(Objectmanager* objects)
 {
-	if (object.GetComponent(ComponentType::sprite) != nullptr)
+        //Object* ob = objects->GetObjectMap().at("test");
+	for (std::map<std::string, Object*>::iterator it = objects->GetObjectMap().begin(); it!=objects->GetObjectMap().end(); ++it)
 	{
-		sprite.clear();
-		sprite.reserve(object.GetMesh().GetPointCount());
-		for (std::size_t i = 0; i < object.GetMesh().GetPointCount(); ++i)
+		if (it->second->GetComponentByTemplate<Sprite>() != nullptr)
 		{
-			sprite.push_back({ object.GetMesh().GetPoint(i),
-				object.GetMesh().GetTextureCoordinate(i) });
+			sprite.clear();
+			sprite.reserve(it->second->GetMesh().GetPointCount());
+			for (std::size_t i = 0; i < it->second->GetMesh().GetPointCount(); ++i)
+			{
+				sprite.push_back({ it->second->GetMesh().GetPoint(i),
+                                        it->second->GetMesh().GetTextureCoordinate(i) });
+			}
+			Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
+                            it->second->GetMesh().GetColor(0), dynamic_cast<Sprite*>(it->second->GetComponent(ComponentType::sprite)));
 		}
-		Draw(object.GetTransform(), sprite, object.GetMesh().GetPointListType(),
-			object.GetMesh().GetColor(0), dynamic_cast<Sprite*>(object.GetComponent(ComponentType::sprite)));
+		else if (it->second->GetComponentByTemplate<Animation>() != nullptr)
+		{
+			animation.clear();
+			animation.reserve(it->second->GetMesh().GetPointCount());
+			for (std::size_t i = 0; i < it->second->GetMesh().GetPointCount(); ++i)
+			{
+				animation.push_back({ it->second->GetMesh().GetPoint(i),
+                                        it->second->GetMesh().GetAnimationCoordinate(i, it->second->GetComponentByTemplate<Animation>()) });
+			}
+			Draw(it->second->GetTransform(), animation, it->second->GetMesh().GetPointListType(),
+                            it->second->GetMesh().GetColor(0), it->second->GetComponentByTemplate<Animation>()->GetAnimationSprite());
+		}
 	}
 }
 
@@ -78,7 +95,7 @@ void Graphics::SetNDC()
 	glViewport(0, 0, static_cast<GLsizei>(displaysize.x), static_cast<GLsizei>(displaysize.y));
 }
 
-void Graphics::Draw(const Transform& transform, const std::vector<Texture>& vertexes, PointListType draw_type,
+void Graphics::Draw(const Transform& transform, const std::vector<texture>& vertexes, PointListType draw_type,
 	const Color color, Sprite* sprite)
 {
 	affine2d to_ndc = projection * transform.GetModelToWorld();
@@ -98,7 +115,32 @@ void Graphics::Draw(const Transform& transform, const std::vector<Texture>& vert
 	glBindVertexArray(vertexAttributes[(int)Type::sprite]);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
 
-	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(Texture), &vertexes[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
+
+	glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
+}
+
+void Graphics::Draw(const Transform& transform, const std::vector<animaition>& vertexes, PointListType draw_type,
+	const Color color, Sprite* sprite)
+{
+	affine2d to_ndc = projection * transform.GetModelToWorld();
+
+	const int texture_slot = 0;
+	if (lastBoundTexture != sprite->GetTextureHandler())
+	{
+		sprite->Bind(texture_slot);
+		lastBoundTexture = sprite->GetTextureHandler();
+	}
+
+	shader.SendUniformVariable("transform", to_ndc);
+	shader.SendUniformVariable("depth", transform.GetDepth());
+	shader.SendUniformVariable("color", color);
+	shader.SendUniformVariable("texture_to_sample", texture_slot);
+
+	glBindVertexArray(vertexAttributes[(int)Type::sprite]);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
+
+	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
 
 	glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
@@ -115,16 +157,16 @@ void Graphics::DescribVertexPosition()
 	constexpr int two_components_in_texture_coordinate = 2;
 	constexpr GLenum float_element_type = GL_FLOAT;
 	constexpr GLboolean not_fixedpoint = GL_FALSE;
-	const void* offset_in_struct = reinterpret_cast<const void*>(offsetof(Texture, position));
+	const void* offset_in_struct = reinterpret_cast<const void*>(offsetof(texture, position));
 
 	glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position,
-		float_element_type, not_fixedpoint, sizeof(Texture), offset_in_struct);
+		float_element_type, not_fixedpoint, sizeof(texture), offset_in_struct);
 	glEnableVertexAttribArray(position_attribute_location);
 
-	offset_in_struct = reinterpret_cast<const void*>(offsetof(Texture, textureCoordinate));
+	offset_in_struct = reinterpret_cast<const void*>(offsetof(texture, textureCoordinate));
 
 	glVertexAttribPointer(texture_coordinate_attribute_location, two_components_in_texture_coordinate,
-		float_element_type, not_fixedpoint, sizeof(Texture), offset_in_struct);
+		float_element_type, not_fixedpoint, sizeof(texture), offset_in_struct);
 	glEnableVertexAttribArray(texture_coordinate_attribute_location);
 }
 

@@ -8,12 +8,16 @@
 class example : public State
 {
 public:
+    example()
+    {
+        objectmanager = new Objectmanager();
+    }
     bool Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
 
-    Objectmanager object_manager;
-	Object temp;
-	WorldPhysics* world_physics;
+    //Objectmanager* GetObjectManager() override { return objectmanager_; }
+    
+	//WorldPhysics* world_physics;
 private:
 };

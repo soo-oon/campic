@@ -16,6 +16,8 @@
 #include "Color.hpp"
 
 
+class Animation;
+
 enum class PointListType
 {
     Lines,
@@ -35,6 +37,7 @@ public:
     vector2 GetPoint(size_t index) const;
     Color GetColor(size_t index) const;
 	vector2 GetTextureCoordinate(size_t index) const;
+	vector2 GetAnimationCoordinate(size_t index, Animation* animation);
 
     PointListType GetPointListType() const;
     void SetPointListType(PointListType list_type);
@@ -42,8 +45,7 @@ public:
     void AddColor(Color color);
     void AddPoint(vector2 point);
     void AddTextureCoordinate(vector2 texture_coordinate);
-
-	//void SetMesh(Mesh mesh_);
+	void AddAnimationCoordinate(vector2 animation_coordinate);
 
     void ClearColors();
     void ClearTextureCoordinates();
@@ -52,9 +54,11 @@ public:
     void Clear();
 
 private:
+	int Animation_frame;
     std::vector<vector2>points{};
     std::vector<Color>colors{};
     std::vector<vector2> textureCoordinates{};
+	std::vector<vector2> animationCoordinates{};
     PointListType point_type = PointListType::Lines;
 };
 

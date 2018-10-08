@@ -8,7 +8,7 @@ enum SystemList
 {
     appication,
     statemanager,
-    objectmanager,
+    //objectmanager,
 	graphics
 };
 

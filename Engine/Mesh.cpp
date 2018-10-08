@@ -10,6 +10,7 @@
 */
 /******************************************************************************/
 #include "Mesh.hpp"
+#include "Animation.hpp"
 
 Mesh::~Mesh()
 {
@@ -44,6 +45,32 @@ vector2 Mesh::GetTextureCoordinate(size_t index) const
     return textureCoordinates.at(index);
 }
 
+vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
+{
+	switch (index)
+	{
+	case 0:
+		animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+		animationCoordinates.at(index).y = 1;
+		break;
+	case 1:
+		animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+		animationCoordinates.at(index).y = 1;
+		break;
+	case 2:
+		animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+		animationCoordinates.at(index).y = 0;
+		break;
+	case 3:
+		animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+		animationCoordinates.at(index).y = 0;
+		break;
+	default:
+		break;
+	}
+	return animationCoordinates.at(index);
+}
+
 PointListType Mesh::GetPointListType() const
 {
     return point_type;
@@ -67,6 +94,11 @@ void Mesh::AddPoint(vector2 point)
 void Mesh::AddTextureCoordinate(vector2 texture_coordinate)
 {
     textureCoordinates.push_back(texture_coordinate);
+}
+
+void Mesh::AddAnimationCoordinate(vector2 animation_coordinate)
+{
+	animationCoordinates.push_back(animation_coordinate);
 }
 
 
@@ -148,6 +180,12 @@ namespace mesh
 		mesh.AddTextureCoordinate({ 1,1 });
 		mesh.AddTextureCoordinate({ 0,0 });
 		mesh.AddTextureCoordinate({ 1,0 });
+
+		mesh.AddAnimationCoordinate({ 0,1 });
+		mesh.AddAnimationCoordinate({ 1,1 });
+		mesh.AddAnimationCoordinate({ 0,0 });
+		mesh.AddAnimationCoordinate({ 1,0 });
+
 
         mesh.SetPointListType(PointListType::TriangleStrip);
 

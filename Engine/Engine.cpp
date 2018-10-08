@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Input.hpp"
 #include "test.hpp"
+#include "Stage.hpp"
 
 bool Engine::IsQuit;
 bool Engine::Initialize()
@@ -12,8 +13,8 @@ bool Engine::Initialize()
 	systems.clear();
     AddSystem(new Application());
     AddSystem(new StateManager());
-    AddSystem(new Objectmanager());
-	AddSystem(new Graphics());
+    //AddSystem(new Objectmanager());
+    AddSystem(new Graphics());
 
     for (auto i : systems)
         i->Initialize();
@@ -32,11 +33,13 @@ void Engine::Update()
 
         for (auto i : systems)
             i->Update(dt);
-		
-		dynamic_cast<Graphics*>(systems.at(graphics))->Draw(*check);
-		dynamic_cast<Graphics*>(systems.at(graphics))->EndDraw();
 
-		dynamic_cast<Application*>(systems.at(appication))->SetDispalyAreaSize(dynamic_cast<Graphics*>(systems.at(graphics)));
+        State* state = dynamic_cast<StateManager*>(systems.at(statemanager))->GetCurrentState();
+
+        dynamic_cast<Graphics*>(systems.at(graphics))->Draw(state->objectmanager);
+	dynamic_cast<Graphics*>(systems.at(graphics))->EndDraw();
+
+	dynamic_cast<Application*>(systems.at(appication))->SetDispalyAreaSize(dynamic_cast<Graphics*>(systems.at(graphics)));
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
