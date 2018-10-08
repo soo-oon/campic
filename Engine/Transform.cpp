@@ -25,6 +25,14 @@ affine2d Transform::GetModelToWorld() const
     }
     return temp;
 }
+affine2d Transform::GetTRS()
+{
+    return build_translation(translation.x,
+        translation.y)
+        * rotation_affine(rotation)
+        *nonuniform_scale_affine(scale.x, scale.y);
+}
+
 
 affine2d Transform::GetWorldToModel() const
 {
