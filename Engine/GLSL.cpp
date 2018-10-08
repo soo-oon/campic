@@ -2,8 +2,8 @@
 
 namespace GLSL
 {
-	const std::string vertex =
-		R"(
+    const std::string vertex =
+        R"(
 	#version 330
 
 	layout (location = 0) in vec2 position;
@@ -22,8 +22,8 @@ namespace GLSL
 	}
 	)";
 
-	const std::string fragment =
-		R"(
+    const std::string fragment =
+        R"(
 	#version 330
 	
 	in vec2 interpolated_texture_coordinate;

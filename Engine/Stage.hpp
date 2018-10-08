@@ -5,14 +5,15 @@
 
 enum StageList
 {
-	splash,
-
+    splash,
 };
 
 class State
 {
 public:
-    virtual ~State() {};
+    virtual ~State()
+    {
+    };
     //virtual void Load() = 0;
     virtual bool Initialize() = 0;
     virtual void Update(float dt) = 0;

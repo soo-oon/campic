@@ -29,12 +29,12 @@ vector2 Mesh::GetPoint(size_t index) const
 
 Color Mesh::GetColor(size_t index) const
 {
-    if(index>=colors.size())
+    if (index >= colors.size())
     {
         if (!colors.empty())
             return colors.back();
 
-        return { 0,0,0 };
+        return {0, 0, 0};
     }
     return colors[index];
 }
@@ -47,28 +47,28 @@ vector2 Mesh::GetTextureCoordinate(size_t index) const
 
 vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
 {
-	switch (index)
-	{
-	case 0:
-		animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
-		animationCoordinates.at(index).y = 1;
-		break;
-	case 1:
-		animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
-		animationCoordinates.at(index).y = 1;
-		break;
-	case 2:
-		animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
-		animationCoordinates.at(index).y = 0;
-		break;
-	case 3:
-		animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
-		animationCoordinates.at(index).y = 0;
-		break;
-	default:
-		break;
-	}
-	return animationCoordinates.at(index);
+    switch (index)
+    {
+    case 0:
+        animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+        animationCoordinates.at(index).y = 1;
+        break;
+    case 1:
+        animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+        animationCoordinates.at(index).y = 1;
+        break;
+    case 2:
+        animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+        animationCoordinates.at(index).y = 0;
+        break;
+    case 3:
+        animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+        animationCoordinates.at(index).y = 0;
+        break;
+    default:
+        break;
+    }
+    return animationCoordinates.at(index);
 }
 
 PointListType Mesh::GetPointListType() const
@@ -98,7 +98,7 @@ void Mesh::AddTextureCoordinate(vector2 texture_coordinate)
 
 void Mesh::AddAnimationCoordinate(vector2 animation_coordinate)
 {
-	animationCoordinates.push_back(animation_coordinate);
+    animationCoordinates.push_back(animation_coordinate);
 }
 
 
@@ -131,18 +131,18 @@ namespace
 
 namespace mesh
 {
-    Mesh CreateCircle(float radius, Color color,size_t points_number)
+    Mesh CreateCircle(float radius, Color color, size_t points_number)
     {
         Mesh mesh;
 
-		mesh.AddPoint({ 0,0 });
-        mesh.AddTextureCoordinate({ 0.5f, 0.5f });
+        mesh.AddPoint({0, 0});
+        mesh.AddTextureCoordinate({0.5f, 0.5f});
 
-        for(int i=0; i<=(int)points_number; ++i)
+        for (int i = 0; i <= (int)points_number; ++i)
         {
-            float angle = i * (360.0f / points_number)*PI / 180.0f;
-			mesh.AddPoint({ radius*cos(angle), radius*sin(angle) });
-			mesh.AddTextureCoordinate({ cos(angle), sin(angle) });
+            float angle = i * (360.0f / points_number) * PI / 180.0f;
+            mesh.AddPoint({radius * cos(angle), radius * sin(angle)});
+            mesh.AddTextureCoordinate({cos(angle), sin(angle)});
             mesh.AddColor(color);
         }
 
@@ -151,14 +151,14 @@ namespace mesh
         return mesh;
     }
 
-    Mesh CreateLineCircle(float radius, Color color,size_t points_number)
+    Mesh CreateLineCircle(float radius, Color color, size_t points_number)
     {
         Mesh mesh;
 
-        for(int i=0; i<=(int)points_number ; ++i)
+        for (int i = 0; i <= (int)points_number; ++i)
         {
             float angle = i * (360.0f / points_number) * PI / 180.0f;
-			mesh.AddPoint({ radius*cos(angle), radius*sin(angle) });
+            mesh.AddPoint({radius * cos(angle), radius * sin(angle)});
             mesh.AddColor(color);
         }
 
@@ -171,20 +171,20 @@ namespace mesh
     {
         Mesh mesh;
 
-		mesh.AddPoint({ -0.5f*dimension,-0.5f*dimension });
-		mesh.AddPoint({ 0.5f*dimension,-0.5f*dimension });
-		mesh.AddPoint({ -0.5f*dimension,0.5f*dimension });
-		mesh.AddPoint({ 0.5f*dimension,0.5f*dimension });
+        mesh.AddPoint({-0.5f * dimension, -0.5f * dimension});
+        mesh.AddPoint({0.5f * dimension, -0.5f * dimension});
+        mesh.AddPoint({-0.5f * dimension, 0.5f * dimension});
+        mesh.AddPoint({0.5f * dimension, 0.5f * dimension});
 
-        mesh.AddTextureCoordinate({ 0,1 });
-		mesh.AddTextureCoordinate({ 1,1 });
-		mesh.AddTextureCoordinate({ 0,0 });
-		mesh.AddTextureCoordinate({ 1,0 });
+        mesh.AddTextureCoordinate({0, 1});
+        mesh.AddTextureCoordinate({1, 1});
+        mesh.AddTextureCoordinate({0, 0});
+        mesh.AddTextureCoordinate({1, 0});
 
-		mesh.AddAnimationCoordinate({ 0,1 });
-		mesh.AddAnimationCoordinate({ 1,1 });
-		mesh.AddAnimationCoordinate({ 0,0 });
-		mesh.AddAnimationCoordinate({ 1,0 });
+        mesh.AddAnimationCoordinate({0, 1});
+        mesh.AddAnimationCoordinate({1, 1});
+        mesh.AddAnimationCoordinate({0, 0});
+        mesh.AddAnimationCoordinate({1, 0});
 
 
         mesh.SetPointListType(PointListType::TriangleStrip);
@@ -198,11 +198,11 @@ namespace mesh
     {
         Mesh mesh;
 
-		mesh.AddPoint(dimension* vector2{ -0.5f,-0.5f });
-		mesh.AddPoint(dimension*vector2{ 0.5f,-0.5f });
-		mesh.AddPoint(dimension*vector2{ 0.5f,0.5f });
-		mesh.AddPoint(dimension*vector2{ -0.5f,0.5f });
-		mesh.AddPoint(dimension*vector2{ -0.5f,-0.5f });
+        mesh.AddPoint(dimension * vector2{-0.5f, -0.5f});
+        mesh.AddPoint(dimension * vector2{0.5f, -0.5f});
+        mesh.AddPoint(dimension * vector2{0.5f, 0.5f});
+        mesh.AddPoint(dimension * vector2{-0.5f, 0.5f});
+        mesh.AddPoint(dimension * vector2{-0.5f, -0.5f});
 
         mesh.SetPointListType(PointListType::LineStrip);
 

@@ -17,7 +17,7 @@ public:
     void ChangeStage(unsigned stageID);
     void Restart();
     void Pause();
-	State* GetCurrentState() { return m_currentStage; }
+    State* GetCurrentState() { return m_currentStage; }
 
     bool Initialize() override;
     void Update(float dt) override;

@@ -4,8 +4,8 @@
 class Collision
 {
 public:
-	void collision_();
+    void collision_();
 
 private:
-	Objectmanager object_manager;
+    Objectmanager object_manager;
 };
