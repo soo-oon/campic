@@ -30,6 +30,7 @@ bool Application::Initialize()
 	glfwWindowHint(GLFW_SAMPLES, 4);	// 4x anti
 
 	// We use OpenGL 3.3 version 
+	const char* glsl_version = "#version 300 es";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
@@ -61,6 +62,19 @@ bool Application::Initialize()
 
 	glfwMakeContextCurrent(window);
 
+	//Imgui Setup
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	unsigned char* pixels;
+	int width, height;
+	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+	ImGui::StyleColorsDark();
+
 	glfwSetWindowSizeCallback(window, window_resized);
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetCursorPosCallback(window, MousePositionCallback);
@@ -88,6 +102,19 @@ bool Application::Initialize()
 void Application::Update(float /*dt*/)
 {
 	Input::Triggerd_Reset();
+	
+	// Imgui draw/loop
+	bool show_demo_window = true;
+
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::ShowDemoWindow(&show_demo_window);
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 	glfwSwapBuffers(window);
 	PollEvent();
 }
