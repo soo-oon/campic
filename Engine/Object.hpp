@@ -15,6 +15,8 @@ public:
     void SetScale(const vector2& scale);
     void SetRotation(float& rotation);
     void SetDepth(float& depth);
+    void SetGravity(float gravity_own);
+    float GetGravity();
 
     Mesh& GetMesh();
     Transform& GetTransform();
@@ -22,6 +24,7 @@ public:
     COMPONENT* GetComponentByTemplate() const;
 
 private:
+	float gravity = 1;
     Mesh mesh{};
     Transform transform{};
     std::vector<Component*> components;

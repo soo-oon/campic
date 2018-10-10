@@ -1,13 +1,12 @@
 #pragma once
 #include "Objectmanager.hpp"
 
-class WorldPhysics
-{
+class WorldPhysics	// WorldPhysics have to collision check 
+{					// It can move all stuff in level
 public:
     void Movement(Object& object_name);
     void Movement_by_key(Object& object_name);
+    void Gravity_on(Objectmanager* objectmanager_, float gravity = 1);
 private:
-    float gravity = 0;
-    Objectmanager* object_manager;
     Object object;
 };

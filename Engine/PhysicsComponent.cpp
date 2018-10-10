@@ -31,8 +31,10 @@ vector2 Physics::GetPosition()
     return position;
 }
 
+
 bool Physics::Initialize(Object* Ob)
 {
+	object = Ob;
     force_accumlator = {0, 0};
     velocity = {0, 0};
     position = Ob->GetTransform().GetTranslation();
@@ -41,14 +43,20 @@ bool Physics::Initialize(Object* Ob)
 
 void Physics::Update(float dt)
 {
+	gravity = 1 / object->GetGravity();
     // calculate current velocity.
     velocity += inverse_mass * (force_accumlator * dt);
 
     // zero out accumulated force
     force_accumlator = {0, 0};
 
+    //friction always activated
+    velocity *= friction;
+
     // integrate position
-    position += velocity * dt;
+    if (magnitude(velocity) < 0.001f)
+	    velocity = 0;
+    position += gravity * velocity * dt;
 }
 
 void Physics::Delete()

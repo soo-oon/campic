@@ -3,6 +3,7 @@
 #include "Transform.hpp"
 #include "WorldPhysics.h"
 #include "Object.hpp"
+#include "StateManager.hpp"
 
 class Physics : public Component
 {
@@ -20,9 +21,12 @@ public:
     void Update(float dt) override;
     void Delete() override;
 private:
+	
     vector2 force_accumlator; // mess 
     vector2 velocity;
     vector2 position;
+    float friction = 0.995f;
+    float gravity;
     float inverse_mass = 1;
     float rotation;
     float torque;

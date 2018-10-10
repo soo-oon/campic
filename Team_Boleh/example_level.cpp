@@ -7,10 +7,24 @@
 #include "Animation.hpp"
 #include "Collision.hpp"
 
+void example::move_enemy(float dt, Object* Ob)
+{
+	float velo = 100;
+	limit_time += dt;
+	if(limit_time > 1.0f)
+	{
+		pm *= -1;
+		velo *= pm;
+		Ob->GetComponentByTemplate<Physics>()->SetVelocity(vector2(velo, 0));
+		limit_time = 0;
+		std::cout << objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
+	}
+}
+
 bool example::Initialize()
 {
     objectmanager->AddObject("test");
-    objectmanager->AddObject("sex");
+    objectmanager->AddObject("enemy");
 
     objectmanager->FindObject("test")->SetScale({ 200.0f, 150.0f });
     objectmanager->FindObject("test")->SetTranslation({ 0, 0 });
@@ -18,35 +32,58 @@ bool example::Initialize()
     objectmanager->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
     objectmanager->FindObject("test")->AddComponent(new Physics());
 
-    objectmanager->FindObject("sex")->SetScale({ 200.0f, 150.0f });
-    objectmanager->FindObject("sex")->SetTranslation({ -100, 100 });
-    objectmanager->FindObject("sex")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    objectmanager->FindObject("sex")->AddComponent(new Sprite());
-    objectmanager->FindObject("sex")->AddComponent(new Physics());
-    objectmanager->FindObject("sex")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+    objectmanager->FindObject("enemy")->SetScale({ 200.0f, 150.0f });
+    objectmanager->FindObject("enemy")->SetTranslation({ -300, 300 });
+    objectmanager->FindObject("enemy")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    objectmanager->FindObject("enemy")->AddComponent(new Sprite());
+    objectmanager->FindObject("enemy")->AddComponent(new Physics());
+    objectmanager->FindObject("enemy")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+
+    world_physics->Gravity_on(objectmanager);
 
     return true;
 }
 
 void example::Update(float dt)
 {
-    world_physics->Movement_by_key(*objectmanager->FindObject("test"));
-    objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-    objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
-    objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
-     objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->Update(dt);
-     objectmanager->FindObject("sex")->SetTranslation(objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->GetPosition());
+	if (Input::IsKeyPressed(GLFW_KEY_1))
+	{
+		world_physics->Gravity_on(objectmanager, 10);
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_2))
+	{
+		world_physics->Gravity_on(objectmanager, 1);
+	}
+	if(Input::IsKeyPressed(GLFW_KEY_R))
+	{
+		objectmanager->FindObject("test")->GetTransform().SetRotation(objectmanager->FindObject("test")->GetTransform().GetRotation()+ rotation_value);
+	}
 
-    opponent.clear();
-    for (size_t i = 0 ; i < player->GetMesh().GetPointCount(); i++)
-        opponent.emplace_back(player->GetTransform().GetTRS()*static_cast<vector2>(player->GetMesh().GetPoint(i)));
-    mesh_p.clear();
-    for (size_t i = 0; i < check->GetMesh().GetPointCount(); i++)
-    {
-        mesh_p.emplace_back( check->GetTransform().GetTRS()*static_cast<vector2>(check->GetMesh().GetPoint(i)));
-        
-    }
+	opponent.clear();
+	for (size_t i = 0; i < objectmanager->FindObject("test")->GetMesh().GetPointCount(); i++)
+		opponent.emplace_back(objectmanager->FindObject("test")->GetTransform().GetTRS()*static_cast<vector2>(objectmanager->FindObject("test")->GetMesh().GetPoint(i)));
+	mesh_p.clear();
+	for (size_t i = 0; i < objectmanager->FindObject("enemy")->GetMesh().GetPointCount(); i++)
+	{
+		mesh_p.emplace_back(objectmanager->FindObject("enemy")->GetTransform().GetTRS()*static_cast<vector2>(objectmanager->FindObject("enemy")->GetMesh().GetPoint(i)));
+	}
+
+	 world_physics->Movement_by_key(*objectmanager->FindObject("test"));
+	if (objectmanager->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(mesh_p, opponent))
+	{
+		objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 *normalize(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition()); 
+		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+	}
+	objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
+	objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
+	objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
+
+	//move_enemy(dt, objectmanager->FindObject("enemy").get());
+	objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
+	objectmanager->FindObject("enemy")->SetTranslation(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetPosition());
+
 }
 
 void example::ShutDown()

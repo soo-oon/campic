@@ -39,11 +39,21 @@ void Collision::Interval(std::vector<vector2>vertices, vector2 Axis, float& min,
 std::vector<vector2> Collision::line(std::vector<vector2> line_)
 {
     std::vector<vector2> temp;
-    temp.push_back(line_[0] - line_[1]);
-    temp.push_back(line_[1] - line_[3]);
-    temp.push_back(line_[3] - line_[2]);
-    temp.push_back(line_[0] - line_[2]);
-
+    if (line_.size() == 4)
+    {
+	    temp.push_back(line_[0] - line_[1]);
+	    temp.push_back(line_[1] - line_[3]);
+	    temp.push_back(line_[3] - line_[2]);
+	    temp.push_back(line_[0] - line_[2]);
+    }
+    else
+    {
+	    for (int i = 0; i < static_cast<int>(line_.size()) - 1; i++)
+	    {
+		    temp.push_back(line_[i] - line_[i + 1]);
+	    }
+	    temp.push_back(line_[static_cast<int>(line_.size())] - line_[0]);
+    }
     return temp;
 }
 
@@ -54,7 +64,7 @@ bool Collision::intersection_check(std::vector<vector2> owner, std::vector<vecto
     {
         if(!collision_(vector2(-i.y, i.x),owner,object))
         {
-            std::cout << "No Intersec" << std::endl;
+            //std::cout << "No Intersec" << std::endl;
             return false;
         }
     }
@@ -63,7 +73,7 @@ bool Collision::intersection_check(std::vector<vector2> owner, std::vector<vecto
         axis.emplace_back(vector2(-i.y, i.x));
         if (!collision_(vector2(-i.y, i.x), owner, object))
         {
-            std::cout << "No Intersec" << std::endl;
+            //std::cout << "No Intersec" << std::endl;
             return false;
         }
     }
@@ -71,7 +81,7 @@ bool Collision::intersection_check(std::vector<vector2> owner, std::vector<vecto
     //take projection of other function.
     //and take min and max
     //if min
-    std::cout << "Yes, Intersection" << std::endl;
+   // std::cout << "Yes, Intersection" << std::endl;
     return true;
 }
 

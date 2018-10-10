@@ -41,6 +41,16 @@ void Object::SetDepth(float& depth)
     transform.SetDepth(depth);
 }
 
+void Object::SetGravity(float gravity_own)
+{
+	gravity = gravity_own;
+}
+
+float Object::GetGravity()
+{
+	return gravity;
+}
+
 
 Mesh& Object::GetMesh()
 {

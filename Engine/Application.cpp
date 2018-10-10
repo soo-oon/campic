@@ -158,7 +158,6 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	}
 	
 
-	std::cout << objectmanager->FindObject("test")->GetTransform().GetTranslation().x << ", " << objectmanager->FindObject("test")->GetTransform().GetTranslation().y << std::endl;
 	ImGui::End();
 
 	ImGui::Render();
