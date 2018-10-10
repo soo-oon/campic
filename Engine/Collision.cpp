@@ -48,11 +48,11 @@ std::vector<vector2> Collision::line(std::vector<vector2> line_)
     }
     else
     {
-	    for (int i = 0; i < static_cast<int>(line_.size()) - 1; i++)
+	    for (int i = 0; i < static_cast<int>(line_.size()-1) ; i++)
 	    {
 		    temp.push_back(line_[i] - line_[i + 1]);
 	    }
-	    temp.push_back(line_[static_cast<int>(line_.size())] - line_[0]);
+	    temp.push_back(line_[static_cast<int>(line_.size()-1)] - line_[0]);
     }
     return temp;
 }

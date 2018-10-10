@@ -17,7 +17,8 @@ private:
 	float limit_time = 0;
 	float rotation_value = 10;
     std::vector<vector2> opponent;
-    std::vector<vector2> mesh_p; 
+    std::vector<vector2> mesh_p;
+    std::vector<vector2> static_opponent;
 };
 
 vector2 multi_plus(Object *ob, size_t i);

@@ -17,7 +17,7 @@ void example::move_enemy(float dt, Object* Ob)
 		velo *= pm;
 		Ob->GetComponentByTemplate<Physics>()->SetVelocity(vector2(velo, 0));
 		limit_time = 0;
-		std::cout << objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
+		std::cout << GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
 	}
 }
 
@@ -34,7 +34,7 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("test")->AddComponent(new Physics());
 
 	GetObjectManager()->FindObject("enemy")->SetScale({ 150.0f, 150.0f });
-	GetObjectManager()->FindObject("enemy")->SetTranslation({ -100, 100 });
+	GetObjectManager()->FindObject("enemy")->SetTranslation({ -300, 300 });
 	GetObjectManager()->FindObject("enemy")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
 	GetObjectManager()->FindObject("enemy")->AddComponent(new Physics());
 
@@ -42,53 +42,66 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("circle")->SetTranslation({ 0, -200 });
 	GetObjectManager()->FindObject("circle")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.05, "asset/example2.png"));
-	world_physics->Gravity_on(objectmanager);
+	GetWorldPhyics()->Gravity_on(GetObjectManager());
 
     return true;
 }
 
 void example::Update(float dt)
 {
-<<<<<<< HEAD
-
 	if (Input::IsKeyPressed(GLFW_KEY_1))
 	{
-		world_physics->Gravity_on(objectmanager, 10);
+		GetWorldPhyics()->Gravity_on(GetObjectManager(), 10);
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_2))
 	{
-		world_physics->Gravity_on(objectmanager, 1);
+		GetWorldPhyics()->Gravity_on(GetObjectManager(), 1);
 	}
 	if(Input::IsKeyPressed(GLFW_KEY_R))
 	{
-		objectmanager->FindObject("test")->GetTransform().SetRotation(objectmanager->FindObject("test")->GetTransform().GetRotation()+ rotation_value);
+		//GetObjectManager()->FindObject("test")->GetTransform().SetRotation(GetObjectManager()->FindObject("test")->GetTransform().GetRotation()+ rotation_value);
 	}
 
 	opponent.clear();
-	for (size_t i = 0; i < objectmanager->FindObject("test")->GetMesh().GetPointCount(); i++)
-		opponent.emplace_back(objectmanager->FindObject("test")->GetTransform().GetTRS()*static_cast<vector2>(objectmanager->FindObject("test")->GetMesh().GetPoint(i)));
+	for (size_t i = 0; i < GetObjectManager()->FindObject("test")->GetMesh().GetPointCount(); i++)
+		opponent.emplace_back(GetObjectManager()->FindObject("test")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("test")->GetMesh().GetPoint(i)));
 	mesh_p.clear();
-	for (size_t i = 0; i < objectmanager->FindObject("enemy")->GetMesh().GetPointCount(); i++)
+	for (size_t i = 0; i < GetObjectManager()->FindObject("enemy")->GetMesh().GetPointCount(); i++)
 	{
-		mesh_p.emplace_back(objectmanager->FindObject("enemy")->GetTransform().GetTRS()*static_cast<vector2>(objectmanager->FindObject("enemy")->GetMesh().GetPoint(i)));
+		mesh_p.emplace_back(GetObjectManager()->FindObject("enemy")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("enemy")->GetMesh().GetPoint(i)));
+	}	
+	static_opponent.clear();
+	for (size_t i = 0; i < GetObjectManager()->FindObject("circle")->GetMesh().GetPointCount(); i++)
+	{
+		static_opponent.emplace_back(GetObjectManager()->FindObject("circle")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("circle")->GetMesh().GetPoint(i)));
 	}
-
-	 world_physics->Movement_by_key(*objectmanager->FindObject("test"));
-	if (objectmanager->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(mesh_p, opponent))
+	
+	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test"));
+	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(mesh_p, opponent))
 	{
-		objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 *normalize(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
-		objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition()); 
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 *normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-20 * normalize(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetObjectManager()->FindObject("test")->SetTranslation(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
+		GetObjectManager()->FindObject("enemy")->SetTranslation(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetPosition());
 		GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({255,255,0,255});
 		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
 	}
+	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(opponent, static_opponent))
+	{
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 * normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetObjectManager()->FindObject("test")->SetTranslation(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
+		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,0,0,255 });
+		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+	}
 	GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({ 255,0,0,255 });
-	objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-	objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
-	objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,255,255 });
+	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
+	GetObjectManager()->FindObject("test")->SetTranslation(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
+	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
-	//move_enemy(dt, objectmanager->FindObject("enemy").get());
-	objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
-	objectmanager->FindObject("enemy")->SetTranslation(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetPosition());
+	move_enemy(dt, GetObjectManager()->FindObject("enemy").get());
+	GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
+	GetObjectManager()->FindObject("enemy")->SetTranslation(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetPosition());
 
 	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
 }
