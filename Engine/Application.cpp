@@ -148,16 +148,18 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	ImGui::Begin("Example Level");
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
 	{
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+
 		float translation_x = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().x;
 		float translation_y = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().y;
-		ImGui::SliderFloat((*it).first.c_str(), &translation_x, 0, 100);
-		ImGui::SliderFloat((*it).first.c_str(), &translation_y, 0, 100);
+		ImGui::SliderFloat((*it).first.c_str(), &translation_x, -w/2, w/2);
+		ImGui::SliderFloat((*it).first.c_str(), &translation_y, -h/2, h/2);
 
 		objectmanager->FindObject((*it).first)->GetTransform().SetTranslation({ translation_x ,translation_y });
 
 	}
 	
-
 	ImGui::End();
 
 	ImGui::Render();

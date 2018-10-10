@@ -23,29 +23,33 @@ void example::move_enemy(float dt, Object* Ob)
 
 bool example::Initialize()
 {
-    objectmanager->AddObject("test");
-    objectmanager->AddObject("enemy");
+    GetObjectManager()->AddObject("test");
+	GetObjectManager()->AddObject("enemy");
+	GetObjectManager()->AddObject("circle");
 
-    objectmanager->FindObject("test")->SetScale({ 200.0f, 150.0f });
-    objectmanager->FindObject("test")->SetTranslation({ 0, 0 });
-    objectmanager->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-    objectmanager->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
-    objectmanager->FindObject("test")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("test")->SetScale({ -150.0f, 150.0f });
+	GetObjectManager()->FindObject("test")->SetTranslation({ 0, 0 });
+	GetObjectManager()->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
+	GetObjectManager()->FindObject("test")->AddComponent(new Physics());
 
-    objectmanager->FindObject("enemy")->SetScale({ 200.0f, 150.0f });
-    objectmanager->FindObject("enemy")->SetTranslation({ -300, 300 });
-    objectmanager->FindObject("enemy")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    objectmanager->FindObject("enemy")->AddComponent(new Sprite());
-    objectmanager->FindObject("enemy")->AddComponent(new Physics());
-    objectmanager->FindObject("enemy")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+	GetObjectManager()->FindObject("enemy")->SetScale({ 150.0f, 150.0f });
+	GetObjectManager()->FindObject("enemy")->SetTranslation({ -100, 100 });
+	GetObjectManager()->FindObject("enemy")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
+	GetObjectManager()->FindObject("enemy")->AddComponent(new Physics());
 
-    world_physics->Gravity_on(objectmanager);
+	GetObjectManager()->FindObject("circle")->SetScale({ 150, 150 });
+	GetObjectManager()->FindObject("circle")->SetTranslation({ 0, -200 });
+	GetObjectManager()->FindObject("circle")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.05, "asset/example2.png"));
+	world_physics->Gravity_on(objectmanager);
 
     return true;
 }
 
 void example::Update(float dt)
 {
+<<<<<<< HEAD
 
 	if (Input::IsKeyPressed(GLFW_KEY_1))
 	{
@@ -74,8 +78,10 @@ void example::Update(float dt)
 	{
 		objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 *normalize(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
 		objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition()); 
+		GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({255,255,0,255});
 		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
 	}
+	GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({ 255,0,0,255 });
 	objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
 	objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
 	objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
@@ -84,6 +90,7 @@ void example::Update(float dt)
 	objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
 	objectmanager->FindObject("enemy")->SetTranslation(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetPosition());
 
+	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
 }
 
 void example::ShutDown()

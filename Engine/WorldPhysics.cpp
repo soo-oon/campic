@@ -22,7 +22,7 @@ void WorldPhysics::Movement_by_key(Object& object_name)
 	{
 		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, 15));
 	}
-	 if (Input::IsKeyPressed(GLFW_KEY_LEFT))
+	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
 	{
 		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(-15, 0));
 	}
@@ -30,7 +30,7 @@ void WorldPhysics::Movement_by_key(Object& object_name)
 	{
 		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, -15));
 	}
-	 if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
+	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
 	{
 		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(15, 0));
 	}

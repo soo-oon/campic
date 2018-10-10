@@ -35,9 +35,9 @@ void Engine::Update()
 
         State* state = GetSystemByTemplate<StateManager>()->GetCurrentState();
 
-	GetSystemByTemplate<Application>()->GetObjectManager(state->objectmanager);
+		GetSystemByTemplate<Application>()->GetObjectManager(state->GetObjectManager());
 		
-        GetSystemByTemplate<Graphics>()->Draw(state->objectmanager);
+        GetSystemByTemplate<Graphics>()->Draw(state->GetObjectManager());
         GetSystemByTemplate<Graphics>()->EndDraw();
         GetSystemByTemplate<Application>()->SetDispalyAreaSize(GetSystemByTemplate<Graphics>());
 

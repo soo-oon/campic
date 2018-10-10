@@ -14,7 +14,5 @@ public:
         void Delete() override;
 
 private:
-
         std::vector<vector2> mesh_owner;
-	Objectmanager object_manager;
 };

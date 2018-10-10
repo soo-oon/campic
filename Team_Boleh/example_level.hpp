@@ -7,16 +7,11 @@
 class example : public State
 {
 public:
-    example()
-    {
-        objectmanager = new Objectmanager();
-    }
-
     void move_enemy(float dt, Object* Ob);
-
     bool Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
+
 private:
 	float pm = 1;
 	float limit_time = 0;

@@ -12,9 +12,9 @@ class Animation;
 
 enum class Type : int
 {
-    soild,
-    sprite,
-    count
+	solid_obj,
+	sprite,
+	count,
 };
 
 class Graphics : public System
@@ -33,23 +33,30 @@ public:
     void SetDisplaySize_G(vector2 size) { displaysize = size; }
 
 private:
+	struct solidshape
+	{
+		vector2 position;
+	};
+
     struct texture
     {
         vector2 position;
         vector2 textureCoordinate;
     };
-
     struct animaition
     {
         vector2 position;
         vector2 animationCoordinate;
     };
 
+	void Draw(const Transform& transform, const std::vector<solidshape>& vertexes,
+		PointListType draw_type, Color color);
     void Draw(const Transform& transform, const std::vector<texture>& vertexes,
               PointListType draw_type, Color color, Sprite* sprite);
     void Draw(const Transform& transform, const std::vector<animaition>& vertexes,
               PointListType draw_type, Color color, Sprite* sprite);
 
+	void DescribSolidVertexPosition();
     void DescribVertexPosition();
 
 private:
@@ -59,9 +66,11 @@ private:
     affine2d projection = {1, 0, 0, 0, 1, 0, 0, 0, 1};
     unsigned int lastBoundTexture = 0;
 
-    Shader shader{};
+	Shader Solidshader{};
+    Shader Spriteshader{};
     GLuint vertexAttributes[NumberOfVertexTypes] = {0};
     GLuint vertexBuffer[NumberOfVertexTypes] = {0};
+	std::vector<solidshape> shapes{};
     std::vector<texture> sprite{};
     std::vector<animaition> animation{};
 };

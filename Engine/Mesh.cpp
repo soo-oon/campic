@@ -22,6 +22,16 @@ size_t Mesh::GetPointCount() const
     return points.size();
 }
 
+size_t Mesh::GetTexturePointsCount() const
+{
+	return textureCoordinates.size();
+}
+
+size_t Mesh::GetAnimationPointsCount() const
+{
+	return animationCoordinates.size();
+}
+
 vector2 Mesh::GetPoint(size_t index) const
 {
     return points.at(index);
@@ -99,6 +109,17 @@ void Mesh::AddTextureCoordinate(vector2 texture_coordinate)
 void Mesh::AddAnimationCoordinate(vector2 animation_coordinate)
 {
     animationCoordinates.push_back(animation_coordinate);
+}
+
+void Mesh::ChangeColor(Color color)
+{
+	for(auto i = colors.begin(); i!=colors.end(); ++i)
+	{
+		i->Red = color.Red;
+		i->Green = color.Green;
+		i->Blue = color.Blue;
+		i->Alpha = color.Alpha;
+	}
 }
 
 
@@ -194,7 +215,26 @@ namespace mesh
         return mesh;
     }
 
-    Mesh CreateLineBox(float dimension, Color color)
+	Mesh CreateConvex(float dimension, Color color, size_t points_number)
+	{
+		Mesh mesh;
+
+		mesh.AddPoint({ 0, 0 });
+		mesh.AddTextureCoordinate({ 0.5f, 0.5f });
+
+		for (int i = 0; i <= (int)points_number; ++i)
+		{
+			float angle = i * (360.0f / points_number) * PI / 180.0f;
+			mesh.AddPoint({ dimension * cos(angle), dimension * sin(angle) });
+			mesh.AddTextureCoordinate({ cos(angle), sin(angle) });
+			mesh.AddColor(color);
+		}
+
+		mesh.SetPointListType(PointListType::TriangleFan);
+		return mesh;
+	}
+
+	Mesh CreateLineBox(float dimension, Color color)
     {
         Mesh mesh;
 

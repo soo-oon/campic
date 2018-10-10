@@ -19,7 +19,11 @@ bool Graphics::Initialize()
     glBlendEquation(GL_FUNC_ADD);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    bool shaderIsReady = shader.Compile(GLSL::vertex, GLSL::fragment);
+	bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);
+    bool shaderIsReady = Spriteshader.Compile(GLSL::vertex, GLSL::fragment);
+
+	if (!shapes_shaderIsReady)
+		return false;
 
     if (!shaderIsReady)
         return false;
@@ -28,6 +32,7 @@ bool Graphics::Initialize()
     glGenBuffers(NumberOfVertexTypes, vertexBuffer);
 
     DescribVertexPosition();
+	DescribSolidVertexPosition();
 
     return true;
 }
@@ -47,8 +52,8 @@ void Graphics::Draw(Objectmanager* objects)
         if (it->second->GetComponentByTemplate<Sprite>() != nullptr)
         {
             sprite.clear();
-            sprite.reserve(it->second->GetMesh().GetPointCount());
-            for (std::size_t i = 0; i < it->second->GetMesh().GetPointCount(); ++i)
+            sprite.reserve(it->second->GetMesh().GetTexturePointsCount());
+            for (std::size_t i = 0; i < it->second->GetMesh().GetTexturePointsCount(); ++i)
             {
                 sprite.push_back({
                     it->second->GetMesh().GetPoint(i),
@@ -62,8 +67,8 @@ void Graphics::Draw(Objectmanager* objects)
         else if (it->second->GetComponentByTemplate<Animation>() != nullptr)
         {
             animation.clear();
-            animation.reserve(it->second->GetMesh().GetPointCount());
-            for (std::size_t i = 0; i < it->second->GetMesh().GetPointCount(); ++i)
+            animation.reserve(it->second->GetMesh().GetAnimationPointsCount());
+            for (std::size_t i = 0; i < it->second->GetMesh().GetAnimationPointsCount(); ++i)
             {
                 animation.push_back({
                     it->second->GetMesh().GetPoint(i),
@@ -74,6 +79,17 @@ void Graphics::Draw(Objectmanager* objects)
                  it->second->GetMesh().GetColor(0),
                  it->second->GetComponentByTemplate<Animation>()->GetAnimationSprite());
         }
+		else
+		{
+			shapes.clear();
+			shapes.reserve(it->second->GetMesh().GetPointCount());
+			for (std::size_t i = 0; i<it->second->GetMesh().GetPointCount(); ++i)
+			{
+				vector2 temp = it->second->GetMesh().GetPoint(i);
+				shapes.push_back({ it->second->GetMesh().GetPoint(i) });
+			}
+			Draw(it->second->GetTransform(), shapes, it->second->GetMesh().GetPointListType(), it->second->GetMesh().GetColor(0));
+		}
     }
 }
 
@@ -88,7 +104,7 @@ void Graphics::Quit()
     glDeleteVertexArrays(NumberOfVertexTypes, vertexAttributes);
     glDeleteBuffers(NumberOfVertexTypes, vertexBuffer);
 
-    shader.Delete();
+	Spriteshader.Delete();
 }
 
 void Graphics::SetNDC()
@@ -104,6 +120,25 @@ void Graphics::SetNDC()
     glViewport(0, 0, static_cast<GLsizei>(displaysize.x), static_cast<GLsizei>(displaysize.y));
 }
 
+void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& vertexes, PointListType draw_type,
+	Color color)
+{
+	affine2d to_ndc = projection * transform.GetModelToWorld();
+
+	Solidshader.SendUniformVariable("transform", to_ndc);
+	Solidshader.SendUniformVariable("depth", transform.GetDepth());
+	Solidshader.SendUniformVariable("color", color);
+
+	glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(solidshape) * vertexes.size(), (const void*)(&vertexes[0]),
+		GL_DYNAMIC_DRAW);
+
+	glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)(vertexes.size()));
+}
+
 void Graphics::Draw(const Transform& transform, const std::vector<texture>& vertexes, PointListType draw_type,
                     const Color color, Sprite* sprite)
 {
@@ -116,10 +151,10 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
         lastBoundTexture = sprite->GetTextureHandler();
     }
 
-    shader.SendUniformVariable("transform", to_ndc);
-    shader.SendUniformVariable("depth", transform.GetDepth());
-    shader.SendUniformVariable("color", color);
-    shader.SendUniformVariable("texture_to_sample", texture_slot);
+	Spriteshader.SendUniformVariable("transform", to_ndc);
+	Spriteshader.SendUniformVariable("depth", transform.GetDepth());
+	Spriteshader.SendUniformVariable("color", color);
+	Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
     glBindVertexArray(vertexAttributes[(int)Type::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
@@ -141,10 +176,10 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
         lastBoundTexture = sprite->GetTextureHandler();
     }
 
-    shader.SendUniformVariable("transform", to_ndc);
-    shader.SendUniformVariable("depth", transform.GetDepth());
-    shader.SendUniformVariable("color", color);
-    shader.SendUniformVariable("texture_to_sample", texture_slot);
+	Spriteshader.SendUniformVariable("transform", to_ndc);
+	Spriteshader.SendUniformVariable("depth", transform.GetDepth());
+	Spriteshader.SendUniformVariable("color", color);
+	Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
     glBindVertexArray(vertexAttributes[(int)Type::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
@@ -154,13 +189,32 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
 
+void Graphics::DescribSolidVertexPosition()
+{
+	glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+
+	int position_attribute_location = Solidshader.GetVertexAttributeLocation("position");
+
+	constexpr int two_components_in_vertex_position = 2;
+	constexpr GLenum float_element_type = GL_FLOAT;
+	constexpr GLboolean not_fixedpoint = GL_FALSE;
+	const void* offset_in_struct = (const void*)offsetof(solidshape, position);
+
+	glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position, float_element_type,
+		not_fixedpoint, sizeof(solidshape), offset_in_struct);
+
+	glEnableVertexAttribArray(position_attribute_location);
+}
+
 void Graphics::DescribVertexPosition()
 {
     glBindVertexArray(vertexAttributes[(int)Type::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
 
-    int position_attribute_location = shader.GetVertexAttributeLocation("position");
-    int texture_coordinate_attribute_location = shader.GetVertexAttributeLocation("texture_coordinate");
+    int position_attribute_location = Spriteshader.GetVertexAttributeLocation("position");
+    int texture_coordinate_attribute_location = Spriteshader.GetVertexAttributeLocation("texture_coordinate");
 
     constexpr int two_components_in_vertex_position = 2;
     constexpr int two_components_in_texture_coordinate = 2;
