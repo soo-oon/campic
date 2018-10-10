@@ -3,6 +3,7 @@
 #include "Transform.hpp"
 #include "WorldPhysics.h"
 #include "Object.hpp"
+#include "vector2.hpp"
 
 class Physics : public Component
 {

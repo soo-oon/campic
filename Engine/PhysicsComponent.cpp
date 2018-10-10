@@ -35,7 +35,7 @@ bool Physics::Initialize(Object* Ob)
 {
     force_accumlator = {0, 0};
     velocity = {0, 0};
-    position = Ob->GetTransform().GetTranslation();
+	object = Ob;
     return true;
 }
 
@@ -47,8 +47,10 @@ void Physics::Update(float dt)
     // zero out accumulated force
     force_accumlator = {0, 0};
 
+
+
     // integrate position
-    position += velocity * dt;
+	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x), (object->GetTransform().GetTranslation().y + (velocity * dt).y) });
 }
 
 void Physics::Delete()

@@ -4,6 +4,7 @@
 #include "Engine.hpp"
 #include "Graphics.hpp"
 #include <memory>
+#include <string>
 
 namespace
 {
@@ -106,7 +107,6 @@ void Application::Update(float /*dt*/)
     Input::Triggerd_Reset();
     glfwSwapBuffers(window);
     PollEvent();
-
 }
 
 void Application::Key_Poll_Event()
@@ -143,28 +143,48 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::ShowDemoWindow(&show_demo_window);
-
-	ImGui::Begin("Example Level");
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
-	{
-		float translation_x = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().x;
-		float translation_y = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().y;
-		ImGui::SliderFloat((*it).first.c_str(), &translation_x, 0, 100);
-		ImGui::SliderFloat((*it).first.c_str(), &translation_y, 0, 100);
-
-		objectmanager->FindObject((*it).first)->GetTransform().SetTranslation({ translation_x ,translation_y });
-
-	}
+	//ImGui::ShowDemoWindow(&show_demo_window);
+	int w, h;
+	glfwGetWindowSize(window, &w, &h);
 	
 
-	std::cout << objectmanager->FindObject("test")->GetTransform().GetTranslation().x << ", " << objectmanager->FindObject("test")->GetTransform().GetTranslation().y << std::endl;
+	ImGui::Begin("Example Level");
+	const char* object_list[2] = {0};
+	
+	int i = 0;
+	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 
+		it != objectmanager->GetObjectMap().end(); ++it)
+	{
+		object_list[i] = (*it).first.c_str();
+		++i;
+	}
+
+	static const char* current_object = object_list[0];
+
+	if (ImGui::BeginCombo("ObjectList", current_object))
+	{
+		for (int i = 0; i < IM_ARRAYSIZE(object_list); i++)
+		{
+			bool is_selected = (current_object == object_list[i]); // You can store your selection however you want, outside or inside your objects
+			if (ImGui::Selectable(object_list[i], is_selected))
+			{
+				current_object = object_list[i];
+			}
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
+
+	objectmanager->FindObject(current_object)->GetTransform().Imgui();
+
 	ImGui::End();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 }
+
 
 void Application::FullScreen()
 {

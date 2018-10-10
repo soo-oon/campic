@@ -31,14 +31,16 @@ public:
     vector2 GetScale() const;
     void SetScale(const vector2& scale_value);
 
-    float GetRotation() const;
+    float* GetRotation();
     void SetRotation(float rotation_value);
 
     const Transform* GetParent() const;
     void SetParent(const Transform* const transform_parent);
+
+	void Imgui();
     affine2d GetTRS();
 private:
-    vector2 translation{};
+    vector2 translation;
     vector2 scale{1.0f, 1.0f};
     float rotation = 0.0f;
     float depth = 0.0f;

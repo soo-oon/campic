@@ -10,7 +10,7 @@
 bool example::Initialize()
 {
     objectmanager->AddObject("test");
-    objectmanager->AddObject("sex");
+    objectmanager->AddObject("hi");
 
     objectmanager->FindObject("test")->SetScale({ 200.0f, 150.0f });
     objectmanager->FindObject("test")->SetTranslation({ 0, 0 });
@@ -18,12 +18,12 @@ bool example::Initialize()
     objectmanager->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
     objectmanager->FindObject("test")->AddComponent(new Physics());
 
-    objectmanager->FindObject("sex")->SetScale({ 200.0f, 150.0f });
-    objectmanager->FindObject("sex")->SetTranslation({ -100, 100 });
-    objectmanager->FindObject("sex")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    objectmanager->FindObject("sex")->AddComponent(new Sprite());
-    objectmanager->FindObject("sex")->AddComponent(new Physics());
-    objectmanager->FindObject("sex")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+    objectmanager->FindObject("hi")->SetScale({ 200.0f, 150.0f });
+    objectmanager->FindObject("hi")->SetTranslation({ -100, 100 });
+    objectmanager->FindObject("hi")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    objectmanager->FindObject("hi")->AddComponent(new Sprite());
+    objectmanager->FindObject("hi")->AddComponent(new Physics());
+    objectmanager->FindObject("hi")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
 
     return true;
 }
@@ -32,19 +32,17 @@ void example::Update(float dt)
 {
     world_physics->Movement_by_key(*objectmanager->FindObject("test"));
     objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-    objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
     objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
-     objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->Update(dt);
-     objectmanager->FindObject("sex")->SetTranslation(objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->GetPosition());
+    objectmanager->FindObject("hi")->GetComponentByTemplate<Physics>()->Update(dt);
 
     opponent.clear();
-    for (size_t i = 0 ; i < player->GetMesh().GetPointCount(); i++)
-        opponent.emplace_back(player->GetTransform().GetTRS()*static_cast<vector2>(player->GetMesh().GetPoint(i)));
+    for (size_t i = 0 ; i < objectmanager->FindObject("test")->GetMesh().GetPointCount(); i++)
+        opponent.emplace_back(objectmanager->FindObject("test")->GetTransform().GetTRS()*static_cast<vector2>(objectmanager->FindObject("test")->GetMesh().GetPoint(i)));
     mesh_p.clear();
-    for (size_t i = 0; i < check->GetMesh().GetPointCount(); i++)
+    for (size_t i = 0; i < objectmanager->FindObject("hi")->GetMesh().GetPointCount(); i++)
     {
-        mesh_p.emplace_back( check->GetTransform().GetTRS()*static_cast<vector2>(check->GetMesh().GetPoint(i)));
+        mesh_p.emplace_back(objectmanager->FindObject("hi")->GetTransform().GetTRS()*static_cast<vector2>(objectmanager->FindObject("hi")->GetMesh().GetPoint(i)));
         
     }
 }
