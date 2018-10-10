@@ -20,9 +20,9 @@ void StateManager::AddStage(State* state)
     }
 }
 
-void StateManager::SetStartStage(State* state)
+void StateManager::SetPreviousStage(State* state)
 {
-    m_pFirst = state;
+	m_pPrevious = state;
 }
 
 void StateManager::SetCurrentStage(State* state)
@@ -37,6 +37,8 @@ void StateManager::SetPauseStage(State* state)
 
 void StateManager::ChangeStage(unsigned stageID)
 {
+	//m_pNext
+	//m_pPrevious
     m_currentStage = states[stageID];
 }
 
@@ -61,7 +63,7 @@ void StateManager::Update(float dt)
 void StateManager::Quit()
 {
     delete m_pNext;
-    delete m_pFirst;
+    delete m_pPrevious;
     delete m_pPaused;
     delete m_pRestart;
     delete m_currentStage;

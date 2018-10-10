@@ -7,13 +7,10 @@
 class example : public State
 {
 public:
-    example()
-    {
-        objectmanager = new Objectmanager();
-    }
     bool Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
+
 private:
     std::vector<vector2> opponent;
     std::vector<vector2> mesh_p; 

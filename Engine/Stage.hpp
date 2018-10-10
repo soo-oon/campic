@@ -11,6 +11,11 @@ enum StageList
 class State
 {
 public:
+	State()
+	{
+		objectmanager = new Objectmanager();
+		world_physics = new WorldPhysics();
+	}
     virtual ~State()
     {
     };
@@ -18,8 +23,13 @@ public:
     virtual bool Initialize() = 0;
     virtual void Update(float dt) = 0;
     virtual void ShutDown() = 0;
-    Objectmanager* objectmanager;
-    WorldPhysics* world_physics;
+	virtual Objectmanager* GetObjectManager() { return objectmanager; }
+	virtual WorldPhysics* GetWorldPhyics() { return world_physics; }
+
+
+private:
+	Objectmanager * objectmanager;
+	WorldPhysics* world_physics;
 
     //virtual void Unload() = 0;
 };

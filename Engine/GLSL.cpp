@@ -2,6 +2,35 @@
 
 namespace GLSL
 {
+	const std::string shapes_vertex =
+		R"(
+	#version 330
+
+	layout(location = 0) in vec2 position;
+
+	uniform mat3 transform;
+	uniform float depth;
+
+	void main()
+	{
+	    vec3 position = transform * vec3(position, 1.0f);
+	    gl_Position = vec4(position.xy, depth, 1.0);
+	}
+	)";
+
+	const std::string shapes_fragment =
+		R"(
+	#version 330
+
+	uniform vec4 color;
+	out vec4 output_color;
+
+	void main()
+	{
+	    output_color = color;
+	}
+	)";
+
     const std::string vertex =
         R"(
 	#version 330

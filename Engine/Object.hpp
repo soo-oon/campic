@@ -13,8 +13,8 @@ public:
     void SetMesh(Mesh mesh_);
     void SetTranslation(const vector2& position);
     void SetScale(const vector2& scale);
-    void SetRotation(float& rotation);
-    void SetDepth(float& depth);
+    void SetRotation(const float& rotation);
+    void SetDepth(const float& depth);
 
     Mesh& GetMesh();
     Transform& GetTransform();

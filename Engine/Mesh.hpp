@@ -34,6 +34,8 @@ public:
     ~Mesh();
 
     size_t GetPointCount() const;
+	size_t GetTexturePointsCount() const;
+	size_t GetAnimationPointsCount() const;
     vector2 GetPoint(size_t index) const;
     Color GetColor(size_t index) const;
     vector2 GetTextureCoordinate(size_t index) const;
@@ -47,6 +49,8 @@ public:
     void AddTextureCoordinate(vector2 texture_coordinate);
     void AddAnimationCoordinate(vector2 animation_coordinate);
 
+	void ChangeColor(Color color);
+
     void ClearColors();
     void ClearTextureCoordinates();
     void ClearPoints();
@@ -56,9 +60,9 @@ public:
 private:
     int Animation_frame;
     std::vector<vector2> points{};
-    std::vector<Color> colors{};
     std::vector<vector2> textureCoordinates{};
     std::vector<vector2> animationCoordinates{};
+    std::vector<Color> colors{};
     PointListType point_type = PointListType::Lines;
 };
 
@@ -67,6 +71,7 @@ namespace mesh
     Mesh CreateCircle(float radius = 1, Color color = {255, 255, 255}, size_t points_number = 30);
     Mesh CreateLineCircle(float radius = 1, Color color = {255, 255, 255}, size_t points_number = 30);
     Mesh CreateBox(float dimension = 1, Color color = {255, 255, 255});
+	Mesh CreateConvex(float dimension = 1, Color color = { 255,255,255 }, size_t points_number = 5);
     Mesh CreateLineBox(float dimension = 1, Color color = {255, 255, 255});
     Mesh CrateLine(vector2 point_a = {0, 0}, vector2 point_b = {1, 0}, Color color = {255, 255, 255});
 }

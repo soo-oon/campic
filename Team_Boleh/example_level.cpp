@@ -9,44 +9,59 @@
 
 bool example::Initialize()
 {
-    objectmanager->AddObject("test");
-    objectmanager->AddObject("sex");
+    GetObjectManager()->AddObject("test");
+	GetObjectManager()->AddObject("test2");
+	GetObjectManager()->AddObject("circle");
 
-    objectmanager->FindObject("test")->SetScale({ 200.0f, 150.0f });
-    objectmanager->FindObject("test")->SetTranslation({ 0, 0 });
-    objectmanager->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-    objectmanager->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
-    objectmanager->FindObject("test")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("test")->SetScale({ -150.0f, 150.0f });
+	GetObjectManager()->FindObject("test")->SetTranslation({ 0, 0 });
+	GetObjectManager()->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
+	GetObjectManager()->FindObject("test")->AddComponent(new Physics());
 
-    objectmanager->FindObject("sex")->SetScale({ 200.0f, 150.0f });
-    objectmanager->FindObject("sex")->SetTranslation({ -100, 100 });
-    objectmanager->FindObject("sex")->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    objectmanager->FindObject("sex")->AddComponent(new Sprite());
-    objectmanager->FindObject("sex")->AddComponent(new Physics());
-    objectmanager->FindObject("sex")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/strange_for_A.png");
+	GetObjectManager()->FindObject("test2")->SetScale({ 150.0f, 150.0f });
+	GetObjectManager()->FindObject("test2")->SetTranslation({ -100, 100 });
+	GetObjectManager()->FindObject("test2")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
+	GetObjectManager()->FindObject("test2")->AddComponent(new Physics());
+
+	GetObjectManager()->FindObject("circle")->SetScale({ 150, 150 });
+	GetObjectManager()->FindObject("circle")->SetTranslation({ 0, -200 });
+	GetObjectManager()->FindObject("circle")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.05, "asset/example2.png"));
 
     return true;
 }
 
 void example::Update(float dt)
 {
-    world_physics->Movement_by_key(*objectmanager->FindObject("test"));
-    objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-    objectmanager->FindObject("test")->SetTranslation(objectmanager->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
-    objectmanager->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
+    GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test"));
+	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
+	GetObjectManager()->FindObject("test")->SetTranslation(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetPosition());
+	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
-     objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->Update(dt);
-     objectmanager->FindObject("sex")->SetTranslation(objectmanager->FindObject("sex")->GetComponentByTemplate<Physics>()->GetPosition());
+	GetObjectManager()->FindObject("test2")->GetComponentByTemplate<Physics>()->Update(dt);
+	GetObjectManager()->FindObject("test2")->SetTranslation(GetObjectManager()->FindObject("test2")->GetComponentByTemplate<Physics>()->GetPosition());
 
     opponent.clear();
-    for (size_t i = 0 ; i < player->GetMesh().GetPointCount(); i++)
-        opponent.emplace_back(player->GetTransform().GetTRS()*static_cast<vector2>(player->GetMesh().GetPoint(i)));
+    for (size_t i = 0 ; i <  GetObjectManager()->FindObject("test")->GetMesh().GetPointCount(); i++)
+    opponent.emplace_back(GetObjectManager()->FindObject("test")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("test")->GetMesh().GetPoint(i)));
     mesh_p.clear();
-    for (size_t i = 0; i < check->GetMesh().GetPointCount(); i++)
+    for (size_t i = 0; i <  GetObjectManager()->FindObject("test2")->GetMesh().GetPointCount(); i++)
     {
-        mesh_p.emplace_back( check->GetTransform().GetTRS()*static_cast<vector2>(check->GetMesh().GetPoint(i)));
+        mesh_p.emplace_back(GetObjectManager()->FindObject("test2")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("test2")->GetMesh().GetPoint(i)));
         
     }
+
+	if(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(mesh_p, opponent))
+	{
+		GetObjectManager()->FindObject("test2")->GetMesh().ChangeColor({255,0,0,255});
+	}
+	else
+	{
+		GetObjectManager()->FindObject("test2")->GetMesh().ChangeColor({ 255,255,255,255 });
+	}
+
+	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
 }
 
 void example::ShutDown()

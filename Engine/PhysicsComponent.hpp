@@ -6,10 +6,9 @@
 
 class Physics : public Component
 {
-    //void collision();
-    //void movement();
-    //void gravity();
 public:
+	Physics() {}
+
     void CollisionOn();
     void SetMass(float mass);
     void SetVelocity(vector2 velocity);

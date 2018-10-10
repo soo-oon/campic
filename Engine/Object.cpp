@@ -31,12 +31,12 @@ void Object::SetScale(const vector2& scale)
     transform.SetScale(scale);
 }
 
-void Object::SetRotation(float& rotation)
+void Object::SetRotation(const float& rotation)
 {
     transform.SetRotation(rotation);
 }
 
-void Object::SetDepth(float& depth)
+void Object::SetDepth(const float& depth)
 {
     transform.SetDepth(depth);
 }

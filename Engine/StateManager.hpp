@@ -11,7 +11,7 @@ public:
     ~StateManager() = default;
 
     void AddStage(State* state);
-    void SetStartStage(State* state);
+    void SetPreviousStage(State* state);
     void SetCurrentStage(State* state);
     void SetPauseStage(State* state);
     void ChangeStage(unsigned stageID);
@@ -23,7 +23,7 @@ public:
     void Update(float dt) override;
     void Quit() override;
 private:
-    State *m_pNext = nullptr, *m_pFirst = nullptr,
+    State *m_pNext = nullptr, *m_pPrevious = nullptr,
           *m_pPaused = nullptr, *m_pRestart = nullptr,
           *m_currentStage = nullptr;
 
