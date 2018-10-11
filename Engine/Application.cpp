@@ -160,7 +160,8 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	//ImGui::ShowDemoWindow(&show_demo_window);
 	int w, h;
 	glfwGetWindowSize(window, &w, &h);
-	
+
+        ImGui::ShowMetricsWindow(&show_demo_window);
 
 	ImGui::Begin("Example Level");
 	const char* object_list[4] = {0};
