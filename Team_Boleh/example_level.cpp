@@ -8,16 +8,16 @@
 #include "Collision.hpp"
 #include "vector2.hpp"
 
-void example::blackhole(Object* Ob)
+void example::blackhole(Object* Ob, Object* Ob1)
 {
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = GetObjectManager()->GetObjectMap().begin(); it != GetObjectManager()->GetObjectMap().end(); ++it)
 	{
 		vector2 black = 0;
 		float* rotation = it->second.get()->GetTransform().GetRotation();
-		if (it->second.get() != Ob)
+		if (it->second.get() != Ob && it->second.get() != Ob1)
 		{
 			black = vector2(it->second.get()->GetTransform().GetTranslation().x - Ob->GetTransform().GetTranslation().x, it->second.get()->GetTransform().GetTranslation().y - Ob->GetTransform().GetTranslation().y);
-			black /= 5000;
+			black /= 4000;
 			for (int i = 0; i < 10; i++)
 			{
 				it->second.get()->GetTransform().SetTranslation(it->second.get()->GetTransform().GetTranslation() - black );
@@ -149,7 +149,13 @@ void example::Update(float dt)
 		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({ 255,255,255,255 });
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);	
 	}
-    
+
+        if (Input::IsKeyTriggered(GLFW_KEY_O))
+            gravity_up *= 1.5;
+        if (Input::IsKeyTriggered(GLFW_KEY_P))
+            gravity_up /= 1.5;
+
+            GetWorldPhyics()->Gravity_on(GetObjectManager(), gravity_up);
 	if (Input::IsKeyTriggered(GLFW_KEY_0))
 		check = !check;
 
@@ -162,7 +168,7 @@ void example::Update(float dt)
 	GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->Update(dt);
 	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
 	{
-		blackhole(GetObjectManager()->FindObject("player").get());
+		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("BackGround").get());
 	}
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 

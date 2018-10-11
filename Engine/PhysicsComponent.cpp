@@ -63,7 +63,7 @@ void Physics::Update(float dt)
 	    velocity = 0;
 	
     // integrate position
-	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x), (object->GetTransform().GetTranslation().y + (velocity * dt).y) });
+	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (gravity*velocity * dt).x), (object->GetTransform().GetTranslation().y + (gravity*velocity * dt).y) });
 }
 
 void Physics::Delete()

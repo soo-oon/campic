@@ -7,13 +7,14 @@
 class example : public State
 {
 public:
-	void blackhole(Object* Ob);
+	void blackhole(Object* Ob, Object* Ob1);
     void move_convex_object(float dt, Object* Ob);
     bool Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
 
 private:
+    float gravity_up = 1;
 	bool check = false;
 	float pm = 1;
 	float limit_time = 0;
