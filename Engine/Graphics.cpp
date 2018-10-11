@@ -46,8 +46,7 @@ void Graphics::Update(float dt)
 
 void Graphics::Draw(Objectmanager* objects)
 {
-    for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin(); it != objects
-                                                                                              ->GetObjectMap().end(); ++it)
+    for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin(); it != objects->GetObjectMap().end(); ++it)
     {
         if (it->second->GetComponentByTemplate<Sprite>() != nullptr)
         {

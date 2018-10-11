@@ -1,204 +1,192 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="WorldPhysics.cpp" />
-    <ClCompile Include="Input.cpp">
-      <Filter>Application\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL.cpp">
-      <Filter>Graphics\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Graphics\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Component\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Component\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="StateManager.cpp">
-      <Filter>StateManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Objectmanager.cpp">
-      <Filter>ObjectManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_opengl3.cpp">
+    <ClCompile Include="imgui_draw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_glfw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSL.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Objectmanager.cpp">
+      <Filter>ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>StateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldPhysics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collision.hpp" />
-    <ClInclude Include="WorldPhysics.h" />
-    <ClInclude Include="Input.hpp">
-      <Filter>Application\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.hpp">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GLSL.hpp">
-      <Filter>Graphics\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.hpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.hpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.hpp">
-      <Filter>Graphics\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsComponent.hpp">
-      <Filter>Component\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="StateManager.hpp">
-      <Filter>StateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.hpp">
-      <Filter>StateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Objectmanager.hpp">
-      <Filter>ObjectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="System.hpp">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.hpp">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.hpp">
-      <Filter>Component\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.hpp">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.hpp">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.hpp">
-      <Filter>Component\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_opengl3.h">
+    <ClInclude Include="imgui.h">
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_glfw.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSL.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Objectmanager.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.hpp">
+      <Filter>StateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.hpp">
+      <Filter>StateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Component">
-      <UniqueIdentifier>{4d58facb-d013-4715-8483-722ccca4e4e7}</UniqueIdentifier>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{3421eadb-add7-4246-b2d6-e11c90ae2319}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Sprite">
-      <UniqueIdentifier>{88bfc695-ffa8-489c-85f1-c876ac40beec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Animation">
-      <UniqueIdentifier>{5724dfd2-53e4-46da-aef2-e01d3ae184a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Physics">
-      <UniqueIdentifier>{dffbcfd5-e500-4e79-b5fd-c3fea004750a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StateManager">
-      <UniqueIdentifier>{4cb8c4d1-51f5-481e-a91c-d5b43a87904f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectManager">
-      <UniqueIdentifier>{080ad831-e6b5-487f-bd59-79fe80d23675}</UniqueIdentifier>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{15199755-ad60-48db-b8e0-557a7929e609}</UniqueIdentifier>
     </Filter>
     <Filter Include="System">
-      <UniqueIdentifier>{efe19503-76dc-4f9b-8bb1-30b1d253dea1}</UniqueIdentifier>
+      <UniqueIdentifier>{c1754d4f-63a6-400b-9752-7a0e9675b6a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application">
-      <UniqueIdentifier>{a50e6c4f-81f9-48ad-8c5b-848c079a016f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Input">
-      <UniqueIdentifier>{cb0e0327-4ee4-444a-b6b2-06a5a4399590}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{b98ba4c3-381e-44b7-9a64-bd2add14ab51}</UniqueIdentifier>
+    <Filter Include="Component">
+      <UniqueIdentifier>{268ef2b6-66cb-4410-a143-5b91c2db7921}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
-      <UniqueIdentifier>{491c207a-c93b-4ad5-bb62-f45cf098347d}</UniqueIdentifier>
+      <UniqueIdentifier>{319c6c9e-b411-4711-a41d-b5b87309a029}</UniqueIdentifier>
     </Filter>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{e2dd686a-e16d-433b-b479-d0e08699b833}</UniqueIdentifier>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{af5d8fcb-0a7e-4699-834a-36ddf2a2b9c8}</UniqueIdentifier>
+    <Filter Include="Application">
+      <UniqueIdentifier>{ff92ac18-5be1-43fc-b5e6-9d0eb43dd36b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\GLSL">
-      <UniqueIdentifier>{03d967c4-3a68-4ec8-9596-f637c4d57bcd}</UniqueIdentifier>
+    <Filter Include="ObjectManager">
+      <UniqueIdentifier>{7d86d558-2267-45dc-be75-da041aaa9007}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Vertex">
-      <UniqueIdentifier>{88462db0-3483-4190-a187-abde71eda2b4}</UniqueIdentifier>
+    <Filter Include="StateManager">
+      <UniqueIdentifier>{b573ab3f-518d-428c-978f-300723728c6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Shader">
-      <UniqueIdentifier>{0bfb2b13-be15-4c31-b286-bf2e2f5752c0}</UniqueIdentifier>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{795ed953-a9be-496b-9367-5d2253ecc438}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

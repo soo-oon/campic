@@ -149,33 +149,25 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	
 
 	ImGui::Begin("Example Level");
-	const char* object_list[2] = {0};
+	const char* object_list[3] = {0};
 	
 	int i = 0;
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 
 		it != objectmanager->GetObjectMap().end(); ++it)
 	{
-		int w, h;
-		glfwGetWindowSize(window, &w, &h);
-
-		float translation_x = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().x;
-		float translation_y = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().y;
-		ImGui::SliderFloat((*it).first.c_str(), &translation_x, -w/2, w/2);
-		ImGui::SliderFloat((*it).first.c_str(), &translation_y, -h/2, h/2);
 		object_list[i] = (*it).first.c_str();
 		++i;
 	}
-
 	static const char* current_object = object_list[0];
 
 	if (ImGui::BeginCombo("ObjectList", current_object))
 	{
-		for (int i = 0; i < IM_ARRAYSIZE(object_list); i++)
+		for (int j = 0; j < IM_ARRAYSIZE(object_list); j++)
 		{
-			bool is_selected = (current_object == object_list[i]); // You can store your selection however you want, outside or inside your objects
-			if (ImGui::Selectable(object_list[i], is_selected))
+			bool is_selected = (current_object == object_list[j]); // You can store your selection however you want, outside or inside your objects
+			if (ImGui::Selectable(object_list[j], is_selected))
 			{
-				current_object = object_list[i];
+				current_object = object_list[j];
 			}
 			if (is_selected)
 				ImGui::SetItemDefaultFocus();

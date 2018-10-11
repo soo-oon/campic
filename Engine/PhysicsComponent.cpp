@@ -57,8 +57,6 @@ void Physics::Update(float dt)
     if (magnitude(velocity) < 0.001f)
 	    velocity = 0;
 	
-    position += gravity * velocity * dt;
-	
     // integrate position
 	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x), (object->GetTransform().GetTranslation().y + (velocity * dt).y) });
 }
