@@ -6,6 +6,27 @@
 #include "WorldPhysics.h"
 #include "Animation.hpp"
 #include "Collision.hpp"
+#include "vector2.hpp"
+
+void example::blackhole(Object* Ob)
+{
+	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = GetObjectManager()->GetObjectMap().begin(); it != GetObjectManager()->GetObjectMap().end(); ++it)
+	{
+		vector2 black = 0;
+		float* rotation = it->second.get()->GetTransform().GetRotation();
+		if (it->second.get() != Ob)
+		{
+			black = vector2(it->second.get()->GetTransform().GetTranslation().x - Ob->GetTransform().GetTranslation().x, it->second.get()->GetTransform().GetTranslation().y - Ob->GetTransform().GetTranslation().y);
+			black /= 5000;
+			for (int i = 0; i < 10; i++)
+			{
+				it->second.get()->GetTransform().SetTranslation(it->second.get()->GetTransform().GetTranslation() - black );
+			}
+			*rotation += 10;
+			it->second.get()->SetRotation(*rotation);
+		}
+	}
+}
 
 void example::move_enemy(float dt, Object* Ob)
 {
@@ -83,21 +104,52 @@ void example::Update(float dt)
 	}
 	
 	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test"));
-	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(mesh_p, opponent))
+	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(static_opponent, opponent))
 	{
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-200 *normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
-		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-20 * normalize(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		//GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-100 *normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
+		if(!Input::IsKeyAnyPressed())
+		{
+			GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+			//GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-2000 * normalize(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		}
+		else
+		{
+			if (abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().x) > abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().y))
+			{
+				if (dot(direction, GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0) {
+					GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+				}
+			}
+			else if (abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().x) < abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().y))
+			{
+				if (dot(direction, GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0 ){
+					GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+				}
+			}
+			//GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-20 ));
+			GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
+		}
 		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-		GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({255,255,0,255});
-		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		//GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Physics>()->Update(dt);
+		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({255,255,0,255});
 	}
-	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(opponent, static_opponent))
+	else if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(opponent, mesh_p))
 	{
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-200 * normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
-		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,0,255 });
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity())));
+		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity())));
+		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,0,0,255 });
 		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
 	}
+	else {
+		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
+		direction = normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity());
+		GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({ 255,0,0,255 });
+		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,255,255 });
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);	
+	}
+    
 	if (Input::IsKeyTriggered(GLFW_KEY_0))
 		check = !check;
 
@@ -105,14 +157,14 @@ void example::Update(float dt)
 		GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("test").get());
 	else
 		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
-	
-	GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({ 255,0,0,255 });
-	GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,255,255 });
-	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
-	
+
 	move_enemy(dt, GetObjectManager()->FindObject("enemy").get());
 	GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
+	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
+	{
+		blackhole(GetObjectManager()->FindObject("test").get());
+	}
+	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 
 	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
 	
