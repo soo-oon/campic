@@ -4,6 +4,7 @@
 #include "Engine.hpp"
 #include "Graphics.hpp"
 #include <memory>
+#include <string>
 
 namespace
 {
@@ -106,7 +107,6 @@ void Application::Update(float /*dt*/)
     Input::Triggerd_Reset();
     glfwSwapBuffers(window);
     PollEvent();
-
 }
 
 void Application::Key_Poll_Event()
@@ -143,10 +143,17 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::ShowDemoWindow(&show_demo_window);
+	//ImGui::ShowDemoWindow(&show_demo_window);
+	int w, h;
+	glfwGetWindowSize(window, &w, &h);
+	
 
 	ImGui::Begin("Example Level");
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
+	const char* object_list[2] = {0};
+	
+	int i = 0;
+	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 
+		it != objectmanager->GetObjectMap().end(); ++it)
 	{
 		int w, h;
 		glfwGetWindowSize(window, &w, &h);
@@ -155,17 +162,36 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 		float translation_y = objectmanager->FindObject((*it).first)->GetTransform().GetTranslation().y;
 		ImGui::SliderFloat((*it).first.c_str(), &translation_x, -w/2, w/2);
 		ImGui::SliderFloat((*it).first.c_str(), &translation_y, -h/2, h/2);
-
-		objectmanager->FindObject((*it).first)->GetTransform().SetTranslation({ translation_x ,translation_y });
-
+		object_list[i] = (*it).first.c_str();
+		++i;
 	}
-	
+
+	static const char* current_object = object_list[0];
+
+	if (ImGui::BeginCombo("ObjectList", current_object))
+	{
+		for (int i = 0; i < IM_ARRAYSIZE(object_list); i++)
+		{
+			bool is_selected = (current_object == object_list[i]); // You can store your selection however you want, outside or inside your objects
+			if (ImGui::Selectable(object_list[i], is_selected))
+			{
+				current_object = object_list[i];
+			}
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
+
+	objectmanager->FindObject(current_object)->GetTransform().Imgui();
+
 	ImGui::End();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 }
+
 
 void Application::FullScreen()
 {

@@ -37,7 +37,7 @@ bool Physics::Initialize(Object* Ob)
 	object = Ob;
     force_accumlator = {0, 0};
     velocity = {0, 0};
-    position = Ob->GetTransform().GetTranslation();
+	object = Ob;
     return true;
 }
 
@@ -56,7 +56,11 @@ void Physics::Update(float dt)
     // integrate position
     if (magnitude(velocity) < 0.001f)
 	    velocity = 0;
+	
     position += gravity * velocity * dt;
+	
+    // integrate position
+	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x), (object->GetTransform().GetTranslation().y + (velocity * dt).y) });
 }
 
 void Physics::Delete()

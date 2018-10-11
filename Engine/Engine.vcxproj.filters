@@ -153,18 +153,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{af5d8fcb-0a7e-4699-834a-36ddf2a2b9c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\GLSL">
-      <UniqueIdentifier>{03d967c4-3a68-4ec8-9596-f637c4d57bcd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Vertex">
-      <UniqueIdentifier>{88462db0-3483-4190-a187-abde71eda2b4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Shader">
-      <UniqueIdentifier>{0bfb2b13-be15-4c31-b286-bf2e2f5752c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{4d58facb-d013-4715-8483-722ccca4e4e7}</UniqueIdentifier>
     </Filter>
@@ -200,6 +188,17 @@
     </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{e2dd686a-e16d-433b-b479-d0e08699b833}</UniqueIdentifier>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{af5d8fcb-0a7e-4699-834a-36ddf2a2b9c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GLSL">
+      <UniqueIdentifier>{03d967c4-3a68-4ec8-9596-f637c4d57bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Vertex">
+      <UniqueIdentifier>{88462db0-3483-4190-a187-abde71eda2b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shader">
+      <UniqueIdentifier>{0bfb2b13-be15-4c31-b286-bf2e2f5752c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
