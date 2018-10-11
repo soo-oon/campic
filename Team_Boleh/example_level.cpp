@@ -28,7 +28,7 @@ void example::blackhole(Object* Ob)
 	}
 }
 
-void example::move_enemy(float dt, Object* Ob)
+void example::move_convex_object(float dt, Object* Ob)
 {
 	float velo = 100;
 	limit_time += dt;
@@ -38,33 +38,33 @@ void example::move_enemy(float dt, Object* Ob)
 		velo *= pm;
 		Ob->GetComponentByTemplate<Physics>()->SetVelocity(vector2(velo, 0));
 		limit_time = 0;
-		//std::cout << GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
+		//std::cout << GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
 	}
 }
 
 bool example::Initialize()
 {
-    GetObjectManager()->AddObject("test");
-	GetObjectManager()->AddObject("enemy");
-	GetObjectManager()->AddObject("circle");
+    GetObjectManager()->AddObject("player");
+	GetObjectManager()->AddObject("convex_object");
+	GetObjectManager()->AddObject("sonic_animation");
 	GetObjectManager()->AddObject("BackGround");
 
-	GetObjectManager()->FindObject("test")->SetScale({ 100.0f, 100.0f });
-	GetObjectManager()->FindObject("test")->SetTranslation({ 0, 0 });
-	GetObjectManager()->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test")->AddComponent(new Animation(10, 0.25, "asset/action.png", "dr_strange"));
-	GetObjectManager()->FindObject("test")->AddComponent(new Physics());
-	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "magic_strange");
+	GetObjectManager()->FindObject("player")->SetScale({ 100.0f, 100.0f });
+	GetObjectManager()->FindObject("player")->SetTranslation({ 0, 0 });
+	GetObjectManager()->FindObject("player")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("player")->AddComponent(new Animation(10, 0.25, "asset/action.png", "dr_strange"));
+	GetObjectManager()->FindObject("player")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "magic_strange");
 
-	GetObjectManager()->FindObject("enemy")->SetScale({ 150.0f, 150.0f });
-	GetObjectManager()->FindObject("enemy")->SetTranslation({ -300, 300 });
-	GetObjectManager()->FindObject("enemy")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
-	GetObjectManager()->FindObject("enemy")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("convex_object")->SetScale({ 150.0f, 150.0f });
+	GetObjectManager()->FindObject("convex_object")->SetTranslation({ -300, 300 });
+	GetObjectManager()->FindObject("convex_object")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
+	GetObjectManager()->FindObject("convex_object")->AddComponent(new Physics());
 
-	GetObjectManager()->FindObject("circle")->SetScale({ 150, 150 });
-	GetObjectManager()->FindObject("circle")->SetTranslation({ 0, -200 });
-	GetObjectManager()->FindObject("circle")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.25, "asset/example2.png", "sonic"));
+	GetObjectManager()->FindObject("sonic_animation")->SetScale({ 150, 150 });
+	GetObjectManager()->FindObject("sonic_animation")->SetTranslation({ 0, -200 });
+	GetObjectManager()->FindObject("sonic_animation")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation(10, 0.25, "asset/example2.png", "sonic"));
 
 	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
 	GetObjectManager()->FindObject("BackGround")->SetTranslation({0,0});
@@ -82,91 +82,91 @@ void example::Update(float dt)
 	//Should Fixed this
 	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
 
-	if(dot(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity(), vector2(0, 1)) > 0)
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->ChangeAnimation("magic_strange");
+	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity(), vector2(0, 1)) > 0)
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("magic_strange");
 	else
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->ChangeAnimation("dr_strange");
-	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
-	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("dr_strange");
+	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
 
 	opponent.clear();
-	for (size_t i = 0; i < GetObjectManager()->FindObject("test")->GetMesh().GetPointCount(); i++)
-		opponent.emplace_back(GetObjectManager()->FindObject("test")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("test")->GetMesh().GetPoint(i)));
+	for (size_t i = 0; i < GetObjectManager()->FindObject("player")->GetMesh().GetPointCount(); i++)
+		opponent.emplace_back(GetObjectManager()->FindObject("player")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("player")->GetMesh().GetPoint(i)));
 	mesh_p.clear();
-	for (size_t i = 0; i < GetObjectManager()->FindObject("enemy")->GetMesh().GetPointCount(); i++)
+	for (size_t i = 0; i < GetObjectManager()->FindObject("convex_object")->GetMesh().GetPointCount(); i++)
 	{
-		mesh_p.emplace_back(GetObjectManager()->FindObject("enemy")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("enemy")->GetMesh().GetPoint(i)));
+		mesh_p.emplace_back(GetObjectManager()->FindObject("convex_object")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("convex_object")->GetMesh().GetPoint(i)));
 	}	
 	static_opponent.clear();
-	for (size_t i = 0; i < GetObjectManager()->FindObject("circle")->GetMesh().GetPointCount(); i++)
+	for (size_t i = 0; i < GetObjectManager()->FindObject("sonic_animation")->GetMesh().GetPointCount(); i++)
 	{
-		static_opponent.emplace_back(GetObjectManager()->FindObject("circle")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("circle")->GetMesh().GetPoint(i)));
+		static_opponent.emplace_back(GetObjectManager()->FindObject("sonic_animation")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("sonic_animation")->GetMesh().GetPoint(i)));
 	}
 	
-	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test"));
-	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(static_opponent, opponent))
+	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player"));
+	if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->intersection_check(static_opponent, opponent))
 	{
-		//GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-100 *normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
-		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
+		//GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(-100 *normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
 		if(!Input::IsKeyAnyPressed())
 		{
-			GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(0);
-			//GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-2000 * normalize(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
+			GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+			//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-2000 * normalize(GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity()));
 		}
 		else
 		{
-			if (abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().x) > abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().y))
+			if (abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().x) > abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().y))
 			{
-				if (dot(direction, GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0) {
-					GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+				if (dot(direction, GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0) {
+					GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(0);
 				}
 			}
-			else if (abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().x) < abs(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity().y))
+			else if (abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().x) < abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().y))
 			{
-				if (dot(direction, GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0 ){
-					GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+				if (dot(direction, GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0 ){
+					GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(0);
 				}
 			}
-			//GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-20 ));
-			GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
+			//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-20 ));
+			GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);
 		}
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-		//GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Physics>()->Update(dt);
-		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({255,255,0,255});
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);
+		//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->Update(dt);
+		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({255,255,0,255});
 	}
-	else if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(opponent, mesh_p))
+	else if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->intersection_check(opponent, mesh_p))
 	{
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity())));
-		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity())));
-		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,0,0,255 });
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
-		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity())));
+		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity())));
+		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({ 255,0,0,255 });
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);
+		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->Update(dt);
 	}
 	else {
-		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
-		direction = normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity());
-		GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({ 255,0,0,255 });
-		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,255,255 });
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);	
+		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
+		direction = normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity());
+		GetObjectManager()->FindObject("convex_object")->GetMesh().ChangeColor({ 255,0,0,255 });
+		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({ 255,255,255,255 });
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);	
 	}
     
 	if (Input::IsKeyTriggered(GLFW_KEY_0))
 		check = !check;
 
 	if(check)
-		GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("test").get());
+		GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player").get());
 	else
-		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
+		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
 
-	move_enemy(dt, GetObjectManager()->FindObject("enemy").get());
-	GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->Update(dt);
+	move_convex_object(dt, GetObjectManager()->FindObject("convex_object").get());
+	GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->Update(dt);
 	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
 	{
-		blackhole(GetObjectManager()->FindObject("test").get());
+		blackhole(GetObjectManager()->FindObject("player").get());
 	}
-	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 
-	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
 	
 }
 

@@ -8,7 +8,7 @@ class example : public State
 {
 public:
 	void blackhole(Object* Ob);
-    void move_enemy(float dt, Object* Ob);
+    void move_convex_object(float dt, Object* Ob);
     bool Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
