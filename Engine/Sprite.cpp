@@ -1,6 +1,17 @@
 #include "Sprite.hpp"
-#include "SOIL.h"
 #include <cassert>
+
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG
+#pragma warning(push)
+#pragma warning(disable : 4505) // unreferenced local function has been removed
+#pragma warning(disable : 4100) // unreferenced formal parameter
+#include "stb_image.h"
+#pragma warning(pop)
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#define STBI_MSC_SECURE_CRT
+#include "stb_image_write.h"
 
 Sprite::Sprite(const Sprite& other)
     : handle_to_texture(other.handle_to_texture), width(other.width),
@@ -40,8 +51,8 @@ void Sprite::Delete()
 
 bool Sprite::Texture_Load(const std::string& file_path)
 {
-    unsigned char* temp = SOIL_load_image(file_path.c_str(), &width, &height,
-                                          nullptr, SOIL_LOAD_RGBA);
+    unsigned char* temp = stbi_load(file_path.c_str(), &width, &height,
+                                          nullptr, STBI_rgb_alpha);
 
     if (temp == nullptr)
         return false;
@@ -86,7 +97,8 @@ void Sprite::Bind(unsigned int slot)
 
 void Sprite::ScreenShot(const std::string& file_path) const
 {
-    SOIL_save_screenshot(file_path.c_str(), SOIL_SAVE_TYPE_BMP, 0, 0, width, height);
+	if (!stbi_write_png(file_path.c_str(), width, height, STBI_rgb_alpha, piexel, width*ChannelsPerColor))
+		return;
 }
 
 void Sprite::UnLoadSprite()

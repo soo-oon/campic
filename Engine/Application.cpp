@@ -102,8 +102,20 @@ bool Application::Initialize()
     return true;
 }
 
-void Application::Update(float /*dt*/)
+void Application::Update(float dt)
 {
+	fpsEllapsedTime += dt;
+	++fpsFrames;
+	if (fpsEllapsedTime >= 1.0f)
+	{
+		
+		title += std::to_string(int(fpsFrames / fpsEllapsedTime));
+		fpsEllapsedTime = 0;
+		fpsFrames = 0;
+		glfwSetWindowTitle(window, title.c_str());
+		title = "Engine ver 0.1 ";
+	}
+
     Input::Triggerd_Reset();
     glfwSwapBuffers(window);
     PollEvent();
@@ -124,7 +136,7 @@ void Application::Quit()
     glfwTerminate();
 }
 
-void Application::SetDispalyAreaSize(Graphics* graphics)
+void Application::SetDispalyAreaSize(Graphics* graphics, State* current_state)
 {
     int w, h;
 
@@ -132,6 +144,8 @@ void Application::SetDispalyAreaSize(Graphics* graphics)
     screenSize.x = static_cast<float>(w);
     screenSize.y = static_cast<float>(h);
     graphics->SetDisplaySize_G(screenSize);
+
+	current_state->SetStateScreenSize({ static_cast<float>(w),static_cast<float>(h) });
 }
 
 void Application::GetObjectManager(Objectmanager* objectmanager)
@@ -149,7 +163,7 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	
 
 	ImGui::Begin("Example Level");
-	const char* object_list[3] = {0};
+	const char* object_list[4] = {0};
 	
 	int i = 0;
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 

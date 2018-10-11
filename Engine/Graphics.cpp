@@ -39,8 +39,8 @@ bool Graphics::Initialize()
 
 void Graphics::Update(float dt)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glClear(GL_DEPTH_BUFFER_BIT);
     SetNDC();
 }
 

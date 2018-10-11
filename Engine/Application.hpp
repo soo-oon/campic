@@ -26,7 +26,7 @@ public:
     void Quit() override;
 
 
-	void SetDispalyAreaSize(Graphics* graphics);
+	void SetDispalyAreaSize(Graphics* graphics, State* current_state);
 	void GetObjectManager(Objectmanager* objectmanager);
 	
     void Key_Poll_Event();
@@ -34,6 +34,9 @@ public:
     void FullScreen();
 
 private:
+	float fpsEllapsedTime = 0;
+	int fpsFrames = 0;
+
     GLFWmonitor* monitor = nullptr;
     const GLFWvidmode* mode = nullptr;
     GLFWmonitor* mode_screen = nullptr;

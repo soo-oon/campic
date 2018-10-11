@@ -25,11 +25,13 @@ public:
     virtual void ShutDown() = 0;
 	virtual Objectmanager* GetObjectManager() { return objectmanager; }
 	virtual WorldPhysics* GetWorldPhyics() { return world_physics; }
-
+	virtual vector2 GetStateScreenSize() { return screen_size_; }
+	virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
 
 private:
 	Objectmanager * objectmanager;
 	WorldPhysics* world_physics;
+	vector2 screen_size_{};
 
     //virtual void Unload() = 0;
 };

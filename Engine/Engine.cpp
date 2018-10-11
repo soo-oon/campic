@@ -35,11 +35,11 @@ void Engine::Update()
 
         State* state = GetSystemByTemplate<StateManager>()->GetCurrentState();
 
-		GetSystemByTemplate<Application>()->GetObjectManager(state->GetObjectManager());
 		
         GetSystemByTemplate<Graphics>()->Draw(state->GetObjectManager());
         GetSystemByTemplate<Graphics>()->EndDraw();
-        GetSystemByTemplate<Application>()->SetDispalyAreaSize(GetSystemByTemplate<Graphics>());
+        GetSystemByTemplate<Application>()->SetDispalyAreaSize(GetSystemByTemplate<Graphics>(), state);
+		GetSystemByTemplate<Application>()->GetObjectManager(state->GetObjectManager());
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

@@ -26,6 +26,7 @@ bool example::Initialize()
     GetObjectManager()->AddObject("test");
 	GetObjectManager()->AddObject("enemy");
 	GetObjectManager()->AddObject("circle");
+	GetObjectManager()->AddObject("BackGround");
 
 	GetObjectManager()->FindObject("test")->SetScale({ 100.0f, 100.0f });
 	GetObjectManager()->FindObject("test")->SetTranslation({ 0, 0 });
@@ -42,7 +43,14 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("circle")->SetScale({ 150, 150 });
 	GetObjectManager()->FindObject("circle")->SetTranslation({ 0, -200 });
 	GetObjectManager()->FindObject("circle")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.05, "asset/example2.png", "sonic"));
+	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.25, "asset/example2.png", "sonic"));
+
+	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
+	GetObjectManager()->FindObject("BackGround")->SetTranslation({0,0});
+	GetObjectManager()->FindObject("BackGround")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("BackGround")->SetDepth(0.9);
+	GetObjectManager()->FindObject("BackGround")->AddComponent(new Sprite());
+	GetObjectManager()->FindObject("BackGround")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/check_background.png");
 
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
     return true;
@@ -50,6 +58,9 @@ bool example::Initialize()
 
 void example::Update(float dt)
 {
+	//Should Fixed this
+	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
+
 	if(dot(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity(), vector2(0, 1)) > 0)
 		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->ChangeAnimation("magic_strange");
 	else

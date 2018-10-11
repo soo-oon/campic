@@ -159,6 +159,9 @@
     <ClInclude Include="WorldPhysics.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="DepthValue.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
