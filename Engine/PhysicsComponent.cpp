@@ -21,6 +21,11 @@ void Physics::SetVelocity(vector2 velocity)
     this->velocity = velocity;
 }
 
+void Physics::AddVelocity(vector2 velocity)
+{
+	this->velocity += velocity;
+}
+
 vector2 Physics::GetVelocity()
 {
     return velocity;

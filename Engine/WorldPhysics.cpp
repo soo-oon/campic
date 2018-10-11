@@ -47,3 +47,23 @@ void WorldPhysics::Gravity_on(Objectmanager* objectmanager_, float gravity)
 		objectmanager_->FindObject((*it).first)->SetGravity(gravity);
 	}
 }
+
+void WorldPhysics::Movement_Velocity(Object & object_name)
+{
+	if (Input::IsKeyPressed(GLFW_KEY_UP))
+	{
+		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(0, 10));
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
+	{
+		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(-10, 0));
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
+	{
+		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(0, -10));
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
+	{
+		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(10, 0));
+	}
+}

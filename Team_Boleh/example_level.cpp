@@ -17,7 +17,7 @@ void example::move_enemy(float dt, Object* Ob)
 		velo *= pm;
 		Ob->GetComponentByTemplate<Physics>()->SetVelocity(vector2(velo, 0));
 		limit_time = 0;
-		std::cout << GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
+		//std::cout << GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
 	}
 }
 
@@ -27,11 +27,12 @@ bool example::Initialize()
 	GetObjectManager()->AddObject("enemy");
 	GetObjectManager()->AddObject("circle");
 
-	GetObjectManager()->FindObject("test")->SetScale({ 150.0f, 150.0f });
+	GetObjectManager()->FindObject("test")->SetScale({ 100.0f, 100.0f });
 	GetObjectManager()->FindObject("test")->SetTranslation({ 0, 0 });
 	GetObjectManager()->FindObject("test")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test")->AddComponent(new Animation(4, 0.5, "asset/animation_strange.png"));
+	GetObjectManager()->FindObject("test")->AddComponent(new Animation(10, 0.25, "asset/action.png", "dr_strange"));
 	GetObjectManager()->FindObject("test")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "magic_strange");
 
 	GetObjectManager()->FindObject("enemy")->SetScale({ 150.0f, 150.0f });
 	GetObjectManager()->FindObject("enemy")->SetTranslation({ -300, 300 });
@@ -41,7 +42,7 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("circle")->SetScale({ 150, 150 });
 	GetObjectManager()->FindObject("circle")->SetTranslation({ 0, -200 });
 	GetObjectManager()->FindObject("circle")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.05, "asset/example2.png"));
+	GetObjectManager()->FindObject("circle")->AddComponent(new Animation(10, 0.05, "asset/example2.png", "sonic"));
 
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
     return true;
@@ -49,9 +50,12 @@ bool example::Initialize()
 
 void example::Update(float dt)
 {
+	if(dot(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity(), vector2(0, 1)) > 0)
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->ChangeAnimation("magic_strange");
+	else
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->ChangeAnimation("dr_strange");
 	GetObjectManager()->FindObject("test")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("circle")->GetComponentByTemplate<Animation>()->Update(dt);
-	
 
 	opponent.clear();
 	for (size_t i = 0; i < GetObjectManager()->FindObject("test")->GetMesh().GetPointCount(); i++)
@@ -70,7 +74,7 @@ void example::Update(float dt)
 	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test"));
 	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(mesh_p, opponent))
 	{
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 *normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-200 *normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
 		GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-20 * normalize(GetObjectManager()->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
 		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
 		GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({255,255,0,255});
@@ -78,12 +82,18 @@ void example::Update(float dt)
 	}
 	if (GetObjectManager()->FindObject("test")->GetComponentByTemplate<Collision>()->intersection_check(opponent, static_opponent))
 	{
-		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-20 * normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
-		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,0,0,255 });
+		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->SetVelocity(-200 * normalize(GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->GetVelocity()));
+		GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,0,255 });
 		GetObjectManager()->FindObject("test")->GetComponentByTemplate<Physics>()->Update(dt);
 		//objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->SetVelocity(-normalize(objectmanager->FindObject("enemy")->GetComponentByTemplate<Physics>()->GetVelocity()));
 	}
-	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
+	if (Input::IsKeyTriggered(GLFW_KEY_0))
+		check = !check;
+
+	if(check)
+		GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("test").get());
+	else
+		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("test").get());
 	
 	GetObjectManager()->FindObject("enemy")->GetMesh().ChangeColor({ 255,0,0,255 });
 	GetObjectManager()->FindObject("circle")->GetMesh().ChangeColor({ 255,255,255,255 });

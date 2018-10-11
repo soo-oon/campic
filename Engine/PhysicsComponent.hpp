@@ -14,6 +14,7 @@ public:
     void CollisionOn();
     void SetMass(float mass);
     void SetVelocity(vector2 velocity);
+	void AddVelocity(vector2 velocity);
     vector2 GetVelocity();
     vector2 GetPosition();
     void AddForce(vector2 force);

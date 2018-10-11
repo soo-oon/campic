@@ -13,6 +13,7 @@ public:
     void ShutDown() override;
 
 private:
+	bool check = false;
 	float pm = 1;
 	float limit_time = 0;
 	float rotation_value = 10;

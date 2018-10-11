@@ -1,6 +1,7 @@
 #include "Animation.hpp"
 #include "Object.hpp"
 #include <iostream>
+#include <cassert>
 
 bool Animation::Initialize(Object* Ob)
 {
@@ -38,6 +39,23 @@ void Animation::Update(float dt)
     }
 }
 
+void Animation::AddAnimaition(const std::string path, const std::string ID)
+{
+	sprites.insert(std::make_pair(ID, new Sprite()));
+	sprites.at(ID)->Texture_Load(path);
+
+}
+
 void Animation::Delete()
 {
+}
+
+void Animation::ChangeAnimation(std::string ID)
+{
+	Sprite* change_animation = sprites.find(ID)->second;
+
+	if (change_animation == nullptr)
+		assert(false);
+
+	current_sprite = change_animation;
 }

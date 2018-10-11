@@ -1,5 +1,5 @@
 #include "Sprite.hpp"
-#include <SOIL.h>
+#include "SOIL.h"
 #include <cassert>
 
 Sprite::Sprite(const Sprite& other)

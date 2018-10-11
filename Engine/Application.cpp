@@ -190,18 +190,18 @@ void Application::FullScreen()
     if (fullScreenMode)
     {
         monitor = glfwGetPrimaryMonitor();
-        int w, h;
-        glfwGetWindowSize(window, &w, &h);
-        screenSize.x = static_cast<float>(w);
-        screenSize.y = static_cast<float>(h);
-        glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
+        //int w, h;
+		//glfwGetWindowSize(window, &w, &h);
+        //screenSize.x = static_cast<float>(w);
+        //screenSize.y = static_cast<float>(h);
+        glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(mode->width), static_cast<int>(mode->height), mode->refreshRate);
     }
     else
     {
-        int w, h;
-        glfwGetWindowSize(window, &w, &h);
-        screenSize.x = static_cast<float>(w);
-        screenSize.y = static_cast<float>(h);
+        //int w, h;
+        //glfwGetWindowSize(window, &w, &h);
+		screenSize.x = temp_size.x;
+		screenSize.y = temp_size.y;
         glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2),
                              (mode->height / 2) - static_cast<int>(screenSize.y / 2),
                              static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
@@ -210,6 +210,7 @@ void Application::FullScreen()
 
 void Application::PollEvent()
 {
+	glfwSwapInterval(true);
     glfwPollEvents();
     Key_Poll_Event();
 }
