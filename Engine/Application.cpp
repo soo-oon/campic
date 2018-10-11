@@ -164,7 +164,7 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
         ImGui::ShowMetricsWindow(&show_demo_window);
 
 	ImGui::Begin("Example Level");
-	const char* object_list[4] = {0};
+	const char* object_list[5] = {0};
 	
 	int i = 0;
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 
