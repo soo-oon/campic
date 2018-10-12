@@ -33,7 +33,6 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 bool Sprite::Initialize(Object* Ob)
 {
-    type = sprite;
     piexel = nullptr;
     handle_to_texture = 0;
 

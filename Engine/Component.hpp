@@ -1,12 +1,5 @@
 #pragma once
 
-enum ComponentType
-{
-    clear,
-    sprite,
-    physics,
-    animation
-};
 
 class Object;
 
@@ -17,7 +10,6 @@ public:
     virtual ~Component()
     {
     };
-    ComponentType type = clear;
     Object* object;
 
     virtual bool Initialize(Object* Ob) = 0;

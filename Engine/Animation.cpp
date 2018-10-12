@@ -6,7 +6,6 @@
 bool Animation::Initialize(Object* Ob)
 {
     object = Ob;
-    type = animation;
     frame_per_second = (1.0f / image_frame);
 
     previous_current_coordinate.x = 0;

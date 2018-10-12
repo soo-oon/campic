@@ -177,6 +177,7 @@
     <ClInclude Include="Objectmanager.hpp" />
     <ClInclude Include="PhysicsComponent.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="Sound.hpp" />
     <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Stage.hpp" />
     <ClInclude Include="StateManager.hpp" />

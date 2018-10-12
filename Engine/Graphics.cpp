@@ -61,7 +61,7 @@ void Graphics::Draw(Objectmanager* objects)
             }
             Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
                  it->second->GetMesh().GetColor(0),
-                 dynamic_cast<Sprite*>(it->second->GetComponent(ComponentType::sprite)));
+				it->second->GetComponentByTemplate<Sprite>());
         }
         else if (it->second->GetComponentByTemplate<Animation>() != nullptr)
         {

@@ -6,16 +6,6 @@ void Object::AddComponent(Component* component)
     component->Initialize(this);
 }
 
-Component* Object::GetComponent(unsigned ID)
-{
-    for (auto i : components)
-    {
-        if (i->type == ID)
-            return i;
-    }
-    return nullptr;
-}
-
 void Object::SetMesh(Mesh mesh_)
 {
     mesh = mesh_;

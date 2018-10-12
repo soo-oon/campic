@@ -162,6 +162,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_write.h" />
     <ClInclude Include="DepthValue.hpp" />
+    <ClInclude Include="Sound.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
