@@ -70,6 +70,7 @@
     <ClCompile Include="WorldPhysics.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">

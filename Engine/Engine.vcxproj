@@ -148,6 +148,7 @@
     <ClCompile Include="Objectmanager.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Transform.cpp" />

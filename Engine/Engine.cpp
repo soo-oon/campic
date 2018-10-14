@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Input.hpp"
 #include "Stage.hpp"
+#include "Sound.hpp"
 
 bool Engine::IsQuit;
 
@@ -14,6 +15,7 @@ bool Engine::Initialize()
     AddSystem(new Application());
     AddSystem(new StateManager());
     AddSystem(new Graphics());
+    AddSystem(new Sound());
 
     for (auto i : systems)
         i->Initialize();
