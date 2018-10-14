@@ -70,6 +70,7 @@ bool example::Initialize()
         GetObjectManager()->FindObject("dr_strange")->SetScale({ 150,150 });
         GetObjectManager()->FindObject("dr_strange")->SetTranslation({ -200, -150 });
         GetObjectManager()->FindObject("dr_strange")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		GetObjectManager()->FindObject("dr_strange")->SetDepth(0.5);
         GetObjectManager()->FindObject("dr_strange")->AddComponent(new Sprite());
         GetObjectManager()->FindObject("dr_strange")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
 
