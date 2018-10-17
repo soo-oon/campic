@@ -7,6 +7,7 @@
 #include "vector2.hpp"
 #include <algorithm>
 #include <memory>
+#include "imgui.h"
 
 class Object;
 
@@ -30,6 +31,7 @@ public:
     vector2 GetAnimationPosition() { return previous_current_coordinate; }
     Sprite* GetAnimationSprite() { return current_sprite; }
 
+	void Imgui_Animation();
 private:
     vector2 previous_current_coordinate{};
 	std::map<std::string, Sprite*> sprites;

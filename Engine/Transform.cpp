@@ -25,7 +25,7 @@ affine2d Transform::GetModelToWorld() const
     }
     return temp;
 }
-void Transform::Imgui()
+void Transform::Imgui_Transform()
 {
 	ImGui::SliderFloat("translation_x", &translation.x, -400,400);
 	ImGui::SliderFloat("translation_y", &translation.y, -400, 400);

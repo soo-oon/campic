@@ -148,10 +148,10 @@ void Application::SetDispalyAreaSize(Graphics* graphics, State* current_state)
 	current_state->SetStateScreenSize({ static_cast<float>(w),static_cast<float>(h) });
 }
 
-void Application::GetObjectManager(Objectmanager* objectmanager)
+void Application::Draw_Imgui(Objectmanager* objectmanager)
 {
 	// Imgui draw/loop
-	bool show_demo_window = true;
+	bool show_window = true;
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -161,38 +161,9 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 	int w, h;
 	glfwGetWindowSize(window, &w, &h);
 
-        ImGui::ShowMetricsWindow(&show_demo_window);
+    ImGui::ShowMetricsWindow(&show_window);
 
-	ImGui::Begin("Example Level");
-	const char* object_list[5] = {0};
-	
-	int i = 0;
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 
-		it != objectmanager->GetObjectMap().end(); ++it)
-	{
-		object_list[i] = (*it).first.c_str();
-		++i;
-	}
-	static const char* current_object = object_list[0];
-
-	if (ImGui::BeginCombo("ObjectList", current_object))
-	{
-		for (int j = 0; j < IM_ARRAYSIZE(object_list); j++)
-		{
-			bool is_selected = (current_object == object_list[j]); // You can store your selection however you want, outside or inside your objects
-			if (ImGui::Selectable(object_list[j], is_selected))
-			{
-				current_object = object_list[j];
-			}
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
-		}
-		ImGui::EndCombo();
-	}
-
-	objectmanager->FindObject(current_object)->GetTransform().Imgui();
-
-	ImGui::End();
+	imgui.ObjectManager(objectmanager, &show_window);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

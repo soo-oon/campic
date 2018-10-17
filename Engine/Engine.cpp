@@ -41,7 +41,7 @@ void Engine::Update()
         GetSystemByTemplate<Graphics>()->Draw(state->GetObjectManager());
         GetSystemByTemplate<Graphics>()->EndDraw();
         GetSystemByTemplate<Application>()->SetDispalyAreaSize(GetSystemByTemplate<Graphics>(), state);
-		GetSystemByTemplate<Application>()->GetObjectManager(state->GetObjectManager());
+		GetSystemByTemplate<Application>()->Draw_Imgui(state->GetObjectManager());
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

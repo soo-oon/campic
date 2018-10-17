@@ -9,6 +9,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "Imgui_Setup.h"
 #include "../Team_Boleh/example_level.hpp"
 
 class Graphics;
@@ -27,7 +28,7 @@ public:
 
 
 	void SetDispalyAreaSize(Graphics* graphics, State* current_state);
-	void GetObjectManager(Objectmanager* objectmanager);
+	void Draw_Imgui(Objectmanager* objectmanager);
 	
     void Key_Poll_Event();
     void PollEvent();
@@ -43,6 +44,8 @@ private:
 
     GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
+
+	Imgui_Setup imgui;
 
     std::string title;
     vector2 screenSize;
