@@ -190,7 +190,10 @@ void Application::GetObjectManager(Objectmanager* objectmanager)
 		ImGui::EndCombo();
 	}
 
-	objectmanager->FindObject(current_object)->GetTransform().Imgui();
+	if (objectmanager->GetObjectMap().size())
+	{
+		objectmanager->FindObject(current_object)->GetTransform().Imgui();
+	}
 
 	ImGui::End();
 

@@ -145,9 +145,6 @@
     <ClInclude Include="Objectmanager.hpp">
       <Filter>ObjectManager</Filter>
     </ClInclude>
-    <ClInclude Include="Stage.hpp">
-      <Filter>StateManager</Filter>
-    </ClInclude>
     <ClInclude Include="StateManager.hpp">
       <Filter>StateManager</Filter>
     </ClInclude>
@@ -164,6 +161,9 @@
     <ClInclude Include="stb_image_write.h" />
     <ClInclude Include="DepthValue.hpp" />
     <ClInclude Include="Sound.hpp" />
+    <ClInclude Include="State.hpp">
+      <Filter>StateManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

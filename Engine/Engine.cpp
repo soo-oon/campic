@@ -4,8 +4,16 @@
 #include "Graphics.hpp"
 #include <iostream>
 #include "Input.hpp"
-#include "Stage.hpp"
+#include "State.hpp"
 #include "Sound.hpp"
+
+namespace
+{
+	Application* App = nullptr;
+	Graphics* Graphic = nullptr;
+	Objectmanager* Obj = nullptr;
+	State* Current_State = nullptr;
+}
 
 bool Engine::IsQuit;
 
@@ -19,6 +27,9 @@ bool Engine::Initialize()
 
     for (auto i : systems)
         i->Initialize();
+
+	App = GetSystemByTemplate<Application>();
+	Graphic = GetSystemByTemplate<Graphics>();
 
     gameTimer.Reset();
     IsQuit = false;
@@ -35,13 +46,13 @@ void Engine::Update()
         for (auto i : systems)
             i->Update(dt);
 
-        State* state = GetSystemByTemplate<StateManager>()->GetCurrentState();
-
+		Current_State = GetSystemByTemplate<StateManager>()->GetCurrentState();
+		Obj = Current_State->GetObjectManager();
 		
-        GetSystemByTemplate<Graphics>()->Draw(state->GetObjectManager());
-        GetSystemByTemplate<Graphics>()->EndDraw();
-        GetSystemByTemplate<Application>()->SetDispalyAreaSize(GetSystemByTemplate<Graphics>(), state);
-		GetSystemByTemplate<Application>()->GetObjectManager(state->GetObjectManager());
+        Graphic->Draw(Obj);
+		Graphic->EndDraw();
+		App->SetDispalyAreaSize(Graphic, Current_State);
+		App->GetObjectManager(Obj);
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

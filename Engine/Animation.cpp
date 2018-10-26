@@ -38,12 +38,24 @@ void Animation::Update(float dt)
     }
 }
 
-void Animation::AddAnimaition(const std::string path, const std::string ID)
+void Animation::AddAnimaition(const std::string path, const std::string ID, 
+	int image_frame_, float update_frame_)
 {
 	sprites.insert(std::make_pair(ID, new Sprite()));
 	sprites.at(ID)->Texture_Load(path);
 
+	image_frames.insert(std::make_pair(ID, image_frame_));
+	update_frames.insert(std::make_pair(ID, update_frame_));
+	frame_per_seconds.insert(std::make_pair(ID, (1.0f / image_frames.find(ID)->second)));
 }
+
+
+//void Animation::AddAnimaition(const std::string path, const std::string ID)
+//{
+//	sprites.insert(std::make_pair(ID, new Sprite()));
+//	sprites.at(ID)->Texture_Load(path);
+//
+//}
 
 void Animation::Delete()
 {
@@ -57,4 +69,7 @@ void Animation::ChangeAnimation(std::string ID)
 		assert(false);
 
 	current_sprite = change_animation;
+	image_frame = image_frames.find(ID)->second;
+	frame_per_second = frame_per_seconds.find(ID)->second;
+	update_frame = update_frames.find(ID)->second;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "System.hpp"
-#include <vector>
+#include <map>
+#include <string>
+#include <memory>
 
 class State;
 
@@ -10,11 +12,8 @@ public:
     StateManager() = default;
     ~StateManager() = default;
 
-    void AddStage(State* state);
-    void SetPreviousStage(State* state);
-    void SetCurrentStage(State* state);
-    void SetPauseStage(State* state);
-    void ChangeStage(unsigned stageID);
+    void AddStage(std::string ID, State* state);
+    void ChangeStage();
     void Restart();
     void Pause();
     State* GetCurrentState() { return m_currentStage; }
@@ -23,10 +22,9 @@ public:
     void Update(float dt) override;
     void Quit() override;
 private:
-    State *m_pNext = nullptr, *m_pPrevious = nullptr,
-          *m_pPaused = nullptr, *m_pRestart = nullptr,
-          *m_currentStage = nullptr;
+    State *m_currentStage = nullptr;
 
-    std::vector<State*> states;
+	std::map <std::string, std::unique_ptr<State>> states;
+    //std::vector<State*> states;
     bool m_restart, m_pause;
 };

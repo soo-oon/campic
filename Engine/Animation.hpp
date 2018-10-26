@@ -13,17 +13,23 @@ class Object;
 class Animation : public Component
 {
 public:
-    Animation(int image_frame_, float update_frame_, std::string path_, std::string ID)
+    Animation(std::string path_, std::string ID, int image_frame_, float update_frame_)
         : path(path_), update_frame(update_frame_), image_frame(image_frame_)
     {
 		sprites.insert(std::make_pair(ID, new Sprite()));
 		sprites.at(ID)->Texture_Load(path);
 		current_sprite = sprites.at(ID);
+
+		update_frames.insert(std::make_pair(ID, update_frame));
+		image_frames.insert(std::make_pair(ID, image_frame));
+		frame_per_seconds.insert(std::make_pair(ID, (1.0f / image_frame)));
     };
 
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
-	void AddAnimaition(const std::string path, const std::string ID);
+	//void AddAnimaition(const std::string path, const std::string ID);
+	void AddAnimaition(const std::string path, const std::string ID, 
+		int image_frame_, float update_frame_);
     void Delete() override;
 	void ChangeAnimation(std::string ID);
 
@@ -32,7 +38,13 @@ public:
 
 private:
     vector2 previous_current_coordinate{};
+	//std::map<std::string, Animation*> animations;
 	std::map<std::string, Sprite*> sprites;
+	std::map<std::string, float> update_frames;
+	std::map<std::string, float> frame_per_seconds;
+	std::map<std::string, int> image_frames;
+
+
 	Sprite* current_sprite = nullptr;
     std::string path;
 

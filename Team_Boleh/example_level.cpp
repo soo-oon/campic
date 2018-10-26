@@ -42,8 +42,9 @@ void example::move_convex_object(float dt, Object* Ob)
 	}
 }
 
-bool example::Initialize()
+void example::Initialize()
 {
+	Load();
     GetObjectManager()->AddObject("player");
 	GetObjectManager()->AddObject("convex_object");
 	GetObjectManager()->AddObject("sonic_animation");
@@ -53,9 +54,9 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("player")->SetScale({ 100.0f, 100.0f });
 	GetObjectManager()->FindObject("player")->SetTranslation({ 0, 0 });
 	GetObjectManager()->FindObject("player")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("player")->AddComponent(new Animation(10, 0.25, "asset/action.png", "zelda_down"));
+	GetObjectManager()->FindObject("player")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
 	GetObjectManager()->FindObject("player")->AddComponent(new Physics());
-	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up");
+	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
 
 	GetObjectManager()->FindObject("convex_object")->SetScale({ 150.0f, 150.0f });
 	GetObjectManager()->FindObject("convex_object")->SetTranslation({ -300, 300 });
@@ -65,7 +66,7 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("sonic_animation")->SetScale({ 150, 150 });
 	GetObjectManager()->FindObject("sonic_animation")->SetTranslation({ 0, -200 });
 	GetObjectManager()->FindObject("sonic_animation")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation(10, 0.25, "asset/example2.png", "sonic"));
+	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
 
         GetObjectManager()->FindObject("dr_strange")->SetScale({ 150,150 });
         GetObjectManager()->FindObject("dr_strange")->SetTranslation({ -200, -150 });
@@ -77,16 +78,18 @@ bool example::Initialize()
 	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
 	GetObjectManager()->FindObject("BackGround")->SetTranslation({0,0});
 	GetObjectManager()->FindObject("BackGround")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("BackGround")->SetDepth(0.9);
+	GetObjectManager()->FindObject("BackGround")->SetDepth(0.9f);
 	GetObjectManager()->FindObject("BackGround")->AddComponent(new Sprite());
 	GetObjectManager()->FindObject("BackGround")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/check_background.png");
 
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
-    return true;
 }
 
 void example::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_2))
+		ChangeLevel("test");
+
 	//Should Fixed this
 	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
 
@@ -94,6 +97,7 @@ void example::Update(float dt)
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
 	else
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
+
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
 
@@ -186,6 +190,7 @@ void example::Update(float dt)
 
 void example::ShutDown()
 {
+	UnLoad();
 }
 
 vector2 multi_plus(Object *ob, size_t i)

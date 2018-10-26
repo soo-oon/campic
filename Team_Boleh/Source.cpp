@@ -2,6 +2,7 @@
 #include "Engine.hpp"
 #include "example_level.hpp"
 #include "StateManager.hpp"
+#include "statemanager_test.hpp"
 
 int main()
 {
@@ -9,7 +10,8 @@ int main()
 
     engine->Initialize();
 
-	engine->GetSystemByTemplate<StateManager>()->AddStage(new example());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("example",new example());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("test", new test_statemanager());
 
     engine->Update();
   

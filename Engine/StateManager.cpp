@@ -1,5 +1,5 @@
 #include "StateManager.hpp"
-#include "Stage.hpp"
+#include "State.hpp"
 
 bool StateManager::Initialize()
 {
@@ -9,37 +9,21 @@ bool StateManager::Initialize()
     return true;
 }
 
-void StateManager::AddStage(State* state)
+void StateManager::AddStage(std::string ID, State* state)
 {
-    states.push_back(state);
+	states.insert(std::make_pair(ID, state));
 
     if (m_currentStage == nullptr)
     {
-        m_currentStage = states[0];
+        m_currentStage = states.find(ID)->second.get();
         m_currentStage->Initialize();
     }
 }
 
-void StateManager::SetPreviousStage(State* state)
+void StateManager::ChangeStage()
 {
-	m_pPrevious = state;
-}
-
-void StateManager::SetCurrentStage(State* state)
-{
-    m_currentStage = state;
-}
-
-void StateManager::SetPauseStage(State* state)
-{
-    m_pPaused = state;
-}
-
-void StateManager::ChangeStage(unsigned stageID)
-{
-	//m_pNext
-	//m_pPrevious
-    m_currentStage = states[stageID];
+	m_currentStage = states.find(m_currentStage->GetNextLevel())->second.get();
+	m_currentStage->Initialize();
 }
 
 void StateManager::Restart()
@@ -54,6 +38,9 @@ void StateManager::Pause()
 
 void StateManager::Update(float dt)
 {
+	if (m_currentStage->IsLevelChange())
+		ChangeStage();
+
     if (m_pause == false)
     {
         m_currentStage->Update(dt);
@@ -62,10 +49,6 @@ void StateManager::Update(float dt)
 
 void StateManager::Quit()
 {
-    delete m_pNext;
-    delete m_pPrevious;
-    delete m_pPaused;
-    delete m_pRestart;
     delete m_currentStage;
 
     states.clear();

@@ -1,15 +1,14 @@
 #pragma once
-#include "Stage.hpp"
 #include "Object.hpp"
 #include "Objectmanager.hpp"
-#include "WorldPhysics.h"
+#include "State.hpp"
 
 class example : public State
 {
 public:
 	void blackhole(Object* Ob, Object* Ob1);
     void move_convex_object(float dt, Object* Ob);
-    bool Initialize() override;
+	void Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
 
