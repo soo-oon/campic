@@ -6,13 +6,15 @@
 #include "Input.hpp"
 #include "State.hpp"
 #include "Sound.hpp"
+#include "Physics.hpp"
 
 namespace
 {
-	Application* App = nullptr;
-	Graphics* Graphic = nullptr;
-	Objectmanager* Obj = nullptr;
-	State* Current_State = nullptr;
+	Application* Application_ = nullptr;
+	Graphics* Graphic_ = nullptr;
+	Objectmanager* Objectmanager_ = nullptr;
+	State* State_ = nullptr;
+	Physics* Physics_ = nullptr;
 }
 
 bool Engine::IsQuit;
@@ -23,13 +25,15 @@ bool Engine::Initialize()
     AddSystem(new Application());
     AddSystem(new StateManager());
     AddSystem(new Graphics());
+	AddSystem(new Physics());
     AddSystem(new Sound());
 
     for (auto i : systems)
         i->Initialize();
 
-	App = GetSystemByTemplate<Application>();
-	Graphic = GetSystemByTemplate<Graphics>();
+	Application_ = GetSystemByTemplate<Application>();
+	Graphic_ = GetSystemByTemplate<Graphics>();
+	Physics_ = GetSystemByTemplate<Physics>();
 
     gameTimer.Reset();
     IsQuit = false;
@@ -46,19 +50,19 @@ void Engine::Update()
         for (auto i : systems)
             i->Update(dt);
 
-		Current_State = GetSystemByTemplate<StateManager>()->GetCurrentState();
-		Obj = Current_State->GetObjectManager();
-		
-        Graphic->Draw(Obj);
-		Graphic->EndDraw();
-		App->SetDispalyAreaSize(Graphic, Current_State);
-		App->GetObjectManager(Obj);
+		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
+		Objectmanager_ = State_->GetObjectManager();
+
+		Physics_->PhysicsObjectUpdate(Objectmanager_);
+
+		Graphic_->Draw(Objectmanager_);
+		Graphic_->EndDraw();
+
+		Application_->SetDispalyAreaSize(Graphic_, State_);
+		Application_->GetObjectManager(Objectmanager_);
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
-
-        if (Input::IsKeyTriggered(GLFW_KEY_G))
-            std::cout << "hi" << std::endl;
     }
 
     Quit();

@@ -1,18 +1,18 @@
 #include "WorldPhysics.h"
-#include "PhysicsComponent.hpp"
+#include "RigidBody.hpp"
 #include "Input.hpp"
 #include "Object.hpp"
 #include "vector2.hpp"
 
 void WorldPhysics::Movement(Object& object_name)
 {
-    vector2 object_velocity = object_name.GetComponentByTemplate<Physics>()->GetVelocity();
+    vector2 object_velocity = object_name.GetComponentByTemplate<RigidBody>()->GetVelocity();
     object_name.GetTransform().SetTranslation(
         (object_name.GetTransform().GetTranslation().x + object_name
-                                                         .GetComponentByTemplate<Physics>()->GetVelocity().x
+                                                         .GetComponentByTemplate<RigidBody>()->GetVelocity().x
             ,
             object_name.GetTransform().GetTranslation().y + object_name
-                                                            .GetComponentByTemplate<Physics>()->
+                                                            .GetComponentByTemplate<RigidBody>()->
                                                             GetVelocity().y));
 }
 
@@ -20,19 +20,19 @@ void WorldPhysics::Movement_by_key(Object& object_name)
 {
 	if(Input::IsKeyPressed(GLFW_KEY_UP))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, 30));
+		object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(0, 30));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(-30, 0));
+		object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(-30, 0));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(0, -30));
+		object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(0, -30));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddForce(vector2(30, 0));
+		object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(30, 0));
 	}
 	/*else if (Input::IsKeyAnyReleased())
 	{
@@ -52,18 +52,18 @@ void WorldPhysics::Movement_Velocity(Object & object_name)
 {
 	if (Input::IsKeyPressed(GLFW_KEY_UP))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(0, 10));
+		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 10));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(-10, 0));
+		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(-10, 0));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(0, -10));
+		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, -10));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
 	{
-		object_name.GetComponentByTemplate<Physics>()->AddVelocity(vector2(10, 0));
+		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(10, 0));
 	}
 }

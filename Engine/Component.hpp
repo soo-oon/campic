@@ -8,8 +8,7 @@ class Component
 private:
 public:
     virtual ~Component()
-    {
-    };
+    {};
     Object* object;
 
     virtual bool Initialize(Object* Ob) = 0;

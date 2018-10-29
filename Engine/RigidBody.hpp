@@ -1,15 +1,14 @@
 #pragma once
 #include "Component.hpp"
 #include "Transform.hpp"
-#include "WorldPhysics.h"
 #include "Object.hpp"
 #include "StateManager.hpp"
 #include "vector2.hpp"
 
-class Physics : public Component
+class RigidBody : public Component
 {
 public:
-	Physics() {}
+	RigidBody() {}
 
     void CollisionOn();
     void SetMass(float mass);

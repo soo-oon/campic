@@ -6,7 +6,8 @@
 class State
 {
 public:
-	virtual ~State() {}
+	virtual ~State()
+	{}
 
     virtual void Load()
     {
@@ -44,6 +45,4 @@ private:
 	Objectmanager * objectmanager = nullptr;
 	WorldPhysics* world_physics = nullptr;
 	vector2 screen_size_{};
-
-    //virtual void Unload() = 0;
 };

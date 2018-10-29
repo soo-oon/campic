@@ -16,13 +16,13 @@ public:
     void ChangeStage();
     void Restart();
     void Pause();
-    State* GetCurrentState() { return m_currentStage; }
+    State* GetCurrentState() { return m_currentState; }
 
     bool Initialize() override;
     void Update(float dt) override;
     void Quit() override;
 private:
-    State *m_currentStage = nullptr;
+    State* m_currentState = nullptr;
 
 	std::map <std::string, std::unique_ptr<State>> states;
     //std::vector<State*> states;

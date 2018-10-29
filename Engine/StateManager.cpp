@@ -3,7 +3,7 @@
 
 bool StateManager::Initialize()
 {
-    m_currentStage = nullptr;
+    m_currentState = nullptr;
     m_pause = false;
     m_restart = false;
     return true;
@@ -13,17 +13,17 @@ void StateManager::AddStage(std::string ID, State* state)
 {
 	states.insert(std::make_pair(ID, state));
 
-    if (m_currentStage == nullptr)
+    if (m_currentState == nullptr)
     {
-        m_currentStage = states.find(ID)->second.get();
-        m_currentStage->Initialize();
+        m_currentState = states.find(ID)->second.get();
+        m_currentState->Initialize();
     }
 }
 
 void StateManager::ChangeStage()
 {
-	m_currentStage = states.find(m_currentStage->GetNextLevel())->second.get();
-	m_currentStage->Initialize();
+	m_currentState = states.find(m_currentState->GetNextLevel())->second.get();
+	m_currentState->Initialize();
 }
 
 void StateManager::Restart()
@@ -38,18 +38,16 @@ void StateManager::Pause()
 
 void StateManager::Update(float dt)
 {
-	if (m_currentStage->IsLevelChange())
+	if (m_currentState->IsLevelChange())
 		ChangeStage();
 
     if (m_pause == false)
     {
-        m_currentStage->Update(dt);
+        m_currentState->Update(dt);
     }
 }
 
 void StateManager::Quit()
 {
-    delete m_currentStage;
-
     states.clear();
 }

@@ -1,7 +1,7 @@
 #include "example_level.hpp"
 #include <iostream>
 #include "Sprite.hpp"
-#include "PhysicsComponent.hpp"
+#include "RigidBody.hpp"
 #include "Input.hpp"
 #include "WorldPhysics.h"
 #include "Animation.hpp"
@@ -36,7 +36,7 @@ void example::move_convex_object(float dt, Object* Ob)
 	{
 		pm *= -1;
 		velo *= pm;
-		Ob->GetComponentByTemplate<Physics>()->SetVelocity(vector2(velo, 0));
+		Ob->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(velo, 0));
 		limit_time = 0;
 		//std::cout << GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
 	}
@@ -55,13 +55,13 @@ void example::Initialize()
 	GetObjectManager()->FindObject("player")->SetTranslation({ 0, 0 });
 	GetObjectManager()->FindObject("player")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	GetObjectManager()->FindObject("player")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
-	GetObjectManager()->FindObject("player")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("player")->AddComponent(new RigidBody());
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
 
 	GetObjectManager()->FindObject("convex_object")->SetScale({ 150.0f, 150.0f });
 	GetObjectManager()->FindObject("convex_object")->SetTranslation({ -300, 300 });
 	GetObjectManager()->FindObject("convex_object")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
-	GetObjectManager()->FindObject("convex_object")->AddComponent(new Physics());
+	GetObjectManager()->FindObject("convex_object")->AddComponent(new RigidBody());
 
 	GetObjectManager()->FindObject("sonic_animation")->SetScale({ 150, 150 });
 	GetObjectManager()->FindObject("sonic_animation")->SetTranslation({ 0, -200 });
@@ -93,7 +93,7 @@ void example::Update(float dt)
 	//Should Fixed this
 	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
 
-	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity(), vector2(0, 1)) > 0)
+	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
 	else
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
@@ -122,44 +122,44 @@ void example::Update(float dt)
 		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
 		if(!Input::IsKeyAnyPressed())
 		{
-			GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+			GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 			//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-2000 * normalize(GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity()));
 		}
 		else
 		{
-			if (abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().x) > abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().y))
+			if (abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity().x) > abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity().y))
 			{
-				if (dot(direction, GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0) {
-					GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+				if (dot(direction, GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()) > 0) {
+					GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 				}
 			}
-			else if (abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().x) < abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity().y))
+			else if (abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity().x) < abs(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity().y))
 			{
-				if (dot(direction, GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()) > 0 ){
-					GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(0);
+				if (dot(direction, GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()) > 0 ){
+					GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 				}
 			}
 			//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->SetVelocity(0);//-20 ));
-			GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);
+			GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->Update(dt);
 		}
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->Update(dt);
 		//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->Update(dt);
 		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({255,255,0,255});
 	}
 	else if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->intersection_check(opponent, mesh_p))
 	{
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity())));
-		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity())));
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity())));
+		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity())));
 		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({ 255,0,0,255 });
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);
-		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->Update(dt);
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->Update(dt);
+		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->Update(dt);
 	}
 	else {
 		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
-		direction = normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity());
+		direction = normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity());
 		GetObjectManager()->FindObject("convex_object")->GetMesh().ChangeColor({ 255,0,0,255 });
 		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({ 255,255,255,255 });
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->Update(dt);	
+		GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->Update(dt);
 	}
 
         if (Input::IsKeyTriggered(GLFW_KEY_O))
@@ -177,7 +177,7 @@ void example::Update(float dt)
 		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
 
 	move_convex_object(dt, GetObjectManager()->FindObject("convex_object").get());
-	GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->Update(dt);
+	GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->Update(dt);
 	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
 	{
 		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("BackGround").get());

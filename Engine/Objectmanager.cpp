@@ -9,6 +9,7 @@ void Objectmanager::Update(float dt)
 
 void Objectmanager::Quit()
 {
+	object_map.clear();
 }
 
 void Objectmanager::AddObject(std::string key_name)

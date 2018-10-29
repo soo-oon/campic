@@ -1,43 +1,43 @@
-#include "PhysicsComponent.hpp"
+#include "RigidBody.hpp"
 
 
-void Physics::CollisionOn()
+void RigidBody::CollisionOn()
 {
     collision_switch = true;
 }
 
-void Physics::SetMass(float mass)
+void RigidBody::SetMass(float mass)
 {
     inverse_mass = 1.f / mass;
 }
 
-void Physics::AddForce(vector2 force)
+void RigidBody::AddForce(vector2 force)
 {
     force_accumlator += force;
 }
 
-void Physics::SetVelocity(vector2 velocity)
+void RigidBody::SetVelocity(vector2 velocity)
 {
     this->velocity = velocity;
 }
 
-void Physics::AddVelocity(vector2 velocity)
+void RigidBody::AddVelocity(vector2 velocity)
 {
 	this->velocity += velocity;
 }
 
-vector2 Physics::GetVelocity()
+vector2 RigidBody::GetVelocity()
 {
     return velocity;
 }
 
-vector2 Physics::GetPosition()
+vector2 RigidBody::GetPosition()
 {
     return position;
 }
 
 
-bool Physics::Initialize(Object* Ob)
+bool RigidBody::Initialize(Object* Ob)
 {
 	object = Ob;
     force_accumlator = {0, 0};
@@ -46,7 +46,7 @@ bool Physics::Initialize(Object* Ob)
     return true;
 }
 
-void Physics::Update(float dt)
+void RigidBody::Update(float dt)
 {
 	gravity = 1 / object->GetGravity();
     // calculate current velocity.
@@ -66,6 +66,6 @@ void Physics::Update(float dt)
 	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (gravity*velocity * dt).x), (object->GetTransform().GetTranslation().y + (gravity*velocity * dt).y) });
 }
 
-void Physics::Delete()
+void RigidBody::Delete()
 {
 }
