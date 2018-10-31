@@ -3,13 +3,12 @@
 #include "Component.hpp"
 #include "Transform.hpp"
 #include "Mesh.hpp"
-#include <typeinfo>
 
 class Object
 {
 public:
     void AddComponent(Component* component);
-    void SetMesh(Mesh mesh_);
+    void SetMesh(Mesh mesh);
     void SetTranslation(const vector2& position);
     void SetScale(const vector2& scale);
     void SetRotation(const float& rotation);
@@ -24,7 +23,7 @@ public:
 
 private:
 	float gravity = 1;
-    Mesh mesh{};
+    Mesh object_mesh{};
     Transform transform{};
     std::vector<Component*> components;
 };

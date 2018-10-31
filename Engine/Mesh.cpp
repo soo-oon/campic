@@ -24,12 +24,17 @@ size_t Mesh::GetPointCount() const
 
 size_t Mesh::GetTexturePointsCount() const
 {
-	return textureCoordinates.size();
+    return textureCoordinates.size();
 }
 
 size_t Mesh::GetAnimationPointsCount() const
 {
-	return animationCoordinates.size();
+    return animationCoordinates.size();
+}
+
+size_t Mesh::GetCollisionPointsCount() const
+{
+    return collisionCoordinates.size();
 }
 
 vector2 Mesh::GetPoint(size_t index) const
@@ -81,6 +86,11 @@ vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
     return animationCoordinates.at(index);
 }
 
+vector2 Mesh::GetCollisionCoordinate(size_t index) const
+{
+    return collisionCoordinates.at(index);
+}
+
 PointListType Mesh::GetPointListType() const
 {
     return point_type;
@@ -111,15 +121,20 @@ void Mesh::AddAnimationCoordinate(vector2 animation_coordinate)
     animationCoordinates.push_back(animation_coordinate);
 }
 
+void Mesh::AddCollisionCoordinate(vector2 collision_coordinate)
+{
+    collisionCoordinates.push_back(collision_coordinate);
+}
+
 void Mesh::ChangeColor(Color color)
 {
-	for(auto i = colors.begin(); i!=colors.end(); ++i)
-	{
-		i->Red = color.Red;
-		i->Green = color.Green;
-		i->Blue = color.Blue;
-		i->Alpha = color.Alpha;
-	}
+    for (auto i = colors.begin(); i != colors.end(); ++i)
+    {
+        i->Red = color.Red;
+        i->Green = color.Green;
+        i->Blue = color.Blue;
+        i->Alpha = color.Alpha;
+    }
 }
 
 
@@ -133,6 +148,16 @@ void Mesh::ClearTextureCoordinates()
     textureCoordinates.clear();
 }
 
+void Mesh::ClearAnimationCoordinates()
+{
+    animationCoordinates.clear();
+}
+
+void Mesh::ClearCollisionCoordinates()
+{
+    collisionCoordinates.clear();
+}
+
 void Mesh::ClearPoints()
 {
     points.clear();
@@ -140,6 +165,8 @@ void Mesh::ClearPoints()
 
 void Mesh::Clear()
 {
+    ClearAnimationCoordinates();
+    ClearCollisionCoordinates();
     ClearColors();
     ClearPoints();
     ClearTextureCoordinates();
@@ -163,7 +190,6 @@ namespace mesh
         {
             float angle = i * (360.0f / points_number) * PI / 180.0f;
             mesh.AddPoint({radius * cos(angle), radius * sin(angle)});
-            mesh.AddTextureCoordinate({cos(angle), sin(angle)});
             mesh.AddColor(color);
         }
 
@@ -215,26 +241,24 @@ namespace mesh
         return mesh;
     }
 
-	Mesh CreateConvex(float dimension, Color color, size_t points_number)
-	{
-		Mesh mesh;
+    Mesh CreateConvex(float dimension, Color color, size_t points_number)
+    {
+        Mesh mesh;
 
-		mesh.AddPoint({ 0, 0 });
-		mesh.AddTextureCoordinate({ 0.5f, 0.5f });
+        mesh.AddPoint({0, 0});
 
-		for (int i = 0; i <= (int)points_number; ++i)
-		{
-			float angle = i * (360.0f / points_number) * PI / 180.0f;
-			mesh.AddPoint({ dimension * cos(angle), dimension * sin(angle) });
-			mesh.AddTextureCoordinate({ cos(angle), sin(angle) });
-			mesh.AddColor(color);
-		}
+        for (int i = 0; i <= (int)points_number; ++i)
+        {
+            float angle = i * (360.0f / points_number) * PI / 180.0f;
+            mesh.AddPoint({dimension * cos(angle), dimension * sin(angle)});
+            mesh.AddColor(color);
+        }
 
-		mesh.SetPointListType(PointListType::TriangleFan);
-		return mesh;
-	}
+        mesh.SetPointListType(PointListType::TriangleFan);
+        return mesh;
+    }
 
-	Mesh CreateLineBox(float dimension, Color color)
+    Mesh CreateLineBox(float dimension, Color color)
     {
         Mesh mesh;
 
@@ -263,5 +287,55 @@ namespace mesh
         mesh.AddColor(color);
 
         return mesh;
+    }
+
+    Mesh CreateCollisionBox(CollisionType type, float dimension, Color color)
+    {
+        switch (type)
+        {
+        case box_:
+        {
+            Mesh mesh;
+            mesh.AddCollisionCoordinate(dimension*vector2{ -0.5f,-0.5f });
+            mesh.AddCollisionCoordinate(dimension*vector2{ 0.5f,-0.5f });
+            mesh.AddCollisionCoordinate(dimension*vector2{ 0.5f,0.5f });
+            mesh.AddCollisionCoordinate(dimension*vector2{ -0.5f,0.5f });
+            mesh.AddCollisionCoordinate(dimension*vector2{ -0.5f,-0.5f });
+
+            mesh.SetPointListType(PointListType::LineStrip);
+
+            mesh.AddColor(color);
+            return mesh;
+        }
+
+        case circle_:
+            {   
+                Mesh mesh;
+                int points_number = 100;
+                for (int i = 0; i <= points_number; ++i)
+                {
+                    float angle = i * (360.0f / points_number) * PI / 180.0f;
+                    mesh.AddCollisionCoordinate({dimension * cos(angle), dimension * sin(angle)});
+                    mesh.AddColor(color);
+                }
+
+                mesh.SetPointListType(PointListType::LineStrip);
+                return mesh;
+            }
+
+        case triangle_:
+            {
+                Mesh mesh;
+                mesh.AddCollisionCoordinate(dimension * vector2{-0.5f, -0.5f});
+                mesh.AddCollisionCoordinate(dimension * vector2{0.5f, -0.5f});
+                mesh.AddCollisionCoordinate(dimension * vector2{0.0f, 0.5f});
+                mesh.AddCollisionCoordinate(dimension * vector2{-0.5f, -0.5f});
+
+                mesh.SetPointListType(PointListType::LineStrip);
+
+                mesh.AddColor(color);
+                return mesh;
+            }
+        }
     }
 }

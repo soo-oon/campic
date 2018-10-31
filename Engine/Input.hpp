@@ -1,5 +1,6 @@
 #pragma once
 #include <bitset>
+#include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include "vector2.hpp"
 

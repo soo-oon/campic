@@ -10,7 +10,7 @@ struct Color
     ColorChannel Red = 0;
     ColorChannel Green = 0;
     ColorChannel Blue = 0;
-    ColorChannel Alpha = 0;
+    ColorChannel Alpha = 255;
 
     Color() = default;
     Color(ColorChannel red, ColorChannel green,

@@ -29,7 +29,9 @@ bool Application::Initialize()
     }
     screenSize = vector2{1280, 960};
     temp_size = screenSize;
-    glfwWindowHint(GLFW_SAMPLES, 4); // 4x anti
+	
+    //glfwWindowHint(GLFW_SAMPLES, 4); // 4x anti
+	
 	// We use OpenGL 3.3 version 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -90,6 +92,8 @@ bool Application::Initialize()
 
 void Application::Update(float dt)
 {
+	std::cout << screenSize.x << ", " << screenSize.y << std::endl;
+
 	fpsEllapsedTime += dt;
 	++fpsFrames;
 	if (fpsEllapsedTime >= 1.0f)
