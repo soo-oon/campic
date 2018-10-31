@@ -77,6 +77,7 @@
     <ClCompile Include="WorldPhysics.cpp">
       <Filter>Physics\Maybe_delete</Filter>
     </ClCompile>
+    <ClCompile Include="JSON.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.hpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="WorldPhysics.h">
       <Filter>Physics\Maybe_delete</Filter>
     </ClInclude>
+    <ClInclude Include="JSON.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
