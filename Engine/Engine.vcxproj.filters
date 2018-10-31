@@ -71,6 +71,9 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Imgui_Setup.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -163,6 +166,9 @@
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="State.hpp">
       <Filter>StateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui_Setup.h">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

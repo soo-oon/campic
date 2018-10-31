@@ -6,16 +6,15 @@
 #include "System.hpp"
 #include "Input.hpp"
 #include "vector2.hpp"
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
 #include "../Team_Boleh/example_level.hpp"
+#include "Imgui_Setup.h"
 
 class Graphics;
 class Objectmanager;
 
 class Application : public System
 {
+	friend class Imgui_Setup;
 public:
     ~Application()
     {
@@ -25,9 +24,8 @@ public:
     void Update(float dt) override;
     void Quit() override;
 
-
+	GLFWwindow* GetWindow() { return window; }
 	void SetDispalyAreaSize(Graphics* graphics, State* current_state);
-	void GetObjectManager(Objectmanager* objectmanager);
 	
     void Key_Poll_Event();
     void PollEvent();
