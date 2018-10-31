@@ -29,7 +29,7 @@ bool Application::Initialize()
     }
     screenSize = vector2{1280, 960};
     temp_size = screenSize;
-    glfwWindowHint(GLFW_SAMPLES, 4); // 4x anti
+    //glfwWindowHint(GLFW_SAMPLES, 4); // 4x anti
 	// We use OpenGL 3.3 version 
 	const char* glsl_version = "#version 300 es";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -66,7 +66,7 @@ bool Application::Initialize()
     glfwMakeContextCurrent(window);
 
 	//Imgui Setup
-	IMGUI_CHECKVERSION();
+	/*IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -76,7 +76,7 @@ bool Application::Initialize()
 
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
-	ImGui::StyleColorsDark();
+	ImGui::StyleColorsDark();*/
 
 	glfwSetWindowSizeCallback(window, window_resized);
 	glfwSetKeyCallback(window, KeyCallback);
@@ -104,6 +104,8 @@ bool Application::Initialize()
 
 void Application::Update(float dt)
 {
+	std::cout << screenSize.x << ", " << screenSize.y << std::endl;
+
 	fpsEllapsedTime += dt;
 	++fpsFrames;
 	if (fpsEllapsedTime >= 1.0f)
@@ -146,60 +148,6 @@ void Application::SetDispalyAreaSize(Graphics* graphics, State* current_state)
     graphics->SetDisplaySize_G(screenSize);
 
 	current_state->SetStateScreenSize({ static_cast<float>(w),static_cast<float>(h) });
-}
-
-void Application::GetObjectManager(Objectmanager* objectmanager)
-{
-	// Imgui draw/loop
-	bool show_demo_window = true;
-
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-
-	//ImGui::ShowDemoWindow(&show_demo_window);
-	int w, h;
-	glfwGetWindowSize(window, &w, &h);
-
-        ImGui::ShowMetricsWindow(&show_demo_window);
-
-	ImGui::Begin("Example Level");
-	const char* object_list[5] = {0};
-	
-	int i = 0;
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objectmanager->GetObjectMap().begin(); 
-		it != objectmanager->GetObjectMap().end(); ++it)
-	{
-		object_list[i] = (*it).first.c_str();
-		++i;
-	}
-	static const char* current_object = object_list[0];
-
-	if (ImGui::BeginCombo("ObjectList", current_object))
-	{
-		for (int j = 0; j < IM_ARRAYSIZE(object_list); j++)
-		{
-			bool is_selected = (current_object == object_list[j]); // You can store your selection however you want, outside or inside your objects
-			if (ImGui::Selectable(object_list[j], is_selected))
-			{
-				current_object = object_list[j];
-			}
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
-		}
-		ImGui::EndCombo();
-	}
-
-	if (objectmanager->GetObjectMap().size())
-	{
-		objectmanager->FindObject(current_object)->GetTransform().Imgui();
-	}
-
-	ImGui::End();
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 }
 
 

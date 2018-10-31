@@ -27,8 +27,7 @@ public:
 
 
 	void SetDispalyAreaSize(Graphics* graphics, State* current_state);
-	void GetObjectManager(Objectmanager* objectmanager);
-	
+
     void Key_Poll_Event();
     void PollEvent();
     void FullScreen();

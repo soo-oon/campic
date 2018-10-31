@@ -25,7 +25,8 @@ void Physics::Update(float dt)
 			{
 				temp.GetComponentByTemplate<RigidBody>()->Update(dt);
 			}
-			else if (temp.GetComponentByTemplate<Collision>() != nullptr)
+
+			if (temp.GetComponentByTemplate<Collision>() != nullptr)
 			{
 				temp.GetComponentByTemplate<Collision>()->Update(dt);
 			}

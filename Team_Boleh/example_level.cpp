@@ -101,6 +101,7 @@ void example::Update(float dt)
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
 
+	
 	opponent.clear();
 	for (size_t i = 0; i < GetObjectManager()->FindObject("player")->GetMesh().GetPointCount(); i++)
 		opponent.emplace_back(GetObjectManager()->FindObject("player")->GetTransform().GetTRS()*static_cast<vector2>(GetObjectManager()->FindObject("player")->GetMesh().GetPoint(i)));

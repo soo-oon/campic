@@ -6,9 +6,9 @@ void Object::AddComponent(Component* component)
     component->Initialize(this);
 }
 
-void Object::SetMesh(Mesh mesh_)
+void Object::SetMesh(Mesh mesh)
 {
-    mesh = mesh_;
+    object_mesh = mesh;
 }
 
 void Object::SetTranslation(const vector2& position)
@@ -44,7 +44,7 @@ float Object::GetGravity()
 
 Mesh& Object::GetMesh()
 {
-    return mesh;
+    return object_mesh;
 }
 
 Transform& Object::GetTransform()

@@ -59,7 +59,6 @@ void Engine::Update()
 		Graphic_->EndDraw();
 
 		Application_->SetDispalyAreaSize(Graphic_, State_);
-		Application_->GetObjectManager(Objectmanager_);
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

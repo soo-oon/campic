@@ -2,6 +2,7 @@
 #include "GLSL.hpp"
 #include "Animation.hpp"
 #include <memory>
+#include "Collision.hpp"
 
 namespace
 {
@@ -16,14 +17,16 @@ bool Graphics::Initialize()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
 
+	//glEnable(GL_QUADS);
+
     glBlendEquation(GL_FUNC_ADD);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);
+    bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);
     bool shaderIsReady = Spriteshader.Compile(GLSL::vertex, GLSL::fragment);
 
-	if (!shapes_shaderIsReady)
-		return false;
+    if (!shapes_shaderIsReady)
+        return false;
 
     if (!shaderIsReady)
         return false;
@@ -32,7 +35,7 @@ bool Graphics::Initialize()
     glGenBuffers(NumberOfVertexTypes, vertexBuffer);
 
     DescribVertexPosition();
-	DescribSolidVertexPosition();
+    DescribSolidVertexPosition();
 
     return true;
 }
@@ -40,55 +43,72 @@ bool Graphics::Initialize()
 void Graphics::Update(float dt)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glClear(GL_DEPTH_BUFFER_BIT);
     SetNDC();
 }
 
 void Graphics::Draw(Objectmanager* objects)
 {
-    for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin(); it != objects->GetObjectMap().end(); ++it)
+    if (objects != nullptr)
     {
-        if (it->second->GetComponentByTemplate<Sprite>() != nullptr)
+        for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin();
+             it != objects->GetObjectMap().end(); ++it)
         {
-            sprite.clear();
-            sprite.reserve(it->second->GetMesh().GetTexturePointsCount());
-            for (std::size_t i = 0; i < it->second->GetMesh().GetTexturePointsCount(); ++i)
-            {
-                sprite.push_back({
-                    it->second->GetMesh().GetPoint(i),
-                    it->second->GetMesh().GetTextureCoordinate(i)
-                });
-            }
-            Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
-                 it->second->GetMesh().GetColor(0),
-				it->second->GetComponentByTemplate<Sprite>());
-        }
-        else if (it->second->GetComponentByTemplate<Animation>() != nullptr)
-        {
-            animation.clear();
-            animation.reserve(it->second->GetMesh().GetAnimationPointsCount());
-            for (std::size_t i = 0; i < it->second->GetMesh().GetAnimationPointsCount(); ++i)
-            {
-                animation.push_back({
-                    it->second->GetMesh().GetPoint(i),
-                    it->second->GetMesh().GetAnimationCoordinate(i, it->second->GetComponentByTemplate<Animation>())
-                });
-            }
-            Draw(it->second->GetTransform(), animation, it->second->GetMesh().GetPointListType(),
-                 it->second->GetMesh().GetColor(0),
-                 it->second->GetComponentByTemplate<Animation>()->GetAnimationSprite());
-        }
-		else
-		{
-			shapes.clear();
-			shapes.reserve(it->second->GetMesh().GetPointCount());
-			for (std::size_t i = 0; i<it->second->GetMesh().GetPointCount(); ++i)
+            Object obj = *(it->second.get());
+
+			if (obj.GetComponentByTemplate<Collision>() != nullptr)
 			{
-				vector2 temp = it->second->GetMesh().GetPoint(i);
-				shapes.push_back({ it->second->GetMesh().GetPoint(i) });
+				Collision* temp = obj.GetComponentByTemplate<Collision>();
+				collsionboxes.clear();
+				collsionboxes.reserve(temp->GetCollsionMesh().GetCollisionPointsCount());
+				for (std::size_t i = 0; i < temp->GetCollsionMesh().GetCollisionPointsCount(); ++i)
+				{
+					collsionboxes.push_back({
+						temp->GetCollsionMesh().GetCollisionCoordinate(i) });
+				}
+				Draw(temp->GetCollisionTransform(), collsionboxes, temp->GetCollsionMesh().GetPointListType(), temp->GetCollsionMesh().GetColor(0));
 			}
-			Draw(it->second->GetTransform(), shapes, it->second->GetMesh().GetPointListType(), it->second->GetMesh().GetColor(0));
-		}
+
+            if (obj.GetComponentByTemplate<Sprite>() != nullptr)
+            {
+                sprite.clear();
+                sprite.reserve(obj.GetMesh().GetTexturePointsCount());
+                for (std::size_t i = 0; i < obj.GetMesh().GetTexturePointsCount(); ++i)
+                {
+                    sprite.push_back({
+                        obj.GetMesh().GetPoint(i),
+                        obj.GetMesh().GetTextureCoordinate(i)
+                    });
+                }
+                Draw(obj.GetTransform(), sprite, obj.GetMesh().GetPointListType(),
+                     obj.GetMesh().GetColor(0),
+                     obj.GetComponentByTemplate<Sprite>());
+            }
+            else if (obj.GetComponentByTemplate<Animation>() != nullptr)
+            {
+                animation.clear();
+                animation.reserve(obj.GetMesh().GetAnimationPointsCount());
+                for (std::size_t i = 0; i < obj.GetMesh().GetAnimationPointsCount(); ++i)
+                {
+                    animation.push_back({
+                        obj.GetMesh().GetPoint(i),
+                        obj.GetMesh().GetAnimationCoordinate(i, obj.GetComponentByTemplate<Animation>())
+                    });
+                }
+                Draw(obj.GetTransform(), animation, obj.GetMesh().GetPointListType(),
+                     obj.GetMesh().GetColor(0),
+                     obj.GetComponentByTemplate<Animation>()->GetAnimationSprite());
+            }
+            else
+            {
+                shapes.clear();
+                shapes.reserve(obj.GetMesh().GetPointCount());
+                for (std::size_t i = 0; i < obj.GetMesh().GetPointCount(); ++i)
+                {
+                    shapes.push_back({ obj.GetMesh().GetPoint(i) });
+                }
+                Draw(obj.GetTransform(), shapes, obj.GetMesh().GetPointListType(), obj.GetMesh().GetColor(0));
+            }
+        }
     }
 }
 
@@ -103,7 +123,8 @@ void Graphics::Quit()
     glDeleteVertexArrays(NumberOfVertexTypes, vertexAttributes);
     glDeleteBuffers(NumberOfVertexTypes, vertexBuffer);
 
-	Spriteshader.Delete();
+    Spriteshader.Delete();
+    Solidshader.Delete();
 }
 
 void Graphics::SetNDC()
@@ -115,27 +136,50 @@ void Graphics::SetNDC()
     };
 
     projection = temp;
+}
 
-    glViewport(0, 0, static_cast<GLsizei>(displaysize.x), static_cast<GLsizei>(displaysize.y));
+void Graphics::SetDisplaySize_G(vector2 size)
+{
+	displaysize = size;
+	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 }
 
 void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& vertexes, PointListType draw_type,
-	Color color)
+                    Color color)
 {
-	affine2d to_ndc = projection * transform.GetModelToWorld();
+    affine2d to_ndc = projection * transform.GetModelToWorld();
 
-	Solidshader.SendUniformVariable("transform", to_ndc);
-	Solidshader.SendUniformVariable("depth", transform.GetDepth());
-	Solidshader.SendUniformVariable("color", color);
+    Solidshader.SendUniformVariable("transform", to_ndc);
+    Solidshader.SendUniformVariable("depth", transform.GetDepth());
+    Solidshader.SendUniformVariable("color", color);
 
-	glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+    glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(solidshape) * vertexes.size(), (const void*)(&vertexes[0]),
-		GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(solidshape) * vertexes.size(), (const void*)(&vertexes[0]),
+                 GL_DYNAMIC_DRAW);
 
-	glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)(vertexes.size()));
+    glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)(vertexes.size()));
+}
+
+void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& vertexes, PointListType draw_type,
+    Color color)
+{
+    affine2d to_ndc = projection * transform.GetModelToWorld();
+
+    Solidshader.SendUniformVariable("transform", to_ndc);
+    Solidshader.SendUniformVariable("depth", transform.GetDepth());
+    Solidshader.SendUniformVariable("color", color);
+
+    glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(collsionbox) * vertexes.size(), (const void*)(&vertexes[0]),
+        GL_DYNAMIC_DRAW);
+
+    glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)(vertexes.size()));
 }
 
 void Graphics::Draw(const Transform& transform, const std::vector<texture>& vertexes, PointListType draw_type,
@@ -150,10 +194,10 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
         lastBoundTexture = sprite->GetTextureHandler();
     }
 
-	Spriteshader.SendUniformVariable("transform", to_ndc);
-	Spriteshader.SendUniformVariable("depth", transform.GetDepth());
-	Spriteshader.SendUniformVariable("color", color);
-	Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
+    Spriteshader.SendUniformVariable("transform", to_ndc);
+    Spriteshader.SendUniformVariable("depth", transform.GetDepth());
+    Spriteshader.SendUniformVariable("color", color);
+    Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
     glBindVertexArray(vertexAttributes[(int)Type::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
@@ -175,10 +219,10 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
         lastBoundTexture = sprite->GetTextureHandler();
     }
 
-	Spriteshader.SendUniformVariable("transform", to_ndc);
-	Spriteshader.SendUniformVariable("depth", transform.GetDepth());
-	Spriteshader.SendUniformVariable("color", color);
-	Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
+    Spriteshader.SendUniformVariable("transform", to_ndc);
+    Spriteshader.SendUniformVariable("depth", transform.GetDepth());
+    Spriteshader.SendUniformVariable("color", color);
+    Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
     glBindVertexArray(vertexAttributes[(int)Type::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
@@ -190,21 +234,21 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
 
 void Graphics::DescribSolidVertexPosition()
 {
-	glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+    glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
 
-	int position_attribute_location = Solidshader.GetVertexAttributeLocation("position");
+    int position_attribute_location = Solidshader.GetVertexAttributeLocation("position");
 
-	constexpr int two_components_in_vertex_position = 2;
-	constexpr GLenum float_element_type = GL_FLOAT;
-	constexpr GLboolean not_fixedpoint = GL_FALSE;
-	const void* offset_in_struct = (const void*)offsetof(solidshape, position);
+    constexpr int two_components_in_vertex_position = 2;
+    constexpr GLenum float_element_type = GL_FLOAT;
+    constexpr GLboolean not_fixedpoint = GL_FALSE;
+    const void* offset_in_struct = (const void*)offsetof(solidshape, position);
 
-	glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position, float_element_type,
-		not_fixedpoint, sizeof(solidshape), offset_in_struct);
+    glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position, float_element_type,
+                          not_fixedpoint, sizeof(solidshape), offset_in_struct);
 
-	glEnableVertexAttribArray(position_attribute_location);
+    glEnableVertexAttribArray(position_attribute_location);
 }
 
 void Graphics::DescribVertexPosition()
