@@ -74,6 +74,7 @@
     <ClCompile Include="RigidBody.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="JSON.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -170,6 +171,7 @@
     <ClInclude Include="RigidBody.hpp">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="JSON.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
