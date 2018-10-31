@@ -24,6 +24,33 @@ void test_statemanager::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
+
+	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		check1 = !check1;
+
+		if (!check1)
+		{
+			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Sprite>()->Flip();
+		}
+		else
+		{
+			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Sprite>()->Flip_Not();
+		}
+	}
+
+	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+	{
+		check = !check;
+		if(check)
+		{
+			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->GetCollsionMesh().Visible();
+		}
+		else
+		{
+			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->GetCollsionMesh().Invisible();
+		}
+	}
 }
 
 void test_statemanager::ShutDown()

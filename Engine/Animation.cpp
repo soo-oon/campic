@@ -77,5 +77,5 @@ void Animation::ChangeAnimation(std::string ID)
 void Animation::Imgui_Animation()
 {
 	ImGui::SliderFloat("frame_per_second", &frame_per_second, 0, 0.5);
-	ImGui::SliderFloat("update_frame", &update_frame, 0.1, 0.01);
+	ImGui::SliderFloat("update_frame", &update_frame, 0.1f, 0.01f);
 }

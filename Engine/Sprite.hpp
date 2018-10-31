@@ -16,6 +16,13 @@ public:
     void Update(float dt) override;
     void Delete() override;
 
+	bool IsFlip() { return flip; }
+
+	//************** Maybe Delete after optimizing Imgui
+	void Flip_Not() { flip = false; }
+	void Flip() { flip = true; }
+	//**************
+
     bool Texture_Load(const std::string& file_path);
     void Bind(unsigned int slot = 0);
     void ScreenShot(const std::string& file_path) const;
@@ -29,6 +36,7 @@ public:
 
     GLuint GetTextureHandler() const { return handle_to_texture; }
 private:
+	bool flip = false;
     void LoadSprite();
 
     GLuint handle_to_texture;

@@ -11,6 +11,7 @@
 /******************************************************************************/
 #include "Mesh.hpp"
 #include "Animation.hpp"
+#include "Sprite.hpp"
 
 Mesh::~Mesh()
 {
@@ -55,34 +56,107 @@ Color Mesh::GetColor(size_t index) const
 }
 
 
-vector2 Mesh::GetTextureCoordinate(size_t index) const
+vector2 Mesh::GetTextureCoordinate(size_t index, Sprite* sprite)
 {
-    return textureCoordinates.at(index);
+	if(!sprite->IsFlip())
+	{
+		switch (index)
+		{
+		case 0:
+			textureCoordinates.at(index).x = 0;
+			break;
+		case 1:
+			textureCoordinates.at(index).x = 1;
+			break;
+
+		case 2:
+			textureCoordinates.at(index).x = 0;
+			break;
+
+		case 3:
+			textureCoordinates.at(index).x = 1;
+			break;
+
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (index)
+		{
+		case 0:
+			textureCoordinates.at(index).x = 1;
+			break;
+		case 1:
+			textureCoordinates.at(index).x = 0;
+			break;
+
+		case 2:
+			textureCoordinates.at(index).x = 1;
+			break;
+
+		case 3:
+			textureCoordinates.at(index).x = 0;
+			break;
+
+		default:
+			break;
+		}
+	}
+	return textureCoordinates.at(index);
 }
 
 vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
 {
-    switch (index)
-    {
-    case 0:
-        animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
-        animationCoordinates.at(index).y = 1;
-        break;
-    case 1:
-        animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
-        animationCoordinates.at(index).y = 1;
-        break;
-    case 2:
-        animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
-        animationCoordinates.at(index).y = 0;
-        break;
-    case 3:
-        animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
-        animationCoordinates.at(index).y = 0;
-        break;
-    default:
-        break;
-    }
+	if (!animation->GetAnimationSprite()->IsFlip())
+	{
+		switch (index)
+		{
+		case 0:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).y = 1;
+			break;
+		case 1:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).y = 1;
+			break;
+		case 2:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).y = 0;
+			break;
+		case 3:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).y = 0;
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (index)
+		{
+		case 0:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).y = 1;
+			break;
+		case 1:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).y = 1;
+			break;
+		case 2:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).y = 0;
+			break;
+		case 3:
+			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).y = 0;
+			break;
+		default:
+			break;
+		}
+	}
     return animationCoordinates.at(index);
 }
 
@@ -291,11 +365,11 @@ namespace mesh
 
     Mesh CreateCollisionBox(CollisionType type, float dimension, Color color)
     {
+		Mesh mesh;
         switch (type)
         {
         case box_:
         {
-            Mesh mesh;
             mesh.AddCollisionCoordinate(dimension*vector2{ -0.5f,-0.5f });
             mesh.AddCollisionCoordinate(dimension*vector2{ 0.5f,-0.5f });
             mesh.AddCollisionCoordinate(dimension*vector2{ 0.5f,0.5f });
@@ -305,12 +379,11 @@ namespace mesh
             mesh.SetPointListType(PointListType::LineStrip);
 
             mesh.AddColor(color);
-            return mesh;
         }
+		break;
 
         case circle_:
             {   
-                Mesh mesh;
                 int points_number = 100;
                 for (int i = 0; i <= points_number; ++i)
                 {
@@ -320,12 +393,10 @@ namespace mesh
                 }
 
                 mesh.SetPointListType(PointListType::LineStrip);
-                return mesh;
             }
-
+			break;
         case triangle_:
             {
-                Mesh mesh;
                 mesh.AddCollisionCoordinate(dimension * vector2{-0.5f, -0.5f});
                 mesh.AddCollisionCoordinate(dimension * vector2{0.5f, -0.5f});
                 mesh.AddCollisionCoordinate(dimension * vector2{0.0f, 0.5f});
@@ -334,8 +405,9 @@ namespace mesh
                 mesh.SetPointListType(PointListType::LineStrip);
 
                 mesh.AddColor(color);
-                return mesh;
             }
+			break;
         }
+		return mesh;
     }
 }

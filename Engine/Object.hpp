@@ -14,6 +14,7 @@ public:
     void SetRotation(const float& rotation);
     void SetDepth(const float& depth);
     void SetGravity(float gravity_own);
+
     float GetGravity();
 
     Mesh& GetMesh();

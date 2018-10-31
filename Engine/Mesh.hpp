@@ -12,6 +12,7 @@ enum CollisionType
 };
 
 class Animation;
+class Sprite;
 
 enum class PointListType
 {
@@ -34,7 +35,7 @@ public:
 	size_t GetCollisionPointsCount() const;
 
     vector2 GetPoint(size_t index) const;
-    vector2 GetTextureCoordinate(size_t index) const;
+    vector2 GetTextureCoordinate(size_t index, Sprite* sprite);
     vector2 GetAnimationCoordinate(size_t index, Animation* animation);
 	vector2 GetCollisionCoordinate(size_t index) const;
     Color GetColor(size_t index) const;
@@ -49,16 +50,24 @@ public:
 	void AddCollisionCoordinate(vector2 collision_coordinate);
 
 	void ChangeColor(Color color);
-
     void ClearColors();
     void ClearTextureCoordinates();
 	void ClearAnimationCoordinates();
 	void ClearCollisionCoordinates();
     void ClearPoints();
 
+	bool IsVisible() { return visible; }
+
+	//************** Maybe Delete after optimizing Imgui
+	void Invisible() { visible = false; }
+	void Visible() { visible = true; }
+	//*************
+
     void Clear();
 
 private:
+	bool visible = true;
+
     int Animation_frame = 0;
     std::vector<vector2> points{};
     std::vector<vector2> textureCoordinates{};

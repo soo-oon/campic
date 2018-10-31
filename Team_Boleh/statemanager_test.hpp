@@ -7,4 +7,8 @@ public:
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;
+
+private:
+	bool check1 = true;
+	bool check = true;
 };
