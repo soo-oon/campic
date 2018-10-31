@@ -7,10 +7,10 @@
 #include "Objectmanager.hpp"
 #include "Animation.hpp"
 
-class Imgui_Setup : public System
+class Imgui_System: public System
 {
 public:
-	~Imgui_Setup()
+	~Imgui_System()
 	{
 	};
 

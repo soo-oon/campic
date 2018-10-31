@@ -1,6 +1,6 @@
-#include "Imgui_Setup.h"
+#include "Imgui_System.hpp"
 
-bool Imgui_Setup::Initialize()
+bool Imgui_System::Initialize()
 {
 	//Imgui Setup
 	IMGUI_CHECKVERSION();
@@ -22,19 +22,19 @@ bool Imgui_Setup::Initialize()
 	return true;
 }
 
-void Imgui_Setup::Update(float dt)
+void Imgui_System::Update(float dt)
 {
 
 }
 
-void Imgui_Setup::Quit()
+void Imgui_System::Quit()
 {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
 
-void Imgui_Setup::Draw()
+void Imgui_System::Draw()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -49,47 +49,48 @@ void Imgui_Setup::Draw()
 	glfwSwapBuffers(window);
 }
 
-void Imgui_Setup::ObjectManger()
+void Imgui_System::ObjectManger()
 {
 	if (object_manager != nullptr)
 	{
-		ImGui::Begin("Object Manager", &show_window, ImGuiWindowFlags_AlwaysAutoResize);
-		const char* object_list[5] = {};
-
-		int i = 0;
-		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_manager->GetObjectMap().begin();
-			it != object_manager->GetObjectMap().end(); ++it)
-		{
-			object_list[i] = (*it).first.c_str();
-			++i;
-		}
-		static const char* current_object = object_list[0];
-
-		if (ImGui::BeginCombo("ObjectList", current_object))
-		{
-			for (int j = 0; j < IM_ARRAYSIZE(object_list); j++)
-			{
-				bool is_selected = (current_object == object_list[j]); // You can store your selection however you want, outside or inside your objects
-				if (ImGui::Selectable(object_list[j], is_selected))
-				{
-					current_object = object_list[j];
-				}
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();
-			}
-			ImGui::EndCombo();
-		}
-
 		if (object_manager->GetObjectMap().size())
 		{
+			ImGui::Begin("Object Manager", &show_window, ImGuiWindowFlags_AlwaysAutoResize);
+			const char* object_list[100000] = {};
+
+			int i = 0;
+			for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_manager->GetObjectMap().begin();
+				it != object_manager->GetObjectMap().end(); ++it)
+			{
+				object_list[i] = (*it).first.c_str();
+				++i;
+			}
+			const char* current_object = object_list[0];
+
+			if (ImGui::BeginCombo("ObjectList", current_object))
+			{
+				for (int j = 0; j < object_manager->GetObjectMap().size(); j++)
+				{
+					bool is_selected = (current_object == object_list[j]); // You can store your selection however you want, outside or inside your objects
+					if (ImGui::Selectable(object_list[j], is_selected))
+					{
+						current_object = object_list[j];
+					}
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
+
 			object_manager->FindObject(current_object)->GetTransform().Imgui_Transform();
-			
+
 
 			Object* temp = object_manager->FindObject(current_object).get();
 			if (temp->GetComponentByTemplate<Animation>() != nullptr)
 			{
 				temp->GetComponentByTemplate<Animation>()->Imgui_Animation();
 			}
+		
 		}
 
 		ImGui::End();

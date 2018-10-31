@@ -154,7 +154,7 @@
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Imgui_Setup.cpp" />
+    <ClCompile Include="Imgui_System.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -189,7 +189,7 @@
     <ClInclude Include="imgui_impl_glfw.h" />
     <ClInclude Include="imgui_impl_opengl3.h" />
     <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="Imgui_Setup.h" />
+    <ClInclude Include="Imgui_System.hpp" />
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />

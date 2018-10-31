@@ -7,6 +7,7 @@
 #include "State.hpp"
 #include "Sound.hpp"
 #include "Physics.hpp"
+#include "Imgui_System.hpp"
 
 namespace
 {
@@ -15,7 +16,7 @@ namespace
 	Objectmanager* Objectmanager_ = nullptr;
 	State* State_ = nullptr;
 	Physics* Physics_ = nullptr;
-	Imgui_Setup* Imgui = nullptr;
+	Imgui_System* Imgui = nullptr;
 }
 
 bool Engine::IsQuit;
@@ -28,12 +29,12 @@ bool Engine::Initialize()
     AddSystem(new Graphics());
 	AddSystem(new Physics());
     AddSystem(new Sound());
-	AddSystem(new Imgui_Setup());
+	AddSystem(new Imgui_System());
 
 	Application_ = GetSystemByTemplate<Application>();
 	Graphic_ = GetSystemByTemplate<Graphics>();
 	Physics_ = GetSystemByTemplate<Physics>();
-	Imgui = GetSystemByTemplate<Imgui_Setup>();
+	Imgui = GetSystemByTemplate<Imgui_System>();
 
 	for (auto i : systems)
 	{
