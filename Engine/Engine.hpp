@@ -8,8 +8,7 @@ enum SystemList
 {
     appication,
     statemanager,
-    graphics,
-	imgui
+    graphics
 };
 
 class Engine

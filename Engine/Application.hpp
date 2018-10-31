@@ -12,9 +12,9 @@
 class Graphics;
 class Objectmanager;
 
+
 class Application : public System
 {
-	friend class Imgui_Setup;
 public:
     ~Application()
     {
@@ -39,10 +39,11 @@ private:
     const GLFWvidmode* mode = nullptr;
     GLFWmonitor* mode_screen = nullptr;
 
-    GLFWwindow* window = nullptr;
+    GLFWwindow* window;
     bool fullScreenMode = false;
 
     std::string title;
     vector2 screenSize;
     vector2 temp_size{};
 };
+

@@ -37,8 +37,8 @@ bool Engine::Initialize()
 
 	for (auto i : systems)
 	{
-		if (systems.at(4))
-			Imgui->SetWindow(App->GetWindow());
+		if (systems.at(5))
+			Imgui->SetWindow(Application_->GetWindow());
 		i->Initialize();
 	}
 
@@ -66,9 +66,8 @@ void Engine::Update()
 		Graphic_->EndDraw();
 
 		Application_->SetDispalyAreaSize(Graphic_, State_);
-		Application_->GetObjectManager(Objectmanager_);
 
-		Imgui->SetObjectManger(Obj);
+		Imgui->SetObjectManger(Objectmanager_);
 		Imgui->Draw();
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))

@@ -5,6 +5,7 @@
 #include "imgui_impl_opengl3.h"
 #include "System.hpp"
 #include "Objectmanager.hpp"
+#include "Animation.hpp"
 
 class Imgui_Setup : public System
 {

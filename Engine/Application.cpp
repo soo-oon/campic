@@ -103,7 +103,8 @@ void Application::Update(float dt)
 	}
 
     Input::Triggerd_Reset();
-    glfwSwapBuffers(window);
+
+   // glfwSwapBuffers(window);
     PollEvent();
 }
 
