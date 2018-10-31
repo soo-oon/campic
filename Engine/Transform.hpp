@@ -37,7 +37,7 @@ public:
     const Transform* GetParent() const;
     void SetParent(const Transform* const transform_parent);
 
-	void Imgui();
+	void Imgui_Transform();
     affine2d GetTRS();
 private:
     vector2 translation;

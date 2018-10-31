@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include "vector2.hpp"
+#include "imgui.h"
 #include <algorithm>
 #include <memory>
 
@@ -32,6 +33,8 @@ public:
 		int image_frame_, float update_frame_);
     void Delete() override;
 	void ChangeAnimation(std::string ID);
+
+	void Imgui_Animation();
 
     vector2 GetAnimationPosition() { return previous_current_coordinate; }
     Sprite* GetAnimationSprite() { return current_sprite; }

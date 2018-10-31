@@ -15,6 +15,7 @@ namespace
 	Objectmanager* Objectmanager_ = nullptr;
 	State* State_ = nullptr;
 	Physics* Physics_ = nullptr;
+	Imgui_Setup* Imgui = nullptr;
 }
 
 bool Engine::IsQuit;
@@ -27,13 +28,19 @@ bool Engine::Initialize()
     AddSystem(new Graphics());
 	AddSystem(new Physics());
     AddSystem(new Sound());
-
-    for (auto i : systems)
-        i->Initialize();
+	AddSystem(new Imgui_Setup());
 
 	Application_ = GetSystemByTemplate<Application>();
 	Graphic_ = GetSystemByTemplate<Graphics>();
 	Physics_ = GetSystemByTemplate<Physics>();
+	Imgui = GetSystemByTemplate<Imgui_Setup>();
+
+	for (auto i : systems)
+	{
+		if (systems.at(4))
+			Imgui->SetWindow(App->GetWindow());
+		i->Initialize();
+	}
 
     gameTimer.Reset();
     IsQuit = false;
@@ -60,6 +67,9 @@ void Engine::Update()
 
 		Application_->SetDispalyAreaSize(Graphic_, State_);
 		Application_->GetObjectManager(Objectmanager_);
+
+		Imgui->SetObjectManger(Obj);
+		Imgui->Draw();
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

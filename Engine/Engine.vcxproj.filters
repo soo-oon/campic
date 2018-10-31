@@ -73,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
       <Filter>Component</Filter>
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Imgui_Setup.cpp">
+      <Filter>imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +172,8 @@
     </ClInclude>
     <ClInclude Include="RigidBody.hpp">
       <Filter>Component</Filter>
+    <ClInclude Include="Imgui_Setup.h">
+      <Filter>imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

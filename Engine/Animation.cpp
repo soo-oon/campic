@@ -73,3 +73,9 @@ void Animation::ChangeAnimation(std::string ID)
 	frame_per_second = frame_per_seconds.find(ID)->second;
 	update_frame = update_frames.find(ID)->second;
 }
+
+void Animation::Imgui_Animation()
+{
+	ImGui::SliderFloat("translation_x", &frame_per_second, 0, 10);
+	ImGui::SliderInt("depth", &image_frame, 0, 10);
+}
