@@ -15,7 +15,7 @@ void test_statemanager::Initialize()
 	GetObjectManager()->FindObject("collision")->SetDepth(0);
 	GetObjectManager()->FindObject("collision")->AddComponent(new Sprite());
 	GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
-	GetObjectManager()->FindObject("collision")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 300,150 }));
+	GetObjectManager()->FindObject("collision")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
 }
 
 void test_statemanager::Update(float dt)

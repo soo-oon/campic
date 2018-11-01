@@ -8,6 +8,7 @@
 #include "Sound.hpp"
 #include "Physics.hpp"
 #include "Imgui_System.hpp"
+#include "JSON.hpp"
 
 namespace
 {
@@ -17,6 +18,7 @@ namespace
 	State* State_ = nullptr;
 	Physics* Physics_ = nullptr;
 	Imgui_System* Imgui = nullptr;
+	JSON* Json = nullptr;
 }
 
 bool Engine::IsQuit;
@@ -30,11 +32,13 @@ bool Engine::Initialize()
 	AddSystem(new Physics());
     AddSystem(new Sound());
 	AddSystem(new Imgui_System());
+	AddSystem(new JSON());
 
 	Application_ = GetSystemByTemplate<Application>();
 	Graphic_ = GetSystemByTemplate<Graphics>();
 	Physics_ = GetSystemByTemplate<Physics>();
 	Imgui = GetSystemByTemplate<Imgui_System>();
+	Json = GetSystemByTemplate<JSON>();
 
 	for (auto i : systems)
 	{
@@ -70,6 +74,8 @@ void Engine::Update()
 
 		Imgui->SetObjectManger(Objectmanager_);
 		Imgui->Draw();
+
+		Json->UpdateData(Objectmanager_);
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
