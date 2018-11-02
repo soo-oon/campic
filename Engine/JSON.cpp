@@ -1,8 +1,14 @@
 #include "JSON.hpp"
 
+#define NAME		"name"
+#define TRANSLATION "translation"
+#define ROTATION	"rotation"
+#define SCALE		"scale"
+#define DEPTH		"depth"
+#define GRAVITY		"gravity"
+
 bool JSON::Initialize()
 {
-
 	document.SetObject();
 	if (!document.IsObject())
 		return false;
@@ -17,6 +23,7 @@ void JSON::UpdateData(Objectmanager* objectmanager)
 	{
 		SendData(it->second.get(), it->first);
 	}
+
 }
 
 void JSON::Quit()
@@ -36,7 +43,7 @@ void JSON::AddNewObjectData(Object* object, std::string name)
 {
 	rapidjson::Value newObjectData(rapidjson::kObjectType);
 
-	//Add Data of object
+	//Add Data of object///////////////////////////////////////
 	rapidjson::Value newObjectName(name.c_str(), allocator);
 
 	rapidjson::Value newObjectTranslation(rapidjson::kArrayType);
@@ -57,14 +64,13 @@ void JSON::AddNewObjectData(Object* object, std::string name)
 	newObjectGravity.SetFloat(object->GetGravity());
 
 	//Add Datas to objectdata
-	newObjectData.AddMember("name", newObjectName, allocator);
-	newObjectData.AddMember("translation", newObjectTranslation, allocator);
-	newObjectData.AddMember("rotation", newObjectRotation, allocator);
-	newObjectData.AddMember("scale", newObjectScale, allocator);
-	newObjectData.AddMember("depth", newObjectDepth, allocator);
-	newObjectData.AddMember("gravity", newObjectGravity, allocator);
+	newObjectData.AddMember(NAME, newObjectName, allocator);
+	newObjectData.AddMember(TRANSLATION,newObjectTranslation, allocator);
+	newObjectData.AddMember(ROTATION, newObjectRotation, allocator);
+	newObjectData.AddMember(SCALE, newObjectScale, allocator);
+	newObjectData.AddMember(DEPTH, newObjectDepth, allocator);
+	newObjectData.AddMember(GRAVITY, newObjectGravity, allocator);
 
-	//rapidjson::Value::StringRefType objectname = rapidjson::StringRef(name.c_str());
 	rapidjson::Value nameofobject(name.c_str(), allocator);
 
 	//Add objectdata to document
@@ -73,43 +79,42 @@ void JSON::AddNewObjectData(Object* object, std::string name)
 
 void JSON::ModifyObjectData(Object* object, std::string name)
 {
-	//const rapidjson::Value& object_data = document[name.c_str()];
+	rapidjson::Value& a_type_data = document[name.c_str()][TRANSLATION];
 
-	//assert(object_data.HasMember("translation"));
-	//assert(object_data["translation"].IsArray());
-
-	rapidjson::Value& a_type_data = document[name.c_str()]["translation"];
-	//for (rapidjson::SizeType i = 0; i < data.Size(); i++)
 	a_type_data[0].SetFloat(object->GetTransform().GetTranslation().x);
 	a_type_data[1].SetFloat(object->GetTransform().GetTranslation().y);
 
-	//assert(object_data.HasMember("rotation"));
-	rapidjson::Value& o_type_data = document[name.c_str()]["rotation"];
-	o_type_data = document[name.c_str()]["rotation"];
+	rapidjson::Value& o_type_data = document[name.c_str()][ROTATION];
+	o_type_data = document[name.c_str()][ROTATION];
 	o_type_data.SetFloat(*(object->GetTransform().GetRotation()));
 
-	//a_type_data = document[name.c_str()]["scale"];
-	document[name.c_str()]["scale"][0].SetFloat(object->GetTransform().GetScale().x);
-	document[name.c_str()]["scale"][1].SetFloat(object->GetTransform().GetScale().y);
+	document[name.c_str()][SCALE][0].SetFloat(object->GetTransform().GetScale().x);
+	document[name.c_str()][SCALE][1].SetFloat(object->GetTransform().GetScale().y);
 
-	//data = document[name.c_str()]["depth"];
-	document[name.c_str()]["depth"].SetFloat(object->GetTransform().GetDepth());
+	document[name.c_str()][DEPTH].SetFloat(object->GetTransform().GetDepth());
 
-	//data = document[name.c_str()]["gravity"];
-	document[name.c_str()]["gravity"].SetFloat(object->GetGravity());
+	document[name.c_str()][GRAVITY].SetFloat(object->GetGravity());
+}
+
+void JSON::LoadData()
+{
+	FILE* fp;
+	fopen_s(&fp, file_name, "wb");
+	char readBuffer[65536];
+	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+	document.ParseStream(is);
+	fclose(fp);
 }
 
 void JSON::StoreData()
 {
 	FILE *fp;
-	fopen_s(&fp, "output.json", "wb");
+	fopen_s(&fp, file_name, "wb");
 
-	//char writeBuffer[65535];
-	//rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-	//rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
+	char writeBuffer[65535];
+	rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
 
-	rapidjson::StringBuffer sb;
-	rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
 	document.Accept(writer);
 	fclose(fp);
 }
