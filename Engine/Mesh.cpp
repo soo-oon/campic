@@ -54,6 +54,11 @@ Color Mesh::GetColor(size_t index) const
     return colors[index];
 }
 
+std::vector<vector2> Mesh::GetCollisionVectors()
+{
+	return collisionCoordinates;
+}
+
 
 vector2 Mesh::GetTextureCoordinate(size_t index) const
 {

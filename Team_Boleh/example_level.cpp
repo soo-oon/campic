@@ -117,7 +117,7 @@ void example::Update(float dt)
 	}
 	
 	GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player"));
-	if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->intersection_check(static_opponent, opponent))
+	if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->Intersection_check(static_opponent, opponent))
 	{
 		//GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->SetVelocity(-100 *normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<Physics>()->GetVelocity()));
 		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
@@ -147,7 +147,7 @@ void example::Update(float dt)
 		//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Physics>()->Update(dt);
 		GetObjectManager()->FindObject("sonic_animation")->GetMesh().ChangeColor({255,255,0,255});
 	}
-	else if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->intersection_check(opponent, mesh_p))
+	else if (GetObjectManager()->FindObject("player")->GetComponentByTemplate<Collision>()->Intersection_check(opponent, mesh_p))
 	{
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity())));
 		GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->SetVelocity(-vector2(abs(magnitude(GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->GetVelocity()))* normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity())));

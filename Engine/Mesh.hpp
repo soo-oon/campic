@@ -39,6 +39,8 @@ public:
 	vector2 GetCollisionCoordinate(size_t index) const;
     Color GetColor(size_t index) const;
 
+    std::vector<vector2> GetCollisionVectors();
+
     PointListType GetPointListType() const;
     void SetPointListType(PointListType list_type);
 

@@ -14,6 +14,7 @@ void Physics::PhysicsObjectUpdate(Objectmanager* objectmanager)
 
 void Physics::Update(float dt)
 {
+	collision_list.clear();
 	if (temp_obj != nullptr)
 	{
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
@@ -28,7 +29,19 @@ void Physics::Update(float dt)
 
 			if (temp.GetComponentByTemplate<Collision>() != nullptr)
 			{
-				temp.GetComponentByTemplate<Collision>()->Update(dt);
+				collision_list.push_back(temp);
+				//temp.GetComponentByTemplate<Collision>()->Update(dt);
+			}
+		}
+	}
+	if (collision_list.size() > 1)
+	{
+		for (size_t i = 0; i < collision_list.size() -1; i++)
+		{
+			for (size_t j = 0; j < collision_list.size() - 1; j++)
+			{
+				if(i != j)
+				Intersection_check(collision_list[i], collision_list[j]);
 			}
 		}
 	}
@@ -40,5 +53,103 @@ void Physics::Quit()
 	temp_obj = nullptr;
 }
 
+
+bool Physics::Collision_on_axis(vector2 Axis, std::vector<vector2> owner, std::vector<vector2> object)
+{
+	float minA, maxA;
+	float minB, maxB;
+	Interval(owner, Axis, minA, maxA);
+	Interval(object, Axis, minB, maxB);
+
+	float d0 = minA - maxB;
+	float d1 = minB - maxA;
+
+	if (d0 > 0.0f || d1 > 0.0f)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+void Physics::Interval(std::vector<vector2>vertices, vector2 Axis, float& min, float& max)
+{
+	min = max = dot(vertices[0], Axis);
+	for (auto vertex : vertices)
+	{
+		float d = dot(vertex, Axis);
+		if (d < min) min = d;
+		else if (d > max) max = d;
+	}
+	//It should return projection of 2 polygon 
+	//polygon should have min max value
+	//It projection to axis of box
+}
+
+std::vector<vector2> Physics::Vector_to_line(Object object)
+{
+	std::vector<vector2> object_line;
+	if(object.GetComponentByTemplate<Collision>()->GetCollisionType() == box_)
+	{
+		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0]
+								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1]);
+		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1] 
+								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[3]);
+		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[3]
+								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2]);
+		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0] 
+								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2]);
+	}
+	return object_line;
+	//std::vector<vector2> temp;
+	//if (line_.size() == 4)
+	//{
+	//	temp.push_back(line_[0] - line_[1]);
+	//	temp.push_back(line_[1] - line_[3]);
+	//	temp.push_back(line_[3] - line_[2]);
+	//	temp.push_back(line_[0] - line_[2]);
+	//}
+	//else
+	//{
+	//	for (int i = 0; i < static_cast<int>(line_.size() - 1); i++)
+	//	{
+	//		temp.push_back(line_[i] - line_[i + 1]);
+	//	}
+	//	temp.push_back(line_[static_cast<int>(line_.size() - 1)] - line_[0]);
+	//}
+	//return temp;
+}
+// should change take object.
+bool Physics::Intersection_check(Object object1, Object object2)
+{
+	std::vector<vector2> owner = object1.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+	std::vector<vector2> object = object2.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+	std::vector<vector2> axis;
+	for (auto i : Vector_to_line(object1))
+	{
+		if (!Collision_on_axis(vector2(-i.y, i.x), owner, object))
+		{
+			//std::cout << "No Intersec" << std::endl;
+			return false;
+		}
+	}
+	for (auto i : Vector_to_line(object2))
+	{
+		axis.emplace_back(vector2(-i.y, i.x));
+		if (!Collision_on_axis(vector2(-i.y, i.x), owner, object))
+		{
+			//std::cout << "No Intersec" << std::endl;
+			return false;
+		}
+	}
+	//calculate axis of length.
+	//take projection of other function.
+	//and take min and max
+	//if min
+	// std::cout << "Yes, Intersection" << std::endl;
+	return true;
+}
 
 
