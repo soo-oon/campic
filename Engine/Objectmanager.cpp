@@ -17,7 +17,6 @@ void Objectmanager::AddObject(std::string key_name)
 	if (object_map.find(key_name) == object_map.end())
 	{
 		object_map.insert(std::make_pair(key_name, std::make_unique<Object>()));
-
 	}
 
     else

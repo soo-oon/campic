@@ -1,5 +1,6 @@
 #include "Transform.hpp"
 #include "imgui.h"
+
 affine2d Transform::GetModelToWorld() const
 {
     affine2d temp = build_translation(translation.x, translation.y)
@@ -27,12 +28,12 @@ affine2d Transform::GetModelToWorld() const
 }
 void Transform::Imgui_Transform()
 {
-	ImGui::SliderFloat("translation_x", &translation.x, -400,400);
-	ImGui::SliderFloat("translation_y", &translation.y, -400, 400);
-	ImGui::SliderFloat("scale_x", &scale.x, -200, 500);
-	ImGui::SliderFloat("scale_y", &scale.y, -200, 500);
-	ImGui::SliderFloat("rotation", &rotation, 0, 1000);
-	ImGui::SliderFloat("depth", &depth, 0, 1);
+	ImGui::SliderFloat("TranslationX", &translation.x, -500, 500);
+	ImGui::SliderFloat("TranslationY", &translation.y, -500, 500);
+	ImGui::SliderFloat("ScaleX", &scale.x, 0, 1000);
+	ImGui::SliderFloat("ScaleY", &scale.y, 0, 1000);
+	ImGui::SliderFloat("Rotation", &rotation, 0, 370);
+	ImGui::SliderFloat("Depth", &depth, 0, 1);
 }
 affine2d Transform::GetTRS()
 {

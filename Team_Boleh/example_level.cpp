@@ -10,7 +10,8 @@
 
 void example::blackhole(Object* Ob, Object* Ob1)
 {
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = GetObjectManager()->GetObjectMap().begin(); it != GetObjectManager()->GetObjectMap().end(); ++it)
+	for (auto it = GetObjectManager()->GetObjectMap().begin();
+		it != GetObjectManager()->GetObjectMap().end(); ++it)
 	{
 		vector2 black = 0;
 		float* rotation = it->second.get()->GetTransform().GetRotation();

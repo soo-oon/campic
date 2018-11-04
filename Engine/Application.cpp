@@ -92,8 +92,6 @@ bool Application::Initialize()
 
 void Application::Update(float dt)
 {
-	std::cout << screenSize.x << ", " << screenSize.y << std::endl;
-
 	fpsEllapsedTime += dt;
 	++fpsFrames;
 	if (fpsEllapsedTime >= 1.0f)
@@ -107,7 +105,7 @@ void Application::Update(float dt)
 	}
 
     Input::Triggerd_Reset();
-
+;
    // glfwSwapBuffers(window);
     PollEvent();
 }
