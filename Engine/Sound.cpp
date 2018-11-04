@@ -217,7 +217,7 @@ bool Sound::IsPlaying()
 	return isPlaying;
 }
 
-bool Sound::CreateSound(const std::string & filePath)
+bool Sound::CreateSound(const std::string& filePath)
 {
 	// Create sound
 	fmod_result = system->createSound(filePath.c_str(), GetSoundMode(), nullptr, &sound);
