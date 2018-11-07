@@ -8,12 +8,13 @@
 class RigidBody : public Component
 {
 public:
-	RigidBody() {}
+    RigidBody() {}
 
     void CollisionOn();
     void SetMass(float mass);
     void SetVelocity(vector2 velocity);
-	void AddVelocity(vector2 velocity);
+    void AddVelocity(vector2 velocity);
+    vector2 GetPreviousPosition();
     vector2 GetVelocity();
     vector2 GetPosition();
     void AddForce(vector2 force);
@@ -21,17 +22,13 @@ public:
     void Update(float dt) override;
     void Delete() override;
 private:
-	
+    vector2 previous_position;
     vector2 force_accumlator; // mess 
     vector2 velocity;
     vector2 position;
-    float friction = 0.995f;
+    float friction = 0.990f;
     float gravity;
     float inverse_mass = 1;
-    float rotation;
-    float torque;
-    float angler_velosity;
-    float inverse_inertia;
 
     bool collision_switch = false;
 

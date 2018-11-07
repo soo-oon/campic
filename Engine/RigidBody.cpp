@@ -26,6 +26,11 @@ void RigidBody::AddVelocity(vector2 velocity)
 	this->velocity += velocity;
 }
 
+vector2 RigidBody::GetPreviousPosition()
+{
+    return previous_position;
+}
+
 vector2 RigidBody::GetVelocity()
 {
     return velocity;
@@ -40,6 +45,7 @@ vector2 RigidBody::GetPosition()
 bool RigidBody::Initialize(Object* Ob)
 {
 	object = Ob;
+	previous_position = object->GetTransform().GetTranslation();
     force_accumlator = {0, 0};
     velocity = {0, 0};
 	object = Ob;
@@ -48,6 +54,8 @@ bool RigidBody::Initialize(Object* Ob)
 
 void RigidBody::Update(float dt)
 {
+    previous_position = object->GetTransform().GetTranslation();
+
 	gravity = 1 / object->GetGravity();
     // calculate current velocity.
     velocity += inverse_mass * (force_accumlator * dt);

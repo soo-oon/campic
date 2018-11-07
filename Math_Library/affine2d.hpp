@@ -44,6 +44,7 @@ struct affine2d
     vector3 operator*=(vector3 v);
 
     vector2 operator*(vector2&& v)const;
+    vector2 operator*(vector2 v)const;
 
 
     float operator()(int column, int row)const;

@@ -2,6 +2,13 @@
 #include "Objectmanager.hpp"
 #include "Mesh.hpp"
 
+enum class RestitutionType
+{
+	bounce,
+	stop,
+	ghost,
+	none,
+};
 class Collision : public Component
 {
 public:
@@ -18,16 +25,17 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
+	void SetRestitutionType(RestitutionType restitution);
+        RestitutionType& GetRestitutionType();
 	Mesh& GetCollsionMesh();
 	Transform& GetCollisionTransform();
-
-	bool collision_(vector2 Axis, std::vector<vector2> owner, std::vector<vector2> object);
-	void Interval(std::vector<vector2> vertices, vector2 Axis, float& min, float& max);
-	std::vector<vector2> line(std::vector<vector2> axis);
-	bool intersection_check(std::vector<vector2> owner, std::vector<vector2> object);
+	CollisionType& GetCollisionType();
+	std::vector<vector2> GetCollisionCalculateTRS();
 
 
 private:
+        RestitutionType restitution_ = RestitutionType::stop;
+	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};
 	Transform collision_transform{};
 	CollisionType type = box_;

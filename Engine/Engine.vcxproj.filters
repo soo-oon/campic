@@ -79,6 +79,11 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Component\Camera</Filter>
+    <ClCompile Include="Reaction.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +192,14 @@
     </ClInclude>
     <ClInclude Include="Camera.hpp">
       <Filter>Component\Camera</Filter>
+    <ClInclude Include="Character.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Restitution.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Reaction.hpp">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
