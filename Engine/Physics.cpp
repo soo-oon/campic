@@ -1,6 +1,7 @@
 #include "Physics.hpp"
 #include "RigidBody.hpp"
 #include "Collision.hpp"
+#include "Character.hpp"
 
 bool Physics::Initialize()
 {
@@ -20,28 +21,42 @@ void Physics::Update(float dt)
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
 			it != temp_obj->GetObjectMap().end(); ++it)
 		{
-			Object temp = *(it->second.get());
+			Object* temp = (it->second.get());
 
-			if (temp.GetComponentByTemplate<RigidBody>() != nullptr)
-			{
-				temp.GetComponentByTemplate<RigidBody>()->Update(dt);
-			}
-
-			if (temp.GetComponentByTemplate<Collision>() != nullptr)
+			if (temp->GetComponentByTemplate<Collision>() != nullptr)
 			{
 				collision_list.push_back(temp);
-				//temp.GetComponentByTemplate<Collision>()->Update(dt);
+				temp->GetComponentByTemplate<Collision>()->Update(dt);
 			}
 		}
 	}
 	if (collision_list.size() > 1)
 	{
-		for (size_t i = 0; i < collision_list.size() -1; i++)
+		for (size_t i = 0; i < collision_list.size() ; i++)
 		{
-			for (size_t j = 0; j < collision_list.size() - 1; j++)
+			for (size_t j = i+1; j < collision_list.size(); j++)
 			{
-				if(i != j)
-				Intersection_check(collision_list[i], collision_list[j]);
+				if (i != j)
+				{
+					if(IntersectionCheck(*collision_list[i], *collision_list[j]))
+					{
+						ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+						Reaction(collision_list[i], collision_list[j]);
+					}
+				}
+			}
+		}
+	}
+	if (temp_obj != nullptr)
+	{
+		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
+			it != temp_obj->GetObjectMap().end(); ++it)
+		{
+			Object temp = *(it->second.get());
+
+			if (temp.GetComponentByTemplate<RigidBody>() != nullptr)
+			{
+				temp.GetComponentByTemplate<RigidBody>()->Update(dt);
 			}
 		}
 	}
@@ -53,8 +68,30 @@ void Physics::Quit()
 	temp_obj = nullptr;
 }
 
+void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
+{
+	if(object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player 
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::wall)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	}
+}
 
-bool Physics::Collision_on_axis(vector2 Axis, std::vector<vector2> owner, std::vector<vector2> object)
+
+bool Physics::CollisionOnAxis(vector2 Axis, std::vector<vector2> owner, std::vector<vector2> object)
 {
 	float minA, maxA;
 	float minB, maxB;
@@ -88,19 +125,19 @@ void Physics::Interval(std::vector<vector2>vertices, vector2 Axis, float& min, f
 	//It projection to axis of box
 }
 
-std::vector<vector2> Physics::Vector_to_line(Object object)
+std::vector<vector2> Physics::VectorToLine(Object object)
 {
 	std::vector<vector2> object_line;
 	if(object.GetComponentByTemplate<Collision>()->GetCollisionType() == box_)
 	{
-		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0]
+		object_line.emplace_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0]
 								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1]);
-		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1] 
+		object_line.emplace_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2]
+								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1]);
+		object_line.emplace_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[3]
+								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2]);
+		object_line.emplace_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0]
 								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[3]);
-		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[3]
-								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2]);
-		object_line.push_back(object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0] 
-								- object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2]);
 	}
 	return object_line;
 	//std::vector<vector2> temp;
@@ -122,23 +159,23 @@ std::vector<vector2> Physics::Vector_to_line(Object object)
 	//return temp;
 }
 // should change take object.
-bool Physics::Intersection_check(Object object1, Object object2)
+bool Physics::IntersectionCheck(Object object1, Object object2)
 {
 	std::vector<vector2> owner = object1.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
 	std::vector<vector2> object = object2.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
 	std::vector<vector2> axis;
-	for (auto i : Vector_to_line(object1))
+	for (auto i : VectorToLine(object1))
 	{
-		if (!Collision_on_axis(vector2(-i.y, i.x), owner, object))
+		if (!CollisionOnAxis(vector2(-i.y, i.x), owner, object))
 		{
 			//std::cout << "No Intersec" << std::endl;
 			return false;
 		}
 	}
-	for (auto i : Vector_to_line(object2))
+	for (auto i : VectorToLine(object2))
 	{
 		axis.emplace_back(vector2(-i.y, i.x));
-		if (!Collision_on_axis(vector2(-i.y, i.x), owner, object))
+		if (!CollisionOnAxis(vector2(-i.y, i.x), owner, object))
 		{
 			//std::cout << "No Intersec" << std::endl;
 			return false;

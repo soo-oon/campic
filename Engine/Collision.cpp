@@ -1,14 +1,11 @@
 #include "Collision.hpp"
-#include <algorithm>
-#include <iostream>
 #include "Mesh.hpp"
-#include "Physics.hpp"
 #include "RigidBody.hpp"
 
 bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
-    collision_mesh = mesh::CreateCollisionBox(type,1, {255,0,0,255});
+    collision_mesh = mesh::CreateCollisionBox(type,150, {255,0,0,255});
 
 	return true;
 }
@@ -21,6 +18,16 @@ void Collision::Update(float dt)
 
 void Collision::Delete()
 {
+}
+
+void Collision::SetRestitutionType(RestitutionType restitution)
+{
+	restitution_ = restitution;
+}
+
+RestitutionType & Collision::GetRestitutionType()
+{
+    return restitution_;
 }
 
 Mesh& Collision::GetCollsionMesh()
@@ -41,7 +48,7 @@ CollisionType & Collision::GetCollisionType()
 std::vector<vector2> Collision::GetCollisionCalculateTRS()
 {
 	std::vector<vector2> temp; 
-	for (size_t i = 0; i < collision_mesh.GetCollisionVectors().size() - 2; i++)
+	for (size_t i = 0; i < collision_mesh.GetCollisionVectors().size() - 1; i++)
 		temp.emplace_back(collision_transform.GetTRS() * collision_mesh.GetCollisionVectors()[i] );
 	return temp;
 }

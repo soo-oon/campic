@@ -77,6 +77,12 @@
     <ClCompile Include="WorldPhysics.cpp">
       <Filter>Physics\Maybe_delete</Filter>
     </ClCompile>
+    <ClCompile Include="Reaction.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.hpp" />
@@ -181,6 +187,15 @@
     </ClInclude>
     <ClInclude Include="WorldPhysics.h">
       <Filter>Physics\Maybe_delete</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Restitution.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Reaction.hpp">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

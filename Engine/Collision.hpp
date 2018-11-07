@@ -2,6 +2,13 @@
 #include "Objectmanager.hpp"
 #include "Mesh.hpp"
 
+enum class RestitutionType
+{
+	bounce,
+	stop,
+	ghost,
+	none,
+};
 class Collision : public Component
 {
 public:
@@ -18,6 +25,8 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
+	void SetRestitutionType(RestitutionType restitution);
+        RestitutionType& GetRestitutionType();
 	Mesh& GetCollsionMesh();
 	Transform& GetCollisionTransform();
 	CollisionType& GetCollisionType();
@@ -25,6 +34,7 @@ public:
 
 
 private:
+        RestitutionType restitution_ = RestitutionType::stop;
 	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};
 	Transform collision_transform{};

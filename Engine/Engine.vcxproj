@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collision.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -161,6 +162,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Objectmanager.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -172,6 +174,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Character.hpp" />
     <ClInclude Include="Collision.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -198,6 +201,8 @@
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Objectmanager.hpp" />
     <ClInclude Include="Physics.hpp" />
+    <ClInclude Include="Reaction.hpp" />
+    <ClInclude Include="Restitution.hpp" />
     <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Sound.hpp" />
