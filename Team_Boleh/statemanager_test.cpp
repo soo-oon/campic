@@ -147,8 +147,6 @@ void test_statemanager::Initialize()
 	GetObjectManager()->FindObject("test19")->SetDepth(0);
 	GetObjectManager()->FindObject("test19")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
 
-	//GetObjectManager()->FindObject("camera")->SetTranslation({});
-	//GetObjectManager()->FindObject("camera")->AddComponent(new Camera());
 }
 
 void test_statemanager::Update(float dt)
