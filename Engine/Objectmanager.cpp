@@ -5,6 +5,7 @@ bool Objectmanager::Initialize() { return true; }
 
 void Objectmanager::Update(float dt)
 {
+	
 }
 
 void Objectmanager::Quit()

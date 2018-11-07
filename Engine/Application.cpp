@@ -15,6 +15,7 @@ namespace
                      , int action, int mods);
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos);
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset);
 }
 
 
@@ -70,6 +71,7 @@ bool Application::Initialize()
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetCursorPosCallback(window, MousePositionCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
+	glfwSetScrollCallback(window, MouseWheelScroll);
 	glfwSetWindowCloseCallback(window, Window_Exit);
 
     Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
@@ -85,15 +87,13 @@ bool Application::Initialize()
         glfwTerminate();
         return false;
     }
-    glfwSwapInterval(true);
+    glfwSwapInterval(false);
 
     return true;
 }
 
 void Application::Update(float dt)
 {
-	std::cout << screenSize.x << ", " << screenSize.y << std::endl;
-
 	fpsEllapsedTime += dt;
 	++fpsFrames;
 	if (fpsEllapsedTime >= 1.0f)
@@ -108,7 +108,7 @@ void Application::Update(float dt)
 
     Input::Triggerd_Reset();
 
-   // glfwSwapBuffers(window);
+    //glfwSwapBuffers(window);
     PollEvent();
 }
 
@@ -164,7 +164,7 @@ void Application::FullScreen()
 
 void Application::PollEvent()
 {
-	glfwSwapInterval(true);
+	//glfwSwapInterval(true);
     glfwPollEvents();
     Key_Poll_Event();
 }
@@ -199,5 +199,10 @@ namespace
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
     {
         Input::SetMousePressed(button, action);
+    }
+
+	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
+    {
+		Input::SetMouseWheelScroll(x_offset, y_offset);
     }
 }

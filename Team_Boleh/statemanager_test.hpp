@@ -10,5 +10,5 @@ public:
 
 private:
 	bool check1 = true;
-	bool check = true;
+	bool check2 = true;
 };

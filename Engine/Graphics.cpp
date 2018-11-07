@@ -3,6 +3,7 @@
 #include "Animation.hpp"
 #include <memory>
 #include "Collision.hpp"
+#include "Camera.hpp"
 
 namespace
 {
@@ -16,8 +17,6 @@ bool Graphics::Initialize()
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
-
-	//glEnable(GL_QUADS);
 
     glBlendEquation(GL_FUNC_ADD);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -54,6 +53,11 @@ void Graphics::Draw(Objectmanager* objects)
 			it != objects->GetObjectMap().end(); ++it)
 		{
 			Object obj = *(it->second.get());
+
+			if(obj.GetComponentByTemplate<Camera>() != nullptr)
+			{
+				
+			}
 
 			if (obj.GetComponentByTemplate<Collision>() != nullptr)
 			{
@@ -103,7 +107,7 @@ void Graphics::Draw(Objectmanager* objects)
 						obj.GetMesh().GetColor(0),
 						obj.GetComponentByTemplate<Animation>()->GetAnimationSprite());
 				}
-				else
+				else if(obj.GetMesh().GetPointCount())
 				{
 					shapes.clear();
 					shapes.reserve(obj.GetMesh().GetPointCount());

@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Animation.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="imgui.cpp">
       <Filter>Imgui\Imgui_header</Filter>
     </ClCompile>
@@ -53,12 +47,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Graphics\Vertex</Filter>
     </ClCompile>
@@ -77,15 +65,24 @@
     <ClCompile Include="WorldPhysics.cpp">
       <Filter>Physics\Maybe_delete</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound.hpp" />
-    <ClInclude Include="Animation.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Component.hpp">
       <Filter>Component</Filter>
     </ClInclude>
@@ -146,12 +143,6 @@
     <ClInclude Include="Object.hpp">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBody.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.hpp">
       <Filter>Graphics\Vertex</Filter>
     </ClInclude>
@@ -181,6 +172,21 @@
     </ClInclude>
     <ClInclude Include="WorldPhysics.h">
       <Filter>Physics\Maybe_delete</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.hpp">
+      <Filter>Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +243,21 @@
     </Filter>
     <Filter Include="Physics\Maybe_delete">
       <UniqueIdentifier>{ff181f60-a96a-4ff6-9478-82fc23e9b988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animation">
+      <UniqueIdentifier>{7a28e591-4092-4c2e-9142-d84cb950c626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collision">
+      <UniqueIdentifier>{f84a7473-831d-4f6d-b19e-76a6b450e16c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Sprite">
+      <UniqueIdentifier>{b723643a-fed0-4dff-8db3-578021219db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\RigidBody">
+      <UniqueIdentifier>{5c2b50de-10b0-4846-8211-0edcbdb4b681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{70070701-80ac-430f-bfac-43f364de7bcd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

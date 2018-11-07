@@ -73,6 +73,8 @@ private:
 
 	Shader Solidshader{};
 	Shader Spriteshader{};
+	//TODO make postprocessing and particle shader
+
 	GLuint vertexAttributes[NumberOfVertexTypes] = { 0 };
 	GLuint vertexBuffer[NumberOfVertexTypes] = { 0 };
 

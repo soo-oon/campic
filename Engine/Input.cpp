@@ -4,6 +4,8 @@
 
 bool Input::mouse_trigger;
 bool Input::key_trigger;
+double Input::x_offset_;
+double Input::y_offset_;
 
 std::bitset<GLFW_KEY_LAST> Input::key_pressed;
 std::bitset<GLFW_KEY_LAST> Input::key_triggered;
@@ -26,6 +28,9 @@ void Input::Triggerd_Reset()
     key_triggered.reset();
     mouse_triggered.reset();
     mouse_doubleclick.reset();
+
+	x_offset_ = 0;
+	y_offset_ = 0;
 }
 
 void Input::Initialize(int width, int height)
@@ -162,6 +167,12 @@ void Input::SetMousePressed(int button, int action)
     }
 }
 
+void Input::SetMouseWheelScroll(double x_offset, double y_offset)
+{
+	x_offset_ = x_offset;
+	y_offset_ = y_offset;
+}
+
 bool Input::IsMousePressed(int button)
 {
     return mouse_pressed[button];
@@ -180,4 +191,9 @@ bool Input::IsMouseDoubleClicked(int button)
 bool Input::IsMouseReleased(int button)
 {
     return mouse_released[button];
+}
+
+double Input::MouseWheelScroll()
+{
+	return y_offset_;
 }

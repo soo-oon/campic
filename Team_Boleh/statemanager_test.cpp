@@ -2,30 +2,187 @@
 #include "Input.hpp"
 #include "Sprite.hpp"
 #include "Collision.hpp"
-
+#include "Camera.hpp"
+#include <iostream>
+#include "Animation.hpp"
 
 void test_statemanager::Initialize()
 {
 	Load();
-	GetObjectManager()->AddObject("collision");
+	//GetObjectManager()->AddObject("collision");
+	GetObjectManager()->AddObject("test1");
+	GetObjectManager()->AddObject("test2");
+	GetObjectManager()->AddObject("test3");
+	GetObjectManager()->AddObject("test4");
+	GetObjectManager()->AddObject("test5");
+	GetObjectManager()->AddObject("test6");
+	GetObjectManager()->AddObject("test7");
+	GetObjectManager()->AddObject("test8");
+	GetObjectManager()->AddObject("test9");
+	GetObjectManager()->AddObject("test10");
+	GetObjectManager()->AddObject("test11");
+	GetObjectManager()->AddObject("test12");
+	GetObjectManager()->AddObject("test13");
+	GetObjectManager()->AddObject("test14");
+	GetObjectManager()->AddObject("test15");
+	GetObjectManager()->AddObject("test16");
+	GetObjectManager()->AddObject("test17");
+	GetObjectManager()->AddObject("test18");
+	GetObjectManager()->AddObject("test19");
 
-	GetObjectManager()->FindObject("collision")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("collision")->SetTranslation({});
-	GetObjectManager()->FindObject("collision")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("collision")->SetDepth(0);
-	GetObjectManager()->FindObject("collision")->AddComponent(new Sprite());
-	GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
-	GetObjectManager()->FindObject("collision")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 300,150 }));
+	//GetObjectManager()->AddObject("camera");
+
+	GetObjectManager()->FindObject("test1")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test1")->SetTranslation({-100,0});
+	GetObjectManager()->FindObject("test1")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test1")->SetDepth(0);
+	GetObjectManager()->FindObject("test1")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+	GetObjectManager()->FindObject("test1")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
+
+	GetObjectManager()->FindObject("test2")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test2")->SetTranslation({-90,0});
+	GetObjectManager()->FindObject("test2")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test2")->SetDepth(0);
+	GetObjectManager()->FindObject("test2")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test3")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test3")->SetTranslation({-80,0});
+	GetObjectManager()->FindObject("test3")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test3")->SetDepth(0);
+	GetObjectManager()->FindObject("test3")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test4")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test4")->SetTranslation({-70,0});
+	GetObjectManager()->FindObject("test4")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test4")->SetDepth(0);
+	GetObjectManager()->FindObject("test4")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test5")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test5")->SetTranslation({-60, 0});
+	GetObjectManager()->FindObject("test5")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test5")->SetDepth(0);
+	GetObjectManager()->FindObject("test5")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test6")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test6")->SetTranslation({-50 , 0});
+	GetObjectManager()->FindObject("test6")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test6")->SetDepth(0);
+	GetObjectManager()->FindObject("test6")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test7")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test7")->SetTranslation({-40 ,0});
+	GetObjectManager()->FindObject("test7")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test7")->SetDepth(0);
+	GetObjectManager()->FindObject("test7")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test8")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test8")->SetTranslation({-30 ,0});
+	GetObjectManager()->FindObject("test8")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test8")->SetDepth(0);
+	GetObjectManager()->FindObject("test8")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test9")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test9")->SetTranslation({});
+	GetObjectManager()->FindObject("test9")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test9")->SetDepth(0);
+	GetObjectManager()->FindObject("test9")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test10")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test10")->SetTranslation({-20, 0});
+	GetObjectManager()->FindObject("test10")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test10")->SetDepth(0);
+	GetObjectManager()->FindObject("test10")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test11")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test11")->SetTranslation({-10 , 0});
+	GetObjectManager()->FindObject("test11")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test11")->SetDepth(0);
+	GetObjectManager()->FindObject("test11")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test12")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test12")->SetTranslation({});
+	GetObjectManager()->FindObject("test12")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test12")->SetDepth(0);
+	GetObjectManager()->FindObject("test12")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test13")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test13")->SetTranslation({10, 0});
+	GetObjectManager()->FindObject("test13")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test13")->SetDepth(0);
+	GetObjectManager()->FindObject("test13")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test14")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test14")->SetTranslation({20,0 });
+	GetObjectManager()->FindObject("test14")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test14")->SetDepth(0);
+	GetObjectManager()->FindObject("test14")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test15")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test15")->SetTranslation({30, 0});
+	GetObjectManager()->FindObject("test15")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test15")->SetDepth(0);
+	GetObjectManager()->FindObject("test15")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test16")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test16")->SetTranslation({40,0 });
+	GetObjectManager()->FindObject("test16")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test16")->SetDepth(0);
+	GetObjectManager()->FindObject("test16")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test17")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test17")->SetTranslation({50, 0});
+	GetObjectManager()->FindObject("test17")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test17")->SetDepth(0);
+	GetObjectManager()->FindObject("test17")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test18")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test18")->SetTranslation({60, 0});
+	GetObjectManager()->FindObject("test18")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test18")->SetDepth(0);
+	GetObjectManager()->FindObject("test18")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	GetObjectManager()->FindObject("test19")->SetScale({ 150,150 });
+	GetObjectManager()->FindObject("test19")->SetTranslation({70,0 });
+	GetObjectManager()->FindObject("test19")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("test19")->SetDepth(0);
+	GetObjectManager()->FindObject("test19")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+
+	//GetObjectManager()->FindObject("camera")->SetTranslation({});
+	//GetObjectManager()->FindObject("camera")->AddComponent(new Camera());
 }
 
 void test_statemanager::Update(float dt)
 {
-	GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->Update(dt);
+	//GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->Update(dt);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
 
-	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	double check = Input::MouseWheelScroll();
+	std::cout << check << std::endl;
+
+
+	GetObjectManager()->FindObject("test1")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("test2")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test3")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test4")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test5")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test6")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test7")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test8")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test9")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test10")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test11")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test12")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test13")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test14")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test15")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test16")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test17")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test18")->GetComponentByTemplate<Animation>()->Update(dt);;
+	GetObjectManager()->FindObject("test19")->GetComponentByTemplate<Animation>()->Update(dt);;
+
+	/*if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		check1 = !check1;
 
@@ -41,8 +198,8 @@ void test_statemanager::Update(float dt)
 
 	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
 	{
-		check = !check;
-		if(check)
+		check2 = !check2;
+		if(check2)
 		{
 			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->GetCollsionMesh().Visible();
 		}
@@ -50,7 +207,7 @@ void test_statemanager::Update(float dt)
 		{
 			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->GetCollsionMesh().Invisible();
 		}
-	}
+	}*/
 }
 
 void test_statemanager::ShutDown()

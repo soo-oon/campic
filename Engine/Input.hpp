@@ -21,6 +21,8 @@ private:
 
     static bool mouse_trigger;
     static bool key_trigger;
+	static double x_offset_;
+	static double y_offset_;
 
 public:
     static void Triggerd_Reset();
@@ -40,8 +42,11 @@ public:
     static vector2 GetMousePos();
 
     static void SetMousePressed(int button, int action);
+	static void SetMouseWheelScroll(double x_offset, double y_offset);
+
     static bool IsMousePressed(int button);
     static bool IsMouseTriggered(int button);
     static bool IsMouseDoubleClicked(int button);
     static bool IsMouseReleased(int button);
+	static double MouseWheelScroll();
 };

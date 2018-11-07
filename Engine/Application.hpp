@@ -38,7 +38,7 @@ private:
     const GLFWvidmode* mode = nullptr;
     GLFWmonitor* mode_screen = nullptr;
 
-    GLFWwindow* window;
+    GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
 
     std::string title;
