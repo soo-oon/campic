@@ -12,6 +12,11 @@ public:
 	void Initialize() override;
     void Update(float dt) override;
     void ShutDown() override;
+    // You need add sprite or animation.
+    Object* BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale);
+    Object* BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale);
+    void SwordSwing(vector2 mouse_position, Object* player, Object* sword);
+    void SwordPosition(std::string player_str, std::string sword_str);
 
 private:
     float gravity_up = 1;
@@ -24,6 +29,7 @@ private:
     std::vector<vector2> mesh_p;
     std::vector<vector2> static_opponent;
 
+    Object* player, *sword, *sonic, *dr_s, *background;
+
 };
 
-vector2 multi_plus(Object *ob, size_t i);
