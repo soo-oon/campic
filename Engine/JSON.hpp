@@ -1,6 +1,6 @@
 #pragma once
 #include "document.h"
-#include "writer.h"
+//#include "writer.h"
 #include "filewritestream.h"
 #include "filereadstream.h"
 #include "Objectmanager.hpp"
