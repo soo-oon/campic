@@ -10,7 +10,8 @@
 
 void example::blackhole(Object* Ob, Object* Ob1)
 {
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = GetObjectManager()->GetObjectMap().begin(); it != GetObjectManager()->GetObjectMap().end(); ++it)
+	for (auto it = GetObjectManager()->GetObjectMap().begin();
+		it != GetObjectManager()->GetObjectMap().end(); ++it)
 	{
 		vector2 black = 0;
 		float* rotation = it->second.get()->GetTransform().GetRotation();
@@ -68,12 +69,12 @@ void example::Initialize()
 	GetObjectManager()->FindObject("sonic_animation")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
 
-        GetObjectManager()->FindObject("dr_strange")->SetScale({ 150,150 });
-        GetObjectManager()->FindObject("dr_strange")->SetTranslation({ -200, -150 });
-        GetObjectManager()->FindObject("dr_strange")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		GetObjectManager()->FindObject("dr_strange")->SetDepth(0.5);
-        GetObjectManager()->FindObject("dr_strange")->AddComponent(new Sprite());
-        GetObjectManager()->FindObject("dr_strange")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
+    GetObjectManager()->FindObject("dr_strange")->SetScale({ 150,150 });
+    GetObjectManager()->FindObject("dr_strange")->SetTranslation({ -200, -150 });
+    GetObjectManager()->FindObject("dr_strange")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	GetObjectManager()->FindObject("dr_strange")->SetDepth(0.5);
+    GetObjectManager()->FindObject("dr_strange")->AddComponent(new Sprite());
+    GetObjectManager()->FindObject("dr_strange")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
 
 	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
 	GetObjectManager()->FindObject("BackGround")->SetTranslation({0,0});

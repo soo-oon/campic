@@ -2,6 +2,7 @@
 #include "Object.hpp"
 #include "Objectmanager.hpp"
 #include "State.hpp"
+#include "Sound.hpp"
 
 class example : public State
 {
@@ -22,6 +23,7 @@ private:
     std::vector<vector2> opponent;
     std::vector<vector2> mesh_p;
     std::vector<vector2> static_opponent;
+
 };
 
 vector2 multi_plus(Object *ob, size_t i);
