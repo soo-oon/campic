@@ -47,51 +47,39 @@ void example::move_convex_object(float dt, Object* Ob)
 void example::Initialize()
 {
 	Load();
-	GetObjectManager()->AddObject("player");
-	GetObjectManager()->AddObject("convex_object");
-	GetObjectManager()->AddObject("sonic_animation");
-        GetObjectManager()->AddObject("dr_strange");
-	GetObjectManager()->AddObject("BackGround");
+	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(150.f, 150.f));
+	player->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
+	player->AddComponent(new Collision(box_));
+	player->AddComponent(new Character(ObjectType::player));
 
-	GetObjectManager()->FindObject("player")->SetScale({ 150.0f, 150.0f });
-	GetObjectManager()->FindObject("player")->SetTranslation({ 0, 0 });
-	GetObjectManager()->FindObject("player")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("player")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
-	GetObjectManager()->FindObject("player")->AddComponent(new RigidBody());
-	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
-	GetObjectManager()->FindObject("player")->AddComponent(new Collision(box_));
-	GetObjectManager()->FindObject("player")->AddComponent(new Character(ObjectType::player));
+	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(150, 150));
+	sword->AddComponent(new Sprite());
+	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/sword.png");
+	sword->AddComponent(new Collision(box_));
+	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	sword->AddComponent(new Character(ObjectType::sword));
 
-	GetObjectManager()->FindObject("convex_object")->SetScale({ 150.0f, 150.0f });
-	GetObjectManager()->FindObject("convex_object")->SetTranslation({ -300, 300 });
-	GetObjectManager()->FindObject("convex_object")->SetMesh(mesh::CreateConvex(1, { 255,0,0,255 }));
-	GetObjectManager()->FindObject("convex_object")->AddComponent(new RigidBody());
-
-	GetObjectManager()->FindObject("sonic_animation")->SetScale({ 150, 150 });
-	GetObjectManager()->FindObject("sonic_animation")->SetTranslation({ 0, -200 });
-	GetObjectManager()->FindObject("sonic_animation")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
-	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new RigidBody());
-	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Collision(box_));
-	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Character(ObjectType::wall));
-
-        GetObjectManager()->FindObject("dr_strange")->SetScale({ 150,150 });
-        GetObjectManager()->FindObject("dr_strange")->SetTranslation({ -200, -150 });
-        GetObjectManager()->FindObject("dr_strange")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("dr_strange")->SetDepth(0.5);
-        GetObjectManager()->FindObject("dr_strange")->AddComponent(new Sprite());
-        GetObjectManager()->FindObject("dr_strange")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
-	GetObjectManager()->FindObject("dr_strange")->AddComponent(new RigidBody());
-	GetObjectManager()->FindObject("dr_strange")->AddComponent(new Collision(box_));
-	GetObjectManager()->FindObject("dr_strange")->AddComponent(new Character(ObjectType::wall));
-
-	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
-	GetObjectManager()->FindObject("BackGround")->SetTranslation({0,0});
-	GetObjectManager()->FindObject("BackGround")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("BackGround")->SetDepth(0.9f);
-	GetObjectManager()->FindObject("BackGround")->AddComponent(new Sprite());
-	GetObjectManager()->FindObject("BackGround")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/check_background.png");
-
+	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
+	sonic->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
+	sonic->AddComponent(new RigidBody());
+	sonic->AddComponent(new Collision(box_));
+	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	sonic->AddComponent(new Character(ObjectType::opponent));
+	
+	dr_s = BuildAndRegisterDynamicObject("dr_s", vector2(-200, -150), vector2(150.f, 150.f));
+	dr_s->SetDepth(0.5);
+	dr_s->AddComponent(new Sprite());
+	dr_s->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
+	dr_s->AddComponent(new RigidBody());
+	dr_s->AddComponent(new Collision(box_));
+	dr_s->AddComponent(new Character(ObjectType::wall));
+	
+	background = BuildAndRegisterDynamicObject("background", vector2(0,0), vector2(150.f, 150.f));
+	background->SetDepth(0.9f);
+	background->AddComponent(new Sprite());
+	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/check_background.png");
+	
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
 }
 
@@ -100,8 +88,11 @@ void example::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 
+	SwordSwing(Input::GetMousePos(),player, sword);
+	Attact(sword);
+	
 	//Should Fixed this
-	GetObjectManager()->FindObject("BackGround")->SetScale(GetStateScreenSize());
+	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
 
 	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
@@ -109,7 +100,7 @@ void example::Update(float dt)
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
-	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
 
 	
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
@@ -129,15 +120,13 @@ void example::Update(float dt)
 	else
 		GetWorldPhyics()->Movement_by_key(*GetObjectManager()->FindObject("player").get());
 
-	move_convex_object(dt, GetObjectManager()->FindObject("convex_object").get());
-	GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<RigidBody>()->Update(dt);
 	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
 	{
-		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("BackGround").get());
+		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("background").get());
 	}
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 
-	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
 	
 }
 
@@ -146,9 +135,48 @@ void example::ShutDown()
 	UnLoad();
 }
 
-vector2 multi_plus(Object *ob, size_t i)
+Object* example::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
 {
-    float x_ = (static_cast<vector2>(ob->GetMesh().GetPoint(i)).x * ob->GetTransform().GetScale().x) + ob->GetTransform().GetTranslation().x;
-    float y_ = (static_cast<vector2>(ob->GetMesh().GetPoint(i)).y * ob->GetTransform().GetScale().y) + ob->GetTransform().GetTranslation().y;
-    return (x_,y_);
+	GetObjectManager()->AddObject(object_name);
+	GetObjectManager()->FindObject(object_name)->SetScale(scale);
+	GetObjectManager()->FindObject(object_name)->SetTranslation(position);
+	GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }
+
+
+	));
+	GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
+	
+	//trans form texture, 
+	return GetObjectManager()->FindObject(object_name).get();
+}
+Object* example::BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale)
+{
+	GetObjectManager()->AddObject(object_name);
+	GetObjectManager()->FindObject(object_name)->SetScale(scale);
+	GetObjectManager()->FindObject(object_name)->SetTranslation(position);
+	GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	//GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
+	GetObjectManager()->FindObject(object_name)->AddComponent(new RigidBody());
+	//trans form texture, 
+	return GetObjectManager()->FindObject(object_name).get();
+}
+void example::SwordPosition(std::string player_str, std::string sword_str)
+{
+	GetObjectManager()->FindObject(sword_str)->SetTranslation(vector2(
+		GetObjectManager()->FindObject(player_str)->GetTransform().GetTranslation().x + 150.f,
+		GetObjectManager()->FindObject(player_str)->GetTransform().GetTranslation().y));
+}
+void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
+		mouse_position.y - player->GetTransform().GetTranslation().y));
+	sword->SetTranslation(vector2(
+		player->GetTransform().GetTranslation().x + swing_direction.x *200.f,
+		player->GetTransform().GetTranslation().y + swing_direction.y *200.f));
+}
+
+void example::Attact(Object * object)
+{
+	if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }
