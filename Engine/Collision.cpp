@@ -1,6 +1,7 @@
 #include "Collision.hpp"
 #include "Mesh.hpp"
 #include "RigidBody.hpp"
+#include <iostream>
 
 bool Collision::Initialize(Object* Ob)
 {
@@ -51,4 +52,20 @@ std::vector<vector2> Collision::GetCollisionCalculateTRS()
 	for (size_t i = 0; i < collision_mesh.GetCollisionVectors().size() - 1; i++)
 		temp.emplace_back(collision_transform.GetTRS() * collision_mesh.GetCollisionVectors()[i] );
 	return temp;
+}
+
+void Collision::ToggleIsDamaged()
+{
+	if(isdamaged == false)
+	{
+		isdamaged = true;
+		std::cout << "dodododo" << std::endl;
+	}
+	else
+	isdamaged = false;
+}
+
+bool Collision::GetIsDamaged()
+{
+	return isdamaged;
 }

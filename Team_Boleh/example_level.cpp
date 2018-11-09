@@ -56,12 +56,16 @@ void example::Initialize()
 	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(150, 150));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/sword.png");
+	sword->AddComponent(new Collision(box_));
+	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	sword->AddComponent(new Character(ObjectType::sword));
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
 	sonic->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
 	sonic->AddComponent(new RigidBody());
 	sonic->AddComponent(new Collision(box_));
-	sonic->AddComponent(new Character(ObjectType::wall));
+	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	sonic->AddComponent(new Character(ObjectType::opponent));
 	
 	dr_s = BuildAndRegisterDynamicObject("dr_s", vector2(-200, -150), vector2(150.f, 150.f));
 	dr_s->SetDepth(0.5);
@@ -85,6 +89,7 @@ void example::Update(float dt)
 		ChangeLevel("test");
 
 	SwordSwing(Input::GetMousePos(),player, sword);
+	Attact(sword);
 	
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
@@ -168,4 +173,10 @@ void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 	sword->SetTranslation(vector2(
 		player->GetTransform().GetTranslation().x + swing_direction.x *200.f,
 		player->GetTransform().GetTranslation().y + swing_direction.y *200.f));
+}
+
+void example::Attact(Object * object)
+{
+	if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }

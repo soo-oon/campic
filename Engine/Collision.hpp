@@ -7,7 +7,13 @@ enum class RestitutionType
 	bounce,
 	stop,
 	ghost,
+	damaged,
 	none,
+};
+enum class CollisionState
+{
+	damaged,
+	collided,
 };
 class Collision : public Component
 {
@@ -31,6 +37,8 @@ public:
 	Transform& GetCollisionTransform();
 	CollisionType& GetCollisionType();
 	std::vector<vector2> GetCollisionCalculateTRS();
+	void ToggleIsDamaged();
+	bool GetIsDamaged();
 
 
 private:
@@ -39,5 +47,5 @@ private:
 	Mesh collision_mesh{};
 	Transform collision_transform{};
 	CollisionType type = box_;
-	//std::vector<vector2> mesh_owner;
+	bool isdamaged = false;
 };
