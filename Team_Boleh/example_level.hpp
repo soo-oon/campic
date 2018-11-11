@@ -24,13 +24,9 @@ private:
 	bool check = false;
 	float pm = 1;
 	float limit_time = 0;
-	float rotation_value = 10;
 	vector2 direction = 0;
-    std::vector<vector2> opponent;
-    std::vector<vector2> mesh_p;
-    std::vector<vector2> static_opponent;
 
-    Object* player, *sword, *sonic, *dr_s, *background;
+    Object* player, *sword, *sonic, *dr_s, *background, *spark;
 
 };
 

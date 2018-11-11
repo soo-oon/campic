@@ -196,4 +196,9 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
 	return true;
 }
 
+void Physics::AddCollisionList(Object * object)
+{
+    object->GetTransform().GetTranslation();
+}
+
 

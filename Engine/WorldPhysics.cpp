@@ -50,19 +50,19 @@ void WorldPhysics::Gravity_on(Objectmanager* objectmanager_, float gravity)
 
 void WorldPhysics::Movement_Velocity(Object & object_name)
 {
-	if (Input::IsKeyPressed(GLFW_KEY_UP))
+	if (Input::IsKeyPressed(GLFW_KEY_W))
 	{
 		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 5));
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
+	if (Input::IsKeyPressed(GLFW_KEY_A))
 	{
 		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(-5, 0));
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
+	if (Input::IsKeyPressed(GLFW_KEY_S))
 	{
 		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, -5));
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
+	if (Input::IsKeyPressed(GLFW_KEY_D))
 	{
 		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(5, 0));
 	}

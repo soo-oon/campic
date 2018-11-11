@@ -22,6 +22,8 @@ public:
 	std::vector<vector2> VectorToLine(Object object);
 	// This is real intersection check which you use.
 	bool IntersectionCheck(Object object1, Object object2);
+        
+        void AddCollisionList(Object* object);
 
 private:
 	Objectmanager* temp_obj = nullptr;

@@ -47,13 +47,16 @@ void example::move_convex_object(float dt, Object* Ob)
 void example::Initialize()
 {
 	Load();
-	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(150.f, 150.f));
+	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
 	player->AddComponent(new Collision(box_));
 	player->AddComponent(new Character(ObjectType::player));
 
-	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(150, 150));
+        spark = BuildAndRegisterDynamicObject("spark", vector2(300, 300), vector2(100.f, 100.f));
+        spark->AddComponent(new Animation("asset/spark.png", "spark", 16, 0.1));
+
+	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(100, 100));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/sword.png");
 	sword->AddComponent(new Collision(box_));
@@ -87,7 +90,7 @@ void example::Update(float dt)
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
-
+        
 	SwordSwing(Input::GetMousePos(),player, sword);
 	Attact(sword);
 	
@@ -101,6 +104,7 @@ void example::Update(float dt)
 
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
+        GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
 
 	
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
@@ -140,10 +144,7 @@ Object* example::BuildAndRegisterStaticObject(std::string object_name, vector2 p
 	GetObjectManager()->AddObject(object_name);
 	GetObjectManager()->FindObject(object_name)->SetScale(scale);
 	GetObjectManager()->FindObject(object_name)->SetTranslation(position);
-	GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }
-
-
-	));
+	GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
 	
 	//trans form texture, 
@@ -171,8 +172,21 @@ void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
 		mouse_position.y - player->GetTransform().GetTranslation().y));
 	sword->SetTranslation(vector2(
-		player->GetTransform().GetTranslation().x + swing_direction.x *200.f,
-		player->GetTransform().GetTranslation().y + swing_direction.y *200.f));
+		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x,
+		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y));
+        float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+        float angledeg = (180 / 3.14 )* anglerad;
+        sword->SetRotation(angledeg - 90);
+        //float a = dot(sword->GetTransform().GetTranslation(), vector2(0, 1))/ magnitude(sword->GetTransform().GetTranslation());
+        //if(mouse_position.x > player->GetTransform().GetTranslation().x)
+        //{
+        //    std::cout <<"mouse : "<< mouse_position.x <<"player : " << player->GetTransform().GetTranslation().x << std::endl;
+        //    a = 360 - acos(a)*(180 / 3.14);
+        //}
+        //else
+        //a = acos(a)*(180/3.14);
+        //std::cout << a << std::endl;
+        //sword->SetRotation(a);
 }
 
 void example::Attact(Object * object)

@@ -6,7 +6,7 @@
 bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
-    collision_mesh = mesh::CreateCollisionBox(type,150, {255,0,0,255});
+    collision_mesh = mesh::CreateCollisionBox(type,Ob->GetTransform().GetScale().x, {255,0,0,255});
 
 	return true;
 }
@@ -59,7 +59,6 @@ void Collision::ToggleIsDamaged()
 	if(isdamaged == false)
 	{
 		isdamaged = true;
-		std::cout << "dodododo" << std::endl;
 	}
 	else
 	isdamaged = false;
