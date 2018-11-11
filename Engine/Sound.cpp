@@ -41,8 +41,8 @@ bool Sound::Initialize()
 		}
 	}
 
-	CreateStream("digimon.wav");
-	CreateSound("digimon.wav");
+	CreateStream("asset/digimon.wav");
+	CreateSound("asset/digimon.wav");
 	Play();
 
     return true;
