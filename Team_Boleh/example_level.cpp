@@ -48,23 +48,23 @@ void example::Initialize()
 {
 	Load();
 	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
-	player->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
+	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
 	player->AddComponent(new Collision(box_));
 	player->AddComponent(new Character(ObjectType::player));
 
         spark = BuildAndRegisterDynamicObject("spark", vector2(300, 300), vector2(100.f, 100.f));
-        spark->AddComponent(new Animation("asset/spark.png", "spark", 16, 0.1));
+        spark->AddComponent(new Animation("asset/images/spark.png", "spark", 16, 0.1));
 
 	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(100, 100));
 	sword->AddComponent(new Sprite());
-	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/sword.png");
+	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
 	sword->AddComponent(new Collision(box_));
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
-	sonic->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
+	sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.25));
 	sonic->AddComponent(new RigidBody());
 	sonic->AddComponent(new Collision(box_));
 	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
@@ -73,7 +73,7 @@ void example::Initialize()
 	dr_s = BuildAndRegisterDynamicObject("dr_s", vector2(-200, -150), vector2(150.f, 150.f));
 	dr_s->SetDepth(0.5);
 	dr_s->AddComponent(new Sprite());
-	dr_s->GetComponentByTemplate<Sprite>()->Texture_Load("asset/Dr_Strange.png");
+	dr_s->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
 	dr_s->AddComponent(new RigidBody());
 	dr_s->AddComponent(new Collision(box_));
 	dr_s->AddComponent(new Character(ObjectType::wall));
@@ -81,7 +81,7 @@ void example::Initialize()
 	background = BuildAndRegisterDynamicObject("background", vector2(0,0), vector2(150.f, 150.f));
 	background->SetDepth(0.9f);
 	background->AddComponent(new Sprite());
-	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/check_background.png");
+	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/check_background.png");
 	
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
 }

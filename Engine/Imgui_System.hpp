@@ -6,6 +6,10 @@
 #include "System.hpp"
 #include "Objectmanager.hpp"
 #include "Animation.hpp"
+#include "Collision.hpp"
+#include "Sound.hpp"
+#include <experimental/filesystem>
+#include <string>
 
 class Imgui_System: public System
 {
@@ -19,13 +23,23 @@ public:
 	void Quit() override;
 
 	void Draw();
-	void ObjectManger();
+	void ObjectManger(bool show_window);
+	void ImGui_Option(bool* show_window);
 
 	void SetWindow(GLFWwindow* window_) { window = window_; }
 	void SetObjectManger(Objectmanager* obj_manager) { object_manager = obj_manager; }
+	void SetFMOD(Sound* system) { m_FMOD_system = system; };
 
 private:
 	GLFWwindow* window = nullptr;
 	Objectmanager* object_manager = nullptr;
-	bool show_window = true;
+	bool show_demo_window = true;
+	bool show_objectmanager_window = true;
+
+	std::vector<std::string> imagelist;
+	std::vector<std::string> soundlist;
+	std::string new_object = "object0";
+
+	Sound* m_FMOD_system = nullptr;
+	Sound* m_FMOD_sound = nullptr;
 };

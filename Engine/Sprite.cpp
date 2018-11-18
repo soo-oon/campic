@@ -33,7 +33,7 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 bool Sprite::Initialize(Object* Ob)
 {
-    piexel = nullptr;
+    pixel = nullptr;
     handle_to_texture = 0;
 
     return true;
@@ -56,7 +56,7 @@ bool Sprite::Texture_Load(const std::string& file_path)
     if (temp == nullptr)
         return false;
 
-    piexel = temp;
+    pixel = temp;
 
     LoadSprite();
     return true;
@@ -80,7 +80,7 @@ void Sprite::LoadSprite()
     const int zero_border = 0;
 
     glTexImage2D(GL_TEXTURE_2D, base_mipmap_level, GL_RGBA16, width, height,
-                 zero_border, GL_RGBA, GL_UNSIGNED_BYTE, piexel);
+                 zero_border, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
 }
 
 void Sprite::Bind(unsigned int slot)
@@ -96,14 +96,14 @@ void Sprite::Bind(unsigned int slot)
 
 void Sprite::ScreenShot(const std::string& file_path) const
 {
-	if (!stbi_write_png(file_path.c_str(), width, height, STBI_rgb_alpha, piexel, width*ChannelsPerColor))
+	if (!stbi_write_png(file_path.c_str(), width, height, STBI_rgb_alpha, pixel, width*ChannelsPerColor))
 		return;
 }
 
 void Sprite::UnLoadSprite()
 {
     DeleteSpriteTexture();
-    piexel = nullptr;
+    pixel = nullptr;
 }
 
 void Sprite::DeleteSpriteTexture()
@@ -117,5 +117,5 @@ void Sprite::DeleteSpriteTexture()
 
 int Sprite::GetPixelsBufferBytesSize() const
 {
-    return ChannelsPerColor * sizeof(piexel);
+    return ChannelsPerColor * sizeof(pixel);
 }
