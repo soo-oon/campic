@@ -7,21 +7,34 @@ bool Imgui_System::Initialize()
 	ImGui::CreateContext();
 
 	const char* glsl_version = "#version 300 es";
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.FontDefault = NULL;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos;
 
 	int w, h;
 	glfwGetWindowSize(window, &w, &h);
 
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
-
-	//ImGui_ImplGlfw_KeyCallback(window, );
-	//ImGui_ImplGlfw_ScrollCallback(window);
 	ImGui_ImplOpenGL3_Init(glsl_version);
+	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
+	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
+	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
+	//glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
 	ImGui::StyleColorsDark();
+
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.FontDefault = NULL;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos; 
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos;
+
+	for (auto& p : std::experimental::filesystem::directory_iterator("asset/images"))
+	{
+		imagelist.push_back(p.path().filename().string());
+	}
+
+	for (auto& p : std::experimental::filesystem::directory_iterator("asset/sounds"))
+	{
+		soundlist.push_back(p.path().filename().string());
+	}
 
 	return true;
 }
@@ -44,8 +57,17 @@ void Imgui_System::Draw()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::ShowDemoWindow(&show_window);
-	ObjectManger();
+	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
+	{
+		if (show_objectmanager_window)
+			show_objectmanager_window = false;
+		else
+			show_objectmanager_window = true;
+	}
+
+	ImGui::ShowTestWindow();
+	ObjectManger(show_objectmanager_window);
+	ImGui_Option(&show_demo_window);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -53,68 +75,160 @@ void Imgui_System::Draw()
 	glfwSwapBuffers(window);
 }
 
-void Imgui_System::ObjectManger()
+void Imgui_System::ObjectManger(bool show_window)
 {
-	if (object_manager != nullptr)
+	if (!show_window)
 	{
-		if (object_manager->GetObjectMap().size())
+		if (object_manager != nullptr)
 		{
-			std::vector<std::string> object_lists;
-
-			for (auto it = object_manager->GetObjectMap().begin();
-				it != object_manager->GetObjectMap().end(); ++it)
+			if (object_manager->GetObjectMap().size())
 			{
-				object_lists.push_back((*it).first.c_str());
-			}
+				std::vector<std::string> object_lists;
 
-			if(!ImGui::Begin("Object Manager", &show_window, ImGuiWindowFlags_AlwaysAutoResize))
-			{
-				ImGui::End();
-				return;
-			}
-			ImGui::Text("Team Boleh's GUI");
-
-			if(ImGui::CollapsingHeader("Manager"))
-			{
-				ImGuiIO& io = ImGui::GetIO();
-
-				if(ImGui::TreeNode("Object Lists"))
+				for (auto it = object_manager->GetObjectMap().begin();
+					it != object_manager->GetObjectMap().end(); ++it)
 				{
-					for(int i = 0; i < object_lists.size(); i++)
+					object_lists.push_back((*it).first.c_str());
+				}
+
+				if (!ImGui::Begin("Object Manager", &show_window, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::End();
+					return;
+				}
+
+				ImGui::Text("Team Boleh's GUI                                   ");
+
+				if (ImGui::CollapsingHeader("Manager"))
+				{
+					ImGuiIO& io = ImGui::GetIO();
+
+					if (ImGui::TreeNode("Object Lists"))
 					{
-						if (ImGui::TreeNode(object_lists.at(i).c_str()))
+						for (int i = 0; i < object_lists.size(); i++)
 						{
-							object_manager->FindObject(object_lists.at(i).c_str())->GetTransform().Imgui_Transform();
-							Object* temp = object_manager->FindObject(object_lists.at(i).c_str()).get();
-							if (temp->GetComponentByTemplate<Animation>() != nullptr)
+							if (ImGui::TreeNode(object_lists.at(i).c_str()))
 							{
-								temp->GetComponentByTemplate<Animation>()->Imgui_Animation();
-							}
-							ImGui::TreePop();
-						}
-					}
-					ImGui::TreePop();
-				}
+								object_manager->FindObject(object_lists.at(i).c_str())->GetTransform().Imgui_Transform();
+								Object* temp = object_manager->FindObject(object_lists.at(i).c_str()).get();
+								
+								if (temp->GetComponentByTemplate<Animation>() != nullptr)
+								{
+									temp->GetComponentByTemplate<Animation>()->Imgui_Animation();
+								}
 
-				if (ImGui::Button("Create Object"))
-				{
-					object_manager->AddObject("a");
-					object_manager->FindObject("a").get()->SetMesh(mesh::CreateBox());
-					object_manager->FindObject("a").get()->SetTranslation({ 100,100 });
-					object_manager->FindObject("a").get()->SetScale({ 100,100 });
-					//ImGui::PopID();
+								if(temp->GetComponentByTemplate<Sprite>() != nullptr)
+								{
+								}
+								else
+								{
+									static std::string current_item = "";
+									std::string image_dir = "asset/images/";
+									if (ImGui::BeginCombo("Select texture", current_item.c_str()))
+									{
+										for (int n = 0; n < imagelist.size(); n++)
+										{
+											bool is_selected = (current_item.c_str() == imagelist[n].c_str());
+											if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
+												current_item = imagelist[n].c_str();
+											if (is_selected)
+												ImGui::SetItemDefaultFocus();
+										}
+										ImGui::EndCombo();
+									}
+									if (ImGui::Button("Add Sprite"))
+									{
+										temp->AddComponent(new Sprite());
+										temp->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
+									}
+								}
+
+
+								if (ImGui::Button("Delete"))
+								{
+									object_manager->GetObjectMap().erase(object_lists.at(i).c_str());
+								}
+								ImGui::TreePop();
+							}
+						}
+						ImGui::TreePop();
+					}
+
+					if (ImGui::Button("Create Object"))
+					{
+						object_manager->AddObject(new_object);
+						object_manager->FindObject(new_object).get()->SetMesh(mesh::CreateBox());
+						object_manager->FindObject(new_object).get()->SetTranslation({ 100,100 });
+						object_manager->FindObject(new_object).get()->SetScale({ 100,100 });
+						new_object.at(6) += 1;
+					}
+
 				}
 			}
+			ImGui::End();
 		}
-		ImGui::End();
 	}
 }
 
-namespace {
-
-	void KeyCallback(GLFWwindow* window, int key, int scancode
-		, int action, int mods)
+void Imgui_System::ImGui_Option(bool* show_window)
+{
+	if (!ImGui::Begin("ImGui Option", show_window))
 	{
-		Input::SetKeyPressed(key, action);
+		ImGui::End();
+		return;
 	}
+
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+
+	ImGui::Separator();
+	ImGui::Text("Sound Option");
+
+	static std::string current_sound = "";
+
+	if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) // The second parameter is the label previewed before opening the combo.
+	{
+		for (int n = 0; n < soundlist.size(); n++)
+		{
+			bool is_selected = (current_sound.c_str() == soundlist[n].c_str()); // You can store your selection however you want, outside or inside your objects
+			if (ImGui::Selectable(soundlist[n].c_str(), is_selected))
+				current_sound = soundlist[n].c_str();
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+		}
+		ImGui::EndCombo();
+	}
+
+	const std::string current_path = "asset/sounds/";
+
+	if (ImGui::Button("Create Sound"))
+	{
+		m_FMOD_system->CreateSound(current_path + current_sound);
+	}
+
+	if (ImGui::Button("Play"))
+	{
+		m_FMOD_system->Play();
+	}
+
+	ImGui::SameLine();
+	if(ImGui::Button("Stop"))
+	{
+		if (m_FMOD_system->IsPlaying())
+			m_FMOD_system->Stop();
+	}
+
+	ImGui::SameLine();
+	if (ImGui::Button("Pause"))
+	{
+		if (m_FMOD_system->IsPlaying())
+			m_FMOD_system->Pause();
+	}
+
+	static int i = 0;
+	if(ImGui::SliderInt("Volume", &i, 0, 10))
+	{
+		m_FMOD_system->SetVolume(i);
+	}
+	ImGui::End();
 }

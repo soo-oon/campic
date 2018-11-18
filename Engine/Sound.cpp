@@ -41,10 +41,6 @@ bool Sound::Initialize()
 		}
 	}
 
-	CreateStream("asset/digimon.wav");
-	CreateSound("asset/digimon.wav");
-	Play();
-
     return true;
 }
 
@@ -71,7 +67,7 @@ void Sound::Quit()
 
 bool Sound::Play()
 {
-	if(IsChannelValid())
+	if (IsChannelValid())
 	{
 		//check if sound is playing
 		bool isPlaying = false;
@@ -104,17 +100,17 @@ bool Sound::Pause()
 		return true;
 
 	// Get sound paused state
-	bool isPaused = false;
-	fmod_result = channel->getPaused(&isPaused);
+	//bool isPaused = false;
+	/*fmod_result = channel->getPaused(&isPaused);
 	if (fmod_result != FMOD_OK)
 	{
 		assert(false);
 		return false;
-	}
+	}*/
 
 	// If it's already paused, don't bother
-	if (!isPaused)
-		return true;
+	/*if (!isPaused)
+		return true;*/
 
 	// Pause the sound
 	fmod_result = channel->setPaused(true);

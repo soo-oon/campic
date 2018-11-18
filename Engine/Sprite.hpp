@@ -43,5 +43,5 @@ private:
     int width = 0;
     int height = 0;
     static const int ChannelsPerColor = sizeof(Color::RGBA32);
-    unsigned char* piexel;
+    unsigned char* pixel;
 };

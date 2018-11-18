@@ -16,6 +16,7 @@ namespace
 	Graphics* Graphic_ = nullptr;
 	Objectmanager* Objectmanager_ = nullptr;
 	State* State_ = nullptr;
+	Sound* Sound_ = nullptr;
 	Physics* Physics_ = nullptr;
 	Imgui_System* Imgui = nullptr;
 	JSON* Json = nullptr;
@@ -37,6 +38,7 @@ bool Engine::Initialize()
 	Application_ = GetSystemByTemplate<Application>();
 	Graphic_ = GetSystemByTemplate<Graphics>();
 	Physics_ = GetSystemByTemplate<Physics>();
+	Sound_ = GetSystemByTemplate<Sound>();
 	Imgui = GetSystemByTemplate<Imgui_System>();
 	Json = GetSystemByTemplate<JSON>();
 
@@ -72,6 +74,9 @@ void Engine::Update()
 
 		Application_->SetDispalyAreaSize(Graphic_, State_);
 
+		Sound_->GetFMODSystem();
+
+		Imgui->SetFMOD(Sound_);
 		Imgui->SetObjectManger(Objectmanager_);
 		Imgui->Draw();
 

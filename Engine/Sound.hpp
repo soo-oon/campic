@@ -21,6 +21,9 @@ public:
     void Update(float dt) override;
     void Quit() override;
 
+	FMOD::System* GetFMODSystem()  { return system; }
+	FMOD::Sound* GetFMODSound()  { return sound; }
+
 	bool Play();
 	bool Pause();
 	bool Stop();
