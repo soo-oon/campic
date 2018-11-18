@@ -2,6 +2,8 @@
 #include "RigidBody.hpp"
 #include "Collision.hpp"
 #include "Character.hpp"
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 bool Physics::Initialize()
 {
@@ -18,17 +20,22 @@ void Physics::Update(float dt)
 	collision_list.clear();
 	if (temp_obj != nullptr)
 	{
-		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
-			it != temp_obj->GetObjectMap().end(); ++it)
-		{
-			Object* temp = (it->second.get());
+	    for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
+		    it != temp_obj->GetObjectMap().end();)
+	    {
+		Object* temp = (it->second.get());
 
-			if (temp->GetComponentByTemplate<Collision>() != nullptr)
-			{
-				collision_list.push_back(temp);
-				temp->GetComponentByTemplate<Collision>()->Update(dt);
-			}
+		if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
+		{
+                    if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
+                        temp_obj->GetObjectMap().erase(it++);
+                    else {
+                        collision_list.push_back(temp);
+                        temp->GetComponentByTemplate<Collision>()->Update(dt);
+                    }
 		}
+                ++it;
+	    }
 	}
 	if (collision_list.size() > 1)
 	{
@@ -52,12 +59,16 @@ void Physics::Update(float dt)
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
 			it != temp_obj->GetObjectMap().end(); ++it)
 		{
-			Object temp = *(it->second.get());
+			Object* temp = (it->second.get());
 
-			if (temp.GetComponentByTemplate<RigidBody>() != nullptr)
+			if (temp->GetComponentByTemplate<RigidBody>() != nullptr && !OutOfCheckBoundary(temp))
 			{
-				temp.GetComponentByTemplate<RigidBody>()->Update(dt);
+				temp->GetComponentByTemplate<RigidBody>()->Update(dt);
 			}
+                        if(temp->GetComponentByTemplate<RigidBody>() != nullptr && OutOfCheckBoundary(temp) && temp->GetComponentByTemplate<Collision>() != nullptr)
+                        {
+                            StopReaction(temp);
+                        }
 		}
 	}
 }
@@ -95,6 +106,16 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 			object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
 		}
 	}
+        else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
+            && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::card)
+        {
+            object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
+        }
+        else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::card
+            && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+        {
+            object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
+        }
 }
 
 
@@ -198,7 +219,20 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
 
 void Physics::AddCollisionList(Object * object)
 {
-    object->GetTransform().GetTranslation();
+}
+
+bool Physics::OutOfCheckBoundary(Object * object)
+{
+    if (object->GetTransform().GetTranslation().x + object->GetTransform().GetScale().x / 2 < windowsize.x / 2 &&
+        object->GetTransform().GetTranslation().x - object->GetTransform().GetScale().x / 2 > -windowsize.x / 2 &&
+        object->GetTransform().GetTranslation().y + object->GetTransform().GetScale().y / 2 < windowsize.y / 2 &&
+        object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y / 2 > -windowsize.y / 2)
+    {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 

@@ -8,6 +8,7 @@ enum class RestitutionType
 	stop,
 	ghost,
 	damaged,
+        get,
 	none,
 };
 enum class CollisionState

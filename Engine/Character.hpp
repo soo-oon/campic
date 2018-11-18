@@ -7,6 +7,7 @@ enum class ObjectType
 	opponent,
 	sword,
 	wall,
+        card,
 	none,
 };
 

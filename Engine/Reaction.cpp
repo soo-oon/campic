@@ -53,3 +53,7 @@ void AttackedReaction(Object* object , Object* di_object, float power)
 			, di_object->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y))));
 	di_object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }
+
+void DisappearReaction(Object * object)
+{
+}

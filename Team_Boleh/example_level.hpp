@@ -26,7 +26,7 @@ private:
 	float limit_time = 0;
 	vector2 direction = 0;
 
-    Object* player, *sword, *sonic, *dr_s, *background, *spark;
+    Object* player, *sword, *sonic, *dr_s, *background, *spark, *dia, *heart;
 
 };
 

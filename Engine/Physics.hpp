@@ -24,8 +24,11 @@ public:
 	bool IntersectionCheck(Object object1, Object object2);
         
         void AddCollisionList(Object* object);
+        // This function return true if object is out of window area. 
+        bool OutOfCheckBoundary(Object* object);
 
 private:
 	Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;
+        vector2 windowsize = vector2{ 1280, 960 };
 };
