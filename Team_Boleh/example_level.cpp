@@ -47,14 +47,6 @@ void example::move_convex_object(float dt, Object* Ob)
 void example::Initialize()
 {
 	Load();
-<<<<<<< HEAD
-	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(75.f, 75.f));
-	player->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
-	player->AddComponent(new Collision(box_));
-	player->AddComponent(new Character(ObjectType::player));
-
-=======
 	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
@@ -62,20 +54,17 @@ void example::Initialize()
 	player->AddComponent(new Character(ObjectType::player));
 
         spark = BuildAndRegisterDynamicObject("spark", vector2(300, 300), vector2(100.f, 100.f));
-        spark->AddComponent(new Animation("asset/images/spark.png", "spark", 16, 0.1));
->>>>>>> e9cd6ce58b69177681ecbc45f2a4e902e1f3297d
 
-        spark = BuildAndRegisterStaticObject("spark", vector2(300, 300), vector2(100.f, 100.f));
 
         dia = BuildAndRegisterDynamicObject("dia", vector2(420, -100), vector2(50, 50.f));
         dia->AddComponent(new Sprite());
-        dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/dia.png");
+        dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
         dia->AddComponent(new Collision(box_));
         dia->AddComponent(new Character(ObjectType::card));
 
         heart = BuildAndRegisterDynamicObject("heart", vector2(420, 100), vector2(50.f, 50.f));
         heart->AddComponent(new Sprite());
-        heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/heart.png");
+        heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
         heart->AddComponent(new Collision(box_));
         heart->AddComponent(new Character(ObjectType::card));
 
@@ -87,13 +76,8 @@ void example::Initialize()
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 
-<<<<<<< HEAD
-	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(75.f, 75.f));
-	sonic->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
-=======
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
 	sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.25));
->>>>>>> e9cd6ce58b69177681ecbc45f2a4e902e1f3297d
 	sonic->AddComponent(new RigidBody());
 	sonic->AddComponent(new Collision(box_));
 	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
@@ -110,11 +94,7 @@ void example::Initialize()
 	background = BuildAndRegisterDynamicObject("background", vector2(0,0), vector2(150.f, 150.f));
 	background->SetDepth(0.9f);
 	background->AddComponent(new Sprite());
-<<<<<<< HEAD
-	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/background.png");
-=======
-	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/check_background.png");
->>>>>>> e9cd6ce58b69177681ecbc45f2a4e902e1f3297d
+	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 	
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
 }
@@ -144,7 +124,7 @@ void example::Update(float dt)
 
         if(Input::IsKeyPressed(GLFW_KEY_Z))
         {
-            spark->AddComponent(new Animation("asset/sprite.png", "spark", 7, 0.08));
+            spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08));
             spark->GetTransform().SetTranslation(sword->GetTransform().GetTranslation());
             GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
         }
