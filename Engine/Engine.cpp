@@ -9,6 +9,7 @@
 #include "Physics.hpp"
 #include "Imgui_System.hpp"
 #include "JSON.hpp"
+#include "MapEditor.hpp"
 
 namespace
 {
@@ -20,6 +21,7 @@ namespace
 	Physics* Physics_ = nullptr;
 	Imgui_System* Imgui = nullptr;
 	JSON* Json = nullptr;
+	MapEditor* MapEditor_ = nullptr;
 }
 
 bool Engine::IsQuit;
@@ -34,6 +36,7 @@ bool Engine::Initialize()
     AddSystem(new Sound());
 	AddSystem(new Imgui_System());
 	AddSystem(new JSON());
+	AddSystem(new MapEditor());
 
 	Application_ = GetSystemByTemplate<Application>();
 	Graphic_ = GetSystemByTemplate<Graphics>();
@@ -41,6 +44,7 @@ bool Engine::Initialize()
 	Sound_ = GetSystemByTemplate<Sound>();
 	Imgui = GetSystemByTemplate<Imgui_System>();
 	Json = GetSystemByTemplate<JSON>();
+	MapEditor_ = GetSystemByTemplate<MapEditor>();
 
 	for (auto i : systems)
 	{
@@ -80,7 +84,8 @@ void Engine::Update()
 		Imgui->SetObjectManger(Objectmanager_);
 		Imgui->Draw();
 
-		Json->UpdateData(Objectmanager_);
+		Json->UpdateLevel(GetSystemByTemplate<StateManager>());
+
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;

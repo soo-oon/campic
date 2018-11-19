@@ -1,0 +1,287 @@
+{
+    "test1": {
+        "name": "test1",
+        "translation": [
+            -100.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test10": {
+        "name": "test10",
+        "translation": [
+            -20.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test11": {
+        "name": "test11",
+        "translation": [
+            -10.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test12": {
+        "name": "test12",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test13": {
+        "name": "test13",
+        "translation": [
+            10.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test14": {
+        "name": "test14",
+        "translation": [
+            20.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test15": {
+        "name": "test15",
+        "translation": [
+            30.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test16": {
+        "name": "test16",
+        "translation": [
+            40.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test17": {
+        "name": "test17",
+        "translation": [
+            50.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test18": {
+        "name": "test18",
+        "translation": [
+            60.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test19": {
+        "name": "test19",
+        "translation": [
+            70.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test2": {
+        "name": "test2",
+        "translation": [
+            -90.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test3": {
+        "name": "test3",
+        "translation": [
+            -80.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test4": {
+        "name": "test4",
+        "translation": [
+            -70.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test5": {
+        "name": "test5",
+        "translation": [
+            -60.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test6": {
+        "name": "test6",
+        "translation": [
+            -50.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test7": {
+        "name": "test7",
+        "translation": [
+            -40.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test8": {
+        "name": "test8",
+        "translation": [
+            -30.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "test9": {
+        "name": "test9",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    }
+}

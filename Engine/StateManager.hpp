@@ -17,6 +17,7 @@ public:
     void Restart();
     void Pause();
     State* GetCurrentState() { return m_currentState; }
+	std::map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
 
     bool Initialize() override;
     void Update(float dt) override;
