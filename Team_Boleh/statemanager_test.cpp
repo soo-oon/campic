@@ -34,7 +34,8 @@ void test_statemanager::Initialize()
 
 	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
 	GetObjectManager()->FindObject("camera")->SetTranslation({ 0,0 });
-	GetObjectManager()->FindObject("camera")->AddComponent(new Camera());
+
+	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
 	GetObjectManager()->FindObject("test1")->SetScale({ 150,150 });
 	GetObjectManager()->FindObject("test1")->SetTranslation({-100,0});

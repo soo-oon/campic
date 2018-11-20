@@ -61,6 +61,8 @@ void Physics::Update(float dt)
 		{
 			Object* temp = (it->second.get());
 
+			//if(temp->GetComponentByTemplate<RigidBody>() != nullptr)
+			//	temp->GetComponentByTemplate<RigidBody>()->Update(dt);
 			if (temp->GetComponentByTemplate<RigidBody>() != nullptr && !OutOfCheckBoundary(temp))
 			{
 				temp->GetComponentByTemplate<RigidBody>()->Update(dt);

@@ -48,10 +48,16 @@ void example::Initialize()
 {
 	Load();
 	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
-	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
+	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f, true);
 	player->AddComponent(new Collision(box_));
 	player->AddComponent(new Character(ObjectType::player));
+
+	GetObjectManager()->AddObject("camera");
+
+	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
+	GetObjectManager()->FindObject("camera")->SetTranslation({ 0,0 });
+	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
         spark = BuildAndRegisterDynamicObject("spark", vector2(300, 300), vector2(100.f, 100.f));
 
@@ -77,7 +83,7 @@ void example::Initialize()
 	sword->AddComponent(new Character(ObjectType::sword));
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
-	sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.25));
+	//sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.1f));
 	sonic->AddComponent(new RigidBody());
 	sonic->AddComponent(new Collision(box_));
 	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
@@ -104,7 +110,11 @@ void example::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 
-	SwordSwing(Input::GetMousePos(),player, sword);
+	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+
+	//GetObjectManager()->FindObject("camera")->SetTranslation(player->GetTransform().GetTranslation());
+
+	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()),player, sword);
 	Attact(sword);
 	
 	//Should Fixed this
@@ -115,18 +125,15 @@ void example::Update(float dt)
 	else
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
-	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
-        GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
-
 	
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
 	
 
         if(Input::IsKeyPressed(GLFW_KEY_Z))
         {
-            spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08));
+            spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
             spark->GetTransform().SetTranslation(sword->GetTransform().GetTranslation());
-            GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
+            //GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
         }
 
         if (Input::IsKeyTriggered(GLFW_KEY_O))
@@ -192,7 +199,7 @@ void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x,
 		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y));
         float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
-        float angledeg = (180 / 3.14 )* anglerad;
+        float angledeg = (180 / 3.14f )* anglerad;
         sword->SetRotation(angledeg - 90);
         //float a = dot(sword->GetTransform().GetTranslation(), vector2(0, 1))/ magnitude(sword->GetTransform().GetTranslation());
         //if(mouse_position.x > player->GetTransform().GetTranslation().x)

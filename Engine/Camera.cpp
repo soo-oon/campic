@@ -1,6 +1,7 @@
 #include "Camera.hpp"
 #include "matrix2.hpp"
 #include "Input.hpp"
+#include <iostream>
 
 Camera::Camera(vector2 camera_center, vector2 camera_up)
 	: center(camera_center), up(camera_up)
@@ -14,6 +15,7 @@ bool Camera::Initialize(Object* Ob)
 
 void Camera::Update(float dt)
 {
+
 	if (Input::MouseWheelScroll() > 0 && zoom <= 20.0f)
 	{
 		zoom += 0.05f;

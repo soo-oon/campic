@@ -4,6 +4,8 @@
 #include <memory>
 #include "Collision.hpp"
 #include "Camera.hpp"
+#include "State.hpp"
+#include <iostream>
 
 namespace
 {
@@ -41,6 +43,7 @@ bool Graphics::Initialize()
 
 void Graphics::Update(float dt)
 {
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     SetNDC();
 }
@@ -49,25 +52,18 @@ void Graphics::Draw(Objectmanager* objects)
 {
     if (objects != nullptr)
     {
-		Iscamera = objects->FindCameraObject();
-
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin();
 			it != objects->GetObjectMap().end(); ++it)
 		{
+			
 			Object obj = *(it->second.get());
 
-			if (Iscamera)
+			if(Iscamera)
 			{
 				if (obj.GetComponentByTemplate<Camera>() != nullptr)
 				{
-					zoom = obj.GetComponentByTemplate<Camera>()->GetZoomValue();
 					temp_camera = obj.GetComponentByTemplate<Camera>();
 				}
-			}
-			else
-			{
-				zoom = 1;
-				temp_camera = nullptr;
 			}
 
 			if (obj.GetComponentByTemplate<Collision>() != nullptr)
@@ -150,17 +146,40 @@ void Graphics::Quit()
 
 void Graphics::SetNDC()
 {
-    affine2d temp = {
-        (2.0f / displaysize.x)*zoom, 0.0f, 0.0f,
-        0.0f, (2.0f / displaysize.y)*zoom, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };
+	if (temp_camera != nullptr)
+	{
+		affine2d temp = {
+			(2.0f / displaysize.x)*temp_camera->GetZoomValue(), 0.0f, 0.0f,
+			0.0f, (2.0f / displaysize.y)*temp_camera->GetZoomValue(), 0.0f,
+			0.0f, 0.0f, 1.0f
+		};
 
-    projection = temp;
+		projection = temp;
+	}
+	else
+	{
+		affine2d temp = {
+			(2.0f / displaysize.x), 0.0f, 0.0f,
+			0.0f, (2.0f / displaysize.y), 0.0f,
+			0.0f, 0.0f, 1.0f
+		};
+
+		projection = temp;
+	}
 }
 
-void Graphics::SetDisplaySize_G(vector2 size)
+void Graphics::SetDisplaySize_G(vector2 size, State* state)
 {
+	if (state->IsCamera())
+	{
+		Iscamera = true;
+	}
+	else
+	{
+		temp_camera = nullptr;
+		Iscamera = false;
+	}
+
 	displaysize = size;
 	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 }
@@ -169,8 +188,14 @@ affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) cons
 {
 	affine2d myNDC = transform.GetModelToWorld();
 
-	myNDC = projection * temp_camera->WorldToCamera() * myNDC;
-
+	if (temp_camera != nullptr)
+	{
+		myNDC = projection * temp_camera->WorldToCamera() * myNDC;
+	}
+	else
+	{
+		myNDC = projection * myNDC;
+	}
 	return myNDC;
 }
 

@@ -228,7 +228,7 @@ void Imgui_System::ImGui_Option(bool* show_window)
 	static int i = 0;
 	if(ImGui::SliderInt("Volume", &i, 0, 10))
 	{
-		m_FMOD_system->SetVolume(i);
+		m_FMOD_system->SetVolume(static_cast<float>(i));
 	}
 	ImGui::End();
 }

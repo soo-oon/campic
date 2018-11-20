@@ -154,6 +154,10 @@ vector2 perpendicular_to(vector2& v)
 
 vector2 normalize(vector2 v)
 {
+	if(v.x ==0 && v.y == 0)
+	{
+		return vector2{ 0,0 };
+	}
     vector2 u = (float)sqrt(dot(v, v));
 
     return vector2((v.x / u.x),(v.y/u.y));

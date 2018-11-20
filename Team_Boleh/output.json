@@ -1,0 +1,128 @@
+{
+    "background": {
+        "name": "background",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.8999999761581421,
+        "gravity": 1.0
+    },
+    "camera": {
+        "name": "camera",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            10.0,
+            10.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    },
+    "dia": {
+        "name": "dia",
+        "translation": [
+            420.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    },
+    "dr_s": {
+        "name": "dr_s",
+        "translation": [
+            -200.0,
+            -150.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.5,
+        "gravity": 1.0
+    },
+    "heart": {
+        "name": "heart",
+        "translation": [
+            420.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    },
+    "player": {
+        "name": "player",
+        "translation": [
+            0.0,
+            49.62679672241211
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    },
+    "sonic": {
+        "name": "sonic",
+        "translation": [
+            0.0,
+            -200.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    },
+    "spark": {
+        "name": "spark",
+        "translation": [
+            300.0,
+            300.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    },
+    "sword": {
+        "name": "sword",
+        "translation": [
+            32.97939682006836,
+            143.85121154785157
+        ],
+        "rotation": -19.220382690429689,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0
+    }
+}

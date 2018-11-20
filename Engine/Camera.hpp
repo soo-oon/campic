@@ -2,11 +2,17 @@
 #include "Component.hpp"
 #include "vector2.hpp"
 #include "affine2d.hpp"
+#include "Object.hpp"
 
 class Camera : public Component
 {
 public:
-	Camera() = default;
+	//Camera() = default;
+	template<typename  T>
+	Camera(T* state)
+	{
+		state->SetCamera();
+	}
 	Camera(vector2 camera_center, vector2 camera_up);
 
 	bool Initialize(Object* Ob) override;

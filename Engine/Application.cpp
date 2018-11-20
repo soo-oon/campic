@@ -134,7 +134,7 @@ void Application::SetDispalyAreaSize(Graphics* graphics, State* current_state)
     glfwGetWindowSize(window, &w, &h);
     screenSize.x = static_cast<float>(w);
     screenSize.y = static_cast<float>(h);
-    graphics->SetDisplaySize_G(screenSize);
+    graphics->SetDisplaySize_G(screenSize, current_state);
 
 	current_state->SetStateScreenSize({ static_cast<float>(w),static_cast<float>(h) });
 }

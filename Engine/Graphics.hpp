@@ -31,7 +31,7 @@ public:
 	void Quit() override;
 
 	void SetNDC();
-	void SetDisplaySize_G(vector2 size);
+	void SetDisplaySize_G(vector2 size, State* state);
 
 private:
 	struct solidshape
@@ -70,7 +70,7 @@ private:
 private:
 	bool Iscamera = false;
 	Camera* temp_camera = nullptr;
-	float zoom = 1;
+	
 
 	static const int NumberOfVertexTypes = (int)Type::count;
 	vector2 displaysize{};

@@ -16,6 +16,8 @@ public:
 	virtual void ShutDown() = 0;
 	virtual  void UnLoad();
 
+	virtual void SetCamera() { camera = true; }
+	virtual bool IsCamera() { return camera; }
 	virtual Objectmanager* GetObjectManager() { return objectmanager; }
 	virtual WorldPhysics* GetWorldPhyics() { return world_physics; }
 	virtual vector2 GetStateScreenSize() { return screen_size_; }
@@ -28,6 +30,7 @@ public:
 private:
 	std::string change_level;
 
+	bool camera = false;
 	bool level_change = false;
 	Objectmanager * objectmanager = nullptr;
 	WorldPhysics* world_physics = nullptr;
