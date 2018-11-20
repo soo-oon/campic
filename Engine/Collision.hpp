@@ -46,7 +46,7 @@ public:
 
 
 private:
-	RestitutionType restitution_ = RestitutionType::stop;
+	RestitutionType restitution_ = RestitutionType::none;
 	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};
 	Transform collision_transform{};

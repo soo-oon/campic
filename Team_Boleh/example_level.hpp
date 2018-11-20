@@ -22,6 +22,7 @@ public:
     void ForProtoType(Object* object, Object* opponent, float vel_come);
     void snailoption( Object* effect,Object* knife, float angle, float& angle_);
     void Enchanted(Object* sword, Object* effect, Object* card1, Object* card2, float dt);
+    void thrust(Object* sword,Object* player, float force);
 
 private:
 	float gravity_up = 1;
@@ -29,13 +30,13 @@ private:
 	float pm = 1;
 	float limit_time = 0;
 	bool change_sword = false;
-	float rota_angle = 0, rota_angle1 = 0;
+	float rota_angle = 0.f, rota_angle1 = 0.f;
 	float dt_sum = 0;
 	float card_velo = 20;
 	float rotation_ = 10;
 	vector2 direction = 0;
 
-    Object* player, *sword, *sonic, *background, *spark, *dia, *heart, *scol, *slime, *dia1, *heart1, *door;
+    Object* player, *sword, *sonic, *background, *spark, *dia, *heart, *scol, *slime, *dia1, *heart1, *door, *shot;
 
 };
 
