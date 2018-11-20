@@ -61,15 +61,20 @@ void Physics::Update(float dt)
 		{
 			Object* temp = (it->second.get());
 
-			//if(temp->GetComponentByTemplate<RigidBody>() != nullptr)
-			//	temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-			if (temp->GetComponentByTemplate<RigidBody>() != nullptr && !OutOfCheckBoundary(temp))
+			if (temp->GetComponentByTemplate<RigidBody>() != nullptr)
 			{
-				temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-			}
-                        if(temp->GetComponentByTemplate<RigidBody>() != nullptr && OutOfCheckBoundary(temp) && temp->GetComponentByTemplate<Collision>() != nullptr)
-                        {
-                            StopReaction(temp);
+				if(temp->GetComponentByTemplate<Collision>() != nullptr)
+				{
+					if(!OutOfCheckBoundary(temp))
+						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
+					else
+					{
+						StopReaction(temp);
+						temp->GetComponentByTemplate<Collision>()->Update(dt);
+					}
+				}
+				else
+					temp->GetComponentByTemplate<RigidBody>()->Update(dt);
                         }
 		}
 	}
@@ -118,6 +123,22 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
         {
             object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
         }
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+	{
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+	}
 }
 
 
@@ -219,16 +240,17 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
 	return true;
 }
 
-void Physics::AddCollisionList(Object * object)
-{
-}
 
 bool Physics::OutOfCheckBoundary(Object * object)
 {
-    if (object->GetTransform().GetTranslation().x + object->GetTransform().GetScale().x / 2 < windowsize.x / 2 &&
-        object->GetTransform().GetTranslation().x - object->GetTransform().GetScale().x / 2 > -windowsize.x / 2 &&
-        object->GetTransform().GetTranslation().y + object->GetTransform().GetScale().y / 2 < windowsize.y / 2 &&
-        object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y / 2 > -windowsize.y / 2)
+    if (object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + 
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 < windowsize.x / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x -
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 > -windowsize.x / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + 
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 < windowsize.y / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - 
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 > -windowsize.y / 2)
     {
         return false;
     }

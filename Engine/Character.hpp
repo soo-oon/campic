@@ -8,6 +8,7 @@ enum class ObjectType
 	sword,
 	wall,
         card,
+	door,
 	none,
 };
 

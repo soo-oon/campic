@@ -8,6 +8,7 @@
 #include "Collision.hpp"
 #include "vector2.hpp"
 #include "Character.hpp"
+#include <limits.h>
 
 void example::blackhole(Object* Ob, Object* Ob1)
 {
@@ -59,28 +60,67 @@ void example::Initialize()
 	GetObjectManager()->FindObject("camera")->SetTranslation({ 0,0 });
 	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
-        spark = BuildAndRegisterDynamicObject("spark", vector2(300, 300), vector2(100.f, 100.f));
+	slime = BuildAndRegisterDynamicObject("slime", vector2(-300, -300), vector2(75.f, 75.f));
+	slime->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
+	slime->AddComponent(new RigidBody());
+	slime->AddComponent(new Collision(box_));
+	slime->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	slime->AddComponent(new Character(ObjectType::opponent));
 
-
-        dia = BuildAndRegisterDynamicObject("dia", vector2(420, -100), vector2(50, 50.f));
+	scol = BuildAndRegisterDynamicObject("scol", vector2(-300, 300), vector2(75.f, 75.f));
+	scol->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
+	scol->AddComponent(new RigidBody());
+	scol->AddComponent(new Collision(box_));
+	scol->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	scol->AddComponent(new Character(ObjectType::opponent));
+	
+        dia = BuildAndRegisterDynamicObject("dia", vector2(420, -100), vector2(25.f, 25.f));
         dia->AddComponent(new Sprite());
         dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
-        dia->AddComponent(new Collision(box_));
-        dia->AddComponent(new Character(ObjectType::card));
+        dia->AddComponent(new Character(ObjectType::none));
+	dia->AddComponent(new RigidBody());
+	dia->GetMesh().Invisible();
 
-        heart = BuildAndRegisterDynamicObject("heart", vector2(420, 100), vector2(50.f, 50.f));
+	dia1 = BuildAndRegisterDynamicObject("dia1", vector2(420, -100), vector2(50.f, 50.f));
+	dia1->AddComponent(new Sprite());
+	dia1->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
+	dia1->AddComponent(new Collision(box_));
+	dia1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	dia1->AddComponent(new Character(ObjectType::card));
+
+	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
+	door->AddComponent(new Sprite());
+	door->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/hero.png");
+	door->AddComponent(new Collision(box_));
+	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	door->AddComponent(new Character(ObjectType::door));
+
+        heart = BuildAndRegisterDynamicObject("heart", vector2(420, 100), vector2(25.f, 25.f));
         heart->AddComponent(new Sprite());
         heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
-        heart->AddComponent(new Collision(box_));
-        heart->AddComponent(new Character(ObjectType::card));
+        heart->AddComponent(new Character(ObjectType::none));
+	heart->AddComponent(new RigidBody());
+	heart->GetMesh().Invisible();
 
+	heart1 = BuildAndRegisterDynamicObject("heart1", vector2(420, 100), vector2(50.f, 50.f));
+	heart1->AddComponent(new Sprite());
+	heart1->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
+	heart1->AddComponent(new Collision(box_));
+	heart1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	heart1->AddComponent(new Character(ObjectType::card));
 
 	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
-	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
+	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 	sword->AddComponent(new Collision(box_));
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
+	sword->SetDepth(0.978f);
+
+
+	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
+	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08));
+	spark->GetMesh().Invisible();
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
 	//sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.1f));
@@ -88,17 +128,9 @@ void example::Initialize()
 	sonic->AddComponent(new Collision(box_));
 	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	sonic->AddComponent(new Character(ObjectType::opponent));
-	
-	dr_s = BuildAndRegisterDynamicObject("dr_s", vector2(-200, -150), vector2(100.f, 100.f));
-	dr_s->SetDepth(0.5);
-	dr_s->AddComponent(new Sprite());
-	dr_s->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
-	dr_s->AddComponent(new RigidBody());
-	dr_s->AddComponent(new Collision(box_));
-	dr_s->AddComponent(new Character(ObjectType::wall));
-	
+		
 	background = BuildAndRegisterDynamicObject("background", vector2(0,0), vector2(150.f, 150.f));
-	background->SetDepth(0.9f);
+	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 	
@@ -107,6 +139,9 @@ void example::Initialize()
 
 void example::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_T))
+		change_sword = true;
+
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
@@ -114,30 +149,39 @@ void example::Update(float dt)
 
 	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
 
-	//GetObjectManager()->FindObject("camera")->SetTranslation(player->GetTransform().GetTranslation());
-
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()),player, sword);
+	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+		ChangeLevel("test");
+
+	ForProtoType(player, scol, 20);
+	ForProtoType(player, slime, 20);
+
 	Attact(sword);
+	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
+	if(change_sword)
+	{
+		Enchanted(sword, spark, dia, heart, dt);
+	}
 	
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
+
+	rotation_ += 10;
+		door->SetRotation(rotation_);
 
 	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
 	else
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
-	
+	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("slime")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("scol")->GetComponentByTemplate<Animation>()->Update(dt);
+        GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
+
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
 	
-
-        if(Input::IsKeyPressed(GLFW_KEY_Z))
-        {
-            spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
-            spark->GetTransform().SetTranslation(sword->GetTransform().GetTranslation());
-            //GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
-        }
-
         if (Input::IsKeyTriggered(GLFW_KEY_O))
             gravity_up *= 1.5;
         if (Input::IsKeyTriggered(GLFW_KEY_P))
@@ -192,6 +236,69 @@ void example::SwordPosition(std::string player_str, std::string sword_str)
 	GetObjectManager()->FindObject(sword_str)->SetTranslation(vector2(
 		GetObjectManager()->FindObject(player_str)->GetTransform().GetTranslation().x + 150.f,
 		GetObjectManager()->FindObject(player_str)->GetTransform().GetTranslation().y));
+}
+void example::ForProtoType(Object * object, Object* opponent, float vel_come)
+{
+	vector2 come = vector2(object->GetTransform().GetTranslation().x - opponent->GetTransform().GetTranslation().x,
+		object->GetTransform().GetTranslation().y - opponent->GetTransform().GetTranslation().y);
+	vector2 no_come = normalize(come);
+	if(magnitude(come) < magnitude(object->GetTransform().GetScale()))
+	{
+		opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+	}
+	else
+	opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(vel_come* no_come);
+}
+void example::snailoption(Object * effect, Object* knife, float angle, float& angle_)
+{
+	int x_vel, y_vel;
+	angle_ += angle;
+	//card_velo -= 0.5f;
+	x_vel = cos(angle_)*(card_velo)+sin(angle_)*(card_velo);
+	y_vel = -sin(angle_)*(card_velo) + cos(angle_)*(card_velo);
+	effect->GetTransform().SetTranslation(vector2(knife->GetTransform().GetTranslation().x - x_vel, knife->GetTransform().GetTranslation().y - y_vel));
+	if (knife->GetTransform().GetTranslation().y > effect->GetTransform().GetTranslation().y)
+	{
+		effect->GetTransform().SetDepth(0.95f);
+	}
+	else
+		effect->GetTransform().SetDepth(0.98f);
+}
+void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * card2, float dt)
+{
+	snailoption(card1, sword, -0.02f, rota_angle);
+	snailoption(card2, sword, 0.02f, rota_angle1);
+
+	if (dt_sum < 3)
+	{
+		dt_sum += dt;
+		if (!card1->GetMesh().IsVisible() && !card2->GetMesh().IsVisible())
+		{
+			card1->GetMesh().Visible();
+			card2->GetMesh().Visible();
+		}
+	}
+	else if(card1->GetMesh().IsVisible() && card2->GetMesh().IsVisible())
+	{
+		card1->GetMesh().Invisible();
+		card2->GetMesh().Invisible();
+	}
+	else
+	{
+		if (dt_sum < 5)
+		{
+			dt_sum += dt;
+			if (!effect->GetMesh().IsVisible())
+				effect->GetMesh().Visible();
+		}
+		else if (effect->GetMesh().IsVisible())
+		{
+			effect->GetMesh().Invisible();
+			sword->GetTransform().SetScale(vector2(150, 150.f));
+			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
+		}
+	}
+
 }
 void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 {
