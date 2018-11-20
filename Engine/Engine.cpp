@@ -44,8 +44,6 @@ bool Engine::Initialize()
 
 	for (auto i : systems)
 	{
-		if (i == systems.at(5))
-			Imgui->SetWindow(Application_->GetWindow());
 		i->Initialize();
 	}
 

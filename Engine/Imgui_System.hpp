@@ -26,7 +26,6 @@ public:
 	void ObjectManger(bool show_window);
 	void ImGui_Option(bool* show_window);
 
-	void SetWindow(GLFWwindow* window_) { window = window_; }
 	void SetObjectManger(Objectmanager* obj_manager) { object_manager = obj_manager; }
 	void SetFMOD(Sound* system) { m_FMOD_system = system; };
 
@@ -41,5 +40,4 @@ private:
 	std::string new_object = "object0";
 
 	Sound* m_FMOD_system = nullptr;
-	Sound* m_FMOD_sound = nullptr;
 };

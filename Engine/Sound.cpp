@@ -41,6 +41,8 @@ bool Sound::Initialize()
 		}
 	}
 
+	CreateSound("asset/sounds/digimon.wav");
+
     return true;
 }
 
@@ -252,3 +254,9 @@ int Sound::GetSoundMode()
 {
 	return FMOD_3D | loop;
 }
+
+void Sound::SetSoundSpeed(float speed)
+{
+	sound->setMusicSpeed(speed);
+}
+

@@ -76,7 +76,7 @@ void Input::SetKeyPressed(int key, int action)
 
     if (key_trigger)
     {
-        key_triggered.set(key);
+       key_triggered.set(key);
     }
     else
     {

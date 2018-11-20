@@ -13,10 +13,6 @@
 class Sound : public System
 {
 public:
-    FMOD::System* system;
-    FMOD::Sound* sound;
-    FMOD::Channel* channel;
-
     bool Initialize() override;
     void Update(float dt) override;
     void Quit() override;
@@ -35,8 +31,12 @@ public:
 	bool CreateStream(const std::string & filePath);
 	bool IsChannelValid();
 	int GetSoundMode();
+	void SetSoundSpeed(float speed);
 
 private:
 	int fmod_result = FMOD_OK;
 	int loop = FMOD_LOOP_OFF;
+	FMOD::System* system = nullptr;
+	FMOD::Sound* sound = nullptr;
+	FMOD::Channel* channel = nullptr;
 };

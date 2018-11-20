@@ -123,7 +123,7 @@ void example::Initialize()
 	spark->GetMesh().Invisible();
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
-	//sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.1f));
+	sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.1f));
 	sonic->AddComponent(new RigidBody());
 	sonic->AddComponent(new Collision(box_));
 	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
@@ -177,7 +177,7 @@ void example::Update(float dt)
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("slime")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("scol")->GetComponentByTemplate<Animation>()->Update(dt);
-        GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
+    GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
 	GetObjectManager()->FindObject("spark")->GetComponentByTemplate<Animation>()->Update(dt);
 
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
