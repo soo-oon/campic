@@ -36,11 +36,11 @@ void Object::SetGravity(float gravity_own)
 	gravity = gravity_own;
 }
 
+
 float Object::GetGravity()
 {
 	return gravity;
 }
-
 
 
 Mesh& Object::GetMesh()
@@ -52,3 +52,4 @@ Transform& Object::GetTransform()
 {
     return transform;
 }
+

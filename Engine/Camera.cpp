@@ -16,11 +16,11 @@ void Camera::Update(float dt)
 {
 	if (Input::MouseWheelScroll() > 0 && zoom <= 20.0f)
 	{
-		zoom += 0.05;
+		zoom += 0.05f;
 	}
 	else if(Input::MouseWheelScroll() < 0 && zoom > 0.2f)
 	{
-		zoom -= 0.05;
+		zoom -= 0.05f;
 	}
 }
 

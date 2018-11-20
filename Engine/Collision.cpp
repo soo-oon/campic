@@ -5,6 +5,7 @@
 bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
+
     collision_mesh = mesh::CreateCollisionBox(type,150, {255,0,0,255});
 
 	return true;

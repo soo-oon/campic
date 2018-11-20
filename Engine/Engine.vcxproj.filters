@@ -1,276 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GLSL.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Imgui_System.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="JSON.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Objectmanager.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Reaction.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="imgui.cpp">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_glfw.cpp">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_opengl3.cpp">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClCompile>
-    <ClCompile Include="Imgui_System.cpp">
-      <Filter>Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Application\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL.cpp">
-      <Filter>Graphics\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Graphics\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClCompile>
-    <ClCompile Include="Objectmanager.cpp">
-      <Filter>Manager\ObjectManager</Filter>
-    </ClCompile>
-    <ClCompile Include="StateManager.cpp">
-      <Filter>Manager\StateManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="WorldPhysics.cpp">
-      <Filter>Physics\Maybe_delete</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Component\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Component\RigidBody</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Component\Camera</Filter>
-    <ClCompile Include="Reaction.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="WorldPhysics.cpp" />
+    <ClCompile Include="State.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="Application.hpp" />
+    <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Character.hpp" />
+    <ClInclude Include="Collision.hpp" />
+    <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Component.hpp" />
+    <ClInclude Include="DepthValue.hpp" />
+    <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="GLSL.hpp" />
+    <ClInclude Include="Graphics.hpp" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_glfw.h" />
+    <ClInclude Include="imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="Imgui_System.hpp" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="Input.hpp" />
+    <ClInclude Include="JSON.hpp" />
+    <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Objectmanager.hpp" />
+    <ClInclude Include="Physics.hpp" />
+    <ClInclude Include="Reaction.hpp" />
+    <ClInclude Include="Restitution.hpp" />
+    <ClInclude Include="RigidBody.hpp" />
+    <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Sound.hpp" />
-    <ClInclude Include="Component.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="imconfig.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_glfw.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_opengl3.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>Imgui\Imgui_header</Filter>
-    </ClInclude>
-    <ClInclude Include="Imgui_System.hpp">
-      <Filter>Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.hpp">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="System.hpp">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.hpp">
-      <Filter>Application\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.hpp">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="GLSL.hpp">
-      <Filter>Graphics\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.hpp">
-      <Filter>Graphics\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.hpp">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.hpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClInclude>
-    <ClInclude Include="State.hpp">
-      <Filter>State</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.hpp">
-      <Filter>Graphics\Vertex</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image_write.h">
-      <Filter>Graphics\extra_file</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Graphics\extra_file</Filter>
-    </ClInclude>
-    <ClInclude Include="DepthValue.hpp">
-      <Filter>Graphics\extra_file</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.hpp">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Objectmanager.hpp">
-      <Filter>Manager\ObjectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="StateManager.hpp">
-      <Filter>Manager\StateManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics.hpp">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="WorldPhysics.h">
-      <Filter>Physics\Maybe_delete</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.hpp">
-      <Filter>Component\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.hpp">
-      <Filter>Component\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.hpp">
-      <Filter>Component\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.hpp">
-      <Filter>Component\RigidBody</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.hpp">
-      <Filter>Component\Camera</Filter>
-    <ClInclude Include="Character.hpp">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Restitution.hpp">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Reaction.hpp">
-      <Filter>Physics</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Component">
-      <UniqueIdentifier>{cdc96f32-4a59-4db3-9607-837012a873cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Imgui">
-      <UniqueIdentifier>{f0923af0-cb15-4fc0-b8ca-77c1ac9c546f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Imgui\Imgui_header">
-      <UniqueIdentifier>{fd92c2e0-97a0-482b-bc2c-031383b56464}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System">
-      <UniqueIdentifier>{9736c0b2-2152-44b0-9585-b7e409bbfb06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application">
-      <UniqueIdentifier>{c430cc13-3c16-4490-b615-801dd1433424}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Input">
-      <UniqueIdentifier>{567cd2d5-b0bc-476e-adff-58dbac54d080}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics">
-      <UniqueIdentifier>{0a7e7f06-789c-429d-812d-649c4289f5e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Shader">
-      <UniqueIdentifier>{aa28b847-8aaf-4945-9be4-d10ba8327da1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\GLSL">
-      <UniqueIdentifier>{1907746e-080b-445d-86e3-9b1853eb137d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\Vertex">
-      <UniqueIdentifier>{14a5a66f-43ca-4164-bc4c-6e3d3b026bb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="State">
-      <UniqueIdentifier>{84feda87-203a-4da2-9c54-aedcba760ecf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{0b28309d-7f5b-4757-bb5f-02af058040e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics\extra_file">
-      <UniqueIdentifier>{e2d0441b-8e91-4629-b393-322ceebd05af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics">
-      <UniqueIdentifier>{65109e9b-fa5b-4ab9-b4db-75e49f8857d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager">
-      <UniqueIdentifier>{d6765379-00e4-44f0-9fab-7c933f53a870}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\ObjectManager">
-      <UniqueIdentifier>{233253bd-06d7-40bb-bf94-ef40bbea64c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager\StateManager">
-      <UniqueIdentifier>{17f019ff-6c17-431e-b51f-ddd732a6c303}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics\Maybe_delete">
-      <UniqueIdentifier>{ff181f60-a96a-4ff6-9478-82fc23e9b988}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Animation">
-      <UniqueIdentifier>{7a28e591-4092-4c2e-9142-d84cb950c626}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Collision">
-      <UniqueIdentifier>{f84a7473-831d-4f6d-b19e-76a6b450e16c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Sprite">
-      <UniqueIdentifier>{b723643a-fed0-4dff-8db3-578021219db9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\RigidBody">
-      <UniqueIdentifier>{5c2b50de-10b0-4846-8211-0edcbdb4b681}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\Camera">
-      <UniqueIdentifier>{70070701-80ac-430f-bfac-43f364de7bcd}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Sprite.hpp" />
+    <ClInclude Include="State.hpp" />
+    <ClInclude Include="StateManager.hpp" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="System.hpp" />
+    <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="WorldPhysics.h" />
   </ItemGroup>
 </Project>

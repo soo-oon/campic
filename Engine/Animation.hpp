@@ -34,6 +34,8 @@ public:
     void Delete() override;
 	void ChangeAnimation(std::string ID);
 
+	Object* GetObject() { return object; }
+
 	void Imgui_Animation();
 
     vector2 GetAnimationPosition() { return previous_current_coordinate; }

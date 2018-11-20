@@ -47,6 +47,7 @@ void example::move_convex_object(float dt, Object* Ob)
 void example::Initialize()
 {
 	Load();
+
 	GetObjectManager()->AddObject("player");
 	GetObjectManager()->AddObject("convex_object");
 	GetObjectManager()->AddObject("sonic_animation");
@@ -56,7 +57,7 @@ void example::Initialize()
 	GetObjectManager()->FindObject("player")->SetScale({ 150.0f, 150.0f });
 	GetObjectManager()->FindObject("player")->SetTranslation({ 0, 0 });
 	GetObjectManager()->FindObject("player")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("player")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.25));
+	GetObjectManager()->FindObject("player")->AddComponent(new Animation("asset/action.png", "zelda_down", 10, 0.15));
 	GetObjectManager()->FindObject("player")->AddComponent(new RigidBody());
 	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->AddAnimaition("asset/action_c.png", "zelda_up", 10, 0.1f);
 	GetObjectManager()->FindObject("player")->AddComponent(new Collision(box_));
@@ -70,7 +71,7 @@ void example::Initialize()
 	GetObjectManager()->FindObject("sonic_animation")->SetScale({ 150, 150 });
 	GetObjectManager()->FindObject("sonic_animation")->SetTranslation({ 0, -200 });
 	GetObjectManager()->FindObject("sonic_animation")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.25));
+	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Animation("asset/example2.png", "sonic", 10, 0.15));
 	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new RigidBody());
 	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Collision(box_));
 	GetObjectManager()->FindObject("sonic_animation")->AddComponent(new Character(ObjectType::wall));
@@ -108,8 +109,8 @@ void example::Update(float dt)
 	else
 		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
-	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
-	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
+	/*GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
+	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);*/
 
 	
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
@@ -135,9 +136,9 @@ void example::Update(float dt)
 	{
 		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("BackGround").get());
 	}
-	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
+	//GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 
-	GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
+	//GetObjectManager()->FindObject("sonic_animation")->GetComponentByTemplate<Animation>()->Update(dt);
 	
 }
 

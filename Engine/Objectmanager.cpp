@@ -1,11 +1,31 @@
 #include "Objectmanager.hpp"
 #include <cassert>
+#include "Camera.hpp"
 
 bool Objectmanager::Initialize() { return true; }
 
 void Objectmanager::Update(float dt)
 {
-	
+	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
+		it != object_map.end(); ++it)
+	{
+		Object obj = *(it->second.get());
+
+		if(obj.GetComponentByTemplate<Sprite>() != nullptr)
+		{
+			obj.GetComponentByTemplate<Sprite>()->Update(dt);
+		}
+
+		if(obj.GetComponentByTemplate<Animation>() != nullptr)
+		{
+			obj.GetComponentByTemplate<Animation>()->Update(dt);
+		}
+
+		if (obj.GetComponentByTemplate<Camera>() != nullptr)
+		{
+			obj.GetComponentByTemplate<Camera>()->Update(dt);
+		}
+	}
 }
 
 void Objectmanager::Quit()
@@ -33,6 +53,22 @@ void Objectmanager::RemoveObject(std::string key_name)
         object = std::move(found->second);
         object_map.erase(found);
     }
+}
+
+bool Objectmanager::FindCameraObject()
+{
+	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
+		it != object_map.end(); ++it)
+	{
+		Object obj = *(it->second.get());
+
+		if (obj.GetComponentByTemplate<Camera>() != nullptr)
+			return true;
+		else
+			return false;
+	}
+
+	return false;
 }
 
 std::unique_ptr<Object>& Objectmanager::FindObject(std::string key_name)

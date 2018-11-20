@@ -35,7 +35,7 @@ public:
     void SetRotation(float rotation_value);
 
     const Transform* GetParent() const;
-    void SetParent(const Transform* const transform_parent);
+    void SetParent(const Transform* transform_parent);
 
 	void Imgui_Transform();
     affine2d GetTRS();
