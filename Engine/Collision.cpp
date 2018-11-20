@@ -7,7 +7,7 @@ bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
 
-    collision_mesh = mesh::CreateCollisionBox(type,Ob->GetTransform().GetScale().x, {255,0,0,255});
+    collision_mesh = mesh::CreateCollisionBox(type,1, {255,0,0,255});
 
 	return true;
 }
@@ -16,6 +16,7 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+	collision_transform.SetScale(object->GetTransform().GetScale());
 }
 
 void Collision::Delete()
@@ -68,4 +69,19 @@ void Collision::ToggleIsDamaged()
 bool Collision::GetIsDamaged()
 {
 	return isdamaged;
+}
+
+void Collision::ToggleIsDoor()
+{
+	if (isdoor == false)
+	{
+		isdoor = true;
+	}
+	else
+		isdoor = false;
+}
+
+bool Collision::GetIsDoor()
+{
+	return isdoor;
 }

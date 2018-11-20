@@ -8,3 +8,4 @@
     void BounceReaction(Object* object, float bounce = 1);
     void AttackedReaction(Object* object, Object* di_object, float power = 100);
     void DisappearReaction(Object* object);
+    void DoorReaction(Object* object);
