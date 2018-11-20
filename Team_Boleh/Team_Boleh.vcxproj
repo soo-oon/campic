@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="example_level.cpp" />
+    <ClCompile Include="MapEditorTest.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="statemanager_test.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="example_level.hpp" />
+    <ClInclude Include="MapEditorTest.hpp" />
     <ClInclude Include="statemanager_test.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

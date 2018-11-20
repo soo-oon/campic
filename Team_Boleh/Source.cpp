@@ -3,6 +3,7 @@
 #include "example_level.hpp"
 #include "StateManager.hpp"
 #include "statemanager_test.hpp"
+#include "MapEditorTest.hpp"
 
 int main()
 {
@@ -12,6 +13,7 @@ int main()
 
 	engine->GetSystemByTemplate<StateManager>()->AddStage("example",new example());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("test", new test_statemanager());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("MapEditorTest", new MapEditorTest());
 
     engine->Update();
   

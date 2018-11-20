@@ -158,6 +158,8 @@ void test_statemanager::Update(float dt)
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
+	if (Input::IsKeyTriggered(GLFW_KEY_3))
+		ChangeLevel("MapEditorTest");
 
 	/*if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
