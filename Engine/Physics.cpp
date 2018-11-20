@@ -45,11 +45,11 @@ void Physics::Update(float dt)
 			{
 				if (i != j)
 				{
-					if(IntersectionCheck(*collision_list[i], *collision_list[j]))
-					{
-						ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
-						Reaction(collision_list[i], collision_list[j]);
-					}
+                                        if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
+                                        {
+                                            ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+                                            Reaction(collision_list[i], collision_list[j]);
+                                        }
 				}
 			}
 		}
@@ -102,8 +102,6 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
 	{
-		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
-		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
@@ -238,6 +236,22 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
 	//if min
 	// std::cout << "Yes, Intersection" << std::endl;
 	return true;
+}
+
+bool Physics::IntersectionCheck_AABB(Object object1, Object object2)
+{
+    std::vector<vector2> owner = object1.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    std::vector<vector2> object = object2.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    if (owner[0].x > object[0].x && owner[0].x > object[1].x)
+        return false;
+    if (owner[1].x < object[0].x && owner[1].x < object[1].x)
+        return false;
+    if (owner[1].y > object[2].y && owner[1].y > object[1].y)
+        return false;
+    if (owner[2].y < object[2].y && owner[2].y < object[1].y)
+        return false;
+
+    return true;
 }
 
 

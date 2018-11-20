@@ -67,6 +67,11 @@ void example::Initialize()
 	slime->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	slime->AddComponent(new Character(ObjectType::opponent));
 
+        shot = BuildAndRegisterDynamicObject("shot", vector2(-350, -350), vector2(75.f, 75.f));
+        shot->AddComponent(new Animation("asset/images/shot.png", "shot", 4, 0.25));
+        shot->AddComponent(new RigidBody());
+        shot->GetMesh().Invisible();
+
 	scol = BuildAndRegisterDynamicObject("scol", vector2(-300, 300), vector2(75.f, 75.f));
 	scol->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
 	scol->AddComponent(new RigidBody());
@@ -74,7 +79,7 @@ void example::Initialize()
 	scol->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	scol->AddComponent(new Character(ObjectType::opponent));
 	
-        dia = BuildAndRegisterDynamicObject("dia", vector2(420, -100), vector2(25.f, 25.f));
+        dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
         dia->AddComponent(new Sprite());
         dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
         dia->AddComponent(new Character(ObjectType::none));
@@ -95,7 +100,7 @@ void example::Initialize()
 	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	door->AddComponent(new Character(ObjectType::door));
 
-        heart = BuildAndRegisterDynamicObject("heart", vector2(420, 100), vector2(25.f, 25.f));
+        heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
         heart->AddComponent(new Sprite());
         heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
         heart->AddComponent(new Character(ObjectType::none));
@@ -113,13 +118,14 @@ void example::Initialize()
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 	sword->AddComponent(new Collision(box_));
+        sword->AddComponent(new RigidBody());
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 	sword->SetDepth(0.978f);
 
 
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
-	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08));
+	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
 	spark->GetMesh().Invisible();
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
@@ -139,17 +145,31 @@ void example::Initialize()
 
 void example::Update(float dt)
 {
-	if (Input::IsKeyTriggered(GLFW_KEY_T))
-		change_sword = true;
-
+    Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+        if (Input::IsKeyTriggered(GLFW_KEY_T))
+        {
+            if (!change_sword)
+                change_sword = true;
+            else
+                change_sword = false;
+        }
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
+        if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
+            sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
 
-	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+    if(Input::IsKeyPressed(GLFW_KEY_X))
+    {
+        shot->GetMesh().Visible();
+        thrust(shot, player, 100);
+    }
+    else
+        shot->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
+    
+        SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
-	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()),player, sword);
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 		ChangeLevel("test");
 
@@ -251,7 +271,7 @@ void example::ForProtoType(Object * object, Object* opponent, float vel_come)
 }
 void example::snailoption(Object * effect, Object* knife, float angle, float& angle_)
 {
-	int x_vel, y_vel;
+	float x_vel, y_vel;
 	angle_ += angle;
 	//card_velo -= 0.5f;
 	x_vel = cos(angle_)*(card_velo)+sin(angle_)*(card_velo);
@@ -299,6 +319,12 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 		}
 	}
 
+}
+void example::thrust(Object * sword, Object* player, float force)
+{
+    vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
+        sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
+    sword->GetComponentByTemplate<RigidBody>()->SetVelocity(force* a);
 }
 void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 {
