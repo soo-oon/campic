@@ -15,7 +15,6 @@ bool Camera::Initialize(Object* Ob)
 
 void Camera::Update(float dt)
 {
-
 	if (Input::MouseWheelScroll() > 0 && zoom <= 20.0f)
 	{
 		zoom += 0.05f;
