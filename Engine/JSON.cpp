@@ -240,3 +240,12 @@ rapidjson::Document* JSON::GetDocumentofLevel(std::string level_name)
 
 	return nullptr;
 }
+//
+//std::vector<Object> JSON::GetLoadLevel(std::string state_name, std::vector<Object*> state_object)
+//{
+//	rapidjson::Document* levels_document = GetDocumentofLevel(state_name);
+//
+//
+//
+//	return std::vector<Object>();
+//}

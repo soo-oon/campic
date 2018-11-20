@@ -155,6 +155,8 @@ void test_statemanager::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
+	if (Input::IsKeyTriggered(GLFW_KEY_3))
+		ChangeLevel("MapEditorTest");
 
 	double check = Input::MouseWheelScroll();
 	std::cout << check << std::endl;

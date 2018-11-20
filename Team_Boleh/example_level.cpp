@@ -103,6 +103,8 @@ void example::Update(float dt)
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
+	if (Input::IsKeyTriggered(GLFW_KEY_3))
+		ChangeLevel("MapEditorTest");
 
 	SwordSwing(Input::GetMousePos(),player, sword);
 	Attact(sword);
