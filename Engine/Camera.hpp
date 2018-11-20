@@ -7,8 +7,7 @@
 class Camera : public Component
 {
 public:
-	Camera() = default;
-	
+	//Camera() = default;
 	template<typename  T>
 	Camera(T* state)
 	{

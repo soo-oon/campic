@@ -14,21 +14,6 @@
         "gravity": 1.0,
         "texture": "no_texture"
     },
-    "camera": {
-        "name": "camera",
-        "translation": [
-            0.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            10.0,
-            10.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
-    },
     "dia": {
         "name": "dia",
         "translation": [
@@ -122,10 +107,10 @@
     "sword": {
         "name": "sword",
         "translation": [
-            99.88015747070313,
-            4.894308567047119
+            -92.84767150878906,
+            -37.139068603515628
         ],
-        "rotation": -87.19322204589844,
+        "rotation": -248.27882385253907,
         "scale": [
             75.0,
             75.0
