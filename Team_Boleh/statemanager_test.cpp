@@ -3,13 +3,13 @@
 #include "Sprite.hpp"
 #include "Collision.hpp"
 #include "Camera.hpp"
-#include <iostream>
 #include "Animation.hpp"
+#include <iostream>
 
 void test_statemanager::Initialize()
 {
 	Load();
-	//GetObjectManager()->AddObject("collision");
+	GetObjectManager()->AddObject("camera");
 	GetObjectManager()->AddObject("test1");
 	GetObjectManager()->AddObject("test2");
 	GetObjectManager()->AddObject("test3");
@@ -31,6 +31,10 @@ void test_statemanager::Initialize()
 	GetObjectManager()->AddObject("test19");
 
 	//GetObjectManager()->AddObject("camera");
+
+	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
+	GetObjectManager()->FindObject("camera")->SetTranslation({ 0,0 });
+	GetObjectManager()->FindObject("camera")->AddComponent(new Camera());
 
 	GetObjectManager()->FindObject("test1")->SetScale({ 150,150 });
 	GetObjectManager()->FindObject("test1")->SetTranslation({-100,0});
@@ -151,34 +155,8 @@ void test_statemanager::Initialize()
 
 void test_statemanager::Update(float dt)
 {
-	//GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->Update(dt);
-
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
-
-	double check = Input::MouseWheelScroll();
-	std::cout << check << std::endl;
-
-
-	GetObjectManager()->FindObject("test1")->GetComponentByTemplate<Animation>()->Update(dt);
-	GetObjectManager()->FindObject("test2")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test3")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test4")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test5")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test6")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test7")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test8")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test9")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test10")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test11")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test12")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test13")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test14")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test15")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test16")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test17")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test18")->GetComponentByTemplate<Animation>()->Update(dt);;
-	GetObjectManager()->FindObject("test19")->GetComponentByTemplate<Animation>()->Update(dt);;
 
 	/*if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{

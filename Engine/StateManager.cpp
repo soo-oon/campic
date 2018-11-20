@@ -1,5 +1,6 @@
 #include "StateManager.hpp"
 #include "State.hpp"
+#include "Graphics.hpp"
 
 bool StateManager::Initialize()
 {
@@ -43,6 +44,7 @@ void StateManager::Update(float dt)
 
     if (m_pause == false)
     {
+		m_currentState->UpdateObjManager(dt);
         m_currentState->Update(dt);
     }
 }

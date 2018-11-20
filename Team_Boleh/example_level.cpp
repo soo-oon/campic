@@ -147,10 +147,9 @@ void example::Update(float dt)
 	{
 		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("background").get());
 	}
-	GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
+	//GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
 
-	GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
-	
+	//GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
 }
 
 void example::ShutDown()

@@ -132,3 +132,13 @@ void Transform::SetRotation(float rotation_value)
 {
     rotation = rotation_value;
 }
+
+const Transform* Transform::GetParent() const
+{
+	return parent;
+}
+
+void Transform::SetParent(const Transform* transform_parent)
+{
+	parent = transform_parent;
+}

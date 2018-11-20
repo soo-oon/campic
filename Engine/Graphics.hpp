@@ -7,6 +7,7 @@
 #include "System.hpp"
 #include <vector>
 #include "Objectmanager.hpp"
+#include "Camera.hpp"
 
 class Animation;
 
@@ -52,6 +53,8 @@ private:
 		vector2 position;
 	};
 
+	affine2d CalculateModelToNDCTransform(const Transform& transform) const;
+
 	void Draw(const Transform& transform, const std::vector<solidshape>& vertexes,
 		PointListType draw_type, Color color);
 	void Draw(const Transform& transform, const std::vector<collsionbox>& vertexes,
@@ -65,6 +68,10 @@ private:
 	void DescribVertexPosition();
 
 private:
+	bool Iscamera = false;
+	Camera* temp_camera = nullptr;
+	float zoom = 1;
+
 	static const int NumberOfVertexTypes = (int)Type::count;
 	vector2 displaysize{};
 

@@ -3,6 +3,11 @@
 #include "Component.hpp"
 #include "Transform.hpp"
 #include "Mesh.hpp"
+#include "Sprite.hpp"
+#include "Animation.hpp"
+#include "Collision.hpp"
+#include "Camera.hpp"
+#include "RigidBody.hpp"
 
 class Object
 {
@@ -19,6 +24,7 @@ public:
 
     Mesh& GetMesh();
     Transform& GetTransform();
+
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate() const;
 

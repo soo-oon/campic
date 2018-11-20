@@ -13,6 +13,7 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
+	float GetZoomValue() { return zoom; }
 	vector2 GetCenter() const;
 	void SetCenter(vector2 camera_center);
 	vector2 GetUp() const;
@@ -28,7 +29,7 @@ public:
 	affine2d WorldToCamera() const;
 
 private:
-	double zoom;
+	float zoom = 1;
 	vector2 center{};
 	vector2 up{ 0,1 };
 	vector2 right{ 1,0 };

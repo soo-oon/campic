@@ -49,14 +49,25 @@ void Graphics::Draw(Objectmanager* objects)
 {
     if (objects != nullptr)
     {
+		Iscamera = objects->FindCameraObject();
+
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin();
 			it != objects->GetObjectMap().end(); ++it)
 		{
 			Object obj = *(it->second.get());
 
-			if(obj.GetComponentByTemplate<Camera>() != nullptr)
+			if (Iscamera)
 			{
-				
+				if (obj.GetComponentByTemplate<Camera>() != nullptr)
+				{
+					zoom = obj.GetComponentByTemplate<Camera>()->GetZoomValue();
+					temp_camera = obj.GetComponentByTemplate<Camera>();
+				}
+			}
+			else
+			{
+				zoom = 1;
+				temp_camera = nullptr;
 			}
 
 			if (obj.GetComponentByTemplate<Collision>() != nullptr)
@@ -140,8 +151,8 @@ void Graphics::Quit()
 void Graphics::SetNDC()
 {
     affine2d temp = {
-        (2.0f / displaysize.x), 0.0f, 0.0f,
-        0.0f, (2.0f / displaysize.y), 0.0f,
+        (2.0f / displaysize.x)*zoom, 0.0f, 0.0f,
+        0.0f, (2.0f / displaysize.y)*zoom, 0.0f,
         0.0f, 0.0f, 1.0f
     };
 
@@ -154,10 +165,24 @@ void Graphics::SetDisplaySize_G(vector2 size)
 	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 }
 
+affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
+{
+	affine2d myNDC = transform.GetModelToWorld();
+
+	myNDC = projection * temp_camera->WorldToCamera() * myNDC;
+
+	return myNDC;
+}
+
 void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& vertexes, PointListType draw_type,
                     Color color)
 {
-    affine2d to_ndc = projection * transform.GetModelToWorld();
+	affine2d to_ndc;
+
+	if (temp_camera != nullptr)
+		to_ndc = CalculateModelToNDCTransform(transform);
+	else
+		to_ndc = projection * transform.GetModelToWorld();
 
     Solidshader.SendUniformVariable("transform", to_ndc);
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
@@ -176,7 +201,12 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
 void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& vertexes, PointListType draw_type,
     Color color)
 {
-    affine2d to_ndc = projection * transform.GetModelToWorld();
+	affine2d to_ndc;
+
+	if (temp_camera != nullptr)
+		to_ndc = CalculateModelToNDCTransform(transform);
+	else
+		to_ndc = projection * transform.GetModelToWorld();
 
     Solidshader.SendUniformVariable("transform", to_ndc);
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
@@ -195,7 +225,12 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
 void Graphics::Draw(const Transform& transform, const std::vector<texture>& vertexes, PointListType draw_type,
                     const Color color, Sprite* sprite)
 {
-    affine2d to_ndc = projection * transform.GetModelToWorld();
+	affine2d to_ndc;
+
+	if (temp_camera != nullptr)
+		to_ndc = CalculateModelToNDCTransform(transform);
+	else
+		to_ndc = projection * transform.GetModelToWorld();
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
@@ -220,7 +255,12 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 void Graphics::Draw(const Transform& transform, const std::vector<animaition>& vertexes, PointListType draw_type,
                     const Color color, Sprite* sprite)
 {
-    affine2d to_ndc = projection * transform.GetModelToWorld();
+	affine2d to_ndc;
+
+	if (temp_camera != nullptr)
+		to_ndc = CalculateModelToNDCTransform(transform);
+	else
+		to_ndc = projection * transform.GetModelToWorld();
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
