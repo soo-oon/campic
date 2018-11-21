@@ -15,7 +15,7 @@ class Animation : public Component
 {
 public:
     Animation(std::string path_, std::string ID, int image_frame_, 
-		float update_frame_, bool repeat = false )
+		float update_frame_, bool repeat = true )
         : path(path_), update_frame(update_frame_), image_frame(image_frame_), isrepeat(repeat)
     {
 		sprites.insert(std::make_pair(ID, new Sprite()));
@@ -37,10 +37,12 @@ public:
     void Update(float dt) override;
 	//void AddAnimaition(const std::string path, const std::string ID);
 	void AddAnimaition(const std::string path, const std::string ID, 
-		int image_frame_, float update_frame_, bool repeat = false);
+		int image_frame_, float update_frame_, bool repeat = true);
     void Delete() override;
 	void ChangeAnimation(std::string ID);
 
+	void ChangeIsDone() { is_done = false; }
+	bool IsDone() { return is_done; }
 	Object* GetObject() { return object; }
 
 	void Imgui_Animation();
@@ -65,10 +67,10 @@ private:
     float frame_per_second = 0;
     float update_frame = 0;
 
-	bool check = false;
+	bool is_done = false;
 
-    float previous_position = 0;
-    float current_position = 0;
+    //float previous_position = 0;
+    //float current_position = 0;
     float frame_time = 0;
     int image_frame = 0;
 	bool isrepeat;

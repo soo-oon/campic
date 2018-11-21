@@ -36,7 +36,8 @@ private:
 	float rotation_ = 10;
 	vector2 direction = 0;
 
-    Object* player, *sword, *sonic, *background, *spark, *dia, *heart, *scol, *slime, *dia1, *heart1, *door, *shot;
+    Object* player, *sword, *sonic, *background, *spark, *dia, 
+	*heart, *scol, *slime, *dia1, *heart1, *door, *shot,*health_bar;
 
 };
 
