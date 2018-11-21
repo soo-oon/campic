@@ -35,8 +35,12 @@ public:
 
 	void SetRestitutionType(RestitutionType restitution);
         RestitutionType& GetRestitutionType();
+
 	Mesh& GetCollsionMesh();
 	Transform& GetCollisionTransform();
+
+	void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
+
 	CollisionType& GetCollisionType();
 	std::vector<vector2> GetCollisionCalculateTRS();
 	void ToggleIsDamaged();

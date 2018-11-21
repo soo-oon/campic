@@ -71,7 +71,7 @@ void example::Initialize()
 	slime = BuildAndRegisterDynamicObject("slime", vector2(-300, -300), vector2(75.f, 75.f));
 	slime->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
 	slime->AddComponent(new RigidBody());
-	slime->AddComponent(new Collision(box_));
+	slime->AddComponent(new Collision(box_, {}, {75.0f, 75.0f}));
 	slime->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	slime->AddComponent(new Character(ObjectType::opponent));
 
@@ -83,7 +83,7 @@ void example::Initialize()
 	scol = BuildAndRegisterDynamicObject("scol", vector2(-300, 300), vector2(75.f, 75.f));
 	scol->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
 	scol->AddComponent(new RigidBody());
-	scol->AddComponent(new Collision(box_));
+	scol->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	scol->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	scol->AddComponent(new Character(ObjectType::opponent));
 	
@@ -105,7 +105,7 @@ void example::Initialize()
 	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
 	door->AddComponent(new Sprite());
 	door->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/hero.png");
-	door->AddComponent(new Collision(box_));
+	door->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	door->AddComponent(new Character(ObjectType::door));
 
@@ -113,6 +113,7 @@ void example::Initialize()
         heart->AddComponent(new Sprite());
         heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
         heart->AddComponent(new Character(ObjectType::none));
+
 	heart->AddComponent(new RigidBody());
 	heart->GetMesh().Invisible();
 	heart1 = BuildAndRegisterDynamicObject("heart1", vector2(420, 100), vector2(50.f, 50.f));
@@ -331,6 +332,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 		{
 			effect->GetMesh().Invisible();
 			sword->GetTransform().SetScale(vector2(150, 150.f));
+			sword->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(vector2(40.0f, 150.0f));
 			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
 		}
 	}

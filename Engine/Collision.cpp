@@ -15,7 +15,7 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
-	collision_transform.SetScale(object->GetTransform().GetScale());
+	//collision_transform.SetScale(object->GetTransform().GetScale());
 }
 
 void Collision::Delete()
