@@ -49,9 +49,17 @@ void example::Initialize()
 	Load();
 	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f, true);
-	player->AddComponent(new Collision(box_));
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
+	player->AddComponent(new Collision(box_, {}, {100.0f, 100.0f}));
 	player->AddComponent(new Character(ObjectType::player));
+
+        // TODO
+        health_bar = BuildAndRegisterDynamicObject("health", vector2(0.0f, 0.5f), vector2(150.f/ player->GetTransform().GetScale().x, 
+			10.f/ player->GetTransform().GetScale().y));
+        health_bar->GetTransform().SetParent(&player->GetTransform());
+        health_bar->AddComponent(new Sprite);
+        health_bar->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/health.png");
 
 	GetObjectManager()->AddObject("camera");
 
@@ -65,27 +73,27 @@ void example::Initialize()
         dia = BuildAndRegisterDynamicObject("dia", vector2(420, -100), vector2(50, 50.f));
         dia->AddComponent(new Sprite());
         dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
-        dia->AddComponent(new Collision(box_));
+        dia->AddComponent(new Collision(box_, {}, {50.0f, 50.0f}));
         dia->AddComponent(new Character(ObjectType::card));
 
         heart = BuildAndRegisterDynamicObject("heart", vector2(420, 100), vector2(50.f, 50.f));
         heart->AddComponent(new Sprite());
         heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
-        heart->AddComponent(new Collision(box_));
+        heart->AddComponent(new Collision(box_, {}, {50.0f, 50.0f}));
         heart->AddComponent(new Character(ObjectType::card));
 
 
 	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
-	sword->AddComponent(new Collision(box_));
+	sword->AddComponent(new Collision(box_, {}, { 40.0f, 80.0f }));
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 
 	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
 	//sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.1f));
 	sonic->AddComponent(new RigidBody());
-	sonic->AddComponent(new Collision(box_));
+	sonic->AddComponent(new Collision(box_, {},{150.0f, 150.0f} ));
 	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	sonic->AddComponent(new Character(ObjectType::opponent));
 	
@@ -94,7 +102,7 @@ void example::Initialize()
 	dr_s->AddComponent(new Sprite());
 	dr_s->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
 	dr_s->AddComponent(new RigidBody());
-	dr_s->AddComponent(new Collision(box_));
+	dr_s->AddComponent(new Collision(box_, {}, {100.0f, 100.0f}));
 	dr_s->AddComponent(new Character(ObjectType::wall));
 	
 	background = BuildAndRegisterDynamicObject("background", vector2(0,0), vector2(150.f, 150.f));
@@ -107,6 +115,10 @@ void example::Initialize()
 
 void example::Update(float dt)
 {
+	//health_bar->SetTranslation(health_bar->GetTransform().GetParent()->GetTranslation());
+	std::cout << health_bar->GetTransform().GetParent()->GetTranslation().x << ", " <<
+		health_bar->GetTransform().GetParent()->GetTranslation().y << std::endl;
+
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
@@ -114,19 +126,26 @@ void example::Update(float dt)
 
 	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
 
-	//GetObjectManager()->FindObject("camera")->SetTranslation(player->GetTransform().GetTranslation());
-
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()),player, sword);
 	Attact(sword);
 	
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
 
-	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
-	else
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
+        if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+        {
+            player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+        }
 
+        if (dot(normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()), vector2(0, 1)) > 0)
+        {
+            player->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
+        }
+        else
+        {
+            player->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
+        }
+   
 	
 	GetWorldPhyics()->Movement_Velocity(*GetObjectManager()->FindObject("player"));
 	
@@ -203,6 +222,7 @@ void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
         float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
         float angledeg = (180 / 3.14f )* anglerad;
         sword->SetRotation(angledeg - 90);
+		sword->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetRotation(angledeg - 90);
         //float a = dot(sword->GetTransform().GetTranslation(), vector2(0, 1))/ magnitude(sword->GetTransform().GetTranslation());
         //if(mouse_position.x > player->GetTransform().GetTranslation().x)
         //{

@@ -70,6 +70,7 @@ void Engine::Update()
 		Physics_->PhysicsObjectUpdate(Objectmanager_);
 
 		Graphic_->Draw(Objectmanager_);
+
 		Graphic_->EndDraw();
 
 		Application_->SetDispalyAreaSize(Graphic_, State_);
