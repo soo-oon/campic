@@ -186,7 +186,9 @@ void Graphics::SetDisplaySize_G(vector2 size, State* state)
 
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
-	affine2d myNDC = transform.GetModelToWorld();
+	affine2d myNDC;
+
+	myNDC = transform.GetModelToWorld();
 
 	if (temp_camera != nullptr)
 	{
@@ -196,6 +198,7 @@ affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) cons
 	{
 		myNDC = projection * myNDC;
 	}
+
 	return myNDC;
 }
 
@@ -204,10 +207,14 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
 {
 	affine2d to_ndc;
 
-	if (temp_camera != nullptr)
+	if(temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		to_ndc = projection * transform.GetWorldToModel();
+	}
 
     Solidshader.SendUniformVariable("transform", to_ndc);
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
@@ -229,9 +236,13 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
 	affine2d to_ndc;
 
 	if (temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		to_ndc = projection * transform.GetWorldToModel();
+	}
 
     Solidshader.SendUniformVariable("transform", to_ndc);
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
@@ -253,9 +264,13 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 	affine2d to_ndc;
 
 	if (temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		to_ndc = projection * transform.GetWorldToModel();
+	}
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
@@ -283,9 +298,13 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
 	affine2d to_ndc;
 
 	if (temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		to_ndc = projection * transform.GetWorldToModel();
+	}
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())

@@ -46,29 +46,26 @@ affine2d Transform::GetTRS()
 
 affine2d Transform::GetWorldToModel() const
 {
-    affine2d trans_ = build_translation(-translation.x, -translation.y);
-    affine2d rotate_ = rotation_affine(-rotation);
+    affine2d trans = build_translation(-translation.x, -translation.y);
     affine2d scale_ = nonuniform_scale_affine(1 / scale.x, 1 / scale.y);
+    affine2d rotate_ = rotation_affine(-rotation);
 
-    affine2d temp = scale_ * rotate_ * trans_;
+    affine2d temp = scale_ * rotate_ * trans;
 
-    const Transform* temp_parent_transform = this;
-
-    if (parent != nullptr)
+    const Transform* temp_transform = this;
+    if (parent != NULL)
     {
-        while (temp_parent_transform->parent)
+        while (temp_transform->parent)
         {
-            affine2d trans_parent = build_translation(-temp_parent_transform->parent->translation.x,
-                                                      -temp_parent_transform->parent->translation.y);
-            affine2d rotate_parent = rotation_affine(-temp_parent_transform->parent->rotation);
-            affine2d scale_parent = nonuniform_scale_affine(1 / temp_parent_transform->parent->scale.x,
-                                                            1 / temp_parent_transform->parent->scale.y);
+            affine2d trans_parent =build_translation(-temp_transform->parent->translation.x, -temp_transform->parent->translation.y);
+            affine2d scale_parent = nonuniform_scale_affine(1 / temp_transform->parent->scale.x, 1 / temp_transform->parent->scale.y);
+            affine2d rotate_parent = rotation_affine(-temp_transform->parent->rotation);
 
             affine2d temp_parent = scale_parent * rotate_parent * trans_parent;
 
-            temp_parent *= temp;
-            temp = temp_parent;
-            temp_parent_transform = temp_parent_transform->parent;
+            temp *= temp_parent;
+
+            temp_transform = temp_transform->parent;
         }
         return temp;
     }

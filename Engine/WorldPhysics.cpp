@@ -18,22 +18,6 @@ void WorldPhysics::Movement(Object& object_name)
 
 void WorldPhysics::Movement_by_key(Object& object_name)
 {
-	if(Input::IsKeyPressed(GLFW_KEY_UP))
-	{
-		//object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(0, 30));
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
-	{
-		//object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(-30, 0));
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
-	{
-		//object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(0, -30));
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
-	{
-		//object_name.GetComponentByTemplate<RigidBody>()->AddForce(vector2(30, 0));
-	}
 	/*else if (Input::IsKeyAnyReleased())
 	{
 		object_name.GetComponentByTemplate<Physics>()->SetVelocity(vector2(0, 0));
@@ -66,4 +50,5 @@ void WorldPhysics::Movement_Velocity(Object & object_name)
 	{
 		object_name.GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(5, 0));
 	}
+
 }

@@ -7,8 +7,7 @@ bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
 
-    collision_mesh = mesh::CreateCollisionBox(type,1, {255,0,0,255});
-
+    collision_mesh = mesh::CreateCollisionBox(type);
 	return true;
 }
 
@@ -16,7 +15,7 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
-	collision_transform.SetScale(object->GetTransform().GetScale());
+	//collision_transform.SetScale(object->GetTransform().GetScale());
 }
 
 void Collision::Delete()

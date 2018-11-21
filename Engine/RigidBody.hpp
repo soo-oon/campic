@@ -26,7 +26,7 @@ private:
     vector2 force_accumlator; // mess 
     vector2 velocity;
     vector2 position;
-    float friction = 0.990f;
+    float friction = 0.99f;
     float gravity;
     float inverse_mass = 1;
 
