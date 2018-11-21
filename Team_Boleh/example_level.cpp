@@ -86,6 +86,35 @@ void example::Initialize()
 	scol->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	scol->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	scol->AddComponent(new Character(ObjectType::opponent));
+
+
+	opponent[0] = BuildAndRegisterDynamicObject("opponent1", vector2(-300,0), vector2(75.f, 75.f));
+	opponent[0]->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
+	opponent[0]->AddComponent(new RigidBody());
+	opponent[0]->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
+	opponent[0]->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	opponent[0]->AddComponent(new Character(ObjectType::opponent));
+
+	opponent[1] = BuildAndRegisterDynamicObject("opponent2", vector2(200, -250), vector2(75.f, 75.f));
+	opponent[1]->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
+	opponent[1]->AddComponent(new RigidBody());
+	opponent[1]->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
+	opponent[1]->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	opponent[1]->AddComponent(new Character(ObjectType::opponent));
+
+	opponent[2] = BuildAndRegisterDynamicObject("opponent3", vector2(0, 200), vector2(75.f, 75.f));
+	opponent[2]->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
+	opponent[2]->AddComponent(new RigidBody());
+	opponent[2]->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
+	opponent[2]->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	opponent[2]->AddComponent(new Character(ObjectType::opponent));
+
+	opponent[3] = BuildAndRegisterDynamicObject("opponent4", vector2(300, 250), vector2(75.f, 75.f));
+	opponent[3]->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
+	opponent[3]->AddComponent(new RigidBody());
+	opponent[3]->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
+	opponent[3]->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	opponent[3]->AddComponent(new Character(ObjectType::opponent));
 	
         dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
         dia->AddComponent(new Sprite());
@@ -98,7 +127,7 @@ void example::Initialize()
 	dia1->AddComponent(new Sprite());
 	dia1->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
 	dia1->AddComponent(new Collision(box_, {}, {50.0f, 50.0f}));
-	dia1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	dia1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
     dia1->AddComponent(new Character(ObjectType::card));
 
 
@@ -194,6 +223,10 @@ void example::Update(float dt)
 
 	ForProtoType(player, scol, 20);
 	ForProtoType(player, slime, 20);
+	ForProtoType(player, opponent[0], 20);
+	ForProtoType(player, opponent[1], 20);
+	ForProtoType(player, opponent[2], 20);
+	ForProtoType(player, opponent[3], 20);
 
 	Attact(sword);
 	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));

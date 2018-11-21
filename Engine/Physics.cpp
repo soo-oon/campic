@@ -45,7 +45,15 @@ void Physics::Update(float dt)
 			{
 				if (i != j)
 				{
-                                        if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
+					if (*collision_list[i]->GetTransform().GetRotation() != 0 || *collision_list[j]->GetTransform().GetRotation() != 0)
+					{
+						if (IntersectionCheck(*collision_list[i], *collision_list[j]))
+						{
+							ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+							Reaction(collision_list[i], collision_list[j]);
+						}
+					}
+					else if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
                                         {
                                             ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
                                             Reaction(collision_list[i], collision_list[j]);
@@ -102,6 +110,8 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
 	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
@@ -127,7 +137,7 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
+	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
 	{
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
