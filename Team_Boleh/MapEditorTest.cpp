@@ -58,6 +58,7 @@ void MapEditorTest::LoadMap()
 
 		newObject = GetObjectManager()->FindObject(load_object_name).get();
 		objects.push_back(newObject);
+		selected_object = newObject;
 		object_count++;
 	}
 
@@ -101,6 +102,39 @@ void MapEditorTest::Update(float dt)
 			object_count++;
 		}
 	}
+
+	//if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+	//{
+	//	//for (std::vector<Object*>::iterator itr = objects.begin();
+	//	//	itr != objects.begin(); ++itr)
+	//	//{
+	//	//	selected_object = *itr;
+	//	//}
+	//	std::vector<Object*>::iterator itr;
+	//	itr = std::find(objects.begin(), objects.end(), selected_object);
+	//	itr++;
+	//	selected_object = *itr;
+	//}
+
+	if (Input::IsKeyAnyPressed())
+	{
+		if (Input::IsKeyPressed(GLFW_KEY_RIGHT) || (Input::IsKeyPressed(GLFW_KEY_LEFT)) ||
+			(Input::IsKeyPressed(GLFW_KEY_UP)) || (Input::IsKeyPressed(GLFW_KEY_DOWN)) )
+		{
+			vector2 current_translation = selected_object->GetTransform().GetTranslation();
+			if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
+				current_translation.x += 10.f;
+			if (Input::IsKeyPressed(GLFW_KEY_LEFT))
+				current_translation.x-= 10.f;
+			if (Input::IsKeyPressed(GLFW_KEY_UP))
+				current_translation.y+= 10.f;
+			if (Input::IsKeyPressed(GLFW_KEY_DOWN))
+				current_translation.y-= 10.f;
+			selected_object->SetTranslation(current_translation);
+		}
+	}
+
+	//std::cout << Input::GetMousePos(1).x<<", "<<Input::GetMousePos(1).y << std::endl;
 
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
