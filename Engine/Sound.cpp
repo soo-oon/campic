@@ -52,7 +52,7 @@ void Sound::Update(float dt)
 	if(fmod_result != FMOD_OK)
 		assert(false);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_5))
+	if (Input::IsKeyTriggered(GLFW_KEY_T))
 	{
 		if (IsPlaying())
 			Stop();

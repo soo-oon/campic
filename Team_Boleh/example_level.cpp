@@ -162,12 +162,22 @@ void example::Update(float dt)
 
     if(Input::IsKeyPressed(GLFW_KEY_X))
     {
-        shot->GetMesh().Visible();
-        thrust(shot, player, 100);
+	    if (!isshot)
+		    isshot = true;
+	    else
+		    isshot = false;
+    }
+
+    if (isshot)
+    {
+	    shot->GetMesh().Visible();
+	    thrust(shot, player, 100);
     }
     else
-        shot->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
-    
+    {
+	    shot->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
+	    shot->GetTransform().SetRotation(*sword->GetTransform().GetRotation()+90);
+    }
         SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
@@ -289,7 +299,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 	snailoption(card1, sword, -0.02f, rota_angle);
 	snailoption(card2, sword, 0.02f, rota_angle1);
 
-	if (dt_sum < 3)
+	if (dt_sum < 10)
 	{
 		dt_sum += dt;
 		if (!card1->GetMesh().IsVisible() && !card2->GetMesh().IsVisible())
@@ -305,7 +315,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 	}
 	else
 	{
-		if (dt_sum < 5)
+		if (dt_sum < 15)
 		{
 			dt_sum += dt;
 			if (!effect->GetMesh().IsVisible())
@@ -314,7 +324,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 		else if (effect->GetMesh().IsVisible())
 		{
 			effect->GetMesh().Invisible();
-			sword->GetTransform().SetScale(vector2(150, 150.f));
+			sword->GetTransform().SetScale(vector2(200.f, 150.f));
 			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
 		}
 	}

@@ -34,6 +34,7 @@ private:
 	float dt_sum = 0;
 	float card_velo = 20;
 	float rotation_ = 10;
+	bool isshot = false;
 	vector2 direction = 0;
 
     Object* player, *sword, *sonic, *background, *spark, *dia, *heart, *scol, *slime, *dia1, *heart1, *door, *shot;

@@ -64,7 +64,7 @@ void Imgui_System::Draw()
 			show_objectmanager_window = true;
 	}
 
-	ImGui::ShowTestWindow();
+	//ImGui::ShowTestWindow();
 	ObjectManger(show_objectmanager_window);
 	ImGui_Option(&show_demo_window);
 
