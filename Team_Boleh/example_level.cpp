@@ -200,6 +200,7 @@ void example::Update(float dt)
 	if(change_sword)
 	{
 		Enchanted(sword, spark, dia, heart, dt);
+
 	}
 	
 	//Should Fixed this
