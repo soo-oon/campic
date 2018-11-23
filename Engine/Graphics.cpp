@@ -213,7 +213,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
 	}
 	else
 	{
-		to_ndc = projection * transform.GetWorldToModel();
+		to_ndc = projection * transform.GetModelToWorld();
 	}
 
     Solidshader.SendUniformVariable("transform", to_ndc);
@@ -241,7 +241,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
 	}
 	else
 	{
-		to_ndc = projection * transform.GetWorldToModel();
+		to_ndc = projection * transform.GetModelToWorld();
 	}
 
     Solidshader.SendUniformVariable("transform", to_ndc);
@@ -269,7 +269,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 	}
 	else
 	{
-		to_ndc = projection * transform.GetWorldToModel();
+		to_ndc = projection * transform.GetModelToWorld();
 	}
 
     const int texture_slot = 0;

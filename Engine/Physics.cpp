@@ -107,6 +107,11 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+	{
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
+	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
 	{
