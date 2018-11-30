@@ -15,6 +15,11 @@ bool Camera::Initialize(Object* Ob)
 
 void Camera::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_C))
+	{
+		ResetUp();
+	}
+
 	if (Input::MouseWheelScroll() > 0 && zoom <= 20.0f)
 	{
 		zoom += 0.05f;
@@ -51,10 +56,12 @@ vector2 Camera::GetRight() const
 
 void Camera::ResetUp(vector2 camera_up)
 {
+	center = 0;
 	up.x = camera_up.x;
 	up.y = camera_up.y;
 	right.x = camera_up.y;
 	right.y = camera_up.x;
+	zoom = 1.0f;
 }
 
 void Camera::MoveUp(float distance)

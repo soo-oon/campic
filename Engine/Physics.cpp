@@ -45,11 +45,19 @@ void Physics::Update(float dt)
 			{
 				if (i != j)
 				{
-					if(IntersectionCheck(*collision_list[i], *collision_list[j]))
+					if (*collision_list[i]->GetTransform().GetRotation() != 0 || *collision_list[j]->GetTransform().GetRotation() != 0)
 					{
-						ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
-						Reaction(collision_list[i], collision_list[j]);
+						if (IntersectionCheck(*collision_list[i], *collision_list[j]))
+						{
+							ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+							Reaction(collision_list[i], collision_list[j]);
+						}
 					}
+					else if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
+                                        {
+                                            ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+                                            Reaction(collision_list[i], collision_list[j]);
+                                        }
 				}
 			}
 		}
@@ -61,15 +69,20 @@ void Physics::Update(float dt)
 		{
 			Object* temp = (it->second.get());
 
-			//if(temp->GetComponentByTemplate<RigidBody>() != nullptr)
-			//	temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-			if (temp->GetComponentByTemplate<RigidBody>() != nullptr && !OutOfCheckBoundary(temp))
+			if (temp->GetComponentByTemplate<RigidBody>() != nullptr)
 			{
-				temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-			}
-                        if(temp->GetComponentByTemplate<RigidBody>() != nullptr && OutOfCheckBoundary(temp) && temp->GetComponentByTemplate<Collision>() != nullptr)
-                        {
-                            StopReaction(temp);
+				if(temp->GetComponentByTemplate<Collision>() != nullptr)
+				{
+					if(!OutOfCheckBoundary(temp))
+						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
+					else
+					{
+						StopReaction(temp);
+						temp->GetComponentByTemplate<Collision>()->Update(dt);
+					}
+				}
+				else
+					temp->GetComponentByTemplate<RigidBody>()->Update(dt);
                         }
 		}
 	}
@@ -93,6 +106,11 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+	{
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
 	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
@@ -118,6 +136,22 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
         {
             object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
         }
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	}
+	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+	{
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+	}
+	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
+		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door)
+	{
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+	}
 }
 
 
@@ -219,16 +253,33 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
 	return true;
 }
 
-void Physics::AddCollisionList(Object * object)
+bool Physics::IntersectionCheck_AABB(Object object1, Object object2)
 {
+    std::vector<vector2> owner = object1.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    std::vector<vector2> object = object2.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    if (owner[0].x > object[0].x && owner[0].x > object[1].x)
+        return false;
+    if (owner[1].x < object[0].x && owner[1].x < object[1].x)
+        return false;
+    if (owner[1].y > object[2].y && owner[1].y > object[1].y)
+        return false;
+    if (owner[2].y < object[2].y && owner[2].y < object[1].y)
+        return false;
+
+    return true;
 }
+
 
 bool Physics::OutOfCheckBoundary(Object * object)
 {
-    if (object->GetTransform().GetTranslation().x + object->GetTransform().GetScale().x / 2 < windowsize.x / 2 &&
-        object->GetTransform().GetTranslation().x - object->GetTransform().GetScale().x / 2 > -windowsize.x / 2 &&
-        object->GetTransform().GetTranslation().y + object->GetTransform().GetScale().y / 2 < windowsize.y / 2 &&
-        object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y / 2 > -windowsize.y / 2)
+    if (object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + 
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 < windowsize.x / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x -
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 > -windowsize.x / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + 
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 < windowsize.y / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - 
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 > -windowsize.y / 2)
     {
         return false;
     }

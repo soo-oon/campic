@@ -6,6 +6,10 @@
 #include "Camera.hpp"
 #include "State.hpp"
 #include <iostream>
+#include "Engine.hpp"
+
+vector2 Graphics::camera_center{};
+float Graphics::checking_zoom = 0;
 
 namespace
 {
@@ -43,6 +47,17 @@ bool Graphics::Initialize()
 
 void Graphics::Update(float dt)
 {
+	if (temp_camera == nullptr)
+	{
+		checking_zoom = 1.0f;
+		camera_center = 0;
+	}
+	else
+	{
+		checking_zoom = temp_camera->GetZoomValue();
+		camera_center = temp_camera->GetCenter();
+	}
+
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     SetNDC();
@@ -55,7 +70,6 @@ void Graphics::Draw(Objectmanager* objects)
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin();
 			it != objects->GetObjectMap().end(); ++it)
 		{
-			
 			Object obj = *(it->second.get());
 
 			if(Iscamera)
@@ -129,6 +143,87 @@ void Graphics::Draw(Objectmanager* objects)
     }
 }
 
+void Graphics::HUD_Draw(Objectmanager* objects)
+{
+	if (objects != nullptr)
+	{
+		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin();
+			it != objects->GetObjectMap().end(); ++it)
+		{
+
+			Object obj = *(it->second.get());
+
+			if (Iscamera)
+			{
+				if (obj.GetComponentByTemplate<Camera>() != nullptr)
+				{
+					temp_camera = obj.GetComponentByTemplate<Camera>();
+				}
+			}
+
+			if (obj.GetComponentByTemplate<Collision>() != nullptr)
+			{
+				Collision* temp = obj.GetComponentByTemplate<Collision>();
+				if (temp->GetCollsionMesh().IsVisible())
+				{
+					collsionboxes.clear();
+					collsionboxes.reserve(temp->GetCollsionMesh().GetCollisionPointsCount());
+					for (std::size_t i = 0; i < temp->GetCollsionMesh().GetCollisionPointsCount(); ++i)
+					{
+						collsionboxes.push_back({
+							temp->GetCollsionMesh().GetCollisionCoordinate(i) });
+					}
+					Draw(temp->GetCollisionTransform(), collsionboxes, temp->GetCollsionMesh().GetPointListType(), temp->GetCollsionMesh().GetColor(0));
+				}
+			}
+
+			if (obj.GetMesh().IsVisible())
+			{
+				if (obj.GetComponentByTemplate<Sprite>() != nullptr)
+				{
+					sprite.clear();
+					sprite.reserve(obj.GetMesh().GetTexturePointsCount());
+					for (std::size_t i = 0; i < obj.GetMesh().GetTexturePointsCount(); ++i)
+					{
+						sprite.push_back({
+							obj.GetMesh().GetPoint(i),
+							obj.GetMesh().GetTextureCoordinate(i, obj.GetComponentByTemplate<Sprite>())
+							});
+					}
+					Draw(obj.GetTransform(), sprite, obj.GetMesh().GetPointListType(),
+						obj.GetMesh().GetColor(0),
+						obj.GetComponentByTemplate<Sprite>());
+				}
+				else if (obj.GetComponentByTemplate<Animation>() != nullptr)
+				{
+					animation.clear();
+					animation.reserve(obj.GetMesh().GetAnimationPointsCount());
+					for (std::size_t i = 0; i < obj.GetMesh().GetAnimationPointsCount(); ++i)
+					{
+						animation.push_back({
+							obj.GetMesh().GetPoint(i),
+							obj.GetMesh().GetAnimationCoordinate(i, obj.GetComponentByTemplate<Animation>())
+							});
+					}
+					Draw(obj.GetTransform(), animation, obj.GetMesh().GetPointListType(),
+						obj.GetMesh().GetColor(0),
+						obj.GetComponentByTemplate<Animation>()->GetAnimationSprite());
+				}
+				else if (obj.GetMesh().GetPointCount())
+				{
+					shapes.clear();
+					shapes.reserve(obj.GetMesh().GetPointCount());
+					for (std::size_t i = 0; i < obj.GetMesh().GetPointCount(); ++i)
+					{
+						shapes.push_back({ obj.GetMesh().GetPoint(i) });
+					}
+					Draw(obj.GetTransform(), shapes, obj.GetMesh().GetPointListType(), obj.GetMesh().GetColor(0));
+				}
+			}
+		}
+	}
+}
+
 
 void Graphics::EndDraw()
 {
@@ -181,12 +276,15 @@ void Graphics::SetDisplaySize_G(vector2 size, State* state)
 	}
 
 	displaysize = size;
+
 	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 }
 
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
-	affine2d myNDC = transform.GetModelToWorld();
+	affine2d myNDC;
+
+	myNDC = transform.GetModelToWorld();
 
 	if (temp_camera != nullptr)
 	{
@@ -196,6 +294,7 @@ affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) cons
 	{
 		myNDC = projection * myNDC;
 	}
+
 	return myNDC;
 }
 
@@ -204,10 +303,17 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
 {
 	affine2d to_ndc;
 
-	if (temp_camera != nullptr)
+	if(temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		if (transform.GetParent() == nullptr)
+			to_ndc = projection * transform.GetModelToWorld();
+		else
+			to_ndc = projection * transform.GetWorldToModel();
+	}
 
     Solidshader.SendUniformVariable("transform", to_ndc);
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
@@ -229,9 +335,16 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
 	affine2d to_ndc;
 
 	if (temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		if (transform.GetParent() == nullptr)
+			to_ndc = projection * transform.GetModelToWorld();
+		else
+			to_ndc = projection * transform.GetWorldToModel();
+	}
 
     Solidshader.SendUniformVariable("transform", to_ndc);
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
@@ -253,9 +366,16 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 	affine2d to_ndc;
 
 	if (temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		if (transform.GetParent() == nullptr)
+			to_ndc = projection * transform.GetModelToWorld();
+		else
+			to_ndc = projection * transform.GetWorldToModel();
+	}
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
@@ -283,9 +403,16 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
 	affine2d to_ndc;
 
 	if (temp_camera != nullptr)
+	{
 		to_ndc = CalculateModelToNDCTransform(transform);
+	}
 	else
-		to_ndc = projection * transform.GetModelToWorld();
+	{
+		if(transform.GetParent() == nullptr)
+			to_ndc = projection * transform.GetModelToWorld();
+		else
+			to_ndc = projection * transform.GetWorldToModel();
+	}
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())

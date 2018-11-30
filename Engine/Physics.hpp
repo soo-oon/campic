@@ -22,8 +22,9 @@ public:
 	std::vector<vector2> VectorToLine(Object object);
 	// This is real intersection check which you use.
 	bool IntersectionCheck(Object object1, Object object2);
+        // This is intersection check which is AABB version for thin 
+        bool IntersectionCheck_AABB(Object object1, Object object2);
         
-        void AddCollisionList(Object* object);
         // This function return true if object is out of window area. 
         bool OutOfCheckBoundary(Object* object);
 

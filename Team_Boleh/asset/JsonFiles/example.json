@@ -1,0 +1,287 @@
+{
+    "background": {
+        "name": "background",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.9900000095367432,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "camera": {
+        "name": "camera",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            10.0,
+            10.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "dia": {
+        "name": "dia",
+        "translation": [
+            350.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            25.0,
+            25.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "dia1": {
+        "name": "dia1",
+        "translation": [
+            420.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "door": {
+        "name": "door",
+        "translation": [
+            500.0,
+            0.0
+        ],
+        "rotation": 3140.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "health": {
+        "name": "health",
+        "translation": [
+            0.0,
+            0.5
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1.5,
+            0.10000000149011612
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "heart": {
+        "name": "heart",
+        "translation": [
+            350.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            25.0,
+            25.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "heart1": {
+        "name": "heart1",
+        "translation": [
+            420.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "opponent1": {
+        "name": "opponent1",
+        "translation": [
+            -141.0517120361328,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "opponent2": {
+        "name": "opponent2",
+        "translation": [
+            95.15927124023438,
+            -118.94904327392578
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "opponent3": {
+        "name": "opponent3",
+        "translation": [
+            0.8204835653305054,
+            141.0436553955078
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "opponent4": {
+        "name": "opponent4",
+        "translation": [
+            108.14839935302735,
+            90.12374877929688
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "player": {
+        "name": "player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "scol": {
+        "name": "scol",
+        "translation": [
+            -99.59718322753906,
+            99.59718322753906
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "shot": {
+        "name": "shot",
+        "translation": [
+            -99.70277404785156,
+            -7.704305648803711
+        ],
+        "rotation": -175.67044067382813,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "slime": {
+        "name": "slime",
+        "translation": [
+            -99.59718322753906,
+            -99.59718322753906
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "sonic": {
+        "name": "sonic",
+        "translation": [
+            0.0,
+            -200.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            150.0,
+            150.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "spark": {
+        "name": "spark",
+        "translation": [
+            -99.70277404785156,
+            -7.704305648803711
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    },
+    "sword": {
+        "name": "sword",
+        "translation": [
+            -99.70277404785156,
+            -7.704305648803711
+        ],
+        "rotation": -265.6704406738281,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture"
+    }
+}

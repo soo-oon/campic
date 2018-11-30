@@ -21,17 +21,21 @@ enum class Type : int
 class Graphics : public System
 {
 public:
+	static float checking_zoom;
+
 	Graphics() = default;
 	~Graphics() = default;
 
 	bool Initialize() override;
 	void Update(float dt) override;
 	void Draw(Objectmanager* objects);
+	void HUD_Draw(Objectmanager* objects);
 	void EndDraw();
 	void Quit() override;
 
 	void SetNDC();
 	void SetDisplaySize_G(vector2 size, State* state);
+	static vector2 camera_center;
 
 private:
 	struct solidshape

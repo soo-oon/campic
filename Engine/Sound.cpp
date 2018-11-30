@@ -41,6 +41,8 @@ bool Sound::Initialize()
 		}
 	}
 
+	CreateSound("asset/sounds/digimon.wav");
+
     return true;
 }
 
@@ -50,7 +52,7 @@ void Sound::Update(float dt)
 	if(fmod_result != FMOD_OK)
 		assert(false);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_5))
+	if (Input::IsKeyTriggered(GLFW_KEY_T))
 	{
 		if (IsPlaying())
 			Stop();
@@ -252,3 +254,9 @@ int Sound::GetSoundMode()
 {
 	return FMOD_3D | loop;
 }
+
+void Sound::SetSoundSpeed(float speed)
+{
+	sound->setMusicSpeed(speed);
+}
+
