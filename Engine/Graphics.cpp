@@ -55,7 +55,6 @@ void Graphics::Draw(Objectmanager* objects)
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = objects->GetObjectMap().begin();
 			it != objects->GetObjectMap().end(); ++it)
 		{
-			
 			Object obj = *(it->second.get());
 
 			if(Iscamera)
