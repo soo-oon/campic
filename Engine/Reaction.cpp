@@ -19,6 +19,11 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if(di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		AttackedReaction(object, di_object);
 	}
+	else if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	{
+		if (di_object->GetComponentByTemplate<Collision>()->GetIsDoor())
+			DoorReaction(object);
+	}
 	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
 	{
 		StopReaction(di_object);
@@ -56,4 +61,9 @@ void AttackedReaction(Object* object , Object* di_object, float power)
 
 void DisappearReaction(Object * object)
 {
+}
+
+void DoorReaction(Object * object)
+{
+	object->GetComponentByTemplate<Collision>()->ToggleIsDoor();
 }

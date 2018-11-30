@@ -13,9 +13,10 @@ bool Animation::Initialize(Object* Ob)
 void Animation::Update(float dt)
 {
     frame_time += dt;
+
     if (frame_time > update_frame)
     {
-		frame_time = 0;
+        frame_time = 0;
 
         if (previous_current_coordinate.y < 1)
         {
@@ -24,11 +25,15 @@ void Animation::Update(float dt)
         }
         else
         {
-			if (!isrepeat)
-			{
-				previous_current_coordinate.x = 0;
-				previous_current_coordinate.y = frame_per_second;
-			}
+            if (isrepeat)
+            {
+                previous_current_coordinate.x = 0;
+                previous_current_coordinate.y = frame_per_second;
+            }
+            else
+            {
+                is_done = true;
+            }
         }
     }
 }
@@ -66,20 +71,44 @@ void Animation::Delete()
 
 void Animation::ChangeAnimation(std::string ID)
 {
-	Sprite* change_animation = sprites.find(ID)->second;
+    if (isrepeat)
+    {
+        Sprite* change_animation = sprites.find(ID)->second;
 
-	if (change_animation == nullptr)
-		assert(false);
+        if (change_animation == nullptr)
+            assert(false);
 
-	if (current_sprite != change_animation)
-	{
-		current_sprite = change_animation;
-		image_frame = image_frames.find(ID)->second;
-		frame_per_second = frame_per_seconds.find(ID)->second;
-		update_frame = update_frames.find(ID)->second;
-		isrepeat = is_repeats.find(ID)->second;
-		previous_current_coordinate = previous_current_coordinates.find(ID)->second;
-	}
+        if (current_sprite != change_animation)
+        {
+            current_sprite = change_animation;
+            image_frame = image_frames.find(ID)->second;
+            frame_per_second = frame_per_seconds.find(ID)->second;
+            update_frame = update_frames.find(ID)->second;
+            isrepeat = is_repeats.find(ID)->second;
+            previous_current_coordinate = previous_current_coordinates.find(ID)->second;
+        }
+    }
+    else
+    {
+        if(is_done)
+        {
+            Sprite* change_animation = sprites.find(ID)->second;
+
+            if (change_animation == nullptr)
+                assert(false);
+
+            if (current_sprite != change_animation)
+            {
+                is_done = false;
+                current_sprite = change_animation;
+                image_frame = image_frames.find(ID)->second;
+                frame_per_second = frame_per_seconds.find(ID)->second;
+                update_frame = update_frames.find(ID)->second;
+                isrepeat = is_repeats.find(ID)->second;
+                previous_current_coordinate = previous_current_coordinates.find(ID)->second;
+            }
+        }
+    }
 }
 
 void Animation::Imgui_Animation()

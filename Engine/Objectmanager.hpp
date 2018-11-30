@@ -18,6 +18,8 @@ public:
 
     std::unique_ptr<Object>& FindObject(std::string key_name);
     std::map<std::string, std::unique_ptr<Object>>& GetObjectMap() { return object_map; }
+
 private:
     std::map<std::string, std::unique_ptr<Object>> object_map;
+
 };

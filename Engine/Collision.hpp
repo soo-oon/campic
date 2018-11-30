@@ -9,6 +9,7 @@ enum class RestitutionType
 	ghost,
 	damaged,
         get,
+	exit,
 	none,
 };
 enum class CollisionState
@@ -34,19 +35,26 @@ public:
 
 	void SetRestitutionType(RestitutionType restitution);
         RestitutionType& GetRestitutionType();
+
 	Mesh& GetCollsionMesh();
 	Transform& GetCollisionTransform();
+
+	void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
+
 	CollisionType& GetCollisionType();
 	std::vector<vector2> GetCollisionCalculateTRS();
 	void ToggleIsDamaged();
 	bool GetIsDamaged();
+	void ToggleIsDoor();
+	bool GetIsDoor();
 
 
 private:
-    RestitutionType restitution_ = RestitutionType::stop;
+	RestitutionType restitution_ = RestitutionType::none;
 	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};
 	Transform collision_transform{};
 	CollisionType type = box_;
 	bool isdamaged = false;
+	bool isdoor = false;
 };

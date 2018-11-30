@@ -5,6 +5,7 @@
 #include "Graphics.hpp"
 #include <memory>
 #include <string>
+#include "imgui_impl_glfw.h"
 
 namespace
 {
@@ -188,7 +189,8 @@ namespace
     void KeyCallback(GLFWwindow* window, int key, int scancode
                      , int action, int mods)
     {
-        Input::SetKeyPressed(key, action);
+		Input::SetKeyPressed(key, action);
+		ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
     }
 
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos)
@@ -204,5 +206,6 @@ namespace
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
     {
 		Input::SetMouseWheelScroll(x_offset, y_offset);
+		ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
     }
 }

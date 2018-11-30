@@ -8,23 +8,22 @@ bool Imgui_System::Initialize()
 
 	const char* glsl_version = "#version 300 es";
 
-	int w, h;
-	glfwGetWindowSize(window, &w, &h);
+	window = glfwGetCurrentContext();
 
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
-	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
-	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
-	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
-	//glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+
+	glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+
+	//ImGui_ImplGlfw_InstallCallbacks(window);
+
 	ImGui::StyleColorsDark();
 
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.FontDefault = NULL;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+	io.ConfigFlags = ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos; 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos;
 
 	for (auto& p : std::experimental::filesystem::directory_iterator("asset/images"))
 	{
@@ -65,7 +64,7 @@ void Imgui_System::Draw()
 			show_objectmanager_window = true;
 	}
 
-	ImGui::ShowTestWindow();
+	//ImGui::ShowTestWindow();
 	ObjectManger(show_objectmanager_window);
 	ImGui_Option(&show_demo_window);
 
@@ -172,6 +171,7 @@ void Imgui_System::ObjectManger(bool show_window)
 
 void Imgui_System::ImGui_Option(bool* show_window)
 {
+	ImGui::SetNextWindowSize({ 400,200 });
 	if (!ImGui::Begin("ImGui Option", show_window))
 	{
 		ImGui::End();
@@ -225,10 +225,17 @@ void Imgui_System::ImGui_Option(bool* show_window)
 			m_FMOD_system->Pause();
 	}
 
-	static int i = 0;
-	if(ImGui::SliderInt("Volume", &i, 0, 10))
+	static float i = 0;
+	if(ImGui::SliderFloat("Volume", &i, 0, 10))
 	{
-		m_FMOD_system->SetVolume(static_cast<float>(i));
+		m_FMOD_system->SetVolume(i);
 	}
+
+	static float speed = 0;
+	if (ImGui::SliderFloat("Speed", &speed, 0, 5))
+	{
+		m_FMOD_system->SetSoundSpeed(speed);
+	}
+
 	ImGui::End();
 }

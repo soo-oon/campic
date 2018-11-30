@@ -151,6 +151,8 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GLSL.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="HUD_level.cpp" />
+    <ClCompile Include="HUD_System.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -191,6 +193,8 @@
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="GLSL.hpp" />
     <ClInclude Include="Graphics.hpp" />
+    <ClInclude Include="HUD_level.hpp" />
+    <ClInclude Include="HUD_System.hpp" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_glfw.h" />
