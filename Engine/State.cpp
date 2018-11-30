@@ -1,10 +1,12 @@
 #include "State.hpp"
+#include "JSON.hpp"
 
 void State::Load()
 {
 	level_change = false;
 	objectmanager = new Objectmanager();
 	world_physics = new WorldPhysics();
+	json = new JSON();
 }
 
 void State::UpdateObjManager(float dt)
@@ -17,6 +19,7 @@ void State::UnLoad()
 	change_level.clear();
 	delete objectmanager;
 	delete world_physics;
+	delete json;
 }
 
 void State::ChangeLevel(std::string ID)

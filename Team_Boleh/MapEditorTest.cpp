@@ -9,7 +9,7 @@ void MapEditorTest::Initialize()
 {
 	Load();
 
-	LoadMap();
+	//LoadMap();
 	std::cout << "Press 7 to create wall\n"
 		<< "      8           road\n"
 		<< "      9           heart\n";

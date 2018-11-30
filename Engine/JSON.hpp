@@ -15,28 +15,28 @@ public:
 	void Update(float dt) override;
 	void Quit() override;
 
+	//Update level every time engine update.
 	void UpdateLevel(StateManager* state_manager);
-	void AddNewLevel(State* current_state, std::string name);
-	void UpdateDocument(Objectmanager* objectmanager, rapidjson::Document* document);
-	void AddNewObject(Object* object, std::string name, rapidjson::Document* document);
-	void UpdateObject(Object* object, std::string name, rapidjson::Document* document);
+	//Add new level to json document.
+	void AddNewLevel();
 	void SaveDocument();
-	void LoadDocument();
+	void LoadLevel();
+	void LoadLevelDocument(std::string level_name);
 
-	//if you want to save all data just when game is quit(not update every time)
-	//use this function and put it in to Engine->Quit();
-	//And erase update function...
-	void SaveAtEnd(StateManager* state_manager);
-	//not... tested it yet......
-
-	//for map editor.
-	std::vector<Object> GetLoadLevel(std::string state_name, std::vector<Object*> state_object);
-	rapidjson::Document* GetDocumentofLevel(std::string level_name);
 
 private:
-	std::map<std::string, std::unique_ptr<rapidjson::Document>> LevelDocuments;
-	rapidjson::Document levels;
+	//Fill the document by object manager
+	void UpdateDocument(Objectmanager* objectmanager);
+	void AddNewObject(Object* object, std::string name);
+
+private:
+	rapidjson::Document LevelDocument;
+	rapidjson::Document current_level;
+	std::string level_label = "Level";
 	int level_count = 1;
-	std::string level_name = "Level";
+	
 	std::string file_path = "asset/JsonFiles/";
+
+	std::string current_state_name;
+	Objectmanager* current_object_manager = nullptr;
 };

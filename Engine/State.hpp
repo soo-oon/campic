@@ -3,6 +3,8 @@
 #include <vector2.hpp>
 #include "WorldPhysics.h"
 
+class JSON;
+
 class State
 {
 public:
@@ -27,11 +29,14 @@ public:
 
 	virtual void ChangeLevel(std::string ID);
 
+	virtual JSON* GetJson() { return json; }
+
 private:
 	std::string change_level;
 
 	bool camera = false;
 	bool level_change = false;
+	JSON* json = nullptr;
 	Objectmanager * objectmanager = nullptr;
 	WorldPhysics* world_physics = nullptr;
 	vector2 screen_size_{};
