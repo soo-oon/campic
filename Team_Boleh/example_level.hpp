@@ -39,7 +39,7 @@ private:
 
     Object* player, *sword, *sonic, *background, *spark, *dia, 
 	*heart, *scol, *slime, *dia1, *heart1, *door, *shot,*health_bar;
-    Object* opponent[4];
+    Object* opponent1, *opponent2, *opponent3,* opponent4 ;
 
 };
 
