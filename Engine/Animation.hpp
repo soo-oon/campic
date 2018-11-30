@@ -41,8 +41,6 @@ public:
     void Delete() override;
 	void ChangeAnimation(std::string ID);
 
-	void ChangeIsDone() { is_done = false; }
-	bool IsDone() { return is_done; }
 	Object* GetObject() { return object; }
 
 	void Imgui_Animation();

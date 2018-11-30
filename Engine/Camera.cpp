@@ -20,23 +20,6 @@ void Camera::Update(float dt)
 		ResetUp();
 	}
 
-	if(Input::IsKeyPressed(GLFW_KEY_UP))
-	{
-		MoveUp(3.0f);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_DOWN))
-	{
-		MoveUp(-3.0f);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_LEFT))
-	{
-		MoveRight(-3.0f);
-	}
-	if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
-	{
-		MoveRight(3.0f);
-	}
-
 	if (Input::MouseWheelScroll() > 0 && zoom <= 20.0f)
 	{
 		zoom += 0.05f;
@@ -73,11 +56,12 @@ vector2 Camera::GetRight() const
 
 void Camera::ResetUp(vector2 camera_up)
 {
-	zoom = 1.0f;
+	center = 0;
 	up.x = camera_up.x;
 	up.y = camera_up.y;
 	right.x = camera_up.y;
 	right.y = camera_up.x;
+	zoom = 1.0f;
 }
 
 void Camera::MoveUp(float distance)

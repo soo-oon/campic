@@ -9,6 +9,7 @@
 #include "Physics.hpp"
 #include "Imgui_System.hpp"
 #include "JSON.hpp"
+#include "HUD_System.hpp"
 
 namespace
 {
@@ -20,6 +21,8 @@ namespace
 	Physics* Physics_ = nullptr;
 	Imgui_System* Imgui = nullptr;
 	JSON* Json = nullptr;
+	HUD* HUD_ = nullptr;
+	State* hud_state = nullptr;
 }
 
 bool Engine::IsQuit;
@@ -32,6 +35,7 @@ bool Engine::Initialize()
     AddSystem(new Graphics());
 	AddSystem(new Physics());
     AddSystem(new Sound());
+	AddSystem(new HUD());
 	AddSystem(new Imgui_System());
 	AddSystem(new JSON());
 
@@ -39,6 +43,7 @@ bool Engine::Initialize()
 	Graphic_ = GetSystemByTemplate<Graphics>();
 	Physics_ = GetSystemByTemplate<Physics>();
 	Sound_ = GetSystemByTemplate<Sound>();
+	HUD_ = GetSystemByTemplate<HUD>();
 	Imgui = GetSystemByTemplate<Imgui_System>();
 	Json = GetSystemByTemplate<JSON>();
 
@@ -47,6 +52,7 @@ bool Engine::Initialize()
 		i->Initialize();
 	}
 
+	hud_state = HUD_->GetHUDlevel();
     gameTimer.Reset();
     IsQuit = false;
     return true;
@@ -68,6 +74,7 @@ void Engine::Update()
 		Physics_->PhysicsObjectUpdate(Objectmanager_);
 
 		Graphic_->Draw(Objectmanager_);
+		Graphic_->HUD_Draw(hud_state->GetObjectManager());
 
 		Graphic_->EndDraw();
 

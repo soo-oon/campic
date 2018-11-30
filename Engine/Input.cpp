@@ -1,6 +1,7 @@
 #include "Input.hpp"
 #include <iostream>
 #include <chrono>
+#include "Graphics.hpp"
 
 bool Input::mouse_trigger;
 bool Input::key_trigger;
@@ -116,8 +117,8 @@ bool Input::IsKeyAnyReleased()
 
 void Input::SetMousePos(double x_pos, double y_pos)
 {
-    mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos));
-    mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos);
+    mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos)) + Graphics::camera_center.x;
+    mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) + Graphics::camera_center.y;
 }
 
 vector2 Input::GetMousePos(float zoom)

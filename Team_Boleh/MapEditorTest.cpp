@@ -77,14 +77,14 @@ void MapEditorTest::Update(float dt)
 			std::string texture_path;
 
 			GetObjectManager()->AddObject(name);
-			GetObjectManager()->FindObject(name)->SetScale(vector2( 64.f, 64.f ));
+			GetObjectManager()->FindObject(name)->SetScale({ 64.f, 64.f });
 			GetObjectManager()->FindObject(name)->SetTranslation({ 0,0 });
-			GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+			GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox());
 			GetObjectManager()->FindObject(name)->SetDepth(0);
 			GetObjectManager()->FindObject(name)->AddComponent(new Sprite());
 
 			if (Input::IsKeyPressed(GLFW_KEY_KP_7))
-				texture_path = wall_;
+				texture_path = "asset/images/heart.png";
 			if (Input::IsKeyPressed(GLFW_KEY_KP_8))
 				texture_path = road;
 			if (Input::IsKeyPressed(GLFW_KEY_KP_9))
@@ -112,5 +112,5 @@ void MapEditorTest::ShutDown()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
-	UnLoad();
+	//UnLoad();
 }

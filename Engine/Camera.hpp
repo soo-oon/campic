@@ -36,7 +36,7 @@ public:
 	affine2d WorldToCamera() const;
 
 private:
-	float zoom = 1;
+	float zoom = 1.0f;
 	vector2 center{};
 	vector2 up{ 0,1 };
 	vector2 right{ 1,0 };
