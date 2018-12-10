@@ -201,7 +201,7 @@ void Imgui_System::ImGui_Option(bool* show_window)
 
 	const std::string current_path = "asset/sounds/";
 
-	if (ImGui::Button("Create Sound"))
+	/*if (ImGui::Button("Create Sound"))
 	{
 		m_FMOD_system->CreateSound(current_path + current_sound);
 	}
@@ -235,7 +235,7 @@ void Imgui_System::ImGui_Option(bool* show_window)
 	if (ImGui::SliderFloat("Speed", &speed, 0, 5))
 	{
 		m_FMOD_system->SetSoundSpeed(speed);
-	}
+	}*/
 
 	ImGui::End();
 }
