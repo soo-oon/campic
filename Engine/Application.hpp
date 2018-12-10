@@ -44,5 +44,7 @@ private:
     std::string title;
     vector2 screenSize;
     vector2 temp_size{};
+
+	std::vector<std::string> handle_dropped_file;
 };
 

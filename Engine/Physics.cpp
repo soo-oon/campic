@@ -45,19 +45,20 @@ void Physics::Update(float dt)
 			{
 				if (i != j)
 				{
-					if (*collision_list[i]->GetTransform().GetRotation() != 0 || *collision_list[j]->GetTransform().GetRotation() != 0)
-					{
-						if (IntersectionCheck(*collision_list[i], *collision_list[j]))
-						{
-							ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
-							Reaction(collision_list[i], collision_list[j]);
-						}
-					}
-					else if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
+					//if (*collision_list[i]->GetTransform().GetRotation() != 0 || *collision_list[j]->GetTransform().GetRotation() != 0)
+					//{
+					//	if (IntersectionCheck(*collision_list[i], *collision_list[j]))
+					//	{
+					//		ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+					//		Reaction(collision_list[i], collision_list[j]);
+					//	}
+					//}
+					//else 
+					/*if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
                                         {
                                             ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
                                             Reaction(collision_list[i], collision_list[j]);
-                                        }
+                                        }*/
 				}
 			}
 		}

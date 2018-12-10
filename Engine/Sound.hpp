@@ -33,7 +33,6 @@ public:
 	bool IsChannelValid();
 	int GetSoundMode();
 	void SetSoundSpeed(std::string filePath, float speed);
-
 	void LoadSounds();
 
 private:

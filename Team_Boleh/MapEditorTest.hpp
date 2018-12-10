@@ -22,7 +22,7 @@ public:
 	void LoadMap();
 
 private:
-	int object_count = 1;
+	size_t object_count = 1;
 	std::string object_name = "object";
 
 	std::map<std::string, Object> objects_and_names;
@@ -30,5 +30,5 @@ private:
 
 	Object* newObject;
 	Object* selected_object = nullptr;
-	int selected_object_id = 0;
+	size_t selected_object_id = 0;
 };
