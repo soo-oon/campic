@@ -15,28 +15,32 @@ public:
 	void Update(float dt) override;
 	void Quit() override;
 
-	//Update level every time engine update.
 	void UpdateLevel(StateManager* state_manager);
-	//Add new level to json document.
-	void AddNewLevel();
+	void AddNewLevel(State* current_state, std::string name);
+	void UpdateDocument(Objectmanager* objectmanager, rapidjson::Document* document);
+	void AddNewObject(Object* object, std::string name, rapidjson::Document* document);
+	//void UpdateObject(Object* object, std::string name, rapidjson::Document* document);
 	void SaveDocument();
-	void LoadLevel();
-	void LoadLevelDocument(std::string level_name);
+	void LoadDocument();
 
+	//Please put this function before object manager discarded.
+	void SaveAtEnd(StateManager* state_manager);
+	void SaveAtEnd();
 
-private:
-	//Fill the document by object manager
-	void UpdateDocument(Objectmanager* objectmanager);
-	void AddNewObject(Object* object, std::string name);
+	//for map editor.
+	void GetLoadLevel(std::string state_name, std::map<std::string, Object>* state_object);
+	rapidjson::Document* GetDocumentofLevel(std::string level_name);
 
-private:
-	rapidjson::Document LevelDocument;
-	rapidjson::Document current_level;
-	std::string level_label = "Level";
-	int level_count = 1;
+	//for Resource manager
 	
-	std::string file_path = "asset/JsonFiles/";
 
+private:
+	std::map<std::string, std::unique_ptr<rapidjson::Document>> LevelDocuments;
+	rapidjson::Document levels;
+	int level_count = 1;
+	std::string level_name = "Level";
+	std::string file_path = "asset/JsonFiles/";
 	std::string current_state_name;
-	Objectmanager* current_object_manager = nullptr;
+	Objectmanager* current_object_manager = 0;
+	StateManager* saved_state_manager = 0;
 };

@@ -97,6 +97,7 @@ void Engine::Update()
 
 void Engine::Quit()
 {
+	Json->SaveAtEnd();
     for (auto i : systems)
         i->Quit();
 }

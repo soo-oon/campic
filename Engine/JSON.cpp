@@ -11,67 +11,100 @@
 
 bool JSON::Initialize()
 {
-	LoadLevel();
-	current_level.SetObject();
-	if (!current_level.IsObject())
+	levels.SetObject();
+	if (!levels.IsObject())
 		return false;
 	return true;
 }
 
-void JSON::Update(float dt)
-{
-}
+void JSON::Update(float dt) { }
 
 void JSON::Quit()
 {
-
-	UpdateDocument(current_object_manager);
-	current_object_manager = nullptr;
+	//SaveAtEnd();
 	SaveDocument();
+	saved_state_manager = nullptr;
+	for (std::map< std::string, std::unique_ptr < rapidjson::Document>>::iterator
+		it = LevelDocuments.begin(); it != LevelDocuments.end(); it++)
+		delete(it->second.get());
 }
 
 
 void JSON::UpdateLevel(StateManager* state_manager)
 {
-	if (current_object_manager)
+	if (saved_state_manager)
 		return;
 
-	State* currentstat = state_manager->GetCurrentState();
-	current_object_manager = currentstat->GetObjectManager();
+	saved_state_manager = state_manager;
+}
 
-	//Get the state name.
-	for (std::map <std::string, std::unique_ptr<State>>::iterator
+void JSON::SaveAtEnd()
+{
+	SaveAtEnd(saved_state_manager);
+}
+
+
+void JSON::SaveAtEnd(StateManager* state_manager)
+{
+	std::string name;
+	State* currentstate;
+	Objectmanager* currentObjectM;
+
+	for (std::map<std::string, std::unique_ptr<State>>::iterator
 		it = state_manager->GetStateMap().begin(); it != state_manager->GetStateMap().end(); it++)
 	{
-		if (currentstat == it->second.get())
-			current_state_name = it->first;
+		name = it->first;
+		currentstate = it->second.get();
+
+		currentObjectM = it->second.get()->GetObjectManager();
+		if (!currentObjectM) //if currentObejctmanager is empt, it means you didn't turn that level.
+			continue;
+
+		AddNewLevel(currentstate, name);
+		for (std::map<std::string, std::unique_ptr<rapidjson::Document>>::iterator
+			it2 = LevelDocuments.begin(); it2 != LevelDocuments.end(); it2++)
+		{
+			if(it2->first == name)
+			UpdateDocument(currentObjectM, it2->second.get());
+		}
 	}
-
-	//if it's new state, add. or do nothing.
-	if(!(LevelDocument.HasMember(current_state_name.c_str())))
-		AddNewLevel();
 }
 
-void JSON::AddNewLevel()
+void JSON::AddNewLevel(State* current_state, std::string name)
 {
-	rapidjson::Value newLevel(current_state_name.c_str(),LevelDocument.GetAllocator());
-	rapidjson::Value Levelcount((level_label + std::to_string(level_count)).c_str(), LevelDocument.GetAllocator());
-	LevelDocument.AddMember(Levelcount, newLevel, LevelDocument.GetAllocator());
+	LevelDocuments.insert(std::make_pair(name,
+		new rapidjson::Document(rapidjson::kObjectType)));
+
+	//Level data
+	rapidjson::Value newLevel(rapidjson::kObjectType);
+	rapidjson::Value newLevelname(name.c_str(), levels.GetAllocator());
+	//add to level? member
+	newLevel.AddMember(Level, newLevelname, levels.GetAllocator());
+
+	std::string Levelcount = level_name; //temporary levelcountname
+	Levelcount.append(std::to_string(level_count));
+	//Add to document.
+	rapidjson::Value countofLevel(Levelcount.c_str(), levels.GetAllocator());
+	levels.AddMember(countofLevel, newLevel, levels.GetAllocator());
+	level_count++;
 }
 
-void JSON::UpdateDocument(Objectmanager* objectmanager)
+void JSON::UpdateDocument(Objectmanager* objectmanager, rapidjson::Document* document)
 {
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator
 		it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
 	{
-		AddNewObject(it->second.get(), it->first);
+		if (!(document->HasMember(it->first.c_str())))
+			AddNewObject(it->second.get(), it->first, document);
+		//else
+		//	UpdateObject(it->second.get(), it->first, document);
 	}
 }
 
-void JSON::AddNewObject(Object* object, std::string name)
+void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* document)
 {
 	rapidjson::Value newObjectData(rapidjson::kObjectType);
-	rapidjson::Document::AllocatorType& allocator = current_level.GetAllocator();
+	rapidjson::Document::AllocatorType& allocator = document->GetAllocator();
 
 	//Add Data of object///////////////////////////////////////
 	rapidjson::Value newObjectName(name.c_str(), allocator);
@@ -107,61 +140,132 @@ void JSON::AddNewObject(Object* object, std::string name)
 	rapidjson::Value nameofobject(name.c_str(), allocator);
 
 	//Add objectdata to document
-	current_level.AddMember(nameofobject, newObjectData, allocator);
+	document->AddMember(nameofobject, newObjectData, allocator);
 }
-
+//void JSON::UpdateObject(Object* object, std::string name, rapidjson::Document* document)
+//{
+//	rapidjson::Value& a_type_data = (*document)[name.c_str()][TRANSLATION];
+//
+//	a_type_data[0].SetFloat(object->GetTransform().GetTranslation().x);
+//	a_type_data[1].SetFloat(object->GetTransform().GetTranslation().y);
+//
+//	rapidjson::Value& o_type_data = (*document)[name.c_str()][ROTATION];
+//	o_type_data = (*document)[name.c_str()][ROTATION];
+//	o_type_data.SetFloat(*(object->GetTransform().GetRotation()));
+//
+//	(*document)[name.c_str()][SCALE][0].SetFloat(object->GetTransform().GetScale().x);
+//	(*document)[name.c_str()][SCALE][1].SetFloat(object->GetTransform().GetScale().y);
+//
+//	(*document)[name.c_str()][DEPTH].SetFloat(object->GetTransform().GetDepth());
+//
+//	(*document)[name.c_str()][GRAVITY].SetFloat(object->GetGravity());
+//}
 
 void JSON::SaveDocument()
 {
-	////store level document
+	//store objects
+	for (std::map<std::string, std::unique_ptr<rapidjson::Document>>
+		::iterator it = LevelDocuments.begin(); it != LevelDocuments.end(); ++it)
 	{
 		FILE* fp;
 		std::string filename = file_path;
-		filename.append("levels.json");
-		fopen_s(&fp, filename.c_str(), "wb");
-		char writeBuffer[65535];
-		rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-		rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
-		LevelDocument.Accept(writer);
-		fclose(fp);
-	}
-
-	//store object document
-	{
-		FILE* fp;
-		std::string filename = file_path;
-		filename.append(current_state_name);
+		filename.append(it->first);
 		filename.append(".json");
 		fopen_s(&fp, filename.c_str(), "wb");
+
 		char writeBuffer[65535];
 		rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
 		rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
-		current_level.Accept(writer);
+		it->second.get()->Accept(writer);
 		fclose(fp);
 	}
-}
 
-void JSON::LoadLevel()
-{
-	//load levels
+	//store levels
 	FILE* fp;
 	std::string filename = file_path;
 	filename.append("levels.json");
-	fopen_s(&fp, filename.c_str(), "rb");
-	char readBuffer[65536];
-	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-	LevelDocument.ParseStream(is);
+	fopen_s(&fp, filename.c_str(), "wb");
+	char writeBuffer[65535];
+	rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
+	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
+	levels.Accept(writer);
 	fclose(fp);
 }
-void JSON::LoadLevelDocument(std::string level_name)
+
+void JSON::LoadDocument()
 {
+	//load levels
 	FILE* fp;
-	std::string filename = file_path;
-	filename.append(level_name);
-	filename.append(".json");
-	fopen_s(&fp, filename.c_str(), "rb");
+	fopen_s(&fp, "asset/levels", "rb");
 	char readBuffer[65536];
 	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-	current_level.ParseStream(is);
+	levels.ParseStream(is);
 	fclose(fp);
+
+	for (rapidjson::Value::ConstMemberIterator itr = levels.MemberBegin();
+		itr != levels.MemberEnd(); ++itr)
+	{
+		//Add new document
+		rapidjson::Document *newLevelObjectData = new rapidjson::Document(rapidjson::kObjectType);
+
+		std::string file_name = file_path;
+		file_name.append(itr->name.GetString());
+		file_name.append(".json");
+		FILE* fp;
+		fopen_s(&fp, file_name.c_str(), "rb");
+		char readBuffer[65536];
+		rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+		newLevelObjectData->ParseStream(is);
+		fclose(fp);
+
+		LevelDocuments.insert(std::make_pair(itr->name.GetString(), newLevelObjectData));
+	}
+}
+
+rapidjson::Document* JSON::GetDocumentofLevel(std::string level_name)
+{
+	for (std::map<std::string, std::unique_ptr<rapidjson::Document>>
+		::iterator it = LevelDocuments.begin(); it != LevelDocuments.end(); ++it)
+	{
+		if (it->first == level_name)
+			return it->second.get();
+	}
+
+	return nullptr;
+}
+
+void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* state_object)
+{
+	rapidjson::Document load_document;
+	FILE* fp;
+	std::string file_name = file_path;
+	file_name.append(state_name);
+	file_name.append(".json");
+	fopen_s(&fp, "asset/JsonFiles/MapEditorTest.json", "rb");
+	char readBuffer[65535];
+	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+	load_document.ParseStream(is);
+	fclose(fp);
+
+	for (rapidjson::Value::ConstMemberIterator itr = load_document.MemberBegin();
+		itr != load_document.MemberEnd(); ++itr)
+	{
+		std::string load_object_name = itr->name.GetString();
+		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][0].GetFloat() };
+		vector2 load_translation = { itr->value["translation"][0].GetFloat(), itr->value["translation"][1].GetFloat() };
+		float load_rotation = itr->value["rotation"].GetFloat();
+
+		Object new_object;
+		new_object.SetScale(load_scale);
+		new_object.SetScale(load_scale);
+		new_object.SetTranslation(load_translation);
+		new_object.SetRotation(load_rotation);
+		//new_object.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		//new_object.AddComponent(new Sprite());
+		//new_object.GetComponentByTemplate<Sprite>()->Texture_Load(itr->value["texture"].GetString());
+		new_object.texture_path = itr->value["texture"].GetString();
+		//state_object.insert(std::pair<std::string, Object*>(load_object_name, new_object));
+		state_object->insert(std::pair<std::string, Object>(load_object_name, new_object));
+		//state_object.push_back(&new_object);
+	}
 }

@@ -9,59 +9,46 @@ void MapEditorTest::Initialize()
 {
 	Load();
 
-	//LoadMap();
+	LoadMap();
 	std::cout << "Press 7 to create wall\n"
 		<< "      8           road\n"
 		<< "      9           heart\n";
 
-	if (objects.size() == 0)
+	if (objects_and_names.size() == 0)
 	{
-		GetObjectManager()->AddObject("TempObject");
-		GetObjectManager()->FindObject("TempObject")->SetScale({ 64.f,64.f });
-		GetObjectManager()->FindObject("TempObject")->SetTranslation({ -100,0 });
-		GetObjectManager()->FindObject("TempObject")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		GetObjectManager()->FindObject("TempObject")->AddComponent(new Sprite());
-		GetObjectManager()->FindObject("TempObject")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
-		GetObjectManager()->FindObject("TempObject")->texture_path = "asset/images/heart.png";
+		GetObjectManager()->AddObject("object0");
+		GetObjectManager()->FindObject("object0")->SetScale({ 64.f,64.f });
+		GetObjectManager()->FindObject("object0")->SetTranslation({ -100,0 });
+		GetObjectManager()->FindObject("object0")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		GetObjectManager()->FindObject("object0")->AddComponent(new Sprite());
+		GetObjectManager()->FindObject("object0")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
+		GetObjectManager()->FindObject("object0")->texture_path = "asset/images/heart.png";
+		selected_object = GetObjectManager()->FindObject("object0").get();
 	}
-
-	//selected_object = GetObjectManager()->FindObject("TempObject").get();
+	else
+	{
+		selected_object_id = objects_and_names.size() - 1;
+		object_count = objects_and_names.size();
+	}
 }
 
 void MapEditorTest::LoadMap()
 {
-	rapidjson::Document MapDocument;
-	FILE* fp;
-	fopen_s(&fp, "asset/JsonFiles/MapEditorTest.json", "rb");
-
-	char readBuffer[65535];
-	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-	MapDocument.ParseStream(is);
-	fclose(fp);
-
-	for (rapidjson::Value::ConstMemberIterator itr = MapDocument.MemberBegin();
-		itr != MapDocument.MemberEnd(); ++itr)
+	GetJson()->GetLoadLevel("MapEditorTest", &objects_and_names);
+	for (std::map<std::string, Object>::iterator itr = objects_and_names.begin();
+		itr != objects_and_names.end(); ++itr)
 	{
-		std::string load_object_name = itr->name.GetString();
-		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][0].GetFloat() };
-		vector2 load_translation = { itr->value["translation"][0].GetFloat(), itr->value["translation"][1].GetFloat() };
-		float load_rotation = itr->value["rotation"].GetFloat();
-
-		GetObjectManager()->AddObject(load_object_name);
-		GetObjectManager()->FindObject(load_object_name)->SetScale(load_scale);
-		GetObjectManager()->FindObject(load_object_name)->SetTranslation(load_translation);
-		GetObjectManager()->FindObject(load_object_name)->SetRotation(load_rotation);
-		GetObjectManager()->FindObject(load_object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		GetObjectManager()->FindObject(load_object_name)->AddComponent(new Sprite());
-		GetObjectManager()->FindObject(load_object_name)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->value["texture"].GetString());
-		GetObjectManager()->FindObject(load_object_name)->texture_path = itr->value["texture"].GetString();
-
-		newObject = GetObjectManager()->FindObject(load_object_name).get();
-		objects.push_back(newObject);
-		selected_object = newObject;
-		object_count++;
+		std::string object_name = itr->first;
+		GetObjectManager()->AddObject(object_name);
+		GetObjectManager()->FindObject(object_name)->SetScale(itr->second.GetTransform().GetScale());
+		GetObjectManager()->FindObject(object_name)->SetTranslation(itr->second.GetTransform().GetTranslation());
+		GetObjectManager()->FindObject(object_name)->SetRotation(*itr->second.GetTransform().GetRotation());
+		GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
+		GetObjectManager()->FindObject(object_name)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->second.texture_path);
+		GetObjectManager()->FindObject(object_name)->texture_path = itr->second.texture_path;
+		selected_object = GetObjectManager()->FindObject(object_name).get();
 	}
-
 }
 
 void MapEditorTest::Update(float dt)
@@ -71,7 +58,6 @@ void MapEditorTest::Update(float dt)
 		if (Input::IsKeyTriggered(GLFW_KEY_KP_7) || (Input::IsKeyTriggered(GLFW_KEY_KP_8)) ||
 			Input::IsKeyTriggered(GLFW_KEY_KP_9))
 		{
-			Object* new_object = new Object;
 			std::string name = object_name;
 			name.append(std::to_string(object_count));
 
@@ -94,27 +80,11 @@ void MapEditorTest::Update(float dt)
 			GetObjectManager()->FindObject(name)->GetComponentByTemplate<Sprite>()->Texture_Load(texture_path);
 			GetObjectManager()->FindObject(name)->texture_path = texture_path;
 
-			new_object = GetObjectManager()->FindObject(name).get();
-			newObject = new_object;
-			objects.push_back(newObject);
-			selected_object = newObject;
-
 			object_count++;
+			selected_object_id++;
+			selected_object = GetObjectManager()->FindObject(name).get();
 		}
 	}
-
-	//if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
-	//{
-	//	//for (std::vector<Object*>::iterator itr = objects.begin();
-	//	//	itr != objects.begin(); ++itr)
-	//	//{
-	//	//	selected_object = *itr;
-	//	//}
-	//	std::vector<Object*>::iterator itr;
-	//	itr = std::find(objects.begin(), objects.end(), selected_object);
-	//	itr++;
-	//	selected_object = *itr;
-	//}
 
 	if (Input::IsKeyAnyPressed())
 	{
@@ -122,16 +92,34 @@ void MapEditorTest::Update(float dt)
 			(Input::IsKeyPressed(GLFW_KEY_UP)) || (Input::IsKeyPressed(GLFW_KEY_DOWN)) )
 		{
 			vector2 current_translation = selected_object->GetTransform().GetTranslation();
-			if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
-				current_translation.x += 10.f;
-			if (Input::IsKeyPressed(GLFW_KEY_LEFT))
-				current_translation.x-= 10.f;
-			if (Input::IsKeyPressed(GLFW_KEY_UP))
-				current_translation.y+= 10.f;
-			if (Input::IsKeyPressed(GLFW_KEY_DOWN))
-				current_translation.y-= 10.f;
+			if (Input::IsKeyTriggered(GLFW_KEY_RIGHT))
+				current_translation.x += 32.f;
+			if (Input::IsKeyTriggered(GLFW_KEY_LEFT))
+				current_translation.x-= 32.f;
+			if (Input::IsKeyTriggered(GLFW_KEY_UP))
+				current_translation.y+= 32.f;
+			if (Input::IsKeyTriggered(GLFW_KEY_DOWN))
+				current_translation.y-= 32.f;
+
 			selected_object->SetTranslation(current_translation);
 		}
+
+		if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		{
+			selected_object_id++;
+			if (selected_object_id >= object_count) selected_object_id = 0;
+			std::string current_select_name = object_name + std::to_string(selected_object_id);
+
+			selected_object = GetObjectManager()->FindObject(current_select_name).get();
+
+			if (!selected_object)
+				std::cout << "there are no such thing idiot" << std::endl;
+
+			std::cout << "object size is " << object_count << std::endl;
+			std::cout << " current object id is " << selected_object_id << std::endl;
+
+		}
+
 	}
 
 	//std::cout << Input::GetMousePos(1).x<<", "<<Input::GetMousePos(1).y << std::endl;
@@ -144,7 +132,5 @@ void MapEditorTest::Update(float dt)
 
 void MapEditorTest::ShutDown()
 {
-	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
-	//UnLoad();
+
 }

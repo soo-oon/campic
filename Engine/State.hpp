@@ -28,16 +28,16 @@ public:
 	virtual std::string GetNextLevel() { return change_level; }
 
 	virtual void ChangeLevel(std::string ID);
-
-	virtual JSON* GetJson() { return json; }
+	virtual JSON* GetJson() { return json; };
 
 private:
 	std::string change_level;
 
 	bool camera = false;
 	bool level_change = false;
-	JSON* json = nullptr;
 	Objectmanager * objectmanager = nullptr;
 	WorldPhysics* world_physics = nullptr;
 	vector2 screen_size_{};
+
+	JSON* json = nullptr;
 };
