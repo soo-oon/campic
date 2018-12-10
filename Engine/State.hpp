@@ -1,7 +1,6 @@
 #pragma once
 #include "Objectmanager.hpp"
 #include <vector2.hpp>
-#include "WorldPhysics.h"
 
 class State
 {
@@ -19,7 +18,6 @@ public:
 	virtual void SetCamera() { camera = true; }
 	virtual bool IsCamera() { return camera; }
 	virtual Objectmanager* GetObjectManager() { return objectmanager; }
-	virtual WorldPhysics* GetWorldPhyics() { return world_physics; }
 	virtual vector2 GetStateScreenSize() { return screen_size_; }
 	virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
 	virtual bool IsLevelChange() { return level_change; }
@@ -33,6 +31,5 @@ private:
 	bool camera = false;
 	bool level_change = false;
 	Objectmanager * objectmanager = nullptr;
-	WorldPhysics* world_physics = nullptr;
 	vector2 screen_size_{};
 };
