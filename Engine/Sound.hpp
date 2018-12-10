@@ -9,6 +9,7 @@
 #include <fmod_common.h>
 #include <fmod.hpp>
 #include <string>
+#include <map>
 
 class Sound : public System
 {
@@ -17,21 +18,21 @@ public:
     void Update(float dt) override;
     void Quit() override;
 
-	FMOD::System* GetFMODSystem()  { return system; }
-	FMOD::Sound* GetFMODSound()  { return sound; }
+	FMOD::System*& GetFMODSystem() { return system; }
+	std::map<std::string,FMOD::Sound*>& GetSoundMap() { return sound_map; }
 
-	bool Play();
-	bool Pause();
-	bool Stop();
-	bool SetLoop(bool loop);
+	bool Play(std::string filePath);
+	bool Pause(std::string filePath);
+	bool Stop(std::string filePath);
+	bool SetLoop(std::string filePath, int loop_count);
 	bool SetVolume(float volume);
 	bool SetMute(bool mute);
 	bool IsPlaying();
-	bool CreateSound(const std::string& filePath);
-	bool CreateStream(const std::string & filePath);
+	void AddSound(const std::string& filePath);
+	//bool CreateStream(const std::string & filePath);
 	bool IsChannelValid();
 	int GetSoundMode();
-	void SetSoundSpeed(float speed);
+	void SetSoundSpeed(std::string filePath, float speed);
 
 private:
 	int fmod_result = FMOD_OK;
@@ -39,4 +40,7 @@ private:
 	FMOD::System* system = nullptr;
 	FMOD::Sound* sound = nullptr;
 	FMOD::Channel* channel = nullptr;
+
+	std::map<std::string,FMOD::Sound*> sound_map;
+
 };
