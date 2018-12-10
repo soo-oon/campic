@@ -48,6 +48,10 @@ void example::move_convex_object(float dt, Object* Ob)
 void example::Initialize()
 {
 	Load();
+
+	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
+	GetSoundMap()->AddSound("asset/sounds/punch.wav");
+
 	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
@@ -176,6 +180,10 @@ void example::Initialize()
 	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
+
+	
+
+	//sound->AddSound("asset/sounds/digimon.wav");
 	
 	GetWorldPhyics()->Gravity_on(GetObjectManager());
 }
@@ -185,8 +193,11 @@ void example::Update(float dt)
     Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
-            if (!change_sword)
-                change_sword = true;
+			if (!change_sword)
+			{
+				change_sword = true;
+				GetSoundMap()->Play("asset/sounds/digimon.wav");
+			}
             else
                 change_sword = false;
         }
@@ -250,6 +261,10 @@ void example::Update(float dt)
         {
             player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
         }
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			GetSoundMap()->Play("asset/sounds/punch.wav");
+		}
 
         if (dot(normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()), vector2(0, 1)) > 0)
         {

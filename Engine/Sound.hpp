@@ -34,6 +34,8 @@ public:
 	int GetSoundMode();
 	void SetSoundSpeed(std::string filePath, float speed);
 
+	void LoadSounds();
+
 private:
 	int fmod_result = FMOD_OK;
 	int loop = FMOD_LOOP_OFF;

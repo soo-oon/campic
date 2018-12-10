@@ -41,6 +41,8 @@ bool Sound::Initialize()
 		}
 	}
 
+	LoadSounds();
+
     return true;
 }
 
@@ -266,5 +268,10 @@ void Sound::SetSoundSpeed(std::string filePath, float speed)
 	{
 		sound_map.find(filePath)->second->setMusicSpeed(speed);
 	}
+}
+
+void Sound::LoadSounds()
+{
+	//AddSound("asset/sounds/digimon.wav");
 }
 

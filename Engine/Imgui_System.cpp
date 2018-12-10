@@ -14,7 +14,7 @@ bool Imgui_System::Initialize()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
 	glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
-
+	//glfwSetDropCallback();
 	//ImGui_ImplGlfw_InstallCallbacks(window);
 
 	ImGui::StyleColorsDark();
@@ -25,12 +25,12 @@ bool Imgui_System::Initialize()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos; 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-	for (auto& p : std::experimental::filesystem::directory_iterator("asset/images"))
+	for (auto& p : std::filesystem::directory_iterator("asset/images"))
 	{
 		imagelist.push_back(p.path().filename().string());
 	}
 
-	for (auto& p : std::experimental::filesystem::directory_iterator("asset/sounds"))
+	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
 		soundlist.push_back(p.path().filename().string());
 	}
@@ -141,8 +141,6 @@ void Imgui_System::ObjectManger(bool show_window)
 										temp->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
 									}
 								}
-
-
 								if (ImGui::Button("Delete"))
 								{
 									object_manager->GetObjectMap().erase(object_lists.at(i).c_str());
@@ -161,7 +159,6 @@ void Imgui_System::ObjectManger(bool show_window)
 						object_manager->FindObject(new_object).get()->SetScale({ 100,100 });
 						new_object.at(6) += 1;
 					}
-
 				}
 			}
 			ImGui::End();

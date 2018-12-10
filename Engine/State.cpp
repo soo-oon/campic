@@ -7,6 +7,8 @@ void State::Load()
 	objectmanager = new Objectmanager();
 	world_physics = new WorldPhysics();
 	json = new JSON();
+	sound = new Sound();
+	sound->Initialize();
 }
 
 void State::UpdateObjManager(float dt)
@@ -20,6 +22,7 @@ void State::UnLoad()
 	delete objectmanager;
 	delete world_physics;
 	delete json;
+	delete sound;
 }
 
 void State::ChangeLevel(std::string ID)
