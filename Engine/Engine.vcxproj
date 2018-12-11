@@ -148,6 +148,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GLSL.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="DepthValue.hpp" />
+    <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="GLSL.hpp" />
     <ClInclude Include="Graphics.hpp" />

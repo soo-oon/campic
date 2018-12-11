@@ -4,6 +4,7 @@
 #include "Character.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "status.hpp"
 
 bool Physics::Initialize()
 {
@@ -109,6 +110,7 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 		if (object2.GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
+			object1.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
 		}
 	}
         else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player

@@ -13,6 +13,8 @@ public:
 	bool GetLived(){return isLived;}
 	void SetSpeed(float speed){ move_speed = speed; }
 	float GetSpeed(){	return move_speed;}
+	int GetDamage() { return damage; }
+	void Damaged_hp(int damage_level);
 private:
 	int hp;
 	int damage;

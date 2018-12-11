@@ -9,6 +9,7 @@
 #include "Character.hpp"
 #include <limits.h>
 #include "Player.hpp"
+#include "status.hpp"
 
 void example::blackhole(Object* Ob, Object* Ob1)
 {
@@ -55,6 +56,7 @@ void example::Initialize()
 	player->AddComponent(new Collision(box_, {}, {100.0f, 100.0f}));
 	player->AddComponent(new Character(ObjectType::player));
 	player->AddComponent(new Player());
+	player->AddComponent(new Status(5,1,1.f));
 
         // TODO
         health_bar = BuildAndRegisterDynamicObject("health", vector2(0.0f, 0.5f), vector2(150.f/ player->GetTransform().GetScale().x, 
@@ -75,6 +77,7 @@ void example::Initialize()
 	slime->AddComponent(new Collision(box_, {}, {75.0f, 75.0f}));
 	slime->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	slime->AddComponent(new Character(ObjectType::opponent));
+	slime->AddComponent(new Status(5, 1, 1.f));
 
         shot = BuildAndRegisterDynamicObject("shot", vector2(-350, -350), vector2(75.f, 75.f));
         shot->AddComponent(new Animation("asset/images/shot.png", "shot", 4, 0.25));
@@ -87,6 +90,7 @@ void example::Initialize()
 	scol->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	scol->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	scol->AddComponent(new Character(ObjectType::opponent));
+	scol->AddComponent(new Status(5, 1, 1.f));
 
 
 	opponent1 = BuildAndRegisterDynamicObject("opponent1", vector2(-300,0), vector2(75.f, 75.f));
@@ -95,6 +99,7 @@ void example::Initialize()
 	opponent1->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	opponent1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	opponent1->AddComponent(new Character(ObjectType::opponent));
+	opponent1->AddComponent(new Status(5, 1, 1.f));
 
 	opponent2 = BuildAndRegisterDynamicObject("opponent2", vector2(200, -250), vector2(75.f, 75.f));
 	opponent2->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
@@ -102,6 +107,7 @@ void example::Initialize()
 	opponent2->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	opponent2->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	opponent2->AddComponent(new Character(ObjectType::opponent));
+	opponent2->AddComponent(new Status(5, 1, 1.f));
 
 	opponent3 = BuildAndRegisterDynamicObject("opponent3", vector2(0, 200), vector2(75.f, 75.f));
 	opponent3->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
@@ -109,6 +115,7 @@ void example::Initialize()
 	opponent3->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	opponent3->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	opponent3->AddComponent(new Character(ObjectType::opponent));
+	opponent3->AddComponent(new Status(5, 1, 1.f));
 
 	opponent4 = BuildAndRegisterDynamicObject("opponent4", vector2(300, 250), vector2(75.f, 75.f));
 	opponent4->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
@@ -116,6 +123,7 @@ void example::Initialize()
 	opponent4->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	opponent4->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	opponent4->AddComponent(new Character(ObjectType::opponent));
+	opponent4->AddComponent(new Status(5, 1, 1.f));
 
 	attack = BuildAndRegisterStaticObject("attack", vector2(100, 100), vector2(100.f, 100.f));
 	attack->AddComponent(new Animation("asset/images/hit.png", "attack", 5, 0.1f));
@@ -163,6 +171,7 @@ void example::Initialize()
         sword->AddComponent(new RigidBody());
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
+	sword->AddComponent(new Status(5, 1, 1.f));
 	sword->SetDepth(0.978f);
 
 
@@ -241,11 +250,17 @@ void example::Update(float dt)
 		if (dt_sword > 6)
 			dt_sword = 0;
 	}
+	if(scol->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, scol, 20);
+	if (slime->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, slime, 20);
+	if (opponent1->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent1, 20);
+	if (opponent2->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent2, 20);
+	if (opponent3->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent3, 20);
+	if (opponent4->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent4, 20);
 
 	Attact(sword);
@@ -253,7 +268,6 @@ void example::Update(float dt)
 	if(change_sword)
 	{
 		Enchanted(sword, spark, dia, heart, dt);
-
 	}
 	
 	//Should Fixed this
@@ -464,6 +478,6 @@ void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 
 void example::Attact(Object * object)
 {
-	if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }

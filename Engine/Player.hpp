@@ -1,5 +1,5 @@
 #pragma once
-#include "status.hpp"
+#include "Component.hpp"
 
 class Player : public Component
 {

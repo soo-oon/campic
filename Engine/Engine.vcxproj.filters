@@ -33,6 +33,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="status.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -76,5 +77,6 @@
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="status.hpp" />
+    <ClInclude Include="Enemy.hpp" />
   </ItemGroup>
 </Project>
