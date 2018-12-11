@@ -32,15 +32,18 @@ public:
 	rapidjson::Document* GetDocumentofLevel(std::string level_name);
 
 	//for Resource manager
-	
 
 private:
 	std::map<std::string, std::unique_ptr<rapidjson::Document>> LevelDocuments;
 	rapidjson::Document levels;
+	rapidjson::Document resource;
+
 	int level_count = 1;
 	std::string level_name = "Level";
 	std::string file_path = "asset/JsonFiles/";
+
 	std::string current_state_name;
 	Objectmanager* current_object_manager = 0;
 	StateManager* saved_state_manager = 0;
+	int object_id_count = 1;
 };

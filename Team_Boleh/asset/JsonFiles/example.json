@@ -12,7 +12,8 @@
         ],
         "depth": 0.9900000095367432,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 1
     },
     "camera": {
         "name": "camera",
@@ -27,22 +28,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
-    },
-    "dia": {
-        "name": "dia",
-        "translation": [
-            350.0,
-            -100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            25.0,
-            25.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 2
     },
     "dia1": {
         "name": "dia1",
@@ -57,7 +44,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 3
     },
     "door": {
         "name": "door",
@@ -65,14 +53,15 @@
             500.0,
             0.0
         ],
-        "rotation": 500.0,
+        "rotation": 4960.0,
         "scale": [
             75.0,
             75.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 4
     },
     "health": {
         "name": "health",
@@ -87,22 +76,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
-    },
-    "heart": {
-        "name": "heart",
-        "translation": [
-            350.0,
-            100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            25.0,
-            25.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 5
     },
     "heart1": {
         "name": "heart1",
@@ -117,12 +92,13 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 6
     },
     "opponent1": {
         "name": "opponent1",
         "translation": [
-            -248.88833618164063,
+            -141.1432647705078,
             0.0
         ],
         "rotation": 0.0,
@@ -132,13 +108,14 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 7
     },
     "opponent2": {
         "name": "opponent2",
         "translation": [
-            168.0708465576172,
-            -210.08853149414063
+            112.10887908935547,
+            -140.1360626220703
         ],
         "rotation": 0.0,
         "scale": [
@@ -147,13 +124,14 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 8
     },
     "opponent3": {
         "name": "opponent3",
         "translation": [
-            0.0,
-            148.88833618164063
+            -7.543591499328613,
+            140.46755981445313
         ],
         "rotation": 0.0,
         "scale": [
@@ -162,13 +140,14 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 9
     },
     "opponent4": {
         "name": "opponent4",
         "translation": [
-            260.7348937988281,
-            217.2790985107422
+            114.071044921875,
+            82.28262329101563
         ],
         "rotation": 0.0,
         "scale": [
@@ -177,7 +156,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 10
     },
     "player": {
         "name": "player",
@@ -192,13 +172,14 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 11
     },
     "scol": {
         "name": "scol",
         "translation": [
-            -263.8585510253906,
-            263.8585510253906
+            -99.87022399902344,
+            99.87022399902344
         ],
         "rotation": 0.0,
         "scale": [
@@ -207,28 +188,14 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
-    },
-    "shot": {
-        "name": "shot",
-        "translation": [
-            90.82266235351563,
-            41.847862243652347
-        ],
-        "rotation": 24.751121520996095,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 12
     },
     "slime": {
         "name": "slime",
         "translation": [
-            -263.8585510253906,
-            -263.8585510253906
+            -99.87022399902344,
+            -99.87022399902344
         ],
         "rotation": 0.0,
         "scale": [
@@ -237,7 +204,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 13
     },
     "sonic": {
         "name": "sonic",
@@ -252,36 +220,23 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
-    },
-    "spark": {
-        "name": "spark",
-        "translation": [
-            90.82266235351563,
-            41.847862243652347
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 14
     },
     "sword": {
         "name": "sword",
         "translation": [
-            90.82266235351563,
-            41.847862243652347
+            57.306373596191409,
+            81.95108032226563
         ],
-        "rotation": -65.2488784790039,
+        "rotation": -34.93622970581055,
         "scale": [
             75.0,
             75.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 15
     }
 }

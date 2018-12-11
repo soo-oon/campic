@@ -2,8 +2,8 @@
     "object0": {
         "name": "object0",
         "translation": [
-            -44.0,
-            -100.0
+            0.0,
+            0.0
         ],
         "rotation": 0.0,
         "scale": [
@@ -12,21 +12,7 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "asset/images/heart.png"
-    },
-    "object1": {
-        "name": "object1",
-        "translation": [
-            -69.59959411621094,
-            -38.96003723144531
-        ],
-        "rotation": 0.0,
-        "scale": [
-            64.0,
-            64.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/heart.png"
+        "texture": "asset/images/heart.png",
+        "id": 1
     }
 }

@@ -1,5 +1,5 @@
 #include "Imgui_System.hpp"
-
+#include <iostream>
 bool Imgui_System::Initialize()
 {
 	//Imgui Setup
@@ -64,9 +64,16 @@ void Imgui_System::Draw()
 			show_objectmanager_window = true;
 	}
 
+	if (Input::IsKeyTriggered(GLFW_KEY_KP_0))
+	{
+		show_mapeditor_window = !show_mapeditor_window;
+	}
+
+	ImGui::ShowDemoWindow(&show_demo_window);
 	//ImGui::ShowTestWindow();
 	ObjectManger(show_objectmanager_window);
 	ImGui_Option(&show_demo_window);
+	MapEditor(show_mapeditor_window);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -238,4 +245,33 @@ void Imgui_System::ImGui_Option(bool* show_window)
 	}
 
 	ImGui::End();
+}
+
+void Imgui_System::MapEditor(bool show_mapeditor_window)
+{
+	if (!show_mapeditor_window)
+		return;
+
+	ImGui::SetNextWindowSize({ 400,200 });
+
+	ImGui::Begin("Mapeditor", &show_mapeditor_window, ImGuiWindowFlags_AlwaysAutoResize);
+
+	if (ImGui::Button("Meow")) //this is just button
+	{
+		std::cout << "Meow\n";
+	}
+
+	//1				//+ -
+	//2				//+ -
+	//3				//+ - WHAT THE 
+	std::vector<int> v{ 0,1,2 };
+	for (int i = 0; i < v.size(); ++i)
+	{
+		ImGui::PushID(i);
+		ImGui::InputInt("##", &v[i]);
+		ImGui::PopID();
+	}
+		
+
+	ImGui::End(); //Mapeditor window end
 }
