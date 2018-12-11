@@ -25,6 +25,7 @@ public:
 	void Draw();
 	void ObjectManger(bool show_window);
 	void ImGui_Option(bool* show_window);
+	void MapEditor(bool show_mapeditor_window);
 
 	void SetObjectManger(Objectmanager* obj_manager) { object_manager = obj_manager; }
 	void SetFMOD(Sound* system) { m_FMOD_system = system; };
@@ -34,6 +35,8 @@ private:
 	Objectmanager* object_manager = nullptr;
 	bool show_demo_window = true;
 	bool show_objectmanager_window = true;
+
+	bool show_mapeditor_window = false;
 
 	std::vector<std::string> imagelist;
 	std::vector<std::string> soundlist;

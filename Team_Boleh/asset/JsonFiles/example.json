@@ -12,7 +12,8 @@
         ],
         "depth": 0.9900000095367432,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 1
     },
     "camera": {
         "name": "camera",
@@ -27,22 +28,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
-    },
-    "dia": {
-        "name": "dia",
-        "translation": [
-            350.0,
-            -100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            25.0,
-            25.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 2
     },
     "dia1": {
         "name": "dia1",
@@ -57,7 +44,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 3
     },
     "door": {
         "name": "door",
@@ -65,14 +53,19 @@
             500.0,
             0.0
         ],
+<<<<<<< HEAD
         "rotation": 2620.0,
+=======
+        "rotation": 4960.0,
+>>>>>>> JihunPark
         "scale": [
             75.0,
             75.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 4
     },
     "health": {
         "name": "health",
@@ -87,22 +80,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
-    },
-    "heart": {
-        "name": "heart",
-        "translation": [
-            350.0,
-            100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            25.0,
-            25.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 5
     },
     "heart1": {
         "name": "heart1",
@@ -117,12 +96,17 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 6
     },
     "opponent1": {
         "name": "opponent1",
         "translation": [
+<<<<<<< HEAD
             -115.58679962158203,
+=======
+            -141.1432647705078,
+>>>>>>> JihunPark
             0.0
         ],
         "rotation": 0.0,
@@ -132,13 +116,19 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 7
     },
     "opponent2": {
         "name": "opponent2",
         "translation": [
+<<<<<<< HEAD
             153.10687255859376,
             -127.76689147949219
+=======
+            112.10887908935547,
+            -140.1360626220703
+>>>>>>> JihunPark
         ],
         "rotation": 0.0,
         "scale": [
@@ -147,13 +137,19 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 8
     },
     "opponent3": {
         "name": "opponent3",
         "translation": [
+<<<<<<< HEAD
             76.3659439086914,
             74.556640625
+=======
+            -7.543591499328613,
+            140.46755981445313
+>>>>>>> JihunPark
         ],
         "rotation": 0.0,
         "scale": [
@@ -162,13 +158,19 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 9
     },
     "opponent4": {
         "name": "opponent4",
         "translation": [
+<<<<<<< HEAD
             207.418701171875,
             140.6214599609375
+=======
+            114.071044921875,
+            82.28262329101563
+>>>>>>> JihunPark
         ],
         "rotation": 0.0,
         "scale": [
@@ -177,7 +179,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 10
     },
     "player": {
         "name": "player",
@@ -192,13 +195,19 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 11
     },
     "scol": {
         "name": "scol",
         "translation": [
+<<<<<<< HEAD
             -153.36160278320313,
             190.15493774414063
+=======
+            -99.87022399902344,
+            99.87022399902344
+>>>>>>> JihunPark
         ],
         "rotation": 0.0,
         "scale": [
@@ -207,6 +216,7 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
+<<<<<<< HEAD
         "texture": "no_texture"
     },
     "shot": {
@@ -223,12 +233,21 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture"
+=======
+        "texture": "no_texture",
+        "id": 12
+>>>>>>> JihunPark
     },
     "slime": {
         "name": "slime",
         "translation": [
+<<<<<<< HEAD
             -153.36160278320313,
             -190.15493774414063
+=======
+            -99.87022399902344,
+            -99.87022399902344
+>>>>>>> JihunPark
         ],
         "rotation": 0.0,
         "scale": [
@@ -237,7 +256,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 13
     },
     "sonic": {
         "name": "sonic",
@@ -252,6 +272,7 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
+<<<<<<< HEAD
         "texture": "no_texture"
     },
     "spark": {
@@ -268,20 +289,32 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture"
+=======
+        "texture": "no_texture",
+        "id": 14
+>>>>>>> JihunPark
     },
     "sword": {
         "name": "sword",
         "translation": [
+<<<<<<< HEAD
             274.0550842285156,
             78.76148986816406
         ],
         "rotation": -38.01047134399414,
+=======
+            57.306373596191409,
+            81.95108032226563
+        ],
+        "rotation": -34.93622970581055,
+>>>>>>> JihunPark
         "scale": [
             75.0,
             75.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 15
     }
 }

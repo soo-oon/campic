@@ -30,5 +30,11 @@ private:
 
 	Object* newObject;
 	Object* selected_object = nullptr;
+<<<<<<< HEAD
 	size_t selected_object_id = 0;
+=======
+	int selected_object_id = 0;
+
+	std::string Intersection(vector2 mouse_pos);
+>>>>>>> JihunPark
 };

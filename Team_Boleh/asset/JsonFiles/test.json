@@ -12,7 +12,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 1
     },
     "test1": {
         "name": "test1",
@@ -27,7 +28,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 2
     },
     "test10": {
         "name": "test10",
@@ -42,7 +44,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 3
     },
     "test11": {
         "name": "test11",
@@ -57,7 +60,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 4
     },
     "test12": {
         "name": "test12",
@@ -72,7 +76,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 5
     },
     "test13": {
         "name": "test13",
@@ -87,7 +92,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 6
     },
     "test14": {
         "name": "test14",
@@ -102,7 +108,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 7
     },
     "test15": {
         "name": "test15",
@@ -117,7 +124,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 8
     },
     "test16": {
         "name": "test16",
@@ -132,7 +140,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 9
     },
     "test17": {
         "name": "test17",
@@ -147,7 +156,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 10
     },
     "test18": {
         "name": "test18",
@@ -162,7 +172,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 11
     },
     "test19": {
         "name": "test19",
@@ -177,7 +188,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 12
     },
     "test2": {
         "name": "test2",
@@ -192,7 +204,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 13
     },
     "test3": {
         "name": "test3",
@@ -207,7 +220,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 14
     },
     "test4": {
         "name": "test4",
@@ -222,7 +236,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 15
     },
     "test5": {
         "name": "test5",
@@ -237,7 +252,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 16
     },
     "test6": {
         "name": "test6",
@@ -252,7 +268,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 17
     },
     "test7": {
         "name": "test7",
@@ -267,7 +284,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 18
     },
     "test8": {
         "name": "test8",
@@ -282,7 +300,8 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 19
     },
     "test9": {
         "name": "test9",
@@ -297,6 +316,7 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "no_texture"
+        "texture": "no_texture",
+        "id": 20
     }
 }
