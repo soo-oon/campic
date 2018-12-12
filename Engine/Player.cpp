@@ -37,3 +37,18 @@ void Player::MovePlayer()
 	}
 
 }
+
+void Player::SetCardList(std::string card)
+{
+	card_list.push_back(card);
+}
+
+void Player::ClearCardList()
+{
+	card_list.clear();
+}
+
+std::vector<std::string> Player::GetCardList()
+{
+	return card_list;
+}

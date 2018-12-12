@@ -1,4 +1,20 @@
 {
+    "background": {
+        "name": "background",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.9900000095367432,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 1
+    },
     "camera": {
         "name": "camera",
         "translation": [
@@ -13,310 +29,54 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 1
-    },
-    "test1": {
-        "name": "test1",
-        "translation": [
-            -100.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
         "id": 2
     },
-    "test10": {
-        "name": "test10",
+    "door": {
+        "name": "door",
         "translation": [
-            -20.0,
+            500.0,
             0.0
         ],
         "rotation": 0.0,
         "scale": [
-            150.0,
-            150.0
+            75.0,
+            75.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 3
     },
-    "test11": {
-        "name": "test11",
+    "player": {
+        "name": "player",
         "translation": [
-            -10.0,
-            0.0
+            -27.68390464782715,
+            -144.08786010742188
         ],
-        "rotation": 0.0,
+        "rotation": -360.70208740234377,
         "scale": [
-            150.0,
-            150.0
+            100.0,
+            100.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 4
     },
-    "test12": {
-        "name": "test12",
+    "sword": {
+        "name": "sword",
         "translation": [
-            0.0,
-            0.0
+            -29.9574031829834,
+            -243.958740234375
         ],
-        "rotation": 0.0,
+        "rotation": -180.7021026611328,
         "scale": [
-            150.0,
+            200.0,
             150.0
         ],
-        "depth": 0.0,
+        "depth": 0.9779999852180481,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 5
-    },
-    "test13": {
-        "name": "test13",
-        "translation": [
-            10.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 6
-    },
-    "test14": {
-        "name": "test14",
-        "translation": [
-            20.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 7
-    },
-    "test15": {
-        "name": "test15",
-        "translation": [
-            30.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 8
-    },
-    "test16": {
-        "name": "test16",
-        "translation": [
-            40.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 9
-    },
-    "test17": {
-        "name": "test17",
-        "translation": [
-            50.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 10
-    },
-    "test18": {
-        "name": "test18",
-        "translation": [
-            60.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 11
-    },
-    "test19": {
-        "name": "test19",
-        "translation": [
-            70.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 12
-    },
-    "test2": {
-        "name": "test2",
-        "translation": [
-            -90.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 13
-    },
-    "test3": {
-        "name": "test3",
-        "translation": [
-            -80.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 14
-    },
-    "test4": {
-        "name": "test4",
-        "translation": [
-            -70.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 15
-    },
-    "test5": {
-        "name": "test5",
-        "translation": [
-            -60.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 16
-    },
-    "test6": {
-        "name": "test6",
-        "translation": [
-            -50.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 17
-    },
-    "test7": {
-        "name": "test7",
-        "translation": [
-            -40.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 18
-    },
-    "test8": {
-        "name": "test8",
-        "translation": [
-            -30.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 19
-    },
-    "test9": {
-        "name": "test9",
-        "translation": [
-            0.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 20
     }
 }

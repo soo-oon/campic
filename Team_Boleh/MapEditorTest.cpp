@@ -23,11 +23,9 @@ void MapEditorTest::Initialize()
 		GetObjectManager()->FindObject("object0")->AddComponent(new Sprite());
 		GetObjectManager()->FindObject("object0")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
 		GetObjectManager()->FindObject("object0")->texture_path = "asset/images/heart.png";
-		selected_object = GetObjectManager()->FindObject("object0").get();
 	}
 	else
 	{
-		selected_object_id = (int)(objects_and_names.size() - 1);
 		object_count = (int)(objects_and_names.size());
 	}
 }
@@ -47,7 +45,6 @@ void MapEditorTest::LoadMap()
 		GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
 		GetObjectManager()->FindObject(object_name)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->second.texture_path);
 		GetObjectManager()->FindObject(object_name)->texture_path = itr->second.texture_path;
-		selected_object = GetObjectManager()->FindObject(object_name).get();
 	}
 }
 
@@ -81,8 +78,6 @@ void MapEditorTest::Update(float dt)
 			GetObjectManager()->FindObject(name)->texture_path = texture_path;
 
 			object_count++;
-			selected_object_id++;
-			selected_object = GetObjectManager()->FindObject(name).get();
 		}
 	}
 

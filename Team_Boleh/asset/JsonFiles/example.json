@@ -1,4 +1,20 @@
 {
+    "attack": {
+        "name": "attack",
+        "translation": [
+            100.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 1
+    },
     "background": {
         "name": "background",
         "translation": [
@@ -13,7 +29,7 @@
         "depth": 0.9900000095367432,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 1
+        "id": 2
     },
     "camera": {
         "name": "camera",
@@ -29,22 +45,6 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 2
-    },
-    "dia1": {
-        "name": "dia1",
-        "translation": [
-            420.0,
-            -100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            50.0,
-            50.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
         "id": 3
     },
     "door": {
@@ -53,11 +53,7 @@
             500.0,
             0.0
         ],
-<<<<<<< HEAD
-        "rotation": 2620.0,
-=======
-        "rotation": 4960.0,
->>>>>>> JihunPark
+        "rotation": 43600.0,
         "scale": [
             75.0,
             75.0
@@ -83,231 +79,29 @@
         "texture": "no_texture",
         "id": 5
     },
-    "heart1": {
-        "name": "heart1",
+    "player": {
+        "name": "player",
         "translation": [
-            420.0,
-            100.0
+            279.7644958496094,
+            -182.25222778320313
         ],
-        "rotation": 0.0,
+        "rotation": -179.72369384765626,
         "scale": [
-            50.0,
-            50.0
+            100.0,
+            100.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 6
     },
-    "opponent1": {
-        "name": "opponent1",
-        "translation": [
-<<<<<<< HEAD
-            -115.58679962158203,
-=======
-            -141.1432647705078,
->>>>>>> JihunPark
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 7
-    },
-    "opponent2": {
-        "name": "opponent2",
-        "translation": [
-<<<<<<< HEAD
-            153.10687255859376,
-            -127.76689147949219
-=======
-            112.10887908935547,
-            -140.1360626220703
->>>>>>> JihunPark
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 8
-    },
-    "opponent3": {
-        "name": "opponent3",
-        "translation": [
-<<<<<<< HEAD
-            76.3659439086914,
-            74.556640625
-=======
-            -7.543591499328613,
-            140.46755981445313
->>>>>>> JihunPark
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 9
-    },
-    "opponent4": {
-        "name": "opponent4",
-        "translation": [
-<<<<<<< HEAD
-            207.418701171875,
-            140.6214599609375
-=======
-            114.071044921875,
-            82.28262329101563
->>>>>>> JihunPark
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 10
-    },
-    "player": {
-        "name": "player",
-        "translation": [
-            213.23031616210938,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 11
-    },
-    "scol": {
-        "name": "scol",
-        "translation": [
-<<<<<<< HEAD
-            -153.36160278320313,
-            190.15493774414063
-=======
-            -99.87022399902344,
-            99.87022399902344
->>>>>>> JihunPark
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-<<<<<<< HEAD
-        "texture": "no_texture"
-    },
-    "shot": {
-        "name": "shot",
-        "translation": [
-            273.3559875488281,
-            78.69744873046875
-        ],
-        "rotation": 51.929988861083987,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
-=======
-        "texture": "no_texture",
-        "id": 12
->>>>>>> JihunPark
-    },
-    "slime": {
-        "name": "slime",
-        "translation": [
-<<<<<<< HEAD
-            -153.36160278320313,
-            -190.15493774414063
-=======
-            -99.87022399902344,
-            -99.87022399902344
->>>>>>> JihunPark
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 13
-    },
-    "sonic": {
-        "name": "sonic",
-        "translation": [
-            0.0,
-            -200.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            150.0,
-            150.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-<<<<<<< HEAD
-        "texture": "no_texture"
-    },
-    "spark": {
-        "name": "spark",
-        "translation": [
-            274.0550842285156,
-            78.76148986816406
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture"
-=======
-        "texture": "no_texture",
-        "id": 14
->>>>>>> JihunPark
-    },
     "sword": {
         "name": "sword",
         "translation": [
-<<<<<<< HEAD
-            274.0550842285156,
-            78.76148986816406
+            279.4250793457031,
+            -82.17822265625
         ],
-        "rotation": -38.01047134399414,
-=======
-            57.306373596191409,
-            81.95108032226563
-        ],
-        "rotation": -34.93622970581055,
->>>>>>> JihunPark
+        "rotation": 0.27629852294921877,
         "scale": [
             75.0,
             75.0
@@ -315,6 +109,6 @@
         "depth": 0.9779999852180481,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 15
+        "id": 7
     }
 }
