@@ -41,7 +41,7 @@ bool Sound::Initialize()
 		}
 	}
 
-	CreateSound("asset/sounds/digimon.wav");
+	LoadSounds();
 
     return true;
 }
@@ -52,41 +52,42 @@ void Sound::Update(float dt)
 	if(fmod_result != FMOD_OK)
 		assert(false);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_T))
-	{
-		if (IsPlaying())
-			Stop();
-		else
-			Play();
-	}
+	//if (Input::IsKeyTriggered(GLFW_KEY_T))
+	//{
+	//	if (IsPlaying())
+	//		Stop();
+	//	else
+	//		Play();
+	//}
 }
 
 void Sound::Quit()
 {
-	system->close();
 	system->release();
+	system->close();
+
 }
 
-bool Sound::Play()
+bool Sound::Play(std::string filePath)
 {
-	if (IsChannelValid())
+	if (sound_map.find(filePath) != sound_map.end())
 	{
-		//check if sound is playing
-		bool isPlaying = false;
-		fmod_result = channel->isPlaying(&isPlaying);
-		if (fmod_result != FMOD_OK)
-		{
-			assert(false);
-			return false;
-		}
-
-		// if its already playing, just continue
-		if (isPlaying)
-			return true;
+		fmod_result = system->playSound(sound_map.find(filePath)->second, nullptr, false, &channel);
 	}
+	////check if sound is playing
+	//bool isPlaying = false;
+	//fmod_result = channel->isPlaying(&isPlaying);
+	//if (fmod_result != FMOD_OK)
+	//{
+	//	assert(false);
+	//	return false;
+	//}
+	//// if its already playing, just continue
+	//if (isPlaying)
+	//	return true;
 
 	// Start playing the sound
-	fmod_result = system->playSound(sound, nullptr, false, &channel);
+	//fmod_result = system->playSound(sound, nullptr, false, &channel);
 	if (fmod_result != FMOD_OK)
 	{
 		assert(false);
@@ -96,7 +97,7 @@ bool Sound::Play()
 	return true;
 }
 
-bool Sound::Pause()
+bool Sound::Pause(std::string filePath)
 {
 	if (!IsChannelValid())
 		return true;
@@ -125,7 +126,7 @@ bool Sound::Pause()
 	return true;
 }
 
-bool Sound::Stop()
+bool Sound::Stop(std::string filePath)
 {
 	if (!IsChannelValid())
 		return true;
@@ -146,7 +147,7 @@ bool Sound::Stop()
 	return true;
 }
 
-bool Sound::SetLoop(bool loop)
+bool Sound::SetLoop(std::string filePath, int loop_count)
 {
 	loop = loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF;
 
@@ -160,7 +161,12 @@ bool Sound::SetLoop(bool loop)
 	}
 
 	// Set the channel with the new mode
-	fmod_result = sound->setMode(GetSoundMode());
+	if(sound_map.find(filePath) != sound_map.end())
+	{
+		fmod_result = sound_map.find(filePath)->second->setMode(GetSoundMode());
+		fmod_result = sound_map.find(filePath)->second->setLoopCount(loop_count);
+	}
+
 	if (fmod_result != FMOD_OK)
 	{
 		assert(fmod_result);
@@ -215,30 +221,31 @@ bool Sound::IsPlaying()
 	return isPlaying;
 }
 
-bool Sound::CreateSound(const std::string& filePath)
+void Sound::AddSound(const std::string& filePath)
 {
 	// Create sound
-	fmod_result = system->createSound(filePath.c_str(), GetSoundMode(), nullptr, &sound);
-	if (fmod_result != FMOD_OK)
+	if (sound_map.find(filePath) == sound_map.end())
 	{
-		assert(false);
-		return false;
+		system->createSound(filePath.c_str(), GetSoundMode(), nullptr, &sound);
+		sound_map.insert(std::make_pair(filePath, sound));
 	}
-	return true;
+	else
+		assert(false);
+
 }
 
-bool Sound::CreateStream(const std::string& filePath)
-{
-	// Create sound
-	fmod_result = system->createStream(filePath.c_str(), GetSoundMode(), nullptr, &sound);
-	if (fmod_result != FMOD_OK)
-	{
-		assert(false);
-		return false;
-	}
-
-	return true;
-}
+//bool Sound::CreateStream(const std::string& filePath)
+//{
+//	// Create sound
+//	fmod_result = system->createStream(filePath.c_str(), GetSoundMode(), nullptr, &sound);
+//	if (fmod_result != FMOD_OK)
+//	{
+//		assert(false);
+//		return false;
+//	}
+//
+//	return true;
+//}
 
 bool Sound::IsChannelValid()
 {
@@ -255,8 +262,16 @@ int Sound::GetSoundMode()
 	return FMOD_3D | loop;
 }
 
-void Sound::SetSoundSpeed(float speed)
+void Sound::SetSoundSpeed(std::string filePath, float speed)
 {
-	sound->setMusicSpeed(speed);
+	if(sound_map.find(filePath) != sound_map.end())
+	{
+		sound_map.find(filePath)->second->setMusicSpeed(speed);
+	}
+}
+
+void Sound::LoadSounds()
+{
+	//AddSound("asset/sounds/digimon.wav");
 }
 

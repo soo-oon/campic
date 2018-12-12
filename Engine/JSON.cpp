@@ -8,6 +8,7 @@
 #define DEPTH		"depth"
 #define GRAVITY		"gravity"
 #define TEXTURE		"texture"
+#define ID			"id"
 
 bool JSON::Initialize()
 {
@@ -17,43 +18,32 @@ bool JSON::Initialize()
 	return true;
 }
 
-void JSON::Update(float dt)
-{
-
-}
+void JSON::Update(float dt) { }
 
 void JSON::Quit()
 {
+	//SaveAtEnd();
 	SaveDocument();
+	saved_state_manager = nullptr;
 	for (std::map< std::string, std::unique_ptr < rapidjson::Document>>::iterator
 		it = LevelDocuments.begin(); it != LevelDocuments.end(); it++)
 		delete(it->second.get());
 }
 
+
 void JSON::UpdateLevel(StateManager* state_manager)
 {
-	std::string name;
-	State* currentstat = state_manager->GetCurrentState();
-	Objectmanager* currentobjectM = currentstat->GetObjectManager();
+	if (saved_state_manager)
+		return;
 
-	for (std::map <std::string, std::unique_ptr<State>>::iterator
-		it = state_manager->GetStateMap().begin(); it != state_manager->GetStateMap().end(); it++)
-	{
-		if (currentstat == it->second.get())
-			name = it->first;
-	}
-
-	for (std::map< std::string, std::unique_ptr <rapidjson::Document>>::iterator
-		it = LevelDocuments.begin(); it != LevelDocuments.end(); it++)
-	{
-		if (it->first == name)
-		{
-			UpdateDocument(currentobjectM, it->second.get());
-			return;
-		}
-	}
-	AddNewLevel(currentstat, name);
+	saved_state_manager = state_manager;
 }
+
+void JSON::SaveAtEnd()
+{
+	SaveAtEnd(saved_state_manager);
+}
+
 
 void JSON::SaveAtEnd(StateManager* state_manager)
 {
@@ -66,12 +56,16 @@ void JSON::SaveAtEnd(StateManager* state_manager)
 	{
 		name = it->first;
 		currentstate = it->second.get();
-		AddNewLevel(currentstate, name);
 
 		currentObjectM = it->second.get()->GetObjectManager();
+		if (!currentObjectM) //if currentObejctmanager is empt, it means you didn't turn that level.
+			continue;
+
+		AddNewLevel(currentstate, name);
 		for (std::map<std::string, std::unique_ptr<rapidjson::Document>>::iterator
 			it2 = LevelDocuments.begin(); it2 != LevelDocuments.end(); it2++)
 		{
+			if(it2->first == name)
 			UpdateDocument(currentObjectM, it2->second.get());
 		}
 	}
@@ -98,18 +92,21 @@ void JSON::AddNewLevel(State* current_state, std::string name)
 
 void JSON::UpdateDocument(Objectmanager* objectmanager, rapidjson::Document* document)
 {
+	object_id_count = 1;
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator
 		it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
 	{
 		if (!(document->HasMember(it->first.c_str())))
 			AddNewObject(it->second.get(), it->first, document);
-		else
-			UpdateObject(it->second.get(), it->first, document);
+		//else
+		//	UpdateObject(it->second.get(), it->first, document);
 	}
 }
 
 void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* document)
 {
+	if (!object->GetMesh().IsVisible())
+		return;
 	rapidjson::Value newObjectData(rapidjson::kObjectType);
 	rapidjson::Document::AllocatorType& allocator = document->GetAllocator();
 
@@ -135,6 +132,10 @@ void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* d
 
 	rapidjson::Value newObjectTexture(object->texture_path.c_str(), allocator);
 
+	rapidjson::Value newObjectID(rapidjson::kObjectType);
+	newObjectID.SetInt(object_id_count);
+	object_id_count++;
+
 	//Add Datas to objectdata
 	newObjectData.AddMember(NAME, newObjectName, allocator);
 	newObjectData.AddMember(TRANSLATION, newObjectTranslation, allocator);
@@ -143,30 +144,14 @@ void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* d
 	newObjectData.AddMember(DEPTH, newObjectDepth, allocator);
 	newObjectData.AddMember(GRAVITY, newObjectGravity, allocator);
 	newObjectData.AddMember(TEXTURE, newObjectTexture, allocator);
+	newObjectData.AddMember(ID, newObjectID, allocator);
 
 	rapidjson::Value nameofobject(name.c_str(), allocator);
 
 	//Add objectdata to document
 	document->AddMember(nameofobject, newObjectData, allocator);
 }
-void JSON::UpdateObject(Object* object, std::string name, rapidjson::Document* document)
-{
-	rapidjson::Value& a_type_data = (*document)[name.c_str()][TRANSLATION];
 
-	a_type_data[0].SetFloat(object->GetTransform().GetTranslation().x);
-	a_type_data[1].SetFloat(object->GetTransform().GetTranslation().y);
-
-	rapidjson::Value& o_type_data = (*document)[name.c_str()][ROTATION];
-	o_type_data = (*document)[name.c_str()][ROTATION];
-	o_type_data.SetFloat(*(object->GetTransform().GetRotation()));
-
-	(*document)[name.c_str()][SCALE][0].SetFloat(object->GetTransform().GetScale().x);
-	(*document)[name.c_str()][SCALE][1].SetFloat(object->GetTransform().GetScale().y);
-
-	(*document)[name.c_str()][DEPTH].SetFloat(object->GetTransform().GetDepth());
-
-	(*document)[name.c_str()][GRAVITY].SetFloat(object->GetGravity());
-}
 
 void JSON::SaveDocument()
 {
@@ -240,12 +225,34 @@ rapidjson::Document* JSON::GetDocumentofLevel(std::string level_name)
 
 	return nullptr;
 }
-//
-//std::vector<Object> JSON::GetLoadLevel(std::string state_name, std::vector<Object*> state_object)
-//{
-//	rapidjson::Document* levels_document = GetDocumentofLevel(state_name);
-//
-//
-//
-//	return std::vector<Object>();
-//}
+
+void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* state_object)
+{
+	rapidjson::Document load_document;
+	FILE* fp;
+	std::string file_name = file_path;
+	file_name.append(state_name);
+	file_name.append(".json");
+	fopen_s(&fp, "asset/JsonFiles/MapEditorTest.json", "rb");
+	char readBuffer[65535];
+	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+	load_document.ParseStream(is);
+	fclose(fp);
+
+	for (rapidjson::Value::ConstMemberIterator itr = load_document.MemberBegin();
+		itr != load_document.MemberEnd(); ++itr)
+	{
+		std::string load_object_name = itr->name.GetString();
+		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][0].GetFloat() };
+		vector2 load_translation = { itr->value["translation"][0].GetFloat(), itr->value["translation"][1].GetFloat() };
+		float load_rotation = itr->value["rotation"].GetFloat();
+
+		Object new_object;
+		new_object.SetScale(load_scale);
+		new_object.SetScale(load_scale);
+		new_object.SetTranslation(load_translation);
+		new_object.SetRotation(load_rotation);
+		new_object.texture_path = itr->value["texture"].GetString();
+		state_object->insert(std::pair<std::string, Object>(load_object_name, new_object));
+	}
+}

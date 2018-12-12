@@ -1,5 +1,5 @@
 #include "Imgui_System.hpp"
-
+#include <iostream>
 bool Imgui_System::Initialize()
 {
 	//Imgui Setup
@@ -14,7 +14,7 @@ bool Imgui_System::Initialize()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
 	glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
-
+	//glfwSetDropCallback();
 	//ImGui_ImplGlfw_InstallCallbacks(window);
 
 	ImGui::StyleColorsDark();
@@ -25,12 +25,12 @@ bool Imgui_System::Initialize()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos; 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-	for (auto& p : std::experimental::filesystem::directory_iterator("asset/images"))
+	for (auto& p : std::filesystem::directory_iterator("asset/images"))
 	{
 		imagelist.push_back(p.path().filename().string());
 	}
 
-	for (auto& p : std::experimental::filesystem::directory_iterator("asset/sounds"))
+	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
 		soundlist.push_back(p.path().filename().string());
 	}
@@ -64,9 +64,16 @@ void Imgui_System::Draw()
 			show_objectmanager_window = true;
 	}
 
+	if (Input::IsKeyTriggered(GLFW_KEY_KP_0))
+	{
+		show_mapeditor_window = !show_mapeditor_window;
+	}
+
+	ImGui::ShowDemoWindow(&show_demo_window);
 	//ImGui::ShowTestWindow();
 	ObjectManger(show_objectmanager_window);
 	ImGui_Option(&show_demo_window);
+	MapEditor(show_mapeditor_window);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -141,8 +148,6 @@ void Imgui_System::ObjectManger(bool show_window)
 										temp->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
 									}
 								}
-
-
 								if (ImGui::Button("Delete"))
 								{
 									object_manager->GetObjectMap().erase(object_lists.at(i).c_str());
@@ -161,7 +166,6 @@ void Imgui_System::ObjectManger(bool show_window)
 						object_manager->FindObject(new_object).get()->SetScale({ 100,100 });
 						new_object.at(6) += 1;
 					}
-
 				}
 			}
 			ImGui::End();
@@ -201,7 +205,7 @@ void Imgui_System::ImGui_Option(bool* show_window)
 
 	const std::string current_path = "asset/sounds/";
 
-	if (ImGui::Button("Create Sound"))
+	/*if (ImGui::Button("Create Sound"))
 	{
 		m_FMOD_system->CreateSound(current_path + current_sound);
 	}
@@ -235,7 +239,36 @@ void Imgui_System::ImGui_Option(bool* show_window)
 	if (ImGui::SliderFloat("Speed", &speed, 0, 5))
 	{
 		m_FMOD_system->SetSoundSpeed(speed);
-	}
+	}*/
 
 	ImGui::End();
+}
+
+void Imgui_System::MapEditor(bool show_mapeditor_window)
+{
+	if (!show_mapeditor_window)
+		return;
+
+	ImGui::SetNextWindowSize({ 400,200 });
+
+	ImGui::Begin("Mapeditor", &show_mapeditor_window, ImGuiWindowFlags_AlwaysAutoResize);
+
+	if (ImGui::Button("Meow")) //this is just button
+	{
+		std::cout << "Meow\n";
+	}
+
+	//1				//+ -
+	//2				//+ -
+	//3				//+ - WHAT THE 
+	std::vector<int> v{ 0,1,2 };
+	for (int i = 0; i < v.size(); ++i)
+	{
+		ImGui::PushID(i);
+		ImGui::InputInt("##", &v[i]);
+		ImGui::PopID();
+	}
+		
+
+	ImGui::End(); //Mapeditor window end
 }

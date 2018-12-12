@@ -91,7 +91,6 @@ void Engine::Update()
 
 		Json->UpdateLevel(GetSystemByTemplate<StateManager>());
 
-
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
     }
@@ -101,6 +100,7 @@ void Engine::Update()
 
 void Engine::Quit()
 {
+	Json->SaveAtEnd();
     for (auto i : systems)
         i->Quit();
 }

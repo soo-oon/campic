@@ -17,6 +17,7 @@ namespace
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos);
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset);
+	void DropCallBack(GLFWwindow* window, int count, const char** paths);
 }
 
 
@@ -73,6 +74,7 @@ bool Application::Initialize()
 	glfwSetCursorPosCallback(window, MousePositionCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetScrollCallback(window, MouseWheelScroll);
+	glfwSetDropCallback(window, DropCallBack);
 	glfwSetWindowCloseCallback(window, Window_Exit);
 
     Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
@@ -192,6 +194,13 @@ namespace
 		Input::SetKeyPressed(key, action);
 		ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
     }
+
+	void DropCallBack(GLFWwindow* window, int count, const char** paths)
+	{
+		std::vector<std::string> handle_dropped_file;
+		for (int i = 0; i < count; i++)
+			handle_dropped_file.push_back(paths[i]);
+	}
 
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos)
     {

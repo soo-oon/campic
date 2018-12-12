@@ -1,7 +1,9 @@
 #pragma once
 #include "Objectmanager.hpp"
 #include <vector2.hpp>
-#include "WorldPhysics.h"
+#include "Sound.hpp"
+
+class JSON;
 
 class State
 {
@@ -14,18 +16,18 @@ public:
 	virtual void UpdateObjManager(float dt);
 	virtual void Update(float dt) = 0;
 	virtual void ShutDown() = 0;
-	virtual  void UnLoad();
+	virtual void UnLoad();
 
 	virtual void SetCamera() { camera = true; }
 	virtual bool IsCamera() { return camera; }
 	virtual Objectmanager* GetObjectManager() { return objectmanager; }
-	virtual WorldPhysics* GetWorldPhyics() { return world_physics; }
 	virtual vector2 GetStateScreenSize() { return screen_size_; }
 	virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
 	virtual bool IsLevelChange() { return level_change; }
 	virtual std::string GetNextLevel() { return change_level; }
-
+	virtual Sound* GetSoundMap() { return sound; }
 	virtual void ChangeLevel(std::string ID);
+	virtual JSON* GetJson() { return json; };
 
 private:
 	std::string change_level;
@@ -33,6 +35,8 @@ private:
 	bool camera = false;
 	bool level_change = false;
 	Objectmanager * objectmanager = nullptr;
-	WorldPhysics* world_physics = nullptr;
+	Sound* sound = nullptr;
 	vector2 screen_size_{};
+	
+	JSON* json = nullptr;
 };

@@ -1,5 +1,11 @@
 {
     "Level1": {
         "level": "example"
+<<<<<<< HEAD
+    },
+    "Level2": {
+        "level": "test"
+=======
+>>>>>>> JihunPark
     }
 }

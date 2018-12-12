@@ -1,21 +1,6 @@
 {
-    "TempObject": {
-        "name": "TempObject",
-        "translation": [
-            -100.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            64.0,
-            64.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/heart.png"
-    },
-    "object1": {
-        "name": "object1",
+    "object0": {
+        "name": "object0",
         "translation": [
             0.0,
             0.0
@@ -27,36 +12,7 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "asset/images/heart.png"
-    },
-    "object2": {
-        "name": "object2",
-        "translation": [
-            72.16500091552735,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            64.0,
-            64.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/Road.png"
-    },
-    "object3": {
-        "name": "object3",
-        "translation": [
-            -293.8139953613281,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            64.0,
-            64.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/Dr_Strange.png"
+        "texture": "asset/images/heart.png",
+        "id": 1
     }
 }

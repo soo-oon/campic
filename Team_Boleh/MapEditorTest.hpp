@@ -22,11 +22,12 @@ public:
 	void LoadMap();
 
 private:
-	int object_count = 1;
+	size_t object_count = 1;
 	std::string object_name = "object";
-	std::vector<Object*> objects;
+
+	std::map<std::string, Object> objects_and_names;
+	std::map<std::string, Object>* pt_object_map = &objects_and_names;
+
 	Object* newObject;
 	Object* selected_object = nullptr;
-
-	JSON mapeditor_json;
 };
