@@ -12,7 +12,6 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	}
 	else if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::none)
 	{
-
 	}
 	else if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
 	{
@@ -24,6 +23,11 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if (!di_object->GetComponentByTemplate<Collision>()->GetIsDoor())
 			DoorReaction(object);
 	}
+	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	{
+		if (!object->GetComponentByTemplate<Collision>()->GetIsDoor())
+			DoorReaction(di_object);
+	}
 	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
 	{
 		StopReaction(di_object);
@@ -34,7 +38,6 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	}
 	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::none)
 	{
-
 	}
 }
 void StopReaction(Object* object)

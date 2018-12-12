@@ -198,6 +198,7 @@ void example::Update(float dt)
 	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
+		card_list.clear();
 		for(auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
 		{
 			find(i);
@@ -271,7 +272,7 @@ void example::Update(float dt)
 	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("test");
 
 
