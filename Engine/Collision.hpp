@@ -25,8 +25,8 @@ public:
 	{
 		collision_transform.SetTranslation(translation_);
 		collision_transform.SetScale(scale_);
-		collision_transform.SetRotation(rotation_);
-
+		//collision_transform.SetRotation(rotation_);
+		
 	}
 
 	bool Initialize(Object* Ob) override;
@@ -35,6 +35,8 @@ public:
 
 	void SetRestitutionType(RestitutionType restitution);
         RestitutionType& GetRestitutionType();
+
+	void Compute_AABB(Mesh mesh, int num_point);
 
 	Mesh& GetCollsionMesh();
 	Transform& GetCollisionTransform();
@@ -53,6 +55,7 @@ private:
 	RestitutionType restitution_ = RestitutionType::none;
 	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};
+	float height =0 , width = 0;
 	Transform collision_transform{};
 	CollisionType type = box_;
 	bool isdamaged = false;
