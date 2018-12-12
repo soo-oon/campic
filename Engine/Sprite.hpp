@@ -34,6 +34,8 @@ public:
     int GetWidth() const { return width; }
     int GetHeigth() const { return height; }
 
+	void Imgui_Sprite();
+
     GLuint GetTextureHandler() const { return handle_to_texture; }
 private:
 	bool flip = false;

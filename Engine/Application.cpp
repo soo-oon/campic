@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include "imgui_impl_glfw.h"
+#include "Imgui_System.hpp"
 
 namespace
 {
@@ -110,18 +111,21 @@ void Application::Update(float dt)
 	}
 
     Input::Triggerd_Reset();
-
+#if _DEBUG
     //glfwSwapBuffers(window);
+#else
+	glfwSwapBuffers(window);
+#endif
     PollEvent();
 }
 
 void Application::Key_Poll_Event()
 {
- /*   if (Input::IsKeyTriggered(GLFW_KEY_F))
+    if (Input::IsKeyTriggered(GLFW_KEY_F))
     {
         fullScreenMode = !fullScreenMode;
         FullScreen();
-    }*/
+    }
 }
 
 void Application::Quit()
@@ -192,14 +196,15 @@ namespace
                      , int action, int mods)
     {
 		Input::SetKeyPressed(key, action);
+#if _DEBUG
 		ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
+#endif
     }
 
 	void DropCallBack(GLFWwindow* window, int count, const char** paths)
 	{
-		std::vector<std::string> handle_dropped_file;
-		for (int i = 0; i < count; i++)
-			handle_dropped_file.push_back(paths[i]);
+		std::string path(paths[0]);
+		Imgui_System::soundlist.push_back(path);
 	}
 
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos)
@@ -215,6 +220,8 @@ namespace
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
     {
 		Input::SetMouseWheelScroll(x_offset, y_offset);
+#if _DEBUG
 		ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
+#endif
     }
 }

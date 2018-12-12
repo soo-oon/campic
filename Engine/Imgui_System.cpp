@@ -1,5 +1,9 @@
 #include "Imgui_System.hpp"
 #include <iostream>
+#include "Character.hpp"
+
+std::vector<std::string> Imgui_System::soundlist;
+
 bool Imgui_System::Initialize()
 {
 	//Imgui Setup
@@ -14,22 +18,22 @@ bool Imgui_System::Initialize()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
 	glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
-	//glfwSetDropCallback();
-	//ImGui_ImplGlfw_InstallCallbacks(window);
 
 	ImGui::StyleColorsDark();
 
+	//Imgui configs
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.FontDefault = NULL;
 	io.ConfigFlags = ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos; 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
+	//Image list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/images"))
 	{
 		imagelist.push_back(p.path().filename().string());
 	}
-
+	//Sound list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
 		soundlist.push_back(p.path().filename().string());
@@ -58,10 +62,10 @@ void Imgui_System::Draw()
 
 	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
 	{
-		if (show_objectmanager_window)
-			show_objectmanager_window = false;
+		if (show_window)
+			show_window = false;
 		else
-			show_objectmanager_window = true;
+			show_window = true;
 	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_KP_0))
@@ -69,10 +73,10 @@ void Imgui_System::Draw()
 		show_mapeditor_window = !show_mapeditor_window;
 	}
 
-	ImGui::ShowDemoWindow(&show_demo_window);
+	//ImGui::ShowDemoWindow(&show_demo_window);
 	//ImGui::ShowTestWindow();
-	ObjectManger(show_objectmanager_window);
-	ImGui_Option(&show_demo_window);
+	ObjectManger(show_window);
+	Sound_Option(show_window);
 	MapEditor(show_mapeditor_window);
 
 	ImGui::Render();
@@ -84,106 +88,153 @@ void Imgui_System::Draw()
 void Imgui_System::ObjectManger(bool show_window)
 {
 	if (!show_window)
+		return;
+
+	if (object_manager != nullptr)
 	{
-		if (object_manager != nullptr)
+		if (object_manager->GetObjectMap().size())
 		{
-			if (object_manager->GetObjectMap().size())
+			std::vector<std::string> object_lists;
+
+			for (auto it = object_manager->GetObjectMap().begin();
+				it != object_manager->GetObjectMap().end(); ++it)
 			{
-				std::vector<std::string> object_lists;
+				object_lists.push_back((*it).first.c_str());
+			}
 
-				for (auto it = object_manager->GetObjectMap().begin();
-					it != object_manager->GetObjectMap().end(); ++it)
+			ImGui::SetNextWindowSize({ 400, 400 });
+			if (!ImGui::Begin("Object Manager", &show_window))
+			{
+				ImGui::End();
+				return;
+			}
+
+			ImGui::Text("Team Boleh's GUI");
+
+			if (ImGui::CollapsingHeader("Manager"))
+			{
+				ImGuiIO& io = ImGui::GetIO();
+
+				if (ImGui::TreeNode("Object Lists"))
 				{
-					object_lists.push_back((*it).first.c_str());
-				}
-
-				if (!ImGui::Begin("Object Manager", &show_window, ImGuiWindowFlags_AlwaysAutoResize))
-				{
-					ImGui::End();
-					return;
-				}
-
-				ImGui::Text("Team Boleh's GUI                                   ");
-
-				if (ImGui::CollapsingHeader("Manager"))
-				{
-					ImGuiIO& io = ImGui::GetIO();
-
-					if (ImGui::TreeNode("Object Lists"))
+					for (int i = 0; i < object_lists.size(); i++)
 					{
-						for (int i = 0; i < object_lists.size(); i++)
+						if (ImGui::TreeNode(object_lists.at(i).c_str()))
 						{
-							if (ImGui::TreeNode(object_lists.at(i).c_str()))
+							object_manager->FindObject(object_lists.at(i).c_str())->GetTransform().Imgui_Transform();
+							Object* temp = object_manager->FindObject(object_lists.at(i).c_str()).get();
+
+							//componentHelper(temp)
+							
+							if (ImGui::Button("Delete"))
 							{
-								object_manager->FindObject(object_lists.at(i).c_str())->GetTransform().Imgui_Transform();
-								Object* temp = object_manager->FindObject(object_lists.at(i).c_str()).get();
-								
-								if (temp->GetComponentByTemplate<Animation>() != nullptr)
-								{
-									temp->GetComponentByTemplate<Animation>()->Imgui_Animation();
-								}
-
-								if(temp->GetComponentByTemplate<Sprite>() != nullptr)
-								{
-								}
-								else
-								{
-									static std::string current_item = "";
-									std::string image_dir = "asset/images/";
-									if (ImGui::BeginCombo("Select texture", current_item.c_str()))
-									{
-										for (int n = 0; n < imagelist.size(); n++)
-										{
-											bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-											if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-												current_item = imagelist[n].c_str();
-											if (is_selected)
-												ImGui::SetItemDefaultFocus();
-										}
-										ImGui::EndCombo();
-									}
-									if (ImGui::Button("Add Sprite"))
-									{
-										temp->AddComponent(new Sprite());
-										temp->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
-									}
-								}
-								if (ImGui::Button("Delete"))
-								{
-									object_manager->GetObjectMap().erase(object_lists.at(i).c_str());
-								}
-								ImGui::TreePop();
+								object_manager->GetObjectMap().erase(object_lists.at(i).c_str());
 							}
+							ImGui::TreePop();
 						}
-						ImGui::TreePop();
 					}
+					ImGui::TreePop();
+				}
 
-					if (ImGui::Button("Create Object"))
-					{
-						object_manager->AddObject(new_object);
-						object_manager->FindObject(new_object).get()->SetMesh(mesh::CreateBox());
-						object_manager->FindObject(new_object).get()->SetTranslation({ 100,100 });
-						object_manager->FindObject(new_object).get()->SetScale({ 100,100 });
-						new_object.at(6) += 1;
-					}
+				if (ImGui::Button("Create Object"))
+				{
+					object_manager->AddObject(new_object);
+					object_manager->FindObject(new_object).get()->SetMesh(mesh::CreateBox());
+					object_manager->FindObject(new_object).get()->SetTranslation({ 100,100 });
+					object_manager->FindObject(new_object).get()->SetScale({ 100,100 });
+					new_object.at(6) += 1;
 				}
 			}
-			ImGui::End();
 		}
+		ImGui::End();
 	}
 }
 
-void Imgui_System::ImGui_Option(bool* show_window)
+void Imgui_System::componentHelper(Object* object, ComponentType comp)
 {
+	static std::string current_item = "";
+	std::string image_dir = "asset/images/";
+	if (ImGui::BeginCombo("Select texture", current_item.c_str()))
+	{
+		for (int n = 0; n < imagelist.size(); n++)
+		{
+			bool is_selected = (current_item.c_str() == imagelist[n].c_str());
+			if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
+				current_item = imagelist[n].c_str();
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
+
+	//if(ImGui::BeginCombo("Select Component", ))
+
+	if (ImGui::Button("Add Sprite"))
+	{
+		object->AddComponent(new Sprite());
+		object->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
+	}
+
+	switch(comp)
+	{
+	case ComponentType::Animation:
+	{
+		if(object->GetComponentByTemplate<Animation>() != nullptr)
+		{
+			object->GetComponentByTemplate<Animation>()->Imgui_Animation();
+		}
+		else
+		{
+			ImGui::Button("Add Animation");
+			object->AddComponent(new Animation(image_dir + current_item, "", 0,0,true));
+		}
+		break;
+	}
+	case ComponentType::Sprite:
+	{
+		if (object->GetComponentByTemplate<Sprite>() != nullptr)
+		{
+			object->GetComponentByTemplate<Sprite>()->Imgui_Sprite();
+		}
+		else
+		{
+			ImGui::Button("Add Sprite");
+			object->AddComponent(new Sprite);
+			object->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
+		}
+		break;
+	}
+	case ComponentType::Character:
+	{
+		break;
+	}
+	case ComponentType::RigidBody:
+	{
+		break;
+	}
+	case ComponentType::Collision:
+	{
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void Imgui_System::Sound_Option(bool show_window)
+{
+	if (!show_window)
+		return;
+
 	ImGui::SetNextWindowSize({ 400,200 });
-	if (!ImGui::Begin("ImGui Option", show_window))
+	if (!ImGui::Begin("ImGui Option", &show_window))
 	{
 		ImGui::End();
 		return;
 	}
 
 	ImGuiIO& io = ImGui::GetIO();
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+	ImGui::Text("Frame Rate (%.1f FPS)", io.Framerate);
 
 	ImGui::Separator();
 	ImGui::Text("Sound Option");
@@ -205,41 +256,41 @@ void Imgui_System::ImGui_Option(bool* show_window)
 
 	const std::string current_path = "asset/sounds/";
 
-	/*if (ImGui::Button("Create Sound"))
+	if (ImGui::Button("Create Sound"))
 	{
-		m_FMOD_system->CreateSound(current_path + current_sound);
+		sound_manager->AddSound(current_path + current_sound);
 	}
 
 	if (ImGui::Button("Play"))
 	{
-		m_FMOD_system->Play();
+		sound_manager->Play(current_path + current_sound);
 	}
 
 	ImGui::SameLine();
 	if(ImGui::Button("Stop"))
 	{
-		if (m_FMOD_system->IsPlaying())
-			m_FMOD_system->Stop();
+		if (sound_manager->IsPlaying())
+			sound_manager->Stop(current_path + current_sound);
 	}
 
 	ImGui::SameLine();
 	if (ImGui::Button("Pause"))
 	{
-		if (m_FMOD_system->IsPlaying())
-			m_FMOD_system->Pause();
+		if (sound_manager->IsPlaying())
+			sound_manager->Pause(current_path + current_sound);
 	}
 
 	static float i = 0;
 	if(ImGui::SliderFloat("Volume", &i, 0, 10))
 	{
-		m_FMOD_system->SetVolume(i);
+		sound_manager->SetVolume(i);
 	}
 
 	static float speed = 0;
 	if (ImGui::SliderFloat("Speed", &speed, 0, 5))
 	{
-		m_FMOD_system->SetSoundSpeed(speed);
-	}*/
+		sound_manager->SetSoundSpeed(current_path + current_sound, speed);
+	}
 
 	ImGui::End();
 }
