@@ -1,6 +1,8 @@
 #include "Objectmanager.hpp"
 #include <cassert>
 #include "Camera.hpp"
+#include "status.hpp"
+#include "Player.hpp"
 
 bool Objectmanager::Initialize() { return true; }
 
@@ -24,6 +26,18 @@ void Objectmanager::Update(float dt)
 		if (obj.GetComponentByTemplate<Camera>() != nullptr)
 		{
 			obj.GetComponentByTemplate<Camera>()->Update(dt);
+		}
+		if (obj.GetComponentByTemplate<Player>() != nullptr)
+		{
+			obj.GetComponentByTemplate<Player>()->Update(dt);
+		}
+		if(obj.GetComponentByTemplate<Status>() != nullptr)
+		{
+			obj.GetComponentByTemplate<Status>()->Update(dt);
+			if (obj.GetComponentByTemplate<Status>()->GetLived() == false)
+			{
+				object_map.erase(it++);
+			}
 		}
 	}
 }

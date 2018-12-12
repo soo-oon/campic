@@ -181,33 +181,9 @@ void test_statemanager::Update(float dt)
 		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
+	if (Input::IsKeyTriggered(GLFW_KEY_4))
+		ChangeLevel("Particle");
 
-	/*if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
-	{
-		check1 = !check1;
-
-		if (!check1)
-		{
-			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Sprite>()->Flip();
-		}
-		else
-		{
-			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Sprite>()->Flip_Not();
-		}
-	}
-
-	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
-	{
-		check2 = !check2;
-		if(check2)
-		{
-			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->GetCollsionMesh().Visible();
-		}
-		else
-		{
-			GetObjectManager()->FindObject("collision")->GetComponentByTemplate<Collision>()->GetCollsionMesh().Invisible();
-		}
-	}*/
 }
 
 void test_statemanager::ShutDown()

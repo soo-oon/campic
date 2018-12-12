@@ -23,6 +23,9 @@ public:
     void snailoption( Object* effect,Object* knife, float angle, float& angle_);
     void Enchanted(Object* sword, Object* effect, Object* card1, Object* card2, float dt);
     void thrust(Object* sword,Object* player, float force);
+    void FollowMe(vector2 mouse, Object* flower);
+    void Flow_leaf(std::vector<Object*> flower);
+    void Stretch(Object* sword, float bigger);
 
 private:
 	float gravity_up = 1;
@@ -32,13 +35,16 @@ private:
 	bool change_sword = false;
 	float rota_angle = 0.f, rota_angle1 = 0.f;
 	float dt_sum = 0;
+	float dt_sword = 0;
 	float card_velo = 20;
 	float rotation_ = 10;
 	bool isshot = false;
+	float far = 1;
 	vector2 direction = 0;
 
     Object* player, *sword, *sonic, *background, *spark, *dia, 
-	*heart, *scol, *slime, *dia1, *heart1, *door, *shot,*health_bar;
+	*heart, *scol, *slime, *dia1, *heart1, *door, *shot,*health_bar, *attack;
+    std::vector<Object*> flower;
     Object* opponent1, *opponent2, *opponent3,* opponent4 ;
 
 };

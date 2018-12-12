@@ -30,6 +30,6 @@ private:
 
 	Object* newObject;
 
-
 	std::string Intersection(vector2 mouse_pos);
+	Object* selected_object = nullptr;
 };

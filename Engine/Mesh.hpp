@@ -52,6 +52,7 @@ public:
 	void AddCollisionCoordinate(vector2 collision_coordinate);
 
 	void ChangeColor(Color color);
+	void Change_Alpha_Value(float dec_value);
     void ClearColors();
     void ClearTextureCoordinates();
 	void ClearAnimationCoordinates();

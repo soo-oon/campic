@@ -1,4 +1,5 @@
 #include "RigidBody.hpp"
+#include "status.hpp"
 
 
 void RigidBody::CollisionOn()
@@ -59,6 +60,8 @@ void RigidBody::Update(float dt)
 	gravity = 1 / object->GetGravity();
     // calculate current velocity.
     velocity += inverse_mass * (force_accumlator * dt);
+	if(object->GetComponentByTemplate<Status>() != nullptr)
+    velocity *=object->GetComponentByTemplate<Status>()->GetSpeed();
 
     // zero out accumulated force
     force_accumlator = {0, 0};

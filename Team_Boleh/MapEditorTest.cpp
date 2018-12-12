@@ -46,7 +46,6 @@ void MapEditorTest::LoadMap()
 		GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
 		GetObjectManager()->FindObject(object_name)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->second.texture_path);
 		GetObjectManager()->FindObject(object_name)->texture_path = itr->second.texture_path;
-
 	}
 }
 
@@ -83,30 +82,8 @@ void MapEditorTest::Update(float dt)
 		}
 	}
 
-	//if (Input::IsKeyAnyPressed())
-	//{
-	//	if (Input::IsKeyPressed(GLFW_KEY_RIGHT) || (Input::IsKeyPressed(GLFW_KEY_LEFT)) ||
-	//		(Input::IsKeyPressed(GLFW_KEY_UP)) || (Input::IsKeyPressed(GLFW_KEY_DOWN)) )
-	//	{
-	//		if (selected_object)
-	//		{
-	//			vector2 current_translation = selected_object->GetTransform().GetTranslation();
-	//			if (Input::IsKeyTriggered(GLFW_KEY_RIGHT))
-	//				current_translation.x += 32.f;
-	//			if (Input::IsKeyTriggered(GLFW_KEY_LEFT))
-	//				current_translation.x -= 32.f;
-	//			if (Input::IsKeyTriggered(GLFW_KEY_UP))
-	//				current_translation.y += 32.f;
-	//			if (Input::IsKeyTriggered(GLFW_KEY_DOWN))
-	//				current_translation.y -= 32.f;
-
-	//			selected_object->SetTranslation(current_translation);
-	//		}
-	//	}
-	//}
-
-	//std::cout << Input::GetMousePos(1).x<<", "<<Input::GetMousePos(1).y << std::endl;
-
+	if (Input::IsKeyTriggered(GLFW_KEY_4))
+		ChangeLevel("Particle");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_1))

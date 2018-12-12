@@ -7,7 +7,7 @@ bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
 
-    collision_mesh = mesh::CreateCollisionBox(type);
+	collision_mesh = mesh::CreateCollisionBox(type);
 	return true;
 }
 
@@ -15,6 +15,7 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+	SetRestitutionType(RestitutionType::none);
 	//collision_transform.SetScale(object->GetTransform().GetScale());
 }
 
@@ -30,6 +31,29 @@ void Collision::SetRestitutionType(RestitutionType restitution)
 RestitutionType & Collision::GetRestitutionType()
 {
     return restitution_;
+}
+
+void Collision::Compute_AABB(Mesh mesh, int num_point)
+{
+	vector2 maxpos = mesh.GetPoint(0) , minpos = mesh.GetPoint(0);;
+
+	for (int i = 1; i < mesh.GetPointCount(); i++)
+	{
+		if (maxpos.x < mesh.GetPoint(i).x)
+			maxpos.x = mesh.GetPoint(i).x;
+
+		if (minpos.x > mesh.GetPoint(i).x)
+			minpos.x = mesh.GetPoint(i).x;
+
+		if (maxpos.y < mesh.GetPoint(i).y)
+			maxpos.y = mesh.GetPoint(i).y;
+
+		if (minpos.y > mesh.GetPoint(i).y)
+			minpos.y = mesh.GetPoint(i).y;
+	}
+	height = (maxpos.y + minpos.y) / 2;
+	width = (minpos.x + maxpos.x) / 2;
+
 }
 
 Mesh& Collision::GetCollsionMesh()

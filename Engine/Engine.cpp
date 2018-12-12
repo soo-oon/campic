@@ -61,6 +61,7 @@ bool Engine::Initialize()
 	hud_state = HUD_->GetHUDlevel();
     gameTimer.Reset();
     IsQuit = false;
+	srand(time(NULL));
     return true;
 }
 
@@ -77,10 +78,12 @@ void Engine::Update()
 		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
 		Objectmanager_ = State_->GetObjectManager();
 
+		std::cout << Objectmanager_->GetObjectMap().size() << std::endl;
+
 		Physics_->PhysicsObjectUpdate(Objectmanager_);
 
-		Graphic_->Draw(Objectmanager_);
 		Graphic_->HUD_Draw(hud_state->GetObjectManager());
+		Graphic_->Draw(Objectmanager_);
 
 		Graphic_->EndDraw();
 

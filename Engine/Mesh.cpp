@@ -216,6 +216,14 @@ void Mesh::ChangeColor(Color color)
     }
 }
 
+void Mesh::Change_Alpha_Value(float dec_value)
+{
+	for (auto i = colors.begin(); i != colors.end(); ++i)
+	{
+		i->Alpha -= dec_value;
+	}
+}
+
 
 void Mesh::ClearColors()
 {

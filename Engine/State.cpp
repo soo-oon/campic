@@ -5,7 +5,6 @@ void State::Load()
 {
 	level_change = false;
 	objectmanager = new Objectmanager();
-	world_physics = new WorldPhysics();
 	json = new JSON();
 	sound = new Sound();
 	sound->Initialize();
@@ -20,7 +19,6 @@ void State::UnLoad()
 {
 	change_level.clear();
 	delete objectmanager;
-	delete world_physics;
 	delete json;
 	delete sound;
 }
