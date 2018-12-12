@@ -43,7 +43,6 @@ void example::move_convex_object(float dt, Object* Ob)
 		velo *= pm;
 		Ob->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(velo, 0));
 		limit_time = 0;
-		//std::cout << GetObjectManager()->FindObject("convex_object")->GetComponentByTemplate<Physics>()->GetVelocity().x << std::endl;
 	}
 }
 
