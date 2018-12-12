@@ -9,7 +9,10 @@ Camera::Camera(vector2 camera_center, vector2 camera_up)
 
 bool Camera::Initialize(Object* Ob)
 {
-	object = Ob;
+	if (object == nullptr)
+	{
+		object = Ob;
+	}
 	return true;
 }
 

@@ -19,15 +19,15 @@ void StateManager::AddStage(std::string ID, State* state)
     {
         m_currentState = states.find(ID)->second.get();
 		m_currentState->Load();
-		//m_currentState->AddPlayer();
+		m_currentState->AddPlayer();
         m_currentState->Initialize();
     }
 }
 
 void StateManager::ChangeStage()
 {
-	Object player = *(m_currentState->GetObjectManager()->FindObject("player").get());
-	Object sword = *(m_currentState->GetObjectManager()->FindObject("sword").get());
+	Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
+	Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
 
 
 	std::string next_level = m_currentState->GetNextLevel();
@@ -38,8 +38,8 @@ void StateManager::ChangeStage()
 
 	m_currentState->Load();
 
-	m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("player", std::make_unique<Object>(player)));
-	m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("sword", std::make_unique<Object>(sword)));
+	m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::make_unique<Object>(player)));
+	m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::make_unique<Object>(sword)));
 
 	m_currentState->GetObjectManager()->Initialize();
 

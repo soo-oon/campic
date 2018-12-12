@@ -34,9 +34,12 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 bool Sprite::Initialize(Object* Ob)
 {
-    pixel = nullptr;
-    handle_to_texture = 0;
-
+	if (object == nullptr)
+	{
+		object = Ob;
+		pixel = nullptr;
+		handle_to_texture = 0;
+	}
     return true;
 }
 

@@ -45,11 +45,13 @@ vector2 RigidBody::GetPosition()
 
 bool RigidBody::Initialize(Object* Ob)
 {
-	object = Ob;
-	previous_position = object->GetTransform().GetTranslation();
-    force_accumlator = {0, 0};
-    velocity = {0, 0};
-	object = Ob;
+	//if (object == nullptr)
+	//{
+		object = Ob;
+		previous_position = object->GetTransform().GetTranslation();
+		force_accumlator = { 0, 0 };
+		velocity = { 0, 0 };
+	//}
     return true;
 }
 

@@ -27,14 +27,16 @@ bool Particle::Particle_Generate(Transform transform, Mesh mesh, vector2 velocit
 
 bool Particle::Initialize(Object* Ob)
 {
-	object = Ob;
+	if (object == nullptr)
+	{
+		object = Ob;
 
-	if (Ob == nullptr)
-		return false;
+		if (Ob == nullptr)
+			return false;
 
-	if (particle_objs.empty())
-		return false;
-
+		if (particle_objs.empty())
+			return false;
+	}
 	return true;
 }
 

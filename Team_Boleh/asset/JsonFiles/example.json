@@ -1,4 +1,36 @@
 {
+    "Player": {
+        "name": "Player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": -232.55868530273438,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            79.41777801513672,
+            60.768550872802737
+        ],
+        "rotation": -52.558677673339847,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
     "attack": {
         "name": "attack",
         "translation": [
@@ -69,7 +101,7 @@
             500.0,
             0.0
         ],
-        "rotation": 5050.0,
+        "rotation": 260.0,
         "scale": [
             75.0,
             75.0
@@ -114,7 +146,7 @@
     "opponent1": {
         "name": "opponent1",
         "translation": [
-            -141.32093811035157,
+            -290.120361328125,
             0.0
         ],
         "rotation": 0.0,
@@ -130,8 +162,24 @@
     "opponent2": {
         "name": "opponent2",
         "translation": [
-            88.29972076416016,
-            -110.37481689453125
+            193.82826232910157,
+            -242.2853240966797
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent3": {
+        "name": "opponent3",
+        "translation": [
+            0.0,
+            190.12037658691407
         ],
         "rotation": 0.0,
         "scale": [
@@ -146,8 +194,8 @@
     "opponent4": {
         "name": "opponent4",
         "translation": [
-            155.5351104736328,
-            129.61265563964845
+            292.4102783203125,
+            243.67520141601563
         ],
         "rotation": 0.0,
         "scale": [
@@ -159,27 +207,11 @@
         "texture": "no_texture",
         "id": 0
     },
-    "player": {
-        "name": "player",
-        "translation": [
-            0.0,
-            0.0
-        ],
-        "rotation": -170.69393920898438,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0
-    },
     "scol": {
         "name": "scol",
         "translation": [
-            -167.02792358398438,
-            167.02792358398438
+            -293.01409912109377,
+            293.01409912109377
         ],
         "rotation": 0.0,
         "scale": [
@@ -194,8 +226,8 @@
     "slime": {
         "name": "slime",
         "translation": [
-            -167.02792358398438,
-            -167.02792358398438
+            -293.01409912109377,
+            -293.01409912109377
         ],
         "rotation": 0.0,
         "scale": [
@@ -203,22 +235,6 @@
             75.0
         ],
         "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0
-    },
-    "sword": {
-        "name": "sword",
-        "translation": [
-            -16.084121704101564,
-            98.69802856445313
-        ],
-        "rotation": 9.306068420410157,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.9779999852180481,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0

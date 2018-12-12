@@ -1,5 +1,7 @@
 #include "State.hpp"
 #include "JSON.hpp"
+#include "status.hpp"
+#include "Character.hpp"
 
 void State::UpdateObjManager(float dt)
 {
@@ -30,7 +32,18 @@ void State::AddPlayer()
 	objectmanager->FindObject("Player")->AddComponent(new Player());
 
 	objectmanager->AddObject("Sword");
-	objectmanager->AddObject("health_bar");
+	objectmanager->FindObject("Sword")->SetScale({75.0f, 75.0f});
+	auto temp_translation = objectmanager->FindObject("Player")->GetTransform().GetTranslation();
+	objectmanager->FindObject("Sword")->SetTranslation(temp_translation);
+	objectmanager->FindObject("Sword")->SetMesh(mesh::CreateBox());
+	objectmanager->FindObject("Sword")->AddComponent(new Sprite());
+	objectmanager->FindObject("Sword")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
+	objectmanager->FindObject("Sword")->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
+	objectmanager->FindObject("Sword")->AddComponent(new RigidBody());
+	objectmanager->FindObject("Sword")->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	objectmanager->FindObject("Sword")->AddComponent(new Character(ObjectType::sword));
+	objectmanager->FindObject("Sword")->AddComponent(new Status(5, 1, 1.f));
+	objectmanager->FindObject("Sword")->SetDepth(0.978f);
 }
 
 void State::ChangeLevel(std::string ID)

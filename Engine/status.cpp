@@ -9,7 +9,10 @@ Status::Status(int Object_hp = 5, int object_damage = 1, float object_speed = 1)
 
 bool Status::Initialize(Object * Ob)
 {
-	object = Ob;
+	if (object == nullptr)
+	{
+		object = Ob;
+	}
 	return true;
 }
 

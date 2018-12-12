@@ -6,6 +6,7 @@
 
 bool Collision::Initialize(Object* Ob)
 {
+
 	object = Ob;
 
 	collision_mesh = mesh::CreateCollisionBox(type);
@@ -17,6 +18,7 @@ bool Collision::Initialize(Object* Ob)
 #ifdef _RELEASE
 	collision_mesh.Invisible();
 #endif
+
 	return true;
 }
 
