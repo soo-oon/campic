@@ -25,6 +25,7 @@ public:
 	virtual void SetCamera() { camera = true; }
 	virtual bool IsCamera() { return camera; }
 	virtual std::unique_ptr<Objectmanager>& GetObjectManager(){return objectmanager;}
+
 	virtual vector2 GetStateScreenSize() { return screen_size_; }
 	virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
 	virtual bool IsLevelChange() { return level_change; }
