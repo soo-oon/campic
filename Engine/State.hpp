@@ -32,6 +32,7 @@ public:
 	virtual Sound* GetSoundMap() { return sound; }
 	virtual void ChangeLevel(std::string ID);
 	virtual JSON* GetJson() { return json; };
+	virtual void SetObjectManager(Objectmanager* objectmanager_) { objectmanager = objectmanager_; }
 
 private:
 	std::string change_level;

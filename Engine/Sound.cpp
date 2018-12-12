@@ -41,8 +41,6 @@ bool Sound::Initialize()
 		}
 	}
 
-	LoadSounds();
-
     return true;
 }
 

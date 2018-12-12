@@ -72,12 +72,14 @@ void Engine::Update()
         dt = (float)gameTimer.GetElapsedSeconds();
         gameTimer.Reset();
 
-        for (auto i : systems)
-            i->Update(dt);
-
 		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
 		Objectmanager_ = State_->GetObjectManager().get();
 
+		HUD_->SetObjectManager(Objectmanager_);
+
+        for (auto i : systems)
+            i->Update(dt);
+		
 		Physics_->PhysicsObjectUpdate(Objectmanager_);
 
 		Graphic_->HUD_Draw(hud_state->GetObjectManager().get());
