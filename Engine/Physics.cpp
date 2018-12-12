@@ -60,7 +60,7 @@ void Physics::Update(float dt)
                                         {
                                             ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
                                             Reaction(collision_list[i], collision_list[j]);
-                                        }*/
+                                        }
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Graphics.hpp"
+#include "Player.hpp"
 
 void HUD_level::Initialize()
 {
@@ -11,7 +12,7 @@ void HUD_level::Initialize()
 	GetObjectManager()->AddObject("carddeck1");
 	GetObjectManager()->AddObject("carddeck2");
 
-	//GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Player>()
+	//GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Player>();
 
 	auto window = glfwGetCurrentContext();
 	glfwGetWindowSize(window, &screen_w, &screen_h);
