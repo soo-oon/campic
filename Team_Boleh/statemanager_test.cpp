@@ -21,7 +21,7 @@ void test_statemanager::Initialize()
 
 	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
-	player = GetObjectManager()->FindObject("player").get();
+	player = GetObjectManager()->FindObject("Player").get();
 	/*player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
@@ -36,7 +36,7 @@ void test_statemanager::Initialize()
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
-	sword = GetObjectManager()->FindObject("sword").get();
+	sword = GetObjectManager()->FindObject("Sword").get();
 	/*sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");

@@ -37,9 +37,9 @@ void MapEditorTest::LoadMap()
 	{
 		std::string object_name = itr->first;
 
-		if (object_name == "player")
+		if (object_name == "Player")
 			continue;
-		if (object_name == "sword")
+		if (object_name == "Sword")
 			continue;
 
 		GetObjectManager()->AddObject(object_name);

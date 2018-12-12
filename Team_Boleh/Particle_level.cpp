@@ -28,9 +28,6 @@ void Particle_level::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
 
-	std::cout << GetObjectManager()->FindObject("player")->GetTransform().GetTranslation().x << ", " <<
-		GetObjectManager()->FindObject("player")->GetTransform().GetTranslation().y << std::endl;
-
 	//GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Particle>()->Update(dt);
 }
 

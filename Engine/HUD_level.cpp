@@ -39,8 +39,8 @@ void HUD_level::Initialize()
 void HUD_level::Update(float /*dt*/)
 {
 	std::string path = ".png";
-	card_name = obj_hud->FindObject("player")->GetComponentByTemplate<Player>()->GetCardList();
-	auto player_hp = obj_hud->FindObject("player")->GetComponentByTemplate<Status>()->GetHp();
+	card_name = obj_hud->FindObject("Player")->GetComponentByTemplate<Player>()->GetCardList();
+	auto player_hp = obj_hud->FindObject("Player")->GetComponentByTemplate<Status>()->GetHp();
 
 	if(card_name.size() == 1)
 	{

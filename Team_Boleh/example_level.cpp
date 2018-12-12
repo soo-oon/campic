@@ -53,14 +53,15 @@ void example::Initialize()
 	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
-	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
+	player = GetObjectManager()->FindObject("Player").get();
+	/*player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
 	player->AddComponent(new Collision(box_, {}, {100.0f, 100.0f}));
 	player->AddComponent(new Character(ObjectType::player));
 	player->AddComponent(new Player());
-	player->AddComponent(new Status(5,1,1.f));
+	player->AddComponent(new Status(5,1,1.f));*/
 
         // TODO
         health_bar = BuildAndRegisterDynamicObject("health", vector2(0.0f, 0.5f), vector2(150.f/ player->GetTransform().GetScale().x, 
@@ -165,7 +166,8 @@ void example::Initialize()
 	heart1->AddComponent(new Character(ObjectType::card));
 	heart1->AddComponent(new Card("heart"));
 
-	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
+	sword = GetObjectManager()->FindObject("Sword").get();
+	/*sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 	sword->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
@@ -173,7 +175,7 @@ void example::Initialize()
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 	sword->AddComponent(new Status(5, 1, 1.f));
-	sword->SetDepth(0.978f);
+	sword->SetDepth(0.978f);*/
 
 
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
@@ -306,10 +308,10 @@ void example::Update(float dt)
 	rotation_ += 10;
 		door->SetRotation(rotation_);
 
-	if(dot(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
+	if(dot(GetObjectManager()->FindObject("Player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
+		GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
 	else
-		GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
+		GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
         if(Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
         {
@@ -320,7 +322,7 @@ void example::Update(float dt)
 		GetSoundMap()->Play("asset/sounds/punch.wav");
 	}
 
-        if (dot(normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()), vector2(0, 1)) > 0)
+        if (dot(normalize(GetObjectManager()->FindObject("Player")->GetComponentByTemplate<RigidBody>()->GetVelocity()), vector2(0, 1)) > 0)
         {
             player->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
         }
@@ -340,7 +342,7 @@ void example::Update(float dt)
 
 	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
 	{
-		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("background").get());
+		blackhole(GetObjectManager()->FindObject("Player").get(),GetObjectManager()->FindObject("background").get());
 	}
 }
 
