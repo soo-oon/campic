@@ -63,7 +63,7 @@ void HUD_level::Update(float /*dt*/)
 	GetObjectManager()->FindObject("carddeck1")->SetTranslation({ ((float)screen_w/2 - 150) / Graphics::checking_zoom, (-(float)screen_h/2 + 75) / Graphics::checking_zoom });
 	GetObjectManager()->FindObject("carddeck2")->SetTranslation({ ((float)screen_w/2 - 50)  / Graphics::checking_zoom, (-(float)screen_h/2 + 75) / Graphics::checking_zoom });
 
-	GetObjectManager()->FindObject("HP_Bar")->SetScale({ 400 / Graphics::checking_zoom / player_hp * 5, 100 / Graphics::checking_zoom });
+	GetObjectManager()->FindObject("HP_Bar")->SetScale({ 400 / Graphics::checking_zoom * player_hp / 5, 100 / Graphics::checking_zoom });
 	GetObjectManager()->FindObject("HP_Bar")->SetTranslation({ ((float)screen_w - (float)screen_w + 20) / Graphics::checking_zoom, ((float)screen_h / 2 -10) / Graphics::checking_zoom });
 }
 
