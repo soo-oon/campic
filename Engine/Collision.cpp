@@ -109,11 +109,14 @@ void Collision::ToggleIsDoor()
 	{
 		isdoor = true;
 	}
-	else
-		isdoor = false;
 }
 
 bool Collision::GetIsDoor()
 {
 	return isdoor;
+}
+
+void Collision::SetIsDoorClose()
+{
+	isdoor = false;
 }

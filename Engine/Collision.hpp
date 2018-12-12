@@ -49,6 +49,7 @@ public:
 	bool GetIsDamaged();
 	void ToggleIsDoor();
 	bool GetIsDoor();
+	void SetIsDoorClose();
 
 
 private:

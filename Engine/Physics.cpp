@@ -49,7 +49,6 @@ void Physics::Update(float dt)
 			{
 				if (i != j)
 				{
-
 					//if (*collision_list[i]->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetRotation() != 0 || *collision_list[j]->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetRotation() != 0)
 					//{
 					//	if (IntersectionCheck(*collision_list[i], *collision_list[j]))
