@@ -13,5 +13,4 @@ private:
 	int screen_w = 0;
 	int screen_h = 0;
 	std::vector<std::string> card_name;
-	//Objectmanager* object_manager=nullptr;
 };

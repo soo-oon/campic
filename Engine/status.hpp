@@ -15,6 +15,8 @@ public:
 	float GetSpeed(){	return move_speed;}
 	int GetDamage() { return damage; }
 	void Damaged_hp(int damage_level);
+	int GetHp() { return hp; }
+
 private:
 	int hp;
 	int damage;
