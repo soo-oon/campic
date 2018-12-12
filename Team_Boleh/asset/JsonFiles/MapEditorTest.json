@@ -1,18 +1,18 @@
 {
-    "object0": {
-        "name": "object0",
+    "background": {
+        "name": "background",
         "translation": [
             0.0,
             0.0
         ],
         "rotation": 0.0,
         "scale": [
-            64.0,
-            64.0
+            1280.0,
+            1280.0
         ],
-        "depth": 0.0,
+        "depth": 0.5,
         "gravity": 1.0,
-        "texture": "asset/images/heart.png",
+        "texture": "asset/images/background.png",
         "id": 1
     }
 }

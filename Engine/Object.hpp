@@ -29,6 +29,7 @@ public:
     COMPONENT* GetComponentByTemplate() const;
 
 	std::string texture_path = "no_texture";
+	int object_id = 0;
 private:
 	float gravity = 1;
     Mesh object_mesh{};
