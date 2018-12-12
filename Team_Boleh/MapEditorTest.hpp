@@ -29,12 +29,6 @@ private:
 	std::map<std::string, Object>* pt_object_map = &objects_and_names;
 
 	Object* newObject;
-	Object* selected_object = nullptr;
-<<<<<<< HEAD
-	size_t selected_object_id = 0;
-=======
-	int selected_object_id = 0;
 
-	std::string Intersection(vector2 mouse_pos);
->>>>>>> JihunPark
+	int selected_object_id = 0;
 };

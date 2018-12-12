@@ -16,19 +16,14 @@ void MapEditorTest::Initialize()
 
 	if (objects_and_names.size() == 0)
 	{
-		GetObjectManager()->AddObject("object0");
-		GetObjectManager()->FindObject("object0")->SetScale({ 64.f,64.f });
-		GetObjectManager()->FindObject("object0")->SetTranslation({ 0,0 });
-		GetObjectManager()->FindObject("object0")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		GetObjectManager()->FindObject("object0")->AddComponent(new Sprite());
-		GetObjectManager()->FindObject("object0")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
-		GetObjectManager()->FindObject("object0")->texture_path = "asset/images/heart.png";
-		selected_object = GetObjectManager()->FindObject("object0").get();
-	}
-	else
-	{
-		selected_object_id = (int)(objects_and_names.size() - 1);
-		object_count = (int)(objects_and_names.size());
+		GetObjectManager()->AddObject("background");
+		GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
+		GetObjectManager()->FindObject("background")->SetTranslation({ 0,0 });
+		GetObjectManager()->FindObject("background")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		GetObjectManager()->FindObject("background")->AddComponent(new Sprite());
+		GetObjectManager()->FindObject("background")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
+		GetObjectManager()->FindObject("background")->texture_path = "asset/images/background.png";
+		object_count = 1;
 	}
 }
 
@@ -43,11 +38,13 @@ void MapEditorTest::LoadMap()
 		GetObjectManager()->FindObject(object_name)->SetScale(itr->second.GetTransform().GetScale());
 		GetObjectManager()->FindObject(object_name)->SetTranslation(itr->second.GetTransform().GetTranslation());
 		GetObjectManager()->FindObject(object_name)->SetRotation(*itr->second.GetTransform().GetRotation());
+		GetObjectManager()->FindObject(object_name)->SetDepth(0.5);
 		GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
 		GetObjectManager()->FindObject(object_name)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->second.texture_path);
 		GetObjectManager()->FindObject(object_name)->texture_path = itr->second.texture_path;
-		selected_object = GetObjectManager()->FindObject(object_name).get();
+		GetObjectManager()->FindObject(object_name)->object_id = itr->second.object_id;
+		object_count = GetObjectManager()->FindObject(object_name)->object_id;
 	}
 }
 
@@ -82,31 +79,8 @@ void MapEditorTest::Update(float dt)
 
 			object_count++;
 			selected_object_id++;
-			selected_object = GetObjectManager()->FindObject(name).get();
 		}
 	}
-
-	//if (Input::IsKeyAnyPressed())
-	//{
-	//	if (Input::IsKeyPressed(GLFW_KEY_RIGHT) || (Input::IsKeyPressed(GLFW_KEY_LEFT)) ||
-	//		(Input::IsKeyPressed(GLFW_KEY_UP)) || (Input::IsKeyPressed(GLFW_KEY_DOWN)) )
-	//	{
-	//		if (selected_object)
-	//		{
-	//			vector2 current_translation = selected_object->GetTransform().GetTranslation();
-	//			if (Input::IsKeyTriggered(GLFW_KEY_RIGHT))
-	//				current_translation.x += 32.f;
-	//			if (Input::IsKeyTriggered(GLFW_KEY_LEFT))
-	//				current_translation.x -= 32.f;
-	//			if (Input::IsKeyTriggered(GLFW_KEY_UP))
-	//				current_translation.y += 32.f;
-	//			if (Input::IsKeyTriggered(GLFW_KEY_DOWN))
-	//				current_translation.y -= 32.f;
-
-	//			selected_object->SetTranslation(current_translation);
-	//		}
-	//	}
-	//}
 
 	//std::cout << Input::GetMousePos(1).x<<", "<<Input::GetMousePos(1).y << std::endl;
 
@@ -114,9 +88,11 @@ void MapEditorTest::Update(float dt)
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
+	if (Input::IsKeyTriggered(GLFW_KEY_4))
+		ChangeLevel("Startmenu");
 }
 
 void MapEditorTest::ShutDown()
 {
-
+	UnLoad();
 }

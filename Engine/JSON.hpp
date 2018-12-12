@@ -31,8 +31,6 @@ public:
 	void GetLoadLevel(std::string state_name, std::map<std::string, Object>* state_object);
 	rapidjson::Document* GetDocumentofLevel(std::string level_name);
 
-	//for Resource manager
-
 private:
 	std::map<std::string, std::unique_ptr<rapidjson::Document>> LevelDocuments;
 	rapidjson::Document levels;
