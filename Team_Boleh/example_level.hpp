@@ -27,6 +27,7 @@ public:
 	void FollowMe(vector2 mouse, Object* flower);
 	void Flow_leaf(std::vector<Object*> flower);
 	void Stretch(Object* sword, float bigger);
+	void Power_shot();
 	void find(std::string card_);
 
 private:
@@ -37,6 +38,7 @@ private:
 	bool change_sword = false;
 	float rota_angle = 0.f, rota_angle1 = 0.f;
 	float dt_sum = 0;
+	float dt_power_shot = 0;
 	float dt_sword = 0;
 	float card_velo = 20;
 	float rotation_ = 10;
@@ -46,7 +48,7 @@ private:
 
 	Object* player;
     Object *sword, *sonic, *background, *spark, *dia, 
-	*heart, *scol, *slime, *dia1, *heart1, *door, *shot,*health_bar, *attack;
+	*heart, *scol, *slime, *dia1, *heart1, *door, *health_bar, *attack;
     std::vector<Object*> card_list;
     Object* opponent1, *opponent2, *opponent3,* opponent4 ;
 

@@ -19,9 +19,9 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if(di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		AttackedReaction(object, di_object);
 	}
-	else if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 	{
-		if (di_object->GetComponentByTemplate<Collision>()->GetIsDoor())
+		if (!di_object->GetComponentByTemplate<Collision>()->GetIsDoor())
 			DoorReaction(object);
 	}
 	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)

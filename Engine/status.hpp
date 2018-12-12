@@ -1,6 +1,11 @@
 #pragma once
 #include "Component.hpp"
 
+enum class Life_Type
+{
+	Dead, Live
+};
+
 class Status : public Component
 {
 
