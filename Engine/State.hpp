@@ -31,8 +31,13 @@ public:
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual Sound* GetSoundMap() { return sound; }
 	virtual void ChangeLevel(std::string ID);
-	virtual JSON* GetJson() { return json; };
-	virtual void SetObjectManager(Objectmanager* objectmanager_) { objectmanager = objectmanager_; }
+	virtual JSON* GetJson() { return json; }
+
+	//void SetObjectManager(Objectmanager* objectmanager_) { objectmanager = std::make_unique<Objectmanager>(*objectmanager_); }
+	//std::unique_ptr<Objectmanager>& GetObjectManager() { return objectmanager; }
+
+	Objectmanager* obj_hud;
+
 
 private:
 	std::string change_level;
@@ -40,7 +45,9 @@ private:
 	bool camera = false;
 	bool level_change = false;
 	std::unique_ptr<Objectmanager> objectmanager;
-	//Objectmanager * objectmanager = nullptr;
+	
+	//std::unique_ptr<Objectmanager> obj_hud;
+
 	Sound* sound = nullptr;
 	vector2 screen_size_{};
 	

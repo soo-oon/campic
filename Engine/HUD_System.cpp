@@ -11,7 +11,7 @@ bool HUD::Initialize()
 
 void HUD::Update(float dt)
 {
-	hud_level->SetObjectManager(object_manager);
+	hud_level->obj_hud = object_manager_HUD;
 	hud_level->Update(dt);
 	hud_level->UpdateObjManager(dt);
 }

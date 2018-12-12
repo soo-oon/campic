@@ -21,21 +21,23 @@ void test_statemanager::Initialize()
 
 	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
-	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
+	player = GetObjectManager()->FindObject("player").get();
+	/*player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
 	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
 	player->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	player->AddComponent(new Character(ObjectType::player));
 	player->AddComponent(new Player());
-	player->AddComponent(new Status(5, 1, 1.f));
+	player->AddComponent(new Status(5, 1, 1.f));*/
 
 	background = BuildAndRegisterDynamicObject("background", vector2(0, 0), vector2());
 	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
-	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
+	sword = GetObjectManager()->FindObject("sword").get();
+	/*sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 	sword->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
@@ -43,7 +45,7 @@ void test_statemanager::Initialize()
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 	sword->AddComponent(new Status(5, 1, 1.f));
-	sword->SetDepth(0.978f);
+	sword->SetDepth(0.978f);*/
 
 	spade = BuildAndRegisterDynamicObject("spade", vector2(350, -100), vector2(25.f, 25.f));
 	spade->AddComponent(new Sprite());

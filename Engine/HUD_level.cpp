@@ -32,7 +32,7 @@ void HUD_level::Initialize()
 void HUD_level::Update(float /*dt*/)
 {
 	std::string path = ".png";
-	card_name = objectmanager->FindObject("player")->GetComponentByTemplate<Player>()->GetCardList();
+	card_name = obj_hud->FindObject("player")->GetComponentByTemplate<Player>()->GetCardList();
 	if(card_name.size() == 1)
 	{
 		GetObjectManager()->FindObject("carddeck1")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/" + card_name.at(0) + path);
