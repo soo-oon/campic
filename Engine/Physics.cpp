@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "status.hpp"
+#include "Player.hpp"
+#include "Card.hpp"
 
 bool Physics::Initialize()
 {
@@ -60,7 +62,7 @@ void Physics::Update(float dt)
                                         {
                                             ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
                                             Reaction(collision_list[i], collision_list[j]);
-                                        }*/
+                                        }
 				}
 			}
 		}
@@ -118,11 +120,13 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
             && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::card)
         {
             object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
+	    object1.GetComponentByTemplate<Player>()->SetCardList(object2.GetComponentByTemplate<Card>()->GetName());
         }
         else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::card
             && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
         {
             object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
+	    object2.GetComponentByTemplate<Player>()->SetCardList(object1.GetComponentByTemplate<Card>()->GetName());
         }
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)

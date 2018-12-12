@@ -1,4 +1,20 @@
 {
+    "attack": {
+        "name": "attack",
+        "translation": [
+            100.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 1
+    },
     "background": {
         "name": "background",
         "translation": [
@@ -13,7 +29,7 @@
         "depth": 0.9900000095367432,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 1
+        "id": 2
     },
     "camera": {
         "name": "camera",
@@ -29,7 +45,7 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 2
+        "id": 3
     },
     "door": {
         "name": "door",
@@ -37,7 +53,7 @@
             500.0,
             0.0
         ],
-        "rotation": 0.0,
+        "rotation": 43600.0,
         "scale": [
             75.0,
             75.0
@@ -45,15 +61,31 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 3
+        "id": 4
+    },
+    "health": {
+        "name": "health",
+        "translation": [
+            0.0,
+            0.5
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1.5,
+            0.10000000149011612
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 5
     },
     "player": {
         "name": "player",
         "translation": [
-            -27.68390464782715,
-            -144.08786010742188
+            279.7644958496094,
+            -182.25222778320313
         ],
-        "rotation": -360.70208740234377,
+        "rotation": -179.72369384765626,
         "scale": [
             100.0,
             100.0
@@ -61,22 +93,22 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 4
+        "id": 6
     },
     "sword": {
         "name": "sword",
         "translation": [
-            -29.9574031829834,
-            -243.958740234375
+            279.4250793457031,
+            -82.17822265625
         ],
-        "rotation": -180.7021026611328,
+        "rotation": 0.27629852294921877,
         "scale": [
-            200.0,
-            150.0
+            75.0,
+            75.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
         "texture": "no_texture",
-        "id": 5
+        "id": 7
     }
 }

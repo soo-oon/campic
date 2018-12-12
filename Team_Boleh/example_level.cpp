@@ -10,6 +10,7 @@
 #include <limits.h>
 #include "Player.hpp"
 #include "status.hpp"
+#include "Card.hpp"
 
 void example::blackhole(Object* Ob, Object* Ob1)
 {
@@ -78,7 +79,7 @@ void example::Initialize()
 	slime = BuildAndRegisterDynamicObject("slime", vector2(-300, -300), vector2(75.f, 75.f));
 	slime->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
 	slime->AddComponent(new RigidBody());
-	slime->AddComponent(new Collision(circle_, {}, {40.0f, 40.0f}));
+	slime->AddComponent(new Collision(box_, {}, {40.0f, 40.0f}));
 	slime->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	slime->AddComponent(new Character(ObjectType::opponent));
 	slime->AddComponent(new Status(5, 1, 1.f));
@@ -86,6 +87,10 @@ void example::Initialize()
         shot = BuildAndRegisterDynamicObject("shot", vector2(-350, -350), vector2(75.f, 75.f));
         shot->AddComponent(new Animation("asset/images/shot.png", "shot", 4, 0.25));
         shot->AddComponent(new RigidBody());
+	shot->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
+	shot->AddComponent(new Character(ObjectType::sword));
+	shot->AddComponent(new Status(1,1,1.f));
+	shot->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
         shot->GetMesh().Invisible();
 
 	scol = BuildAndRegisterDynamicObject("scol", vector2(-300, 300), vector2(75.f, 75.f));
@@ -144,6 +149,7 @@ void example::Initialize()
 	dia1->AddComponent(new Collision(box_, {}, {50.0f, 50.0f}));
 	dia1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
     dia1->AddComponent(new Character(ObjectType::card));
+    dia1->AddComponent(new Card("dia"));
 
 
 	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
@@ -166,6 +172,7 @@ void example::Initialize()
 	heart1->AddComponent(new Collision(box_, {}, {50.0f, 50.0f}));
 	heart1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	heart1->AddComponent(new Character(ObjectType::card));
+	heart1->AddComponent(new Card("heart"));
 
 	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
@@ -181,14 +188,7 @@ void example::Initialize()
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
 	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
 	spark->GetMesh().Invisible();
-
-	sonic = BuildAndRegisterDynamicObject("sonic", vector2(0, -200), vector2(150.f, 150.f));
-	sonic->AddComponent(new Animation("asset/images/example2.png", "sonic", 10, 0.1f));
-	sonic->AddComponent(new RigidBody());
-	sonic->AddComponent(new Collision(box_, {},{150.0f, 150.0f} ));
-	sonic->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
-	sonic->AddComponent(new Character(ObjectType::opponent));
-	
+		
 	background = BuildAndRegisterDynamicObject("background", vector2(0,0), vector2(150.f, 150.f));
 	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
@@ -202,17 +202,25 @@ void example::Initialize()
 
 void example::Update(float dt)
 {
-    Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
-			if (!change_sword)
-			{
-				change_sword = true;
-				GetSoundMap()->Play("asset/sounds/digimon.wav");
-			}
-            else
-                change_sword = false;
+		for(auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
+		{
+			find(i);
+		}
+		if (card_list.size() > 1)
+		{
+			change_sword = true;
+			GetSoundMap()->Play("asset/sounds/digimon.wav");
+			player->GetComponentByTemplate<Player>()->ClearCardList();
+		}
         }
+	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
+	if(change_sword)
+	{
+		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
+	}
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
@@ -227,30 +235,26 @@ void example::Update(float dt)
     {
 	    if (!isshot)
 		    isshot = true;
-	    else
-		    isshot = false;
     }
 
     if (isshot)
     {
 	    shot->GetMesh().Visible();
 	    thrust(shot, player, 100);
+	    isshot = false;
     }
     else
     {
 	    shot->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
 	    shot->GetTransform().SetRotation(*sword->GetTransform().GetRotation()+90);
     }
+    PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
         SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 		ChangeLevel("test");
 
 
-	if (Input::IsKeyPressed(GLFW_KEY_H))
-	{
-		FollowMe(Input::GetMousePos(temp_camera->GetZoomValue()), flower[0]);
-	}
 	if (Input::IsKeyPressed(GLFW_KEY_U))
 	{
 		dt_sword += dt;
@@ -277,11 +281,6 @@ void example::Update(float dt)
 	ForProtoType(player, opponent4, 20);
 
 	Attact(sword);
-	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
-	if(change_sword)
-	{
-		Enchanted(sword, spark, dia, heart, dt);
-	}
 	
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
@@ -375,12 +374,21 @@ void example::ForProtoType(Object * object, Object* opponent, float vel_come)
 	else
 	opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(vel_come* no_come);
 }
+
+void example::PlayerSwing(vector2 mouse_position, Object * player)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
+		mouse_position.y - player->GetTransform().GetTranslation().y));
+	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+	float angledeg = (180 / 3.14f)* anglerad;
+	player->SetRotation(angledeg - 270);
+}
 void example::snailoption(Object * effect, Object* knife, float angle, float& angle_)
 {
 	float x_vel, y_vel;
 	angle_ += angle;
 	//card_velo -= 0.5f;
-	if (dt_sum < 4)
+	if (dt_sum < 2)
 		far *= 1.005f;
 	else
 		far *= 0.995f;
@@ -400,7 +408,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 	snailoption(card1, sword, -0.02f, rota_angle);
 	snailoption(card2, sword, 0.02f, rota_angle1);
 
-	if (dt_sum < 10)
+	if (dt_sum < 4)
 	{
 		dt_sum += dt;
 		if (!card1->GetMesh().IsVisible() && !card2->GetMesh().IsVisible())
@@ -408,7 +416,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 			card1->GetMesh().Visible();
 			card2->GetMesh().Visible();
 		}
-		 if (dt_sum <4)
+		 if (dt_sum <2)
 			big = 1.01f;
 		 else
 			big = 0.99f;
@@ -420,7 +428,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 	}
 	else
 	{
-		if (dt_sum < 15)
+		if (dt_sum < 7)
 		{
 			dt_sum += dt;
 			if (!effect->GetMesh().IsVisible())
@@ -430,8 +438,10 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 		{
 			effect->GetMesh().Invisible();
 			sword->GetTransform().SetScale(vector2(200.f, 150.f));
-			sword->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(vector2(40.0f, 150.0f));
+			sword->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(vector2(150.f, 150.0f));
 			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
+			card_list.clear();
+			change_sword = false;
 		}
 	}
 	card1->GetTransform().SetScale(card1->GetTransform().GetScale()* big);
@@ -469,6 +479,10 @@ void example::Flow_leaf(std::vector<Object*> flower)
 void example::Stretch(Object * sword, float bigger)
 {
 	sword->SetScale(vector2(sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y +bigger));
+}
+void example::find(std::string card_)
+{
+	card_list.push_back(GetObjectManager()->FindObject(card_).get());
 }
 void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 {
