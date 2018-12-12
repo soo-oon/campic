@@ -71,4 +71,46 @@ namespace GLSL
 		output_color = new_color;
 	}
 	)";
+
+	const std::string particle_vertex =
+		R"(
+	#version 330 core
+
+	layout (location = 0) in vec2 position;
+	layout (location = 1) in vec2 texture_coordinate;
+	
+	uniform mat3 transform;
+	uniform float depth;
+
+	out vec2 _texture_coordinate;
+
+	void main()
+	{
+		_texture_coordinate = texture_coordinate;
+		gl_Position = projection * vec4(position, depth, 1.0);
+	}
+	)";
+
+	const std::string particle_fragment =
+		R"(
+	#version 330 core
+
+	in vec2 _texture_coordinate;
+
+	uniform vec4 color;
+	uniform sampler2D sprite;
+
+	out vec4 output_color;
+
+	void main()
+	{
+		vec4 texel = (texture(sprite, texture_coordinate));
+		vec4 result_color = color * texel;
+
+		if(result_color.a <= 0.0f)
+			discard;
+
+		output_color = result_color;
+	}
+	)";
 }

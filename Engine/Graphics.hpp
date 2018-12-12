@@ -15,6 +15,7 @@ enum class Type : int
 {
 	solid_obj,
 	sprite,
+	particle,
 	count
 };
 
@@ -56,6 +57,11 @@ private:
 	{
 		vector2 position;
 	};
+	struct particle
+	{
+		vector2 position;
+		vector2 particleCoordinate;
+	};
 
 	affine2d CalculateModelToNDCTransform(const Transform& transform) const;
 
@@ -67,9 +73,12 @@ private:
 		PointListType draw_type, Color color, Sprite* sprite);
 	void Draw(const Transform& transform, const std::vector<animaition>& vertexes,
 		PointListType draw_type, Color color, Sprite* sprite);
+	void Draw(const Transform& transform, const std::vector<particle>& vertexes,
+		PointListType draw_type, Color color, Sprite* sprite);
 
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();
+	void DescribParticlePosition();
 
 private:
 	bool Iscamera = false;
@@ -84,6 +93,7 @@ private:
 
 	Shader Solidshader{};
 	Shader Spriteshader{};
+	Shader Particleshader{};
 	//TODO make postprocessing and particle shader
 
 	GLuint vertexAttributes[NumberOfVertexTypes] = { 0 };
@@ -93,4 +103,5 @@ private:
 	std::vector<texture> sprite{};
 	std::vector<animaition> animation{};
 	std::vector<collsionbox> collsionboxes{};
+	std::vector<particle> particles{};
 };

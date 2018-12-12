@@ -194,6 +194,9 @@ void example::Update(float dt)
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
+	if (Input::IsKeyTriggered(GLFW_KEY_4))
+		ChangeLevel("Particle");
+
         if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
             sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
 

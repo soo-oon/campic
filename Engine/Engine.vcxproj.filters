@@ -34,6 +34,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="HUD_System.cpp" />
     <ClCompile Include="HUD_level.cpp" />
+    <ClCompile Include="Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -78,5 +79,6 @@
     <ClInclude Include="WorldPhysics.h" />
     <ClInclude Include="HUD_System.hpp" />
     <ClInclude Include="HUD_level.hpp" />
+    <ClInclude Include="Particle.hpp" />
   </ItemGroup>
 </Project>

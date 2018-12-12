@@ -165,6 +165,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Objectmanager.cpp" />
+    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Objectmanager.hpp" />
+    <ClInclude Include="Particle.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="Reaction.hpp" />
     <ClInclude Include="Restitution.hpp" />
