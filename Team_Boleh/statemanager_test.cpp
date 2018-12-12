@@ -6,176 +6,91 @@
 #include "Animation.hpp"
 #include <iostream>
 #include "Character.hpp"
+#include "Player.hpp"
+#include "status.hpp"
+#include "Card.hpp"
 
 void test_statemanager::Initialize()
 {
 	GetObjectManager()->AddObject("camera");
-	GetObjectManager()->AddObject("test1");
-	GetObjectManager()->AddObject("test2");
-	GetObjectManager()->AddObject("test3");
-	GetObjectManager()->AddObject("test4");
-	GetObjectManager()->AddObject("test5");
-	GetObjectManager()->AddObject("test6");
-	GetObjectManager()->AddObject("test7");
-	GetObjectManager()->AddObject("test8");
-	GetObjectManager()->AddObject("test9");
-	GetObjectManager()->AddObject("test10");
-	GetObjectManager()->AddObject("test11");
-	GetObjectManager()->AddObject("test12");
-	GetObjectManager()->AddObject("test13");
-	GetObjectManager()->AddObject("test14");
-	GetObjectManager()->AddObject("test15");
-	GetObjectManager()->AddObject("test16");
-	GetObjectManager()->AddObject("test17");
-	GetObjectManager()->AddObject("test18");
-	GetObjectManager()->AddObject("test19");
-
-	//GetObjectManager()->AddObject("camera");
+	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
+	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
 	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
 	GetObjectManager()->FindObject("camera")->SetTranslation({ 0,0 });
 
 	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
-	GetObjectManager()->FindObject("test1")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test1")->SetTranslation({-100,0});
-	GetObjectManager()->FindObject("test1")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test1")->SetDepth(0);
-	GetObjectManager()->FindObject("test1")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-	GetObjectManager()->FindObject("test1")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test1")->AddComponent(new Character(ObjectType::none));
+	player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
+	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
+	player->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	player->AddComponent(new Character(ObjectType::player));
+	player->AddComponent(new Player());
+	player->AddComponent(new Status(5, 1, 1.f));
 
-	GetObjectManager()->FindObject("test2")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test2")->SetTranslation({-90,0});
-	GetObjectManager()->FindObject("test2")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test2")->SetDepth(0);
-	GetObjectManager()->FindObject("test2")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test2")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test2")->AddComponent(new Character(ObjectType::none));
+	background = BuildAndRegisterDynamicObject("background", vector2(0, 0), vector2());
+	background->SetDepth(0.99f);
+	background->AddComponent(new Sprite());
+	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
-	GetObjectManager()->FindObject("test3")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test3")->SetTranslation({-80,0});
-	GetObjectManager()->FindObject("test3")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test3")->SetDepth(0);
-	GetObjectManager()->FindObject("test3")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-    //
-        GetObjectManager()->FindObject("test3")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test3")->AddComponent(new Character(ObjectType::none));
+	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
+	sword->AddComponent(new Sprite());
+	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
+	sword->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
+	sword->AddComponent(new RigidBody());
+	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	sword->AddComponent(new Character(ObjectType::sword));
+	sword->AddComponent(new Status(5, 1, 1.f));
+	sword->SetDepth(0.978f);
 
-	GetObjectManager()->FindObject("test4")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test4")->SetTranslation({-70,0});
-	GetObjectManager()->FindObject("test4")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test4")->SetDepth(0);
-	GetObjectManager()->FindObject("test4")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test4")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test4")->AddComponent(new Character(ObjectType::none));
+	spade = BuildAndRegisterDynamicObject("spade", vector2(350, -100), vector2(25.f, 25.f));
+	spade->AddComponent(new Sprite());
+	spade->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/spade.png");
+	spade->AddComponent(new RigidBody());
+	spade->GetMesh().Invisible();
 
-	GetObjectManager()->FindObject("test5")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test5")->SetTranslation({-60, 0});
-	GetObjectManager()->FindObject("test5")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test5")->SetDepth(0);
-	GetObjectManager()->FindObject("test5")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test5")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test5")->AddComponent(new Character(ObjectType::none));
+	spade1 = BuildAndRegisterDynamicObject("spade1", vector2(420, -100), vector2(50.f, 50.f));
+	spade1->AddComponent(new Sprite());
+	spade1->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/spade.png");
+	spade1->AddComponent(new Collision(box_, {}, { 50.0f, 50.0f }));
+	spade1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	spade1->AddComponent(new Character(ObjectType::card));
+	spade1->AddComponent(new Card("spade"));
 
-	GetObjectManager()->FindObject("test6")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test6")->SetTranslation({-50 , 0});
-	GetObjectManager()->FindObject("test6")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test6")->SetDepth(0);
-	GetObjectManager()->FindObject("test6")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test6")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test6")->AddComponent(new Character(ObjectType::none));
 
-	GetObjectManager()->FindObject("test7")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test7")->SetTranslation({-40 ,0});
-	GetObjectManager()->FindObject("test7")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test7")->SetDepth(0);
-	GetObjectManager()->FindObject("test7")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test7")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test7")->AddComponent(new Character(ObjectType::none));
+	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
+	door->AddComponent(new Sprite());
+	door->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/hero.png");
+	door->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
+	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	door->AddComponent(new Character(ObjectType::door));
 
-	GetObjectManager()->FindObject("test8")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test8")->SetTranslation({-30 ,0});
-	GetObjectManager()->FindObject("test8")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test8")->SetDepth(0);
-	GetObjectManager()->FindObject("test8")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test8")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test8")->AddComponent(new Character(ObjectType::none));
+	clover = BuildAndRegisterDynamicObject("clover", vector2(350, 100), vector2(25.f, 25.f));
+	clover->AddComponent(new Sprite());
+	clover->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/clover.png");
+	clover->AddComponent(new Character(ObjectType::none));
+	clover->AddComponent(new RigidBody());
+	clover->GetMesh().Invisible();
 
-	GetObjectManager()->FindObject("test9")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test9")->SetTranslation({});
-	GetObjectManager()->FindObject("test9")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test9")->SetDepth(0);
-	GetObjectManager()->FindObject("test9")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test9")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test9")->AddComponent(new Character(ObjectType::none));
+	clover1 = BuildAndRegisterDynamicObject("clover1", vector2(420, 100), vector2(50.f, 50.f));
+	clover1->AddComponent(new Sprite());
+	clover1->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/clover.png");
+	clover1->AddComponent(new Collision(box_, {}, { 50.0f, 50.0f }));
+	clover1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
+	clover1->AddComponent(new Character(ObjectType::card));
+	clover1->AddComponent(new Card("clover"));
 
-	GetObjectManager()->FindObject("test10")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test10")->SetTranslation({-20, 0});
-	GetObjectManager()->FindObject("test10")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test10")->SetDepth(0);
-	GetObjectManager()->FindObject("test10")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-        GetObjectManager()->FindObject("test10")->AddComponent(new Collision(CollisionType::box_, { 0,0 }, { 150,150 }));
-        GetObjectManager()->FindObject("test10")->AddComponent(new Character(ObjectType::none));
-
-	GetObjectManager()->FindObject("test11")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test11")->SetTranslation({-10 , 0});
-	GetObjectManager()->FindObject("test11")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test11")->SetDepth(0);
-	GetObjectManager()->FindObject("test11")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test12")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test12")->SetTranslation({});
-	GetObjectManager()->FindObject("test12")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test12")->SetDepth(0);
-	GetObjectManager()->FindObject("test12")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test13")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test13")->SetTranslation({10, 0});
-	GetObjectManager()->FindObject("test13")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test13")->SetDepth(0);
-	GetObjectManager()->FindObject("test13")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test14")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test14")->SetTranslation({20,0 });
-	GetObjectManager()->FindObject("test14")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test14")->SetDepth(0);
-	GetObjectManager()->FindObject("test14")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test15")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test15")->SetTranslation({30, 0});
-	GetObjectManager()->FindObject("test15")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test15")->SetDepth(0);
-	GetObjectManager()->FindObject("test15")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test16")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test16")->SetTranslation({40,0 });
-	GetObjectManager()->FindObject("test16")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test16")->SetDepth(0);
-	GetObjectManager()->FindObject("test16")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test17")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test17")->SetTranslation({50, 0});
-	GetObjectManager()->FindObject("test17")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test17")->SetDepth(0);
-	GetObjectManager()->FindObject("test17")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test18")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test18")->SetTranslation({60, 0});
-	GetObjectManager()->FindObject("test18")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test18")->SetDepth(0);
-	GetObjectManager()->FindObject("test18")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
-
-	GetObjectManager()->FindObject("test19")->SetScale({ 150,150 });
-	GetObjectManager()->FindObject("test19")->SetTranslation({70,0 });
-	GetObjectManager()->FindObject("test19")->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	GetObjectManager()->FindObject("test19")->SetDepth(0);
-	GetObjectManager()->FindObject("test19")->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.25));
+	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
+	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
+	spark->GetMesh().Invisible();
 
 }
 
 void test_statemanager::Update(float dt)
 {
+	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
@@ -183,9 +98,154 @@ void test_statemanager::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_4))
 		ChangeLevel("Particle");
 
+	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		GetSoundMap()->Play("asset/sounds/punch.wav");
+	}
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		GetSoundMap()->Play("asset/sounds/punch.wav");
+	}
+	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
+	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
+	Attact(sword);
+	if (Input::IsKeyTriggered(GLFW_KEY_T))
+	{
+		for (auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
+		{
+			find(i);
+		}
+		if (card_list.size() > 1)
+		{
+			change_sword = true;
+			GetSoundMap()->Play("asset/sounds/digimon.wav");
+			player->GetComponentByTemplate<Player>()->ClearCardList();
+		}
+	}
+	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
+	if (change_sword)
+	{
+		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
+	}
 }
 
 void test_statemanager::ShutDown()
 {
 	UnLoad();
+}
+
+Object* test_statemanager::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
+{
+	GetObjectManager()->AddObject(object_name);
+	GetObjectManager()->FindObject(object_name)->SetScale(scale);
+	GetObjectManager()->FindObject(object_name)->SetTranslation(position);
+	GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+
+	//trans form texture, 
+	return GetObjectManager()->FindObject(object_name).get();
+}
+Object* test_statemanager::BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale)
+{
+	GetObjectManager()->AddObject(object_name);
+	GetObjectManager()->FindObject(object_name)->SetScale(scale);
+	GetObjectManager()->FindObject(object_name)->SetTranslation(position);
+	GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	//GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
+	GetObjectManager()->FindObject(object_name)->AddComponent(new RigidBody());
+	//trans form texture, 
+	return GetObjectManager()->FindObject(object_name).get();
+}
+void test_statemanager::Attact(Object * object)
+{
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+}void test_statemanager::snailoption(Object * effect, Object* knife, float angle, float& angle_)
+{
+	float x_vel, y_vel;
+	angle_ += angle;
+	//card_velo -= 0.5f;
+	if (dt_sum < 2)
+		far *= 1.005f;
+	else
+		far *= 0.995f;
+	x_vel = cos(angle_)*(card_velo)+sin(angle_)*(card_velo);
+	y_vel = -sin(angle_)*(card_velo)+cos(angle_)*(card_velo);
+	effect->GetTransform().SetTranslation(vector2(knife->GetTransform().GetTranslation().x - far * x_vel, knife->GetTransform().GetTranslation().y - far * y_vel));
+	if (knife->GetTransform().GetTranslation().y > effect->GetTransform().GetTranslation().y)
+	{
+		effect->GetTransform().SetDepth(0.95f);
+	}
+	else
+		effect->GetTransform().SetDepth(0.98f);
+}
+void test_statemanager::Enchanted(Object * sword, Object* effect, Object * card1, Object * card2, float dt)
+{
+	float big = 0;
+	snailoption(card1, sword, -0.02f, rota_angle);
+	snailoption(card2, sword, 0.02f, rota_angle1);
+
+	if (dt_sum < 4)
+	{
+		dt_sum += dt;
+		if (!card1->GetMesh().IsVisible() && !card2->GetMesh().IsVisible())
+		{
+			card1->GetMesh().Visible();
+			card2->GetMesh().Visible();
+		}
+		if (dt_sum < 2)
+			big = 1.01f;
+		else
+			big = 0.99f;
+	}
+	else if (card1->GetMesh().IsVisible() && card2->GetMesh().IsVisible())
+	{
+		card1->GetMesh().Invisible();
+		card2->GetMesh().Invisible();
+	}
+	else
+	{
+		if (dt_sum < 7)
+		{
+			dt_sum += dt;
+			if (!effect->GetMesh().IsVisible())
+				effect->GetMesh().Visible();
+		}
+		else if (effect->GetMesh().IsVisible())
+		{
+			effect->GetMesh().Invisible();
+			sword->GetTransform().SetScale(vector2(200.f, 150.f));
+			sword->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(vector2(150.f, 150.0f));
+			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/ice_sword.png");
+			card_list.clear();
+			change_sword = false;
+		}
+	}
+	card1->GetTransform().SetScale(card1->GetTransform().GetScale()* big);
+	card2->GetTransform().SetScale(card2->GetTransform().GetScale()* big);
+}
+
+void test_statemanager::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
+		mouse_position.y - player->GetTransform().GetTranslation().y));
+	sword->SetTranslation(vector2(
+		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x,
+		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y));
+	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+	float angledeg = (180 / 3.14f)* anglerad;
+	sword->SetRotation(angledeg - 90);
+}
+void test_statemanager::PlayerSwing(vector2 mouse_position, Object * player)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
+		mouse_position.y - player->GetTransform().GetTranslation().y));
+	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+	float angledeg = (180 / 3.14f)* anglerad;
+	player->SetRotation(angledeg -270);
+}
+
+void test_statemanager::find(std::string card_)
+{
+	card_list.push_back(GetObjectManager()->FindObject(card_).get());
 }

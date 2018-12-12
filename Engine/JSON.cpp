@@ -133,7 +133,7 @@ void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* d
 	rapidjson::Value newObjectTexture(object->texture_path.c_str(), allocator);
 
 	rapidjson::Value newObjectID(rapidjson::kObjectType);
-	newObjectID.SetInt(object_id_count);
+	newObjectID.SetInt(object->object_id);
 	object_id_count++;
 
 	//Add Datas to objectdata
@@ -240,7 +240,7 @@ void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* s
 	fclose(fp);
 
 	for (rapidjson::Value::ConstMemberIterator itr = load_document.MemberBegin();
-		itr != load_document.MemberEnd(); ++itr)
+		itr != load_document.MemberEnd(); itr++)
 	{
 		std::string load_object_name = itr->name.GetString();
 		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][0].GetFloat() };
@@ -253,6 +253,7 @@ void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* s
 		new_object.SetTranslation(load_translation);
 		new_object.SetRotation(load_rotation);
 		new_object.texture_path = itr->value["texture"].GetString();
+		new_object.object_id = itr->value["id"].GetInt();
 		state_object->insert(std::pair<std::string, Object>(load_object_name, new_object));
 	}
 }

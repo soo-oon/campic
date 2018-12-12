@@ -29,5 +29,7 @@ private:
 	std::map<std::string, Object>* pt_object_map = &objects_and_names;
 
 	Object* newObject;
+
+	std::string Intersection(vector2 mouse_pos);
 	Object* selected_object = nullptr;
 };

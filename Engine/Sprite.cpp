@@ -12,6 +12,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_MSC_SECURE_CRT
 #include "stb_image_write.h"
+#include "Animation.hpp"
 
 Sprite::Sprite(const Sprite& other)
     : handle_to_texture(other.handle_to_texture), width(other.width),
@@ -118,4 +119,10 @@ void Sprite::DeleteSpriteTexture()
 int Sprite::GetPixelsBufferBytesSize() const
 {
     return ChannelsPerColor * sizeof(pixel);
+}
+
+void Sprite::Imgui_Sprite()
+{
+	if (ImGui::Button("Flip"))
+		flip = !flip;
 }

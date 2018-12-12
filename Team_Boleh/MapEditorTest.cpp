@@ -22,6 +22,11 @@ void MapEditorTest::Initialize()
 		GetObjectManager()->FindObject("object0")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
 		GetObjectManager()->FindObject("object0")->texture_path = "asset/images/heart.png";
 	}
+	else
+	{
+
+		object_count = (int)(objects_and_names.size());
+	}
 }
 
 void MapEditorTest::LoadMap()

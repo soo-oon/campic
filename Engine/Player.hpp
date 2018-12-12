@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.hpp"
+#include <vector>
 
 class Player : public Component
 {
@@ -8,5 +9,9 @@ public:
 	void Update(float dt);
 	void Delete();
 	void MovePlayer();
-private:
+	void SetCardList(std::string card);
+	void ClearCardList();
+	std::vector<std::string> GetCardList();
+private: 
+	std::vector<std::string> card_list = {};
 };
