@@ -79,24 +79,16 @@ void example::Initialize()
 	slime = BuildAndRegisterDynamicObject("slime", vector2(-300, -300), vector2(75.f, 75.f));
 	slime->AddComponent(new Animation("asset/images/slime.png", "slime", 6, 0.25));
 	slime->AddComponent(new RigidBody());
-	slime->AddComponent(new Collision(box_, {}, {40.0f, 40.0f}));
+	slime->AddComponent(new Collision(box_, {}, {75.0f, 75.0f}));
 	slime->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	slime->AddComponent(new Character(ObjectType::opponent));
 	slime->AddComponent(new Status(5, 1, 1.f));
 
-        shot = BuildAndRegisterDynamicObject("shot", vector2(-350, -350), vector2(75.f, 75.f));
-        shot->AddComponent(new Animation("asset/images/shot.png", "shot", 4, 0.25));
-        shot->AddComponent(new RigidBody());
-	shot->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
-	shot->AddComponent(new Character(ObjectType::sword));
-	shot->AddComponent(new Status(1,1,1.f));
-	shot->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
-        shot->GetMesh().Invisible();
 
 	scol = BuildAndRegisterDynamicObject("scol", vector2(-300, 300), vector2(75.f, 75.f));
 	scol->AddComponent(new Animation("asset/images/scol.png", "scol", 6, 0.25));
 	scol->AddComponent(new RigidBody());
-	scol->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
+	scol->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	scol->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	scol->AddComponent(new Character(ObjectType::opponent));
 	scol->AddComponent(new Status(5, 1, 1.f));
@@ -177,7 +169,7 @@ void example::Initialize()
 	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
-	sword->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
+	sword->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
         sword->AddComponent(new RigidBody());
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
@@ -231,25 +223,52 @@ void example::Update(float dt)
         if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
             sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
 
-    if(Input::IsKeyPressed(GLFW_KEY_X))
-    {
-	    if (!isshot)
-		    isshot = true;
-    }
+	if (Input::IsKeyTriggered(GLFW_KEY_X))
+	{
+		Power_shot();
+	}
 
-    if (isshot)
-    {
-	    shot->GetMesh().Visible();
-	    thrust(shot, player, 100);
-	    isshot = false;
-    }
-    else
-    {
-	    shot->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
-	    shot->GetTransform().SetRotation(*sword->GetTransform().GetRotation()+90);
-    }
-    PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
-        SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
+	if (isshot)
+		dt_power_shot += dt;
+
+	if (dt_power_shot > 3)
+	{
+		GetObjectManager()->RemoveObject("power");
+		isshot = false;
+		dt_power_shot = 0;
+	}
+	/*
+	if (!isshot&& dt_power_shot > 3) {
+		if (Input::IsKeyTriggered(GLFW_KEY_X))
+		{
+			isshot = true;
+		}
+	}
+	if (GetObjectManager()->FindObject("power") && dt_power_shot > 3)
+		GetObjectManager()->RemoveObject("power");
+
+	if (isshot){
+		std::string power = "power" ;
+		GetObjectManager()->AddObject(power);
+		vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
+			sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
+		GetObjectManager()->FindObject(power)->SetMesh(mesh::CreateBox());
+		GetObjectManager()->FindObject(power).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
+		GetObjectManager()->FindObject(power).get()->SetScale({ 50.f,50.f });
+		GetObjectManager()->FindObject(power).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { 50.f,50.f }));
+		GetObjectManager()->FindObject(power).get()->AddComponent(new RigidBody());
+		GetObjectManager()->FindObject(power).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(100*a);
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Character(ObjectType::shot));
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
+		dt_power_shot = 0;
+		isshot = false;
+	}
+	dt_power_shot += dt;
+	*/
+	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
+	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 		ChangeLevel("test");
@@ -295,12 +314,12 @@ void example::Update(float dt)
 
         if(Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
         {
-            player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+		player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
         }
-		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-		{
-			GetSoundMap()->Play("asset/sounds/punch.wav");
-		}
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		GetSoundMap()->Play("asset/sounds/punch.wav");
+	}
 
         if (dot(normalize(GetObjectManager()->FindObject("player")->GetComponentByTemplate<RigidBody>()->GetVelocity()), vector2(0, 1)) > 0)
         {
@@ -313,10 +332,9 @@ void example::Update(float dt)
    
 	
         if (Input::IsKeyTriggered(GLFW_KEY_O))
-            gravity_up *= 1.5;
+		gravity_up *= 1.5;
         if (Input::IsKeyTriggered(GLFW_KEY_P))
-            gravity_up /= 1.5;
-
+		gravity_up /= 1.5;
 	if (Input::IsKeyTriggered(GLFW_KEY_0))
 		check = !check;
 
@@ -325,9 +343,6 @@ void example::Update(float dt)
 	{
 		blackhole(GetObjectManager()->FindObject("player").get(),GetObjectManager()->FindObject("background").get());
 	}
-	//GetObjectManager()->FindObject("player")->GetComponentByTemplate<Animation>()->Update(dt);
-
-	//GetObjectManager()->FindObject("sonic")->GetComponentByTemplate<Animation>()->Update(dt);
 }
 
 void example::ShutDown()
@@ -480,6 +495,27 @@ void example::Stretch(Object * sword, float bigger)
 {
 	sword->SetScale(vector2(sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y +bigger));
 }
+void example::Power_shot()
+{
+	if (isshot != true)
+	{
+		isshot = true;
+		std::string power = "power";
+		GetObjectManager()->AddObject(power);
+		vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
+			sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
+		GetObjectManager()->FindObject(power)->SetMesh(mesh::CreateBox());
+		GetObjectManager()->FindObject(power).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
+		GetObjectManager()->FindObject(power).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
+		GetObjectManager()->FindObject(power).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y }));
+		GetObjectManager()->FindObject(power).get()->AddComponent(new RigidBody());
+		GetObjectManager()->FindObject(power).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Character(ObjectType::shot));
+		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
+	}
+}
 void example::find(std::string card_)
 {
 	card_list.push_back(GetObjectManager()->FindObject(card_).get());
@@ -489,8 +525,8 @@ void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
 		mouse_position.y - player->GetTransform().GetTranslation().y));
 	sword->SetTranslation(vector2(
-		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x,
-		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y));
+		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x/1.5f,
+		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y/1.5f));
         float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
         float angledeg = (180 / 3.14f )* anglerad;
         sword->SetRotation(angledeg - 90);
