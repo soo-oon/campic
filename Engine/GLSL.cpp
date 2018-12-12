@@ -86,8 +86,9 @@ namespace GLSL
 
 	void main()
 	{
+		vec3 position = transform * vec3(position, 1.0f);
+		gl_Position = vec4(position.xy, depth, 1.0);
 		_texture_coordinate = texture_coordinate;
-		gl_Position = projection * vec4(position, depth, 1.0);
 	}
 	)";
 
@@ -98,13 +99,13 @@ namespace GLSL
 	in vec2 _texture_coordinate;
 
 	uniform vec4 color;
-	uniform sampler2D sprite;
+	uniform sampler2D texture_to_sample;
 
 	out vec4 output_color;
 
 	void main()
 	{
-		vec4 texel = (texture(sprite, texture_coordinate));
+		vec4 texel = (texture(texture_to_sample, _texture_coordinate));
 		vec4 result_color = color * texel;
 
 		if(result_color.a <= 0.0f)

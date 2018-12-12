@@ -4,6 +4,7 @@ bool HUD::Initialize()
 {
 	hud_level = new HUD_level();
 
+	hud_level->Load();
 	hud_level->Initialize();
 	return true;
 }

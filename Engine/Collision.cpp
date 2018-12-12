@@ -3,11 +3,20 @@
 #include "RigidBody.hpp"
 #include <iostream>
 
+
 bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
 
 	collision_mesh = mesh::CreateCollisionBox(type);
+
+#ifdef _DEBUG
+	collision_mesh.Visible();
+#endif
+
+#ifdef _RELEASE
+	collision_mesh.Invisible();
+#endif
 	return true;
 }
 

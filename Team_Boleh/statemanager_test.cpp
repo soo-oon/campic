@@ -9,7 +9,6 @@
 
 void test_statemanager::Initialize()
 {
-	Load();
 	GetObjectManager()->AddObject("camera");
 	GetObjectManager()->AddObject("test1");
 	GetObjectManager()->AddObject("test2");

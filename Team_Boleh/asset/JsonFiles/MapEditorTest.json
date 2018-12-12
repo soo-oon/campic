@@ -14,5 +14,37 @@
         "gravity": 1.0,
         "texture": "asset/images/heart.png",
         "id": 1
+    },
+    "player": {
+        "name": "player",
+        "translation": [
+            -45.52384948730469,
+            340.5339050292969
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 2
+    },
+    "sword": {
+        "name": "sword",
+        "translation": [
+            -96.75999450683594,
+            25.24881935119629
+        ],
+        "rotation": 75.45909118652344,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 3
     }
 }

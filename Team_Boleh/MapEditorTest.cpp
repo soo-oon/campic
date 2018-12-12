@@ -7,8 +7,6 @@
 
 void MapEditorTest::Initialize()
 {
-	Load();
-
 	LoadMap();
 	std::cout << "Press 7 to create wall\n"
 		<< "      8           road\n"
@@ -33,6 +31,12 @@ void MapEditorTest::LoadMap()
 		itr != objects_and_names.end(); ++itr)
 	{
 		std::string object_name = itr->first;
+
+		if (object_name == "player")
+			continue;
+		if (object_name == "sword")
+			continue;
+
 		GetObjectManager()->AddObject(object_name);
 		GetObjectManager()->FindObject(object_name)->SetScale(itr->second.GetTransform().GetScale());
 		GetObjectManager()->FindObject(object_name)->SetTranslation(itr->second.GetTransform().GetTranslation());
@@ -74,7 +78,6 @@ void MapEditorTest::Update(float dt)
 			GetObjectManager()->FindObject(name)->texture_path = texture_path;
 
 			object_count++;
-			selected_object_id++;
 		}
 	}
 

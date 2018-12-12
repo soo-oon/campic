@@ -48,7 +48,7 @@ void example::move_convex_object(float dt, Object* Ob)
 
 void example::Initialize()
 {
-	Load();
+	//Load();
 
 	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");

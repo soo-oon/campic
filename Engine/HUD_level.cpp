@@ -5,8 +5,6 @@
 
 void HUD_level::Initialize()
 {
-	Load();
-
 	GetObjectManager()->AddObject("hud_box");
 
 	auto window = glfwGetCurrentContext();

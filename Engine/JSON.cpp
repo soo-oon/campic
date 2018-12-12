@@ -57,7 +57,7 @@ void JSON::SaveAtEnd(StateManager* state_manager)
 		name = it->first;
 		currentstate = it->second.get();
 
-		currentObjectM = it->second.get()->GetObjectManager();
+		currentObjectM = it->second.get()->GetObjectManager().get();
 		if (!currentObjectM) //if currentObejctmanager is empt, it means you didn't turn that level.
 			continue;
 

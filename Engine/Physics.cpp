@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "status.hpp"
+#include "Objectmanager.hpp"
 
 bool Physics::Initialize()
 {
@@ -19,24 +20,25 @@ void Physics::PhysicsObjectUpdate(Objectmanager* objectmanager)
 void Physics::Update(float dt)
 {
 	collision_list.clear();
-	if (temp_obj != nullptr)
+	if (temp_obj != nullptr )
 	{
 	    for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
 		    it != temp_obj->GetObjectMap().end();)
 	    {
-		Object* temp = (it->second.get());
+			Object* temp = (it->second.get());
 
-		if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
-		{
-                    if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
-                        temp_obj->GetObjectMap().erase(it++);
-                    else {
-                        collision_list.push_back(temp);
-                        temp->GetComponentByTemplate<Collision>()->Update(dt);
-                    }
+			if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
+			{
+                if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
+                    temp_obj->GetObjectMap().erase(it++);
+                else {
+                    collision_list.push_back(temp);
+                    temp->GetComponentByTemplate<Collision>()->Update(dt);
+                }
+			}
+
+	    	++it;
 		}
-                ++it;
-	    }
 	}
 	if (collision_list.size() > 1)
 	{
@@ -60,7 +62,7 @@ void Physics::Update(float dt)
                                         {
                                             ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
                                             Reaction(collision_list[i], collision_list[j]);
-                                        }*/
+                                        }
 				}
 			}
 		}

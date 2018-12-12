@@ -29,7 +29,7 @@ public:
         bool OutOfCheckBoundary(Object* object);
 
 private:
-	Objectmanager* temp_obj = nullptr;
+	Objectmanager* temp_obj;
 	std::vector<Object*> collision_list;
         vector2 windowsize = vector2{ 1280, 960 };
 };

@@ -4,37 +4,86 @@
 #include "status.hpp"
 #include "Player.hpp"
 
-bool Objectmanager::Initialize() { return true; }
+bool Objectmanager::Initialize()
+{
+	if(!object_map.empty())
+	{
+		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
+			it != object_map.end(); ++it)
+		{
+			Object* obj = it->second.get();
+			if (obj->GetComponentByTemplate<Sprite>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Sprite>()->Initialize(obj);
+			}
+			if (obj->GetComponentByTemplate<RigidBody>() != nullptr)
+			{
+				obj->GetComponentByTemplate<RigidBody>()->Initialize(obj);
+			}
+			if (obj->GetComponentByTemplate<Collision>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Collision>()->Initialize(obj);
+			}
+
+
+			if (obj->GetComponentByTemplate<Animation>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Animation>()->Initialize(obj);
+			}
+
+			if (obj->GetComponentByTemplate<Camera>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Camera>()->Initialize(obj);
+			}
+			if (obj->GetComponentByTemplate<Player>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Player>()->Initialize(obj);
+			}
+
+			if (obj->GetComponentByTemplate<Status>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Status>()->Initialize(obj);
+				if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
+				{
+					object_map.erase(it++);
+				}
+			}
+		}
+	}
+	
+	return true;
+}
 
 void Objectmanager::Update(float dt)
 {
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
 		it != object_map.end(); ++it)
 	{
-		Object obj = *(it->second.get());
+		Object* obj = it->second.get();
 
-		if(obj.GetComponentByTemplate<Sprite>() != nullptr)
+		if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		{
-			obj.GetComponentByTemplate<Sprite>()->Update(dt);
-		}
-
-		if(obj.GetComponentByTemplate<Animation>() != nullptr)
-		{
-			obj.GetComponentByTemplate<Animation>()->Update(dt);
+			obj->GetComponentByTemplate<Sprite>()->Update(dt);
 		}
 
-		if (obj.GetComponentByTemplate<Camera>() != nullptr)
+		if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		{
-			obj.GetComponentByTemplate<Camera>()->Update(dt);
+			obj->GetComponentByTemplate<Animation>()->Update(dt);
 		}
-		if (obj.GetComponentByTemplate<Player>() != nullptr)
+
+		if (obj->GetComponentByTemplate<Camera>() != nullptr)
 		{
-			obj.GetComponentByTemplate<Player>()->Update(dt);
+			obj->GetComponentByTemplate<Camera>()->Update(dt);
 		}
-		if(obj.GetComponentByTemplate<Status>() != nullptr)
+		if (obj->GetComponentByTemplate<Player>() != nullptr)
 		{
-			obj.GetComponentByTemplate<Status>()->Update(dt);
-			if (obj.GetComponentByTemplate<Status>()->GetLived() == false)
+			obj->GetComponentByTemplate<Player>()->Update(dt);
+		}
+
+		if(obj->GetComponentByTemplate<Status>() != nullptr)
+		{
+			obj->GetComponentByTemplate<Status>()->Update(dt);
+			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
 			{
 				object_map.erase(it++);
 			}

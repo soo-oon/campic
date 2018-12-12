@@ -12,6 +12,7 @@
 class Object
 {
 public:
+
     void AddComponent(Component* component);
     void SetMesh(Mesh mesh);
     void SetTranslation(const vector2& position);

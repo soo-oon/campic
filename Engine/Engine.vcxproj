@@ -80,7 +80,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -95,7 +95,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -111,7 +111,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -131,7 +131,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>

@@ -70,13 +70,11 @@ void Engine::Update()
             i->Update(dt);
 
 		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
-		Objectmanager_ = State_->GetObjectManager();
-
-		std::cout << Objectmanager_->GetObjectMap().size() << std::endl;
+		Objectmanager_ = State_->GetObjectManager().get();
 
 		Physics_->PhysicsObjectUpdate(Objectmanager_);
 
-		Graphic_->HUD_Draw(hud_state->GetObjectManager());
+		Graphic_->HUD_Draw(hud_state->GetObjectManager().get());
 		Graphic_->Draw(Objectmanager_);
 
 		Graphic_->EndDraw();

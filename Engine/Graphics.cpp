@@ -448,7 +448,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
     Spriteshader.SendUniformVariable("transform", to_ndc);
     Spriteshader.SendUniformVariable("depth", transform.GetDepth());
     Spriteshader.SendUniformVariable("color", color);
-    Spriteshader.SendUniformVariable("sprite", texture_slot);
+    Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
     glBindVertexArray(vertexAttributes[(int)Type::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
