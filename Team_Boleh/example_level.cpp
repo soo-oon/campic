@@ -272,7 +272,7 @@ void example::Update(float dt)
 	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetIsDoor())
+	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("test");
 
 

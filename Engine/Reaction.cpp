@@ -1,4 +1,5 @@
 #include "Reaction.hpp"
+#include "status.hpp"
 
 void Reaction(Object* object, Object* di_object,float bounce)
 {
@@ -17,15 +18,23 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	{
 		if(di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		AttackedReaction(object, di_object);
+		object->GetComponentByTemplate<Collision>()->Nohit();
+	}
+	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
+	{
+		if (object->GetComponentByTemplate<Collision>()->GetIsDamaged())
+		{
+			AttackedReaction(di_object, object);
+			object->GetComponentByTemplate<Status>()->Damaged_hp(di_object->GetComponentByTemplate<Status>()->GetDamage());
+		}
+		di_object->GetComponentByTemplate<Collision>()->Nohit();
 	}
 	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 	{
-		if (!di_object->GetComponentByTemplate<Collision>()->GetIsDoor())
 			DoorReaction(object);
 	}
 	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 	{
-		if (!object->GetComponentByTemplate<Collision>()->GetIsDoor())
 			DoorReaction(di_object);
 	}
 	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
@@ -59,7 +68,7 @@ void AttackedReaction(Object* object , Object* di_object, float power)
 	object->GetComponentByTemplate<RigidBody>()->SetVelocity(-vector2(
 		power * normalize(vector2(di_object->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x
 			, di_object->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y))));
-	di_object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+	//di_object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }
 
 void DisappearReaction(Object * object)
