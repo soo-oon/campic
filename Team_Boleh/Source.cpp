@@ -7,6 +7,7 @@
 #include "Particle_level.hpp"
 #include "StartMenu.hpp"
 #include "SplashScreen.hpp"
+#include "Demonstrate.hpp"
 
 int main()
 {
@@ -21,6 +22,7 @@ int main()
 	engine->GetSystemByTemplate<StateManager>()->AddStage("MapEditorTest", new MapEditorTest());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("Particle", new Particle_level());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("Startmenu", new StartMenu());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("Demonstrate", new Demonstrate());
 
     engine->Update();
   

@@ -11,6 +11,7 @@ enum class State_Information
 	Splash,
 	Menu,
 	Game,
+	MapEditor,
 	size
 };
 

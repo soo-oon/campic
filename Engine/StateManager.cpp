@@ -105,6 +105,7 @@ void StateManager::Update(float dt)
 
 		m_currentState->UpdateObjManager(dt);
         m_currentState->Update(dt);
+		m_currentState->UpdateJsonState(this);
     }
 }
 

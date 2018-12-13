@@ -161,6 +161,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Demonstrate.cpp" />
     <ClCompile Include="example_level.cpp" />
     <ClCompile Include="MapEditorTest.cpp" />
     <ClCompile Include="Particle_level.cpp" />
@@ -175,6 +176,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Demonstrate.hpp" />
     <ClInclude Include="example_level.hpp" />
     <ClInclude Include="MapEditorTest.hpp" />
     <ClInclude Include="Particle_level.hpp" />
