@@ -35,6 +35,9 @@ public:
 	void ObjectManger(bool show_window);
 	void Sound_Option(bool show_window);
 	void componentHelper(Object* object, ComponentType);
+	void ObjectAnimation(Object* obj);
+
+	void ObjectCharacter(Object * obj);
 
 	void SetObjectManger(Objectmanager* obj_manager) { object_manager = obj_manager; }
 	void SetSoundManager(Sound* _sound_manager) { sound_manager = _sound_manager; };
@@ -57,7 +60,7 @@ private:
 
 	//now these functions are mine
 	void AllObjectTree(std::vector<std::string> obj_list);
-	void SpriteObject(Object* sprite_obj);
+	void ObjectSprite(Object* sprite_obj);
 	//for creating object
 	size_t object_count = -1;
 	std::string object_name = "object";

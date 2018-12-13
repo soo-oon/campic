@@ -75,7 +75,6 @@ void Engine::Update()
 		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
 		Objectmanager_ = State_->GetObjectManager().get();
 
-
         for (auto i : systems)
         {
             i->Update(dt);

@@ -34,7 +34,7 @@ void SplashScreen::Update(float dt)
 		 logo->GetTransform().GetScale().y + 55 * dt });
 	}
 
-	if(time_count > 3.5f)
+	//if(time_count > 3.5f)
 		ChangeLevel("StartMenu");
 }
 
