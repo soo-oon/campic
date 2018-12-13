@@ -138,9 +138,7 @@ void example::Initialize()
 
 void example::Update(float dt)
 {
-	if (!player->GetComponentByTemplate<Status>()->GetLived())
-		ChangeLevel("StartMenu");
-
+	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
 		card_list.clear();
@@ -160,9 +158,6 @@ void example::Update(float dt)
 	{
 		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
 	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_R))
-		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
@@ -230,7 +225,12 @@ void example::Update(float dt)
 	//else
 	//	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
-
+        if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+        {
+		player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+		attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit2");
+		//attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit");
+        }
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		GetSoundMap()->Play("asset/sounds/punch.wav");
@@ -289,6 +289,14 @@ void example::ForProtoType(Object * object, Object* opponent, float vel_come)
 	opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(vel_come* no_come);
 }
 
+void example::PlayerSwing(vector2 mouse_position, Object * player)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
+		mouse_position.y - player->GetTransform().GetTranslation().y));
+	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+	float angledeg = (180 / 3.14f)* anglerad;
+	player->SetRotation(angledeg - 270);
+}
 void example::snailoption(Object * effect, Object* knife, float angle, float& angle_)
 {
 	float x_vel, y_vel;
@@ -411,4 +419,32 @@ void example::Power_shot()
 void example::find(std::string card_)
 {
 	card_list.push_back(GetObjectManager()->FindObject(card_).get());
+}
+void example::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
+		mouse_position.y - player->GetTransform().GetTranslation().y));
+	sword->SetTranslation(vector2(
+		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x/1.5f,
+		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y/1.5f));
+        float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+        float angledeg = (180 / 3.14f )* anglerad;
+        sword->SetRotation(angledeg - 90);
+		//sword->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetRotation(angledeg - 90);
+        //float a = dot(sword->GetTransform().GetTranslation(), vector2(0, 1))/ magnitude(sword->GetTransform().GetTranslation());
+        //if(mouse_position.x > player->GetTransform().GetTranslation().x)
+        //{
+        //    std::cout <<"mouse : "<< mouse_position.x <<"player : " << player->GetTransform().GetTranslation().x << std::endl;
+        //    a = 360 - acos(a)*(180 / 3.14);
+        //}
+        //else
+        //a = acos(a)*(180/3.14);
+        //std::cout << a << std::endl;
+        //sword->SetRotation(a);
+}
+
+void example::Attact(Object * object)
+{
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }

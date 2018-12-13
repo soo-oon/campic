@@ -28,13 +28,16 @@ void Physics::Update(float dt)
 		{
 			Object* temp = (it->second.get());
 
-			if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
+			if (temp != nullptr)
 			{
-				if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
-					temp_obj->GetObjectMap().erase(it++);
-				else {
+				if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
+				{
+					if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
+						temp_obj->GetObjectMap().erase(it++);
+					else {
 						collision_list.push_back(temp);
 						temp->GetComponentByTemplate<Collision>()->Update(dt);
+					}
 				}
 			}
 		++it;
@@ -73,24 +76,27 @@ void Physics::Update(float dt)
 		{
 			Object* temp = (it->second.get());
 
-			if (temp->GetComponentByTemplate<RigidBody>() != nullptr)
+			if (temp != nullptr)
 			{
-				if(temp->GetComponentByTemplate<Collision>() != nullptr)
+				if (temp->GetComponentByTemplate<RigidBody>() != nullptr)
 				{
-					if(!OutOfCheckBoundary(temp))
-						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-					else
+					if (temp->GetComponentByTemplate<Collision>() != nullptr)
 					{
-						//StopReaction(temp);
-						temp->GetTransform().SetTranslation({ 10*-normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).x + temp->GetTransform().GetTranslation().x,
-							10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).y + temp->GetTransform().GetTranslation().y });
-						temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-						temp->GetComponentByTemplate<Collision>()->Update(dt);
+						if (!OutOfCheckBoundary(temp))
+							temp->GetComponentByTemplate<RigidBody>()->Update(dt);
+						else
+						{
+							//StopReaction(temp);
+							temp->GetTransform().SetTranslation({ 10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).x + temp->GetTransform().GetTranslation().x,
+								10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).y + temp->GetTransform().GetTranslation().y });
+							temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+							temp->GetComponentByTemplate<Collision>()->Update(dt);
+						}
 					}
+					else
+						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
 				}
-				else
-					temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-                        }
+			}
 		}
 	}
 }
@@ -179,12 +185,12 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
 	{
-		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit_);
 	}
 	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door)
 	{
-		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit_);
 	}
 }
 

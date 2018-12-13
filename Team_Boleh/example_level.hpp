@@ -19,9 +19,6 @@ public:
 	// You need add sprite or animation.
 	Object* BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale);
 	Object* BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale);
-	void SwordSwing(vector2 mouse_position, Object* player, Object* sword);
-	void PlayerSwing(vector2 mouse_position, Object* player);
-	void Attact(Object* object);
 	void SwordPosition(std::string player_str, std::string sword_str);
 	void ForProtoType(Object* object, Object* opponent, float vel_come);
 	void snailoption( Object* effect,Object* knife, float angle, float& angle_);

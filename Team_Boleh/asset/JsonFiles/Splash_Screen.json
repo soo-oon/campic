@@ -1,0 +1,42 @@
+{
+    "BackGround": {
+        "name": "BackGround",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.8999999761581421,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sp": 1,
+        "ani": 0,
+        "cha": 0,
+        "col": 0
+    },
+    "Digipen_Logo": {
+        "name": "Digipen_Logo",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            491.20489501953127,
+            197.80123901367188
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sp": 1,
+        "ani": 0,
+        "cha": 0,
+        "col": 0
+    }
+}

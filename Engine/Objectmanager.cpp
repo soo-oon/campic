@@ -78,7 +78,8 @@ void Objectmanager::Update(float dt)
 			//obj->GetComponentByTemplate<Status>()->Update(dt);
 			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
 			{
-				will_remove_object.push_back(it->first);
+				if (obj->GetComponentByTemplate<Player>() == nullptr)
+					will_remove_object.push_back(it->first);
 			}
 		}
 		if (obj->GetComponentByTemplate<Collision>() != nullptr)
@@ -86,7 +87,8 @@ void Objectmanager::Update(float dt)
 			//obj->GetComponentByTemplate<Status>()->Update(dt);
 			if (obj->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
 			{
-				will_remove_object.push_back(it->first);
+				if(obj->GetComponentByTemplate<Player>() == nullptr)
+					will_remove_object.push_back(it->first);
 			}
 		}
 		/*if(obj->GetComponentByTemplate<Sprite>() != nullptr)
@@ -176,8 +178,11 @@ int Objectmanager::FindMaxID()
 	int max = 0;
 	for (auto itr = object_map.begin(); itr != object_map.end(); itr++)
 	{
-		if (max < itr->second.get()->object_id)
-			max = itr->second.get()->object_id;
+		if (itr->second != nullptr)
+		{
+			if (max < itr->second.get()->object_id)
+				max = itr->second.get()->object_id;
+		}
 	}
 	return max;
 }

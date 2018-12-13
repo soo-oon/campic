@@ -72,7 +72,7 @@ void MapEditorTest::Update(float dt)
 		}
 	}
 
-	if (Input::IsKeyTriggered(GLFW_KEY_4))
+	if (Input::IsKeyTriggered(GLFW_KEY_R))
 		ChangeLevel("MapEditorTest");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_4))

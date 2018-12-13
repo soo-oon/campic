@@ -8,42 +8,36 @@
 
 bool StateManager::Initialize()
 {
-	player = new Object;
-	sword = new Object;
-
-	player->AddComponent(new Player());
-	//sword->AddComponent(new Sword(player));
-
-    m_currentState = nullptr;
-    m_pause = false;
-    m_restart = false;
-    return true;
+	m_currentState = nullptr;
+	m_pause = false;
+	m_restart = false;
+	return true;
 }
 
 void StateManager::AddStage(std::string ID, State* state)
 {
 	states.insert(std::make_pair(ID, state));
 
-    if (m_currentState == nullptr)
-    {
+	if (m_currentState == nullptr)
+	{
 		if (states.find(ID)->second->information_ == State_Information::Splash)
 		{
 			m_currentState = states.find(ID)->second.get();
 			m_currentState->Load();
 			m_currentState->Initialize();
 		}
-    }
+	}
 }
 
 void StateManager::ChangeStage()
 {
 	if (m_currentState->GetObjectManager()->IsExistPlayer())
 	{
-		/*Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
-		player.SetTranslation({ -player.GetTransform().GetTranslation().x, player.GetTransform().GetTranslation().y });
+		auto& player = m_currentState->GetObjectManager()->FindObject("Player");
+		player->SetTranslation({ 0,0 });
 
-		Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
-		sword.SetTranslation({ player.GetTransform().GetTranslation() });*/
+		auto& sword = m_currentState->GetObjectManager()->FindObject("Sword");
+		sword->SetTranslation({ player->GetTransform().GetTranslation() });
 
 		std::string next_level = m_currentState->GetNextLevel();
 
@@ -53,11 +47,11 @@ void StateManager::ChangeStage()
 
 		m_currentState->Load();
 
-		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::make_unique<Object>(*player)));
-		//m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::make_unique<Object>(*sword)));
-
-		//player = m_currentState->GetObjectManager()->FindObject("Player").get();
-		//m_currentState->GetObjectManager()->FindObject("Sword")->GetComponentByTemplate<Sword>()->SetOwner(player);
+		if (m_currentState->information_ == State_Information::Game)
+		{
+			m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::move(player)));
+			m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::move(sword)));
+		}
 
 		m_currentState->GetObjectManager()->Initialize();
 
@@ -85,12 +79,12 @@ void StateManager::ChangeStage()
 
 void StateManager::Restart()
 {
-    m_restart = true;
+	m_restart = true;
 }
 
 void StateManager::Pause()
 {
-    m_pause = true;
+	m_pause = true;
 }
 
 void StateManager::Update(float dt)
@@ -98,18 +92,15 @@ void StateManager::Update(float dt)
 	if (m_currentState->IsLevelChange())
 		ChangeStage();
 
-    if (m_pause == false)
-    {
-		//player->GetComponentByTemplate<Player>()->Update(dt);
-		//sword->GetComponentByTemplate<Sword>()->Update(dt);
-
+	if (m_pause == false)
+	{
 		m_currentState->UpdateObjManager(dt);
-        m_currentState->Update(dt);
+		m_currentState->Update(dt);
 		m_currentState->UpdateJsonState(this);
-    }
+	}
 }
 
 void StateManager::Quit()
 {
-    states.clear();
+	states.clear();
 }
