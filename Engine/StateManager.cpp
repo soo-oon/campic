@@ -34,7 +34,10 @@ void StateManager::ChangeStage()
 	if (m_currentState->GetObjectManager()->IsExistPlayer())
 	{
 		auto& player = m_currentState->GetObjectManager()->FindObject("Player");
+		player->SetTranslation({ 0,0 });
+
 		auto& sword = m_currentState->GetObjectManager()->FindObject("Sword");
+		sword->SetTranslation({ player->GetTransform().GetTranslation() });
 
 		std::string next_level = m_currentState->GetNextLevel();
 
@@ -44,9 +47,11 @@ void StateManager::ChangeStage()
 
 		m_currentState->Load();
 
-		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::move(player)));
-		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::move(sword)));
-
+		if (m_currentState->information_ == State_Information::Game)
+		{
+			m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::move(player)));
+			m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::move(sword)));
+		}
 
 		m_currentState->GetObjectManager()->Initialize();
 

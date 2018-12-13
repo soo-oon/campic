@@ -55,8 +55,7 @@ void test_statemanager::Initialize()
 
 
 	boss = BuildAndRegisterDynamicObject("boss", { 300.f,-150.f }, { 200.f,200.f });
-	boss->AddComponent(new Sprite());
-	boss->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/boss.png");
+	boss->AddComponent(new Animation("asset/images/boss.png", "boss", 5, 0.2f));
 	boss->AddComponent(new Collision(box_, {}, {boss->GetTransform().GetScale()}));
 	boss->AddComponent(new RigidBody());
 	boss->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
@@ -94,6 +93,10 @@ void test_statemanager::Initialize()
 void test_statemanager::Update(float dt)
 {
 	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+
+	if (Input::IsKeyTriggered(GLFW_KEY_R))
+		ChangeLevel("test");
+
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
