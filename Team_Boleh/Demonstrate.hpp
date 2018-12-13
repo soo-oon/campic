@@ -19,6 +19,10 @@ private:
 	std::map<std::string, Object> stage1;
 
 	void CreateLoadObject(int stage_id);
-	void MakeItVisible(int stage_id, bool visible_yes);
+	void DrawStage(int selected_stage_id);
+	void DrawStage0();
+	void DrawStage1();
 
+	Object player_info;
+	Object sword_info;
 };

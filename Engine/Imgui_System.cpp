@@ -433,6 +433,7 @@ void Imgui_System::ObjectSprite(Object* obj)
 			if (ImGui::Button("Change Sprite"))
 			{
 				obj->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
+				obj->texture_path = image_dir + current_item;
 			}
 		}
 		ImGui::TreePop();
@@ -462,6 +463,7 @@ void Imgui_System::ObjectAnimation(Object* obj)
 			if (ImGui::Button("Add Animation"))
 			{
 				obj->AddComponent(new Animation(image_dir+current_item, " ", 4, 0.2f, true));
+				obj->texture_path = image_dir + current_item;
 			}
 		}
 		else

@@ -1,4 +1,44 @@
 {
+    "Player": {
+        "name": "Player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            43.19453430175781,
+            50.780670166015628
+        ],
+        "rotation": -40.35964584350586,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.5,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    },
     "background": {
         "name": "background",
         "translation": [
@@ -14,16 +54,16 @@
         "gravity": 1.0,
         "texture": "asset/images/background.png",
         "id": 0,
-        "sp": 1,
-        "ani": 0,
-        "cha": 0,
-        "col": 0
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
     },
     "object2": {
         "name": "object2",
         "translation": [
-            0.0,
-            0.0
+            -420.0,
+            260.0
         ],
         "rotation": 0.0,
         "scale": [
@@ -34,9 +74,89 @@
         "gravity": 1.0,
         "texture": "asset/images/bluecard.png",
         "id": 2,
-        "sp": 1,
-        "ani": 0,
-        "cha": 0,
-        "col": 0
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
+    },
+    "object3": {
+        "name": "object3",
+        "translation": [
+            180.0,
+            260.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/slime.png",
+        "id": 3,
+        "sprite": 0,
+        "animation": 1,
+        "character": 0,
+        "collision": 0
+    },
+    "object4": {
+        "name": "object4",
+        "translation": [
+            220.0,
+            20.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/slime.png",
+        "id": 4,
+        "sprite": 0,
+        "animation": 1,
+        "character": 0,
+        "collision": 0
+    },
+    "object6": {
+        "name": "object6",
+        "translation": [
+            -480.0,
+            140.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/scol.png",
+        "id": 6,
+        "sprite": 0,
+        "animation": 1,
+        "character": 0,
+        "collision": 0
+    },
+    "object7": {
+        "name": "object7",
+        "translation": [
+            -240.0,
+            180.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/slime.png",
+        "id": 7,
+        "sprite": 0,
+        "animation": 1,
+        "character": 0,
+        "collision": 0
     }
 }

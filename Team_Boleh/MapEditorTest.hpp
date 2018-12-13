@@ -24,7 +24,7 @@ enum class mode :int
 class MapEditorTest : public State
 {
 public:
-	MapEditorTest() { information_ = State_Information::MapEditor;}
+	MapEditorTest() { information_ = State_Information::Game;}
 
 	void Initialize() override;
 	void Update(float dt) override;
