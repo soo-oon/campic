@@ -1,0 +1,114 @@
+{
+    "Player": {
+        "name": "Player",
+        "translation": [
+            -0.6487370133399963,
+            -44.74163055419922
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            19.51811408996582,
+            18.970802307128908
+        ],
+        "rotation": -17.570220947265626,
+        "scale": [
+            200.0,
+            150.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "background": {
+        "name": "background",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.9900000095367432,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "camera": {
+        "name": "camera",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            10.0,
+            10.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "clover1": {
+        "name": "clover1",
+        "translation": [
+            420.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "door": {
+        "name": "door",
+        "translation": [
+            500.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "spade1": {
+        "name": "spade1",
+        "translation": [
+            420.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    }
+}

@@ -28,7 +28,7 @@ bool Player::Initialize(Object * Ob)
 void Player::Update(float dt)
 {
 	MovePlayer();
-	PlayerMove(Input::GetMousePos(Graphics::checking_zoom));
+	//PlayerMove(Input::GetMousePos(Graphics::checking_zoom));
 }
 
 void Player::Delete()
@@ -54,6 +54,11 @@ void Player::MovePlayer()
 		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(2, 0));
 	}
 
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+	}
+
 	if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
 	else
@@ -76,13 +81,13 @@ std::vector<std::string> Player::GetCardList()
 	return card_list;
 }
 
-void Player::PlayerMove(vector2 mouse_position)
-{
-	vector2 swing_direction = normalize(vector2(mouse_position.x - object->GetTransform().GetTranslation().x,
-		mouse_position.y - object->GetTransform().GetTranslation().y));
-	float anglerad = atan2(mouse_position.y - object->GetTransform().GetTranslation().y, mouse_position.x - object->GetTransform().GetTranslation().x);
-	float angledeg = (180 / 3.14f)* anglerad;
-	object->SetRotation(angledeg - 270);
-
-	//std::cout << angledeg - 270 << std::endl;
-}
+//void Player::PlayerMove(vector2 mouse_position)
+//{
+//	vector2 swing_direction = normalize(vector2(mouse_position.x - object->GetTransform().GetTranslation().x,
+//		mouse_position.y - object->GetTransform().GetTranslation().y));
+//	float anglerad = atan2(mouse_position.y - object->GetTransform().GetTranslation().y, mouse_position.x - object->GetTransform().GetTranslation().x);
+//	float angledeg = (180 / 3.14f)* anglerad;
+//	object->SetRotation(angledeg - 270);
+//
+//	//std::cout << angledeg - 270 << std::endl;
+//}

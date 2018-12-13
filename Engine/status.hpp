@@ -11,7 +11,7 @@ class Status : public Component
 {
 
 public:
-	Status(int Object_hp , int object_damage, float object_speed);
+	Status(int Object_hp = 5, int object_damage = 1, float object_speed = 1.0f);
 	bool Initialize(Object* Ob);
 	void Update(float dt);
 	void Delete();

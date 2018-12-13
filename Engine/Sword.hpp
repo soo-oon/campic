@@ -10,11 +10,12 @@ class Sword : public Component
 public:
 	Sword(Object* player);
 
-	void SetOwner(Object* player);
 	bool Initialize(Object* Ob);
 	void Update(float dt);
+	void SetOwner(Object* player);
 	void Delete() override;
 	void SwordMove(vector2 mouse_position);
+
 private:
 	Object* owner;
 };

@@ -34,8 +34,12 @@ void State::AddPlayer()
 	objectmanager->AddObject("Player");
 	objectmanager->FindObject("Player")->AddComponent(new Player());
 
-	//objectmanager->AddObject("Sword");
-	//objectmanager->FindObject("Sword")->AddComponent(new Sword(objectmanager->FindObject("Player").get()));
+	objectmanager->AddObject("Sword");
+	objectmanager->FindObject("Sword")->AddComponent(new Sword(objectmanager->FindObject("Player").get()));
+}
+
+void State::SecondPlanForPlayer(Object* player)
+{
 }
 
 void State::ChangeLevel(std::string ID)

@@ -26,7 +26,7 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
-	if (restitution_ != RestitutionType::exit)
+	if (restitution_ != RestitutionType::exit_)
 		isdoor = false;
 	if(GetRestitutionType() != RestitutionType::get)
 	SetRestitutionType(RestitutionType::none);

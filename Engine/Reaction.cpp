@@ -32,11 +32,11 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		}
 		object->GetComponentByTemplate<Collision>()->Nohit();
 	}
-	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit_)
 	{
 			DoorReaction(object);
 	}
-	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit_)
 	{
 			DoorReaction(di_object);
 	}

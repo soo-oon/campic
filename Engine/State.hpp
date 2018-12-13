@@ -28,7 +28,7 @@ public:
 
 
 	virtual void AddPlayer();
-
+	virtual void SecondPlanForPlayer(Object* player);
 
 	virtual bool IsLevelChange() { return level_change; }
 	virtual std::string GetNextLevel() { return change_level; }

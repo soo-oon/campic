@@ -1,5 +1,6 @@
 #include "SplashScreen.hpp"
 #include <iostream>
+#include "Input.hpp"
 
 void SplashScreen::Initialize()
 {
@@ -33,6 +34,9 @@ void SplashScreen::Update(float dt)
 		logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
 		 logo->GetTransform().GetScale().y + 55 * dt });
 	}
+
+	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		ChangeLevel("StartMenu");
 
 	if(time_count > 3.5f)
 		ChangeLevel("StartMenu");

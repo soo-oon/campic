@@ -12,8 +12,8 @@
 class Object
 {
 public:
-	Object() = default;
-	Object(const Object& rhs);
+	/*Object() = default;
+	Object(const Object& rhs);*/
 
 
     void AddComponent(Component* component);
