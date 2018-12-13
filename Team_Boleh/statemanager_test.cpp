@@ -22,30 +22,21 @@ void test_statemanager::Initialize()
 	GetObjectManager()->FindObject("camera")->AddComponent(new Camera(this));
 
 	player = GetObjectManager()->FindObject("Player").get();
-	/*player = BuildAndRegisterDynamicObject("player", vector2(0, 0), vector2(100.f, 100.f));
-	player->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
-	player->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-	player->AddComponent(new Character(ObjectType::player));
-	player->AddComponent(new Player());
-	player->AddComponent(new Status(5, 1, 1.f));*/
 
 	background = BuildAndRegisterDynamicObject("background", vector2(0, 0), vector2());
 	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
-	sword = GetObjectManager()->FindObject("Sword").get();
-	/*sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
+	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
-	sword->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
+	sword->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	sword->AddComponent(new RigidBody());
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 	sword->AddComponent(new Status(5, 1, 1.f));
-	sword->SetDepth(0.978f);*/
+	sword->SetDepth(0.978f);
 
 	spade = BuildAndRegisterDynamicObject("spade", vector2(350, -100), vector2(25.f, 25.f));
 	spade->AddComponent(new Sprite());
@@ -60,7 +51,6 @@ void test_statemanager::Initialize()
 	spade1->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	spade1->AddComponent(new Character(ObjectType::card));
 	spade1->AddComponent(new Card("spade"));
-
 
 	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
 	door->AddComponent(new Sprite());
@@ -112,6 +102,7 @@ void test_statemanager::Update(float dt)
 	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 	Attact(sword);
+
 	if (Input::IsKeyTriggered(GLFW_KEY_T))
 	{
 		for (auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
@@ -162,7 +153,8 @@ void test_statemanager::Attact(Object * object)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
-}void test_statemanager::snailoption(Object * effect, Object* knife, float angle, float& angle_)
+}
+void test_statemanager::snailoption(Object * effect, Object* knife, float angle, float& angle_)
 {
 	float x_vel, y_vel;
 	angle_ += angle;

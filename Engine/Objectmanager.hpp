@@ -15,12 +15,12 @@ public:
     void RemoveObject(std::string key_name);
 
 	bool IsExistPlayer();
-	bool FindCameraObject();
 
     std::unique_ptr<Object>& FindObject(std::string key_name);
     std::map<std::string, std::unique_ptr<Object>>& GetObjectMap() { return object_map; }
 	int FindMaxID();
 
 private:
-    std::map<std::string, std::unique_ptr<Object>> object_map;
+	std::map<std::string, std::unique_ptr<Object>> object_map;
+    //std::map<std::string, std::unique_ptr<Object>> object_map;
 };

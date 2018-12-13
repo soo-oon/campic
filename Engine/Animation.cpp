@@ -5,7 +5,6 @@
 
 bool Animation::Initialize(Object* Ob)
 {
-
 	object = Ob;
     return true;
 }

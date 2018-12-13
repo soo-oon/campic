@@ -1,5 +1,10 @@
 #include "Object.hpp"
 
+Object::Object(const Object& rhs)
+{
+	*this = rhs;
+}
+
 void Object::AddComponent(Component* component)
 {
     components.push_back(component);
