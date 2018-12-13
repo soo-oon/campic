@@ -44,4 +44,7 @@ private:
 
 	std::map<std::string,FMOD::Sound*> sound_map;
 
+	class SOUND
+	{};
+
 };

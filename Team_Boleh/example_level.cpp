@@ -17,8 +17,10 @@ void example::Initialize()
 {
 	//Load();
 
-	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
+	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
+	GetSoundMap()->AddSound("asset/sounds/fireball.mp3");
+	//GetSoundMap()->AddSound("asset/sounds/slime.wav");
 
 	player = GetObjectManager()->FindObject("Player").get();
 
@@ -129,11 +131,6 @@ void example::Initialize()
 	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
-
-	
-
-	//sound->AddSound("asset/sounds/digimon.wav");
-	
 }
 
 void example::Update(float dt)
@@ -151,7 +148,7 @@ void example::Update(float dt)
 		if (card_list.size() > 1)
 		{
 			change_sword = true;
-			GetSoundMap()->Play("asset/sounds/digimon.wav");
+			GetSoundMap()->Play("asset/sounds/inchant.mp3");
 			player->GetComponentByTemplate<Player>()->ClearCardList();
 		}
         }
@@ -367,18 +364,18 @@ void example::FollowMe(vector2 mouse, Object * flower)
 void example::Flow_leaf(std::vector<Object*> flower)
 {
 	for (auto i : flower) {
-		float pl = rand() % 2;
+		int pl = rand() % 2;
 		if (pl == 1)
 			pl = -1;
 		else
 			pl = 1;
-		float p = rand() % 2;
+		int p = rand() % 2;
 		if (p == 1)
 			p = -1;
 		else
 			p = 1;
-		float a = rand() % 100;
-		float b = rand() % 100;
+		int a = rand() % 100;
+		int b = rand() % 100;
 		if(i != flower[0])
 		i->GetTransform().SetTranslation(vector2(flower[0]->GetTransform().GetTranslation().x + a * p, flower[0]->GetTransform().GetTranslation().y + b * p));
 	}
@@ -406,6 +403,8 @@ void example::Power_shot()
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Character(ObjectType::shot));
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
+
+		GetSoundMap()->Play("asset/sounds/fireball.mp3");
 	}
 }
 void example::find(std::string card_)

@@ -61,7 +61,7 @@ bool Engine::Initialize()
 	hud_state = HUD_->GetHUDlevel();
     gameTimer.Reset();
     IsQuit = false;
-	srand(time(NULL));
+	srand(static_cast<unsigned int>(time(NULL)));
     return true;
 }
 

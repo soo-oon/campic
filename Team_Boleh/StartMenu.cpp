@@ -29,6 +29,10 @@ void StartMenu::Initialize()
 	Start = GetObjectManager()->FindObject("StartButton").get();
 	Option = GetObjectManager()->FindObject("OptionButton").get();
 	Quit = GetObjectManager()->FindObject("QuitButton").get();
+
+	GetSoundMap()->AddSound("asset/sounds/Menu_Button.mp3");
+	//GetSoundMap()->AddSound("asset/sounds/Menu_bgm.mp3");
+	//GetSoundMap()->Play("asset/sounds/Menu_bgm.mp3");
 }
 
 void StartMenu::Update(float dt)
@@ -72,9 +76,15 @@ void StartMenu::ChangeSelectedMenu()
 {
 
 	if (Input::IsKeyTriggered(GLFW_KEY_DOWN))
+	{
 		select_button_id++;
+		GetSoundMap()->Play("asset/sounds/Menu_Button.mp3");
+	}
 	if (Input::IsKeyTriggered(GLFW_KEY_UP))
+	{
 		select_button_id--;
+		GetSoundMap()->Play("asset/sounds/Menu_Button.mp3");
+	}
 
 	if (select_button_id < 0)
 		select_button_id = (int)(button::Quit);
