@@ -98,8 +98,8 @@ void Engine::Update()
 		Imgui->Draw();
 #endif
 
-		Json->UpdateLevel(GetSystemByTemplate<StateManager>());
-
+		//Json->UpdateLevel(GetSystemByTemplate<StateManager>());
+		Json->UpdateState(GetSystemByTemplate<StateManager>());
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
     }

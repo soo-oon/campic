@@ -301,7 +301,7 @@ void Imgui_System::Editor(bool show_editor)
 {
 	if (!show_editor)
 		return;
-
+	
 	if (object_manager == nullptr)
 		return;
 

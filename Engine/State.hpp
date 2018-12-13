@@ -16,6 +16,7 @@ public:
 	virtual void Load();
 	virtual void Initialize() = 0;
 	virtual void UpdateObjManager(float dt);
+	virtual void UpdateJsonState(StateManager* current);
 	virtual void Update(float dt) = 0;
 	virtual void ShutDown() = 0;
 	virtual void UnLoad();

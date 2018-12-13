@@ -36,6 +36,12 @@ public:
 
 	std::string texture_path = "no_texture";
 	int object_id = 0;
+	bool sprite_true = false;
+	bool animation_true = false;
+	bool character_true = false;
+	bool collision_true = false;
+
+
 private:
 	float gravity = 1;
     Mesh object_mesh{};
