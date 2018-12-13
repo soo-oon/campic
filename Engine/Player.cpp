@@ -55,6 +55,11 @@ void Player::MovePlayer()
 		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(5, 0));
 	}
 
+	if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
+	else
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
+
 }
 
 void Player::SetCardList(std::string card)
