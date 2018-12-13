@@ -325,10 +325,9 @@ void Imgui_System::Editor(bool show_editor)
 				AllObjectTree(object_lists);
 				ImGui::TreePop();
 			}
-
+			
 			if (ImGui::Button("Create Object"))
 			{
-				std::cout << object_count << std::endl;
 				std::string new_obj_name = object_name + std::to_string(object_count + 1);
 				object_manager->AddObject(new_obj_name);
 				newObject = object_manager->FindObject(new_obj_name).get();
@@ -343,6 +342,21 @@ void Imgui_System::Editor(bool show_editor)
 				std::cout << newObject->object_id << std::endl;
 				object_count++;
 			}
+
+			ImGui::SameLine();
+			if (ImGui::Button("Clear All"))
+			{
+				for (int i = 0; i < object_lists.size(); i++)
+				{
+					if (object_lists.at(i) == "background")
+						continue;
+					if (object_lists.at(i) == "Player")
+						continue;
+					if (object_lists.at(i) == "Sword")
+						continue;
+					object_manager->FindObject(object_lists.at(i))->GetMesh().Invisible();
+				}
+			}
 		}
 
 		ImGui::End();
@@ -355,6 +369,8 @@ void Imgui_System::AllObjectTree(std::vector<std::string> obj_list)
 	{
 		Object* temp = object_manager->FindObject(obj_list.at(i).c_str()).get();
 		if (!temp->GetMesh().IsVisible())
+			continue;
+		if (obj_list.at(i) == "displaybox") //this is the display box at map editor
 			continue;
 
 		if (ImGui::TreeNode(obj_list.at(i).c_str())) //um... update new!

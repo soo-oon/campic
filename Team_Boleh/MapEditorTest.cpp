@@ -12,11 +12,11 @@ void MapEditorTest::Initialize()
 		<< "      8           road\n"
 		<< "      9           heart\n";
 
-	std::string name = "displaybox";
-	GetObjectManager()->AddObject(name);
-	GetObjectManager()->FindObject(name)->SetScale(vector2(100.f, 100.f));
-	GetObjectManager()->FindObject(name)->SetTranslation(vector2(0.f, 0.f));
-	GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateLineBox(1, { 255, 255, 255, 255 }));
+	//std::string name = "displaybox";
+	//GetObjectManager()->AddObject(name);
+	//GetObjectManager()->FindObject(name)->SetScale(vector2(100.f, 100.f));
+	//GetObjectManager()->FindObject(name)->SetTranslation(vector2(0.f, 0.f));
+	//GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateLineBox(1, { 0, 0, 255, 255 }));
 
 
 	if (objects_and_names.size() == 0)
@@ -28,7 +28,6 @@ void MapEditorTest::Initialize()
 		GetObjectManager()->FindObject("background")->AddComponent(new Sprite());
 		GetObjectManager()->FindObject("background")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 		GetObjectManager()->FindObject("background")->texture_path = "asset/images/background.png";
-		object_count = 1;
 	}
 	obj_map = GetObjectManager()->GetObjectMapPointer();
 }
@@ -60,25 +59,31 @@ void MapEditorTest::LoadMap()
 
 		GetObjectManager()->FindObject(object_name)->texture_path = itr->second.texture_path;
 		GetObjectManager()->FindObject(object_name)->object_id = itr->second.object_id;
-		object_count = GetObjectManager()->FindObject(object_name)->object_id;
 	}
 }
 
 void MapEditorTest::Update(float dt)
 {
-	for (auto itr = obj_map->begin(); itr != obj_map->end(); itr++)
+	//unit size movement.
+	if (Input::IsMouseReleased(GLFW_MOUSE_BUTTON_LEFT))
 	{
+		for (auto itr = obj_map->begin(); itr != obj_map->end(); itr++)
+		{
+			Object* current_obj = itr->second.get();
+			int trans_x = (int)current_obj->GetTransform().GetTranslation().x;
+			int trans_y = (int)current_obj->GetTransform().GetTranslation().y;
+			int size_x = (int)current_obj->GetTransform().GetScale().x;
+			int size_y = (int)current_obj->GetTransform().GetScale().y;
 
-		Object* current_obj = itr->second.get();
-		vector2 current_trans = current_obj->GetTransform().GetTranslation();
-		vector2 current_size = current_obj->GetTransform().GetScale();
-		current_trans.x = static_cast<int>(current_trans.x / 20) * 20;
-		current_trans.y = static_cast<int>(current_trans.y / 20) * 20;
-		current_size.x = static_cast<int>(current_size.x / 20) * 20;
-		current_size.y = static_cast<int>(current_size.y / 20) * 20;
-		current_obj->SetTranslation(current_trans);
-		current_obj->SetScale(current_size);
+			trans_x = trans_x / unit_movement * unit_movement;
+			trans_y = trans_y / unit_movement * unit_movement;
+			size_x = size_x / unit_movement * unit_movement;
+			size_y = size_y / unit_movement * unit_movement;
+ 			current_obj->SetTranslation(vector2(static_cast<float>(trans_x), static_cast<float>(trans_y)));
+			current_obj->SetScale(vector2(static_cast<float>(size_x), static_cast<float>(size_y)));
+		}
 	}
+
 
 	if (Input::IsKeyTriggered(GLFW_KEY_4))
 		ChangeLevel("Particle");
