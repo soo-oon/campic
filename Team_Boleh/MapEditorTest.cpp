@@ -86,6 +86,9 @@ void MapEditorTest::Update(float dt)
 
 
 	if (Input::IsKeyTriggered(GLFW_KEY_4))
+		ChangeLevel("MapEditorTest");
+
+	if (Input::IsKeyTriggered(GLFW_KEY_4))
 		ChangeLevel("Particle");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");

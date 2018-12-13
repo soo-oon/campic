@@ -25,14 +25,15 @@ void Particle_level::Initialize()
 
 void Particle_level::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_R))
+		ChangeLevel("Particle");
+
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
-
-	//GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Particle>()->Update(dt);
 }
 
 void Particle_level::ShutDown()

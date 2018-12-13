@@ -42,6 +42,8 @@ public:
     void Delete() override;
 	void ChangeAnimation(std::string ID);
 
+	bool IsDone() { return is_done; }
+
 	Object* GetObject() { return object; }
 
 	void Imgui_Animation();
@@ -81,6 +83,7 @@ private:
     float update_frame = 0;
 
 	bool is_done = false;
+	//bool isActive = true;
 
     //float previous_position = 0;
     //float current_position = 0;

@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.hpp"
 #include <vector>
+#include "Object.hpp"
 
 struct vector2;
 
@@ -16,6 +17,6 @@ public:
 	std::vector<std::string> GetCardList();
 	void PlayerMove(vector2 mouse_position);
 
-private: 
+private:
 	std::vector<std::string> card_list = {};
 };

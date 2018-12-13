@@ -15,6 +15,7 @@ public:
 	void SetOwner(Object* player);
 	void Delete() override;
 	void SwordMove(vector2 mouse_position);
+
 private:
 	Object* owner;
 };

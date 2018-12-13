@@ -36,8 +36,11 @@ void Sword::Update(float dt)
 	/*std::cout << owner->GetTransform().GetTranslation().x << ", " <<
 		owner->GetTransform().GetTranslation().y << std::endl;
 		*/
+
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
 		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+	}
 
 	SwordMove(Input::GetMousePos(Graphics::checking_zoom));
 }

@@ -59,7 +59,7 @@ bool Objectmanager::Initialize()
 				obj->GetComponentByTemplate<Status>()->Initialize(obj);
 				if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
 				{
-					object_map.erase(it++);
+					object_map.erase(it);
 				}
 			}
 		}
@@ -108,9 +108,10 @@ void Objectmanager::Update(float dt)
 		if (obj->GetComponentByTemplate<Status>() != nullptr)
 		{
 			obj->GetComponentByTemplate<Status>()->Update(dt);
-			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
+			if (!obj->GetComponentByTemplate<Status>()->GetLived())
 			{
-				object_map.erase(it++);
+				if(obj->GetComponentByTemplate<Player>() == nullptr)
+					object_map.erase(it++);
 			}
 		}
 	}

@@ -63,13 +63,6 @@ void example::Initialize()
 	player->AddComponent(new Player());
 	player->AddComponent(new Status(5,1,1.f));*/
 
-        // TODO
-        health_bar = BuildAndRegisterDynamicObject("health", vector2(0.0f, 0.5f), vector2(150.f/ player->GetTransform().GetScale().x, 
-			10.f/ player->GetTransform().GetScale().y));
-        health_bar->GetTransform().SetParent(&player->GetTransform());
-        health_bar->AddComponent(new Sprite);
-        health_bar->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/health.png");
-
 	GetObjectManager()->AddObject("camera");
 
 	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
@@ -126,8 +119,8 @@ void example::Initialize()
 	opponent4->AddComponent(new Status(5, 1, 1.f));
 
 	attack = BuildAndRegisterStaticObject("attack", vector2(100, 100), vector2(100.f, 100.f));
-	attack->AddComponent(new Animation("asset/images/swing02.png", "hits1", 10, 0.05f));
-	attack->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/swing02.png", "hit2", 10, 0.05f, false);
+	attack->AddComponent(new Animation("asset/images/swing02.png", "hits", 10, 0.05f));
+	attack->GetMesh().Invisible();
 
         dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
         dia->AddComponent(new Sprite());
@@ -188,15 +181,16 @@ void example::Initialize()
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
-	
-
 	//sound->AddSound("asset/sounds/digimon.wav");
 	
 }
 
 void example::Update(float dt)
 {
-	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+
+	if (!player->GetComponentByTemplate<Status>()->GetLived())
+		ChangeLevel("StartMenu");
+
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
 		card_list.clear();
@@ -216,6 +210,9 @@ void example::Update(float dt)
 	{
 		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
 	}
+
+	if (Input::IsKeyTriggered(GLFW_KEY_R))
+		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("test");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
@@ -240,38 +237,6 @@ void example::Update(float dt)
 		isshot = false;
 		dt_power_shot = 0;
 	}
-	/*
-	if (!isshot&& dt_power_shot > 3) {
-		if (Input::IsKeyTriggered(GLFW_KEY_X))
-		{
-			isshot = true;
-		}
-	}
-	if (GetObjectManager()->FindObject("power") && dt_power_shot > 3)
-		GetObjectManager()->RemoveObject("power");
-
-	if (isshot){
-		std::string power = "power" ;
-		GetObjectManager()->AddObject(power);
-		vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
-			sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
-		GetObjectManager()->FindObject(power)->SetMesh(mesh::CreateBox());
-		GetObjectManager()->FindObject(power).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
-		GetObjectManager()->FindObject(power).get()->SetScale({ 50.f,50.f });
-		GetObjectManager()->FindObject(power).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { 50.f,50.f }));
-		GetObjectManager()->FindObject(power).get()->AddComponent(new RigidBody());
-		GetObjectManager()->FindObject(power).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(100*a);
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Character(ObjectType::shot));
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
-		dt_power_shot = 0;
-		isshot = false;
-	}
-	dt_power_shot += dt;
-	*/
-	//PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
-	//SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("test");
@@ -302,25 +267,23 @@ void example::Update(float dt)
 	if (opponent4->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent4, 20);
 
-	//Attact(sword);
-	
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
 
 	rotation_ += 10;
 		door->SetRotation(rotation_);
 
-	//if(dot(GetObjectManager()->FindObject("Player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
-	//	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
-	//else
-	//	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
+		attack->SetTranslation(sword->GetTransform().GetTranslation());
         if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
-		player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
-		attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit2");
-		//attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit");
+			attack->GetMesh().Visible();
+			//player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
         }
+
+		if (attack->GetComponentByTemplate<Animation>()->IsDone())
+			attack->GetMesh().Invisible();
+
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		GetSoundMap()->Play("asset/sounds/punch.wav");
