@@ -52,6 +52,16 @@ void test_statemanager::Initialize()
 	spade1->AddComponent(new Character(ObjectType::card));
 	spade1->AddComponent(new Card("spade"));
 
+
+	boss = BuildAndRegisterDynamicObject("boss", { 300.f,-150.f }, { 200.f,200.f });
+	boss->AddComponent(new Sprite());
+	boss->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/boss.png");
+	boss->AddComponent(new Collision(box_, {}, {boss->GetTransform().GetScale()}));
+	boss->AddComponent(new RigidBody());
+	boss->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
+	boss->AddComponent(new Character(ObjectType::opponent));
+	boss->AddComponent(new Status(20, 1, 1.5f));
+
 	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
 	door->AddComponent(new Sprite());
 	door->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/hero.png");
@@ -101,6 +111,8 @@ void test_statemanager::Update(float dt)
 	}
 	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
+	if(boss->GetComponentByTemplate<Collision>() != nullptr)
+		BossMovement(boss, player, 20);
 	Attact(sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_T))
@@ -242,4 +254,18 @@ void test_statemanager::PlayerSwing(vector2 mouse_position, Object * player)
 void test_statemanager::find(std::string card_)
 {
 	card_list.push_back(GetObjectManager()->FindObject(card_).get());
+}
+
+void test_statemanager::BossMovement(Object * boss_monster, Object* player, float dt)
+{
+	vector2 come = vector2(player->GetTransform().GetTranslation().x - boss_monster->GetTransform().GetTranslation().x,
+		player->GetTransform().GetTranslation().y - boss_monster->GetTransform().GetTranslation().y);
+	vector2 no_come = normalize(come);
+	if (magnitude(come) < magnitude(boss_monster->GetTransform().GetScale()))
+	{
+		boss_monster->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+	}
+	else
+		boss_monster->GetComponentByTemplate<RigidBody>()->SetVelocity(dt* no_come);
+		
 }

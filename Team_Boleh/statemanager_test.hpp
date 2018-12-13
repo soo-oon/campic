@@ -20,14 +20,16 @@ public:
 	void Enchanted(Object* sword, Object* effect, Object* card1, Object* card2, float dt);
 	void PlayerSwing(vector2 mouse_position, Object* player);
 	void find(std::string card_);
+	void BossMovement(Object* boss_monster, Object* player, float dt);
 
 private:
-	float dt_sum =0;
+	float dt_sum =0, dt_boss = 0;
 	float rota_angle = 0, rota_angle1 =0;
+	float rotate = 0;
 	float card_velo = 20;
 	float far = 1;
 	bool change_sword = false;
-	Object* player, *background,*sword, *spade, *clover, *spade1, *door, *clover1, *spark;
+	Object* player, *background,*sword, *spade, *clover, *spade1, *door, *clover1, *spark, *boss;
 	std::vector<Object*> card_list;
 	bool check1 = true;
 	bool check2 = true;
