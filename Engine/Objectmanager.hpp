@@ -14,7 +14,7 @@ public:
     void AddObject(std::string key_name);
     void RemoveObject(std::string key_name);
 
-	bool IsExistPlayer(std::string player);
+	bool IsExistPlayer();
 	bool FindCameraObject();
 
     std::unique_ptr<Object>& FindObject(std::string key_name);

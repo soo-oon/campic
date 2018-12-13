@@ -41,7 +41,7 @@ void HUD_level::Update(float /*dt*/)
 	std::string path = ".png";
 	if (obj_hud != nullptr)
 	{
-		if (obj_hud->IsExistPlayer("Player"))
+		if (obj_hud->IsExistPlayer())
 		{
 			card_name = obj_hud->FindObject("Player")->GetComponentByTemplate<Player>()->GetCardList();
 			auto player_hp = obj_hud->FindObject("Player")->GetComponentByTemplate<Status>()->GetHp();

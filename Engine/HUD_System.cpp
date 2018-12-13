@@ -11,9 +11,15 @@ bool HUD::Initialize()
 
 void HUD::Update(float dt)
 {
-	hud_level->obj_hud = object_manager_HUD;
-	hud_level->Update(dt);
-	hud_level->UpdateObjManager(dt);
+	if (object_manager_HUD != nullptr)
+	{
+		if (object_manager_HUD->IsExistPlayer())
+		{
+			hud_level->obj_hud = object_manager_HUD;
+			hud_level->Update(dt);
+			hud_level->UpdateObjManager(dt);
+		}
+	}
 }
 
 void HUD::Quit()

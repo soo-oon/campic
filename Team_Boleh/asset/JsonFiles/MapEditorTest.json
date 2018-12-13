@@ -1,4 +1,36 @@
 {
+    "Player": {
+        "name": "Player",
+        "translation": [
+            249.21615600585938,
+            -87.6130599975586
+        ],
+        "rotation": -279.0223083496094,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            249.21615600585938,
+            -87.6130599975586
+        ],
+        "rotation": -99.02230834960938,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
     "background": {
         "name": "background",
         "translation": [
@@ -40,9 +72,9 @@
         "rotation": -149.2672119140625,
         "scale": [
             200.0,
-            150.0
+            200.0
         ],
-        "depth": 0.9779999852180481,
+        "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0

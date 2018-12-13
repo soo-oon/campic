@@ -1,6 +1,54 @@
 {
-    "MenuBackground": {
-        "name": "MenuBackground",
+    "Player": {
+        "name": "Player",
+        "translation": [
+            -7.4575982093811039,
+            -42.748451232910159
+        ],
+        "rotation": -301.1277160644531,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            48.8162841796875,
+            -77.33412170410156
+        ],
+        "rotation": -121.12771606445313,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "attack": {
+        "name": "attack",
+        "translation": [
+            100.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "background": {
+        "name": "background",
         "translation": [
             0.0,
             0.0
@@ -8,59 +56,187 @@
         "rotation": 0.0,
         "scale": [
             1280.0,
-            1000.0
+            960.0
         ],
-        "depth": 0.0,
+        "depth": 0.9900000095367432,
         "gravity": 1.0,
-        "texture": "asset/images/UI/Menu_background.png",
+        "texture": "no_texture",
         "id": 0
     },
-    "OptionButton": {
-        "name": "OptionButton",
-        "translation": [
-            0.0,
-            -150.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            348.0,
-            86.0
-        ],
-        "depth": -1.0,
-        "gravity": 1.0,
-        "texture": "asset/images/UI/OptionButton.png",
-        "id": 0
-    },
-    "QuitButton": {
-        "name": "QuitButton",
-        "translation": [
-            0.0,
-            -300.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            348.0,
-            86.0
-        ],
-        "depth": -1.0,
-        "gravity": 1.0,
-        "texture": "asset/images/UI/QuitButton.png",
-        "id": 0
-    },
-    "StartButton": {
-        "name": "StartButton",
+    "camera": {
+        "name": "camera",
         "translation": [
             0.0,
             0.0
         ],
         "rotation": 0.0,
         "scale": [
-            348.0,
-            86.0
+            10.0,
+            10.0
         ],
-        "depth": -1.0,
+        "depth": 0.0,
         "gravity": 1.0,
-        "texture": "asset/images/UI/StartButtonSelect.png",
+        "texture": "no_texture",
+        "id": 0
+    },
+    "dia1": {
+        "name": "dia1",
+        "translation": [
+            420.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "door": {
+        "name": "door",
+        "translation": [
+            500.0,
+            0.0
+        ],
+        "rotation": 6210.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "health": {
+        "name": "health",
+        "translation": [
+            0.0,
+            0.5
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1.5,
+            0.10000000149011612
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "heart1": {
+        "name": "heart1",
+        "translation": [
+            420.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent1": {
+        "name": "opponent1",
+        "translation": [
+            -142.9433135986328,
+            -16.362834930419923
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent2": {
+        "name": "opponent2",
+        "translation": [
+            87.58145904541016,
+            -131.6288604736328
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent3": {
+        "name": "opponent3",
+        "translation": [
+            6.119671821594238,
+            76.72431182861328
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent4": {
+        "name": "opponent4",
+        "translation": [
+            148.65989685058595,
+            103.84729766845703
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "scol": {
+        "name": "scol",
+        "translation": [
+            -160.77935791015626,
+            141.80856323242188
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "slime": {
+        "name": "slime",
+        "translation": [
+            -141.84487915039063,
+            -161.10386657714845
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
         "id": 0
     }
 }

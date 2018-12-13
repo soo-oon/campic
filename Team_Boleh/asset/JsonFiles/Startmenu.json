@@ -8,12 +8,12 @@
         "rotation": 0.0,
         "scale": [
             1280.0,
-            1000.0
+            960.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/Menu_background.png",
-        "id": 1
+        "id": 0
     },
     "OptionButton": {
         "name": "OptionButton",
@@ -29,7 +29,23 @@
         "depth": -1.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/OptionButton.png",
-        "id": 2
+        "id": 0
+    },
+    "Player": {
+        "name": "Player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
     },
     "QuitButton": {
         "name": "QuitButton",
@@ -45,7 +61,7 @@
         "depth": -1.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/QuitButton.png",
-        "id": 3
+        "id": 0
     },
     "StartButton": {
         "name": "StartButton",
@@ -61,6 +77,22 @@
         "depth": -1.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/StartButtonSelect.png",
-        "id": 4
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
     }
 }
