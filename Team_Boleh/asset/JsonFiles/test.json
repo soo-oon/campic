@@ -1,0 +1,102 @@
+{
+    "Player": {
+        "name": "Player",
+        "translation": [
+            138.69447326660157,
+            -61.59331512451172
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            196.8976593017578,
+            -32.55314636230469
+        ],
+        "rotation": -64.11382293701172,
+        "scale": [
+            200.0,
+            150.0
+        ],
+        "depth": 0.5,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    },
+    "background": {
+        "name": "background",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.9900000095367432,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
+    },
+    "camera": {
+        "name": "camera",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            10.0,
+            10.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
+    },
+    "door": {
+        "name": "door",
+        "translation": [
+            500.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    }
+}

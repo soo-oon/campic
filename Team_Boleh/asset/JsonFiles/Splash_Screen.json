@@ -14,10 +14,10 @@
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0,
-        "sp": 1,
-        "ani": 0,
-        "cha": 0,
-        "col": 0
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
     },
     "Digipen_Logo": {
         "name": "Digipen_Logo",
@@ -27,16 +27,16 @@
         ],
         "rotation": 0.0,
         "scale": [
-            547.3654174804688,
-            211.84132385253907
+            426.4620666503906,
+            181.61546325683595
         ],
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0,
-        "sp": 1,
-        "ani": 0,
-        "cha": 0,
-        "col": 0
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
     }
 }

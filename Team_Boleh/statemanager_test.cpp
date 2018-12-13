@@ -13,7 +13,7 @@
 void test_statemanager::Initialize()
 {
 	GetObjectManager()->AddObject("camera");
-	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
+	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
 	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
@@ -117,7 +117,7 @@ void test_statemanager::Update(float dt)
 		if (card_list.size() > 1)
 		{
 			change_sword = true;
-			GetSoundMap()->Play("asset/sounds/digimon.wav");
+			GetSoundMap()->Play("asset/sounds/inchant.mp3");
 			player->GetComponentByTemplate<Player>()->ClearCardList();
 		}
 	}
