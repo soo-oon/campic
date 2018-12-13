@@ -56,8 +56,7 @@ void Animation::AddAnimaition(const std::string path, const std::string ID,
 	previous_current_coordinates.insert(std::make_pair(ID, temp_previous_current_coordinate));
 }
 
-
-//void Animation::AddAnimaition(const std::string path, const std::string ID)
+//void Animation::AddAnimaition(const std::string path, const satd::string ID)
 //{
 //	sprites.insert(std::make_pair(ID, new Sprite()));
 //	sprites.at(ID)->Texture_Load(path);

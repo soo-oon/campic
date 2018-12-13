@@ -40,7 +40,6 @@ bool Sound::Initialize()
 			return false;
 		}
 	}
-
     return true;
 }
 
