@@ -10,10 +10,10 @@
 #define GRAVITY		"gravity"
 #define TEXTURE		"texture"
 #define ID			"id"
-//#define Sprite_		"sp"
-//#define Animation_	"ani"
-//#define Character_	"cha"
-//#define Collision_	"col"
+#define Sprite_		"sprite"
+#define Animation_	"animation"
+#define Character_	"character"
+#define Collision_	"collision"
 
 enum class ComponentType :int
 {
@@ -215,15 +215,6 @@ void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* d
 	else
 		newObjectCollision.SetInt(0);
 
-	//Add Datas to objectdata
-	/*
-	"sp"
-	"ani"
-	"cha"
-	"col"
-
-	*/
-
 	newObjectData.AddMember(NAME, newObjectName, allocator);
 	newObjectData.AddMember(TRANSLATION, newObjectTranslation, allocator);
 	newObjectData.AddMember(ROTATION, newObjectRotation, allocator);
@@ -233,10 +224,10 @@ void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* d
 	newObjectData.AddMember(TEXTURE, newObjectTexture, allocator);
 	newObjectData.AddMember(ID, newObjectID, allocator);
 
-	newObjectData.AddMember("sp", newObjectSprite, allocator);
-	newObjectData.AddMember("ani", newObjectAnimation, allocator);
-	newObjectData.AddMember("cha", newObjectCharacter, allocator);
-	newObjectData.AddMember("col", newObjectCollision, allocator);
+	newObjectData.AddMember(Sprite_, newObjectSprite, allocator);
+	newObjectData.AddMember(Animation_, newObjectAnimation, allocator);
+	newObjectData.AddMember(Character_, newObjectCharacter, allocator);
+	newObjectData.AddMember(Collision_, newObjectCollision, allocator);
 
 
 	rapidjson::Value nameofobject(name.c_str(), allocator);
@@ -356,10 +347,14 @@ void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* s
 		new_object.texture_path = itr->value["texture"].GetString();
 		new_object.object_id = itr->value["id"].GetInt();
 
-		new_object.sprite_true = itr->value["sp"].GetInt();
-		new_object.animation_true = itr->value["ani"].GetInt();
-		new_object.character_true = itr->value["cha"].GetInt();
-		new_object.collision_true = itr->value["col"].GetInt();
+		if (itr->value["sprite"].GetInt())
+			new_object.component_type_id = 0;
+		else if (itr->value["animation"].GetInt())
+			new_object.component_type_id = 1;
+		else if (itr->value["character"].GetInt())
+			new_object.component_type_id = 2;
+		else if (itr->value["collision"].GetInt())
+			new_object.component_type_id = 3;
 
 		state_object->insert(std::pair<std::string, Object>(load_object_name, new_object));
 	}

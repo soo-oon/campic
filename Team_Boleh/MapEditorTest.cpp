@@ -4,10 +4,20 @@
 #include "Sprite.hpp"
 #include "Input.hpp"
 #include "Character.hpp"
+#include "status.hpp"
+
+enum class ComponentType : int
+{
+	Sprite = 0,
+	Animation = 1,
+	Character = 2,
+	Collosion = 3
+};
 
 void MapEditorTest::Initialize()
 {
 	GetObjectManager()->GetObjectMapPointer()->clear();
+	AddPlayer();
 	LoadMap();
 	std::cout << "Press keypad 0 to stage 0" << std::endl <<
 				"Press keypad 1 to stage 1" << std::endl <<
@@ -102,6 +112,7 @@ void MapEditorTest::DrawStage0()
 {
 	GetJson()->GetLoadLevel("Stage0", &objects_and_names);
 	GetObjectManager()->GetObjectMapPointer()->clear();
+	AddPlayer();
 	CreateLoadObject();
 }
 
@@ -109,6 +120,7 @@ void MapEditorTest::DrawStage1()
 {
 	GetJson()->GetLoadLevel("Stage1", &objects_and_names);
 	GetObjectManager()->GetObjectMapPointer()->clear();
+	AddPlayer();
 	CreateLoadObject();
 }
 
@@ -141,15 +153,31 @@ void MapEditorTest::CreateLoadObject()
 		if (object_name == "Sword")
 			continue;
 
-		GetObjectManager()->AddObject(itr->first);
-		GetObjectManager()->FindObject(itr->first)->SetScale(itr->second.GetTransform().GetScale());
-		GetObjectManager()->FindObject(itr->first)->SetTranslation(itr->second.GetTransform().GetTranslation());
-		GetObjectManager()->FindObject(itr->first)->SetRotation(*itr->second.GetTransform().GetRotation());
-		GetObjectManager()->FindObject(itr->first)->SetDepth(itr->second.GetTransform().GetDepth());
-		GetObjectManager()->FindObject(itr->first)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		GetObjectManager()->AddObject(object_name);
+		GetObjectManager()->FindObject(object_name)->SetScale(itr->second.GetTransform().GetScale());
+		GetObjectManager()->FindObject(object_name)->SetTranslation(itr->second.GetTransform().GetTranslation());
+		GetObjectManager()->FindObject(object_name)->SetRotation(*itr->second.GetTransform().GetRotation());
+		GetObjectManager()->FindObject(object_name)->SetDepth(itr->second.GetTransform().GetDepth());
+		GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 
-		GetObjectManager()->FindObject(itr->first)->AddComponent(new Sprite());
-		GetObjectManager()->FindObject(itr->first)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->second.texture_path);
+
+		switch (itr->second.component_type_id)
+		{
+		case 0:
+			GetObjectManager()->FindObject(object_name)->AddComponent(new Sprite());
+			GetObjectManager()->FindObject(object_name)->GetComponentByTemplate<Sprite>()->Texture_Load(itr->second.texture_path);
+			break;
+		case 1:
+			GetObjectManager()->FindObject(object_name)->AddComponent(new Animation(itr->second.texture_path, "slime", 6, 0.25));
+			break;
+		case 2:
+			GetObjectManager()->FindObject(object_name)->AddComponent(new Character(ObjectType::opponent));
+			GetObjectManager()->FindObject(object_name)->AddComponent((new Status(5, 1, 1.f)));
+			break;
+		case 3:
+
+			break;
+		}
 
 		GetObjectManager()->FindObject(itr->first)->texture_path = itr->second.texture_path;
 		GetObjectManager()->FindObject(itr->first)->object_id = itr->second.object_id;
