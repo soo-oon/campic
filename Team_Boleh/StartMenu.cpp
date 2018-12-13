@@ -21,7 +21,7 @@ void StartMenu::Initialize()
 	//start - stages
 	//option - something.... map editor
 	//quit
-	SetUpButtons("MenuBackground", vector2(1280.f, 1000.f), vector2(0.f, 0.f), "asset/images/UI/Menu_background.png");
+	SetUpButtons("MenuBackground", vector2(0,0), vector2(0.f, 0.f), "asset/images/UI/Menu_background.png");
 	SetUpButtons("StartButton", vector2(348.f, 86.f), vector2(0.f, 00.f), StartButtonSelect);
 	SetUpButtons("OptionButton", vector2(348.f, 86.f), vector2(0.f, -150.f), OptionButton);
 	SetUpButtons("QuitButton", vector2(348.f, 86.f), vector2(0.f, -300.f), QuitButton);
@@ -33,6 +33,7 @@ void StartMenu::Initialize()
 
 void StartMenu::Update(float dt)
 {
+	GetObjectManager()->FindObject("MenuBackground")->SetScale(GetStateScreenSize());
 	if (Input::IsKeyTriggered(GLFW_KEY_ENTER))
 	{
 		if (StartOn)

@@ -30,7 +30,7 @@ public:
 	bool Initialize() override;
 	void Update(float dt) override;
 	void Draw(Objectmanager* objects);
-	void HUD_Draw(Objectmanager* objects);
+	void HUD_Draw(Objectmanager* objects, Objectmanager* hud_obj);
 	void EndDraw();
 	void Quit() override;
 

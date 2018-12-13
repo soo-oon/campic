@@ -17,22 +17,18 @@ void StateManager::AddStage(std::string ID, State* state)
 
     if (m_currentState == nullptr)
     {
-		if (states.find(ID)->second->information_ == State_Information::Menu)
+		if (states.find(ID)->second->information_ == State_Information::Splash)
 		{
 			m_currentState = states.find(ID)->second.get();
 			m_currentState->Load();
 			m_currentState->Initialize();
-		}
-		else
-		{
-			m_currentState->AddPlayer();
 		}
     }
 }
 
 void StateManager::ChangeStage()
 {
-	if (m_currentState->GetObjectManager()->IsExistPlayer("Player"))
+	if (m_currentState->GetObjectManager()->IsExistPlayer())
 	{
 		Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
 		player.SetTranslation({ -player.GetTransform().GetTranslation().x, player.GetTransform().GetTranslation().y });
@@ -65,7 +61,10 @@ void StateManager::ChangeStage()
 
 		m_currentState->Load();
 
-		m_currentState->AddPlayer();
+		if (m_currentState->information_ == State_Information::Game)
+		{
+			m_currentState->AddPlayer();
+		}
 		m_currentState->GetObjectManager()->Initialize();
 
 		m_currentState->Initialize();

@@ -85,7 +85,7 @@ void Engine::Update()
 
 
 		HUD_->SetObjectManager(Objectmanager_);
-		Graphic_->HUD_Draw(hud_state->GetObjectManager().get());
+		Graphic_->HUD_Draw(Objectmanager_, hud_state->GetObjectManager().get());
 
 
 		Graphic_->Draw(Objectmanager_);

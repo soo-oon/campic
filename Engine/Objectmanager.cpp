@@ -118,9 +118,9 @@ void Objectmanager::RemoveObject(std::string key_name)
     }
 }
 
-bool Objectmanager::IsExistPlayer(std::string player)
+bool Objectmanager::IsExistPlayer()
 {
-	auto found = object_map.find(player);
+	auto found = object_map.find("Player");
 
 	if (found == object_map.end())
 	{
