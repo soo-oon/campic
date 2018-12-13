@@ -75,15 +75,6 @@ void Objectmanager::Update(float dt)
 	{
 		Object* obj = it->second.get();
 
-		if (obj->GetComponentByTemplate<Status>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Status>()->Update(dt);
-			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
-			{
-				object_map.erase(it++);
-			}
-		}
-
 		for(auto& component : obj->GetComponent())
 		{
 			component->Update(dt);
@@ -114,6 +105,14 @@ void Objectmanager::Update(float dt)
 			obj->GetComponentByTemplate<Sword>()->Update(dt);
 		}
 */
+		if (obj->GetComponentByTemplate<Status>() != nullptr)
+		{
+			obj->GetComponentByTemplate<Status>()->Update(dt);
+			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
+			{
+				object_map.erase(it++);
+			}
+		}
 	}
 }
 
@@ -171,8 +170,11 @@ int Objectmanager::FindMaxID()
 	int max = 0;
 	for (auto itr = object_map.begin(); itr != object_map.end(); itr++)
 	{
-		if (max < itr->second.get()->object_id)
-			max = itr->second.get()->object_id;
+		if (itr->second != nullptr)
+		{
+			if (max < itr->second.get()->object_id)
+				max = itr->second.get()->object_id;
+		}
 	}
 	return max;
 }

@@ -22,6 +22,6 @@ public:
 	int FindMaxID();
 
 private:
-	std::map<std::string, std::unique_ptr<Object>> object_map;
-    //std::map<std::string, std::unique_ptr<Object>> object_map;
+	//std::map<std::string, Object*> object_map;
+    std::map<std::string, std::unique_ptr<Object>> object_map;
 };

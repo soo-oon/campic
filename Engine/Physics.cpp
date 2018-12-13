@@ -27,15 +27,17 @@ void Physics::Update(float dt)
 		    it != temp_obj->GetObjectMap().end();)
 	    {
 			Object* temp = (it->second.get());
-
-			if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
+			if (temp != nullptr)
 			{
-                if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
-                    temp_obj->GetObjectMap().erase(it++);
-                else {
-                    collision_list.push_back(temp);
-                    temp->GetComponentByTemplate<Collision>()->Update(dt);
-                }
+				if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
+				{
+					if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
+						temp_obj->GetObjectMap().erase(it++);
+					else {
+						collision_list.push_back(temp);
+						temp->GetComponentByTemplate<Collision>()->Update(dt);
+					}
+				}
 			}
 
 	    	++it;
@@ -73,22 +75,24 @@ void Physics::Update(float dt)
 			it != temp_obj->GetObjectMap().end(); ++it)
 		{
 			Object* temp = (it->second.get());
-
-			if (temp->GetComponentByTemplate<RigidBody>() != nullptr)
+			if (temp != nullptr)
 			{
-				if(temp->GetComponentByTemplate<Collision>() != nullptr)
+				if (temp->GetComponentByTemplate<RigidBody>() != nullptr)
 				{
-					if(!OutOfCheckBoundary(temp))
-						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-					else
+					if (temp->GetComponentByTemplate<Collision>() != nullptr)
 					{
-						StopReaction(temp);
-						temp->GetComponentByTemplate<Collision>()->Update(dt);
+						if (!OutOfCheckBoundary(temp))
+							temp->GetComponentByTemplate<RigidBody>()->Update(dt);
+						else
+						{
+							StopReaction(temp);
+							temp->GetComponentByTemplate<Collision>()->Update(dt);
+						}
 					}
+					else
+						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
 				}
-				else
-					temp->GetComponentByTemplate<RigidBody>()->Update(dt);
-                        }
+			}
 		}
 	}
 }

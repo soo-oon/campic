@@ -176,6 +176,10 @@
     <ClCompile Include="imgui_impl_opengl3.cpp" />
     <ClCompile Include="Imgui_System.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="IndependentObj.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -235,6 +239,10 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="IndependentObj.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="JSON.hpp" />
     <ClInclude Include="Mesh.hpp" />

@@ -28,7 +28,8 @@ void test_statemanager::Initialize()
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
-	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
+	sword = GetObjectManager()->FindObject("Sword").get();
+	/*sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 	sword->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
@@ -36,7 +37,7 @@ void test_statemanager::Initialize()
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 	sword->AddComponent(new Status(5, 1, 1.f));
-	sword->SetDepth(0.978f);
+	sword->SetDepth(0.978f);*/
 
 	spade = BuildAndRegisterDynamicObject("spade", vector2(350, -100), vector2(25.f, 25.f));
 	spade->AddComponent(new Sprite());
@@ -109,11 +110,11 @@ void test_statemanager::Update(float dt)
 	{
 		GetSoundMap()->Play("asset/sounds/punch.wav");
 	}
-	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
-	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
+	//PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
+	//SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 	if(boss->GetComponentByTemplate<Collision>() != nullptr)
 		BossMovement(boss, player, 20);
-	Attact(sword);
+	//Attact(sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_T))
 	{

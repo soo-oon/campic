@@ -10,11 +10,6 @@ Sword::Sword(Object * player)
 	owner = player;
 }
 
-void Sword::SetOwner(Object* player)
-{
-	owner = player;
-}
-
 bool Sword::Initialize(Object * Ob)
 {
 	if (object == nullptr)
@@ -38,13 +33,18 @@ bool Sword::Initialize(Object * Ob)
 
 void Sword::Update(float dt)
 {
-	std::cout << owner->GetTransform().GetTranslation().x << ", " <<
+	/*std::cout << owner->GetTransform().GetTranslation().x << ", " <<
 		owner->GetTransform().GetTranslation().y << std::endl;
-
+		*/
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 
 	SwordMove(Input::GetMousePos(Graphics::checking_zoom));
+}
+
+void Sword::SetOwner(Object* player)
+{
+	owner = player;
 }
 
 void Sword::Delete()

@@ -167,8 +167,8 @@ void example::Initialize()
 	heart1->AddComponent(new Character(ObjectType::card));
 	heart1->AddComponent(new Card("heart"));
 
-	//sword = GetObjectManager()->FindObject("Sword").get();
-	sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
+	sword = GetObjectManager()->FindObject("Sword").get();
+	/*sword = BuildAndRegisterStaticObject("sword", vector2(0, 0), vector2(75, 75));
 	sword->AddComponent(new Sprite());
 	sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 	sword->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
@@ -176,7 +176,7 @@ void example::Initialize()
 	sword->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	sword->AddComponent(new Character(ObjectType::sword));
 	sword->AddComponent(new Status(5, 1, 1.f));
-	sword->SetDepth(0.978f);
+	sword->SetDepth(0.978f);*/
 
 
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
@@ -270,8 +270,8 @@ void example::Update(float dt)
 	}
 	dt_power_shot += dt;
 	*/
-	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
-	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
+	//PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
+	//SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("test");
@@ -302,7 +302,7 @@ void example::Update(float dt)
 	if (opponent4->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent4, 20);
 
-	Attact(sword);
+	//Attact(sword);
 	
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
