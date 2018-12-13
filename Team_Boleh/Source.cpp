@@ -18,6 +18,7 @@ int main()
 	engine->GetSystemByTemplate<StateManager>()->AddStage("test", new test_statemanager());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("MapEditorTest", new MapEditorTest());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("Particle", new Particle_level());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("Startmenu", new StartMenu());
 
     engine->Update();
   

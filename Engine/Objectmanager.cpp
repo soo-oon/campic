@@ -155,3 +155,14 @@ std::unique_ptr<Object>& Objectmanager::FindObject(std::string key_name)
     }
     return found->second;
 }
+
+int Objectmanager::FindMaxID()
+{
+	int max = 0;
+	for (auto itr = object_map.begin(); itr != object_map.end(); itr++)
+	{
+		if (max < itr->second.get()->object_id)
+			max = itr->second.get()->object_id;
+	}
+	return max;
+}

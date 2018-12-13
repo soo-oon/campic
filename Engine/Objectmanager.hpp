@@ -19,20 +19,7 @@ public:
 
     std::unique_ptr<Object>& FindObject(std::string key_name);
     std::map<std::string, std::unique_ptr<Object>>& GetObjectMap() { return object_map; }
-	int FindMaxID()
-	{
-		int max = 0;
-		//Object* max_obj;
-		for (auto itr = object_map.begin(); itr != object_map.end(); itr++)
-		{
-			//if (max < itr->second.get()->object_id)
-			//{
-			//	max = itr->second.get()->object_id;
-			//	//max_obj = itr->second.get();
-			//}
-		}
-		return 0;
-	}
+	int FindMaxID();
 
 private:
     std::map<std::string, std::unique_ptr<Object>> object_map;
