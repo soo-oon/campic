@@ -160,12 +160,14 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
 	{
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
 		object2.GetComponentByTemplate<Status>()->Damaged_hp(object1.GetComponentByTemplate<Status>()->GetDamage());
 	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
 		object1.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
 	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
