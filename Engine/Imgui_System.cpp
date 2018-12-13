@@ -334,8 +334,11 @@ void Imgui_System::Editor(bool show_editor)
 				newObject = object_manager->FindObject(new_obj_name).get();
 				newObject->SetScale({ 100.f,100.f });
 				newObject->SetTranslation({ 0,0 });
-				newObject->SetMesh(mesh::CreateBox());
 				newObject->SetDepth(0);
+				newObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+				newObject->AddComponent(new Sprite());
+				newObject->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Basketball.png");
+
 				newObject->object_id = object_count + 1;
 				std::cout << newObject->object_id << std::endl;
 				object_count++;
@@ -364,13 +367,9 @@ void Imgui_System::AllObjectTree(std::vector<std::string> obj_list)
 
 			if (temp->GetComponentByTemplate<Sprite>() != nullptr) //object is sprite
 				SpriteObject(temp);
-
-			else //not sprite -> add texture.
-				NonSpriteObject(temp);
-
+			ImGui::TreePop();
 			if (ImGui::Button("Delete"))
 				temp->GetMesh().Invisible();
-			ImGui::TreePop();
 		}
 	}
 }
@@ -396,31 +395,5 @@ void Imgui_System::SpriteObject(Object* sprite_obj)
 	{
 		sprite_obj->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
 		sprite_obj->texture_path = image_dir + current_item;
-	}
-}
-
-void Imgui_System::NonSpriteObject(Object* non_sprite_obj)
-{
-	static std::string current_item = "";
-	std::string image_dir = "asset/images/";
-
-	if (ImGui::BeginCombo("Select texture", current_item.c_str()))
-	{
-		for (int n = 0; n < imagelist.size(); n++)
-		{
-			bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-			if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-				current_item = imagelist[n].c_str();
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
-		}
-		ImGui::EndCombo();
-	}
-
-	if (ImGui::Button("Add Sprite"))
-	{
-		non_sprite_obj->AddComponent(new Sprite());
-		non_sprite_obj->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
-		non_sprite_obj->texture_path = image_dir + current_item;
 	}
 }

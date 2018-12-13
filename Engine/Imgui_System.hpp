@@ -48,7 +48,6 @@ private:
 	Objectmanager* object_manager = nullptr;
 	
 	bool show_window = true;
-	bool show_mapeditor_window = false;
 	bool show_editor = false;
 
 	std::vector<std::string> imagelist;
@@ -59,7 +58,6 @@ private:
 	//now these functions are mine
 	void AllObjectTree(std::vector<std::string> obj_list);
 	void SpriteObject(Object* sprite_obj);
-	void NonSpriteObject(Object* sprite_obj);
 	//for creating object
 	size_t object_count = -1;
 	std::string object_name = "object";
