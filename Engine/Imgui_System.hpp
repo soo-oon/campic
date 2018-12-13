@@ -34,7 +34,6 @@ public:
 	void Draw();
 	void ObjectManger(bool show_window);
 	void Sound_Option(bool show_window);
-	void MapEditor(bool show_mapeditor_window);
 	void componentHelper(Object* object, ComponentType);
 
 	void SetObjectManger(Objectmanager* obj_manager) { object_manager = obj_manager; }
@@ -42,15 +41,27 @@ public:
 
 	static std::vector<std::string> soundlist;
 
+	void Editor(bool show_editor);
+
 private:
 	GLFWwindow* window = nullptr;
 	Objectmanager* object_manager = nullptr;
 	
 	bool show_window = true;
 	bool show_mapeditor_window = false;
+	bool show_editor = false;
 
 	std::vector<std::string> imagelist;
 	std::string new_object = "object0";
 
 	Sound* sound_manager = nullptr;
+
+	//now these functions are mine
+	void AllObjectTree(std::vector<std::string> obj_list);
+	void SpriteObject(Object* sprite_obj);
+	void NonSpriteObject(Object* sprite_obj);
+	//for creating object
+	size_t object_count = -1;
+	std::string object_name = "object";
+	Object* newObject = nullptr;
 };

@@ -1,4 +1,36 @@
 {
+    "Player": {
+        "name": "Player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": -115.32441711425781,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 64.67558288574219,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
     "background": {
         "name": "background",
         "translation": [
@@ -10,41 +42,25 @@
             1280.0,
             1280.0
         ],
-        "depth": 0.0,
+        "depth": 0.5,
         "gravity": 1.0,
         "texture": "asset/images/background.png",
         "id": 0
     },
-    "player": {
-        "name": "player",
+    "object27": {
+        "name": "object27",
         "translation": [
-            61.59547424316406,
-            366.0744323730469
+            -144.3300018310547,
+            -159.79400634765626
         ],
-        "rotation": -329.2672119140625,
+        "rotation": 0.0,
         "scale": [
-            100.0,
+            221.6490020751953,
             100.0
         ],
-        "depth": 0.0,
+        "depth": 0.5,
         "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0
-    },
-    "sword": {
-        "name": "sword",
-        "translation": [
-            113.20204162597656,
-            280.13922119140627
-        ],
-        "rotation": -149.2672119140625,
-        "scale": [
-            200.0,
-            150.0
-        ],
-        "depth": 0.9779999852180481,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0
+        "texture": "asset/images/attack.png",
+        "id": 27
     }
 }
