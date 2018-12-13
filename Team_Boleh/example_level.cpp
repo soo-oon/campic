@@ -12,39 +12,6 @@
 #include "status.hpp"
 #include "Card.hpp"
 
-void example::blackhole(Object* Ob, Object* Ob1)
-{
-	for (auto it = GetObjectManager()->GetObjectMap().begin();
-		it != GetObjectManager()->GetObjectMap().end(); ++it)
-	{
-		vector2 black = 0;
-		float* rotation = it->second.get()->GetTransform().GetRotation();
-		if (it->second.get() != Ob && it->second.get() != Ob1)
-		{
-			black = vector2(it->second.get()->GetTransform().GetTranslation().x - Ob->GetTransform().GetTranslation().x, it->second.get()->GetTransform().GetTranslation().y - Ob->GetTransform().GetTranslation().y);
-			black /= 4000;
-			for (int i = 0; i < 10; i++)
-			{
-				it->second.get()->GetTransform().SetTranslation(it->second.get()->GetTransform().GetTranslation() - black );
-			}
-			*rotation += 10;
-			it->second.get()->SetRotation(*rotation);
-		}
-	}
-}
-
-void example::move_convex_object(float dt, Object* Ob)
-{
-	float velo = 100;
-	limit_time += dt;
-	if(limit_time > 1.0f)
-	{
-		pm *= -1;
-		velo *= pm;
-		Ob->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(velo, 0));
-		limit_time = 0;
-	}
-}
 
 void example::Initialize()
 {
@@ -63,12 +30,12 @@ void example::Initialize()
 	player->AddComponent(new Player());
 	player->AddComponent(new Status(5,1,1.f));*/
 
-        // TODO
-        health_bar = BuildAndRegisterDynamicObject("health", vector2(0.0f, 0.5f), vector2(150.f/ player->GetTransform().GetScale().x, 
-			10.f/ player->GetTransform().GetScale().y));
-        health_bar->GetTransform().SetParent(&player->GetTransform());
-        health_bar->AddComponent(new Sprite);
-        health_bar->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/health.png");
+   //     // TODO
+   //     health_bar = BuildAndRegisterDynamicObject("health", vector2(0.0f, 0.5f), vector2(150.f/ player->GetTransform().GetScale().x, 
+			//10.f/ player->GetTransform().GetScale().y));
+   //     health_bar->GetTransform().SetParent(&player->GetTransform());
+   //     health_bar->AddComponent(new Sprite);
+   //     health_bar->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/health.png");
 
 	GetObjectManager()->AddObject("camera");
 
@@ -233,6 +200,8 @@ void example::Update(float dt)
 
 	if (isshot)
 		dt_power_shot += dt;
+	if(dt_power_shot > 3)
+	std::cout << dt_power_shot << std::endl;
 
 	if (dt_power_shot > 3)
 	{
@@ -240,36 +209,6 @@ void example::Update(float dt)
 		isshot = false;
 		dt_power_shot = 0;
 	}
-	/*
-	if (!isshot&& dt_power_shot > 3) {
-		if (Input::IsKeyTriggered(GLFW_KEY_X))
-		{
-			isshot = true;
-		}
-	}
-	if (GetObjectManager()->FindObject("power") && dt_power_shot > 3)
-		GetObjectManager()->RemoveObject("power");
-
-	if (isshot){
-		std::string power = "power" ;
-		GetObjectManager()->AddObject(power);
-		vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
-			sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
-		GetObjectManager()->FindObject(power)->SetMesh(mesh::CreateBox());
-		GetObjectManager()->FindObject(power).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
-		GetObjectManager()->FindObject(power).get()->SetScale({ 50.f,50.f });
-		GetObjectManager()->FindObject(power).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { 50.f,50.f }));
-		GetObjectManager()->FindObject(power).get()->AddComponent(new RigidBody());
-		GetObjectManager()->FindObject(power).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(100*a);
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Character(ObjectType::shot));
-		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
-		dt_power_shot = 0;
-		isshot = false;
-	}
-	dt_power_shot += dt;
-	*/
 	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
@@ -332,12 +271,6 @@ void example::Update(float dt)
 		gravity_up /= 1.5;
 	if (Input::IsKeyTriggered(GLFW_KEY_0))
 		check = !check;
-
-
-	if(Input::IsKeyPressed(GLFW_KEY_SPACE))
-	{
-		blackhole(GetObjectManager()->FindObject("Player").get(),GetObjectManager()->FindObject("background").get());
-	}
 }
 
 void example::ShutDown()
@@ -452,6 +385,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
 			card_list.clear();
 			change_sword = false;
+			dt_sum = 0; rota_angle = 0; rota_angle1 = 0; far = 1;
 		}
 	}
 	card1->GetTransform().SetScale(card1->GetTransform().GetScale()* big);

@@ -23,22 +23,21 @@ void Physics::Update(float dt)
 	collision_list.clear();
 	if (temp_obj != nullptr )
 	{
-	    for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
-		    it != temp_obj->GetObjectMap().end();)
-	    {
+		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
+			it != temp_obj->GetObjectMap().end();)
+		{
 			Object* temp = (it->second.get());
 
 			if (temp->GetComponentByTemplate<Collision>() != nullptr && !OutOfCheckBoundary(temp))
 			{
-                if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
-                    temp_obj->GetObjectMap().erase(it++);
-                else {
-                    collision_list.push_back(temp);
-                    temp->GetComponentByTemplate<Collision>()->Update(dt);
-                }
+				if (temp->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
+					temp_obj->GetObjectMap().erase(it++);
+				else {
+						collision_list.push_back(temp);
+						temp->GetComponentByTemplate<Collision>()->Update(dt);
+				}
 			}
-
-	    	++it;
+		++it;
 		}
 	}
 	if (collision_list.size() > 1)
@@ -82,7 +81,10 @@ void Physics::Update(float dt)
 						temp->GetComponentByTemplate<RigidBody>()->Update(dt);
 					else
 					{
-						StopReaction(temp);
+						//StopReaction(temp);
+						temp->GetTransform().SetTranslation({ 10*-normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).x + temp->GetTransform().GetTranslation().x,
+							10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).y + temp->GetTransform().GetTranslation().y });
+						temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 						temp->GetComponentByTemplate<Collision>()->Update(dt);
 					}
 				}
@@ -124,26 +126,15 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 			object2.GetComponentByTemplate<Status>()->Damaged_hp(object1.GetComponentByTemplate<Status>()->GetDamage());
 		}
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
-	{
-		if (object1.GetComponentByTemplate<Collision>()->GetIsDamaged())
-		{
-			object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
-			object2.GetComponentByTemplate<Status>()->Damaged_hp(object1.GetComponentByTemplate<Status>()->GetDamage());
-		}
-	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::shot)
 	{
-		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
 		object1.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
 	}
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::shot
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
 	{
-		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
 		object2.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
 	}

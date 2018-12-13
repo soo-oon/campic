@@ -39,19 +39,19 @@ void Player::MovePlayer()
 {
 	if (Input::IsKeyPressed(GLFW_KEY_W))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 5));
+		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 2));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_A))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(-5, 0));
+		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(-2, 0));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_S))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, -5));
+		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, -2));
 	}
 	if (Input::IsKeyPressed(GLFW_KEY_D))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(5, 0));
+		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(2, 0));
 	}
 
 	if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)

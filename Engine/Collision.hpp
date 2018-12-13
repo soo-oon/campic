@@ -54,6 +54,7 @@ public:
 
 
 private:
+	vector2 collision_previous_position;
 	RestitutionType restitution_ = RestitutionType::none;
 	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};

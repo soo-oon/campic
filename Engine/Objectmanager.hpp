@@ -23,5 +23,6 @@ public:
 
 private:
 	std::map<std::string, std::unique_ptr<Object>> object_map;
+	std::vector <std::string > will_remove_object;
     //std::map<std::string, std::unique_ptr<Object>> object_map;
 };

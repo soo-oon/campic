@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.hpp"
+#include "Object.hpp"
 
 enum class Life_Type
 {

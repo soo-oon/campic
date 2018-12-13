@@ -12,7 +12,7 @@ bool StateManager::Initialize()
 	sword = new Object;
 
 	player->AddComponent(new Player());
-	sword->AddComponent(new Sword(player));
+	//sword->AddComponent(new Sword(player));
 
     m_currentState = nullptr;
     m_pause = false;

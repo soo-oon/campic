@@ -54,14 +54,6 @@ bool Objectmanager::Initialize()
 				obj->GetComponentByTemplate<Player>()->Initialize(obj);
 			}
 */
-			if (obj->GetComponentByTemplate<Status>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Status>()->Initialize(obj);
-				if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
-				{
-					object_map.erase(it++);
-				}
-			}
 		}
 	}
 	
@@ -75,20 +67,28 @@ void Objectmanager::Update(float dt)
 	{
 		Object* obj = it->second.get();
 
-		if (obj->GetComponentByTemplate<Status>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Status>()->Update(dt);
-			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
-			{
-				object_map.erase(it++);
-			}
-		}
 
 		for(auto& component : obj->GetComponent())
 		{
 			component->Update(dt);
 		}
 
+		if (obj->GetComponentByTemplate<Status>() != nullptr)
+		{
+			//obj->GetComponentByTemplate<Status>()->Update(dt);
+			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
+			{
+				will_remove_object.push_back(it->first);
+			}
+		}
+		if (obj->GetComponentByTemplate<Collision>() != nullptr)
+		{
+			//obj->GetComponentByTemplate<Status>()->Update(dt);
+			if (obj->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
+			{
+				will_remove_object.push_back(it->first);
+			}
+		}
 		/*if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		{
 			obj->GetComponentByTemplate<Sprite>()->Update(dt);
@@ -115,6 +115,11 @@ void Objectmanager::Update(float dt)
 		}
 */
 	}
+	for (auto erase_object : will_remove_object)
+	{
+		object_map.erase(erase_object);
+	}
+	will_remove_object.clear();
 }
 
 void Objectmanager::Quit()

@@ -13,8 +13,6 @@ public:
 		information_ = State_Information::Game;
 	}
 
-	void blackhole(Object* Ob, Object* Ob1);
-	void move_convex_object(float dt, Object* Ob);
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;
@@ -53,7 +51,7 @@ private:
 
 	Object* player;
     Object *sword, *sonic, *background, *spark, *dia, 
-	*heart, *scol, *slime, *dia1, *heart1, *door, *health_bar, *attack;
+	*heart, *scol, *slime, *dia1, *heart1, *door, *attack;
     std::vector<Object*> card_list;
     Object* opponent1, *opponent2, *opponent3,* opponent4 ;
 

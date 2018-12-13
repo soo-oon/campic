@@ -27,7 +27,7 @@ private:
     vector2 velocity;
     vector2 position;
     float friction = 0.99f;
-    float gravity;
+    float gravity = 1;
     float inverse_mass = 1;
 
     bool collision_switch = false;

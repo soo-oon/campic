@@ -1,5 +1,7 @@
 #include "RigidBody.hpp"
 #include "status.hpp"
+#include "Player.hpp"
+#include <iostream>
 
 
 void RigidBody::CollisionOn()
@@ -9,17 +11,17 @@ void RigidBody::CollisionOn()
 
 void RigidBody::SetMass(float mass)
 {
-    inverse_mass = 1.f / mass;
+	inverse_mass = 1.f / mass;
 }
 
 void RigidBody::AddForce(vector2 force)
 {
-    force_accumlator += force;
+	force_accumlator += force;
 }
 
 void RigidBody::SetVelocity(vector2 velocity)
 {
-    this->velocity = velocity;
+	this->velocity = velocity;
 }
 
 void RigidBody::AddVelocity(vector2 velocity)
@@ -29,17 +31,17 @@ void RigidBody::AddVelocity(vector2 velocity)
 
 vector2 RigidBody::GetPreviousPosition()
 {
-    return previous_position;
+	return previous_position;
 }
 
 vector2 RigidBody::GetVelocity()
 {
-    return velocity;
+	return velocity;
 }
 
 vector2 RigidBody::GetPosition()
 {
-    return position;
+	return position;
 }
 
 
@@ -57,23 +59,23 @@ bool RigidBody::Initialize(Object* Ob)
 
 void RigidBody::Update(float dt)
 {
-    previous_position = object->GetTransform().GetTranslation();
+	previous_position = object->GetTransform().GetTranslation();
 
 	gravity = 1 / object->GetGravity();
-    // calculate current velocity.
-    velocity += inverse_mass * (force_accumlator * dt);
+	// calculate current velocity.
+	velocity += inverse_mass * (force_accumlator * dt);
 	if(object->GetComponentByTemplate<Status>() != nullptr)
-    velocity *=object->GetComponentByTemplate<Status>()->GetSpeed();
+	velocity *=object->GetComponentByTemplate<Status>()->GetSpeed();
 
-    // zero out accumulated force
-    force_accumlator = {0, 0};
+	// zero out accumulated force
+	force_accumlator = {0, 0};
 
-    //friction always activated
-    velocity *= friction;
+	//friction always activated
+	//velocity *= friction;
 
-    // integrate position
-    if (magnitude(velocity) < 0.001f)
-	    velocity = 0;
+	// integrate position
+	if (magnitude(velocity) < 0.001f)
+		velocity = 0;	
 	
     // integrate position
 	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (gravity*velocity * dt).x), (object->GetTransform().GetTranslation().y + (gravity*velocity * dt).y) });

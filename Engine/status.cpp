@@ -21,8 +21,6 @@ void Status::Update(float dt)
 	if (hp < 0)
 		isLived = false;
 
-	if (!isLived)
-		object = nullptr;
 }
 
 void Status::Delete()

@@ -14,11 +14,14 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	else if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::none)
 	{
 	}
-	else if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
+	if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
 	{
-		if(di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
-		AttackedReaction(object, di_object);
-		object->GetComponentByTemplate<Collision>()->Nohit();
+		if (di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
+		{
+			AttackedReaction(object, di_object); 
+			object->GetComponentByTemplate<Status>()->Damaged_hp(di_object->GetComponentByTemplate<Status>()->GetDamage());
+		}
+		di_object->GetComponentByTemplate<Collision>()->Nohit();
 	}
 	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
 	{
@@ -27,7 +30,7 @@ void Reaction(Object* object, Object* di_object,float bounce)
 			AttackedReaction(di_object, object);
 			object->GetComponentByTemplate<Status>()->Damaged_hp(di_object->GetComponentByTemplate<Status>()->GetDamage());
 		}
-		di_object->GetComponentByTemplate<Collision>()->Nohit();
+		object->GetComponentByTemplate<Collision>()->Nohit();
 	}
 	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
 	{
@@ -59,7 +62,7 @@ void StopReaction(Object* object)
 void BounceReaction(Object *object, float bounce)
 {
 	object->GetComponentByTemplate<RigidBody>()->SetVelocity(-vector2
-	(abs(magnitude(object->GetComponentByTemplate<RigidBody>()->GetVelocity()))
+		(abs(magnitude(object->GetComponentByTemplate<RigidBody>()->GetVelocity()))
 		* normalize(object->GetComponentByTemplate<RigidBody>()->GetVelocity())) * bounce);
 }
 
