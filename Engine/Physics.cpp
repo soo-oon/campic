@@ -192,12 +192,12 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
 	{
-		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit_);
 	}
 	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
 		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door)
 	{
-		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit);
+		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit_);
 	}
 }
 

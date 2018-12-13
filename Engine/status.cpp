@@ -1,6 +1,6 @@
 #include "status.hpp"
 
-Status::Status(int Object_hp = 5, int object_damage = 1, float object_speed = 1)
+Status::Status(int Object_hp, int object_damage, float object_speed)
 {
 	hp = Object_hp;
 	damage = object_damage;

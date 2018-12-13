@@ -2,15 +2,16 @@
 #include "Objectmanager.hpp"
 #include "Mesh.hpp"
 
-enum class RestitutionType
+enum RestitutionType
 {
 	bounce,
 	stop,
 	ghost,
 	damaged,
-        get,
-	exit,
+    get,
+	exit_,
 	none,
+	size
 };
 enum class CollisionState
 {
@@ -20,8 +21,8 @@ enum class CollisionState
 class Collision : public Component
 {
 public:
-	Collision(CollisionType type_, vector2 translation_ = {0,0}, 
-		vector2 scale_ = {1,1}, float rotation_ = 0) : type(type_)
+	Collision(CollisionType type_ = box_, vector2 translation_ = {0,0}, 
+		vector2 scale_ = {100,100}, float rotation_ = 0) : type(type_)
 	{
 		collision_transform.SetTranslation(translation_);
 		collision_transform.SetScale(scale_);
@@ -44,6 +45,7 @@ public:
 	void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
 
 	CollisionType& GetCollisionType();
+	void SetCollisionType(CollisionType type_) { type = type_; }
 	std::vector<vector2> GetCollisionCalculateTRS();
 	void ToggleIsDamaged();
 	bool GetIsDamaged();

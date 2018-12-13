@@ -38,7 +38,6 @@ void SplashScreen::Update(float dt)
 	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
 		ChangeLevel("StartMenu");
 
-
 	if(time_count > 3.5f)
 		ChangeLevel("StartMenu");
 }

@@ -111,7 +111,9 @@ void Animation::ChangeAnimation(std::string ID)
 }
 
 void Animation::Imgui_Animation()
-{
+{	
 	ImGui::SliderFloat("frame_per_second", &frame_per_second, 0, 0.5);
+	ImGui::SameLine();
+	ImGui::Text("Animation");
 	ImGui::SliderFloat("update_frame", &update_frame, 0.1f, 0.01f);
 }
