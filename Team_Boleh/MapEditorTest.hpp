@@ -4,20 +4,31 @@
 #include "Object.hpp"
 #include "JSON.hpp"
 
-#define no_texture		"no_texture";
-#define card_heart		"asset/images/heart.png";
-#define card_diamond	"asset/images/dia.png";
-#define dr_strange_dot	"asset/images/Dr_Strange.png";
+#define STAGE0 "Stage0"
+#define STAGE1 "Stage1"
 
+enum class stage : int
+{
+	Stage0 = 0,
+	Stage1 = 1,
+	Stage2 = 2,
+	Stage3 = 3
+};
+
+enum class mode :int
+{
+	EditorMode = 0,
+	DemonstrateMode = 1
+};
 
 class MapEditorTest : public State
 {
 public:
-	MapEditorTest() { information_ = State_Information::Game;}
+	MapEditorTest() { information_ = State_Information::MapEditor;}
 
 	void Initialize() override;
 	void Update(float dt) override;
-	void ShutDown() override;
+	void ShutDown() override {}
 
 	void LoadMap();
 
@@ -25,8 +36,21 @@ private:
 	std::map<std::string, Object> objects_and_names;//load the object by json
 	std::map<std::string, Object>* pt_object_map = &objects_and_names;
 
-	std::map<std::string, std::unique_ptr<Object>>* obj_map = nullptr;
-
+	std::map<std::string, std::unique_ptr<Object>>* current_obj_map = nullptr;
 	int unit_movement = 20;
 
+	void CreateBackground();
+	void CreateLoadObject();
+
+	int selected_stage = 0;
+	int selected_mode = 0;
+
+	void DrawStage(int select);
+	void DrawStage0();
+	void DrawStage1();
+	//void DrawStage2();
+	//void DrawStage3();
+
+	void UnitMovement();
+	void SaveCurrentMap(std::string state_name);
 };

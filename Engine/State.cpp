@@ -9,23 +9,31 @@ void State::UpdateObjManager(float dt)
 	objectmanager->Update(dt);
 }
 
+void State::UpdateJsonState(StateManager* current)
+{
+	json->UpdateState(current);
+}
+
 void State::Load()
 {
 	change_level.clear();
 	level_change = false;
 	objectmanager = std::make_unique<Objectmanager>();
 	json = new JSON();
+	json->LoadLevelDocument();
+
 	sound = new Sound();
 	sound->Initialize();
 }
 
 void State::UnLoad()
 {
+	json->SaveAtEachDocument();
 	objectmanager.release();
 	objectmanager = nullptr;
 	sound->Quit();
-	delete json;
 	delete sound;
+	delete json;
 }
 
 void State::AddPlayer()

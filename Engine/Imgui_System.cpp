@@ -72,7 +72,7 @@ void Imgui_System::Draw()
 
 	//ImGui::ShowDemoWindow(&show_demo_window);
 	//ImGui::ShowTestWindow();
-	ObjectManger(show_window);
+	//ObjectManger(show_window);
 	Sound_Option(show_window);
 	Editor(show_editor);
 
@@ -297,6 +297,7 @@ void Imgui_System::Editor(bool show_editor)
 {
 	if (!show_editor)
 		return;
+	
 	if (object_manager == nullptr)
 		return;
 

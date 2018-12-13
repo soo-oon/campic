@@ -1,5 +1,9 @@
 {
-    "Level1": {
-        "level": "MapEditorTest"
-    }
+    "Splash_Screen": "Splash_Screen",
+    "StartMenu": "StartMenu",
+    "example": "example",
+    "test": "test",
+    "MapEditorTest": "MapEditorTest",
+    "Particle": "Particle",
+    "Demonstrate": "Demonstrate"
 }
