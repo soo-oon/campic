@@ -62,6 +62,7 @@ void Sound::Update(float dt)
 void Sound::Quit()
 {
 	system->release();
+	channel->stop();
 	system->close();
 
 }

@@ -22,6 +22,7 @@ void State::UnLoad()
 {
 	objectmanager.release();
 	objectmanager = nullptr;
+	sound->Quit();
 	delete json;
 	delete sound;
 }

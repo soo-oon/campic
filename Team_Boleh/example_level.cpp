@@ -313,7 +313,7 @@ void example::Update(float dt)
 	else
 		GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
-        if(Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+        if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
 		player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
         }

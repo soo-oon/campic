@@ -13,4 +13,7 @@ private:
 	int screen_w = 0;
 	int screen_h = 0;
 	std::vector<std::string> card_name;
+
+	bool first_deck_occupied = false;
+	bool second_deck_occupied = false;
 };
