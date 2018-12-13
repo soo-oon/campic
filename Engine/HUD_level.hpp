@@ -5,6 +5,11 @@
 class HUD_level : public State
 {
 public:
+	HUD_level()
+	{
+		information_ = State_Information::None;
+	}
+
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;

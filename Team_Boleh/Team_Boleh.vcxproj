@@ -165,6 +165,7 @@
     <ClCompile Include="MapEditorTest.cpp" />
     <ClCompile Include="Particle_level.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StartMenu.cpp" />
     <ClCompile Include="statemanager_test.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -176,6 +177,7 @@
     <ClInclude Include="example_level.hpp" />
     <ClInclude Include="MapEditorTest.hpp" />
     <ClInclude Include="Particle_level.hpp" />
+    <ClInclude Include="StartMenu.hpp" />
     <ClInclude Include="statemanager_test.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

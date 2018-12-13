@@ -2,6 +2,7 @@
 #include "JSON.hpp"
 #include "status.hpp"
 #include "Character.hpp"
+#include "Player.hpp"
 
 void State::UpdateObjManager(float dt)
 {

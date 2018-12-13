@@ -2,7 +2,8 @@
 #include "Objectmanager.hpp"
 #include <vector2.hpp>
 #include "Sound.hpp"
-#include "Player.hpp"
+#include "StateManager.hpp"
+
 
 class JSON;
 
@@ -38,9 +39,10 @@ public:
 	//std::unique_ptr<Objectmanager>& GetObjectManager() { return objectmanager; }
 
 	Objectmanager* obj_hud;
-
+	State_Information information_ = State_Information::None;
 
 private:
+
 	std::string change_level;
 
 	bool camera = false;

@@ -17,7 +17,7 @@ enum class button : int
 
 void StartMenu::Initialize()
 {
-	Load();
+	//Load();
 	//start - stages
 	//option - something.... map editor
 	//quit
@@ -48,7 +48,7 @@ void StartMenu::Update(float dt)
 
 void StartMenu::ShutDown()
 {
-	UnLoad();
+	//UnLoad();
 }
 
 void StartMenu::SetUpButtons(std::string obj_name, vector2 size, 

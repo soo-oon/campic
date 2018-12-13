@@ -75,14 +75,19 @@ void Engine::Update()
 		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
 		Objectmanager_ = State_->GetObjectManager().get();
 
-		HUD_->SetObjectManager(Objectmanager_);
 
         for (auto i : systems)
+        {
             i->Update(dt);
+        }
 		
 		Physics_->PhysicsObjectUpdate(Objectmanager_);
 
+
+		HUD_->SetObjectManager(Objectmanager_);
 		Graphic_->HUD_Draw(hud_state->GetObjectManager().get());
+
+
 		Graphic_->Draw(Objectmanager_);
 
 		Graphic_->EndDraw();

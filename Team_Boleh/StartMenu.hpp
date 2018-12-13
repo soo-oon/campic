@@ -4,7 +4,11 @@
 class StartMenu : public State
 {
 public:
-public:
+	StartMenu()
+	{
+		information_ = State_Information::Menu;
+	}
+
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;

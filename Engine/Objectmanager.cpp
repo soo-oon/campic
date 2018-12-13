@@ -118,6 +118,17 @@ void Objectmanager::RemoveObject(std::string key_name)
     }
 }
 
+bool Objectmanager::IsExistPlayer(std::string player)
+{
+	auto found = object_map.find(player);
+
+	if (found == object_map.end())
+	{
+		return false;
+	}
+	return true;
+}
+
 bool Objectmanager::FindCameraObject()
 {
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();

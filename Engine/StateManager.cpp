@@ -17,35 +17,59 @@ void StateManager::AddStage(std::string ID, State* state)
 
     if (m_currentState == nullptr)
     {
-        m_currentState = states.find(ID)->second.get();
-		m_currentState->Load();
-		m_currentState->AddPlayer();
-        m_currentState->Initialize();
+		if (states.find(ID)->second->information_ == State_Information::Menu)
+		{
+			m_currentState = states.find(ID)->second.get();
+			m_currentState->Load();
+			m_currentState->Initialize();
+		}
+		else
+		{
+			m_currentState->AddPlayer();
+		}
     }
 }
 
 void StateManager::ChangeStage()
 {
-	Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
-	player.SetTranslation({ -player.GetTransform().GetTranslation().x, player.GetTransform().GetTranslation().y });
+	if (m_currentState->GetObjectManager()->IsExistPlayer("Player"))
+	{
+		Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
+		player.SetTranslation({ -player.GetTransform().GetTranslation().x, player.GetTransform().GetTranslation().y });
 
-	Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
-	sword.SetTranslation({ player.GetTransform().GetTranslation() });
+		Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
+		sword.SetTranslation({ player.GetTransform().GetTranslation() });
 
-	std::string next_level = m_currentState->GetNextLevel();
+		std::string next_level = m_currentState->GetNextLevel();
 
-	m_currentState->UnLoad();
+		m_currentState->UnLoad();
 
-	m_currentState = states.find(next_level)->second.get();
+		m_currentState = states.find(next_level)->second.get();
 
-	m_currentState->Load();
+		m_currentState->Load();
 
-	m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::make_unique<Object>(player)));
-	m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::make_unique<Object>(sword)));
+		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::make_unique<Object>(player)));
+		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::make_unique<Object>(sword)));
 
-	m_currentState->GetObjectManager()->Initialize();
+		m_currentState->GetObjectManager()->Initialize();
 
-	m_currentState->Initialize();
+		m_currentState->Initialize();
+	}
+	else
+	{
+		std::string next_level = m_currentState->GetNextLevel();
+
+		m_currentState->UnLoad();
+
+		m_currentState = states.find(next_level)->second.get();
+
+		m_currentState->Load();
+
+		m_currentState->AddPlayer();
+		m_currentState->GetObjectManager()->Initialize();
+
+		m_currentState->Initialize();
+	}
 }
 
 void StateManager::Restart()

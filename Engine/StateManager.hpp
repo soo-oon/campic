@@ -4,6 +4,15 @@
 #include <string>
 #include <memory>
 
+enum class State_Information
+{
+	None,
+	Splash,
+	Menu,
+	Game,
+	size
+};
+
 class State;
 
 class StateManager : public System

@@ -5,6 +5,7 @@
 #include "statemanager_test.hpp"
 #include "MapEditorTest.hpp"
 #include "Particle_level.hpp"
+#include "StartMenu.hpp"
 
 int main()
 {
@@ -12,6 +13,7 @@ int main()
 
     engine->Initialize();
 
+	engine->GetSystemByTemplate<StateManager>()->AddStage("StartMenu", new StartMenu());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("example",new example());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("test", new test_statemanager());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("MapEditorTest", new MapEditorTest());
