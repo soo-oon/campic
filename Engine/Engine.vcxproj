@@ -192,6 +192,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="status.cpp" />
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +254,7 @@
     <ClInclude Include="status.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="Sword.hpp" />
     <ClInclude Include="System.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
