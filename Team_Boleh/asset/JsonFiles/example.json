@@ -1,6 +1,54 @@
 {
-    "MenuBackground": {
-        "name": "MenuBackground",
+    "Player": {
+        "name": "Player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": -114.97239685058594,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            -60.39543151855469,
+            28.228300094604493
+        ],
+        "rotation": 65.02760314941406,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "attack": {
+        "name": "attack",
+        "translation": [
+            100.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "background": {
+        "name": "background",
         "translation": [
             0.0,
             0.0
@@ -8,59 +56,187 @@
         "rotation": 0.0,
         "scale": [
             1280.0,
-            1000.0
+            960.0
         ],
-        "depth": 0.0,
+        "depth": 0.9900000095367432,
         "gravity": 1.0,
-        "texture": "asset/images/UI/Menu_background.png",
+        "texture": "no_texture",
         "id": 0
     },
-    "OptionButton": {
-        "name": "OptionButton",
-        "translation": [
-            0.0,
-            -150.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            348.0,
-            86.0
-        ],
-        "depth": -1.0,
-        "gravity": 1.0,
-        "texture": "asset/images/UI/OptionButton.png",
-        "id": 0
-    },
-    "QuitButton": {
-        "name": "QuitButton",
-        "translation": [
-            0.0,
-            -300.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            348.0,
-            86.0
-        ],
-        "depth": -1.0,
-        "gravity": 1.0,
-        "texture": "asset/images/UI/QuitButton.png",
-        "id": 0
-    },
-    "StartButton": {
-        "name": "StartButton",
+    "camera": {
+        "name": "camera",
         "translation": [
             0.0,
             0.0
         ],
         "rotation": 0.0,
         "scale": [
-            348.0,
-            86.0
+            10.0,
+            10.0
         ],
-        "depth": -1.0,
+        "depth": 0.0,
         "gravity": 1.0,
-        "texture": "asset/images/UI/StartButtonSelect.png",
+        "texture": "no_texture",
+        "id": 0
+    },
+    "dia1": {
+        "name": "dia1",
+        "translation": [
+            420.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "door": {
+        "name": "door",
+        "translation": [
+            500.0,
+            0.0
+        ],
+        "rotation": 2580.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "health": {
+        "name": "health",
+        "translation": [
+            0.0,
+            0.5
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1.5,
+            0.10000000149011612
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "heart1": {
+        "name": "heart1",
+        "translation": [
+            420.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent1": {
+        "name": "opponent1",
+        "translation": [
+            -213.79786682128907,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent2": {
+        "name": "opponent2",
+        "translation": [
+            146.15008544921876,
+            -182.68768310546876
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent3": {
+        "name": "opponent3",
+        "translation": [
+            0.0,
+            141.2045440673828
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "opponent4": {
+        "name": "opponent4",
+        "translation": [
+            233.77774047851563,
+            194.8148956298828
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "scol": {
+        "name": "scol",
+        "translation": [
+            -239.04595947265626,
+            239.04595947265626
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0
+    },
+    "slime": {
+        "name": "slime",
+        "translation": [
+            -239.04595947265626,
+            -239.04595947265626
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
         "id": 0
     }
 }

@@ -13,7 +13,7 @@
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/Menu_background.png",
-        "id": 1
+        "id": 0
     },
     "OptionButton": {
         "name": "OptionButton",
@@ -29,7 +29,7 @@
         "depth": -1.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/OptionButton.png",
-        "id": 2
+        "id": 0
     },
     "QuitButton": {
         "name": "QuitButton",
@@ -45,7 +45,7 @@
         "depth": -1.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/QuitButton.png",
-        "id": 3
+        "id": 0
     },
     "StartButton": {
         "name": "StartButton",
@@ -61,6 +61,6 @@
         "depth": -1.0,
         "gravity": 1.0,
         "texture": "asset/images/UI/StartButtonSelect.png",
-        "id": 4
+        "id": 0
     }
 }

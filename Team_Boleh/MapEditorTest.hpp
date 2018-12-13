@@ -15,10 +15,7 @@
 class MapEditorTest : public State
 {
 public:
-	MapEditorTest()
-	{
-		information_ = State_Information::Game;
-	}
+	MapEditorTest() { information_ = State_Information::Game;}
 
 	void Initialize() override;
 	void Update(float dt) override;
@@ -35,4 +32,7 @@ private:
 
 	Object* newObject;
 	Object* selected_object = nullptr;
+
+	std::map<std::string, std::unique_ptr<Object>>* obj_map = nullptr;
+
 };

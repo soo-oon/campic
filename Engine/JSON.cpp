@@ -243,15 +243,16 @@ void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* s
 		itr != load_document.MemberEnd(); itr++)
 	{
 		std::string load_object_name = itr->name.GetString();
-		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][0].GetFloat() };
+		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][1].GetFloat() };
 		vector2 load_translation = { itr->value["translation"][0].GetFloat(), itr->value["translation"][1].GetFloat() };
 		float load_rotation = itr->value["rotation"].GetFloat();
+		float load_depth = itr->value["depth"].GetFloat();
 
 		Object new_object;
 		new_object.SetScale(load_scale);
-		new_object.SetScale(load_scale);
 		new_object.SetTranslation(load_translation);
 		new_object.SetRotation(load_rotation);
+		new_object.SetDepth(load_depth);
 		new_object.texture_path = itr->value["texture"].GetString();
 		new_object.object_id = itr->value["id"].GetInt();
 		state_object->insert(std::pair<std::string, Object>(load_object_name, new_object));

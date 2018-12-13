@@ -5,7 +5,7 @@
             0.0,
             0.0
         ],
-        "rotation": -115.32441711425781,
+        "rotation": 0.0,
         "scale": [
             100.0,
             100.0
@@ -21,10 +21,10 @@
             0.0,
             0.0
         ],
-        "rotation": 64.67558288574219,
+        "rotation": 0.0,
         "scale": [
-            75.0,
-            75.0
+            60.0,
+            60.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
@@ -47,20 +47,84 @@
         "texture": "asset/images/background.png",
         "id": 0
     },
-    "object27": {
-        "name": "object27",
+    "displaybox": {
+        "name": "displaybox",
         "translation": [
-            -144.3300018310547,
-            -159.79400634765626
+            0.0,
+            0.0
         ],
         "rotation": 0.0,
         "scale": [
-            221.6490020751953,
+            100.0,
             100.0
         ],
-        "depth": 0.5,
+        "depth": 0.0,
         "gravity": 1.0,
-        "texture": "asset/images/attack.png",
-        "id": 27
+        "texture": "no_texture",
+        "id": 0
+    },
+    "object0": {
+        "name": "object0",
+        "translation": [
+            400.0,
+            60.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            60.0,
+            80.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/bluecard.png",
+        "id": 0
+    },
+    "object1": {
+        "name": "object1",
+        "translation": [
+            340.0,
+            180.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            60.0,
+            80.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/clover.png",
+        "id": 1
+    },
+    "object2": {
+        "name": "object2",
+        "translation": [
+            200.0,
+            140.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            60.0,
+            80.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/purplecard.png",
+        "id": 2
+    },
+    "object3": {
+        "name": "object3",
+        "translation": [
+            300.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            60.0,
+            80.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "asset/images/spade.png",
+        "id": 3
     }
 }
