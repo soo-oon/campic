@@ -88,7 +88,6 @@ void Animation::ChangeAnimation(std::string ID)
             if (change_animation == nullptr)
                 assert(false);
 
-			is_done = false;
             if (current_sprite != change_animation)
             {
                 is_done = false;

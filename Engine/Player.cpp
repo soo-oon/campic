@@ -15,9 +15,8 @@ bool Player::Initialize(Object * Ob)
 		object->SetScale({ 100.0f, 100.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		object->AddComponent(new RigidBody());
-		object->AddComponent(new Animation("asset/images/action.png", "zelda_down", 10, 0.1f));
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 3, 0.25f, false);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/action_c.png", "zelda_up", 10, 0.1f);
+		object->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.25f, false);
 		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 		object->AddComponent(new Character(ObjectType::player));
 		object->AddComponent(new Status(5, 1, 1.f));
@@ -59,10 +58,16 @@ void Player::MovePlayer()
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
 	}
 
-	if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
+	if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(1, 0)) > 0)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
+		object->GetComponentByTemplate<Animation>()->GetAnimationSprite()->Flip_Not();
+	}
 	else
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
+		object->GetComponentByTemplate<Animation>()->GetAnimationSprite()->Flip();
+	}
 
 }
 
