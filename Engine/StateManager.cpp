@@ -27,8 +27,10 @@ void StateManager::AddStage(std::string ID, State* state)
 void StateManager::ChangeStage()
 {
 	Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
-	Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
+	player.SetTranslation({ -player.GetTransform().GetTranslation().x, player.GetTransform().GetTranslation().y });
 
+	Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
+	sword.SetTranslation({ player.GetTransform().GetTranslation() });
 
 	std::string next_level = m_currentState->GetNextLevel();
 
