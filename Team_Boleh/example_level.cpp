@@ -126,8 +126,9 @@ void example::Initialize()
 	opponent4->AddComponent(new Status(5, 1, 1.f));
 
 	attack = BuildAndRegisterStaticObject("attack", vector2(100, 100), vector2(100.f, 100.f));
-	attack->AddComponent(new Animation("asset/images/hit.png", "attack", 5, 0.1f));
-	
+	attack->AddComponent(new Animation("asset/images/swing02.png", "hits1", 10, 0.05f));
+	attack->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/swing02.png", "hit2", 10, 0.05f, false);
+
         dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
         dia->AddComponent(new Sprite());
         dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
@@ -296,7 +297,7 @@ void example::Update(float dt)
 	ForProtoType(player, opponent1, 20);
 	if (opponent2->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent2, 20);
-	if (opponent3->GetComponentByTemplate<Status>() != nullptr)
+	if (opponent3->GetComponentByTemplate<Collision>() != nullptr)
 	ForProtoType(player, opponent3, 20);
 	if (opponent4->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent4, 20);
@@ -314,9 +315,11 @@ void example::Update(float dt)
 	else
 		GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
 
-        if(Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+        if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
 		player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+		attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit2");
+		//attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit");
         }
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
