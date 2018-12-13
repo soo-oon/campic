@@ -26,6 +26,8 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+	if (restitution_ != RestitutionType::exit)
+		isdoor = false;
 	SetRestitutionType(RestitutionType::none);
 	//collision_transform.SetScale(object->GetTransform().GetScale());
 }
@@ -92,17 +94,22 @@ std::vector<vector2> Collision::GetCollisionCalculateTRS()
 
 void Collision::ToggleIsDamaged()
 {
-	if(isdamaged == false)
-	{
+	//if(isdamaged == false)
+	//{
 		isdamaged = true;
-	}
-	else
-	isdamaged = false;
+	//}
+	//else
+	//isdamaged = false;
 }
 
 bool Collision::GetIsDamaged()
 {
 	return isdamaged;
+}
+
+void Collision::Nohit()
+{
+	isdamaged = false;
 }
 
 void Collision::ToggleIsDoor()

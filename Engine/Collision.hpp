@@ -47,6 +47,7 @@ public:
 	std::vector<vector2> GetCollisionCalculateTRS();
 	void ToggleIsDamaged();
 	bool GetIsDamaged();
+	void Nohit();
 	void ToggleIsDoor();
 	bool GetIsDoor();
 	void SetIsDoorClose();
