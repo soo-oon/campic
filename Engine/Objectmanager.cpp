@@ -118,6 +118,17 @@ void Objectmanager::RemoveObject(std::string key_name)
     }
 }
 
+bool Objectmanager::IsExistPlayer()
+{
+	auto found = object_map.find("Player");
+
+	if (found == object_map.end())
+	{
+		return false;
+	}
+	return true;
+}
+
 bool Objectmanager::FindCameraObject()
 {
 	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
@@ -143,4 +154,15 @@ std::unique_ptr<Object>& Objectmanager::FindObject(std::string key_name)
         assert(false);
     }
     return found->second;
+}
+
+int Objectmanager::FindMaxID()
+{
+	int max = 0;
+	for (auto itr = object_map.begin(); itr != object_map.end(); itr++)
+	{
+		if (max < itr->second.get()->object_id)
+			max = itr->second.get()->object_id;
+	}
+	return max;
 }

@@ -66,18 +66,15 @@ void Imgui_System::Draw()
 			show_window = false;
 		else
 			show_window = true;
+		show_editor = !show_editor;
 	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_KP_0))
-	{
-		show_mapeditor_window = !show_mapeditor_window;
-	}
+	object_count = object_manager->FindMaxID();
 
 	//ImGui::ShowDemoWindow(&show_demo_window);
 	//ImGui::ShowTestWindow();
 	ObjectManger(show_window);
 	Sound_Option(show_window);
-	MapEditor(show_mapeditor_window);
+	Editor(show_editor);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -295,31 +292,108 @@ void Imgui_System::Sound_Option(bool show_window)
 	ImGui::End();
 }
 
-void Imgui_System::MapEditor(bool show_mapeditor_window)
+//////////////////////////////////////////////////////////
+void Imgui_System::Editor(bool show_editor)
 {
-	if (!show_mapeditor_window)
+	if (!show_editor)
+		return;
+	if (object_manager == nullptr)
 		return;
 
-	ImGui::SetNextWindowSize({ 400,200 });
-
-	ImGui::Begin("Mapeditor", &show_mapeditor_window, ImGuiWindowFlags_AlwaysAutoResize);
-
-	if (ImGui::Button("Meow")) //this is just button
+	if (object_manager->GetObjectMap().size())
 	{
-		std::cout << "Meow\n";
+		std::vector<std::string> object_lists;
+
+		for (auto it = object_manager->GetObjectMap().begin();
+			it != object_manager->GetObjectMap().end(); ++it)
+			object_lists.push_back((*it).first.c_str());
+
+		if (!ImGui::Begin("Object Manager", &show_editor, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::End();
+			return;
+		}
+
+		ImGui::Text("Team Boleh's GUI                                   ");
+
+		if (ImGui::CollapsingHeader("Manager"))
+		{
+			ImGuiIO& io = ImGui::GetIO();
+
+			if (ImGui::TreeNode("Object Lists"))
+			{
+				AllObjectTree(object_lists);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::Button("Create Object"))
+			{
+				std::cout << object_count << std::endl;
+				std::string new_obj_name = object_name + std::to_string(object_count + 1);
+				object_manager->AddObject(new_obj_name);
+				newObject = object_manager->FindObject(new_obj_name).get();
+				newObject->SetScale({ 100.f,100.f });
+				newObject->SetTranslation({ 0,0 });
+				newObject->SetDepth(0);
+				newObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+				newObject->AddComponent(new Sprite());
+				newObject->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Basketball.png");
+
+				newObject->object_id = object_count + 1;
+				std::cout << newObject->object_id << std::endl;
+				object_count++;
+			}
+		}
+
+		ImGui::End();
+	}
+}
+
+void Imgui_System::AllObjectTree(std::vector<std::string> obj_list)
+{
+	for (int i = 0; i < obj_list.size(); i++)
+	{
+		Object* temp = object_manager->FindObject(obj_list.at(i).c_str()).get();
+		if (!temp->GetMesh().IsVisible())
+			continue;
+
+		if (ImGui::TreeNode(obj_list.at(i).c_str())) //um... update new!
+		{
+			temp->GetTransform().Imgui_Transform();
+			if (temp->GetComponentByTemplate<Animation>() != nullptr) //object is animation
+			{
+				temp->GetComponentByTemplate<Animation>()->Imgui_Animation();
+			}
+
+			if (temp->GetComponentByTemplate<Sprite>() != nullptr) //object is sprite
+				SpriteObject(temp);
+			ImGui::TreePop();
+			if (ImGui::Button("Delete"))
+				temp->GetMesh().Invisible();
+		}
+	}
+}
+
+void Imgui_System::SpriteObject(Object* sprite_obj)
+{
+	static std::string current_item = "";
+	std::string image_dir = "asset/images/";
+	if (ImGui::BeginCombo("Select texture", current_item.c_str()))
+	{
+		for (int n = 0; n < imagelist.size(); n++)
+		{
+			bool is_selected = (current_item.c_str() == imagelist[n].c_str());
+			if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
+				current_item = imagelist[n].c_str();
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
 	}
 
-	//1				//+ -
-	//2				//+ -
-	//3				//+ - WHAT THE 
-	std::vector<int> v{ 0,1,2 };
-	for (int i = 0; i < v.size(); ++i)
+	if (ImGui::Button("Change Sprite"))
 	{
-		ImGui::PushID(i);
-		ImGui::InputInt("##", &v[i]);
-		ImGui::PopID();
+		sprite_obj->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
+		sprite_obj->texture_path = image_dir + current_item;
 	}
-		
-
-	ImGui::End(); //Mapeditor window end
 }

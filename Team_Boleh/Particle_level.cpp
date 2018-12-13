@@ -13,10 +13,13 @@ void Particle_level::Initialize()
 	GetObjectManager()->FindObject("Player")->SetMesh(mesh::CreateBox(1, { 255,255,255 }));
 	GetObjectManager()->FindObject("Player")->AddComponent(new Sprite());
 	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
-	GetObjectManager()->FindObject("Player")->AddComponent(new Particle(100, 5.0f, 50, { 0.0f, 0.0f }));
+	*/
+	GetObjectManager()->FindObject("Player")->AddComponent(new Particle(100, 0.1f, 101, { 0.0f, 0.0f }));
 	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Particle>()->Particle_Generate(
 		GetObjectManager()->FindObject("Player")->GetTransform(), mesh::CreateBox(1, { 255,255,255 }),
-		5.0f, "asset/images/Basketball.png");*/
+		5.0f, "asset/images/Basketball.png");
+
+	
 }
 
 void Particle_level::Update(float dt)
@@ -28,7 +31,7 @@ void Particle_level::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
 
-	//GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Particle>()->Update(dt);
+	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Particle>()->Update(dt);
 }
 
 void Particle_level::ShutDown()

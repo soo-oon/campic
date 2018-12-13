@@ -126,8 +126,9 @@ void example::Initialize()
 	opponent4->AddComponent(new Status(5, 1, 1.f));
 
 	attack = BuildAndRegisterStaticObject("attack", vector2(100, 100), vector2(100.f, 100.f));
-	attack->AddComponent(new Animation("asset/images/hit.png", "attack", 5, 0.1f));
-	
+	attack->AddComponent(new Animation("asset/images/swing02.png", "hits1", 10, 0.05f));
+	attack->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/swing02.png", "hit2", 10, 0.05f, false);
+
         dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
         dia->AddComponent(new Sprite());
         dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
@@ -198,6 +199,7 @@ void example::Update(float dt)
 	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
+		card_list.clear();
 		for(auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
 		{
 			find(i);
@@ -271,7 +273,7 @@ void example::Update(float dt)
 	PlayerSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player);
 	SwordSwing(Input::GetMousePos(temp_camera->GetZoomValue()), player, sword);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_Q) && player->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit)
+	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("test");
 
 
@@ -295,7 +297,7 @@ void example::Update(float dt)
 	ForProtoType(player, opponent1, 20);
 	if (opponent2->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent2, 20);
-	if (opponent3->GetComponentByTemplate<Status>() != nullptr)
+	if (opponent3->GetComponentByTemplate<Collision>() != nullptr)
 	ForProtoType(player, opponent3, 20);
 	if (opponent4->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, opponent4, 20);
@@ -316,6 +318,8 @@ void example::Update(float dt)
         if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
 		player->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+		attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit2");
+		//attack->GetComponentByTemplate<Animation>()->ChangeAnimation("hit");
         }
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{

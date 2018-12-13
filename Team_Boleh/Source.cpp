@@ -5,6 +5,8 @@
 #include "statemanager_test.hpp"
 #include "MapEditorTest.hpp"
 #include "Particle_level.hpp"
+#include "StartMenu.hpp"
+#include "SplashScreen.hpp"
 
 int main()
 {
@@ -12,10 +14,13 @@ int main()
 
     engine->Initialize();
 
+	engine->GetSystemByTemplate<StateManager>()->AddStage("Splash_Screen", new SplashScreen());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("StartMenu", new StartMenu());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("example",new example());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("test", new test_statemanager());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("MapEditorTest", new MapEditorTest());
 	engine->GetSystemByTemplate<StateManager>()->AddStage("Particle", new Particle_level());
+	engine->GetSystemByTemplate<StateManager>()->AddStage("Startmenu", new StartMenu());
 
     engine->Update();
   

@@ -8,6 +8,11 @@
 class example : public State
 {
 public:
+	example()
+	{
+		information_ = State_Information::Game;
+	}
+
 	void blackhole(Object* Ob, Object* Ob1);
 	void move_convex_object(float dt, Object* Ob);
 	void Initialize() override;

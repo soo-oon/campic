@@ -15,6 +15,8 @@
 class MapEditorTest : public State
 {
 public:
+	MapEditorTest() { information_ = State_Information::Game;}
+
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;
@@ -29,7 +31,8 @@ private:
 	std::map<std::string, Object>* pt_object_map = &objects_and_names;
 
 	Object* newObject;
-
-	std::string Intersection(vector2 mouse_pos);
 	Object* selected_object = nullptr;
+
+	std::map<std::string, std::unique_ptr<Object>>* obj_map = nullptr;
+
 };

@@ -4,6 +4,11 @@
 class test_statemanager : public State
 {
 public:
+	test_statemanager()
+	{
+		information_ = State_Information::Game;
+	}
+
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;
