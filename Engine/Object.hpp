@@ -12,6 +12,9 @@
 class Object
 {
 public:
+	Object() = default;
+	Object(const Object& rhs);
+
 
     void AddComponent(Component* component);
     void SetMesh(Mesh mesh);
@@ -20,6 +23,8 @@ public:
     void SetRotation(const float& rotation);
     void SetDepth(const float& depth);
     void SetGravity(float gravity_own);
+
+	std::vector<Component*> GetComponent() { return components; }
 
     float GetGravity();
 

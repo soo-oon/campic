@@ -3,6 +3,7 @@
 #include "Camera.hpp"
 #include "status.hpp"
 #include "Player.hpp"
+#include "Sword.hpp"
 
 bool Objectmanager::Initialize()
 {
@@ -12,7 +13,13 @@ bool Objectmanager::Initialize()
 			it != object_map.end(); ++it)
 		{
 			Object* obj = it->second.get();
-			if (obj->GetComponentByTemplate<Sprite>() != nullptr)
+
+			for (auto& component : obj->GetComponent())
+			{
+				component->Initialize(obj);
+			}
+
+			/*if (obj->GetComponentByTemplate<Sprite>() != nullptr)
 			{
 				obj->GetComponentByTemplate<Sprite>()->Initialize(obj);
 			}
@@ -20,6 +27,7 @@ bool Objectmanager::Initialize()
 			{
 				obj->GetComponentByTemplate<RigidBody>()->Initialize(obj);
 			}
+
 			if (obj->GetComponentByTemplate<Collision>() != nullptr)
 			{
 				obj->GetComponentByTemplate<Collision>()->Initialize(obj);
@@ -35,11 +43,17 @@ bool Objectmanager::Initialize()
 			{
 				obj->GetComponentByTemplate<Camera>()->Initialize(obj);
 			}
+
+			if(obj->GetComponentByTemplate<Sword>() != nullptr)
+			{
+				obj->GetComponentByTemplate<Sword>()->Initialize(obj);
+			}
+
 			if (obj->GetComponentByTemplate<Player>() != nullptr)
 			{
 				obj->GetComponentByTemplate<Player>()->Initialize(obj);
 			}
-
+*/
 			if (obj->GetComponentByTemplate<Status>() != nullptr)
 			{
 				obj->GetComponentByTemplate<Status>()->Initialize(obj);
@@ -61,7 +75,21 @@ void Objectmanager::Update(float dt)
 	{
 		Object* obj = it->second.get();
 
-		if(obj->GetComponentByTemplate<Sprite>() != nullptr)
+		if (obj->GetComponentByTemplate<Status>() != nullptr)
+		{
+			obj->GetComponentByTemplate<Status>()->Update(dt);
+			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
+			{
+				object_map.erase(it++);
+			}
+		}
+
+		for(auto& component : obj->GetComponent())
+		{
+			component->Update(dt);
+		}
+
+		/*if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		{
 			obj->GetComponentByTemplate<Sprite>()->Update(dt);
 		}
@@ -75,19 +103,17 @@ void Objectmanager::Update(float dt)
 		{
 			obj->GetComponentByTemplate<Camera>()->Update(dt);
 		}
+
 		if (obj->GetComponentByTemplate<Player>() != nullptr)
 		{
 			obj->GetComponentByTemplate<Player>()->Update(dt);
 		}
 
-		if(obj->GetComponentByTemplate<Status>() != nullptr)
+		if(obj->GetComponentByTemplate<Sword>() != nullptr)
 		{
-			obj->GetComponentByTemplate<Status>()->Update(dt);
-			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
-			{
-				object_map.erase(it++);
-			}
+			obj->GetComponentByTemplate<Sword>()->Update(dt);
 		}
+*/
 	}
 }
 
@@ -127,22 +153,6 @@ bool Objectmanager::IsExistPlayer()
 		return false;
 	}
 	return true;
-}
-
-bool Objectmanager::FindCameraObject()
-{
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
-		it != object_map.end(); ++it)
-	{
-		Object obj = *(it->second.get());
-
-		if (obj.GetComponentByTemplate<Camera>() != nullptr)
-			return true;
-		else
-			return false;
-	}
-
-	return false;
 }
 
 std::unique_ptr<Object>& Objectmanager::FindObject(std::string key_name)

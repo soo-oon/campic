@@ -36,6 +36,7 @@ public:
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
 	//void AddAnimaition(const std::string path, const std::string ID);
+
 	void AddAnimaition(const std::string path, const std::string ID, 
 		int image_frame_, float update_frame_, bool repeat = true);
     void Delete() override;
@@ -51,6 +52,20 @@ public:
 private:
     vector2 previous_current_coordinate{};
 	//std::map<std::string, Animation*> animations;
+
+	// TODO fixed like that
+	/*
+	class TestSprite
+	{
+		sprites;
+		update_frames;
+		frame_per_seconds;
+		image_frames;
+		is_repeats;
+		previous_current_coordinates{};
+	};
+	std::map<std::string, TestSprite> testsprites;
+	*/
 
 	std::map<std::string, Sprite*> sprites;
 	std::map<std::string, float> update_frames;

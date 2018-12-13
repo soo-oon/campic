@@ -2,9 +2,18 @@
 #include "State.hpp"
 #include "Graphics.hpp"
 #include <map>
+#include "Sword.hpp"
+#include "Player.hpp"
+
 
 bool StateManager::Initialize()
 {
+	player = new Object;
+	sword = new Object;
+
+	player->AddComponent(new Player());
+	sword->AddComponent(new Sword(player));
+
     m_currentState = nullptr;
     m_pause = false;
     m_restart = false;
@@ -30,11 +39,11 @@ void StateManager::ChangeStage()
 {
 	if (m_currentState->GetObjectManager()->IsExistPlayer())
 	{
-		Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
+		/*Object player = *(m_currentState->GetObjectManager()->FindObject("Player").get());
 		player.SetTranslation({ -player.GetTransform().GetTranslation().x, player.GetTransform().GetTranslation().y });
 
 		Object sword = *(m_currentState->GetObjectManager()->FindObject("Sword").get());
-		sword.SetTranslation({ player.GetTransform().GetTranslation() });
+		sword.SetTranslation({ player.GetTransform().GetTranslation() });*/
 
 		std::string next_level = m_currentState->GetNextLevel();
 
@@ -44,8 +53,11 @@ void StateManager::ChangeStage()
 
 		m_currentState->Load();
 
-		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::make_unique<Object>(player)));
-		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::make_unique<Object>(sword)));
+		m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::make_unique<Object>(*player)));
+		//m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::make_unique<Object>(*sword)));
+
+		//player = m_currentState->GetObjectManager()->FindObject("Player").get();
+		//m_currentState->GetObjectManager()->FindObject("Sword")->GetComponentByTemplate<Sword>()->SetOwner(player);
 
 		m_currentState->GetObjectManager()->Initialize();
 
@@ -88,6 +100,9 @@ void StateManager::Update(float dt)
 
     if (m_pause == false)
     {
+		//player->GetComponentByTemplate<Player>()->Update(dt);
+		//sword->GetComponentByTemplate<Sword>()->Update(dt);
+
 		m_currentState->UpdateObjManager(dt);
         m_currentState->Update(dt);
     }

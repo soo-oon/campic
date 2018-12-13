@@ -2,31 +2,15 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            339.96478271484377,
+            74.01321411132813
         ],
-        "rotation": -227.68505859375,
+        "rotation": -299.263671875,
         "scale": [
             100.0,
             100.0
         ],
         "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0
-    },
-    "Sword": {
-        "name": "Sword",
-        "translation": [
-            0.0,
-            0.0
-        ],
-        "rotation": -47.685062408447269,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.9779999852180481,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0

@@ -4,6 +4,7 @@
 #include "Character.hpp"
 #include "status.hpp"
 #include <iostream>
+#include "Graphics.hpp"
 
 bool Player::Initialize(Object * Ob)
 {
@@ -27,6 +28,7 @@ bool Player::Initialize(Object * Ob)
 void Player::Update(float dt)
 {
 	MovePlayer();
+	PlayerMove(Input::GetMousePos(Graphics::checking_zoom));
 }
 
 void Player::Delete()
@@ -35,9 +37,6 @@ void Player::Delete()
 
 void Player::MovePlayer()
 {
-	std::cout << object->GetTransform().GetTranslation().x << ", " <<
-		object->GetTransform().GetTranslation().y << std::endl;
-
 	if (Input::IsKeyPressed(GLFW_KEY_W))
 	{
 		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 5));
@@ -75,4 +74,15 @@ void Player::ClearCardList()
 std::vector<std::string> Player::GetCardList()
 {
 	return card_list;
+}
+
+void Player::PlayerMove(vector2 mouse_position)
+{
+	vector2 swing_direction = normalize(vector2(mouse_position.x - object->GetTransform().GetTranslation().x,
+		mouse_position.y - object->GetTransform().GetTranslation().y));
+	float anglerad = atan2(mouse_position.y - object->GetTransform().GetTranslation().y, mouse_position.x - object->GetTransform().GetTranslation().x);
+	float angledeg = (180 / 3.14f)* anglerad;
+	object->SetRotation(angledeg - 270);
+
+	//std::cout << angledeg - 270 << std::endl;
 }

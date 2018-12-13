@@ -10,7 +10,7 @@
 #include "Particle.hpp"
 
 vector2 Graphics::camera_center{};
-float Graphics::checking_zoom = 0;
+float Graphics::checking_zoom;
 
 namespace
 {
