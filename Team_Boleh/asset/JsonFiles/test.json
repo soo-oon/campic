@@ -2,8 +2,8 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            -113.1494140625,
+            247.29425048828126
         ],
         "rotation": 0.0,
         "scale": [
@@ -22,13 +22,13 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            0.0,
-            0.0
+            -88.19108581542969,
+            188.75103759765626
         ],
-        "rotation": 4.372901916503906,
+        "rotation": -157.02191162109376,
         "scale": [
-            75.0,
-            75.0
+            200.0,
+            150.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
@@ -59,26 +59,6 @@
         "cha": 0,
         "col": 0
     },
-    "boss": {
-        "name": "boss",
-        "translation": [
-            266.6015930175781,
-            -133.30079650878907
-        ],
-        "rotation": 0.0,
-        "scale": [
-            200.0,
-            200.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sp": 0,
-        "ani": 1,
-        "cha": 1,
-        "col": 1
-    },
     "camera": {
         "name": "camera",
         "translation": [
@@ -99,26 +79,6 @@
         "cha": 0,
         "col": 0
     },
-    "clover1": {
-        "name": "clover1",
-        "translation": [
-            420.0,
-            100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            50.0,
-            50.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sp": 1,
-        "ani": 0,
-        "cha": 1,
-        "col": 1
-    },
     "door": {
         "name": "door",
         "translation": [
@@ -129,26 +89,6 @@
         "scale": [
             75.0,
             75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sp": 1,
-        "ani": 0,
-        "cha": 1,
-        "col": 1
-    },
-    "spade1": {
-        "name": "spade1",
-        "translation": [
-            420.0,
-            -100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            50.0,
-            50.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
