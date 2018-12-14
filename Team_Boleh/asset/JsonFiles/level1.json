@@ -25,10 +25,10 @@
             0.0,
             0.0
         ],
-        "rotation": -90.0,
+        "rotation": 71.94732666015625,
         "scale": [
-            75.0,
-            75.0
+            200.0,
+            150.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
@@ -79,26 +79,6 @@
         "character": 0,
         "collision": 0
     },
-    "dia1": {
-        "name": "dia1",
-        "translation": [
-            420.0,
-            -100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            50.0,
-            50.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 1,
-        "animation": 0,
-        "character": 1,
-        "collision": 1
-    },
     "door": {
         "name": "door",
         "translation": [
@@ -116,146 +96,6 @@
         "id": 0,
         "sprite": 1,
         "animation": 0,
-        "character": 1,
-        "collision": 1
-    },
-    "heart1": {
-        "name": "heart1",
-        "translation": [
-            420.0,
-            100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            50.0,
-            50.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 1,
-        "animation": 0,
-        "character": 1,
-        "collision": 1
-    },
-    "opponent1": {
-        "name": "opponent1",
-        "translation": [
-            -264.2843933105469,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 1,
-        "collision": 1
-    },
-    "opponent2": {
-        "name": "opponent2",
-        "translation": [
-            177.68853759765626,
-            -222.1107177734375
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 1,
-        "collision": 1
-    },
-    "opponent3": {
-        "name": "opponent3",
-        "translation": [
-            0.0,
-            164.28427124023438
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 1,
-        "collision": 1
-    },
-    "opponent4": {
-        "name": "opponent4",
-        "translation": [
-            272.562255859375,
-            227.13523864746095
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 1,
-        "collision": 1
-    },
-    "scol": {
-        "name": "scol",
-        "translation": [
-            -274.74517822265627,
-            274.74517822265627
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 1,
-        "collision": 1
-    },
-    "slime": {
-        "name": "slime",
-        "translation": [
-            -274.74517822265627,
-            -274.74517822265627
-        ],
-        "rotation": 0.0,
-        "scale": [
-            75.0,
-            75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
         "character": 1,
         "collision": 1
     }

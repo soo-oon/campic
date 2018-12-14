@@ -85,14 +85,3 @@ std::vector<std::string> Player::GetCardList()
 {
 	return card_list;
 }
-
-//void Player::PlayerMove(vector2 mouse_position)
-//{
-//	vector2 swing_direction = normalize(vector2(mouse_position.x - object->GetTransform().GetTranslation().x,
-//		mouse_position.y - object->GetTransform().GetTranslation().y));
-//	float anglerad = atan2(mouse_position.y - object->GetTransform().GetTranslation().y, mouse_position.x - object->GetTransform().GetTranslation().x);
-//	float angledeg = (180 / 3.14f)* anglerad;
-//	object->SetRotation(angledeg - 270);
-//
-//	//std::cout << angledeg - 270 << std::endl;
-//}

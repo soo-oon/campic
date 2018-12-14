@@ -197,10 +197,8 @@ void level1::Update(float dt)
 		Shot(shot_string + std::to_string(shot_char));
 	}
 
-	std::cout << (int)shot_char << std::endl;
-
-        if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
-            sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
+    if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
+        sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
 
 	if (Input::IsKeyTriggered(GLFW_KEY_X))
 	{
@@ -210,7 +208,6 @@ void level1::Update(float dt)
 	if (isshot)
 		dt_power_shot += dt;
 	if(dt_power_shot > 3)
-	std::cout << dt_power_shot << std::endl;
 
 	if (dt_power_shot > 3)
 	{

@@ -2,8 +2,8 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            -63.1261100769043,
+            132.7060546875
         ],
         "rotation": 0.0,
         "scale": [
@@ -22,13 +22,13 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            0.0,
-            0.0
+            -106.34657287597656,
+            80.8431396484375
         ],
-        "rotation": -270.071044921875,
+        "rotation": -218.9148712158203,
         "scale": [
-            75.0,
-            75.0
+            200.0,
+            150.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
@@ -58,26 +58,6 @@
         "animation": 0,
         "character": 0,
         "collision": 0
-    },
-    "boss": {
-        "name": "boss",
-        "translation": [
-            265.3596496582031,
-            -132.45037841796876
-        ],
-        "rotation": 0.0,
-        "scale": [
-            200.0,
-            200.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 1,
-        "collision": 1
     },
     "camera": {
         "name": "camera",
@@ -109,26 +89,6 @@
         "scale": [
             75.0,
             75.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 1,
-        "animation": 0,
-        "character": 1,
-        "collision": 1
-    },
-    "spade1": {
-        "name": "spade1",
-        "translation": [
-            420.0,
-            -100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            50.0,
-            50.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
