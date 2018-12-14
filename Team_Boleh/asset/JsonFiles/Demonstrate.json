@@ -2,8 +2,8 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            480.1280212402344,
+            1.4395592212677003
         ],
         "rotation": 0.0,
         "scale": [
@@ -22,10 +22,10 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            0.0,
-            0.0
+            413.8292541503906,
+            9.414006233215332
         ],
-        "rotation": 60.608184814453128,
+        "rotation": 82.186279296875,
         "scale": [
             75.0,
             75.0
@@ -79,46 +79,6 @@
         "character": 0,
         "collision": 0
     },
-    "object3": {
-        "name": "object3",
-        "translation": [
-            180.0,
-            260.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/slime.png",
-        "id": 3,
-        "sprite": 0,
-        "animation": 1,
-        "character": 0,
-        "collision": 0
-    },
-    "object4": {
-        "name": "object4",
-        "translation": [
-            220.0,
-            20.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/slime.png",
-        "id": 4,
-        "sprite": 0,
-        "animation": 1,
-        "character": 0,
-        "collision": 0
-    },
     "object6": {
         "name": "object6",
         "translation": [
@@ -136,27 +96,7 @@
         "id": 6,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
-    },
-    "object7": {
-        "name": "object7",
-        "translation": [
-            -240.0,
-            180.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "asset/images/slime.png",
-        "id": 7,
-        "sprite": 0,
-        "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     }
 }
