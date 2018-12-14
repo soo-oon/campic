@@ -1,5 +1,7 @@
 #include "JSON.hpp"
 #include "Character.hpp"
+#include <fstream>
+#include <iostream>
 
 #define Level		"level"
 #define NAME		"name"

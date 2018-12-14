@@ -1,42 +1,42 @@
 {
-    "BackGround": {
-        "name": "BackGround",
+    "Player": {
+        "name": "Player",
         "translation": [
             0.0,
             0.0
         ],
         "rotation": 0.0,
         "scale": [
-            1280.0,
-            960.0
-        ],
-        "depth": 0.8999999761581421,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 1,
-        "animation": 0,
-        "character": 0,
-        "collision": 0
-    },
-    "Digipen_Logo": {
-        "name": "Digipen_Logo",
-        "translation": [
-            0.0,
-            0.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            923.06005859375,
-            305.76519775390627
+            100.0,
+            100.0
         ],
         "depth": 0.0,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": -13.077438354492188,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.5,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
         "sprite": 1,
         "animation": 0,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     }
 }
