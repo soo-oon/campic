@@ -2,8 +2,8 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            128.9232635498047,
+            -242.73049926757813
         ],
         "rotation": 0.0,
         "scale": [
@@ -22,10 +22,10 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            54.335758209228519,
-            38.627315521240237
+            99.52349090576172,
+            -181.75778198242188
         ],
-        "rotation": -54.573001861572269,
+        "rotation": 26.09796142578125,
         "scale": [
             75.0,
             75.0
@@ -76,7 +76,7 @@
         "id": 11,
         "sprite": 1,
         "animation": 0,
-        "character": 1,
+        "character": 0,
         "collision": 0
     },
     "object12": {
@@ -136,8 +136,8 @@
         "id": 3,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     },
     "object4": {
         "name": "object4",
@@ -156,8 +156,8 @@
         "id": 4,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     },
     "object6": {
         "name": "object6",
@@ -176,8 +176,8 @@
         "id": 6,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     },
     "object7": {
         "name": "object7",

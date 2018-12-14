@@ -1,3 +1,18 @@
+/* Start Header -------------------------------------------------------------
+--
+Copyright (C) 2018 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name:  level2.cpp
+Language: C++
+Platform: Visual Studio 2017
+Project: sword of souls
+Primary : Jun Soon Woo
+Secondary :
+Creation date: 2018/12/14
+- End Header ----------------------------------------------------------------
+*/
+
 #include "level2.hpp"
 #include "Input.hpp"
 #include "Sprite.hpp"

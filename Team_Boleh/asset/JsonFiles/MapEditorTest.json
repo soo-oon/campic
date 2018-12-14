@@ -22,10 +22,10 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            54.335758209228519,
-            38.627315521240237
+            0.0,
+            0.0
         ],
-        "rotation": -54.573001861572269,
+        "rotation": -27.991046905517579,
         "scale": [
             75.0,
             75.0
@@ -76,7 +76,7 @@
         "id": 11,
         "sprite": 1,
         "animation": 0,
-        "character": 1,
+        "character": 0,
         "collision": 0
     },
     "object12": {

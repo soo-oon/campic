@@ -249,7 +249,6 @@
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Reaction.hpp" />
-    <ClInclude Include="Restitution.hpp" />
     <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Sound.hpp" />
