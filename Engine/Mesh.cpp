@@ -220,7 +220,9 @@ void Mesh::Change_Alpha_Value(float dec_value)
 {
 	for (auto i = colors.begin(); i != colors.end(); ++i)
 	{
-		i->Alpha -= dec_value;
+		float temp = static_cast<float>(i->Alpha);
+		temp -= dec_value;
+		i->Alpha = static_cast<unsigned char>(temp);
 	}
 }
 

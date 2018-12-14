@@ -126,11 +126,7 @@ void Application::Update(float dt)
 	}
 
     Input::Triggerd_Reset();
-#if _DEBUG
-    //glfwSwapBuffers(window);
-#else
-	glfwSwapBuffers(window);
-#endif
+	//glfwSwapBuffers(window);
     PollEvent();
 }
 

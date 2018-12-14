@@ -65,7 +65,7 @@ private:
 	GLFWwindow* window = nullptr;
 	Objectmanager* object_manager = nullptr;
 	
-	bool show_window = true;
+	bool show_window = false;
 	bool show_editor = false;
 
 	std::vector<std::string> imagelist;

@@ -34,9 +34,7 @@ namespace
 	State* State_ = nullptr;
 	Sound* Sound_ = nullptr;
 	Physics* Physics_ = nullptr;
-#if _DEBUG
 	Imgui_System* Imgui = nullptr;
-#endif
 	JSON* Json = nullptr;
 	HUD* HUD_ = nullptr;
 	State* hud_state = nullptr;
@@ -53,9 +51,7 @@ bool Engine::Initialize()
 	AddSystem(new Physics());
     AddSystem(new Sound());
 	AddSystem(new HUD());
-#if _DEBUG
 	AddSystem(new Imgui_System());
-#endif
 	AddSystem(new JSON());
 
 	Application_ = GetSystemByTemplate<Application>();
@@ -63,9 +59,7 @@ bool Engine::Initialize()
 	Physics_ = GetSystemByTemplate<Physics>();
 	Sound_ = GetSystemByTemplate<Sound>();
 	HUD_ = GetSystemByTemplate<HUD>();
-#if _DEBUG
 	Imgui = GetSystemByTemplate<Imgui_System>();
-#endif
 	Json = GetSystemByTemplate<JSON>();
 
 	for (auto i : systems)
@@ -107,11 +101,9 @@ void Engine::Update()
 		Application_->SetDispalyAreaSize(Graphic_, State_);
 
 		Sound_->GetSoundMap();
-#if _DEBUG
 		Imgui->SetSoundManager(Sound_);
 		Imgui->SetObjectManger(Objectmanager_);
 		Imgui->Draw();
-#endif
 
 		//Json->UpdateLevel(GetSystemByTemplate<StateManager>());
 		Json->UpdateState(GetSystemByTemplate<StateManager>());

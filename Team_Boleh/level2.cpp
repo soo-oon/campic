@@ -1,4 +1,4 @@
-#include "statemanager_test.hpp"
+#include "level2.hpp"
 #include "Input.hpp"
 #include "Sprite.hpp"
 #include "Collision.hpp"
@@ -11,8 +11,9 @@
 #include "Card.hpp"
 #include "Sword.hpp"
 #include "Graphics.hpp"
+#include "FireBall.hpp"
 
-void test_statemanager::Initialize()
+void level2::Initialize()
 {
 	GetObjectManager()->AddObject("camera");
 	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
@@ -97,25 +98,26 @@ void test_statemanager::Initialize()
 
 }
 
-void test_statemanager::Update(float dt)
+void level2::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
+		ChangeLevel("StartMenu");
+
 	if (!player->GetComponentByTemplate<Status>()->GetLived())
 		ChangeLevel("StartMenu");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
-		ChangeLevel("test");
+		ChangeLevel("level2");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
-		ChangeLevel("example");
+		ChangeLevel("level1");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
-	if (Input::IsKeyTriggered(GLFW_KEY_4))
-		ChangeLevel("Particle");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{
 		shot_char++;
-		Shot(shot_string + shot_char);
+		Shot(shot_string + std::to_string(shot_char));
 	}
 
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
@@ -151,12 +153,12 @@ void test_statemanager::Update(float dt)
 	}
 }
 
-void test_statemanager::ShutDown()
+void level2::ShutDown()
 {
 	UnLoad();
 }
 
-Object* test_statemanager::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
+Object* level2::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
 {
 	GetObjectManager()->AddObject(object_name);
 	GetObjectManager()->FindObject(object_name)->SetScale(scale);
@@ -166,7 +168,7 @@ Object* test_statemanager::BuildAndRegisterStaticObject(std::string object_name,
 	//trans form texture, 
 	return GetObjectManager()->FindObject(object_name).get();
 }
-Object* test_statemanager::BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale)
+Object* level2::BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale)
 {
 	GetObjectManager()->AddObject(object_name);
 	GetObjectManager()->FindObject(object_name)->SetScale(scale);
@@ -177,12 +179,12 @@ Object* test_statemanager::BuildAndRegisterDynamicObject(std::string object_name
 	//trans form texture, 
 	return GetObjectManager()->FindObject(object_name).get();
 }
-void test_statemanager::Attact(Object * object)
+void level2::Attact(Object * object)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 }
-void test_statemanager::snailoption(Object * effect, Object* knife, float angle, float& angle_)
+void level2::snailoption(Object * effect, Object* knife, float angle, float& angle_)
 {
 	float x_vel, y_vel;
 	angle_ += angle;
@@ -201,7 +203,7 @@ void test_statemanager::snailoption(Object * effect, Object* knife, float angle,
 	else
 		effect->GetTransform().SetDepth(0.98f);
 }
-void test_statemanager::Enchanted(Object * sword, Object* effect, Object * card1, Object * card2, float dt)
+void level2::Enchanted(Object * sword, Object* effect, Object * card1, Object * card2, float dt)
 {
 	float big = 0;
 	snailoption(card1, sword, -0.02f, rota_angle);
@@ -249,7 +251,7 @@ void test_statemanager::Enchanted(Object * sword, Object* effect, Object * card1
 	card2->GetTransform().SetScale(card2->GetTransform().GetScale()* big);
 }
 
-void test_statemanager::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
+void level2::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 {
 	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
 		mouse_position.y - player->GetTransform().GetTranslation().y));
@@ -260,7 +262,7 @@ void test_statemanager::SwordSwing(vector2 mouse_position, Object* player, Objec
 	float angledeg = (180 / 3.14f)* anglerad;
 	sword->SetRotation(angledeg - 90);
 }
-void test_statemanager::PlayerSwing(vector2 mouse_position, Object * player)
+void level2::PlayerSwing(vector2 mouse_position, Object * player)
 {
 	vector2 swing_direction = normalize(vector2(mouse_position.x - player->GetTransform().GetTranslation().x,
 		mouse_position.y - player->GetTransform().GetTranslation().y));
@@ -269,12 +271,12 @@ void test_statemanager::PlayerSwing(vector2 mouse_position, Object * player)
 	player->SetRotation(angledeg -270);
 }
 
-void test_statemanager::find(std::string card_)
+void level2::find(std::string card_)
 {
 	card_list.push_back(GetObjectManager()->FindObject(card_).get());
 }
 
-void test_statemanager::BossMovement(Object * boss_monster, Object* player, float dt)
+void level2::BossMovement(Object * boss_monster, Object* player, float dt)
 {
 	vector2 come = vector2(player->GetTransform().GetTranslation().x - boss_monster->GetTransform().GetTranslation().x,
 		player->GetTransform().GetTranslation().y - boss_monster->GetTransform().GetTranslation().y);
@@ -288,19 +290,8 @@ void test_statemanager::BossMovement(Object * boss_monster, Object* player, floa
 		
 }
 
-void test_statemanager::Shot(std::string name)
+void level2::Shot(std::string name)
 {
 	GetObjectManager()->AddObject(name);
-	GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox());
-	vector2 a = normalize(vector2(Input::GetMousePos(Graphics::checking_zoom).x - player->GetTransform().GetTranslation().x,
-		Input::GetMousePos(Graphics::checking_zoom).y - player->GetTransform().GetTranslation().y));
-	GetObjectManager()->FindObject(name).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
-	GetObjectManager()->FindObject(name).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
-	GetObjectManager()->FindObject(name).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y }));
-	GetObjectManager()->FindObject(name).get()->AddComponent(new RigidBody());
-	GetObjectManager()->FindObject(name).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Animation("asset/images/ice_shot.png", "power", 4, 0.25));
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Character(ObjectType::shot));
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Status(1, 1, 1.f));
+	GetObjectManager()->FindObject(name)->AddComponent(new FireBall(player, sword, 5.0f));
 }

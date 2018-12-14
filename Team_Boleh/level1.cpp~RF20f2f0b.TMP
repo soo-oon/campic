@@ -1,4 +1,4 @@
-#include "example_level.hpp"
+#include "level1.hpp"
 #include <iostream>
 #include "Sprite.hpp"
 #include "RigidBody.hpp"
@@ -13,12 +13,11 @@
 #include "Card.hpp"
 #include "Sword.hpp"
 #include "Graphics.hpp"
+#include "FireBall.hpp"
 
 
-void example::Initialize()
+void level1::Initialize()
 {
-	//Load();
-
 	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
@@ -144,35 +143,37 @@ void example::Initialize()
 
 }
 
-void example::Update(float dt)
+void level1::Update(float dt)
 {
 	if (!player->GetComponentByTemplate<Status>()->GetLived())
 		ChangeLevel("StartMenu");
 
+    if (Input::IsKeyTriggered(GLFW_KEY_E))
+    {
+		if(!change_sword)
+		{ 
+			card_list.clear();
+			for(auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
+			{
+				find(i);
+			}
+			if (card_list.size() > 1)
+			{
+				change_sword = true;
+				MakeManyEffect("dia");
+				GetSoundMap()->Play("asset/sounds/inchant.mp3");
+				player->GetComponentByTemplate<Player>()->ClearCardList();
+			}
+		}
+    }
 
-        if (Input::IsKeyTriggered(GLFW_KEY_E))
-        {
-			if(!change_sword)
-			{ 
-		card_list.clear();
-		for(auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
-		{
-			find(i);
-		}
-		if (card_list.size() > 1)
-		{
-			change_sword = true;
-			MakeManyEffect("dia");
-			GetSoundMap()->Play("asset/sounds/inchant.mp3");
-			player->GetComponentByTemplate<Player>()->ClearCardList();
-		}
-		}
-        }
 	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
 	if(change_sword)
 	{
 		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
 	}
+
+
 	for (auto i : dump)
 	{
 		if (change_sword)
@@ -181,20 +182,23 @@ void example::Update(float dt)
 				ComePlayer(player, i, 100);
 		}
 	}
+
+
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
-		ChangeLevel("example");
+		ChangeLevel("level1");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
-		ChangeLevel("test");
+		ChangeLevel("level2");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
-	if (Input::IsKeyTriggered(GLFW_KEY_4))
-		ChangeLevel("Particle");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{
 		shot_char++;
-		Shot(shot_string + shot_char);
+		Shot(shot_string + std::to_string(shot_char));
 	}
+
+	std::cout << (int)shot_char << std::endl;
+
         if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
             sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
 
@@ -216,7 +220,7 @@ void example::Update(float dt)
 	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
-		ChangeLevel("test");
+		ChangeLevel("level1");
 
 
 	if(scol->GetComponentByTemplate<Status>() != nullptr)
@@ -235,15 +239,6 @@ void example::Update(float dt)
 	//Should Fixed this
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
 
-	rotation_ += 10;
-		door->SetRotation(rotation_);
-
-	//if(dot(GetObjectManager()->FindObject("Player")->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(0, 1)) > 0)
-	//	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_up");
-	//else
-	//	GetObjectManager()->FindObject("Player")->GetComponentByTemplate<Animation>()->ChangeAnimation("zelda_down");
-
-
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		GetSoundMap()->Play("asset/sounds/punch.wav");
@@ -257,12 +252,11 @@ void example::Update(float dt)
 		check = !check;
 }
 
-void example::ShutDown()
+void level1::ShutDown()
 {
-	UnLoad();
 }
 
-Object* example::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
+Object* level1::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
 {
 	GetObjectManager()->AddObject(object_name);
 	GetObjectManager()->FindObject(object_name)->SetScale(scale);
@@ -272,7 +266,7 @@ Object* example::BuildAndRegisterStaticObject(std::string object_name, vector2 p
 	//trans form texture, 
 	return GetObjectManager()->FindObject(object_name).get();
 }
-Object* example::BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale)
+Object* level1::BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale)
 {
 	GetObjectManager()->AddObject(object_name);
 	GetObjectManager()->FindObject(object_name)->SetScale(scale);
@@ -283,13 +277,13 @@ Object* example::BuildAndRegisterDynamicObject(std::string object_name, vector2 
 	//trans form texture, 
 	return GetObjectManager()->FindObject(object_name).get();
 }
-void example::SwordPosition(std::string player_str, std::string sword_str)
+void level1::SwordPosition(std::string player_str, std::string sword_str)
 {
 	GetObjectManager()->FindObject(sword_str)->SetTranslation(vector2(
 		GetObjectManager()->FindObject(player_str)->GetTransform().GetTranslation().x + 150.f,
 		GetObjectManager()->FindObject(player_str)->GetTransform().GetTranslation().y));
 }
-void example::ForProtoType(Object * object, Object* opponent, float vel_come)
+void level1::ForProtoType(Object * object, Object* opponent, float vel_come)
 {
 	vector2 come = vector2(object->GetTransform().GetTranslation().x - opponent->GetTransform().GetTranslation().x,
 		object->GetTransform().GetTranslation().y - opponent->GetTransform().GetTranslation().y);
@@ -302,7 +296,7 @@ void example::ForProtoType(Object * object, Object* opponent, float vel_come)
 	opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(vel_come* no_come);
 }
 
-void example::snailoption(Object * effect, Object* knife, float angle, float& angle_)
+void level1::snailoption(Object * effect, Object* knife, float angle, float& angle_)
 {
 	float x_vel, y_vel;
 	angle_ += angle;
@@ -321,7 +315,7 @@ void example::snailoption(Object * effect, Object* knife, float angle, float& an
 	else
 		effect->GetTransform().SetDepth(0.98f);
 }
-void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * card2, float dt)
+void level1::Enchanted(Object * sword, Object* effect,Object * card1, Object * card2, float dt)
 {
 	float big =0;
 	snailoption(card1, sword, -0.02f, rota_angle);
@@ -368,17 +362,17 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 	card1->GetTransform().SetScale(card1->GetTransform().GetScale()* big);
 	card2->GetTransform().SetScale(card2->GetTransform().GetScale()* big);
 }
-void example::thrust(Object * sword, Object* player, float force)
+void level1::thrust(Object * sword, Object* player, float force)
 {
     vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
         sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
     sword->GetComponentByTemplate<RigidBody>()->SetVelocity(force* a);
 }
-void example::FollowMe(vector2 mouse, Object * flower)
+void level1::FollowMe(vector2 mouse, Object * flower)
 {
 	flower->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(mouse.x - flower->GetTransform().GetTranslation().x, mouse.y - flower->GetTransform().GetTranslation().y));
 }
-void example::Flow_leaf(std::vector<Object*> flower)
+void level1::Flow_leaf(std::vector<Object*> flower)
 {
 	for (auto i : flower) {
 		float pl = rand() % 2;
@@ -397,11 +391,11 @@ void example::Flow_leaf(std::vector<Object*> flower)
 		i->GetTransform().SetTranslation(vector2(flower[0]->GetTransform().GetTranslation().x + a * p, flower[0]->GetTransform().GetTranslation().y + b * p));
 	}
 }
-void example::Stretch(Object * sword, float bigger)
+void level1::Stretch(Object * sword, float bigger)
 {
 	sword->SetScale(vector2(sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y +bigger));
 }
-void example::Power_shot()
+void level1::Power_shot()
 {
 	if (isshot != true)
 	{
@@ -411,7 +405,7 @@ void example::Power_shot()
 		vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
 			sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
 		GetObjectManager()->FindObject(power)->SetMesh(mesh::CreateBox());
-		GetObjectManager()->FindObject(power).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
+		GetObjectManager()->FindObject(power).get()->SetRotation(sword->GetTransform().GetRotation() + 90);
 		GetObjectManager()->FindObject(power).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
 		GetObjectManager()->FindObject(power).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y }));
@@ -422,12 +416,12 @@ void example::Power_shot()
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
 	}
 }
-void example::find(std::string card_)
+void level1::find(std::string card_)
 {
 	card_list.push_back(GetObjectManager()->FindObject(card_).get());
 }
 
-Object* example::AwesomeEfftect(std::string stuff, vector2 position)
+Object* level1::AwesomeEfftect(std::string stuff, vector2 position)
 {
 	a_stuff += 1;
 	GetObjectManager()->AddObject(a_stuff);
@@ -444,7 +438,7 @@ Object* example::AwesomeEfftect(std::string stuff, vector2 position)
 
 	return GetObjectManager()->FindObject(a_stuff).get();
 }
-void example::ComePlayer(Object * object, Object * opponent, float vel_come)
+void level1::ComePlayer(Object * object, Object * opponent, float vel_come)
 {
 	vector2 come = vector2(object->GetTransform().GetTranslation().x - opponent->GetTransform().GetTranslation().x,
 		object->GetTransform().GetTranslation().y - opponent->GetTransform().GetTranslation().y);
@@ -452,7 +446,7 @@ void example::ComePlayer(Object * object, Object * opponent, float vel_come)
 		opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(vel_come* no_come);
 }
 
-void example::MakeManyEffect(std::string card)
+void level1::MakeManyEffect(std::string card)
 {
 	dump.push_back(AwesomeEfftect(card, { 300.f,0.f }));
 	dump.push_back(AwesomeEfftect(card, { 0.f,300.f }));
@@ -464,22 +458,8 @@ void example::MakeManyEffect(std::string card)
 	dump.push_back(AwesomeEfftect(card, { -300.f,-300.f }));
 }
 
-void example::Shot(std::string name)
+void level1::Shot(std::string name)
 {
 	GetObjectManager()->AddObject(name);
-	GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox());
-	vector2 a = normalize(vector2(Input::GetMousePos(Graphics::checking_zoom).x - player->GetTransform().GetTranslation().x,
-		Input::GetMousePos(Graphics::checking_zoom).y - player->GetTransform().GetTranslation().y));
-
-	std::cout << a.x << ", " << a.y <<std::endl;
-
-	GetObjectManager()->FindObject(name).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
-	GetObjectManager()->FindObject(name).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
-	GetObjectManager()->FindObject(name).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y }));
-	GetObjectManager()->FindObject(name).get()->AddComponent(new RigidBody());
-	GetObjectManager()->FindObject(name).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Character(ObjectType::shot));
-	GetObjectManager()->FindObject(name).get()->AddComponent(new Status(1, 1, 1.f));
+	GetObjectManager()->FindObject(name)->AddComponent(new FireBall(player, sword, 5.0f));
 }

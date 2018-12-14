@@ -25,14 +25,6 @@ bool Collision::Initialize(Object* Ob)
 
 	collision_mesh = mesh::CreateCollisionBox(type);
 
-#ifdef _DEBUG
-	collision_mesh.Visible();
-#endif
-
-#ifdef _RELEASE
-	collision_mesh.Invisible();
-#endif
-
 	return true;
 }
 
@@ -44,7 +36,6 @@ void Collision::Update(float dt)
 		isdoor = false;
 	if(GetRestitutionType() != RestitutionType::get)
 	SetRestitutionType(RestitutionType::none);
-	//collision_transform.SetScale(object->GetTransform().GetScale());
 }
 
 void Collision::Delete()
