@@ -72,11 +72,11 @@ void Imgui_System::Draw()
 	}
 	object_count = object_manager->FindMaxID();
 
-	ImGui::ShowDemoWindow(&show_window);
+	//ImGui::ShowDemoWindow(&show_window);
 	//ImGui::ShowTestWindow();
 	//ObjectManger(show_window);
 	Sound_Option(show_window);
-	Editor(show_editor);
+	Editor(show_window);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -368,22 +368,26 @@ void Imgui_System::AllObjectTree(std::vector<std::string> obj_list)
 	for (int i = 0; i < obj_list.size(); i++)
 	{
 		Object* temp = object_manager->FindObject(obj_list.at(i).c_str()).get();
-		if (!temp->GetMesh().IsVisible())
-			continue;
-		if (obj_list.at(i) == "displaybox") //this is the display box at map editor
-			continue;
 
-		if (ImGui::TreeNode(obj_list.at(i).c_str())) //um... update new!
+		if (temp != nullptr)
 		{
-			temp->GetTransform().Imgui_Transform();
+			if (!temp->GetMesh().IsVisible())
+				continue;
+			if (obj_list.at(i) == "displaybox") //this is the display box at map editor
+				continue;
 
-			ObjectSprite(temp);
-			ObjectAnimation(temp);
-			ObjectCharacter(temp);
+			if (ImGui::TreeNode(obj_list.at(i).c_str())) //um... update new!
+			{
+				temp->GetTransform().Imgui_Transform();
 
-			ImGui::TreePop();
-			if (ImGui::Button("Delete"))
-				temp->GetMesh().Invisible();
+				ObjectSprite(temp);
+				ObjectAnimation(temp);
+				ObjectCharacter(temp);
+
+				ImGui::TreePop();
+				if (ImGui::Button("Delete"))
+					temp->GetMesh().Invisible();
+			}
 		}
 	}
 }

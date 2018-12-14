@@ -2,8 +2,8 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            304.6977233886719,
+            -59.881736755371097
         ],
         "rotation": 0.0,
         "scale": [
@@ -22,13 +22,13 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            0.0,
-            0.0
+            261.7952880859375,
+            -7.297939300537109
         ],
-        "rotation": -89.02678680419922,
+        "rotation": 39.19197082519531,
         "scale": [
-            200.0,
-            150.0
+            75.0,
+            75.0
         ],
         "depth": 0.9779999852180481,
         "gravity": 1.0,
@@ -38,26 +38,6 @@
         "animation": 0,
         "character": 1,
         "collision": 1
-    },
-    "attack": {
-        "name": "attack",
-        "translation": [
-            100.0,
-            100.0
-        ],
-        "rotation": 0.0,
-        "scale": [
-            100.0,
-            100.0
-        ],
-        "depth": 0.0,
-        "gravity": 1.0,
-        "texture": "no_texture",
-        "id": 0,
-        "sprite": 0,
-        "animation": 1,
-        "character": 0,
-        "collision": 0
     },
     "background": {
         "name": "background",
@@ -99,13 +79,33 @@
         "character": 0,
         "collision": 0
     },
+    "dia1": {
+        "name": "dia1",
+        "translation": [
+            420.0,
+            -100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    },
     "door": {
         "name": "door",
         "translation": [
             500.0,
             0.0
         ],
-        "rotation": 6360.0,
+        "rotation": 2040.0,
         "scale": [
             75.0,
             75.0
@@ -119,11 +119,31 @@
         "character": 1,
         "collision": 1
     },
+    "heart1": {
+        "name": "heart1",
+        "translation": [
+            420.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            50.0,
+            50.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    },
     "opponent1": {
         "name": "opponent1",
         "translation": [
-            110.91741180419922,
-            -23.18056869506836
+            -162.20010375976563,
+            -1.5103285312652588
         ],
         "rotation": 0.0,
         "scale": [
@@ -142,8 +162,8 @@
     "opponent2": {
         "name": "opponent2",
         "translation": [
-            296.44964599609377,
-            -64.4983139038086
+            176.580322265625,
+            -136.13330078125
         ],
         "rotation": 0.0,
         "scale": [
@@ -162,8 +182,8 @@
     "opponent3": {
         "name": "opponent3",
         "translation": [
-            269.63702392578127,
-            55.75462341308594
+            55.66463851928711,
+            93.287353515625
         ],
         "rotation": 0.0,
         "scale": [
@@ -182,8 +202,8 @@
     "opponent4": {
         "name": "opponent4",
         "translation": [
-            344.631591796875,
-            80.35575103759766
+            238.35787963867188,
+            141.35528564453126
         ],
         "rotation": 0.0,
         "scale": [
@@ -202,8 +222,8 @@
     "scol": {
         "name": "scol",
         "translation": [
-            103.96327209472656,
-            101.47937774658203
+            -191.44873046875,
+            217.00457763671876
         ],
         "rotation": 0.0,
         "scale": [
@@ -222,8 +242,8 @@
     "slime": {
         "name": "slime",
         "translation": [
-            75.23690032958985,
-            -146.7545928955078
+            -190.468505859375,
+            -219.15391540527345
         ],
         "rotation": 0.0,
         "scale": [

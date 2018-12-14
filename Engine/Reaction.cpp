@@ -25,12 +25,12 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	}
 	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
 	{
-		if (object->GetComponentByTemplate<Collision>()->GetIsDamaged())
+		if (di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			AttackedReaction(di_object, object);
 			object->GetComponentByTemplate<Status>()->Damaged_hp(di_object->GetComponentByTemplate<Status>()->GetDamage());
 		}
-		object->GetComponentByTemplate<Collision>()->Nohit();
+		di_object->GetComponentByTemplate<Collision>()->Nohit();
 	}
 	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit_)
 	{

@@ -2,5 +2,7 @@
     "Splash_Screen": "Splash_Screen",
     "StartMenu": "StartMenu",
     "example": "example",
-    "test": "test"
+    "test": "test",
+    "MapEditorTest": "MapEditorTest",
+    "Demonstrate": "Demonstrate"
 }

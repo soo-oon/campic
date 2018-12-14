@@ -10,6 +10,7 @@
 #include "status.hpp"
 #include "Card.hpp"
 #include "Sword.hpp"
+#include "Graphics.hpp"
 
 void test_statemanager::Initialize()
 {
@@ -52,7 +53,7 @@ void test_statemanager::Initialize()
 	boss->AddComponent(new RigidBody());
 	boss->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	boss->AddComponent(new Character(ObjectType::opponent));
-	boss->AddComponent(new Status(20, 1, 1.5f));
+	boss->AddComponent(new Status(100, 1, 1.5f));
 
 	door = BuildAndRegisterDynamicObject("door", vector2(500, 0), vector2(75.f, 75.f));
 	door->AddComponent(new Sprite());
@@ -60,12 +61,7 @@ void test_statemanager::Initialize()
 	door->AddComponent(new Collision(box_, {}, { 75.0f, 75.0f }));
 	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	door->AddComponent(new Character(ObjectType::door));
-	dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
-	dia->AddComponent(new Sprite());
-	dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
-	dia->AddComponent(new Character(ObjectType::none));
-	dia->AddComponent(new RigidBody());
-	dia->GetMesh().Invisible();
+
 	heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
 	heart->AddComponent(new Sprite());
 	heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
@@ -79,13 +75,6 @@ void test_statemanager::Initialize()
 	dia->AddComponent(new Character(ObjectType::none));
 	dia->AddComponent(new RigidBody());
 	dia->GetMesh().Invisible();
-
-	heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
-	heart->AddComponent(new Sprite());
-	heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
-	heart->AddComponent(new Character(ObjectType::none));
-	heart->AddComponent(new RigidBody());
-	heart->GetMesh().Invisible();
 
 	clover = BuildAndRegisterDynamicObject("clover", vector2(350, 100), vector2(25.f, 25.f));
 	clover->AddComponent(new Sprite());
@@ -110,7 +99,8 @@ void test_statemanager::Initialize()
 
 void test_statemanager::Update(float dt)
 {
-	Camera* temp_camera = GetObjectManager()->FindObject("camera")->GetComponentByTemplate<Camera>();
+	if (!player->GetComponentByTemplate<Status>()->GetLived())
+		ChangeLevel("StartMenu");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 		ChangeLevel("test");
@@ -127,6 +117,7 @@ void test_statemanager::Update(float dt)
 		shot_char++;
 		Shot(shot_string + shot_char);
 	}
+
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
@@ -301,8 +292,8 @@ void test_statemanager::Shot(std::string name)
 {
 	GetObjectManager()->AddObject(name);
 	GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox());
-	vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
-		sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
+	vector2 a = normalize(vector2(Input::GetMousePos(Graphics::checking_zoom).x - player->GetTransform().GetTranslation().x,
+		Input::GetMousePos(Graphics::checking_zoom).y - player->GetTransform().GetTranslation().y));
 	GetObjectManager()->FindObject(name).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
 	GetObjectManager()->FindObject(name).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
 	GetObjectManager()->FindObject(name).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });

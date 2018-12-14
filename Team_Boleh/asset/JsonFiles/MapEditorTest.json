@@ -25,12 +25,12 @@
             0.0,
             0.0
         ],
-        "rotation": -40.35964584350586,
+        "rotation": -73.41758728027344,
         "scale": [
             75.0,
             75.0
         ],
-        "depth": 0.5,
+        "depth": 0.9779999852180481,
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 0,
@@ -54,6 +54,26 @@
         "gravity": 1.0,
         "texture": "asset/images/background.png",
         "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
+    },
+    "object11": {
+        "name": "object11",
+        "translation": [
+            240.0,
+            240.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 11,
         "sprite": 1,
         "animation": 0,
         "character": 0,
@@ -152,10 +172,10 @@
         ],
         "depth": 0.0,
         "gravity": 1.0,
-        "texture": "asset/images/slime.png",
+        "texture": "asset/images/hero.png",
         "id": 7,
-        "sprite": 0,
-        "animation": 1,
+        "sprite": 1,
+        "animation": 0,
         "character": 0,
         "collision": 0
     }

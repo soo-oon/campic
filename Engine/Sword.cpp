@@ -51,7 +51,17 @@ void Sword::Update(float dt)
 		{
 			skill = true;
 			object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/picture2.png");
+			owner->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
 		}
+		else
+		{
+			owner->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
+		}
+	}
+	else if(sword_name == "sword")
+	{
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+			object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 	}
 	if (!skill)
 		SwordMove(Input::GetMousePos(Graphics::checking_zoom));

@@ -2,8 +2,8 @@
     "Player": {
         "name": "Player",
         "translation": [
-            0.0,
-            0.0
+            -257.1534423828125,
+            -48.987648010253909
         ],
         "rotation": 0.0,
         "scale": [
@@ -22,10 +22,10 @@
     "Sword": {
         "name": "Sword",
         "translation": [
-            61.942691802978519,
-            24.648475646972658
+            -194.75563049316407,
+            -17.7292423248291
         ],
-        "rotation": -68.29020690917969,
+        "rotation": -62.024452209472659,
         "scale": [
             75.0,
             75.0
@@ -74,7 +74,7 @@
         "gravity": 1.0,
         "texture": "no_texture",
         "id": 11,
-        "sprite": 0,
+        "sprite": 1,
         "animation": 0,
         "character": 0,
         "collision": 0
@@ -116,8 +116,8 @@
         "id": 3,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     },
     "object4": {
         "name": "object4",
@@ -136,8 +136,8 @@
         "id": 4,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     },
     "object6": {
         "name": "object6",
@@ -156,8 +156,8 @@
         "id": 6,
         "sprite": 0,
         "animation": 1,
-        "character": 0,
-        "collision": 0
+        "character": 1,
+        "collision": 1
     },
     "object7": {
         "name": "object7",
@@ -175,7 +175,7 @@
         "texture": "asset/images/hero.png",
         "id": 7,
         "sprite": 1,
-        "animation": 1,
+        "animation": 0,
         "character": 0,
         "collision": 0
     }
