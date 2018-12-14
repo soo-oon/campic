@@ -84,7 +84,7 @@ void HUD_level::Update(float /*dt*/)
 					}
 				}
 
-				if (Input::IsKeyTriggered(GLFW_KEY_T))
+				if (Input::IsKeyTriggered(GLFW_KEY_E))
 				{
 					GetObjectManager()->FindObject("carddeck1")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/carddeck.png");
 					GetObjectManager()->FindObject("carddeck2")->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/carddeck.png");

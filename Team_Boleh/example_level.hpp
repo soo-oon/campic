@@ -29,27 +29,34 @@ public:
 	void Stretch(Object* sword, float bigger);
 	void Power_shot();
 	void find(std::string card_);
+	Object* AwesomeEfftect(std::string stuff, vector2 position);
+	void ComePlayer(Object* object, Object* opponent, float vel_come);
+	void MakeManyEffect(std::string card);
+	void Shot(std::string name);
 
 private:
 	float gravity_up = 1;
 	bool check = false;
 	float pm = 1;
-	float limit_time = 0;
 	bool change_sword = false;
 	float rota_angle = 0.f, rota_angle1 = 0.f;
 	float dt_sum = 0;
 	float dt_power_shot = 0;
-	float dt_sword = 0;
 	float card_velo = 20;
 	float rotation_ = 10;
 	bool isshot = false;
 	float far = 1;
+	char shot_char = 0;
 	vector2 direction = 0;
 
 	Object* player;
+	std::string a_stuff;
+	std::string shot_string = "shot_";
     Object *sword, *sonic, *background, *spark, *dia, 
-	*heart, *scol, *slime, *dia1, *heart1, *door, *attack;
+	*heart, *scol, *slime, *dia1, *heart1, *door, *attack, *spade, *clover;
+    std::vector<std::string> shot_vector;
     std::vector<Object*> card_list;
+    std::vector<Object*> dump;
     Object* opponent1, *opponent2, *opponent3,* opponent4 ;
 
 };
