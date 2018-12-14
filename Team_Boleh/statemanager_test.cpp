@@ -9,6 +9,7 @@
 #include "Player.hpp"
 #include "status.hpp"
 #include "Card.hpp"
+#include "Sword.hpp"
 
 void test_statemanager::Initialize()
 {
@@ -60,6 +61,20 @@ void test_statemanager::Initialize()
 	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	door->AddComponent(new Character(ObjectType::door));
 
+	dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
+	dia->AddComponent(new Sprite());
+	dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
+	dia->AddComponent(new Character(ObjectType::none));
+	dia->AddComponent(new RigidBody());
+	dia->GetMesh().Invisible();
+
+	heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
+	heart->AddComponent(new Sprite());
+	heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
+	heart->AddComponent(new Character(ObjectType::none));
+	heart->AddComponent(new RigidBody());
+	heart->GetMesh().Invisible();
+
 	clover = BuildAndRegisterDynamicObject("clover", vector2(350, 100), vector2(25.f, 25.f));
 	clover->AddComponent(new Sprite());
 	clover->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/clover.png");
@@ -95,6 +110,11 @@ void test_statemanager::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_4))
 		ChangeLevel("Particle");
 
+	if (Input::IsKeyTriggered(GLFW_KEY_C))
+	{
+		shot_char++;
+		Shot(shot_string + shot_char);
+	}
 	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
@@ -108,7 +128,7 @@ void test_statemanager::Update(float dt)
 	if(boss->GetComponentByTemplate<Collision>() != nullptr)
 		BossMovement(boss, player, 20);
 
-	if (Input::IsKeyTriggered(GLFW_KEY_T))
+	if (Input::IsKeyTriggered(GLFW_KEY_E))
 	{
 		for (auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
 		{
@@ -216,8 +236,10 @@ void test_statemanager::Enchanted(Object * sword, Object* effect, Object * card1
 			sword->GetTransform().SetScale(vector2(200.f, 150.f));
 			sword->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(vector2(150.f, 150.0f));
 			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/ice_sword.png");
+			sword->GetComponentByTemplate<Sword>()->SetName("ice_sword");
 			card_list.clear();
 			change_sword = false;
+			dt_sum = 0; rota_angle = 0; rota_angle1 = 0; far = 1;
 		}
 	}
 	card1->GetTransform().SetScale(card1->GetTransform().GetScale()* big);
@@ -261,4 +283,21 @@ void test_statemanager::BossMovement(Object * boss_monster, Object* player, floa
 	else
 		boss_monster->GetComponentByTemplate<RigidBody>()->SetVelocity(dt* no_come);
 		
+}
+
+void test_statemanager::Shot(std::string name)
+{
+	GetObjectManager()->AddObject(name);
+	GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox());
+	vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
+		sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
+	GetObjectManager()->FindObject(name).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
+	GetObjectManager()->FindObject(name).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
+	GetObjectManager()->FindObject(name).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y }));
+	GetObjectManager()->FindObject(name).get()->AddComponent(new RigidBody());
+	GetObjectManager()->FindObject(name).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Animation("asset/images/ice_shot.png", "power", 4, 0.25));
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Character(ObjectType::shot));
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Status(1, 1, 1.f));
 }

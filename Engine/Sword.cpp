@@ -26,7 +26,7 @@ bool Sword::Initialize(Object * Ob)
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 		object->AddComponent(new Character(ObjectType::sword));
 		object->AddComponent(new Status(5, 1, 1.f));
-		object->SetDepth(0.5f);
+		object->SetDepth(0.978f);
 	}
 	return true;
 }
@@ -36,13 +36,27 @@ void Sword::Update(float dt)
 	/*std::cout << owner->GetTransform().GetTranslation().x << ", " <<
 		owner->GetTransform().GetTranslation().y << std::endl;
 		*/
-
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	if (sword_name == "trash")
 	{
-		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+		}
 	}
-
-	SwordMove(Input::GetMousePos(Graphics::checking_zoom));
+	else if (sword_name == "ice_sword")
+	{
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+			object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+		{
+			skill = true;
+			object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/picture2.png");
+		}
+	}
+	if (!skill)
+		SwordMove(Input::GetMousePos(Graphics::checking_zoom));
+	else
+		Wheelwind();
 }
 
 void Sword::SetOwner(Object* player)
@@ -75,4 +89,33 @@ void Sword::SwordMove(vector2 mouse_position)
 //a = acos(a)*(180/3.14);
 //std::cout << a << std::endl;
 //sword->SetRotation(a);
+}
+
+void Sword::SetName(std::string sword_string)
+{
+	sword_name = sword_string;
+}
+
+std::string Sword::GetName()
+{
+	return sword_name;
+}
+
+void Sword::Wheelwind()
+{
+	float x_vel, y_vel;
+	angle -= 10;
+	if (angle > -360) {
+		//card_velo -= 0.5f;
+		x_vel = cos(angle)*(20) + sin(angle)*(20);
+		y_vel = -sin(angle)*(20) + cos(angle)*(20);
+		object->GetTransform().SetTranslation(vector2(owner->GetTransform().GetTranslation().x - 3 * x_vel, owner->GetTransform().GetTranslation().y - 3 * y_vel));
+		object->SetRotation(angle * 20);
+		object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+	}
+	else {
+		angle = 0;
+		skill = false;
+		object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/ice_sword.png");
+	}
 }

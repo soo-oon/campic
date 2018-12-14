@@ -87,10 +87,14 @@ void Physics::Update(float dt)
 						else
 						{
 							//StopReaction(temp);
-							temp->GetTransform().SetTranslation({ 10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).x + temp->GetTransform().GetTranslation().x,
-								10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).y + temp->GetTransform().GetTranslation().y });
-							temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-							temp->GetComponentByTemplate<Collision>()->Update(dt);
+							if (temp->GetComponentByTemplate<Character>()->GetCharType() == ObjectType::shot)
+								temp->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
+							else {
+								temp->GetTransform().SetTranslation({ 10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).x + temp->GetTransform().GetTranslation().x,
+									10 * -normalize(temp->GetComponentByTemplate<RigidBody>()->GetVelocity()).y + temp->GetTransform().GetTranslation().y });
+								temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+								temp->GetComponentByTemplate<Collision>()->Update(dt);
+							}
 						}
 					}
 					else
@@ -154,6 +158,7 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
             && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
         {
             object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
+		if(object1.GetComponentByTemplate<Card>() != nullptr)
 	    object2.GetComponentByTemplate<Player>()->SetCardList(object1.GetComponentByTemplate<Card>()->GetName());
         }
 	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent

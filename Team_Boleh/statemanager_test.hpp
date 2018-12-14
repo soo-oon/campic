@@ -21,6 +21,7 @@ public:
 	void PlayerSwing(vector2 mouse_position, Object* player);
 	void find(std::string card_);
 	void BossMovement(Object* boss_monster, Object* player, float dt);
+	void Shot(std::string name);
 
 private:
 	float dt_sum =0, dt_boss = 0;
@@ -29,8 +30,10 @@ private:
 	float card_velo = 20;
 	float far = 1;
 	bool change_sword = false;
-	Object* player, *background,*sword, *spade, *clover, *spade1, *door, *clover1, *spark, *boss;
+	char shot_char = 0;
+	Object* player, *background,*sword, *spade, *clover, *spade1, *door, *clover1, *spark, *boss, *dia, *heart;
 	std::vector<Object*> card_list;
+	std::string shot_string;
 	bool check1 = true;
 	bool check2 = true;
 };
