@@ -11,6 +11,7 @@
 #include "Player.hpp"
 #include "status.hpp"
 #include "Card.hpp"
+#include "Sword.hpp"
 
 
 void example::Initialize()
@@ -19,8 +20,6 @@ void example::Initialize()
 
 	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
-	GetSoundMap()->AddSound("asset/sounds/fireball.mp3");
-	//GetSoundMap()->AddSound("asset/sounds/slime.wav");
 
 	player = GetObjectManager()->FindObject("Player").get();
 
@@ -89,6 +88,26 @@ void example::Initialize()
         dia->AddComponent(new Character(ObjectType::none));
 	dia->AddComponent(new RigidBody());
 	dia->GetMesh().Invisible();
+	heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
+	heart->AddComponent(new Sprite());
+	heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
+	heart->AddComponent(new Character(ObjectType::none));
+	heart->AddComponent(new RigidBody());
+	heart->GetMesh().Invisible();
+
+	spade = BuildAndRegisterDynamicObject("spade", vector2(350, -100), vector2(25.f, 25.f));
+	spade->AddComponent(new Sprite());
+	spade->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/spade.png");
+	spade->AddComponent(new RigidBody());
+	spade->GetMesh().Invisible();
+
+	clover = BuildAndRegisterDynamicObject("clover", vector2(350, 100), vector2(25.f, 25.f));
+	clover->AddComponent(new Sprite());
+	clover->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/clover.png");
+	clover->AddComponent(new Character(ObjectType::none));
+	clover->AddComponent(new RigidBody());
+	clover->GetMesh().Invisible();
+
 
 	dia1 = BuildAndRegisterDynamicObject("dia1", vector2(420, -100), vector2(50.f, 50.f));
 	dia1->AddComponent(new Sprite());
@@ -106,13 +125,6 @@ void example::Initialize()
 	door->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	door->AddComponent(new Character(ObjectType::door));
 
-        heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
-        heart->AddComponent(new Sprite());
-        heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
-        heart->AddComponent(new Character(ObjectType::none));
-
-	heart->AddComponent(new RigidBody());
-	heart->GetMesh().Invisible();
 	heart1 = BuildAndRegisterDynamicObject("heart1", vector2(420, 100), vector2(50.f, 50.f));
 	heart1->AddComponent(new Sprite());
 	heart1->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
@@ -131,6 +143,11 @@ void example::Initialize()
 	background->SetDepth(0.99f);
 	background->AddComponent(new Sprite());
 	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
+
+	
+
+	//sound->AddSound("asset/sounds/digimon.wav");
+	
 }
 
 void example::Update(float dt)
@@ -138,7 +155,7 @@ void example::Update(float dt)
 	if (!player->GetComponentByTemplate<Status>()->GetLived())
 		ChangeLevel("StartMenu");
 
-        if (Input::IsKeyTriggered(GLFW_KEY_T))
+        if (Input::IsKeyTriggered(GLFW_KEY_E))
         {
 		card_list.clear();
 		for(auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
@@ -148,6 +165,7 @@ void example::Update(float dt)
 		if (card_list.size() > 1)
 		{
 			change_sword = true;
+			MakeManyEffect("dia");
 			GetSoundMap()->Play("asset/sounds/inchant.mp3");
 			player->GetComponentByTemplate<Player>()->ClearCardList();
 		}
@@ -157,7 +175,11 @@ void example::Update(float dt)
 	{
 		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
 	}
-
+	for (auto i : dump)
+	{
+		if(i->GetComponentByTemplate<Collision>() != nullptr)
+			ComePlayer(player, i, 100);
+	}
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 		ChangeLevel("example");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
@@ -167,6 +189,11 @@ void example::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_4))
 		ChangeLevel("Particle");
 
+	if (Input::IsKeyTriggered(GLFW_KEY_C))
+	{
+		shot_char++;
+		Shot(shot_string + shot_char);
+	}
         if (sword->GetComponentByTemplate<RigidBody>()->GetVelocity() != vector2(0, 0))
             sword->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 0));
 
@@ -191,18 +218,6 @@ void example::Update(float dt)
 		ChangeLevel("test");
 
 
-	if (Input::IsKeyPressed(GLFW_KEY_U))
-	{
-		dt_sword += dt;
-	}
-	if (dt_sword > 0)
-	{
-		Stretch(sword, 1.05f);
-		if (dt_sword > 3)
-			Stretch(sword, 0.95f);
-		if (dt_sword > 6)
-			dt_sword = 0;
-	}
 	if(scol->GetComponentByTemplate<Status>() != nullptr)
 	ForProtoType(player, scol, 20);
 	if (slime->GetComponentByTemplate<Status>() != nullptr)
@@ -343,6 +358,7 @@ void example::Enchanted(Object * sword, Object* effect,Object * card1, Object * 
 			sword->GetTransform().SetScale(vector2(200.f, 150.f));
 			sword->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(vector2(150.f, 150.0f));
 			sword->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/sword.png");
+			sword->GetComponentByTemplate<Sword>()->SetName("sword");
 			card_list.clear();
 			change_sword = false;
 			dt_sum = 0; rota_angle = 0; rota_angle1 = 0; far = 1;
@@ -364,18 +380,18 @@ void example::FollowMe(vector2 mouse, Object * flower)
 void example::Flow_leaf(std::vector<Object*> flower)
 {
 	for (auto i : flower) {
-		int pl = rand() % 2;
+		float pl = rand() % 2;
 		if (pl == 1)
 			pl = -1;
 		else
 			pl = 1;
-		int p = rand() % 2;
+		float p = rand() % 2;
 		if (p == 1)
 			p = -1;
 		else
 			p = 1;
-		int a = rand() % 100;
-		int b = rand() % 100;
+		float a = rand() % 100;
+		float b = rand() % 100;
 		if(i != flower[0])
 		i->GetTransform().SetTranslation(vector2(flower[0]->GetTransform().GetTranslation().x + a * p, flower[0]->GetTransform().GetTranslation().y + b * p));
 	}
@@ -403,11 +419,63 @@ void example::Power_shot()
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Character(ObjectType::shot));
 		GetObjectManager()->FindObject(power).get()->AddComponent(new Status(1, 1, 1.f));
-
-		GetSoundMap()->Play("asset/sounds/fireball.mp3");
 	}
 }
 void example::find(std::string card_)
 {
 	card_list.push_back(GetObjectManager()->FindObject(card_).get());
+}
+
+Object* example::AwesomeEfftect(std::string stuff, vector2 position)
+{
+	a_stuff += 1;
+	GetObjectManager()->AddObject(a_stuff);
+	GetObjectManager()->FindObject(a_stuff)->SetMesh(mesh::CreateBox());
+	GetObjectManager()->FindObject(a_stuff).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y }
+
+	);
+	GetObjectManager()->FindObject(a_stuff).get()->SetTranslation({ position});
+	GetObjectManager()->FindObject(a_stuff).get()->AddComponent(new Collision(box_, {}, { 50.0f, 50.0f }));
+	GetObjectManager()->FindObject(a_stuff).get()->AddComponent(new RigidBody());
+	GetObjectManager()->FindObject(a_stuff).get()->AddComponent(new Sprite());
+	GetObjectManager()->FindObject(a_stuff).get()->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/"+stuff + ".png");
+	GetObjectManager()->FindObject(a_stuff).get()->AddComponent(new Character(ObjectType::card));
+
+	return GetObjectManager()->FindObject(a_stuff).get();
+}
+void example::ComePlayer(Object * object, Object * opponent, float vel_come)
+{
+	vector2 come = vector2(object->GetTransform().GetTranslation().x - opponent->GetTransform().GetTranslation().x,
+		object->GetTransform().GetTranslation().y - opponent->GetTransform().GetTranslation().y);
+	vector2 no_come = normalize(come);
+		opponent->GetComponentByTemplate<RigidBody>()->SetVelocity(vel_come* no_come);
+}
+
+void example::MakeManyEffect(std::string card)
+{
+	dump.push_back(AwesomeEfftect(card, { 300.f,0.f }));
+	dump.push_back(AwesomeEfftect(card, { 0.f,300.f }));
+	dump.push_back(AwesomeEfftect(card, { -300.f,0.f }));
+	dump.push_back(AwesomeEfftect(card, { 0.f,-300.f }));
+	dump.push_back(AwesomeEfftect(card, { 300.f,300.f }));
+	dump.push_back(AwesomeEfftect(card, { -300.f,300.f }));
+	dump.push_back(AwesomeEfftect(card, { 300.f,-300.f }));
+	dump.push_back(AwesomeEfftect(card, { -300.f,-300.f }));
+}
+
+void example::Shot(std::string name)
+{
+	GetObjectManager()->AddObject(name);
+	GetObjectManager()->FindObject(name)->SetMesh(mesh::CreateBox());
+	vector2 a = normalize(vector2(sword->GetTransform().GetTranslation().x - player->GetTransform().GetTranslation().x,
+		sword->GetTransform().GetTranslation().y - player->GetTransform().GetTranslation().y));
+	GetObjectManager()->FindObject(name).get()->SetRotation(*sword->GetTransform().GetRotation() + 90);
+	GetObjectManager()->FindObject(name).get()->SetScale({ sword->GetTransform().GetScale().x,sword->GetTransform().GetScale().y });
+	GetObjectManager()->FindObject(name).get()->SetTranslation({ sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y });
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Collision(box_, vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y), { sword->GetTransform().GetScale().x, sword->GetTransform().GetScale().y }));
+	GetObjectManager()->FindObject(name).get()->AddComponent(new RigidBody());
+	GetObjectManager()->FindObject(name).get()->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Character(ObjectType::shot));
+	GetObjectManager()->FindObject(name).get()->AddComponent(new Status(1, 1, 1.f));
 }

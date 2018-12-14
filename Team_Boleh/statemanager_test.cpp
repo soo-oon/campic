@@ -14,7 +14,7 @@
 void test_statemanager::Initialize()
 {
 	GetObjectManager()->AddObject("camera");
-	GetSoundMap()->AddSound("asset/sounds/digimon.wav");
+	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
 	GetObjectManager()->FindObject("camera")->SetScale({ 10,10 });
@@ -66,6 +66,20 @@ void test_statemanager::Initialize()
 	dia->AddComponent(new Character(ObjectType::none));
 	dia->AddComponent(new RigidBody());
 	dia->GetMesh().Invisible();
+	heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
+	heart->AddComponent(new Sprite());
+	heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
+	heart->AddComponent(new Character(ObjectType::none));
+	heart->AddComponent(new RigidBody());
+	heart->GetMesh().Invisible();
+
+	dia = BuildAndRegisterDynamicObject("dia", vector2(350, -100), vector2(25.f, 25.f));
+	dia->AddComponent(new Sprite());
+	dia->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/dia.png");
+	dia->AddComponent(new Character(ObjectType::none));
+	dia->AddComponent(new RigidBody());
+	dia->GetMesh().Invisible();
+
 	heart = BuildAndRegisterDynamicObject("heart", vector2(350, 100), vector2(25.f, 25.f));
 	heart->AddComponent(new Sprite());
 	heart->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/heart.png");
@@ -135,7 +149,7 @@ void test_statemanager::Update(float dt)
 		if (card_list.size() > 1)
 		{
 			change_sword = true;
-			GetSoundMap()->Play("asset/sounds/digimon.wav");
+			GetSoundMap()->Play("asset/sounds/inchant.mp3");
 			player->GetComponentByTemplate<Player>()->ClearCardList();
 		}
 	}

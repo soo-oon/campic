@@ -26,7 +26,7 @@ bool Sword::Initialize(Object * Ob)
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 		object->AddComponent(new Character(ObjectType::sword));
 		object->AddComponent(new Status(5, 1, 1.f));
-		object->SetDepth(0.5f);
+		object->SetDepth(0.978f);
 	}
 	return true;
 }

@@ -1,0 +1,242 @@
+{
+    "Player": {
+        "name": "Player",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "Sword": {
+        "name": "Sword",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": -89.02678680419922,
+        "scale": [
+            200.0,
+            150.0
+        ],
+        "depth": 0.9779999852180481,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    },
+    "attack": {
+        "name": "attack",
+        "translation": [
+            100.0,
+            100.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            100.0,
+            100.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 0,
+        "collision": 0
+    },
+    "background": {
+        "name": "background",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            1280.0,
+            960.0
+        ],
+        "depth": 0.9900000095367432,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
+    },
+    "camera": {
+        "name": "camera",
+        "translation": [
+            0.0,
+            0.0
+        ],
+        "rotation": 0.0,
+        "scale": [
+            10.0,
+            10.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 0,
+        "character": 0,
+        "collision": 0
+    },
+    "door": {
+        "name": "door",
+        "translation": [
+            500.0,
+            0.0
+        ],
+        "rotation": 6360.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 1,
+        "animation": 0,
+        "character": 1,
+        "collision": 1
+    },
+    "opponent1": {
+        "name": "opponent1",
+        "translation": [
+            110.91741180419922,
+            -23.18056869506836
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "opponent2": {
+        "name": "opponent2",
+        "translation": [
+            296.44964599609377,
+            -64.4983139038086
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "opponent3": {
+        "name": "opponent3",
+        "translation": [
+            269.63702392578127,
+            55.75462341308594
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "opponent4": {
+        "name": "opponent4",
+        "translation": [
+            344.631591796875,
+            80.35575103759766
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "scol": {
+        "name": "scol",
+        "translation": [
+            103.96327209472656,
+            101.47937774658203
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    },
+    "slime": {
+        "name": "slime",
+        "translation": [
+            75.23690032958985,
+            -146.7545928955078
+        ],
+        "rotation": 0.0,
+        "scale": [
+            75.0,
+            75.0
+        ],
+        "depth": 0.0,
+        "gravity": 1.0,
+        "texture": "no_texture",
+        "id": 0,
+        "sprite": 0,
+        "animation": 1,
+        "character": 1,
+        "collision": 1
+    }
+}
