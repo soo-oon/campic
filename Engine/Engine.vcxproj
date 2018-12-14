@@ -79,7 +79,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -94,7 +94,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -110,7 +110,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -130,7 +130,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpplatest</LanguageStandard>

@@ -28,7 +28,11 @@ void Demonstrate::Update(float dt)
 	player_info = *(GetObjectManager()->FindObject("Player").get());
 	sword_info = *(GetObjectManager()->FindObject("Sword").get());
 
-	if (Input::IsKeyTriggered(GLFW_KEY_4))
+	if (Input::IsKeyTriggered(GLFW_KEY_2))
+		ChangeLevel("level2");
+	if (Input::IsKeyTriggered(GLFW_KEY_1))
+		ChangeLevel("level1");
+	if (Input::IsKeyTriggered(GLFW_KEY_3))
 		ChangeLevel("MapEditorTest");
 
 }
@@ -50,9 +54,9 @@ void Demonstrate::DrawStage(int selected_stage_id)
 		break;
 	}
 	GetObjectManager()->FindObject("Player")->SetTranslation(player_info.GetTransform().GetTranslation());
-	GetObjectManager()->FindObject("Player")->SetRotation(*player_info.GetTransform().GetRotation());
+	GetObjectManager()->FindObject("Player")->SetRotation(player_info.GetTransform().GetRotation());
 	GetObjectManager()->FindObject("Sword")->SetTranslation(sword_info.GetTransform().GetTranslation());
-	GetObjectManager()->FindObject("Sword")->SetRotation(*sword_info.GetTransform().GetRotation());
+	GetObjectManager()->FindObject("Sword")->SetRotation(sword_info.GetTransform().GetRotation());
 }
 
 void Demonstrate::DrawStage0()
@@ -92,7 +96,7 @@ void Demonstrate::CreateLoadObject(int stage_id)
 		GetObjectManager()->AddObject(object_name);
 		GetObjectManager()->FindObject(object_name)->SetScale(itr->second.GetTransform().GetScale());
 		GetObjectManager()->FindObject(object_name)->SetTranslation(itr->second.GetTransform().GetTranslation());
-		GetObjectManager()->FindObject(object_name)->SetRotation(*itr->second.GetTransform().GetRotation());
+		GetObjectManager()->FindObject(object_name)->SetRotation(itr->second.GetTransform().GetRotation());
 		GetObjectManager()->FindObject(object_name)->SetDepth(itr->second.GetTransform().GetDepth());
 		GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		

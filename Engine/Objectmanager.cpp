@@ -4,6 +4,7 @@
 #include "status.hpp"
 #include "Player.hpp"
 #include "Sword.hpp"
+#include "../Team_Boleh/FireBall.hpp"
 
 bool Objectmanager::Initialize()
 {
@@ -18,42 +19,6 @@ bool Objectmanager::Initialize()
 			{
 				component->Initialize(obj);
 			}
-
-			/*if (obj->GetComponentByTemplate<Sprite>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Sprite>()->Initialize(obj);
-			}
-			if (obj->GetComponentByTemplate<RigidBody>() != nullptr)
-			{
-				obj->GetComponentByTemplate<RigidBody>()->Initialize(obj);
-			}
-
-			if (obj->GetComponentByTemplate<Collision>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Collision>()->Initialize(obj);
-			}
-
-
-			if (obj->GetComponentByTemplate<Animation>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Animation>()->Initialize(obj);
-			}
-
-			if (obj->GetComponentByTemplate<Camera>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Camera>()->Initialize(obj);
-			}
-
-			if(obj->GetComponentByTemplate<Sword>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Sword>()->Initialize(obj);
-			}
-
-			if (obj->GetComponentByTemplate<Player>() != nullptr)
-			{
-				obj->GetComponentByTemplate<Player>()->Initialize(obj);
-			}
-*/
 		}
 	}
 	
@@ -82,6 +47,14 @@ void Objectmanager::Update(float dt)
 					will_remove_object.push_back(it->first);
 			}
 		}
+
+		if(obj->GetComponentByTemplate<FireBall>() != nullptr)
+		{
+			obj->GetComponentByTemplate<FireBall>()->Update(dt);
+			if(obj->GetComponentByTemplate<FireBall>()->IsDead())
+				will_remove_object.push_back(it->first);
+		}
+
 		if (obj->GetComponentByTemplate<Collision>() != nullptr)
 		{
 			//obj->GetComponentByTemplate<Status>()->Update(dt);
@@ -91,31 +64,6 @@ void Objectmanager::Update(float dt)
 					will_remove_object.push_back(it->first);
 			}
 		}
-		/*if(obj->GetComponentByTemplate<Sprite>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Sprite>()->Update(dt);
-		}
-
-		if(obj->GetComponentByTemplate<Animation>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Animation>()->Update(dt);
-		}
-
-		if (obj->GetComponentByTemplate<Camera>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Camera>()->Update(dt);
-		}
-
-		if (obj->GetComponentByTemplate<Player>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Player>()->Update(dt);
-		}
-
-		if(obj->GetComponentByTemplate<Sword>() != nullptr)
-		{
-			obj->GetComponentByTemplate<Sword>()->Update(dt);
-		}
-*/
 	}
 	for (auto erase_object : will_remove_object)
 	{

@@ -1,6 +1,7 @@
 #include "SplashScreen.hpp"
 #include <iostream>
 #include "Input.hpp"
+#include "Sprite.hpp"
 
 void SplashScreen::Initialize()
 {
@@ -28,17 +29,35 @@ void SplashScreen::Update(float dt)
 
 	time_count += dt;
 
-	if (logo->GetTransform().GetScale().x < 920.0f && 
-		logo->GetTransform().GetScale().y < 420.0f )
+	if(ischange)
 	{
-		logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
-		 logo->GetTransform().GetScale().y + 55 * dt });
+		if (time_count < 2.0f)
+		{
+			logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
+			 logo->GetTransform().GetScale().y + 55 * dt });
+		}
+		else if(time_count > 3.0f)
+			ChangeLevel("StartMenu");
+	}
+	else
+	{
+
+		if (logo->GetTransform().GetScale().x < 920.0f &&
+			logo->GetTransform().GetScale().y < 420.0f)
+		{
+			logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
+			 logo->GetTransform().GetScale().y + 55 * dt });
+		}
+		else
+		{
+			time_count = 0;
+			ischange = true;
+			logo->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/fmod.png");
+			logo->SetScale({ 300, 150 });
+		}
 	}
 
 	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
-		ChangeLevel("StartMenu");
-
-	if(time_count > 3.5f)
 		ChangeLevel("StartMenu");
 }
 

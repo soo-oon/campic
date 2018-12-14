@@ -177,7 +177,7 @@ void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* d
 	newObjectScale.PushBack(object->GetTransform().GetScale().y, allocator);
 
 	rapidjson::Value newObjectRotation(rapidjson::kObjectType);
-	newObjectRotation.SetFloat(*(object->GetTransform().GetRotation()));
+	newObjectRotation.SetFloat((object->GetTransform().GetRotation()));
 
 	rapidjson::Value newObjectDepth(rapidjson::kObjectType);
 	newObjectDepth.SetFloat(object->GetTransform().GetDepth());

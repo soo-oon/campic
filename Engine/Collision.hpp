@@ -26,8 +26,7 @@ public:
 	{
 		collision_transform.SetTranslation(translation_);
 		collision_transform.SetScale(scale_);
-		//collision_transform.SetRotation(rotation_);
-		
+		collision_transform.SetRotation(rotation_);
 	}
 
 	bool Initialize(Object* Ob) override;

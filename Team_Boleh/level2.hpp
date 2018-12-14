@@ -1,10 +1,10 @@
 #pragma once
 #include "State.hpp"
 
-class test_statemanager : public State
+class level2 : public State
 {
 public:
-	test_statemanager()
+	level2()
 	{
 		information_ = State_Information::Game;
 	}
@@ -30,7 +30,7 @@ private:
 	float card_velo = 20;
 	float far = 1;
 	bool change_sword = false;
-	char shot_char = 0;
+	int shot_char = 0;
 	Object* player, *background,*sword, *spade, *clover, *spade1, *door, *clover1, *spark, *boss, *dia, *heart;
 	std::vector<Object*> card_list;
 	std::string shot_string;

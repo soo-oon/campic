@@ -41,7 +41,7 @@ void StartMenu::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_ENTER))
 	{
 		if (StartOn)
-			ChangeLevel("example");
+			ChangeLevel("level1");
 		else if (OptionOn)
 			ChangeLevel("MapEditorTest");
 		else if (QuitOn)

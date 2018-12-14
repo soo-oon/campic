@@ -5,10 +5,10 @@
 #include <cmath>
 #include "Sound.hpp"
 
-class example : public State
+class level1 : public State
 {
 public:
-	example()
+	level1()
 	{
 		information_ = State_Information::Game;
 	}
@@ -46,7 +46,7 @@ private:
 	float rotation_ = 10;
 	bool isshot = false;
 	float far = 1;
-	char shot_char = 0;
+	int shot_char = 0;
 	vector2 direction = 0;
 
 	Object* player;

@@ -85,13 +85,11 @@ void MapEditorTest::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 		ChangeLevel("MapEditorTest");
 
-	if (Input::IsKeyTriggered(GLFW_KEY_4))
-		ChangeLevel("Particle");
 	if (Input::IsKeyTriggered(GLFW_KEY_2))
-		ChangeLevel("test");
+		ChangeLevel("level2");
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
-		ChangeLevel("example");
-	if (Input::IsKeyTriggered(GLFW_KEY_5))
+		ChangeLevel("level1");
+	if (Input::IsKeyTriggered(GLFW_KEY_4))
 		ChangeLevel("Demonstrate");
 }
 
@@ -156,7 +154,7 @@ void MapEditorTest::CreateLoadObject()
 		GetObjectManager()->AddObject(object_name);
 		GetObjectManager()->FindObject(object_name)->SetScale(itr->second.GetTransform().GetScale());
 		GetObjectManager()->FindObject(object_name)->SetTranslation(itr->second.GetTransform().GetTranslation());
-		GetObjectManager()->FindObject(object_name)->SetRotation(*itr->second.GetTransform().GetRotation());
+		GetObjectManager()->FindObject(object_name)->SetRotation(itr->second.GetTransform().GetRotation());
 		GetObjectManager()->FindObject(object_name)->SetDepth(itr->second.GetTransform().GetDepth());
 		GetObjectManager()->FindObject(object_name)->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 

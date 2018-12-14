@@ -342,7 +342,7 @@ void Imgui_System::Editor(bool show_editor)
 			newObject->SetTranslation({ Input::GetMousePos(Graphics::checking_zoom).x, Input::GetMousePos(Graphics::checking_zoom).y });
 			newObject->SetDepth(0);
 			newObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-			newObject->object_id = object_count + 1;
+			newObject->object_id = static_cast<int>(object_count + 1);
 			object_count++;
 		}
 		ImGui::SameLine();

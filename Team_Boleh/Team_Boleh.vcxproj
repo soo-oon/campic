@@ -80,7 +80,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
@@ -99,7 +99,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
@@ -119,7 +119,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Engine;$(SolutionDir)Math_Library;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
@@ -141,7 +141,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Engine;$(SolutionDir)Math_Library;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/Ylsymbol %(AdditionalOptions)</AdditionalOptions>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
@@ -162,13 +162,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Demonstrate.cpp" />
-    <ClCompile Include="example_level.cpp" />
+    <ClCompile Include="level1.cpp" />
     <ClCompile Include="MapEditorTest.cpp" />
-    <ClCompile Include="Particle_level.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="StartMenu.cpp" />
-    <ClCompile Include="statemanager_test.cpp">
+    <ClCompile Include="level2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -177,12 +177,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demonstrate.hpp" />
-    <ClInclude Include="example_level.hpp" />
+    <ClInclude Include="FireBall.hpp" />
+    <ClInclude Include="level1.hpp" />
     <ClInclude Include="MapEditorTest.hpp" />
-    <ClInclude Include="Particle_level.hpp" />
     <ClInclude Include="SplashScreen.hpp" />
     <ClInclude Include="StartMenu.hpp" />
-    <ClInclude Include="statemanager_test.hpp">
+    <ClInclude Include="level2.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

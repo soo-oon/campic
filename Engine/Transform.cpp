@@ -125,9 +125,9 @@ void Transform::SetScale(const vector2& scale_value)
     scale = scale_value;
 }
 
-float* Transform::GetRotation()
+float Transform::GetRotation()
 {
-    return &rotation;
+    return rotation;
 }
 
 void Transform::SetRotation(float rotation_value)
