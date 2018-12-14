@@ -1,3 +1,18 @@
+/* Start Header -------------------------------------------------------------
+--
+Copyright (C) 2018 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name: JSON.cpp
+Language: C++
+Platform: Visual Studio 2017
+Project: sword of souls
+Primary : Ji Hun Park
+Secondary :
+Creation date: 2018/12/14
+- End Header ----------------------------------------------------------------
+*/
+
 #include "JSON.hpp"
 #include "Character.hpp"
 #include <fstream>
@@ -25,7 +40,6 @@ enum class ComponentType :int
 	Collision = 3
 };
 
-//class Character;
 
 bool JSON::Initialize()
 {
