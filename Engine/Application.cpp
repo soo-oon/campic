@@ -23,6 +23,8 @@ Creation date: 2018/12/14
 #include "imgui_impl_glfw.h"
 #include "Imgui_System.hpp"
 
+Application Application_;
+
 namespace
 {
     void Window_Exit(GLFWwindow* window);
@@ -36,7 +38,6 @@ namespace
 	void DropCallBack(GLFWwindow* window, int count, const char** paths);
 }
 
-
 bool Application::Initialize()
 {
     glfwSetErrorCallback(errorCallback);
@@ -46,10 +47,7 @@ bool Application::Initialize()
         std::cerr << "GLFW Initialize failed" << '\n';
         return false;
     }
-    screenSize = vector2{1280, 960};
-    temp_size = screenSize;
-	
-    //glfwWindowHint(GLFW_SAMPLES, 4); // 4x anti
+	screenSize = vector2{1280, 960};
 	
 	// We use OpenGL 3.3 version 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -60,7 +58,6 @@ bool Application::Initialize()
 
     // We don't use the past OpenGL
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
 
     /* window make 
     4 parameter : full screen mode -> if want to use glfwGetPrimaryMonitor(),
@@ -107,7 +104,6 @@ bool Application::Initialize()
         return false;
     }
     glfwSwapInterval(true);
-
     return true;
 }
 
@@ -126,7 +122,7 @@ void Application::Update(float dt)
 	}
 
     Input::Triggerd_Reset();
-	//glfwSwapBuffers(window);
+	glfwSwapBuffers(window);
     PollEvent();
 }
 
@@ -145,35 +141,15 @@ void Application::Quit()
     glfwTerminate();
 }
 
-void Application::SetDispalyAreaSize(Graphics* graphics, State* current_state)
-{
-    int w, h;
-
-    glfwGetWindowSize(window, &w, &h);
-    screenSize.x = static_cast<float>(w);
-    screenSize.y = static_cast<float>(h);
-    graphics->SetDisplaySize_G(screenSize, current_state);
-
-	current_state->SetStateScreenSize({ static_cast<float>(w),static_cast<float>(h) });
-}
-
 void Application::FullScreen()
 {
     if (fullScreenMode)
     {
         monitor = glfwGetPrimaryMonitor();
-        //int w, h;
-		//glfwGetWindowSize(window, &w, &h);
-        //screenSize.x = static_cast<float>(w);
-        //screenSize.y = static_cast<float>(h);
         glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(mode->width), static_cast<int>(mode->height), mode->refreshRate);
     }
     else
     {
-        //int w, h;
-        //glfwGetWindowSize(window, &w, &h);
-		screenSize.x = temp_size.x;
-		screenSize.y = temp_size.y;
         glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2),
                              (mode->height / 2) - static_cast<int>(screenSize.y / 2),
                              static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
@@ -208,14 +184,14 @@ namespace
     {
 		Input::SetKeyPressed(key, action);
 #if _DEBUG
-		ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
+		//ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
 #endif
     }
 
 	void DropCallBack(GLFWwindow* window, int count, const char** paths)
 	{
 		std::string path(paths[0]);
-		Imgui_System::soundlist.push_back(path);
+		//Imgui_System::soundlist.push_back(path);
 	}
 
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos)
@@ -232,7 +208,7 @@ namespace
     {
 		Input::SetMouseWheelScroll(x_offset, y_offset);
 #if _DEBUG
-		ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
+		//ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
 #endif
     }
 }

@@ -19,13 +19,15 @@ Creation date: 2018/12/14
 #include "Collision.hpp"
 #include "Reaction.hpp"
 
-class Physics : public System
+class Physics
 {
 public:
-	bool Initialize() override;
-	void Update(float dt) override;
-	void PhysicsObjectUpdate(Objectmanager* objectmanager);
-	void Quit() override;
+	bool Initialize();
+	void Update(float dt);
+
+	//void PhysicsObjectUpdate(Objectmanager* objectmanager);
+
+	void Quit();
 
 	void ChangeRestitutionOfOjbect(Object object1, Object object2);
 
@@ -44,7 +46,9 @@ public:
         bool OutOfCheckBoundary(Object* object);
 
 private:
-	Objectmanager* temp_obj;
+	//Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;
-        vector2 windowsize = vector2{ 1280, 960 };
+    //vector2 windowsize = vector2{ 1280, 960 };
 };
+
+extern Physics Physics_;

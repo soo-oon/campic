@@ -19,12 +19,12 @@ Creation date: 2018/12/14
 #include <memory>
 #include "Objectmanager.hpp"
 
-class HUD : public System
+class HUD
 {
 public:
-	bool Initialize() override;
-	void Update(float dt) override;
-	void Quit() override;
+	bool Initialize();
+	void Update(float dt);
+	void Quit();
 
 	State* GetHUDlevel() { return hud_level; }
 	void SetObjectManager(Objectmanager* objectmanager) { object_manager_HUD = objectmanager; }
@@ -33,3 +33,5 @@ private:
 	State* hud_level = nullptr;
 	Objectmanager* object_manager_HUD = nullptr;
 };
+
+extern HUD HUD_;

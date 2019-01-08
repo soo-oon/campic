@@ -32,25 +32,26 @@ enum class State_Information
 
 class State;
 
-class StateManager : public System
+class StateManager
 {
 public:
-	StateManager() = default;
-	~StateManager() = default;
-
 	void AddStage(std::string ID, State* state);
 	void ChangeStage();
 	void Restart();
 	void Pause();
+
 	State* GetCurrentState() { return m_currentState; }
 	std::map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
 
-	bool Initialize() override;
-	void Update(float dt) override;
-	void Quit() override;
+	bool Initialize();
+	void Update(float dt);
+	void Quit();
+
 private:
 	State* m_currentState = nullptr;
 	std::map <std::string, std::unique_ptr<State>> states;
 
-	bool m_restart, m_pause;
+	bool m_restart = false, m_pause = false;
 };
+
+extern StateManager StateManager_;

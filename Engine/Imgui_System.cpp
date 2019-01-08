@@ -19,6 +19,8 @@ Creation date: 2018/12/14
 #include "Graphics.hpp"
 #include "status.hpp"
 
+Imgui_System IMGUI_;
+
 std::vector<std::string> Imgui_System::soundlist;
 
 bool Imgui_System::Initialize()

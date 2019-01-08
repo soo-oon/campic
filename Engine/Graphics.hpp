@@ -33,24 +33,23 @@ enum class Type : int
 	count
 };
 
-class Graphics : public System
+class Graphics
 {
 public:
-	static float checking_zoom;
+	bool Initialize();
+	void Update(float dt);
+	void Quit();
 
-	Graphics() = default;
-	~Graphics() = default;
-
-	bool Initialize() override;
-	void Update(float dt) override;
-	void Draw(Objectmanager* objects);
-	void HUD_Draw(Objectmanager* objects, Objectmanager* hud_obj);
+	void Draw();
+	void HUD_Draw();
 	void EndDraw();
-	void Quit() override;
 
 	void SetNDC();
-	void SetDisplaySize_G(vector2 size, State* state);
+
+	vector2 GetDisplaySize() { return displaysize; }
+
 	static vector2 camera_center;
+	static float camera_zoom;
 
 private:
 	struct solidshape
@@ -96,8 +95,7 @@ private:
 
 private:
 	bool Iscamera = false;
-	Camera* temp_camera = nullptr;
-	
+	Camera* temp_camera = nullptr;	
 
 	static const int NumberOfVertexTypes = (int)Type::count;
 	vector2 displaysize{};
@@ -119,3 +117,5 @@ private:
 	std::vector<collsionbox> collsionboxes{};
 	std::vector<particle> particles{};
 };
+
+extern Graphics Graphics_;

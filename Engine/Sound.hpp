@@ -26,12 +26,12 @@ Creation date: 2018/12/14
 #include <string>
 #include <map>
 
-class Sound : public System
+class Sound
 {
 public:
-    bool Initialize() override;
-    void Update(float dt) override;
-    void Quit() override;
+    bool Initialize();
+    void Update(float dt);
+    void Quit();
 
 	FMOD::System*& GetFMODSystem() { return system; }
 	std::map<std::string,FMOD::Sound*>& GetSoundMap() { return sound_map; }
@@ -63,3 +63,5 @@ private:
 	{};
 
 };
+
+extern Sound Sound_;

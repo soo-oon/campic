@@ -23,12 +23,12 @@ Creation date: 2018/12/14
 #include "StateManager.hpp"
 #include "State.hpp"
 
-class JSON : public System
+class JSON
 {
 public:
-	bool Initialize() override;
-	void Update(float dt) override;
-	void Quit() override;
+	bool Initialize();
+	void Update(float dt);
+	void Quit();
 
 	void UpdateLevel(StateManager* state_manager);
 	void UpdateState(StateManager* state_manager);
@@ -67,3 +67,5 @@ private:
 	State* currentstate = nullptr;
 	std::string currentstate_name;
 };
+
+extern JSON JSON_;

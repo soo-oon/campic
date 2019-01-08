@@ -12,15 +12,16 @@ Secondary :
 Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
 */
+#include "HUD.hpp"
 
-#include "HUD_System.hpp"
+HUD HUD_;
 
 bool HUD::Initialize()
 {
 	hud_level = new HUD_level();
 	hud_level->Load();
 	hud_level->Initialize();
-	
+
 	return true;
 }
 

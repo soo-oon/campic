@@ -27,19 +27,14 @@ class Graphics;
 class Objectmanager;
 
 
-class Application : public System
+class Application
 {
 public:
-    ~Application()
-    {
-    };
-
-    bool Initialize() override;
-    void Update(float dt) override;
-    void Quit() override;
+    bool Initialize();
+    void Update(float dt);
+    void Quit();
 
 	GLFWwindow* GetWindow() { return window; }
-	void SetDispalyAreaSize(Graphics* graphics, State* current_state);
 	
     void Key_Poll_Event();
     void PollEvent();
@@ -51,15 +46,12 @@ private:
 
     GLFWmonitor* monitor = nullptr;
     const GLFWvidmode* mode = nullptr;
-    GLFWmonitor* mode_screen = nullptr;
 
     GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
 
     std::string title;
     vector2 screenSize;
-    vector2 temp_size{};
-
-	std::vector<std::string> handle_dropped_file;
 };
 
+extern Application Application_;

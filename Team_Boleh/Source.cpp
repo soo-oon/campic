@@ -25,20 +25,22 @@ Creation date: 2018/12/14
 
 int main()
 {
-    Engine* engine = new Engine();
+	Engine engine;
 
-    engine->Initialize();
+    engine.Initialize();
 
-	engine->GetSystemByTemplate<StateManager>()->AddStage("Splash_Screen", new SplashScreen());
-	engine->GetSystemByTemplate<StateManager>()->AddStage("StartMenu", new StartMenu());
-	engine->GetSystemByTemplate<StateManager>()->AddStage("level1",new level1());
-	engine->GetSystemByTemplate<StateManager>()->AddStage("level2", new level2());
-	engine->GetSystemByTemplate<StateManager>()->AddStage("MapEditorTest", new MapEditorTest());
-	engine->GetSystemByTemplate<StateManager>()->AddStage("Demonstrate", new Demonstrate());
+	StateManager_.AddStage("remake", new level2());
 
-    engine->Update();
+	/*StateManager_->AddStage("Splash_Screen", new SplashScreen());
+	StateManager_->AddStage("StartMenu", new StartMenu());
+	StateManager_->AddStage("level1",new level1());
+	StateManager_->AddStage("level2", new level2());
+	StateManager_->AddStage("MapEditorTest", new MapEditorTest());
+	StateManager_->AddStage("Demonstrate", new Demonstrate());*/
+
+    engine.Update();
   
-    engine->ShutDown();
+    //engine.ShutDown();
 
     return 0;
 }

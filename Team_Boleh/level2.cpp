@@ -30,7 +30,20 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	GetObjectManager()->AddObject("camera");
+	Object player;
+	player.SetTranslation({ 0,0 });
+	player.SetScale({ 100.0f, 100.0f });
+	player.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	player.AddComponent(new RigidBody());
+	player.AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+	player.GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
+	player.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	player.AddComponent(new Character(ObjectType::player));
+	player.AddComponent(new Status(5, 1, 1.f));
+
+	Objectmanager_.AddObject(player);
+
+	/*GetObjectManager()->AddObject("camera");
 	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
@@ -109,25 +122,24 @@ void level2::Initialize()
 
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
 	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
-	spark->GetMesh().Invisible();
-
+	spark->GetMesh().Invisible();*/
 }
 
 void level2::Update(float dt)
 {
-	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
+	if (Input::IsKeyTriggered(GLFW_KEY_R))
+		ChangeLevel("level2");
+	if (Input::IsKeyTriggered(GLFW_KEY_1))
+		ChangeLevel("level1");
+	if (Input::IsKeyTriggered(GLFW_KEY_3))
+		ChangeLevel("MapEditorTest");
+
+	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("StartMenu");
 
 	if (!player->GetComponentByTemplate<Status>()->GetLived())
 		ChangeLevel("StartMenu");
 
-	if (Input::IsKeyTriggered(GLFW_KEY_R))
-		ChangeLevel("level2");
-
-	if (Input::IsKeyTriggered(GLFW_KEY_1))
-		ChangeLevel("level1");
-	if (Input::IsKeyTriggered(GLFW_KEY_3))
-		ChangeLevel("MapEditorTest");
 
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{
@@ -165,9 +177,10 @@ void level2::Update(float dt)
 	if (change_sword)
 	{
 		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
-	}
+	}*/
 }
 
+/*
 void level2::ShutDown()
 {
 	UnLoad();
@@ -310,3 +323,4 @@ void level2::Shot(std::string name)
 	GetObjectManager()->AddObject(name);
 	GetObjectManager()->FindObject(name)->AddComponent(new FireBall(player, sword, 5.0f));
 }
+*/

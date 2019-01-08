@@ -20,24 +20,34 @@ Creation date: 2018/12/14
 #include "System.hpp"
 #include <memory>
 
-class Objectmanager : public System
+class Objectmanager
 {
 public:
-    bool Initialize() override;
-    void Update(float dt) override;
-    void Quit() override;
-    void AddObject(std::string key_name);
-    void RemoveObject(std::string key_name);
+	Objectmanager()
+	{
+		objects_.clear();
+	}
 
-	bool IsExistPlayer();
+    bool Initialize();
+    void Update(float dt);
+    void Quit();
+	void AddObject(Object obj);
+	void RemoveObject();
+	std::vector<std::unique_ptr<Object>>& GetObjectMap() { return objects_; }
 
-    std::unique_ptr<Object>& FindObject(std::string key_name);
-    std::map<std::string, std::unique_ptr<Object>>& GetObjectMap() { return object_map; }
-	std::map<std::string, std::unique_ptr<Object>>* GetObjectMapPointer() { return &object_map; }
-	int FindMaxID();
+    //void AddObject(std::string key_name);
+    //void RemoveObject(std::string key_name);
+	//bool IsExistPlayer();
+	//int FindMaxID();
+    //std::unique_ptr<Object>& FindObject(std::string key_name);
+    //std::map<std::string, std::unique_ptr<Object>>& GetObjectMap() { return object_map; }
 
 private:
-	std::map<std::string, std::unique_ptr<Object>> object_map;
-	std::vector <std::string > will_remove_object;
+	std::vector<std::unique_ptr<Object>> objects_;
+	//std::map<std::string, std::unique_ptr<Object>> object_map;
+	//std::vector <std::string > will_remove_object;
     //std::map<std::string, std::unique_ptr<Object>> object_map;
 };
+
+//extern Objectmanager* Objectmanager_;
+extern Objectmanager Objectmanager_;

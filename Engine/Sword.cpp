@@ -79,7 +79,7 @@ void Sword::Update(float dt)
 			object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
 	}
 	if (!skill)
-		SwordMove(Input::GetMousePos(Graphics::checking_zoom));
+		SwordMove(Input::GetMousePos(Graphics::camera_zoom));
 	else
 		Wheelwind();
 }

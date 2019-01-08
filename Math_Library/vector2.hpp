@@ -29,7 +29,7 @@ struct vector2
         y = b;
     }
 
-    vector2& operator=(const vector2& v);
+    vector2& operator=(const vector2 v);
 
     vector2 operator+(float a) const;
     vector2& operator+=(float a);

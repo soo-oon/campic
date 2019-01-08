@@ -19,51 +19,44 @@ Creation date: 2018/12/14
 #include "Sound.hpp"
 #include "StateManager.hpp"
 
-
 class JSON;
 
 class State
 {
 public:
-	virtual ~State()
-	{}
+	//virtual void Load();
+	//virtual void UnLoad();
+	//virtual void UpdateObjManager(float dt);
+	//virtual void UpdateJsonState(StateManager* current);
+	//virtual std::unique_ptr<Objectmanager>& GetObjectManager(){return objectmanager;}
+	//virtual vector2 GetStateScreenSize() { return screen_size_; }
+	//virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
+	//virtual void AddPlayer();
+	//virtual void SecondPlanForPlayer(Object* player);
+	//virtual JSON* GetJson() { return json; }
 
-	virtual void Load();
 	virtual void Initialize() = 0;
-	virtual void UpdateObjManager(float dt);
-	virtual void UpdateJsonState(StateManager* current);
 	virtual void Update(float dt) = 0;
 	virtual void ShutDown() = 0;
-	virtual void UnLoad();
-	virtual void SetCamera() { camera = true; }
-	virtual bool IsCamera() { return camera; }
-	virtual std::unique_ptr<Objectmanager>& GetObjectManager(){return objectmanager;}
 
-	virtual vector2 GetStateScreenSize() { return screen_size_; }
-	virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
-
-
-	virtual void AddPlayer();
-	virtual void SecondPlanForPlayer(Object* player);
+	virtual void SetCamera() { iscamera = true; }
+	virtual bool IsCamera() { return iscamera; }
 
 	virtual bool IsLevelChange() { return level_change; }
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual Sound* GetSoundMap() { return sound; }
 	virtual void ChangeLevel(std::string ID);
-	virtual JSON* GetJson() { return json; }
-
-	Objectmanager* obj_hud;
 	State_Information information_ = State_Information::None;
 
 private:
+	//std::unique_ptr<Objectmanager> objectmanager;
+	//vector2 screen_size_{};
+	//JSON* json = nullptr;
+
 	std::string change_level;
 
-	bool camera = false;
+	bool iscamera = false;
 	bool level_change = false;
-	std::unique_ptr<Objectmanager> objectmanager;
 
 	Sound* sound = nullptr;
-	vector2 screen_size_{};
-	
-	JSON* json = nullptr;
 };

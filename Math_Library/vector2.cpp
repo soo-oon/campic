@@ -17,7 +17,7 @@ Creation date: 2018/12/14
 #include <cmath>
 #include "control_angle.hpp"
 
-vector2& vector2::operator=(const vector2& v)
+vector2& vector2::operator=(const vector2 v)
 {
     x = v.x;
     y = v.y;

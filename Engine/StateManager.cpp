@@ -20,12 +20,11 @@ Creation date: 2018/12/14
 #include "Sword.hpp"
 #include "Player.hpp"
 
+StateManager StateManager_;
 
 bool StateManager::Initialize()
 {
 	m_currentState = nullptr;
-	m_pause = false;
-	m_restart = false;
 	return true;
 }
 
@@ -35,61 +34,34 @@ void StateManager::AddStage(std::string ID, State* state)
 
 	if (m_currentState == nullptr)
 	{
-		if (states.find(ID)->second->information_ == State_Information::Splash)
+		m_currentState = states.find(ID)->second.get();
+		m_currentState->Initialize();
+		/*if (states.find(ID)->second->information_ == State_Information::Splash)
 		{
 			m_currentState = states.find(ID)->second.get();
 			m_currentState->Load();
 			m_currentState->Initialize();
-		}
+		}*/
 	}
 }
 
 void StateManager::ChangeStage()
 {
-	if (m_currentState->GetObjectManager()->IsExistPlayer())
-	{
-		auto& player = m_currentState->GetObjectManager()->FindObject("Player");
-		player->SetTranslation({ 0,0 });
+	std::string next_level = m_currentState->GetNextLevel();
 
-		auto& sword = m_currentState->GetObjectManager()->FindObject("Sword");
-		sword->SetTranslation({ player->GetTransform().GetTranslation() });
+	//m_currentState->UnLoad();
 
-		std::string next_level = m_currentState->GetNextLevel();
+	m_currentState = states.find(next_level)->second.get();
 
-		m_currentState->UnLoad();
+	//m_currentState->Load();
 
-		m_currentState = states.find(next_level)->second.get();
+	//if (m_currentState->information_ == State_Information::Game)
+	//{
+	//	m_currentState->AddPlayer();
+	//}
+	//m_currentState->GetObjectManager()->Initialize();
 
-		m_currentState->Load();
-
-		if (m_currentState->information_ == State_Information::Game)
-		{
-			m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Player", std::move(player)));
-			m_currentState->GetObjectManager()->GetObjectMap().insert(std::make_pair("Sword", std::move(sword)));
-		}
-
-		m_currentState->GetObjectManager()->Initialize();
-
-		m_currentState->Initialize();
-	}
-	else
-	{
-		std::string next_level = m_currentState->GetNextLevel();
-
-		m_currentState->UnLoad();
-
-		m_currentState = states.find(next_level)->second.get();
-
-		m_currentState->Load();
-
-		if (m_currentState->information_ == State_Information::Game)
-		{
-			m_currentState->AddPlayer();
-		}
-		m_currentState->GetObjectManager()->Initialize();
-
-		m_currentState->Initialize();
-	}
+	m_currentState->Initialize();
 }
 
 void StateManager::Restart()
@@ -109,9 +81,9 @@ void StateManager::Update(float dt)
 
 	if (m_pause == false)
 	{
-		m_currentState->UpdateObjManager(dt);
+		//m_currentState->UpdateObjManager(dt);
 		m_currentState->Update(dt);
-		m_currentState->UpdateJsonState(this);
+		//m_currentState->UpdateJsonState(this);
 	}
 }
 

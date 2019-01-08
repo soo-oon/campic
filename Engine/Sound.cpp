@@ -19,6 +19,8 @@ Creation date: 2018/12/14
 #include "Input.hpp"
 #include <iostream>
 
+Sound Sound_;
+
 bool Sound::Initialize()
 {
 	if (System_Create(&system) != FMOD_OK)

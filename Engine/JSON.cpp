@@ -32,6 +32,8 @@ Creation date: 2018/12/14
 #define Character_	"character"
 #define Collision_	"collision"
 
+JSON JSON_;
+
 enum class ComponentType :int
 {
 	Sprite = 0,
@@ -47,6 +49,7 @@ bool JSON::Initialize()
 	if (!levels.IsObject())
 		return false;
 	LoadLevelDocument();
+
 	return true;
 }
 

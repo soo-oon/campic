@@ -35,16 +35,16 @@ enum class ComponentType
 	Collision
 };
 
-class Imgui_System: public System
+class Imgui_System
 {
 public:
 	~Imgui_System()
 	{
 	};
 
-	bool Initialize() override;
-	void Update(float dt) override;
-	void Quit() override;
+	bool Initialize();
+	void Update(float dt);
+	void Quit();
 
 	void Draw();
 	void ObjectManger(bool show_window);
@@ -81,3 +81,5 @@ private:
 	std::string object_name = "object";
 	Object* newObject = nullptr;
 };
+
+extern Imgui_System IMGUI_;

@@ -22,23 +22,44 @@ Creation date: 2018/12/14
 #include "status.hpp"
 #include "Player.hpp"
 #include "Card.hpp"
+#include "Application.hpp"
+#include "Graphics.hpp"
+
+Physics Physics_;
 
 bool Physics::Initialize()
 {
 	return true;
 }
 
-void Physics::PhysicsObjectUpdate(Objectmanager* objectmanager)
-{
-	temp_obj = objectmanager;
-}
+//void Physics::PhysicsObjectUpdate(Objectmanager* objectmanager)
+//{
+//	temp_obj = objectmanager;
+//}
 
 void Physics::Update(float dt)
 {
 	collision_list.clear();
-	if (temp_obj != nullptr )
+	if (!Objectmanager_.GetObjectMap().empty())
 	{
-		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
+
+		for(auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
+		{
+			if(auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr && !OutOfCheckBoundary(obj->get()))
+			{
+				if (temp->GetRestitutionType() == get)
+				{
+					Objectmanager_.GetObjectMap().erase(obj);
+				}
+				else
+				{
+					collision_list.push_back(obj->get());
+					temp->Update(dt);
+				}
+			}
+		}
+
+		/*for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
 			it != temp_obj->GetObjectMap().end();)
 		{
 			Object* temp = (it->second.get());
@@ -56,8 +77,9 @@ void Physics::Update(float dt)
 				}
 			}
 		++it;
-		}
+		}*/
 	}
+
 	if (collision_list.size() > 1)
 	{
 		for (size_t i = 0; i < collision_list.size() ; i++)
@@ -84,6 +106,43 @@ void Physics::Update(float dt)
 			}
 		}
 	}
+
+	if (!Objectmanager_.GetObjectMap().empty())
+	{
+		for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
+		{
+			if (auto temp_rigidbody = obj->get()->GetComponentByTemplate<RigidBody>(); temp_rigidbody != nullptr)
+			{
+				if (auto temp_collision = obj->get()->GetComponentByTemplate<Collision>();  temp_collision != nullptr)
+				{
+					if (!OutOfCheckBoundary(obj->get()))
+					{
+						temp_rigidbody->Update(dt);
+					}
+					else
+					{
+						//StopReaction(temp);
+						if (auto temp_character = obj->get()->GetComponentByTemplate<Character>(); temp_character != nullptr)
+						{
+							temp_collision->SetRestitutionType(RestitutionType::get);
+						}
+						else
+						{
+							obj->get()->GetTransform().SetTranslation({ 10 * -normalize(temp_rigidbody->GetVelocity()).x + obj->get()->GetTransform().GetTranslation().x,
+								10 * -normalize(temp_rigidbody->GetVelocity()).y + obj->get()->GetTransform().GetTranslation().y });
+							temp_rigidbody->SetVelocity(0);
+							temp_collision->Update(dt);
+						}
+					}
+				}
+				else
+				{
+					temp_rigidbody->Update(dt);
+				}
+			}
+		}
+	}
+	/*
 	if (temp_obj != nullptr)
 	{
 		for (std::map<std::string, std::unique_ptr<Object>>::iterator it = temp_obj->GetObjectMap().begin();
@@ -118,12 +177,13 @@ void Physics::Update(float dt)
 			}
 		}
 	}
+	*/
 }
 
 
 void Physics::Quit()
 {
-	temp_obj = nullptr;
+	//temp_obj = nullptr;
 }
 
 void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
@@ -332,14 +392,16 @@ bool Physics::IntersectionCheck_AABB(Object object1, Object object2)
 
 bool Physics::OutOfCheckBoundary(Object * object)
 {
+	auto size = Graphics_.GetDisplaySize();
+
     if (object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + 
-	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 < windowsize.x / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 < size.x / 2 &&
 	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x -
-	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 > -windowsize.x / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 > -size.x / 2 &&
 	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + 
-	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 < windowsize.y / 2 &&
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 < size.y / 2 &&
 	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - 
-	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 > -windowsize.y / 2)
+	    object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 > -size.y / 2)
     {
         return false;
     }

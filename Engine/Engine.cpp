@@ -17,57 +17,21 @@ Creation date: 2018/12/14
 #include "Application.hpp"
 #include "StateManager.hpp"
 #include "Graphics.hpp"
-#include <iostream>
 #include "Input.hpp"
 #include "State.hpp"
 #include "Sound.hpp"
 #include "Physics.hpp"
 #include "Imgui_System.hpp"
 #include "JSON.hpp"
-#include "HUD_System.hpp"
-
-namespace
-{
-	Application* Application_ = nullptr;
-	Graphics* Graphic_ = nullptr;
-	Objectmanager* Objectmanager_ = nullptr;
-	State* State_ = nullptr;
-	Sound* Sound_ = nullptr;
-	Physics* Physics_ = nullptr;
-	Imgui_System* Imgui = nullptr;
-	JSON* Json = nullptr;
-	HUD* HUD_ = nullptr;
-	State* hud_state = nullptr;
-}
+#include "HUD.hpp"
 
 bool Engine::IsQuit;
 
 bool Engine::Initialize()
 {
-    systems.clear();
-    AddSystem(new Application());
-    AddSystem(new StateManager());
-    AddSystem(new Graphics());
-	AddSystem(new Physics());
-    AddSystem(new Sound());
-	AddSystem(new HUD());
-	AddSystem(new Imgui_System());
-	AddSystem(new JSON());
+	System_Initialize();
 
-	Application_ = GetSystemByTemplate<Application>();
-	Graphic_ = GetSystemByTemplate<Graphics>();
-	Physics_ = GetSystemByTemplate<Physics>();
-	Sound_ = GetSystemByTemplate<Sound>();
-	HUD_ = GetSystemByTemplate<HUD>();
-	Imgui = GetSystemByTemplate<Imgui_System>();
-	Json = GetSystemByTemplate<JSON>();
-
-	for (auto i : systems)
-	{
-		i->Initialize();
-	}
-
-	hud_state = HUD_->GetHUDlevel();
+	//hud_state = HUD_->GetHUDlevel();
     gameTimer.Reset();
     IsQuit = false;
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -80,33 +44,28 @@ void Engine::Update()
     {
         dt = (float)gameTimer.GetElapsedSeconds();
         gameTimer.Reset();
+		System_Update();
 
-		State_ = GetSystemByTemplate<StateManager>()->GetCurrentState();
-		Objectmanager_ = State_->GetObjectManager().get();
+		//Physics_->PhysicsObjectUpdate(Objectmanager_);
 
-        for (auto i : systems)
-        {
-            i->Update(dt);
-        }
-		
-		Physics_->PhysicsObjectUpdate(Objectmanager_);
+		//HUD_->SetObjectManager(Objectmanager_);
 
+		//Graphics_->HUD_Draw(Objectmanager_);
+		//Graphics_.Draw(&Objectmanager_);
 
-		HUD_->SetObjectManager(Objectmanager_);
-		Graphic_->HUD_Draw(Objectmanager_, hud_state->GetObjectManager().get());
-		Graphic_->Draw(Objectmanager_);
+		Graphics_.Draw();
+		Graphics_.EndDraw();
 
-		Graphic_->EndDraw();
+		//Application_->SetDispalyAreaSize(Graphic_, State_);
 
-		Application_->SetDispalyAreaSize(Graphic_, State_);
-
-		Sound_->GetSoundMap();
-		Imgui->SetSoundManager(Sound_);
-		Imgui->SetObjectManger(Objectmanager_);
-		Imgui->Draw();
+		//Sound_->GetSoundMap();
+		//Imgui->SetSoundManager(Sound_);
+		//Imgui->SetObjectManger(Objectmanager_);
+		//Imgui->Draw();
 
 		//Json->UpdateLevel(GetSystemByTemplate<StateManager>());
-		Json->UpdateState(GetSystemByTemplate<StateManager>());
+		//Json->UpdateState(GetSystemByTemplate<StateManager>());
+
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
     }
@@ -116,17 +75,64 @@ void Engine::Update()
 
 void Engine::Quit()
 {
-	Json->SaveAtEnd();
-    for (auto i : systems)
-        i->Quit();
+	//JSON_.SaveAtEnd();
+
+	System_Quit();
 }
 
-void Engine::ShutDown()
+void Engine::System_Initialize()
 {
-    systems.clear();
+	Application_.Initialize();
+	StateManager_.Initialize();
+	Objectmanager_.Initialize();
+	Graphics_.Initialize();
+	Physics_.Initialize();
+
+	Sound_.Initialize();
+
+	//TODO make new HUD structure 
+	//HUD_.Initialize();
+	//
+
+	//IMGUI_.Initialize();
+
+	//JSON_.Initialize();
 }
 
-void Engine::AddSystem(System* new_system)
+void Engine::System_Update()
 {
-    systems.push_back(new_system);
+	Application_.Update(dt);
+	StateManager_.Update(dt);
+	Objectmanager_.Update(dt);
+	Graphics_.Update(dt);
+
+	// Should Fix All of Update ways (Should Fix Physics class structure)
+	Physics_.Update(dt);
+
+	Sound_.Update(dt);
+
+	//TODO make new HUD structure 
+	//HUD_.Update(dt);
+	//
+
+	//IMGUI_.Update(dt);
+
+	//JSON_.Update(dt);
+}
+
+void Engine::System_Quit()
+{
+	Application_.Quit();
+	StateManager_.Quit();
+	Objectmanager_.Quit();
+	Graphics_.Quit();
+	Physics_.Quit();
+
+	Sound_.Quit();
+
+	//HUD_.Quit();
+
+	//IMGUI_.Quit();
+
+	//JSON_.Quit();
 }
