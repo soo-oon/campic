@@ -8,7 +8,6 @@ Language: C++
 Platform: Visual Studio 2017
 Project: sword of souls
 Primary : Kang Tae Wook
-Secondary : Ji Hun Park
 Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
 */
@@ -50,11 +49,11 @@ bool Imgui_System::Initialize()
 	//{
 	//	imageList.push_back(p.path().filename().string());
 	//}
-	////Sound list in project directory
-	//for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
-	//{
-	//	soundList.push_back(p.path().filename().string());
-	//}
+	//Sound list in project directory
+	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
+	{
+		soundList.push_back(p.path().filename().string());
+	}
 
 	std::cout << "IMGUI Initialization Successful" << std::endl;
 
@@ -82,9 +81,9 @@ void Imgui_System::Draw()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 		
-	ImGui::ShowDemoWindow(&show_window);
+	//ImGui::ShowDemoWindow(&show_window);
 	//Sound_Option(show_window);
-	//Editor(show_window);
+	Editor(show_window);
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -92,70 +91,64 @@ void Imgui_System::Draw()
 	glfwSwapBuffers(window);
 }
 
-void Imgui_System::Editor(bool show_editor)
+void Imgui_System::Editor(bool show_window)
 {
-	//if (!show_editor)
-	//	return;
-	//
-	//if (object_manager == nullptr)
-	//	return;
+	if (!show_window)
+		return;
 
-	//std::vector<std::string> object_lists;
+	ImGui::SetNextWindowSize(ImVec2(400, 400));
+	if (!ImGui::Begin("ImGui Editor", &show_window, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::End();
+		return;
+	}
 
-	//for (auto& obj : object_manager->GetObjectMap())
-	//	object_lists.push_back((obj).first.c_str());
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui::Text("Frame Rate (%.1f FPS)", io.Framerate);
 
-	//if (!ImGui::Begin("Object Manager", &show_editor, ImGuiWindowFlags_AlwaysAutoResize))
-	//{
-	//	ImGui::End();
-	//	return;
-	//}
+	if (ImGui::RadioButton("Object Editor", object_editor))
+		object_editor = !object_editor;
+	
+	ImGui::SameLine();
 
-	//ImGui::Text("Team Boleh's GUI                                              ");
+	if (ImGui::RadioButton("Sound Editor", sound_editor))
+		sound_editor = !sound_editor;
 
-	//if (ImGui::CollapsingHeader("Manager"))
-	//{
-	//	ImGuiIO& io = ImGui::GetIO();
+	// Create editor window
+	ObjectEditor(object_editor);
+	SoundEditor(sound_editor);
 
-	//	if (ImGui::TreeNode("Object Lists"))
-	//	{
-	//		AllObjectTree(object_lists);
-	//		ImGui::TreePop();
-	//	}
+	ImGui::End();
+}
 
-	//	ImGui::Button("Create Object");
-	//	if (ImGui::IsItemActive())
-	//	{
-	//		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	//	}
-	//	if (ImGui::IsItemDeactivated())
-	//	{
-	//		std::string new_obj_name = object_name + std::to_string(object_count + 1);
-	//		object_manager->AddObject(new_obj_name);
-	//		newObject = object_manager->FindObject(new_obj_name).get();
-	//		newObject->SetScale({ 100.f,100.f });
-	//		newObject->SetTranslation({ Input::GetMousePos(Graphics::checking_zoom).x, Input::GetMousePos(Graphics::checking_zoom).y });
-	//		newObject->SetDepth(0);
-	//		newObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	//		newObject->object_id = static_cast<int>(object_count + 1);
-	//		object_count++;
-	//	}
-	//	ImGui::SameLine();
-	//	if (ImGui::Button("Clear All"))
-	//	{
-	//		for (int i = 0; i < object_lists.size(); i++)
-	//		{
-	//			if (object_lists.at(i) == "background")
-	//				continue;
-	//			if (object_lists.at(i) == "Player")
-	//				continue;
-	//			if (object_lists.at(i) == "Sword")
-	//				continue;
-	//			object_manager->FindObject(object_lists.at(i))->GetMesh().Invisible();
-	//		}
-	//	}
-	//}
-	//ImGui::End();
+void Imgui_System::ObjectEditor(bool object_editor)
+{
+	if (!object_editor)
+		return;
+
+	// Creating Object
+	ImGui::Button("Create Object");
+
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object obj;
+		obj.SetScale({ 100.f,100.f });
+		obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		obj.SetDepth(0);
+		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
+		Objectmanager_.AddObject(obj);
+	}
+
+	// Delete ALL Object
+	if (ImGui::Button("Clear All"))
+	{
+		Objectmanager_.GetObjectMap().clear();
+	}
 }
 
 //void Imgui_System::componentHelper(Object* object, ComponentType comp)
@@ -227,57 +220,57 @@ void Imgui_System::Editor(bool show_editor)
 	//}
 //}
 
-//void Imgui_System::Sound_Option(bool show_window)
-//{
-	//if (!show_window)
-	//	return;
+void Imgui_System::SoundEditor(bool sound_editor)
+{
+	if (!sound_editor)
+		return;
 
-	//ImGui::SetNextWindowSize({ 400,200 });
-	//if (!ImGui::Begin("ImGui Option", &show_window))
-	//{
-	//	ImGui::End();
-	//	return;
-	//}
+	static std::string current_sound = "";
 
-	//ImGuiIO& io = ImGui::GetIO();
-	//ImGui::Text("Frame Rate (%.1f FPS)", io.Framerate);
+	if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) // The second parameter is the label previewed before opening the combo.
+	{
+		for (int n = 0; n < soundList.size(); n++)
+		{
+			bool is_selected = (current_sound.c_str() == soundList[n].c_str()); // You can store your selection however you want, outside or inside your objects
+			if (ImGui::Selectable(soundList[n].c_str(), is_selected))
+				current_sound = soundList[n].c_str();
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+		}
+		ImGui::EndCombo();
+	}
 
-	//ImGui::Separator();
-	//ImGui::Text("Sound Option");
+	const std::string current_path = "asset/sounds/";
 
-	//static std::string current_sound = "";
+	if (ImGui::Button("Load SFX"))
+	{
+		AudioManager_.LoadSFX(current_path + current_sound);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Load Song"))
+	{
+		AudioManager_.LoadSong(current_path + current_sound);
+	}
 
-	//if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) // The second parameter is the label previewed before opening the combo.
-	//{
-	//	for (int n = 0; n < soundlist.size(); n++)
-	//	{
-	//		bool is_selected = (current_sound.c_str() == soundlist[n].c_str()); // You can store your selection however you want, outside or inside your objects
-	//		if (ImGui::Selectable(soundlist[n].c_str(), is_selected))
-	//			current_sound = soundlist[n].c_str();
-	//			if (is_selected)
-	//				ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
-	//	}
-	//	ImGui::EndCombo();
-	//}
+	if (ImGui::Button("Play SFX"))
+	{
+		AudioManager_.PlaySFX(current_path + current_sound,4,4,4,4);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Play Song"))
+	{
+		AudioManager_.PlaySong(current_path + current_sound);
+	}
 
-	//const std::string current_path = "asset/sounds/";
-
-	//if (ImGui::Button("Create Sound"))
-	//{
-	//	sound_manager->AddSound(current_path + current_sound);
-	//}
-
-	//if (ImGui::Button("Play"))
-	//{
-	//	sound_manager->Play(current_path + current_sound);
-	//}
-
-	//ImGui::SameLine();
-	//if(ImGui::Button("Stop"))
-	//{
-	//	if (sound_manager->IsPlaying())
-	//		sound_manager->Stop(current_path + current_sound);
-	//}
+	if(ImGui::Button("Stop SFXs"))
+	{
+		AudioManager_.StopSFXs();
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Stop Songs"))
+	{
+		AudioManager_.StopSongs();
+	}
 
 	//ImGui::SameLine();
 	//if (ImGui::Button("Pause"))
@@ -298,8 +291,7 @@ void Imgui_System::Editor(bool show_editor)
 	//	sound_manager->SetSoundSpeed(current_path + current_sound, speed);
 	//}
 
-	//ImGui::End();
-//}
+}
 
 //////////////////////////////////////////////////////////
 
