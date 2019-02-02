@@ -16,7 +16,7 @@ Creation date: 2018/12/14
 #pragma once
 #include "Objectmanager.hpp"
 #include <vector2.hpp>
-#include "Sound.hpp"
+#include "AudioManager.hpp"
 #include "StateManager.hpp"
 
 class JSON;
@@ -44,7 +44,6 @@ public:
 
 	virtual bool IsLevelChange() { return level_change; }
 	virtual std::string GetNextLevel() { return change_level; }
-	virtual Sound* GetSoundMap() { return sound; }
 	virtual void ChangeLevel(std::string ID);
 	State_Information information_ = State_Information::None;
 
@@ -57,6 +56,4 @@ private:
 
 	bool iscamera = false;
 	bool level_change = false;
-
-	Sound* sound = nullptr;
 };

@@ -43,6 +43,10 @@ void level2::Initialize()
 
 	Objectmanager_.AddObject(player);
 
+	//AudioManager_.LoadSong("asset/sounds/bgm.mp3");
+	//AudioManager_.LoadSFX("asset/sounds/punch.wav");
+	//AudioManager_.PlaySong("asset/sounds/bgm.mp3");
+	
 	/*GetObjectManager()->AddObject("camera");
 	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
@@ -128,7 +132,10 @@ void level2::Initialize()
 void level2::Update(float dt)
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
+	{
 		ChangeLevel("level2");
+		//AudioManager_.PlaySFX("asset/sounds/punch.wav", 4,4,1,1);
+	}
 	if (Input::IsKeyTriggered(GLFW_KEY_1))
 		ChangeLevel("level1");
 	if (Input::IsKeyTriggered(GLFW_KEY_3))

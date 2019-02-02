@@ -19,7 +19,7 @@ Creation date: 2018/12/14
 #include "Graphics.hpp"
 #include "Input.hpp"
 #include "State.hpp"
-#include "Sound.hpp"
+#include "AudioManager.hpp"
 #include "Physics.hpp"
 #include "Imgui_System.hpp"
 #include "JSON.hpp"
@@ -55,13 +55,8 @@ void Engine::Update()
 
 		Graphics_.Draw();
 		Graphics_.EndDraw();
-
+		IMGUI_.Draw();
 		//Application_->SetDispalyAreaSize(Graphic_, State_);
-
-		//Sound_->GetSoundMap();
-		//Imgui->SetSoundManager(Sound_);
-		//Imgui->SetObjectManger(Objectmanager_);
-		//Imgui->Draw();
 
 		//Json->UpdateLevel(GetSystemByTemplate<StateManager>());
 		//Json->UpdateState(GetSystemByTemplate<StateManager>());
@@ -76,7 +71,6 @@ void Engine::Update()
 void Engine::Quit()
 {
 	//JSON_.SaveAtEnd();
-
 	System_Quit();
 }
 
@@ -86,16 +80,13 @@ void Engine::System_Initialize()
 	StateManager_.Initialize();
 	Objectmanager_.Initialize();
 	Graphics_.Initialize();
+	IMGUI_.Initialize();
+	AudioManager_.Initialize();
 	Physics_.Initialize();
 
-	Sound_.Initialize();
 
 	//TODO make new HUD structure 
 	//HUD_.Initialize();
-	//
-
-	//IMGUI_.Initialize();
-
 	//JSON_.Initialize();
 }
 
@@ -105,18 +96,15 @@ void Engine::System_Update()
 	StateManager_.Update(dt);
 	Objectmanager_.Update(dt);
 	Graphics_.Update(dt);
+	IMGUI_.Update(dt);
+	AudioManager_.Update(dt);
 
 	// Should Fix All of Update ways (Should Fix Physics class structure)
 	Physics_.Update(dt);
 
-	Sound_.Update(dt);
 
 	//TODO make new HUD structure 
 	//HUD_.Update(dt);
-	//
-
-	//IMGUI_.Update(dt);
-
 	//JSON_.Update(dt);
 }
 
@@ -126,13 +114,11 @@ void Engine::System_Quit()
 	StateManager_.Quit();
 	Objectmanager_.Quit();
 	Graphics_.Quit();
+	IMGUI_.Quit();
+	AudioManager_.Quit();
 	Physics_.Quit();
 
-	Sound_.Quit();
 
 	//HUD_.Quit();
-
-	//IMGUI_.Quit();
-
 	//JSON_.Quit();
 }

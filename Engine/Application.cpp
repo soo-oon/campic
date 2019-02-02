@@ -21,7 +21,6 @@ Creation date: 2018/12/14
 #include <memory>
 #include <string>
 #include "imgui_impl_glfw.h"
-#include "Imgui_System.hpp"
 
 Application Application_;
 
@@ -121,8 +120,9 @@ void Application::Update(float dt)
 		title = "Engine ver 0.1 ";
 	}
 
-    Input::Triggerd_Reset();
-	glfwSwapBuffers(window);
+	Input::Triggerd_Reset();
+	//glfwSwapBuffers(window);
+
     PollEvent();
 }
 
@@ -183,9 +183,7 @@ namespace
                      , int action, int mods)
     {
 		Input::SetKeyPressed(key, action);
-#if _DEBUG
-		//ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
-#endif
+		ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
     }
 
 	void DropCallBack(GLFWwindow* window, int count, const char** paths)
@@ -207,8 +205,6 @@ namespace
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
     {
 		Input::SetMouseWheelScroll(x_offset, y_offset);
-#if _DEBUG
-		//ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
-#endif
+		ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
     }
 }
