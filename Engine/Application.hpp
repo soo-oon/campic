@@ -35,7 +35,8 @@ public:
     void Quit();
 
 	GLFWwindow* GetWindow() { return window; }
-	
+
+        vector2 GetScreenSize() { return screenSize; }
     void Key_Poll_Event();
     void PollEvent();
     void FullScreen();

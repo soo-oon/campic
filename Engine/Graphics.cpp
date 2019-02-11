@@ -86,6 +86,9 @@ void Graphics::Update(float dt)
 	displaysize.x = static_cast<float>(w);
 	displaysize.y = static_cast<float>(h);
 
+        std::cout << displaysize.x << ", " << displaysize.y << std::endl;
+
+
 	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 
 	if (temp_camera == nullptr)

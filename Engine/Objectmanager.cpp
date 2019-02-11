@@ -48,9 +48,12 @@ void Objectmanager::Update(float dt)
 			components->Update(dt);
 		}
 
-		if (!object->get()->GetComponentByTemplate<Status>()->IsLive())
+		if (auto temp = object->get()->GetComponentByTemplate<Status>(); temp != nullptr)
 		{
-			object = objects_.erase(object);
+                    if (!temp->IsLive())
+                        object = objects_.erase(object);
+                    else
+                        object++;
 		}
 		else
 		{
@@ -122,8 +125,10 @@ void Objectmanager::RemoveObject()
 {
 	for(auto object = objects_.begin(); object != objects_.end();)
 	{
-		if(object->get()->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player &&
-			object->get()->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Sword)
+		if(auto temp = object->get()->GetComponentByTemplate<Status>();
+                    temp == nullptr ||(
+                    temp->GetObjectType() != ObjectType::Player &&
+                    temp->GetObjectType() != ObjectType::Sword))
 		{
 			object = objects_.erase(object);
 		}

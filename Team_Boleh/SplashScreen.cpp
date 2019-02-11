@@ -16,6 +16,7 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Input.hpp"
 #include "Sprite.hpp"
+#include "Graphics.hpp"
 #include "Application.hpp"
 
 void SplashScreen::Initialize()
@@ -27,9 +28,12 @@ void SplashScreen::Initialize()
 	logo->AddComponent(new Sprite());
 	logo->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/DigiPen_.png");
 
+        int w, h;
+        glfwGetWindowSize(Application_.GetWindow(), &w, &h);
+
 	background = new Object();
 	background->SetTranslation({ 0,0 });
-	background->SetScale(Application_->)
+        background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
 	background->SetMesh(mesh::CreateBox());
 	background->SetDepth(0.9f);
 	background->AddComponent(new Sprite());
@@ -41,8 +45,6 @@ void SplashScreen::Initialize()
 
 void SplashScreen::Update(float dt)
 {
-	background->SetScale();
-
 	time_count += dt;
 
 	if(ischange)
@@ -53,7 +55,7 @@ void SplashScreen::Update(float dt)
 			 logo->GetTransform().GetScale().y + 55 * dt });
 		}
 		else if(time_count > 3.0f)
-			ChangeLevel("StartMenu");
+			ChangeLevel("remake");
 	}
 	else
 	{
@@ -74,7 +76,7 @@ void SplashScreen::Update(float dt)
 	}
 
 	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
-		ChangeLevel("StartMenu");
+		ChangeLevel("remake");
 }
 
 
