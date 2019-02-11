@@ -18,11 +18,10 @@ Creation date: 2018/12/14
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "System.hpp"
 #include "Objectmanager.hpp"
 #include "Animation.hpp"
 #include "Collision.hpp"
-#include "Sound.hpp"
+#include "AudioManager.hpp"
 #include <filesystem>
 #include <string>
 
@@ -38,48 +37,30 @@ enum class ComponentType
 class Imgui_System
 {
 public:
-	~Imgui_System()
-	{
-	};
-
 	bool Initialize();
 	void Update(float dt);
 	void Quit();
 
 	void Draw();
-	void ObjectManger(bool show_window);
-	void Sound_Option(bool show_window);
-	void componentHelper(Object* object, ComponentType);
-	void ObjectAnimation(Object* obj);
-
-	void ObjectCharacter(Object * obj);
-
-	void SetObjectManger(Objectmanager* obj_manager) { object_manager = obj_manager; }
-	void SetSoundManager(Sound* _sound_manager) { sound_manager = _sound_manager; };
-
-	static std::vector<std::string> soundlist;
-
-	void Editor(bool show_editor);
+	void Editor(bool show_window);
+	void ObjectEditor(bool object_editor);
+	void SoundEditor(bool sound_editor);
+	//void componentHelper(Object* object, ComponentType);
+	//void ObjectAnimation(Object* obj);
+	//void ObjectCharacter(Object * obj);
 
 private:
 	GLFWwindow* window = nullptr;
-	Objectmanager* object_manager = nullptr;
 	
 	bool show_window = false;
-	bool show_editor = false;
+	bool object_editor = false;
+	bool sound_editor = false;
 
-	std::vector<std::string> imagelist;
-	std::string new_object = "object0";
+	std::vector<std::string> imageList;
+	std::vector<std::string> soundList;
 
-	Sound* sound_manager = nullptr;
-
-	//now these functions are mine
-	void AllObjectTree(std::vector<std::string> obj_list);
-	void ObjectSprite(Object* sprite_obj);
-	//for creating object
-	size_t object_count = -1;
-	std::string object_name = "object";
-	Object* newObject = nullptr;
+	//void AllObjectTree(std::vector<std::string> obj_list);
+	//void ObjectSprite(Object* sprite_obj);
 };
 
 extern Imgui_System IMGUI_;
