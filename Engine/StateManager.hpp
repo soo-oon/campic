@@ -15,7 +15,7 @@ Creation date: 2018/12/14
 
 #pragma once
 #include "System.hpp"
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <memory>
 #include "Object.hpp"
@@ -41,7 +41,7 @@ public:
 	void Pause();
 
 	State* GetCurrentState() { return m_currentState; }
-	std::map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
+        std::unordered_map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
 
 	bool Initialize();
 	void Update(float dt);
@@ -49,7 +49,7 @@ public:
 
 private:
 	State* m_currentState = nullptr;
-	std::map <std::string, std::unique_ptr<State>> states;
+	std::unordered_map <std::string, std::unique_ptr<State>> states;
 
 	bool m_restart = false, m_pause = false;
 };

@@ -20,7 +20,7 @@ Creation date: 2018/12/14
 
 bool Animation::Initialize(Object* Ob)
 {
-	object = Ob;
+    object = Ob;
     return true;
 }
 
@@ -28,34 +28,36 @@ void Animation::Update(float dt)
 {
     frame_time += dt;
 
-	if (frame_time > update_frame)
-	{
-		frame_time = 0;
+    if (frame_time > update_frame)
+    {
+	frame_time = 0;
 
-		if (previous_current_coordinate.y < 1)
-		{
-			previous_current_coordinate.x += frame_per_second;
-			previous_current_coordinate.y += frame_per_second;
-		}
-		else
-		{
-			if (isrepeat)
-			{
-				previous_current_coordinate.x = 0;
-				previous_current_coordinate.y = frame_per_second;
-			}
-			else
-			{
-				is_done = true;
-			}
-		}
+	if (previous_current_coordinate.y < 1)
+	{
+	    previous_current_coordinate.x += frame_per_second;
+	    previous_current_coordinate.y += frame_per_second;
 	}
+	else
+	{
+	    if (isrepeat)
+	    {
+		previous_current_coordinate.x = 0;
+		previous_current_coordinate.y = frame_per_second;
+	    }
+	    else
+	    {
+		is_done = true;
+	    }
+	}
+    }
 }
 
 void Animation::AddAnimaition(const std::string path, const std::string ID,
 	int image_frame_, float update_frame_, bool repeat)
 {
-	sprites.insert(std::make_pair(ID, new Sprite()));
+    animations.insert(std::make_pair(ID, 
+        Animation_Information(path, image_frame_, update_frame_, repeat)));
+	/*sprites.insert(std::make_pair(ID, new Sprite()));
 	sprites.at(ID)->Texture_Load(path);
 
 	float temp_frame_per_second = (1.0f / image_frame_);
@@ -68,7 +70,7 @@ void Animation::AddAnimaition(const std::string path, const std::string ID,
 	update_frames.insert(std::make_pair(ID, update_frame_));
 	frame_per_seconds.insert(std::make_pair(ID, temp_frame_per_second));
 	is_repeats.insert(std::make_pair(ID, repeat));
-	previous_current_coordinates.insert(std::make_pair(ID, temp_previous_current_coordinate));
+	previous_current_coordinates.insert(std::make_pair(ID, temp_previous_current_coordinate));*/
 }
 
 void Animation::Delete()
@@ -77,7 +79,7 @@ void Animation::Delete()
 
 void Animation::ChangeAnimation(std::string ID)
 {
-    if (isrepeat)
+    /*if (isrepeat)
     {
         Sprite* change_animation = sprites.find(ID)->second;
 
@@ -114,7 +116,7 @@ void Animation::ChangeAnimation(std::string ID)
                 previous_current_coordinate = previous_current_coordinates.find(ID)->second;
             }
         }
-    }
+    }*/
 }
 
 void Animation::Imgui_Animation()

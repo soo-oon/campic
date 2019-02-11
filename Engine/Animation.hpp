@@ -18,7 +18,7 @@ Creation date: 2018/12/14
 #include "Sprite.hpp"
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include "vector2.hpp"
 #include "imgui.h"
 #include <algorithm>
@@ -26,14 +26,44 @@ Creation date: 2018/12/14
 
 class Object;
 
+class Animation_Information
+{
+public:
+    Animation_Information() = default;
+
+    Animation_Information(std::string path_, /*std::string ID,*/ int image_frame_,
+        float update_frame_, bool repeat = true)
+        : image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
+    {
+        sprites = new Sprite();
+        sprites->Texture_Load(path_);
+
+        frame_per_seconds = 1.0f / image_frames;
+    };
+
+//private:
+    Sprite * sprites = nullptr;
+    int image_frames = 0;
+    float update_frames = 0;
+    float frame_per_seconds = 0;
+    bool is_repeats = false;
+    //vector2 previous_current_coordinate{};
+};
+
 class Animation : public Component
 {
 public:
     Animation(std::string path_, std::string ID, int image_frame_, 
 		float update_frame_, bool repeat = true )
-        : path(path_), update_frame(update_frame_), image_frame(image_frame_), isrepeat(repeat)
     {
-		sprites.insert(std::make_pair(ID, new Sprite()));
+        current_animation = Animation_Information(path_, image_frame_, update_frame_, repeat);
+
+        previous_current_coordinate.x = 0;
+        previous_current_coordinate.y = frame_per_second;
+
+        animations.insert(std::make_pair(ID, current_animation));
+
+		/*sprites.insert(std::make_pair(ID, new Sprite()));
 		sprites.at(ID)->Texture_Load(path);
 		current_sprite = sprites.at(ID);
 
@@ -45,7 +75,7 @@ public:
 		image_frames.insert(std::make_pair(ID, image_frame));
 		frame_per_seconds.insert(std::make_pair(ID, (1.0f / image_frame)));
 		is_repeats.insert(std::make_pair(ID, isrepeat));
-		previous_current_coordinates.insert(std::make_pair(ID, previous_current_coordinate));
+		previous_current_coordinates.insert(std::make_pair(ID, previous_current_coordinate));*/
     };
 
     bool Initialize(Object* Ob) override;
@@ -54,20 +84,25 @@ public:
 
 	void AddAnimaition(const std::string path, const std::string ID, 
 		int image_frame_, float update_frame_, bool repeat = true);
+
     void Delete() override;
+
 	void ChangeAnimation(std::string ID);
 
 	bool IsDone() { return is_done; }
 
-	Object* GetObject() { return object; }
+	//Object* GetObject() { return object; }
 
 	void Imgui_Animation();
 
-    vector2 GetAnimationPosition() { return previous_current_coordinate; }
-    Sprite* GetAnimationSprite() { return current_sprite; }
+    //vector2 GetAnimationPosition() { return previous_current_coordinate; }
+    //Sprite* GetAnimationSprite() { return current_sprite; }
 
 private:
+    Animation_Information current_animation;
     vector2 previous_current_coordinate{};
+    std::unordered_map<std::string, Animation_Information> animations;
+
 	//std::map<std::string, Animation*> animations;
 
 	// TODO fixed like that
@@ -84,15 +119,15 @@ private:
 	std::map<std::string, TestSprite> testsprites;
 	*/
 
-	std::map<std::string, Sprite*> sprites;
+	/*std::map<std::string, Sprite*> sprites;
 	std::map<std::string, float> update_frames;
 	std::map<std::string, float> frame_per_seconds;
 	std::map<std::string, int> image_frames;
 	std::map<std::string, bool> is_repeats;
-	std::map<std::string, vector2> previous_current_coordinates{};
+	std::map<std::string, vector2> previous_current_coordinates{};*/
 
-	Sprite* current_sprite = nullptr;
-    std::string path;
+	//Sprite* current_sprite = nullptr;
+    //std::string path;
 
     float frame_per_second = 0;
     float update_frame = 0;

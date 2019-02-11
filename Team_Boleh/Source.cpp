@@ -25,18 +25,18 @@ Creation date: 2018/12/14
 
 int main()
 {
-	Engine engine;
+    Engine engine;
 
     engine.Initialize();
 
-	StateManager_.AddStage("remake", new level2());
+    StateManager_.AddStage("remake", new level2());
 
-	/*StateManager_->AddStage("Splash_Screen", new SplashScreen());
-	StateManager_->AddStage("StartMenu", new StartMenu());
-	StateManager_->AddStage("level1",new level1());
-	StateManager_->AddStage("level2", new level2());
-	StateManager_->AddStage("MapEditorTest", new MapEditorTest());
-	StateManager_->AddStage("Demonstrate", new Demonstrate());*/
+    /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
+    StateManager_->AddStage("StartMenu", new StartMenu());
+    StateManager_->AddStage("level1",new level1());
+    StateManager_->AddStage("level2", new level2());
+    StateManager_->AddStage("MapEditorTest", new MapEditorTest());
+    StateManager_->AddStage("Demonstrate", new Demonstrate());*/
 
     engine.Update();
   
