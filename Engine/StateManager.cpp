@@ -34,9 +34,17 @@ void StateManager::AddStage(std::string ID, State* state)
 
 	if (m_currentState == nullptr)
 	{
-		m_currentState = states.find(ID)->second.get();
+		if(auto& first_level = states.find(ID)->second; first_level->information_ == State_Information::Splash)
+		{
+			m_currentState = first_level.get();
+		}
+		else
+		{
+			m_currentState = first_level.get();
+			m_currentState->AddPlayer();
+			
+		}
 
-		m_currentState->AddPlayer();
 		m_currentState->Initialize();
 		/*if (states.find(ID)->second->information_ == State_Information::Splash)
 		{
@@ -51,11 +59,11 @@ void StateManager::ChangeStage()
 {
 	std::string next_level = m_currentState->GetNextLevel();
 
-	//m_currentState->UnLoad();
-
+	m_currentState->UnLoad();
+	m_currentState->ResetLevelChange();
 	m_currentState = states.find(next_level)->second.get();
 
-	//m_currentState->Load();
+	m_currentState->Load();
 
 	//if (m_currentState->information_ == State_Information::Game)
 	//{

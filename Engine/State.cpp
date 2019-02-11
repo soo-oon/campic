@@ -15,10 +15,8 @@ Creation date: 2018/12/14
 
 #include "State.hpp"
 #include "JSON.hpp"
-#include "status.hpp"
-#include "Status.hpp"
 #include "Player.hpp"
-#include "Sword.hpp"
+#include "Objectmanager.hpp"
 
 //void State::UpdateObjManager(float dt)
 //{
@@ -64,4 +62,15 @@ void State::AddPlayer()
 	player->AddComponent(new Player());
 
 	Objectmanager_.AddObject(*player);
+}
+
+void State::Load()
+{
+	if (Objectmanager_.GetObjectMap().empty())
+		AddPlayer();
+}
+
+void State::UnLoad()
+{
+	Objectmanager_.RemoveObject();
 }

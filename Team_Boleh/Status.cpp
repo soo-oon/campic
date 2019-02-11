@@ -11,7 +11,7 @@ bool Status::Initialize(Object* Ob)
 
 void Status::Update(float dt)
 {
-	if(hp < 0)
+	if(hp <= 0)
 		is_live = false;
 
 }

@@ -16,10 +16,10 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include <cassert>
 #include "Camera.hpp"
-#include "status.hpp"
 #include "Player.hpp"
 #include "Sword.hpp"
-#include "../Team_Boleh/FireBall.hpp"
+#include "Status.hpp"
+#include <iostream>
 
 Objectmanager Objectmanager_;
 
@@ -41,11 +41,20 @@ bool Objectmanager::Initialize()
 
 void Objectmanager::Update(float dt)
 {
-	for(auto& obj : objects_)
+	for (auto object = objects_.begin(); object != objects_.end();)
 	{
-		for(auto components : obj->GetComponent())
+		for (auto components : object->get()->GetComponent())
 		{
 			components->Update(dt);
+		}
+
+		if (!object->get()->GetComponentByTemplate<Status>()->IsLive())
+		{
+			object = objects_.erase(object);
+		}
+		else
+		{
+			object++;
 		}
 	}
 
@@ -111,6 +120,20 @@ void Objectmanager::AddObject(Object obj)
 
 void Objectmanager::RemoveObject()
 {
+	for(auto object = objects_.begin(); object != objects_.end();)
+	{
+		if(object->get()->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player &&
+			object->get()->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Sword)
+		{
+			object = objects_.erase(object);
+		}
+		else
+		{
+			object++;
+		}
+	}
+
+	std::cout << objects_.size() << std::endl;
 }
 
 //void Objectmanager::RemoveObject(std::string key_name)

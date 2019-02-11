@@ -24,8 +24,6 @@ class JSON;
 class State
 {
 public:
-	//virtual void Load();
-	//virtual void UnLoad();
 	//virtual void UpdateObjManager(float dt);
 	//virtual void UpdateJsonState(StateManager* current);
 	//virtual std::unique_ptr<Objectmanager>& GetObjectManager(){return objectmanager;}
@@ -46,15 +44,18 @@ public:
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual void ChangeLevel(std::string ID);
 
+	void ResetLevelChange() { level_change = false; }
 	void AddPlayer();
+	void Load();
+	void UnLoad();
 
 	State_Information information_ = State_Information::None;
 
 private:
 	//std::unique_ptr<Objectmanager> objectmanager;
-	//vector2 screen_size_{};
 	//JSON* json = nullptr;
 
+	vector2 screen_size_{};
 	std::string change_level;
 
 	bool iscamera = false;

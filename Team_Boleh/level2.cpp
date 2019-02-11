@@ -21,6 +21,21 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
+	Object* temp = new Object();
+
+	temp->SetTranslation({ 100,-100 });
+	temp->SetScale({ 50.0f, 50.0f });
+	temp->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	temp->AddComponent(new Sprite());
+	temp->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
+	temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	temp->AddComponent(new Status(ObjectType::None ,5, 1, 1.f));
+
+	Objectmanager_.AddObject(*temp);
+	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
+	std::cout << "-------------" << std::endl;
+
+
 	/*
 	Object* player = new Object();
 	player.SetTranslation({ 0,0 });
@@ -128,10 +143,19 @@ void level2::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
 		ChangeLevel("remake");
-		//AudioManager_.PlaySFX("asset/sounds/punch.wav", 4,4,1,1);
 	}
-	if (Input::IsKeyTriggered(GLFW_KEY_2))
-		ChangeLevel("level1");
+
+	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+	{
+
+		for(auto& obj : Objectmanager_.GetObjectMap())
+		{
+			if(auto temp = obj.get()->GetComponentByTemplate<Status>(); temp->GetObjectType()!= ObjectType::Player)
+			{
+				temp->Damaged(5);
+			}
+		}
+	}
 
 	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("StartMenu");
