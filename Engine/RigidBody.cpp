@@ -62,13 +62,13 @@ vector2 RigidBody::GetPosition()
 
 bool RigidBody::Initialize(Object* Ob)
 {
-	//if (object == nullptr)
-	//{
+	if (object == nullptr)
+	{
 		object = Ob;
 		previous_position = object->GetTransform().GetTranslation();
 		force_accumlator = { 0, 0 };
 		velocity = { 0, 0 };
-	//}
+	}
     return true;
 }
 
@@ -80,7 +80,7 @@ void RigidBody::Update(float dt)
 	// calculate current velocity.
 	velocity += inverse_mass * (force_accumlator * dt);
 	if(object->GetComponentByTemplate<Status>() != nullptr)
-	velocity *=object->GetComponentByTemplate<Status>()->GetSpeed();
+		velocity *=object->GetComponentByTemplate<Status>()->GetSpeed();
 
 	// zero out accumulated force
 	force_accumlator = {0, 0};

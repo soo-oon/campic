@@ -14,9 +14,6 @@ Creation date: 2018/12/14
 */
 #pragma once
 #include "State.hpp"
-#include "System.hpp"
-#include "HUD_level.hpp"
-#include <memory>
 #include "Objectmanager.hpp"
 
 class HUD
@@ -26,8 +23,7 @@ public:
 	void Update(float dt);
 	void Quit();
 
-	State* GetHUDlevel() { return hud_level; }
-	void SetObjectManager(Objectmanager* objectmanager) { object_manager_HUD = objectmanager; }
+	Objectmanager* Get_HUD_ObjectManager() { return object_manager_HUD; }
 
 private:
 	State* hud_level = nullptr;

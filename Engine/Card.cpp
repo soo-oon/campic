@@ -14,7 +14,7 @@ Creation date: 2018/12/14
 */
 
 #include "Card.hpp"
-#include "Character.hpp"
+#include "Status.hpp"
 
 Card::Card(std::string name)
 {

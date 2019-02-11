@@ -118,24 +118,24 @@ vector2 Mesh::GetTextureCoordinate(size_t index, Sprite* sprite)
 
 vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
 {
-	if (!animation->GetAnimationSprite()->IsFlip())
+	if (!animation->GetCurrentAnimation().sprites->IsFlip())
 	{
 		switch (index)
 		{
 		case 0:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.x;
 			animationCoordinates.at(index).y = 1;
 			break;
 		case 1:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.y;
 			animationCoordinates.at(index).y = 1;
 			break;
 		case 2:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.x;
 			animationCoordinates.at(index).y = 0;
 			break;
 		case 3:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.y;
 			animationCoordinates.at(index).y = 0;
 			break;
 		default:
@@ -147,19 +147,19 @@ vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
 		switch (index)
 		{
 		case 0:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.y;
 			animationCoordinates.at(index).y = 1;
 			break;
 		case 1:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.x;
 			animationCoordinates.at(index).y = 1;
 			break;
 		case 2:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().y;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.y;
 			animationCoordinates.at(index).y = 0;
 			break;
 		case 3:
-			animationCoordinates.at(index).x = animation->GetAnimationPosition().x;
+			animationCoordinates.at(index).x = animation->GetCurrentAnimation().previous_current_coordinate.x;
 			animationCoordinates.at(index).y = 0;
 			break;
 		default:

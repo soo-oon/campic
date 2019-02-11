@@ -85,8 +85,6 @@ public:
 
 private:
 	bool visible = true;
-
-    int Animation_frame = 0;
     std::vector<vector2> points{};
     std::vector<vector2> textureCoordinates{};
     std::vector<vector2> animationCoordinates{};

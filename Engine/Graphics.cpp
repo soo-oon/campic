@@ -83,8 +83,8 @@ void Graphics::Update(float dt)
 	int w, h;
 
 	glfwGetWindowSize(Application_.GetWindow(), &w, &h);
-	displaysize.x = w;
-	displaysize.y = h;
+	displaysize.x = static_cast<float>(w);
+	displaysize.y = static_cast<float>(h);
 
 	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 
@@ -177,7 +177,7 @@ void Graphics::Draw()
 					}
 					Draw(obj->GetTransform(), animation, obj->GetMesh().GetPointListType(),
 						obj->GetMesh().GetColor(0),
-						temp_animation->GetAnimationSprite());
+						temp_animation->GetCurrentAnimation().sprites);
 				}
 				else if (obj->GetMesh().GetPointCount())
 				{
@@ -364,7 +364,7 @@ void Graphics::HUD_Draw()
 					}
 					Draw(obj->GetTransform(), animation, obj->GetMesh().GetPointListType(),
 						obj->GetMesh().GetColor(0),
-						temp_animation->GetAnimationSprite());
+						temp_animation->GetCurrentAnimation().sprites);
 				}
 				else if (obj->GetMesh().GetPointCount())
 				{

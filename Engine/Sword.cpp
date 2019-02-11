@@ -17,7 +17,7 @@ Creation date: 2018/12/14
 #include "Input.hpp"
 #include "Graphics.hpp"
 #include "status.hpp"
-#include "Character.hpp"
+#include "Status.hpp"
 #include <iostream>
 
 Sword::Sword(Object * player)
@@ -39,8 +39,7 @@ bool Sword::Initialize(Object * Ob)
 		object->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
 		object->AddComponent(new RigidBody());
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
-		object->AddComponent(new Character(ObjectType::sword));
-		object->AddComponent(new Status(5, 1, 1.f));
+		object->AddComponent(new Status(ObjectType::Sword, 5, 1, 1.f));
 		object->SetDepth(0.978f);
 	}
 	return true;

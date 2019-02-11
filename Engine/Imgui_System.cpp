@@ -14,7 +14,7 @@ Creation date: 2018/12/14
 
 #include "Imgui_System.hpp"
 #include <iostream>
-#include "Character.hpp"
+#include "Status.hpp"
 #include "Graphics.hpp"
 #include "status.hpp"
 

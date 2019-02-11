@@ -35,6 +35,8 @@ void StateManager::AddStage(std::string ID, State* state)
 	if (m_currentState == nullptr)
 	{
 		m_currentState = states.find(ID)->second.get();
+
+		m_currentState->AddPlayer();
 		m_currentState->Initialize();
 		/*if (states.find(ID)->second->information_ == State_Information::Splash)
 		{

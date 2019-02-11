@@ -21,7 +21,6 @@ Creation date: 2018/12/14
 #include "Sword.hpp"
 #include "../Team_Boleh/FireBall.hpp"
 
-//Objectmanager* Objectmanager_ = new Objectmanager();
 Objectmanager Objectmanager_;
 
 bool Objectmanager::Initialize()
@@ -107,10 +106,6 @@ void Objectmanager::AddObject(Object obj)
 {
 	auto temp_obj = std::make_unique<Object>(obj);
 
-	for(auto& components : temp_obj->GetComponent())
-	{
-		components->Initialize(temp_obj.get());
-	}
 	objects_.push_back(std::move(temp_obj));
 }
 

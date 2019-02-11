@@ -39,7 +39,7 @@ bool AudioManager::Initialize()
 	modes[CATEGORY_SONG] = FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL;
     
 	// Seed random number generator for SFXs  
-	srand(time(0));
+	srand((unsigned)time(NULL));
 
 	std::cout << "AudioManager Initialization Successful" << std::endl;
 

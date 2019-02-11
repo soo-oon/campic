@@ -56,7 +56,6 @@ void Engine::Update()
 		Graphics_.Draw();
 		Graphics_.EndDraw();
 		IMGUI_.Draw();
-		//Application_->SetDispalyAreaSize(Graphic_, State_);
 
 		//Json->UpdateLevel(GetSystemByTemplate<StateManager>());
 		//Json->UpdateState(GetSystemByTemplate<StateManager>());

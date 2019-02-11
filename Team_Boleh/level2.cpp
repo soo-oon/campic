@@ -15,22 +15,14 @@ Creation date: 2018/12/14
 
 #include "level2.hpp"
 #include "Input.hpp"
-#include "Sprite.hpp"
-#include "Collision.hpp"
-#include "Camera.hpp"
 #include "Animation.hpp"
 #include <iostream>
-#include "Character.hpp"
-#include "Player.hpp"
-#include "status.hpp"
-#include "Card.hpp"
-#include "Sword.hpp"
-#include "Graphics.hpp"
-#include "FireBall.hpp"
+#include "Status.hpp"
 
 void level2::Initialize()
 {
-	Object player;
+	/*
+	Object* player = new Object();
 	player.SetTranslation({ 0,0 });
 	player.SetScale({ 100.0f, 100.0f });
 	player.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -40,8 +32,10 @@ void level2::Initialize()
 	player.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	player.AddComponent(new Character(ObjectType::player));
 	player.AddComponent(new Status(5, 1, 1.f));
+	player->AddComponent(new Player());
 
-	Objectmanager_.AddObject(player);
+	Objectmanager_.AddObject(*player);
+	*/
 
 	//AudioManager_.LoadSong("asset/sounds/bgm.mp3");
 	//AudioManager_.LoadSFX("asset/sounds/punch.wav");
@@ -133,13 +127,11 @@ void level2::Update(float dt)
 {
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
-		ChangeLevel("level2");
+		ChangeLevel("remake");
 		//AudioManager_.PlaySFX("asset/sounds/punch.wav", 4,4,1,1);
 	}
-	if (Input::IsKeyTriggered(GLFW_KEY_1))
+	if (Input::IsKeyTriggered(GLFW_KEY_2))
 		ChangeLevel("level1");
-	if (Input::IsKeyTriggered(GLFW_KEY_3))
-		ChangeLevel("MapEditorTest");
 
 	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("StartMenu");

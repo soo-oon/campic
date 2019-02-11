@@ -45,6 +45,9 @@ public:
 	virtual bool IsLevelChange() { return level_change; }
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual void ChangeLevel(std::string ID);
+
+	void AddPlayer();
+
 	State_Information information_ = State_Information::None;
 
 private:

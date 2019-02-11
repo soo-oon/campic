@@ -16,7 +16,7 @@ Creation date: 2018/12/14
 #include "Physics.hpp"
 #include "RigidBody.hpp"
 #include "Collision.hpp"
-#include "Character.hpp"
+#include "Status.hpp"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "status.hpp"
@@ -122,7 +122,7 @@ void Physics::Update(float dt)
 					else
 					{
 						//StopReaction(temp);
-						if (auto temp_character = obj->get()->GetComponentByTemplate<Character>(); temp_character != nullptr)
+						if (auto temp_character = obj->get()->GetComponentByTemplate<Status>(); temp_character != nullptr)
 						{
 							temp_collision->SetRestitutionType(RestitutionType::get);
 						}
@@ -188,87 +188,87 @@ void Physics::Quit()
 
 void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 {
-	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::wall)
+	if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Wall)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword)
 	{	
 		if (object2.GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
 		}
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
 	{
 		if (object1.GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
-			object2.GetComponentByTemplate<Status>()->Damaged_hp(object1.GetComponentByTemplate<Status>()->GetDamage());
+			object2.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
 		}
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::shot)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Shooting)
 	{
-		object1.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
+		object1.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::shot
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Shooting
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
 	{
-		object2.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
+		object2.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
 	}
-        else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
-            && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::card)
+        else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
+            && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Item)
         {
             object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
 	    object1.GetComponentByTemplate<Player>()->SetCardList(object2.GetComponentByTemplate<Card>()->GetName());
         }
-        else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::card
-            && object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+        else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Item
+            && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
         {
             object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::get);
 		if(object1.GetComponentByTemplate<Card>() != nullptr)
 	    object2.GetComponentByTemplate<Player>()->SetCardList(object1.GetComponentByTemplate<Card>()->GetName());
         }
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::stop);
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
 	{
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
-		object2.GetComponentByTemplate<Status>()->Damaged_hp(object1.GetComponentByTemplate<Status>()->GetDamage());
+		object2.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::opponent)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::bounce);
-		object1.GetComponentByTemplate<Status>()->Damaged_hp(object2.GetComponentByTemplate<Status>()->GetDamage());
+		object1.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
 	}
-	else if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::sword)
+	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 	}
-	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player)
+	if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Door
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
 	{
 		object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit_);
 	}
-	if (object1.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::player
-		&& object2.GetComponentByTemplate<Character>()->GetCharType() == ObjectType::door)
+	if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
+		&& object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Door)
 	{
 		object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::exit_);
 	}

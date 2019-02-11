@@ -17,8 +17,7 @@ Creation date: 2018/12/14
 #include "Object.hpp"
 #include "Input.hpp"
 #include "Graphics.hpp"
-#include "status.hpp"
-#include "Character.hpp"
+#include "Status.hpp"
 
 bool FireBall::Initialize(Object* Ob)
 {
@@ -35,8 +34,7 @@ bool FireBall::Initialize(Object* Ob)
 	object->AddComponent(new RigidBody());
 	object->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
 	object->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));
-	object->AddComponent(new Character(ObjectType::shot));
-	object->AddComponent(new Status(1, 1, 1.f));
+	object->AddComponent(new Status(ObjectType::Shooting, 1, 1, 1.f));
 
 	return true;
 }

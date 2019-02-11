@@ -34,7 +34,7 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if (object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			AttackedReaction(object, di_object); 
-			di_object->GetComponentByTemplate<Status>()->Damaged_hp(object->GetComponentByTemplate<Status>()->GetDamage());
+			di_object->GetComponentByTemplate<Status>()->Damaged(object->GetComponentByTemplate<Status>()->GetDamage());
 		}
 		object->GetComponentByTemplate<Collision>()->Nohit();
 	}
@@ -43,7 +43,7 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if (di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			AttackedReaction(di_object, object);
-			object->GetComponentByTemplate<Status>()->Damaged_hp(di_object->GetComponentByTemplate<Status>()->GetDamage());
+			object->GetComponentByTemplate<Status>()->Damaged(di_object->GetComponentByTemplate<Status>()->GetDamage());
 		}
 		di_object->GetComponentByTemplate<Collision>()->Nohit();
 	}

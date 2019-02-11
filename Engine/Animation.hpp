@@ -41,13 +41,12 @@ public:
         frame_per_seconds = 1.0f / image_frames;
     };
 
-//private:
     Sprite * sprites = nullptr;
     int image_frames = 0;
     float update_frames = 0;
     float frame_per_seconds = 0;
     bool is_repeats = false;
-    //vector2 previous_current_coordinate{};
+    vector2 previous_current_coordinate{};
 };
 
 class Animation : public Component
@@ -58,86 +57,34 @@ public:
     {
         current_animation = Animation_Information(path_, image_frame_, update_frame_, repeat);
 
-        previous_current_coordinate.x = 0;
-        previous_current_coordinate.y = frame_per_second;
+        current_animation.previous_current_coordinate.x = 0;
+		current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
 
         animations.insert(std::make_pair(ID, current_animation));
 
-		/*sprites.insert(std::make_pair(ID, new Sprite()));
-		sprites.at(ID)->Texture_Load(path);
-		current_sprite = sprites.at(ID);
-
-		frame_per_second = (1.0f / image_frame);
-		previous_current_coordinate.x = 0;
-		previous_current_coordinate.y = frame_per_second;
-
-		update_frames.insert(std::make_pair(ID, update_frame));
-		image_frames.insert(std::make_pair(ID, image_frame));
-		frame_per_seconds.insert(std::make_pair(ID, (1.0f / image_frame)));
-		is_repeats.insert(std::make_pair(ID, isrepeat));
-		previous_current_coordinates.insert(std::make_pair(ID, previous_current_coordinate));*/
     };
 
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
-	//void AddAnimaition(const std::string path, const std::string ID);
 
 	void AddAnimaition(const std::string path, const std::string ID, 
 		int image_frame_, float update_frame_, bool repeat = true);
 
     void Delete() override;
 
-	void ChangeAnimation(std::string ID);
+	void ChangeAnimation(std::string ID, std::string original_ID = NULL);
 
 	bool IsDone() { return is_done; }
 
-	//Object* GetObject() { return object; }
-
 	void Imgui_Animation();
 
-    //vector2 GetAnimationPosition() { return previous_current_coordinate; }
-    //Sprite* GetAnimationSprite() { return current_sprite; }
+    Animation_Information GetCurrentAnimation() { return current_animation; }
 
 private:
     Animation_Information current_animation;
-    vector2 previous_current_coordinate{};
+	Animation_Information previous_animation;
     std::unordered_map<std::string, Animation_Information> animations;
 
-	//std::map<std::string, Animation*> animations;
-
-	// TODO fixed like that
-	/*
-	class TestSprite
-	{
-		sprites;
-		update_frames;
-		frame_per_seconds;
-		image_frames;
-		is_repeats;
-		previous_current_coordinates{};
-	};
-	std::map<std::string, TestSprite> testsprites;
-	*/
-
-	/*std::map<std::string, Sprite*> sprites;
-	std::map<std::string, float> update_frames;
-	std::map<std::string, float> frame_per_seconds;
-	std::map<std::string, int> image_frames;
-	std::map<std::string, bool> is_repeats;
-	std::map<std::string, vector2> previous_current_coordinates{};*/
-
-	//Sprite* current_sprite = nullptr;
-    //std::string path;
-
-    float frame_per_second = 0;
-    float update_frame = 0;
-
 	bool is_done = false;
-	//bool isActive = true;
-
-    //float previous_position = 0;
-    //float current_position = 0;
     float frame_time = 0;
-    int image_frame = 0;
-	bool isrepeat;
 };

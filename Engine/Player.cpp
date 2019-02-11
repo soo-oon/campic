@@ -16,8 +16,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include "Input.hpp"
 #include "RigidBody.hpp"
-#include "Character.hpp"
-#include "status.hpp"
+#include "Status.hpp"
 #include <iostream>
 #include "Graphics.hpp"
 
@@ -33,8 +32,7 @@ bool Player::Initialize(Object * Ob)
 		object->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
 		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-		object->AddComponent(new Character(ObjectType::player));
-		object->AddComponent(new Status(5, 1, 1.f));
+		object->AddComponent(new Status(ObjectType::Player, 5, 1, 1.f));
 	}
 	return true;
 }
@@ -70,19 +68,19 @@ void Player::MovePlayer()
 
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack","player");
 	}
 
-	if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(1, 0)) > 0)
+	/*if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(1, 0)) > 0)
 	{
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
-		object->GetComponentByTemplate<Animation>()->GetAnimationSprite()->Flip_Not();
+		object->GetComponentByTemplate<Animation>()->GetCurrentAnimation().sprites->Flip_Not();
 	}
 	else
 	{
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
-		object->GetComponentByTemplate<Animation>()->GetAnimationSprite()->Flip();
-	}
+		object->GetComponentByTemplate<Animation>()->GetCurrentAnimation().sprites->Flip();
+	}*/
 
 }
 

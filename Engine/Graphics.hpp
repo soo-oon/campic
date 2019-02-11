@@ -23,7 +23,7 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include "Camera.hpp"
 
-class Animation;
+//class Animation;
 
 enum class Type : int
 {
