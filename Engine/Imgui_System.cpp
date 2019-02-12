@@ -16,7 +16,6 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Status.hpp"
 #include "Graphics.hpp"
-#include "status.hpp"
 
 Imgui_System IMGUI_;
 

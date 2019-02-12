@@ -52,11 +52,12 @@ void level2::Initialize()
 	Objectmanager_.AddObject(*player);
 	*/
 
-	//AudioManager_.LoadSong("asset/sounds/bgm.mp3");
-	//AudioManager_.LoadSFX("asset/sounds/punch.wav");
-	//AudioManager_.PlaySong("asset/sounds/bgm.mp3");
+    /*
+	AudioManager_.LoadSong("asset/sounds/bgm.mp3");
+	AudioManager_.LoadSFX("asset/sounds/punch.wav");
+	AudioManager_.PlaySong("asset/sounds/bgm.mp3");
 	
-	/*GetObjectManager()->AddObject("camera");
+	GetObjectManager()->AddObject("camera");
 	GetSoundMap()->AddSound("asset/sounds/inchant.mp3");
 	GetSoundMap()->AddSound("asset/sounds/punch.wav");
 
@@ -135,7 +136,8 @@ void level2::Initialize()
 
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
 	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
-	spark->GetMesh().Invisible();*/
+	spark->GetMesh().Invisible();
+    */
 }
 
 void level2::Update(float dt)

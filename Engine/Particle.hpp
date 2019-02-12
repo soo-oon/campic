@@ -15,46 +15,35 @@ Creation date: 2018/12/14
 
 #pragma once
 #include "Component.hpp"
+#include "vector2.hpp"
+#include <memory>
 #include <vector>
-#include <vector2.hpp>
-#include "Mesh.hpp"
-#include "Sprite.hpp"
-#include "Transform.hpp"
-
-class Sprite;
 
 struct Particle_Obj
 {
-	Particle_Obj(Transform transfrom, Mesh mesh, vector2 velocity, float life_time, std::string path_);
-	Transform transform_;
-	Mesh mesh_;
-	vector2 velocity_;
-	float life_time_;
-	Sprite* sprite_ = nullptr;
-
+    float life_time;
+    vector2 position;
+    vector2 velocity;
 };
 
 class Particle : public Component
 {
 public:
-	Particle(int amount, float life_time, int particle_number, vector2 offset)
-		: amount_(amount), const_life_time(life_time), update_particle_number(particle_number), offset_(offset)
-	{}
+    Particle(int number_, float life_time_)
+    : number(number_)
+    {
+        for(int i = 0; i< number; ++i)
+        {
+        }
+    };
 
-	bool Particle_Generate(Transform transform, Mesh mesh, vector2 velocity, std::string path_);
-	bool Initialize(Object* Ob)override;
-	void Update(float dt) override;
-	void Delete() override;
-	auto& GetParticle_Objets() { return particle_objs; }
-
-	int UnusedParticle();
-	void RespawnParticle(Particle_Obj* particle_obj, vector2 offset);
-	int last_used_particle_index = 0;
+    bool Initialize(Object* Ob) override;
+    void Update(float dt) override;
+    void Delete() override;
 
 private:
-	int amount_;
-	float const_life_time;
-	int update_particle_number;
-	vector2 offset_;
-	std::vector<std::unique_ptr<Particle_Obj>> particle_objs;
+    std::vector<std::unique_ptr<Particle_Obj>> particles;
+    int number;
+    
+
 };

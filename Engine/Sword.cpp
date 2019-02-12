@@ -16,7 +16,6 @@ Creation date: 2018/12/14
 #include "Sword.hpp"
 #include "Input.hpp"
 #include "Graphics.hpp"
-#include "status.hpp"
 #include "Status.hpp"
 #include <iostream>
 
