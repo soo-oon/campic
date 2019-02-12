@@ -26,8 +26,7 @@ public:
 
 	void Initialize() override;
 	void Update(float dt) override;
-	void ShutDown() override
-	{};
+	void ShutDown() override;
 	//Object* BuildAndRegisterDynamicObject(std::string object_name, vector2 position, vector2 scale);
 	//Object* BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale);
 	//void SwordSwing(vector2 mouse_position, Object* player, Object* sword);

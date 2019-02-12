@@ -1,0 +1,14 @@
+{
+    "Object": {
+        "type": "Player",
+        "position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "scale": {
+            "x": 100.0,
+            "y": 100.0
+        },
+        "rotation": 0.0
+    }
+}

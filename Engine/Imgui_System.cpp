@@ -70,9 +70,9 @@ void Imgui_System::Update(float dt)
 
 void Imgui_System::Quit()
 {
+	//ImGui::DestroyContext();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
 }
 
 void Imgui_System::Draw()

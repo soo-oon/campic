@@ -22,6 +22,7 @@ Creation date: 2018/12/14
 #include "StartMenu.hpp"
 #include "SplashScreen.hpp"
 #include "Demonstrate.hpp"
+#include "JSON.hpp"
 
 int main()
 {
@@ -41,7 +42,7 @@ int main()
 
     engine.Update();
   
-    //engine.ShutDown();
+    engine.Quit();
 
     return 0;
 }

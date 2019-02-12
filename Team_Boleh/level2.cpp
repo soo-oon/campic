@@ -145,9 +145,18 @@ void level2::Update(float dt)
 		ChangeLevel("remake");
 	}
 
+	if (Input::IsKeyTriggered(GLFW_KEY_F1))
+	{
+		for (auto& obj : Objectmanager_.GetObjectMap())
+		{
+			JSON_.ObjectsToDocument(obj.get());
+		}
+		JSON_.GetObjectDocument().SetObject();
+		std::cout << "Objects Saved" << std::endl;
+	}
+
 	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
 	{
-
 		for(auto& obj : Objectmanager_.GetObjectMap())
 		{
 			if(auto temp = obj.get()->GetComponentByTemplate<Status>(); temp->GetObjectType()!= ObjectType::Player)
@@ -203,12 +212,11 @@ void level2::Update(float dt)
 	}*/
 }
 
-/*
 void level2::ShutDown()
 {
 	UnLoad();
 }
-
+/*
 Object* level2::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
 {
 	GetObjectManager()->AddObject(object_name);

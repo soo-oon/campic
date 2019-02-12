@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include <vector2.hpp>
 #include "AudioManager.hpp"
 #include "StateManager.hpp"
+#include "JSON.hpp"
 
 class JSON;
 

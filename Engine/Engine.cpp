@@ -82,11 +82,11 @@ void Engine::System_Initialize()
 	IMGUI_.Initialize();
 	AudioManager_.Initialize();
 	Physics_.Initialize();
-
+	JSON_.Initialize();
 
 	//TODO make new HUD structure 
 	//HUD_.Initialize();
-	//JSON_.Initialize();
+	
 }
 
 void Engine::System_Update()
@@ -97,14 +97,13 @@ void Engine::System_Update()
 	Graphics_.Update(dt);
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
+	JSON_.Update(dt);
 
 	// Should Fix All of Update ways (Should Fix Physics class structure)
 	Physics_.Update(dt);
 
-
 	//TODO make new HUD structure 
 	//HUD_.Update(dt);
-	//JSON_.Update(dt);
 }
 
 void Engine::System_Quit()
@@ -116,8 +115,7 @@ void Engine::System_Quit()
 	IMGUI_.Quit();
 	AudioManager_.Quit();
 	Physics_.Quit();
-
+	JSON_.Quit();
 
 	//HUD_.Quit();
-	//JSON_.Quit();
 }

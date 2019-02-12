@@ -86,7 +86,7 @@ void Graphics::Update(float dt)
 	displaysize.x = static_cast<float>(w);
 	displaysize.y = static_cast<float>(h);
 
-        std::cout << displaysize.x << ", " << displaysize.y << std::endl;
+      //  std::cout << displaysize.x << ", " << displaysize.y << std::endl;
 
 
 	glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
@@ -462,9 +462,9 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
     Solidshader.SendUniformVariable("color", color);
 
-    glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::solid_obj]);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::solid_obj]);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(solidshape) * vertexes.size(), (const void*)(&vertexes[0]),
                  GL_DYNAMIC_DRAW);
@@ -493,9 +493,9 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
     Solidshader.SendUniformVariable("depth", transform.GetDepth());
     Solidshader.SendUniformVariable("color", color);
 
-    glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::solid_obj]);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::solid_obj]);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(collsionbox) * vertexes.size(), (const void*)(&vertexes[0]),
         GL_DYNAMIC_DRAW);
@@ -532,8 +532,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
     Spriteshader.SendUniformVariable("color", color);
     Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
-    glBindVertexArray(vertexAttributes[(int)Type::sprite]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
     glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
 
@@ -569,8 +569,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
     Spriteshader.SendUniformVariable("color", color);
     Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
-    glBindVertexArray(vertexAttributes[(int)Type::sprite]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
     glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
 
@@ -606,8 +606,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 	Spriteshader.SendUniformVariable("color", color);
 	Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
 
-	glBindVertexArray(vertexAttributes[(int)Type::sprite]);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
+	glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
 	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
 
@@ -616,9 +616,9 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 
 void Graphics::DescribSolidVertexPosition()
 {
-    glBindVertexArray(vertexAttributes[(int)Type::solid_obj]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::solid_obj]);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::solid_obj]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::solid_obj]);
 
     int position_attribute_location = Solidshader.GetVertexAttributeLocation("position");
 
@@ -635,8 +635,8 @@ void Graphics::DescribSolidVertexPosition()
 
 void Graphics::DescribVertexPosition()
 {
-    glBindVertexArray(vertexAttributes[(int)Type::sprite]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::sprite]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
     int position_attribute_location = Spriteshader.GetVertexAttributeLocation("position");
     int texture_coordinate_attribute_location = Spriteshader.GetVertexAttributeLocation("texture_coordinate");
@@ -660,8 +660,8 @@ void Graphics::DescribVertexPosition()
 
 void Graphics::DescribParticlePosition()
 {
-	glBindVertexArray(vertexAttributes[(int)Type::particle]);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)Type::particle]);
+	glBindVertexArray(vertexAttributes[(int)GraphicsType::particle]);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::particle]);
 
 	int position_attribute_location = Particleshader.GetVertexAttributeLocation("position");
 	int texture_coordinate_attribute_location = Particleshader.GetVertexAttributeLocation("texture_coordinate");

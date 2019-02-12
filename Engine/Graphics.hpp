@@ -25,7 +25,7 @@ Creation date: 2018/12/14
 
 //class Animation;
 
-enum class Type : int
+enum class GraphicsType : int
 {
 	solid_obj,
 	sprite,
@@ -97,7 +97,7 @@ private:
 	bool Iscamera = false;
 	Camera* temp_camera = nullptr;	
 
-	static const int NumberOfVertexTypes = (int)Type::count;
+	static const int NumberOfVertexTypes = (int)GraphicsType::count;
 	vector2 displaysize{};
 
 	affine2d projection = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
