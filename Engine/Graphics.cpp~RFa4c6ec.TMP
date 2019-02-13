@@ -144,9 +144,9 @@ void Graphics::Draw()
 					for (std::size_t i = 0; i < p->mesh_.GetTexturePointsCount(); ++i)
 					{
 						particles.push_back(
-							{ p->mesh_.GetPoint(i), p->mesh_.GetTextureCoordinate(i, &p->sprite_) });
+							{ p->mesh_.GetPoint(i), p->mesh_.GetTextureCoordinate(i, p->sprite_) });
 					}
-					Draw(p->transform_, particles, p->mesh_.GetPointListType(), p->mesh_.GetColor(0),& p->sprite_);
+					Draw(p->transform_, particles, p->mesh_.GetPointListType(), p->mesh_.GetColor(0), p->sprite_);
 				}
 			}
 
@@ -331,9 +331,9 @@ void Graphics::HUD_Draw()
 					for (std::size_t i = 0; i < p->mesh_.GetTexturePointsCount(); ++i)
 					{
 						particles.push_back(
-							{ p->mesh_.GetPoint(i), p->mesh_.GetTextureCoordinate(i, &p->sprite_) });
+							{ p->mesh_.GetPoint(i), p->mesh_.GetTextureCoordinate(i, p->sprite_) });
 					}
-					Draw(p->transform_, particles, p->mesh_.GetPointListType(), p->mesh_.GetColor(0), &p->sprite_);
+					Draw(p->transform_, particles, p->mesh_.GetPointListType(), p->mesh_.GetColor(0), p->sprite_);
 				}
 			}
 

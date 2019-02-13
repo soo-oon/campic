@@ -56,19 +56,20 @@ void State::ChangeLevel(std::string ID)
 	change_level = ID;
 }
 
-void State::AddPlayer()
-{
-	Object* player = new Object();
-	player->AddComponent(new Player());
-
-	Objectmanager_.AddObject(*player);
-}
-
 void State::Load()
 {
 	if (Objectmanager_.GetObjectMap().empty())
 		AddPlayer();
 }
+
+void State::AddPlayer()
+{
+	Object player;
+	player.AddComponent(new Player());
+
+	Objectmanager_.AddObject(player);
+}
+
 
 void State::UnLoad()
 {

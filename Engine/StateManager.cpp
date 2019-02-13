@@ -69,7 +69,6 @@ void StateManager::ChangeStage()
 	//{
 	//	m_currentState->AddPlayer();
 	//}
-	//m_currentState->GetObjectManager()->Initialize();
 
 	m_currentState->Initialize();
 }

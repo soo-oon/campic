@@ -31,17 +31,17 @@ class Animation_Information
 public:
     Animation_Information() = default;
 
-    Animation_Information(std::string path_, /*std::string ID,*/ int image_frame_,
+    Animation_Information(const std::string path_, /*std::string ID,*/ int image_frame_,
         float update_frame_, bool repeat = true)
-        : image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
+        : path(path_), image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
     {
-        sprites = new Sprite();
-        sprites->Texture_Load(path_);
+        sprites = new Sprite(path);
 
         frame_per_seconds = 1.0f / image_frames;
     };
 
     Sprite * sprites = nullptr;
+	std::string path;
     int image_frames = 0;
     float update_frames = 0;
     float frame_per_seconds = 0;
@@ -56,6 +56,7 @@ public:
 		float update_frame_, bool repeat = true )
     {
         current_animation = Animation_Information(path_, image_frame_, update_frame_, repeat);
+		current_animation.sprites->Texture_Load();
 
         current_animation.previous_current_coordinate.x = 0;
 		current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;

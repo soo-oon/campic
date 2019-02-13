@@ -33,6 +33,11 @@ bool Player::Initialize(Object * Ob)
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
 		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 		object->AddComponent(new Status(ObjectType::Player, 5, 1, 1.f));
+
+		for(auto temp : object->GetComponent())
+		{
+			temp->Initialize(object);
+		}
 	}
 	return true;
 }
@@ -49,6 +54,14 @@ void Player::Delete()
 
 void Player::MovePlayer()
 {
+	/*std::cout << object->GetTransform().GetTranslation().x << ", " << object->GetTransform().GetTranslation().y
+		<< std::endl;*/
+
+	if(object != Objectmanager_.GetObjectMap()[0].get())
+	{
+		std::cout << "hi" << std::endl;
+	}
+
 	if (Input::IsKeyPressed(GLFW_KEY_W))
 	{
 		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 2));

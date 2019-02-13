@@ -19,7 +19,7 @@ Creation date: 2018/12/14
 void Object::AddComponent(Component* component)
 {
     components.push_back(component);
-    component->Initialize(this);
+    //component->Initialize(this);
 }
 
 void Object::SetMesh(Mesh mesh)

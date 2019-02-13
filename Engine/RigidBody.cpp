@@ -14,9 +14,9 @@ Creation date: 2018/12/14
 */
 
 #include "RigidBody.hpp"
-#include "status.hpp"
 #include "Player.hpp"
 #include <iostream>
+#include "Status.hpp"
 
 
 void RigidBody::CollisionOn()

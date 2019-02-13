@@ -54,6 +54,7 @@ bool Sprite::Initialize(Object* Ob)
 		object = Ob;
 		pixel = nullptr;
 		handle_to_texture = 0;
+		Texture_Load();
 	}
     return true;
 }
@@ -67,9 +68,15 @@ void Sprite::Delete()
     UnLoadSprite();
 }
 
-bool Sprite::Texture_Load(const std::string& file_path)
+void Sprite::ChangeSprite(const std::string path_)
 {
-    unsigned char* temp = stbi_load(file_path.c_str(), &width, &height,
+	path = path_;
+	Texture_Load();
+}
+
+bool Sprite::Texture_Load()
+{
+    unsigned char* temp = stbi_load(path.c_str(), &width, &height,
                                           nullptr, STBI_rgb_alpha);
 
     if (temp == nullptr)

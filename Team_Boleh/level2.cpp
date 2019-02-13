@@ -18,22 +18,23 @@ Creation date: 2018/12/14
 #include "Animation.hpp"
 #include <iostream>
 #include "Status.hpp"
+#include "Particle.hpp"
 
 void level2::Initialize()
 {
-	Object* temp = new Object();
+	Object temp;
 
-	temp->SetTranslation({ 100,-100 });
-	temp->SetScale({ 50.0f, 50.0f });
-	temp->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	temp->AddComponent(new Sprite());
-	temp->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
-	temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-	temp->AddComponent(new Status(ObjectType::None ,5, 1, 1.f));
+	temp.SetTranslation({ 100,-100 });
+	temp.SetScale({ 50.0f, 50.0f });
+	temp.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
+	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	temp.AddComponent(new Status(ObjectType::None ,5, 1, 1.f));
 
-	Objectmanager_.AddObject(*temp);
-	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
-	std::cout << "-------------" << std::endl;
+	Objectmanager_.AddObject(temp);
+
+	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
+	//std::cout << "-------------" << std::endl;
 
 
 	/*
@@ -142,6 +143,7 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {
+
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
 		ChangeLevel("remake");

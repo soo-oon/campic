@@ -33,8 +33,8 @@ bool Sword::Initialize(Object * Ob)
 		object->SetScale({ 75.0f, 75.0f });
 		object->SetTranslation(temp_translation);
 		object->SetMesh(mesh::CreateBox());
-		object->AddComponent(new Sprite());
-		object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
+		object->AddComponent(new Sprite("asset/images/trash.png"));
+		//object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 		object->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
 		object->AddComponent(new RigidBody());
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
@@ -63,7 +63,7 @@ void Sword::Update(float dt)
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 		{
 			skill = true;
-			object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/picture2.png");
+			object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/picture2.png");
 			owner->GetComponentByTemplate<Animation>()->ChangeAnimation("attack");
 		}
 		else
@@ -139,6 +139,6 @@ void Sword::Wheelwind()
 	else {
 		angle = 0;
 		skill = false;
-		object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/ice_sword.png");
+		object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/ice_sword.png");
 	}
 }

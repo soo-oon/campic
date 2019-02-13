@@ -53,11 +53,11 @@ void Objectmanager::Update(float dt)
                     if (!temp->IsLive())
                         object = objects_.erase(object);
                     else
-                        object++;
+                        ++object;
 		}
 		else
 		{
-			object++;
+			++object;
 		}
 	}
 
@@ -116,9 +116,19 @@ void Objectmanager::Quit()
 
 void Objectmanager::AddObject(Object obj)
 {
-	auto temp_obj = std::make_unique<Object>(obj);
+	objects_.push_back(std::make_unique<Object>(obj));
 
-	objects_.push_back(std::move(temp_obj));
+	std::cout << objects_.size() << std::endl;
+
+	for(unsigned int i =0; i<objects_.size(); ++i)
+	{
+
+		for(auto component : objects_[i]->GetComponent())
+		{
+			component->Initialize(objects_[i].get());
+		}
+
+	}
 }
 
 void Objectmanager::RemoveObject()
