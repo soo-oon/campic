@@ -45,9 +45,9 @@ public:
 	void Editor(bool show_window);
 	void ObjectEditor(bool object_editor);
 	void SoundEditor(bool sound_editor);
-	//void componentHelper(Object* object, ComponentType);
-	//void ObjectAnimation(Object* obj);
-	//void ObjectCharacter(Object * obj);
+	std::string SpriteHelper(std::string image_path) const;
+	void ObjectAnimation(Object* obj);
+	void ObjectCharacter(Object * obj);
 
 private:
 	GLFWwindow* window = nullptr;
@@ -58,6 +58,8 @@ private:
 
 	std::vector<std::string> imageList;
 	std::vector<std::string> soundList;
+
+	std::string image_dir = "asset/images/";
 
 	//void AllObjectTree(std::vector<std::string> obj_list);
 	//void ObjectSprite(Object* sprite_obj);

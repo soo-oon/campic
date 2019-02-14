@@ -155,6 +155,17 @@ void level2::Update(float dt)
 		std::cout << "Objects Saved" << std::endl;
 	}
 
+	if (Input::IsKeyTriggered(GLFW_KEY_F2))
+	{
+		/*for (auto& obj : Objectmanager_.GetObjectMap())
+		{
+			JSON_.ObjectsToDocument(obj.get());
+		}*/
+		JSON_.LoadObjectFromJson();
+		//JSON_.GetObjectDocument().SetObject();
+		std::cout << "Objects Loaded" << std::endl;
+	}
+
 	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
 	{
 		for(auto& obj : Objectmanager_.GetObjectMap())

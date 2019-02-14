@@ -71,9 +71,10 @@ void Animation::ChangeAnimation(std::string ID, std::string original_ID)
 	if(current_animation.is_repeats)
 	{
 		current_animation = animations.find(ID)->second;
+		current_animation.sprites->Texture_Load();
+
 		current_animation.previous_current_coordinate.x = 0;
 		current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
-		std::cout << "hi" << std::endl;
 	}
 }
 

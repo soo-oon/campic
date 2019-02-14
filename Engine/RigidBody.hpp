@@ -24,6 +24,11 @@ Creation date: 2018/12/14
 class RigidBody : public Component
 {
 public:
+	RigidBody()
+	{
+		type = Component_Type::RigidBody;
+	}
+
     void CollisionOn();
     void SetMass(float mass);
     void SetVelocity(vector2 velocity);

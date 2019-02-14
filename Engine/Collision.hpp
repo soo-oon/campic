@@ -68,7 +68,6 @@ public:
 	bool GetIsDoor();
 	void SetIsDoorClose();
 
-
 private:
 	vector2 collision_previous_position;
 	RestitutionType restitution_ = RestitutionType::none;

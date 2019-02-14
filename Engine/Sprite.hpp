@@ -22,7 +22,11 @@ Creation date: 2018/12/14
 class Sprite : public Component
 {
 public:
-    Sprite() = default;
+	Sprite(bool is_flip_ = false, const std::string& file_path_ = "asset/images/default.png")
+		: flip(is_flip_), path(file_path_),handle_to_texture(0)
+	{
+	}
+
     ~Sprite() = default;
     Sprite(const Sprite& other);
     Sprite& operator=(const Sprite& other);
@@ -32,13 +36,14 @@ public:
     void Delete() override;
 
 	bool IsFlip() { return flip; }
+	void ChangeSprite(const std::string path_);
+    bool Texture_Load();
 
 	//************** Maybe Delete after optimizing Imgui
 	void Flip_Not() { flip = false; }
 	void Flip() { flip = true; }
 	//**************
 
-    bool Texture_Load(const std::string& file_path);
     void Bind(unsigned int slot = 0);
     void ScreenShot(const std::string& file_path) const;
     void UnLoadSprite();
@@ -48,6 +53,7 @@ public:
 
     int GetWidth() const { return width; }
     int GetHeigth() const { return height; }
+	std::string GetPath() const { return path; }
 
 	void Imgui_Sprite();
 
@@ -56,6 +62,7 @@ private:
 	bool flip = false;
     void LoadSprite();
 
+	std::string path = NULL;
     GLuint handle_to_texture;
     int width = 0;
     int height = 0;

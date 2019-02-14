@@ -4,37 +4,6 @@
 
 JSON JSON_;
 
-enum class JsonObjectType
-{
-	Player, 
-	Sword, 
-	Enemy, 
-	Boss, 
-	Wall, 
-	Door, 
-	Item, 
-	Shooting, 
-	None
-};
-
-enum class JsonObjectStatus
-{
-	Hp,
-	AttackDamage,
-    Speed,
-	IsLive,
-	size
-};
-
-enum class JsonComponenetType
-{
-	Sprite,
-	Animation,
-	Character,
-	Collision,
-	size
-};
-
 bool JSON::Initialize()
 {
 	ObjectDocument.SetObject();
@@ -62,82 +31,298 @@ void JSON::Quit()
 
 void JSON::ObjectsToDocument(Object* obj)
 {
-	Value array(kArrayType);
-	Value objType;
-	Value objPos;
-	Value objScale;
-	Value objRotation;
+	//Trees for object info
+	Value objTree(kArrayType);
 
-	array.SetObject();
-	objPos.SetObject();
-	objScale.SetObject();
-	objRotation.SetObject();
-	
-	auto type = obj->GetComponentByTemplate<Status>()->GetObjectType();
-	switch(type)
-	{
-		case ObjectType::Player:
-		{
-			objType.SetString("Player");
-			break;
-		}
-		case ObjectType::Sword : 
-		{
-			objType.SetString("Sword");
-			break;
-		}
-		case ObjectType::Boss : 
-		{
-			objType.SetString("Boss");
-			break;
-		}
-		case ObjectType::Enemy :
-		{
-			objType.SetString("Enemy");
-			break;
-		}
-		case ObjectType::Door:
-		{
-			objType.SetString("Door");
-			break;
-		}
-		case ObjectType::Item:
-		{
-			objType.SetString("Item");
-			break;
-		}
-		case ObjectType::Shooting:
-		{
-			objType.SetString("Shooting");
-			break;
-		}
-		case ObjectType::None:
-		{
-			objType.SetString("None");
-			break;
-		}
-		default :
-			break;
-	}
+	//Status info
+	Value objStatusTree(kArrayType);
+	Value objTransformTree(kArrayType);
+	Value objSpriteTree(kArrayType);
+	Value objAnimationTree(kArrayType);
+	Value objCameraTree(kArrayType);
 
-	objPos.AddMember("x", obj->GetTransform().GetTranslation().x, ObjectDocument.GetAllocator());
-	objPos.AddMember("y", obj->GetTransform().GetTranslation().y, ObjectDocument.GetAllocator());
-	
-	objScale.AddMember("x", obj->GetTransform().GetScale().x, ObjectDocument.GetAllocator());
-	objScale.AddMember("y", obj->GetTransform().GetScale().y, ObjectDocument.GetAllocator());
+	//TODO
+	//Collision info
+	//Value objCollisionTree(kArrayType);
+	//Particle info
+	//Value objParticleTree(kArrayType);
+	//RigidBody info
+	//Value objRigidBodyTree(kArrayType);
 
-	objRotation.SetFloat(obj->GetTransform().GetRotation());
+	objTree.SetObject();
+	objTransformTree.SetObject();
+	objAnimationTree.SetObject();
+	objCameraTree.SetObject();
+	objStatusTree.SetObject();
+	objSpriteTree.SetObject();
 
-	array.AddMember("type", objType, ObjectDocument.GetAllocator());
-	array.AddMember("position", objPos, ObjectDocument.GetAllocator());
-	array.AddMember("scale", objScale, ObjectDocument.GetAllocator());
-	array.AddMember("rotation", objRotation, ObjectDocument.GetAllocator());
+	objTransformTree = ComponentTransform(obj);
+	if(obj->GetComponentByTemplate<Status>() != nullptr)
+		objStatusTree = ComponentStatus(obj);
+	if(obj->GetComponentByTemplate<Animation>() != nullptr)
+		objAnimationTree = ComponentAnimation(obj);
+	if(obj->GetComponentByTemplate<Camera>() != nullptr)
+		objCameraTree = ComponentCamera(obj);
+	if (obj->GetComponentByTemplate<Sprite>() != nullptr)
+		objCameraTree = ComponentSprite(obj);
 
-	ObjectDocument.AddMember("Object", array, ObjectDocument.GetAllocator());
+	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Sprite", objSpriteTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Animation", objAnimationTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+
+	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
 	ObjectDocument.Parse(ObjectBuffer.GetString());
 
 	SaveObjectsToJson();
+}
+
+Value JSON::ComponentAnimation(Object* obj)
+{
+	Value objAnimationTree(kArrayType);
+	Value objAnimationMap(kArrayType);
+	Value current_animation, previous_animation, is_done, frame_time;
+	std::vector<Value*> animation_string;
+	std::vector<Value*> animation_map;
+
+	//Animation_Information class
+	//TODO Sprite
+	Value c_is_repeats, c_previous_current_coordinate;
+	Value p_is_repeats, p_previous_current_coordinate;
+
+	objAnimationTree.SetObject();
+	objAnimationMap.SetObject();
+	current_animation.SetObject();
+	previous_animation.SetObject();
+	is_done.SetObject();
+	frame_time.SetObject();
+	c_is_repeats.SetObject();
+	c_previous_current_coordinate.SetObject();
+	p_is_repeats.SetObject();
+	p_previous_current_coordinate.SetObject();
+
+	auto animation_info = obj->GetComponentByTemplate<Animation>();
+	auto current_animation_info = obj->GetComponentByTemplate<Animation>()->GetCurrentAnimation();
+	auto previous_animation_info = obj->GetComponentByTemplate<Animation>()->GetPreviousAnimation();
+
+	c_is_repeats.SetBool(current_animation_info.is_repeats);
+	c_previous_current_coordinate.AddMember("x", current_animation_info.previous_current_coordinate.x, ObjectDocument.GetAllocator());
+	c_previous_current_coordinate.AddMember("y", current_animation_info.previous_current_coordinate.y, ObjectDocument.GetAllocator());
+	current_animation.AddMember("image_frames", current_animation_info.image_frames, ObjectDocument.GetAllocator());
+	current_animation.AddMember("update_frames", current_animation_info.update_frames, ObjectDocument.GetAllocator());
+	current_animation.AddMember("frame_per_seconds", current_animation_info.frame_per_seconds, ObjectDocument.GetAllocator());
+	current_animation.AddMember("is_repeats", c_is_repeats, ObjectDocument.GetAllocator());
+	current_animation.AddMember("previous_current_coordinate", c_previous_current_coordinate, ObjectDocument.GetAllocator());
+
+	p_is_repeats.SetBool(previous_animation_info.is_repeats);
+	p_previous_current_coordinate.AddMember("x", previous_animation_info.previous_current_coordinate.x, ObjectDocument.GetAllocator());
+	p_previous_current_coordinate.AddMember("y", previous_animation_info.previous_current_coordinate.y, ObjectDocument.GetAllocator());
+	previous_animation.AddMember("image_frames", previous_animation_info.image_frames, ObjectDocument.GetAllocator());
+	previous_animation.AddMember("update_frames", previous_animation_info.update_frames, ObjectDocument.GetAllocator());
+	previous_animation.AddMember("frame_per_seconds", previous_animation_info.frame_per_seconds, ObjectDocument.GetAllocator());
+	previous_animation.AddMember("is_repeats", p_is_repeats, ObjectDocument.GetAllocator());
+	previous_animation.AddMember("previous_current_coordinate", p_previous_current_coordinate, ObjectDocument.GetAllocator());
+
+	is_done.SetBool(animation_info->IsDone());
+	frame_time.SetFloat(animation_info->GetFrameTime());
+
+	for (auto& temp : animation_info->GetAnimationMap())
+	{
+		int i = 0;
+		Value animation_path;
+		Value animation_info_;
+		Value animation_is_repeats;
+		Value animation_pc_coordinate;
+
+		animation_path.SetObject();
+		animation_info_.SetObject();
+		animation_is_repeats.SetObject();
+		animation_pc_coordinate.SetObject();
+
+		animation_path.SetString(temp.first.c_str(), ObjectDocument.GetAllocator());
+		animation_is_repeats.SetBool(temp.second.is_repeats);
+		animation_pc_coordinate.AddMember("x", temp.second.previous_current_coordinate.x, ObjectDocument.GetAllocator());
+		animation_pc_coordinate.AddMember("y", temp.second.previous_current_coordinate.y, ObjectDocument.GetAllocator());
+
+		animation_info_.AddMember("image_frames", temp.second.image_frames, ObjectDocument.GetAllocator());
+		animation_info_.AddMember("update_frames", temp.second.update_frames, ObjectDocument.GetAllocator());
+		animation_info_.AddMember("frame_per_seconds", temp.second.frame_per_seconds, ObjectDocument.GetAllocator());
+		animation_info_.AddMember("is_repeats", animation_is_repeats, ObjectDocument.GetAllocator());
+		animation_info_.AddMember("previous_current_coordinate", animation_pc_coordinate, ObjectDocument.GetAllocator());
+
+		animation_string.push_back(&animation_path);
+		animation_map.push_back(&animation_info_);
+
+		objAnimationMap.AddMember("path", *animation_string.at(i), ObjectDocument.GetAllocator());
+		objAnimationMap.AddMember("info", *animation_map.at(i), ObjectDocument.GetAllocator());
+		++i;
+	}
+
+	objAnimationTree.AddMember("current_animation", current_animation, ObjectDocument.GetAllocator());
+	objAnimationTree.AddMember("previous_animation", previous_animation, ObjectDocument.GetAllocator());
+	objAnimationTree.AddMember("map", objAnimationMap, ObjectDocument.GetAllocator());
+	objAnimationTree.AddMember("is_done", is_done, ObjectDocument.GetAllocator());
+	objAnimationTree.AddMember("frame_time", frame_time, ObjectDocument.GetAllocator());
+
+	return objAnimationTree;
+}
+
+Value JSON::ComponentTransform(Object * obj)
+{
+	Value objTransformTree(kArrayType);
+	Value pos, scale, rotation;
+
+	objTransformTree.SetObject();
+	pos.SetObject();
+	scale.SetObject();
+	rotation.SetObject();
+
+	pos.AddMember("x", obj->GetTransform().GetTranslation().x, ObjectDocument.GetAllocator());
+	pos.AddMember("y", obj->GetTransform().GetTranslation().y, ObjectDocument.GetAllocator());
+
+	scale.AddMember("x", obj->GetTransform().GetScale().x, ObjectDocument.GetAllocator());
+	scale.AddMember("y", obj->GetTransform().GetScale().y, ObjectDocument.GetAllocator());
+
+	rotation.SetFloat(obj->GetTransform().GetRotation());
+
+	objTransformTree.AddMember("position", pos, ObjectDocument.GetAllocator());
+	objTransformTree.AddMember("scale", scale, ObjectDocument.GetAllocator());
+	objTransformTree.AddMember("rotation", rotation, ObjectDocument.GetAllocator());
+
+	return objTransformTree;
+}
+
+Value JSON::ComponentStatus(Object * obj)
+{
+	Value objStatusTree(kArrayType);
+	Value objType, objTypeString, objTypeVal, isAlive;
+
+	objStatusTree.SetObject();
+	objType.SetObject();
+	objTypeString.SetObject();
+	objTypeVal.SetObject();
+	isAlive.SetObject();
+
+	auto type = obj->GetComponentByTemplate<Status>()->GetObjectType();
+
+	switch (type)
+	{
+		case ObjectType::Player:
+		{
+			objTypeVal.SetInt(0);
+			objTypeString.SetString("Player");
+			break;
+		}
+		case ObjectType::Sword:
+		{
+			objTypeVal.SetInt(1);
+			objTypeString.SetString("Sword");
+			break;
+		}
+		case ObjectType::Enemy:
+		{
+			objTypeVal.SetInt(2);
+			objTypeString.SetString("Enemy");
+			break;
+		}
+		case ObjectType::Boss:
+		{
+			objTypeVal.SetInt(3);
+			objTypeString.SetString("Boss");
+			break;
+		}
+		case ObjectType::Wall:
+		{
+			objTypeVal.SetInt(4);
+			objTypeString.SetString("Door");
+			break;
+		}
+		case ObjectType::Door:
+		{
+			objTypeVal.SetInt(5);
+			objTypeString.SetString("Door");
+			break;
+		}
+		case ObjectType::Item:
+		{
+			objTypeVal.SetInt(6);
+			objTypeString.SetString("Item");
+			break;
+		}
+		case ObjectType::Shooting:
+		{
+			objTypeVal.SetInt(7);
+			objTypeString.SetString("Shooting");
+			break;
+		}
+		case ObjectType::None:
+		{
+			objTypeVal.SetInt(8);
+			objTypeString.SetString("None");
+			break;
+		}
+		default:
+			break;
+	}
+
+	objType.AddMember("Value", objTypeVal, ObjectDocument.GetAllocator());
+	objType.AddMember("Enum", objTypeString, ObjectDocument.GetAllocator());
+
+	auto obj_info = obj->GetComponentByTemplate<Status>();
+
+	isAlive.SetBool(obj_info->IsAlive());
+
+	objStatusTree.AddMember("Type", objType, ObjectDocument.GetAllocator());
+	objStatusTree.AddMember("HP", obj_info->GetHp(), ObjectDocument.GetAllocator());
+	objStatusTree.AddMember("Damage", obj_info->GetDamage(), ObjectDocument.GetAllocator());
+	objStatusTree.AddMember("Speed", obj_info->GetSpeed(), ObjectDocument.GetAllocator());
+	objStatusTree.AddMember("isAlive", obj_info->IsAlive(), ObjectDocument.GetAllocator());
+
+	return objStatusTree;
+}
+
+Value JSON::ComponentCamera(Object* obj)
+{
+	Value objCameraTree(kArrayType);
+	Value center, up, right;
+
+	objCameraTree.SetObject();
+	center.SetObject();
+	up.SetObject();
+	right.SetObject();
+
+	auto obj_info = obj->GetComponentByTemplate<Camera>();
+
+	center.AddMember("x", obj_info->GetCenter().x, ObjectDocument.GetAllocator());
+	center.AddMember("y", obj_info->GetCenter().y, ObjectDocument.GetAllocator());
+	up.AddMember("x", obj_info->GetUp().x, ObjectDocument.GetAllocator());
+	up.AddMember("y", obj_info->GetUp().y, ObjectDocument.GetAllocator());
+	right.AddMember("x", obj_info->GetRight().x, ObjectDocument.GetAllocator());
+	right.AddMember("y", obj_info->GetRight().y, ObjectDocument.GetAllocator());
+
+	objCameraTree.AddMember("zoom", obj_info->GetZoomValue(), ObjectDocument.GetAllocator());
+	objCameraTree.AddMember("center", center, ObjectDocument.GetAllocator());
+	objCameraTree.AddMember("up", up, ObjectDocument.GetAllocator());
+	objCameraTree.AddMember("right", right, ObjectDocument.GetAllocator());
+
+	return objCameraTree;
+}
+
+Value JSON::ComponentSprite(Object* obj)
+{
+	Value objSpriteTree(kArrayType);
+	std::string path;
+
+	objSpriteTree.SetObject();
+
+	auto obj_info = obj->GetComponentByTemplate<Sprite>();
+
+	objSpriteTree.AddMember("is_flip", obj_info->IsFlip(), ObjectDocument.GetAllocator());
+	objSpriteTree.AddMember("image_path", obj_info->GetPath(), ObjectDocument.GetAllocator());
+
+	return objSpriteTree;
 }
 
 void JSON::SaveObjectsToJson()
@@ -155,6 +340,86 @@ void JSON::SaveObjectsToJson()
 	
 	fclose(fp);
 }
+
+Document JSON::LoadObjectDocumentFromJson()
+{
+	std::string filename(file_path);
+	filename.append("Objects.json");
+
+	FILE* fp = fopen(filename.c_str(), "r+");
+
+	char readBuffer[65535];
+	FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+
+	Document object_lists;
+	object_lists.ParseStream(is);
+
+	fclose(fp);
+
+	return object_lists;
+}
+
+void JSON::LoadObjectFromJson()
+{
+	ObjectDocument = LoadObjectDocumentFromJson();
+
+	for(auto& temp : ObjectDocument.GetObject())
+	{
+		Value& obj_array = temp.value;
+
+		Value status, transform, animation, sprite;
+		Object obj;
+
+		status.SetObject();
+		transform.SetObject();
+		sprite.SetObject();
+		animation.SetObject();
+
+		status = obj_array.FindMember("Status")->value;
+		transform = obj_array.FindMember("Transform")->value;
+		sprite = obj_array.FindMember("Sprite")->value;
+		animation = obj_array.FindMember("Animation")->value;
+
+		// status
+		int obj_type = status.FindMember("Type")->value.FindMember("Value")->value.GetInt();
+		int hp_ = status.FindMember("HP")->value.GetInt();
+		int attack_damage = status.FindMember("Damage")->value.GetInt();
+		float speed = status.FindMember("Speed")->value.GetFloat();
+		bool is_alive = status.FindMember("isAlive")->value.GetBool();
+	
+		obj.AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage,speed,is_alive));
+
+		//transform
+		vector2 pos, scale;
+		float rotation;
+
+		pos.x = transform.FindMember("position")->value.FindMember("x")->value.GetFloat();
+		pos.y = transform.FindMember("position")->value.FindMember("y")->value.GetFloat();
+		scale.x = transform.FindMember("scale")->value.FindMember("x")->value.GetFloat();
+		scale.y = transform.FindMember("scale")->value.FindMember("y")->value.GetFloat();
+		rotation = transform.FindMember("rotation")->value.GetFloat();
+
+		obj.SetTranslation(pos);
+		obj.SetScale(scale);
+		obj.SetRotation(rotation);
+
+		//Sprite
+		bool is_flip = false;
+		std::string path;
+
+		//is_flip = sprite.FindMember("is_flip")->value;
+
+		//obj.AddComponent(new Sprite());
+		//obj.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
+
+		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
+		obj.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+
+		Objectmanager_.AddObject(obj);
+	}
+	
+}
+
 
 //void JSON::UpdateLevel(StateManager* state_manager) //Engine
 //{
