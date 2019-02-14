@@ -22,7 +22,6 @@ Creation date: 2018/12/14
 class Sprite : public Component
 {
 public:
-<<<<<<< HEAD
 	Sprite(const std::string& file_path_ = "asset/images/default.png")
 		: path(file_path_), handle_to_texture(0)
 	{
@@ -40,10 +39,7 @@ public:
 	void ChangeSprite(const std::string path_);
     bool Texture_Load();
 
-	//************** Maybe Delete after optimizing Imgui
-	void Flip_Not() { flip = false; }
-	void Flip() { flip = true; }
-	//**************
+	void SetFlip(bool is_flip) { flip = is_flip; }
 
     void Bind(unsigned int slot = 0);
     void ScreenShot(const std::string& file_path) const;
@@ -51,7 +47,6 @@ public:
     void DeleteSpriteTexture();
 
     int GetPixelsBufferBytesSize() const;
-
     int GetWidth() const { return width; }
     int GetHeigth() const { return height; }
 	std::string GetPath() const { return path; }

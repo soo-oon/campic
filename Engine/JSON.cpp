@@ -57,6 +57,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	objSpriteTree.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
+
 	if(obj->GetComponentByTemplate<Status>() != nullptr)
 		objStatusTree = ComponentStatus(obj);
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
@@ -64,7 +65,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	if(obj->GetComponentByTemplate<Camera>() != nullptr)
 		objCameraTree = ComponentCamera(obj);
 	if (obj->GetComponentByTemplate<Sprite>() != nullptr)
-		objCameraTree = ComponentSprite(obj);
+		objSpriteTree = ComponentSprite(obj);
 
 	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
@@ -313,14 +314,18 @@ Value JSON::ComponentCamera(Object* obj)
 Value JSON::ComponentSprite(Object* obj)
 {
 	Value objSpriteTree(kArrayType);
-	std::string path;
+	Value path, flip;
 
 	objSpriteTree.SetObject();
+	path.SetObject();
 
 	auto obj_info = obj->GetComponentByTemplate<Sprite>();
 
-	objSpriteTree.AddMember("is_flip", obj_info->IsFlip(), ObjectDocument.GetAllocator());
-	objSpriteTree.AddMember("image_path", obj_info->GetPath(), ObjectDocument.GetAllocator());
+	path.SetString(obj_info->GetPath().c_str(), ObjectDocument.GetAllocator());
+	flip.SetBool(obj_info->IsFlip());
+
+	objSpriteTree.AddMember("is_flip", flip, ObjectDocument.GetAllocator());
+	objSpriteTree.AddMember("image_path", path, ObjectDocument.GetAllocator());
 
 	return objSpriteTree;
 }
@@ -405,14 +410,18 @@ void JSON::LoadObjectFromJson()
 
 		//Sprite
 		bool is_flip = false;
-		std::string path;
+		const char* path = "asset/images/default.png";
 
-		//is_flip = sprite.FindMember("is_flip")->value;
+		if(sprite.HasMember("is_flip"))
+			is_flip = sprite.FindMember("is_flip")->value.GetBool();
 
-		//obj.AddComponent(new Sprite());
-		//obj.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/Dr_Strange.png");
+		if (sprite.HasMember("image_path"))
+			path = sprite.FindMember("image_path")->value.GetString();
 
-		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
+		obj.AddComponent(new Sprite(path));
+		obj.GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
+
+		obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		obj.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 
 		Objectmanager_.AddObject(obj);

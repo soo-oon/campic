@@ -15,6 +15,7 @@ Creation date: 2018/12/14
 #include "Imgui_System.hpp"
 #include <iostream>
 #include "Graphics.hpp"
+#include "Status.hpp"
 
 Imgui_System IMGUI_;
 
@@ -142,7 +143,8 @@ void Imgui_System::ObjectEditor(bool object_editor)
 		obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
 		obj.SetDepth(0);
 		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
-		
+
+		obj.AddComponent(new Status(ObjectType::None, 5, 1, 1.f));
 		//obj.AddComponent(new Sprite());
 		//obj.GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + image_path);
 		Objectmanager_.AddObject(obj);

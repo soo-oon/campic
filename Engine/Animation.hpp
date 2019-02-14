@@ -80,6 +80,10 @@ public:
 	void Imgui_Animation();
 
     Animation_Information GetCurrentAnimation() { return current_animation; }
+	Animation_Information GetPreviousAnimation() { return previous_animation; }
+	std::unordered_map<std::string, Animation_Information> GetAnimationMap(){ return animations; }
+	float GetFrameTime() { return frame_time; }
+ 
 
 private:
     Animation_Information current_animation;

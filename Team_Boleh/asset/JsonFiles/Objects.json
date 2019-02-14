@@ -21,54 +21,11 @@
             },
             "rotation": 0.0
         },
-        "Animation": {
-            "current_animation": {
-                "image_frames": 8,
-                "update_frames": 0.05000000074505806,
-                "frame_per_seconds": 0.125,
-                "is_repeats": true,
-                "previous_current_coordinate": {
-                    "x": 0.875,
-                    "y": 1.0
-                }
-            },
-            "previous_animation": {
-                "image_frames": 0,
-                "update_frames": 0.0,
-                "frame_per_seconds": 0.0,
-                "is_repeats": false,
-                "previous_current_coordinate": {
-                    "x": 0.0,
-                    "y": 0.0
-                }
-            },
-            "map": {
-                "path": "player",
-                "info": {
-                    "image_frames": 8,
-                    "update_frames": 0.05000000074505806,
-                    "frame_per_seconds": 0.125,
-                    "is_repeats": true,
-                    "previous_current_coordinate": {
-                        "x": 0.0,
-                        "y": 0.125
-                    }
-                },
-                "path": "attack",
-                "info": {
-                    "image_frames": 4,
-                    "update_frames": 0.10000000149011612,
-                    "frame_per_seconds": 0.25,
-                    "is_repeats": false,
-                    "previous_current_coordinate": {
-                        "x": 0.0,
-                        "y": 0.0
-                    }
-                }
-            },
-            "is_done": false,
-            "frame_time": 0.04951014369726181
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Player.png"
         },
+        "Animation": {},
         "Camera": {}
     },
     "Object": {
@@ -93,6 +50,140 @@
             },
             "rotation": 0.0
         },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Dr_Strange.png"
+        },
+        "Animation": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 8,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": -51.0,
+                "y": 256.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 8,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 196.0,
+                "y": 150.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 8,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": -243.0,
+                "y": -189.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 8,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 35.0,
+                "y": -227.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 8,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 339.0,
+                "y": 132.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
         "Animation": {},
         "Camera": {}
     }
