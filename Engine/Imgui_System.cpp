@@ -14,7 +14,6 @@ Creation date: 2018/12/14
 
 #include "Imgui_System.hpp"
 #include <iostream>
-#include "Status.hpp"
 #include "Graphics.hpp"
 
 Imgui_System IMGUI_;
@@ -44,10 +43,10 @@ bool Imgui_System::Initialize()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
 	//Image list in project directory
-	//for (auto& p : std::filesystem::directory_iterator("asset/images"))
-	//{
-	//	imageList.push_back(p.path().filename().string());
-	//}
+	for (auto& p : std::filesystem::directory_iterator("asset/images"))
+	{
+		imageList.push_back(p.path().filename().string());
+	}
 	//Sound list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
@@ -69,9 +68,9 @@ void Imgui_System::Update(float dt)
 
 void Imgui_System::Quit()
 {
-	//ImGui::DestroyContext();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 }
 
 void Imgui_System::Draw()
@@ -80,8 +79,6 @@ void Imgui_System::Draw()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 		
-	//ImGui::ShowDemoWindow(&show_window);
-	//Sound_Option(show_window);
 	Editor(show_window);
 
 	ImGui::Render();
@@ -125,8 +122,14 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	if (!object_editor)
 		return;
 
+	std::string image_path;
+
 	// Creating Object
 	ImGui::Button("Create Object");
+
+	Object obj;
+
+	//SpriteHelper(image_path);
 
 	if (ImGui::IsItemActive())
 	{
@@ -135,14 +138,16 @@ void Imgui_System::ObjectEditor(bool object_editor)
 
 	if (ImGui::IsItemDeactivated())
 	{
-		Object obj;
 		obj.SetScale({ 100.f,100.f });
 		obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
 		obj.SetDepth(0);
 		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
+		
+		//obj.AddComponent(new Sprite());
+		//obj.GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + image_path);
 		Objectmanager_.AddObject(obj);
 	}
-
+	
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))
 	{
@@ -150,74 +155,25 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	}
 }
 
-//void Imgui_System::componentHelper(Object* object, ComponentType comp)
-//{
-	//static std::string current_item = "";
-	//std::string image_dir = "asset/images/";
-	//if (ImGui::BeginCombo("Select texture", current_item.c_str()))
-	//{
-	//	for (int n = 0; n < imagelist.size(); n++)
-	//	{
-	//		bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-	//		if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-	//			current_item = imagelist[n].c_str();
-	//		if (is_selected)
-	//			ImGui::SetItemDefaultFocus();
-	//	}
-	//	ImGui::EndCombo();
-	//}
+std::string Imgui_System::SpriteHelper(std::string image_path) const
+{
+	static std::string current_item = image_path;
+	
+	if (ImGui::BeginCombo("Select Sprite Texture", current_item.c_str()))
+	{
+		for (int n = 0; n < imageList.size(); n++)
+		{
+			bool is_selected = (current_item.c_str() == imageList[n].c_str());
+			if (ImGui::Selectable(imageList[n].c_str(), is_selected))
+				current_item = imageList[n].c_str();
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
 
-	//if (ImGui::Button("Add Sprite"))
-	//{
-	//	object->AddComponent(new Sprite());
-	//	object->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
-	//}
-
-	//switch(comp)
-	//{
-	//case ComponentType::Animation:
-	//{
-	//	if(object->GetComponentByTemplate<Animation>() != nullptr)
-	//	{
-	//		object->GetComponentByTemplate<Animation>()->Imgui_Animation();
-	//	}
-	//	else
-	//	{
-	//		ImGui::Button("Add Animation");
-	//		object->AddComponent(new Animation(image_dir + current_item, "", 0,0,true));
-	//	}
-	//	break;
-	//}
-	//case ComponentType::Sprite:
-	//{
-	//	if (object->GetComponentByTemplate<Sprite>() != nullptr)
-	//	{
-	//		object->GetComponentByTemplate<Sprite>()->Imgui_Sprite();
-	//	}
-	//	else
-	//	{
-	//		ImGui::Button("Add Sprite");
-	//		object->AddComponent(new Sprite);
-	//		object->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
-	//	}
-	//	break;
-	//}
-	//case ComponentType::Character:
-	//{
-	//	break;
-	//}
-	//case ComponentType::RigidBody:
-	//{
-	//	break;
-	//}
-	//case ComponentType::Collision:
-	//{
-	//	break;
-	//}
-	//default:
-	//	break;
-	//}
-//}
+	return current_item;
+}
 
 void Imgui_System::SoundEditor(bool sound_editor)
 {
@@ -291,8 +247,6 @@ void Imgui_System::SoundEditor(bool sound_editor)
 	//}
 
 }
-
-//////////////////////////////////////////////////////////
 
 //
 //void Imgui_System::AllObjectTree(std::vector<std::string> obj_list)
@@ -375,10 +329,10 @@ void Imgui_System::SoundEditor(bool sound_editor)
 		ImGui::TreePop();
 	}*/
 //}
-//
-//void Imgui_System::ObjectAnimation(Object* obj)
-//{
-	/*if (ImGui::TreeNode("Animation"))
+
+void Imgui_System::ObjectAnimation(Object* obj)
+{
+	if (ImGui::TreeNode("Animation"))
 	{
 		if (obj->GetComponentByTemplate<Animation>() == nullptr)
 		{
@@ -386,11 +340,11 @@ void Imgui_System::SoundEditor(bool sound_editor)
 			std::string image_dir = "asset/images/";
 			if (ImGui::BeginCombo("Select Animation", current_item.c_str()))
 			{
-				for (int n = 0; n < imagelist.size(); n++)
+				for (int n = 0; n < imageList.size(); n++)
 				{
-					bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-					if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-						current_item = imagelist[n].c_str();
+					bool is_selected = (current_item.c_str() == imageList[n].c_str());
+					if (ImGui::Selectable(imageList[n].c_str(), is_selected))
+						current_item = imageList[n].c_str();
 					if (is_selected)
 						ImGui::SetItemDefaultFocus();
 				}
@@ -408,11 +362,11 @@ void Imgui_System::SoundEditor(bool sound_editor)
 			std::string image_dir = "asset/images/";
 			if (ImGui::BeginCombo("Select Animation", current_item.c_str()))
 			{
-				for (int n = 0; n < imagelist.size(); n++)
+				for (int n = 0; n < imageList.size(); n++)
 				{
-					bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-					if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-						current_item = imagelist[n].c_str();
+					bool is_selected = (current_item.c_str() == imageList[n].c_str());
+					if (ImGui::Selectable(imageList[n].c_str(), is_selected))
+						current_item = imageList[n].c_str();
 					if (is_selected)
 						ImGui::SetItemDefaultFocus();
 				}
@@ -421,8 +375,8 @@ void Imgui_System::SoundEditor(bool sound_editor)
 			obj->GetComponentByTemplate<Animation>()->Imgui_Animation();
 		}
 		ImGui::TreePop();
-	}*/
-//}
+	}
+}
 
 //void Imgui_System::ObjectCharacter(Object* obj)
 //{

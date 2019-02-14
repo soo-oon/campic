@@ -34,8 +34,18 @@ public:
 	void Update(float dt);
 	void Quit();
 
+	//Objects
 	void ObjectsToDocument(Object* obj);
 	void SaveObjectsToJson();
+	void LoadObjectFromJson();
+	Document LoadObjectDocumentFromJson();
+
+	//Helper class
+	Value ComponentAnimation(Object* obj);
+	Value ComponentTransform(Object* obj);
+	Value ComponentStatus(Object* obj);
+	Value ComponentCamera(Object* obj);
+	Value ComponentSprite(Object* obj);
 
 	Document& GetObjectDocument() { return ObjectDocument; }
 
@@ -63,14 +73,10 @@ public:
 
 private:
 	Document ObjectDocument;
-
 	StringBuffer ObjectBuffer;
 
-	//int level_count = 1;
-	//std::string level_name = "Level";
 	std::string file_path = "asset/JsonFiles/";
 
-	//std::string currentstate_name;
 };
 
 extern JSON JSON_;

@@ -9,8 +9,8 @@ enum class ObjectType
 class Status : public Component
 {
 public:
-	Status(ObjectType object_type_ = ObjectType::None, int hp_ = 5, int attack_damage_ = 1, float speed_ = 1.0f)
-		: object_type(object_type_), hp(hp_), attack_damage(attack_damage_), speed(speed_)
+	Status(ObjectType object_type_ = ObjectType::None, int hp_ = 5, int attack_damage_ = 1, float speed_ = 1.0f, bool is_alive_ = true)
+		: object_type(object_type_), hp(hp_), attack_damage(attack_damage_), speed(speed_), is_alive(is_alive_)
 	{}
 
 	bool Initialize(Object* Ob) override;
@@ -18,7 +18,7 @@ public:
 	void Delete() override;
 
 	ObjectType GetObjectType() { return object_type; }
-	bool IsLive() { return is_live; }
+	bool IsAlive() { return is_alive; }
 	void SetSpeed(float speed_) { speed = speed_; }
 	float GetSpeed() { return speed; }
 	int GetDamage() { return attack_damage; }
@@ -30,6 +30,6 @@ private:
 	int hp;
 	int attack_damage;
 	float speed;
-	bool is_live = true;
+	bool is_alive = true;
 
 };

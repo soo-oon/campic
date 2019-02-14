@@ -50,7 +50,7 @@ void Objectmanager::Update(float dt)
 
 		if (auto temp = object->get()->GetComponentByTemplate<Status>(); temp != nullptr)
 		{
-                    if (!temp->IsLive())
+                    if (!temp->IsAlive())
                         object = objects_.erase(object);
                     else
                         ++object;

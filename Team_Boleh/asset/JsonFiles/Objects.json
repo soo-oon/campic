@@ -1,14 +1,99 @@
 {
     "Object": {
-        "type": "Player",
-        "position": {
-            "x": 0.0,
-            "y": 0.0
+        "Status": {
+            "Type": {
+                "Value": 0,
+                "Enum": "Player"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
         },
-        "scale": {
-            "x": 100.0,
-            "y": 100.0
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
         },
-        "rotation": 0.0
+        "Animation": {
+            "current_animation": {
+                "image_frames": 8,
+                "update_frames": 0.05000000074505806,
+                "frame_per_seconds": 0.125,
+                "is_repeats": true,
+                "previous_current_coordinate": {
+                    "x": 0.875,
+                    "y": 1.0
+                }
+            },
+            "previous_animation": {
+                "image_frames": 0,
+                "update_frames": 0.0,
+                "frame_per_seconds": 0.0,
+                "is_repeats": false,
+                "previous_current_coordinate": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            },
+            "map": {
+                "path": "player",
+                "info": {
+                    "image_frames": 8,
+                    "update_frames": 0.05000000074505806,
+                    "frame_per_seconds": 0.125,
+                    "is_repeats": true,
+                    "previous_current_coordinate": {
+                        "x": 0.0,
+                        "y": 0.125
+                    }
+                },
+                "path": "attack",
+                "info": {
+                    "image_frames": 4,
+                    "update_frames": 0.10000000149011612,
+                    "frame_per_seconds": 0.25,
+                    "is_repeats": false,
+                    "previous_current_coordinate": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                }
+            },
+            "is_done": false,
+            "frame_time": 0.04951014369726181
+        },
+        "Camera": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 8,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 100.0,
+                "y": -100.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0
+        },
+        "Animation": {},
+        "Camera": {}
     }
 }
