@@ -14,7 +14,6 @@ Creation date: 2018/12/14
 */
 
 #pragma once
-#include "System.hpp"
 #include <unordered_map>
 #include <string>
 #include <memory>

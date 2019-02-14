@@ -26,9 +26,6 @@ bool Animation::Initialize(Object* Ob)
 
 void Animation::Update(float dt)
 {
-	/*std::cout << object->GetTransform().GetTranslation().x << ", " << object->GetTransform().GetTranslation().y
-		<< std::endl;*/
-
     frame_time += dt;
 
     if (frame_time > current_animation.update_frames)

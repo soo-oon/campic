@@ -45,7 +45,6 @@ void Engine::Update()
         dt = (float)gameTimer.GetElapsedSeconds();
         gameTimer.Reset();
 		System_Update();
-
 		//Physics_->PhysicsObjectUpdate(Objectmanager_);
 
 		//HUD_->SetObjectManager(Objectmanager_);

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GLSL.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="JSON.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Reaction.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="Sword.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Particle_Generator.cpp" />
+    <ClCompile Include="Application.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Objectmanager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui_System.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="AudioManager.hpp" />
+    <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Card.hpp" />
+    <ClInclude Include="Collision.hpp" />
+    <ClInclude Include="Color.hpp" />
+    <ClInclude Include="Component.hpp" />
+    <ClInclude Include="DepthValue.hpp" />
+    <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="GLSL.hpp" />
+    <ClInclude Include="Graphics.hpp" />
+    <ClInclude Include="HUD.hpp" />
+    <ClInclude Include="JSON.hpp" />
+    <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Physics.hpp" />
+    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Reaction.hpp" />
+    <ClInclude Include="RigidBody.hpp" />
+    <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="Sprite.hpp" />
+    <ClInclude Include="State.hpp" />
+    <ClInclude Include="Sword.hpp" />
+    <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="Particle_Generator.hpp" />
+    <ClInclude Include="Application.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Objectmanager.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui_System.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="System">
+      <UniqueIdentifier>{b51a1635-c896-4f37-a8e1-3d93c19bfe8d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -34,10 +34,10 @@ bool Player::Initialize(Object * Ob)
 		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 		object->AddComponent(new Status(ObjectType::Player, 5, 1, 1.f));
 
-		for(auto temp : object->GetComponent())
+		/*for(auto temp : object->GetComponent())
 		{
 			temp->Initialize(object);
-		}
+		}*/
 	}
 	return true;
 }

@@ -27,10 +27,6 @@ Creation date: 2018/12/14
 class Object
 {
 public:
-	/*Object() = default;
-	Object(const Object& rhs);*/
-
-
     void AddComponent(Component* component);
     void SetMesh(Mesh mesh);
     void SetTranslation(const vector2& position);

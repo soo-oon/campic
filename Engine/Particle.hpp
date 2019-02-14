@@ -1,59 +1,52 @@
-/* Start Header -------------------------------------------------------------
---
-Copyright (C) 2018 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-File Name: Particle.hpp
-Language: C++
-Platform: Visual Studio 2017
-Project: sword of souls
-Primary : Choi jin hyun
-Secondary :
-Creation date: 2018/12/14
-- End Header ----------------------------------------------------------------
-*/
-
 #pragma once
-#include "Component.hpp"
-#include <vector>
-#include <vector2.hpp>
-#include "Mesh.hpp"
+
+#include "Object.hpp"
 #include "Sprite.hpp"
-#include "Transform.hpp"
 
-class Sprite;
 
-struct Particle_Obj
+enum class Direction
 {
-	Particle_Obj(Transform transfrom, Mesh mesh, vector2 velocity, float life_time, std::string path_);
-	Transform transform_;
-	Mesh mesh_;
-	vector2 velocity_;
-	float life_time_;
-	Sprite sprite_;
-
+	N, S, E, W, NE, NW, SE, SW, None
 };
 
-class Particle : public Component
+class Particle
 {
 public:
-	Particle(int amount, float life_time, vector2 offset)
-		: amount_(amount), const_life_time(life_time), offset_(offset)
-	{}
+	Particle(float lifeTime_ = 1.0f, float sizeVariance_ = 5.0f, vector2 velocity_ = { 0,0 })
+		: lifeTime(lifeTime_), sizeVariance(sizeVariance_), startVelocity(velocity_)
+	{
+		particle_obj = new Object();
+		particle_obj->SetMesh(mesh::CreateBox(1, { 255,255,255 }));
+		particle_obj->SetScale(50.0f);
+		particle_obj->AddComponent(new Sprite());
 
-	bool Particle_Generate(Transform transform, Mesh mesh, vector2 velocity, std::string path_);
-	bool Initialize(Object* Ob)override;
-	void Update(float dt) override;
-	void Delete() override;
-	auto& GetParticle_Objets() { return particle_objs; }
+		static_lifeTime = lifeTime;
 
-	int UnusedParticle();
-	void RespawnParticle(Particle_Obj* particle_obj, vector2 offset);
-	int last_used_particle_index = 0;
+		for(auto component : particle_obj->GetComponent())
+		{
+			component->Initialize(particle_obj);
+		}
+	}
+
+	bool Initialize(vector2 position, vector2 random_velocity);
+	void Update(float dt, vector2 random_velocity);
+
+	bool IsRespawn() { return isrespawn; }
+	Object* GetParticleObject() { return particle_obj; }
+	void RespawnParticleObj(Object* obj);
+
+        void SetDirection(vector2 random_velocity);
+	//void SetTranslation(vector2 position);
+	//void SetSize(vector2 size);
 
 private:
-	int amount_;
-	float const_life_time;
-	vector2 offset_;
-	std::vector<std::unique_ptr<Particle_Obj>> particle_objs;
+	void UpdateDirection(vector2 random_velocity, float dt);
+	float lifeTime;
+	float sizeVariance;
+	vector2 startVelocity;
+	float static_lifeTime;
+	Object* particle_obj = nullptr;
+	bool isrespawn = false;
+
+        Direction direction_ = Direction::None;
 };

@@ -103,6 +103,7 @@ bool Application::Initialize()
         return false;
     }
     glfwSwapInterval(true);
+	srand((unsigned)time(NULL));
     return true;
 }
 

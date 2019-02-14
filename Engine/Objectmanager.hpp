@@ -17,7 +17,6 @@ Creation date: 2018/12/14
 #include "Object.hpp"
 #include <map>
 #include <string>
-#include "System.hpp"
 #include <memory>
 
 class Objectmanager

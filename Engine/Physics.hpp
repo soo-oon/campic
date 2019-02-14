@@ -14,7 +14,6 @@ Creation date: 2018/12/14
 */
 
 #pragma once
-#include "System.hpp"
 #include "Objectmanager.hpp"
 #include "Collision.hpp"
 #include "Reaction.hpp"

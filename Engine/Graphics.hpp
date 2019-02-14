@@ -18,7 +18,6 @@ Creation date: 2018/12/14
 #include "Transform.hpp"
 #include "Object.hpp"
 #include "Sprite.hpp"
-#include "System.hpp"
 #include <vector>
 #include "Objectmanager.hpp"
 #include "Camera.hpp"

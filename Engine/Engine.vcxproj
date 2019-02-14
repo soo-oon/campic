@@ -186,6 +186,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Objectmanager.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Particle_Generator.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Reaction.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Objectmanager.hpp" />
     <ClInclude Include="Particle.hpp" />
+    <ClInclude Include="Particle_Generator.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Reaction.hpp" />
@@ -258,7 +260,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="System.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>

@@ -22,7 +22,7 @@ Creation date: 2018/12/14
 #include "State.hpp"
 #include <iostream>
 #include "Engine.hpp"
-#include "Particle_Generator.hpp"
+#include "Particle.hpp"
 
 Graphics Graphics_;
 
@@ -132,25 +132,20 @@ void Graphics::Draw()
 				}
 			}
 
-			if(auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+			/*if(auto temp = obj->GetComponentByTemplate<Particle>(); temp != nullptr)
 			{
-				for (auto&p : temp->GetParticles())
+				for (auto&p : temp->GetParticle_Objets())
 				{
 					particles.clear();
-					if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
+					particles.reserve(p->mesh_.GetTexturePointsCount());
+					for (std::size_t i = 0; i < p->mesh_.GetTexturePointsCount(); ++i)
 					{
-						particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
-						for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
-						{
-							particles.push_back(
-								{ p->GetParticleObject()->GetMesh().GetPoint(i),
-									p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_) });
-						}
-						Draw(p->GetParticleObject()->GetTransform(), particles, 
-							p->GetParticleObject()->GetMesh().GetPointListType(), p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
+						particles.push_back(
+							{ p->mesh_.GetPoint(i), p->mesh_.GetTextureCoordinate(i, &p->sprite_) });
 					}
+					Draw(p->transform_, particles, p->mesh_.GetPointListType(), p->mesh_.GetColor(0),& p->sprite_);
 				}
-			}
+			}*/
 
 			if(obj->GetMesh().IsVisible())
 			{
@@ -324,25 +319,20 @@ void Graphics::HUD_Draw()
 				}
 			}
 
-			if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+			/*if (auto temp = obj->GetComponentByTemplate<Particle>(); temp != nullptr)
 			{
-				for (auto&p : temp->GetParticles())
+				for (auto&p : temp->GetParticle_Objets())
 				{
 					particles.clear();
-					if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
+					particles.reserve(p->mesh_.GetTexturePointsCount());
+					for (std::size_t i = 0; i < p->mesh_.GetTexturePointsCount(); ++i)
 					{
-						particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
-						for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
-						{
-							particles.push_back(
-								{ p->GetParticleObject()->GetMesh().GetPoint(i),
-									p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_) });
-						}
-						Draw(p->GetParticleObject()->GetTransform(), particles,
-							p->GetParticleObject()->GetMesh().GetPointListType(), p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
+						particles.push_back(
+							{ p->mesh_.GetPoint(i), p->mesh_.GetTextureCoordinate(i, &p->sprite_) });
 					}
+					Draw(p->transform_, particles, p->mesh_.GetPointListType(), p->mesh_.GetColor(0), &p->sprite_);
 				}
-			}
+			}*/
 
 			if (obj->GetMesh().IsVisible())
 			{

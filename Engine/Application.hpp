@@ -18,7 +18,6 @@ Creation date: 2018/12/14
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <string>
-#include "System.hpp"
 #include "Input.hpp"
 #include "vector2.hpp"
 #include "State.hpp"

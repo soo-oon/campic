@@ -22,7 +22,7 @@ Creation date: 2018/12/14
 class Sprite : public Component
 {
 public:
-	Sprite(const std::string& file_path_ = NULL)
+	Sprite(const std::string& file_path_ = "asset/images/default.png")
 		: path(file_path_), handle_to_texture(0)
 	{
 	}

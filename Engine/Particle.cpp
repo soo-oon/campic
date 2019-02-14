@@ -1,123 +1,188 @@
-/* Start Header -------------------------------------------------------------
---
-Copyright (C) 2018 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-File Name: Particel.cpp
-Language: C++
-Platform: Visual Studio 2017
-Project: sword of souls
-Primary : Choi jin hyun
-Secondary :
-Creation date: 2018/12/14
-- End Header ----------------------------------------------------------------
-*/
-
 #include "Particle.hpp"
-#include <memory>
-#include "Sprite.hpp"
-#include "Object.hpp"
 #include <iostream>
 
-Particle_Obj::Particle_Obj(Transform transfrom, Mesh mesh, vector2 velocity, float life_time, std::string path_)
-	: transform_(transfrom), mesh_(mesh), velocity_(velocity), life_time_(life_time)
+bool Particle::Initialize(vector2 position, vector2 random_velocity)
 {
-	transform_.SetDepth(0.9f);
-	//sprite_.Texture_Load(path_);
-}
-
-
-bool Particle::Particle_Generate(Transform transform, Mesh mesh, vector2 velocity, std::string path_)
-{
-	for (int i = 0; i < amount_; ++i)
-	{
-		particle_objs.push_back(std::make_unique<Particle_Obj>(transform, mesh, velocity, const_life_time, path_));
-	}
-
-	if (particle_objs.empty())
-		return  false;
-
+	particle_obj->SetTranslation(position);
+        SetDirection(random_velocity);
 	return true;
 }
 
-bool Particle::Initialize(Object* Ob)
+void Particle::Update(float dt, vector2 random_velocity)
 {
-	if (object == nullptr)
+	lifeTime -= dt;
+
+	if(lifeTime > 0.0f)
 	{
-		object = Ob;
+            UpdateDirection(random_velocity, dt);
+	    particle_obj->GetMesh().Change_Alpha_Value(dt * 100);
 
-		if (Ob == nullptr)
-			return false;
-
-		if (particle_objs.empty())
-			return false;
+            if(particle_obj->GetMesh().GetColor(0).Alpha <= 0)
+            {
+                particle_obj->GetMesh().ChangeColor({ 255,255,255 });
+            }
 	}
-	return true;
-}
-
-void Particle::Update(float dt)
-{
-	for (int i = 0; i < amount_; ++i)
+	else
 	{
-		int unusedParticle = UnusedParticle();
-		//std::cout << last_used_particle_index << std::endl;
-		RespawnParticle(particle_objs[unusedParticle].get(), offset_);
-	}
-
-	for (int i = 0; i < amount_; ++i)
-	{
-		Particle_Obj* p = particle_objs[i].get();
-		p->life_time_ -= dt;
-
-		if (p->life_time_ > 0.0f)
-		{
-			vector2 offset_velocity = p->velocity_ * dt;
-			vector2 set_new_translation = p->transform_.GetTranslation() - offset_velocity;
-			p->transform_.SetTranslation(set_new_translation);
-
-			p->mesh_.Change_Alpha_Value(dt*3.5f);
-		}
+		isrespawn = true;
 	}
 }
 
-void Particle::Delete()
+void Particle::RespawnParticleObj(Object* obj)
 {
-
+    particle_obj->SetTranslation(obj->GetTransform().GetTranslation());
+    particle_obj->GetMesh().ChangeColor({ 255,255,255 });
+    isrespawn = false;
+    lifeTime = static_lifeTime;
 }
 
-int Particle::UnusedParticle()
+void Particle::SetDirection(vector2 random_velocity)
 {
-	for (int i = last_used_particle_index; i < amount_; ++i)
-	{
-		if (particle_objs[i]->life_time_ <= 0.0f)
-		{
-			last_used_particle_index = i;
-			return i;
-		}
-	}
+    int random;
 
-	for (int i = 0; i < last_used_particle_index; ++i)
-	{
-		if (particle_objs[i]->life_time_ <= 0.0f)
-		{
-			last_used_particle_index = i;
-			return i;
-		}
-	}
+    if(random_velocity.x == 0)
+    {
+        random = rand() % 2;
 
-	//last_used_particle_index = 0;
-	return 0;
+        switch (random)
+        {
+        case 0:
+            direction_ = Direction::N;
+            break;
+        case 1:
+            direction_ = Direction::S;
+            break;
+        default:
+            break;
+        }
+    }
+    else if(random_velocity.y == 0)
+    {
+        random = rand() % 2;
+
+        switch (random)
+        {
+        case 0:
+            direction_ = Direction::E;
+            break;
+        case 1:
+            direction_ = Direction::W;
+            break;
+        default:
+            break;
+        }
+    }
+    else
+    {
+        random = rand() % 8;
+
+        switch (random)
+        {
+        case 0:
+            direction_ = Direction::N;
+            break;
+        case 1:
+            direction_ = Direction::S;
+            break;
+        case 2:
+            direction_ = Direction::E;
+            break;
+        case 3:
+            direction_ = Direction::W;
+            break;
+        case 4:
+            direction_ = Direction::NE;
+            break;
+        case 5:
+            direction_ = Direction::NW;
+            break;
+        case 6:
+            direction_ = Direction::SE;
+            break;
+        case 7:
+            direction_ = Direction::SW;
+            break;
+        default:
+            break;
+        }
+    }
 }
 
-void Particle::RespawnParticle(Particle_Obj* particle_obj, vector2 offset)
+void Particle::UpdateDirection(vector2 random_velocity, float dt)
 {
-	float random = ((rand() % 1000) - 50) / 10.0f;
-	vector2 new_translation = object->GetTransform().GetTranslation() + offset + random;
-	particle_obj->transform_.SetTranslation(new_translation);
+    auto temp = particle_obj->GetTransform().GetTranslation();
+    float temp_velocity_x = rand() % static_cast<int>(random_velocity.x);
+    float temp_velocity_y = rand() % static_cast<int>(random_velocity.y);
 
-	Color respawn_color = Color{ 255, 255, 255, 255 };
-	particle_obj->mesh_.ChangeColor(respawn_color);
-
-	particle_obj->life_time_ = const_life_time;
-	particle_obj->velocity_ = 0.0f;
+    switch (direction_)
+    {
+    case Direction::N:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) + (temp_velocity_x)
+            , temp.y + (startVelocity.y) + (temp_velocity_y) });
+        break;
+    case Direction::S:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) + (temp_velocity_x)
+            , temp.y + (startVelocity.y) - (temp_velocity_y) });
+        break;
+    case Direction::E:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x) + (temp_velocity_x)
+            , temp.y + (startVelocity.y) + (temp_velocity_y) });
+        break;
+    case Direction::W:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) - (temp_velocity_x)
+            , temp.y + (startVelocity.y) + (temp_velocity_y) });
+        break;
+    case Direction::NE:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) + (temp_velocity_x)
+            , temp.y + (startVelocity.y) + (temp_velocity_y) });
+        break;
+    case Direction::NW:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) - (temp_velocity_x)
+            , temp.y + (startVelocity.y) + (temp_velocity_y) });
+        break;
+    case Direction::SE:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) + (temp_velocity_x)
+            , temp.y + (startVelocity.y) - (temp_velocity_y) });
+        break;
+    case Direction::SW:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x ) - (temp_velocity_x)
+            , temp.y + (startVelocity.y) - (temp_velocity_y) });
+        break;
+    default:
+        break;
+    /*case Direction::N:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) + (temp_velocity_x)*dt
+            , temp.y+ (startVelocity.y*dt) + (temp_velocity_y)*dt});
+        break;
+    case Direction::S:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) + (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) - (temp_velocity_y)*dt });
+        break;
+    case Direction::E:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) + (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) + (temp_velocity_y)*dt });
+        break;
+    case Direction::W:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) - (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) + (temp_velocity_y)*dt });
+        break;
+    case Direction::NE:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) + (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) + (temp_velocity_y)*dt });
+        break;
+    case Direction::NW:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) - (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) + (temp_velocity_y)*dt });
+        break;
+    case Direction::SE:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) + (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) - (temp_velocity_y)*dt });
+        break;
+    case Direction::SW:
+        particle_obj->SetTranslation({ temp.x + (startVelocity.x * dt) - (temp_velocity_x)*dt
+            , temp.y + (startVelocity.y*dt) - (temp_velocity_y)*dt });
+        break;
+    default:
+        break;*/
+    }
 }
