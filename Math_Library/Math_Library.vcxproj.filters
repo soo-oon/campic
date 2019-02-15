@@ -53,5 +53,6 @@
     <ClInclude Include="vector4.hpp">
       <Filter>vector4</Filter>
     </ClInclude>
+    <ClInclude Include="RandomFunction.hpp" />
   </ItemGroup>
 </Project>

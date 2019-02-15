@@ -30,7 +30,7 @@ public:
 	void SetCardList(std::string card);
 	void ClearCardList();
 	std::vector<std::string> GetCardList();
-	void PlayerMove(vector2 mouse_position);
+	//void PlayerMove(vector2 mouse_position);
 
 private:
 	std::vector<std::string> card_list = {};

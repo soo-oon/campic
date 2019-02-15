@@ -23,13 +23,14 @@ Creation date: 2018/12/14
 class Particle_Generator : public Component
 {
 public:
-	Particle_Generator(int rate_ = 50, float lifeTime_ = 1.0f, float sizeVariance_ = 5, vector2 startVelocity_ = { 0,0 },
-		vector2 randomVelocity_ = {1,1}, vector2 emitSize_ = {0,0})
-		: emitRate(rate_), lifeTime_Control(lifeTime_), sizeVariance_Control(sizeVariance_), startVelocity(startVelocity_), randomVelocity(randomVelocity_), emitSize(emitSize_)
+	Particle_Generator(int rate_ = 50, float lifeTime_ = 5.0f, float sizeVariance_ = 3.0f, float color_duration_ = 10.0f
+		,vector2 startVelocity_ = { 0,0 },vector2 randomVelocity_ = {1,1}, vector2 emitSize_ = {0,0}, std::string path = {})
+		: emitRate(rate_), lifeTime_Control(lifeTime_), sizeVariance_Control(sizeVariance_), 
+			color_duration(color_duration_), startVelocity(startVelocity_), randomVelocity(randomVelocity_), emitSize(emitSize_)
 	{
 		for(int i = 0; i<emitRate; ++i)
 		{
-		    Particle temp{ lifeTime_Control, sizeVariance_Control, startVelocity };
+		    Particle temp{ lifeTime_Control, sizeVariance_Control, color_duration, startVelocity, randomVelocity, path };
 		    particles.push_back(std::make_unique<Particle>(temp));
 		}
 	}
@@ -39,25 +40,26 @@ public:
 	void Delete() override;
 	std::vector<std::unique_ptr<Particle>>& GetParticles() { return particles; }
 
-	/*void SetEmitRate(float rate);
+	bool IsActive() { return isActive; }
+	void ToggleActive() { isActive = !isActive; }
+
+	void SetEmitRate(int rate);
 	void SetStartVelocity(vector2 velocity);
-	void SetRadomVelocity(vector2 velocity);
-	void SetEmitSize(vector2 size);
+	void SetRandomVelocity(vector2 velocity);
 	void ChangeSprite(const std::string path);
 	void SetLifeTime(float lifeTime_);
-	void SetSizeVariance(float sizeVariance_);*/
+	void SetSizeVariance(float sizeVariance_);
+	//void SetEmitSize(vector2 size);
 
 private:
-	//void SetDirection();
-	//vector2 GetRandomVelocity();
-
-	//Direction direction_ = Direction::None;
-        int emitRate;
+    int emitRate;
 	float lifeTime_Control;
 	float sizeVariance_Control;
+	float color_duration;
 	vector2 startVelocity;
 	vector2 randomVelocity;
 	vector2 emitSize;
+	bool isActive = true;
 
 	std::vector<std::unique_ptr<Particle>> particles;
 };

@@ -220,6 +220,7 @@ void Mesh::ChangeColor(Color color)
     }
 }
 
+/*
 void Mesh::Change_Alpha_Value(float dec_value)
 {
 	for (auto i = colors.begin(); i != colors.end(); ++i)
@@ -227,6 +228,35 @@ void Mesh::Change_Alpha_Value(float dec_value)
 		float temp = static_cast<float>(i->Alpha);
 		temp -= dec_value;
 		i->Alpha = static_cast<unsigned char>(temp);
+	}
+}
+*/
+
+void Mesh::Decrease_Alpha(float dec_value)
+{
+	if(colors[0].Alpha > 0 )
+	{
+		float temp = static_cast<float>(colors[0].Alpha);
+		temp -= dec_value;
+		colors[0].Alpha = static_cast<unsigned char>(temp);
+	}
+	else
+	{
+		colors[0].isAlphaDone = true;
+	}
+}
+
+void Mesh::Increase_Alpha(float inc_value)
+{
+	if(colors[0].Alpha < 255)
+	{
+		float temp = static_cast<float>(colors[0].Alpha);
+		temp += inc_value;
+		colors[0].Alpha = static_cast<unsigned char>(temp);
+	}
+	else
+	{
+		colors[0].isAlphaDone = false;
 	}
 }
 

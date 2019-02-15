@@ -122,11 +122,10 @@ void Objectmanager::AddObject(Object obj)
 
 	for(unsigned int i =0; i<objects_.size(); ++i)
 	{
-
-		for(auto component : objects_[i]->GetComponent())
-		{
-			component->Initialize(objects_[i].get());
-		}
+	    for(auto component : objects_[i]->GetComponent())
+	    {
+		    component->Initialize(objects_[i].get());
+	    }
 
 	}
 }

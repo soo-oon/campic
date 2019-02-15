@@ -31,5 +31,6 @@ struct Color
     Color(ColorChannel red, ColorChannel green,
           ColorChannel blue, ColorChannel alpha = 255);
 
+	bool isAlphaDone = false;
     vector4 RGBAfloat() const;
 };

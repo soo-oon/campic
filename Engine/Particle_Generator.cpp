@@ -17,23 +17,30 @@ Creation date: 2018/12/14
 
 bool Particle_Generator::Initialize(Object* Ob)
 {
-	object = Ob;
+	if (object == nullptr)
+	{
+		object = Ob;
+	}
 
 	for(auto& particle : particles)
 	{
-		particle->Initialize(object->GetTransform().GetTranslation(), randomVelocity);
+		particle->Initialize(object->GetTransform().GetTranslation());
+		particle->SetOriginScale(object->GetTransform().GetScale());
 	}
 	return true; 
 }
 
 void Particle_Generator::Update(float dt)
 {
-	for(auto& particle_obj : particles)
+	if (isActive)
 	{
-		particle_obj->Update(dt, randomVelocity);
-		if(particle_obj->IsRespawn())
+		for (auto& particle_obj : particles)
 		{
-			particle_obj->RespawnParticleObj(object);
+			particle_obj->Update(dt, randomVelocity);
+			if (particle_obj->IsRespawn())
+			{
+				particle_obj->RespawnParticleObj(object);
+			}
 		}
 	}
 }
@@ -42,78 +49,63 @@ void Particle_Generator::Delete()
 {
 }
 
-//void Particle_Generator::SetDirection()
+void Particle_Generator::SetEmitRate(int rate)
+{
+	particles.clear();
+
+	for(int i = 0; i<rate; ++i)
+	{
+		Particle temp{ lifeTime_Control, sizeVariance_Control, color_duration, startVelocity, randomVelocity };
+		particles.push_back(std::make_unique<Particle>(temp));
+	}
+
+	Initialize(object);
+}
+
+void Particle_Generator::SetStartVelocity(vector2 velocity)
+{
+	for (auto& particle_obj : particles)
+	{
+		particle_obj->SetStartVelocity(velocity);
+	}
+}
+
+void Particle_Generator::SetRandomVelocity(vector2 velocity)
+{
+	for (auto& particle_obj : particles)
+	{
+		particle_obj->SetRandomVelocity(velocity);
+	}
+}
+
+
+void Particle_Generator::ChangeSprite(const std::string path)
+{
+	for (auto& particle_obj : particles)
+	{
+		particle_obj->ChangeSprite(path);
+	}
+}
+
+void Particle_Generator::SetLifeTime(float lifeTime_)
+{
+	for (auto& particle_obj : particles)
+	{
+		particle_obj->SetLifeTime(lifeTime_);
+	}
+}
+
+void Particle_Generator::SetSizeVariance(float sizeVariance_)
+{
+	for (auto& particle_obj : particles)
+	{
+		particle_obj->SetSizeVariance(sizeVariance_);
+	}
+}
+
+//void Particle_Generator::SetEmitSize(vector2 size)
 //{
-//	if(randomVelocity.y ==0)
+//	for (auto& particle_obj : particles)
 //	{
-//		int random = rand() % 2;
-//
-//		switch (random)
-//		{
-//		case 0:
-//			direction_ = Direction::E;
-//			break;
-//		case 1:
-//			direction_ = Direction::W;
-//			break;
-//		default:
-//			break;
-//		}
-//	}
-//	else if(randomVelocity.x == 0)
-//	{
-//		int random = rand() % 2;
-//
-//		switch (random)
-//		{
-//		case 0:
-//			direction_ = Direction::N;
-//			break;
-//		case 1:
-//			direction_ = Direction::S;
-//			break;
-//		default:
-//			break;
-//		}
-//	}
-//	else
-//	{
-//		int random = rand() % 8;
-//
-//		switch (random)
-//		{
-//		case 0:
-//			direction_ = Direction::N;
-//			break;
-//		case 1:
-//			direction_ = Direction::S;
-//			break;
-//		case 2:
-//			direction_ = Direction::E;
-//			break;
-//		case 3:
-//			direction_ = Direction::W;
-//			break;
-//		case 4:
-//			direction_ = Direction::NE;
-//			break;
-//		case 5:
-//			direction_ = Direction::NW;
-//			break;
-//		case 6:
-//			direction_ = Direction::SE;
-//			break;
-//		case 7:
-//			direction_ = Direction::SW;
-//			break;
-//		default:
-//			break;
-//		}
 //	}
 //}
-
-//vector2 Particle_Generator::GetRandomVelocity()
-//{
-//
-//}
-

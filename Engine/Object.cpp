@@ -22,6 +22,12 @@ void Object::AddComponent(Component* component)
     //component->Initialize(this);
 }
 
+void Object::Add_Init_Component(Component* component)
+{
+    component->Initialize(this);
+    components.push_back(component);
+}
+
 void Object::SetMesh(Mesh mesh)
 {
     object_mesh = mesh;

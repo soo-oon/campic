@@ -135,6 +135,7 @@
     <ClInclude Include="affine2d.hpp" />
     <ClInclude Include="control_angle.hpp" />
     <ClInclude Include="matrix2.hpp" />
+    <ClInclude Include="RandomFunction.hpp" />
     <ClInclude Include="vector2.hpp" />
     <ClInclude Include="vector3.hpp" />
     <ClInclude Include="vector4.hpp" />
