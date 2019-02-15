@@ -46,6 +46,8 @@
     <ClCompile Include="Input.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Picking.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -92,6 +94,8 @@
     <ClInclude Include="Timer.hpp">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="Particle.hpp" />
+    <ClInclude Include="Picking.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

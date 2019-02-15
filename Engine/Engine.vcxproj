@@ -188,6 +188,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Particle_Generator.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Picking.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Particle.hpp" />
     <ClInclude Include="Particle_Generator.hpp" />
     <ClInclude Include="Physics.hpp" />
+    <ClInclude Include="Picking.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Reaction.hpp" />
     <ClInclude Include="RigidBody.hpp" />
