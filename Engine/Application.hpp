@@ -34,8 +34,8 @@ public:
     void Quit();
 
 	GLFWwindow* GetWindow() { return window; }
+	vector2 GetScreenSize() { return real_screenSize; }
 
-        vector2 GetScreenSize() { return screenSize; }
     void Key_Poll_Event();
     void PollEvent();
     void FullScreen();
@@ -45,13 +45,14 @@ private:
 	int fpsFrames = 0;
 
     GLFWmonitor* monitor = nullptr;
-    const GLFWvidmode* mode = nullptr;
+    //const GLFWvidmode* mode = nullptr;
 
     GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
 
     std::string title;
     vector2 screenSize;
+	vector2 real_screenSize;
 };
 
 extern Application Application_;

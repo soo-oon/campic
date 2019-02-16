@@ -8,9 +8,10 @@ class Particle
 {
 public:
 	Particle(float lifeTime_ = 5.0f, float sizeVariance_ = 3.0f, float color_duration_ = 10.0f,
-		vector2 start_velocity_ = { 0,0 }, vector2 random_velocity_ = {0,0}, std::string path = {})
-		: static_lifeTime(lifeTime_), static_sizeVariance(sizeVariance_),
-		startVelocity(start_velocity_), static_color_duration(color_duration_), static_random_velocity(random_velocity_)
+				vector2 start_velocity_ = { 0,0 }, vector2 random_velocity_ = { 0,0 }, 
+					vector2 particle_size_ = { 10.0f,10.0f },std::string path = {})
+		: static_lifeTime(lifeTime_), static_sizeVariance(sizeVariance_),startVelocity(start_velocity_), 
+	static_color_duration(color_duration_), static_random_velocity(random_velocity_), particle_size(particle_size_)
 	{
 		lifeTime = static_lifeTime;
 		sizeVariance = static_sizeVariance;
@@ -19,7 +20,7 @@ public:
 
 		particle_obj = new Object();
 		particle_obj->SetMesh(mesh::CreateBox(1, { 255,255,255 }));
-		particle_obj->SetScale(50.0f);
+		particle_obj->SetScale(particle_size);
 
 		if (path.empty())
 		{
@@ -44,7 +45,6 @@ public:
 	void RespawnParticleObj(Object* obj);
 	Object* GetParticleObject() { return particle_obj; }
 
-	void SetOriginScale(vector2 size) { origin_size = size; }
 	void SetStartVelocity(vector2 velocity) { startVelocity = velocity; }
 	void SetRandomVelocity(vector2 velocity) { static_random_velocity = velocity; }
 	void SetSizeVariance(float sizeVariance_) { static_sizeVariance = sizeVariance_; }
@@ -68,7 +68,7 @@ private:
 	float static_sizeVariance;
 	float static_color_duration;
 	vector2 static_random_velocity{};
-	vector2 origin_size{};
+	vector2 particle_size{};
 
 	//Direction direction_ = Direction::None;
 };
