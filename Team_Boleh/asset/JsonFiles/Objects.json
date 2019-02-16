@@ -1,0 +1,86 @@
+{
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 0,
+                "Enum": "Player"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {
+            "map": {
+                "path": {
+                    "id": "player",
+                    "path": "asset/images/Player.png"
+                },
+                "info": {
+                    "image_frames": 8,
+                    "update_frames": 0.05000000074505806,
+                    "is_repeats": true
+                },
+                "path": {
+                    "id": "attack",
+                    "path": "asset/images/attack.png"
+                },
+                "info": {
+                    "image_frames": 4,
+                    "update_frames": 0.10000000149011612,
+                    "is_repeats": false
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "Value": 9,
+                "Enum": "None"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 100.0,
+                "y": -100.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Dr_Strange.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    }
+}

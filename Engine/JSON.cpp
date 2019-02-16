@@ -1,32 +1,24 @@
 #include "JSON.hpp"
 #include "Status.hpp"
+#include "Animation.hpp"
 #include <iostream>
+#include "Particle.hpp"
 
 JSON JSON_;
 
 bool JSON::Initialize()
 {
 	ObjectDocument.SetObject();
-	//levels.SetObject();
-	//if (!levels.IsObject())
-	//	return false;
-	//LoadLevelDocument();
 
 	return true;
 }
 
-void JSON::Update(float dt)
+void JSON::Update(float /*dt*/)
 {
 }
 
 void JSON::Quit()
 {
-	//SaveAtEnd();
-	//SaveDocument();
-
-	//for (std::map< std::string, std::unique_ptr<rapidjson::Document>>::iterator
-	//	it = LevelDocuments.begin(); it != LevelDocuments.end(); it++)
-	//	delete(it->second.get());
 }
 
 void JSON::ObjectsToDocument(Object* obj)
@@ -40,39 +32,58 @@ void JSON::ObjectsToDocument(Object* obj)
 	Value objSpriteTree(kArrayType);
 	Value objAnimationTree(kArrayType);
 	Value objCameraTree(kArrayType);
-
-	//TODO
-	//Collision info
-	//Value objCollisionTree(kArrayType);
-	//Particle info
-	//Value objParticleTree(kArrayType);
-	//RigidBody info
-	//Value objRigidBodyTree(kArrayType);
-
+	Value objRigidBodyTree;
+	Value objCollisionTree(kArrayType);
+	Value objParticleTree(kArrayType);
+	
 	objTree.SetObject();
 	objTransformTree.SetObject();
 	objAnimationTree.SetObject();
 	objCameraTree.SetObject();
 	objStatusTree.SetObject();
 	objSpriteTree.SetObject();
+	objRigidBodyTree.SetObject();
+	objCollisionTree.SetObject();
+	objParticleTree.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
 
-	if(obj->GetComponentByTemplate<Status>() != nullptr)
+	if (obj->GetComponentByTemplate<Status>() != nullptr)
+	{
 		objStatusTree = ComponentStatus(obj);
+		if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
+		{
+			objCameraTree = ComponentCamera(obj);
+			objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+		}
+	}
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
-	if(obj->GetComponentByTemplate<Camera>() != nullptr)
-		objCameraTree = ComponentCamera(obj);
-	if (obj->GetComponentByTemplate<Sprite>() != nullptr)
+
+	//if(obj->GetComponentByTemplate<Camera>() != nullptr)
+		//objCameraTree = ComponentCamera(obj);
+	
+	if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		objSpriteTree = ComponentSprite(obj);
+	
+	if (obj->GetComponentByTemplate<RigidBody>() != nullptr)
+		objRigidBodyTree.SetBool(true);
+	else
+		objRigidBodyTree.SetBool(false);
+
+	if(obj->GetComponentByTemplate<Collision>() != nullptr)
+		objCollisionTree = ComponentCollision(obj);
+	
+	if(obj->GetComponentByTemplate<Particle>() != nullptr)
+		objParticleTree = ComponentParticle(obj);
 
 	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sprite", objSpriteTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Animation", objAnimationTree, ObjectDocument.GetAllocator());
-	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
-
+	objTree.AddMember("RigidBody", objRigidBodyTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Collision", objCollisionTree, ObjectDocument.GetAllocator());
+	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
 	ObjectDocument.Parse(ObjectBuffer.GetString());
@@ -84,55 +95,23 @@ Value JSON::ComponentAnimation(Object* obj)
 {
 	Value objAnimationTree(kArrayType);
 	Value objAnimationMap(kArrayType);
-	Value current_animation, previous_animation, is_done, frame_time;
+	Value objAnimation;
+	Value current_animation, previous_animation;
 	std::vector<Value*> animation_string;
 	std::vector<Value*> animation_map;
 
 	//Animation_Information class
-	//TODO Sprite
-	Value c_is_repeats, c_previous_current_coordinate;
-	Value p_is_repeats, p_previous_current_coordinate;
-
 	objAnimationTree.SetObject();
 	objAnimationMap.SetObject();
 	current_animation.SetObject();
 	previous_animation.SetObject();
-	is_done.SetObject();
-	frame_time.SetObject();
-	c_is_repeats.SetObject();
-	c_previous_current_coordinate.SetObject();
-	p_is_repeats.SetObject();
-	p_previous_current_coordinate.SetObject();
 
 	auto animation_info = obj->GetComponentByTemplate<Animation>();
-	auto current_animation_info = obj->GetComponentByTemplate<Animation>()->GetCurrentAnimation();
-	auto previous_animation_info = obj->GetComponentByTemplate<Animation>()->GetPreviousAnimation();
-
-	c_is_repeats.SetBool(current_animation_info.is_repeats);
-	c_previous_current_coordinate.AddMember("x", current_animation_info.previous_current_coordinate.x, ObjectDocument.GetAllocator());
-	c_previous_current_coordinate.AddMember("y", current_animation_info.previous_current_coordinate.y, ObjectDocument.GetAllocator());
-	current_animation.AddMember("image_frames", current_animation_info.image_frames, ObjectDocument.GetAllocator());
-	current_animation.AddMember("update_frames", current_animation_info.update_frames, ObjectDocument.GetAllocator());
-	current_animation.AddMember("frame_per_seconds", current_animation_info.frame_per_seconds, ObjectDocument.GetAllocator());
-	current_animation.AddMember("is_repeats", c_is_repeats, ObjectDocument.GetAllocator());
-	current_animation.AddMember("previous_current_coordinate", c_previous_current_coordinate, ObjectDocument.GetAllocator());
-
-	p_is_repeats.SetBool(previous_animation_info.is_repeats);
-	p_previous_current_coordinate.AddMember("x", previous_animation_info.previous_current_coordinate.x, ObjectDocument.GetAllocator());
-	p_previous_current_coordinate.AddMember("y", previous_animation_info.previous_current_coordinate.y, ObjectDocument.GetAllocator());
-	previous_animation.AddMember("image_frames", previous_animation_info.image_frames, ObjectDocument.GetAllocator());
-	previous_animation.AddMember("update_frames", previous_animation_info.update_frames, ObjectDocument.GetAllocator());
-	previous_animation.AddMember("frame_per_seconds", previous_animation_info.frame_per_seconds, ObjectDocument.GetAllocator());
-	previous_animation.AddMember("is_repeats", p_is_repeats, ObjectDocument.GetAllocator());
-	previous_animation.AddMember("previous_current_coordinate", p_previous_current_coordinate, ObjectDocument.GetAllocator());
-
-	is_done.SetBool(animation_info->IsDone());
-	frame_time.SetFloat(animation_info->GetFrameTime());
 
 	for (auto& temp : animation_info->GetAnimationMap())
 	{
 		int i = 0;
-		Value animation_path;
+		Value animation_path, id, path;
 		Value animation_info_;
 		Value animation_is_repeats;
 		Value animation_pc_coordinate;
@@ -142,16 +121,15 @@ Value JSON::ComponentAnimation(Object* obj)
 		animation_is_repeats.SetObject();
 		animation_pc_coordinate.SetObject();
 
-		animation_path.SetString(temp.first.c_str(), ObjectDocument.GetAllocator());
-		animation_is_repeats.SetBool(temp.second.is_repeats);
-		animation_pc_coordinate.AddMember("x", temp.second.previous_current_coordinate.x, ObjectDocument.GetAllocator());
-		animation_pc_coordinate.AddMember("y", temp.second.previous_current_coordinate.y, ObjectDocument.GetAllocator());
+		id.SetString(temp.first.c_str(), ObjectDocument.GetAllocator());
+		path.SetString(temp.second.path.c_str(), ObjectDocument.GetAllocator());
 
+		animation_path.AddMember("id", id, ObjectDocument.GetAllocator());
+		animation_path.AddMember("path", path, ObjectDocument.GetAllocator());
+		animation_is_repeats.SetBool(temp.second.is_repeats);
 		animation_info_.AddMember("image_frames", temp.second.image_frames, ObjectDocument.GetAllocator());
 		animation_info_.AddMember("update_frames", temp.second.update_frames, ObjectDocument.GetAllocator());
-		animation_info_.AddMember("frame_per_seconds", temp.second.frame_per_seconds, ObjectDocument.GetAllocator());
 		animation_info_.AddMember("is_repeats", animation_is_repeats, ObjectDocument.GetAllocator());
-		animation_info_.AddMember("previous_current_coordinate", animation_pc_coordinate, ObjectDocument.GetAllocator());
 
 		animation_string.push_back(&animation_path);
 		animation_map.push_back(&animation_info_);
@@ -161,11 +139,7 @@ Value JSON::ComponentAnimation(Object* obj)
 		++i;
 	}
 
-	objAnimationTree.AddMember("current_animation", current_animation, ObjectDocument.GetAllocator());
-	objAnimationTree.AddMember("previous_animation", previous_animation, ObjectDocument.GetAllocator());
 	objAnimationTree.AddMember("map", objAnimationMap, ObjectDocument.GetAllocator());
-	objAnimationTree.AddMember("is_done", is_done, ObjectDocument.GetAllocator());
-	objAnimationTree.AddMember("frame_time", frame_time, ObjectDocument.GetAllocator());
 
 	return objAnimationTree;
 }
@@ -258,9 +232,15 @@ Value JSON::ComponentStatus(Object * obj)
 			objTypeString.SetString("Shooting");
 			break;
 		}
-		case ObjectType::None:
+		case ObjectType::Camera:
 		{
 			objTypeVal.SetInt(8);
+			objTypeString.SetString("Camera");
+			break;
+		}
+		case ObjectType::None:
+		{
+			objTypeVal.SetInt(9);
 			objTypeString.SetString("None");
 			break;
 		}
@@ -330,6 +310,45 @@ Value JSON::ComponentSprite(Object* obj)
 	return objSpriteTree;
 }
 
+Value JSON::ComponentCollision(Object * obj)
+{
+	Value collision_type;
+	collision_type.SetObject();
+
+	auto type = obj->GetComponentByTemplate<Collision>()->GetCollisionType();
+
+	switch(type)
+	{
+		case CollisionType::box_ :
+		{
+			collision_type.AddMember("id", static_cast<int>(type), ObjectDocument.GetAllocator());
+			collision_type.AddMember("enum", "box", ObjectDocument.GetAllocator());
+			break;
+		}
+		case CollisionType::circle_:
+		{
+			collision_type.AddMember("id", static_cast<int>(type), ObjectDocument.GetAllocator());
+			collision_type.AddMember("enum", "circle", ObjectDocument.GetAllocator());
+			break;
+		}
+		case CollisionType::triangle_:
+		{
+			collision_type.AddMember("id", static_cast<int>(type), ObjectDocument.GetAllocator());
+			collision_type.AddMember("enum", "triangle", ObjectDocument.GetAllocator());
+			break;
+		}
+		default:
+			break;
+	}
+
+	return collision_type;
+}
+
+Value JSON::ComponentParticle(Object * obj)
+{
+	return Value();
+}
+
 void JSON::SaveObjectsToJson()
 {
 	std::string filename(file_path);
@@ -368,33 +387,40 @@ void JSON::LoadObjectFromJson()
 {
 	ObjectDocument = LoadObjectDocumentFromJson();
 
-	for(auto& temp : ObjectDocument.GetObject())
+	for (auto& temp : ObjectDocument.GetObject())
 	{
 		Value& obj_array = temp.value;
 
-		Value status, transform, animation, sprite;
+		Value status, transform, animation, sprite, rigid_body, collision, particle;
 		Object obj;
 
 		status.SetObject();
 		transform.SetObject();
 		sprite.SetObject();
 		animation.SetObject();
+		rigid_body.SetObject();
+		collision.SetObject();
+		particle.SetObject();
 
 		status = obj_array.FindMember("Status")->value;
 		transform = obj_array.FindMember("Transform")->value;
 		sprite = obj_array.FindMember("Sprite")->value;
 		animation = obj_array.FindMember("Animation")->value;
+		rigid_body = obj_array.FindMember("RigidBody")->value;
+		collision = obj_array.FindMember("Collision")->value;
+		//animation = obj_array.FindMember("Animation")->value;
 
-		// status
+
+		// Status
 		int obj_type = status.FindMember("Type")->value.FindMember("Value")->value.GetInt();
 		int hp_ = status.FindMember("HP")->value.GetInt();
 		int attack_damage = status.FindMember("Damage")->value.GetInt();
 		float speed = status.FindMember("Speed")->value.GetFloat();
 		bool is_alive = status.FindMember("isAlive")->value.GetBool();
-	
-		obj.AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage,speed,is_alive));
 
-		//transform
+		obj.AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
+
+		// Transform
 		vector2 pos, scale;
 		float rotation;
 
@@ -408,369 +434,66 @@ void JSON::LoadObjectFromJson()
 		obj.SetScale(scale);
 		obj.SetRotation(rotation);
 
-		//Sprite
+		// Sprite
 		bool is_flip = false;
-		const char* path = "asset/images/default.png";
-
-		if(sprite.HasMember("is_flip"))
-			is_flip = sprite.FindMember("is_flip")->value.GetBool();
+		std::string path;
 
 		if (sprite.HasMember("image_path"))
+		{
 			path = sprite.FindMember("image_path")->value.GetString();
+			is_flip = sprite.FindMember("is_flip")->value.GetBool();
 
-		obj.AddComponent(new Sprite(path));
-		obj.GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
+			obj.AddComponent(new Sprite(path));
+			obj.GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
+		}
+
+		// Animation
+		std::vector<std::string> id, ani_path;
+		std::vector<int> image_frame;
+		std::vector<float> update_frame;
+		std::vector<bool> is_repeat;
+
+		if(animation.HasMember("map"))
+		{
+			for (auto& temp_ : animation.FindMember("map")->value.GetObject())
+			{
+				Value& map_array = animation.FindMember("map")->value;
+			
+				id.push_back(map_array.FindMember("path")->value.FindMember("id")->value.GetString());
+				ani_path.push_back(map_array.FindMember("path")->value.FindMember("path")->value.GetString());
+				image_frame.push_back(map_array.FindMember("info")->value.FindMember("image_frames")->value.GetInt());
+				update_frame.push_back(map_array.FindMember("info")->value.FindMember("update_frames")->value.GetFloat());
+				is_repeat.push_back(map_array.FindMember("info")->value.FindMember("is_repeats")->value.GetBool());
+			}
+
+			obj.AddComponent(new Animation(ani_path.at(0), id.at(0),image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
+
+			for(int i = 1; i < id.size(); i++)
+			{
+				obj.GetComponentByTemplate<Animation>()->AddAnimaition(ani_path.at(i), id.at(i), image_frame.at(i), 
+					update_frame.at(i), is_repeat.at(i));
+			}
+		}
+
+		// RigidBody
+		bool is_rigid = false;
+		is_rigid = rigid_body.GetBool();
+		
+		if (is_rigid)
+			obj.AddComponent(new RigidBody());
+
+		// Collision
+		CollisionType type;
+		type = static_cast<CollisionType>(collision.FindMember("id")->value.GetInt());
+		
+		obj.AddComponent(new Collision(type));
+
+		// Particle
+
 
 		obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		obj.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 
 		Objectmanager_.AddObject(obj);
 	}
-	
 }
-
-
-//void JSON::UpdateLevel(StateManager* state_manager) //Engine
-//{
-//	if (saved_state_manager)
-//		return;
-//
-//	saved_state_manager = state_manager;
-//}
-//
-//void JSON::UpdateState(StateManager* state_manager) //State
-//{
-//	//if (saved_state_manager)
-//		//return;
-//
-//	levels.SetObject();
-//	LoadLevelDocument();
-//	level_objects.SetObject();
-//
-//	saved_state_manager = state_manager;
-//	currentstate = saved_state_manager->GetCurrentState();
-//
-//	for (std::map<std::string, std::unique_ptr<State>>::iterator
-//		it = saved_state_manager->GetStateMap().begin();
-//		it != saved_state_manager->GetStateMap().end(); it++)
-//	{
-//		if (currentstate == it->second.get())
-//			currentstate_name = it->first;
-//	}
-//}
-//
-//void JSON::SaveAtEnd() //Engine
-//{
-//	//SaveAtEnd(saved_state_manager);
-//	SaveAtEachDocument();
-//}
-//
-//void JSON::SaveAtEachDocument() //State
-//{
-//	if (!levels.HasMember(currentstate_name.c_str()))
-//		UpdateLevelToDocument(currentstate_name);
-//
-//	UpdateDocument(currentstate->GetObjectManager().get(), &level_objects);
-//	SaveADocument("levels", &levels);
-//	SaveADocument(currentstate_name, &level_objects);
-//}
-//
-//void JSON::SaveAtEnd(StateManager* state_manager) //Engine
-//{
-//	std::string name;
-//	State* currentstate;
-//	Objectmanager* currentObjectM;
-//
-//	for (std::map<std::string, std::unique_ptr<State>>::iterator
-//		it = state_manager->GetStateMap().begin(); it != state_manager->GetStateMap().end(); it++)
-//	{
-//		name = it->first;
-//		currentstate = it->second.get();
-//
-//		currentObjectM = it->second.get()->GetObjectManager().get();
-//		if (!currentObjectM) //if currentObejctmanager is empt, it means you didn't turn that level.
-//			continue;
-//
-//		AddNewLevel(currentstate, name);
-//		for (std::map<std::string, std::unique_ptr<rapidjson::Document>>::iterator
-//			it2 = LevelDocuments.begin(); it2 != LevelDocuments.end(); it2++)
-//		{
-//			if(it2->first == name)
-//			UpdateDocument(currentObjectM, it2->second.get());
-//		}
-//	}
-//}
-//
-//void JSON::UpdateLevelToDocument(std::string statename)
-//{
-//	rapidjson::Value new_level_info(statename.c_str(), levels.GetAllocator());
-//	rapidjson::Value new_level_name(rapidjson::kObjectType);
-//	new_level_name.SetString(statename.c_str(),levels.GetAllocator());
-//	levels.AddMember(new_level_name, new_level_info, levels.GetAllocator());
-//
-//}
-//
-//void JSON::AddNewLevel(State* current_state, std::string name)
-//{
-//	LevelDocuments.insert(std::make_pair(name,
-//		new rapidjson::Document(rapidjson::kObjectType)));
-//
-//	//Level data
-//	rapidjson::Value newLevel(rapidjson::kObjectType);
-//	rapidjson::Value newLevelname(name.c_str(), levels.GetAllocator());
-//	//add to level? member
-//	newLevel.AddMember(Level, newLevelname, levels.GetAllocator());
-//
-//	std::string Levelcount = level_name; //temporary levelcountname
-//	Levelcount.append(std::to_string(level_count));
-//	//Add to document.
-//	rapidjson::Value countofLevel(Levelcount.c_str(), levels.GetAllocator());
-//	levels.AddMember(countofLevel, newLevel, levels.GetAllocator());
-//	level_count++;
-//}
-//
-//void JSON::UpdateDocument(Objectmanager* objectmanager, rapidjson::Document* document)
-//{
-//	for (auto& obj : Objectmanager_.GetObjectMap())
-//	{
-//		
-//	}
-//	for (std::map<std::string, std::unique_ptr<Object>>::iterator
-//		it = objectmanager->GetObjectMap().begin(); it != objectmanager->GetObjectMap().end(); ++it)
-//	{
-//		if (!(document->HasMember(it->first.c_str())))
-//			AddNewObject(it->second.get(), it->first, document);
-//		//else
-//		//	UpdateObject(it->second.get(), it->first, document);
-//	}
-//}
-//
-//void JSON::AddNewObject(Object* object, std::string name, rapidjson::Document* document)
-//{
-//	if (!object->GetMesh().IsVisible())
-//		return;
-//	rapidjson::Value newObjectData(rapidjson::kObjectType);
-//	rapidjson::Document::AllocatorType& allocator = document->GetAllocator();
-//
-//	//Add Data of object///////////////////////////////////////
-//	rapidjson::Value newObjectName(name.c_str(), allocator);
-//
-//	rapidjson::Value newObjectTranslation(rapidjson::kArrayType);
-//	newObjectTranslation.PushBack(object->GetTransform().GetTranslation().x, allocator);
-//	newObjectTranslation.PushBack(object->GetTransform().GetTranslation().y, allocator);
-//
-//	rapidjson::Value newObjectScale(rapidjson::kArrayType);
-//	newObjectScale.PushBack(object->GetTransform().GetScale().x, allocator);
-//	newObjectScale.PushBack(object->GetTransform().GetScale().y, allocator);
-//
-//	rapidjson::Value newObjectRotation(rapidjson::kObjectType);
-//	newObjectRotation.SetFloat((object->GetTransform().GetRotation()));
-//
-//	rapidjson::Value newObjectDepth(rapidjson::kObjectType);
-//	newObjectDepth.SetFloat(object->GetTransform().GetDepth());
-//
-//	rapidjson::Value newObjectGravity(rapidjson::kObjectType);
-//	newObjectGravity.SetFloat(object->GetGravity());
-//
-//	rapidjson::Value newObjectTexture(object->texture_path.c_str(), allocator);
-//
-//	rapidjson::Value newObjectID(rapidjson::kObjectType);
-//	newObjectID.SetInt(object->object_id);
-//	 
-//	////
-//	rapidjson::Value newObjectSprite(rapidjson::kObjectType);
-//	if (object->GetComponentByTemplate<Sprite>())
-//		newObjectSprite.SetInt(1);
-//	else
-//		newObjectSprite.SetInt(0);
-//
-//	rapidjson::Value newObjectAnimation(rapidjson::kObjectType);
-//	if (object->GetComponentByTemplate<Animation>())
-//		newObjectAnimation.SetInt(1);
-//	else
-//		newObjectAnimation.SetInt(0);
-//
-//	rapidjson::Value newObjectCharacter(rapidjson::kObjectType);
-//	if (object->GetComponentByTemplate<Character>())
-//		newObjectCharacter.SetInt(1);
-//	else
-//		newObjectCharacter.SetInt(0);
-//
-//	rapidjson::Value newObjectCollision(rapidjson::kObjectType);
-//	if (object->GetComponentByTemplate<Collision>())
-//		newObjectCollision.SetInt(1);
-//	else
-//		newObjectCollision.SetInt(0);
-//
-//	newObjectData.AddMember(NAME, newObjectName, allocator);
-//	newObjectData.AddMember(TRANSLATION, newObjectTranslation, allocator);
-//	newObjectData.AddMember(ROTATION, newObjectRotation, allocator);
-//	newObjectData.AddMember(SCALE, newObjectScale, allocator);
-//	newObjectData.AddMember(DEPTH, newObjectDepth, allocator);
-//	newObjectData.AddMember(GRAVITY, newObjectGravity, allocator);
-//	newObjectData.AddMember(TEXTURE, newObjectTexture, allocator);
-//	newObjectData.AddMember(ID, newObjectID, allocator);
-//
-//	newObjectData.AddMember(Sprite_, newObjectSprite, allocator);
-//	newObjectData.AddMember(Animation_, newObjectAnimation, allocator);
-//	newObjectData.AddMember(Character_, newObjectCharacter, allocator);
-//	newObjectData.AddMember(Collision_, newObjectCollision, allocator);
-//
-//
-//	rapidjson::Value nameofobject(name.c_str(), allocator);
-//
-//	//Add objectdata to document
-//	document->AddMember(nameofobject, newObjectData, allocator);
-//}
-//
-//
-//void JSON::SaveDocument()
-//{
-//	//store objects
-//	for (std::map<std::string, std::unique_ptr<rapidjson::Document>>
-//		::iterator it = LevelDocuments.begin(); it != LevelDocuments.end(); ++it)
-//	{
-//		FILE* fp;
-//		std::string filename = file_path;
-//		filename.append(it->first);
-//		filename.append(".json");
-//		fopen_s(&fp, filename.c_str(), "wb");
-//
-//		char writeBuffer[65535];
-//		rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-//		rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
-//		it->second.get()->Accept(writer);
-//		fclose(fp);
-//	}
-//
-//	//store levels
-//	FILE* fp;
-//	std::string filename = file_path;
-//	filename.append("levels.json");
-//	fopen_s(&fp, filename.c_str(), "wb");
-//	char writeBuffer[65535];
-//	rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-//	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
-//	levels.Accept(writer);
-//	fclose(fp);
-//}
-//
-//void JSON::LoadDocument()
-//{
-//	//load levels
-//	LoadLevelDocument();
-//
-//	for (rapidjson::Value::ConstMemberIterator itr = levels.MemberBegin();
-//		itr != levels.MemberEnd(); ++itr)
-//	{
-//		//Add new document
-//		rapidjson::Document *newLevelObjectData = new rapidjson::Document(rapidjson::kObjectType);
-//
-//		std::string file_name = file_path;
-//		file_name.append(itr->name.GetString());
-//		file_name.append(".json");
-//		FILE* fp;
-//		fopen_s(&fp, file_name.c_str(), "rb");
-//		char readBuffer[65536];
-//		rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-//		newLevelObjectData->ParseStream(is);
-//		fclose(fp);
-//
-//		LevelDocuments.insert(std::make_pair(itr->name.GetString(), newLevelObjectData));
-//	}
-//}
-//
-//void JSON::LoadLevelDocument()
-//{
-//	FILE* fp;
-//	fopen_s(&fp, "asset/JsonFiles/levels.json", "rb");
-//	char readBuffer[65536];
-//	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-//	levels.ParseStream(is);
-//	fclose(fp);
-//}
-//
-//rapidjson::Document* JSON::GetDocumentofLevel(std::string level_name)
-//{
-//	for (std::map<std::string, std::unique_ptr<rapidjson::Document>>
-//		::iterator it = LevelDocuments.begin(); it != LevelDocuments.end(); ++it)
-//	{
-//		if (it->first == level_name)
-//			return it->second.get();
-//	}
-//
-//	return nullptr;
-//}
-//
-//void JSON::GetLoadLevel(std::string state_name, std::map<std::string, Object>* state_object)
-//{
-//	rapidjson::Document load_document;
-//	FILE* fp;
-//	std::string file_name = file_path;
-//	file_name.append(state_name);
-//	file_name.append(".json");
-//	fopen_s(&fp, file_name.c_str(), "rb");
-//	char readBuffer[65535];
-//	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-//	load_document.ParseStream(is);
-//	fclose(fp);
-//
-//	for (rapidjson::Value::ConstMemberIterator itr = load_document.MemberBegin();
-//		itr != load_document.MemberEnd(); itr++)
-//	{
-//		std::string load_object_name = itr->name.GetString();
-//		vector2 load_scale = { itr->value["scale"][0].GetFloat(), itr->value["scale"][1].GetFloat() };
-//		vector2 load_translation = { itr->value["translation"][0].GetFloat(), itr->value["translation"][1].GetFloat() };
-//		float load_rotation = itr->value["rotation"].GetFloat();
-//		float load_depth = itr->value["depth"].GetFloat();
-//
-//		//int sprite_ = itr->value["sprite"].GetInt();
-//
-//		Object new_object;
-//		new_object.SetScale(load_scale);
-//		new_object.SetTranslation(load_translation);
-//		new_object.SetRotation(load_rotation);
-//		new_object.SetDepth(load_depth);
-//		new_object.texture_path = itr->value["texture"].GetString();
-//		new_object.object_id = itr->value["id"].GetInt();
-//
-//		if (itr->value["sprite"].GetInt())
-//			new_object.component_type_id = 0;
-//		else if (itr->value["animation"].GetInt())
-//			new_object.component_type_id = 1;
-//		else if (itr->value["character"].GetInt())
-//			new_object.component_type_id = 2;
-//		else if (itr->value["collision"].GetInt())
-//			new_object.component_type_id = 3;
-//
-//		state_object->insert(std::pair<std::string, Object>(load_object_name, new_object));
-//	}
-//}
-//
-//void JSON::SaveADocument(std::string docu_name, rapidjson::Document* docu)
-//{
-//	FILE* fp;
-//	std::string filename = file_path + docu_name + ".json";
-//	fopen_s(&fp, filename.c_str(), "wb");
-//
-//	char writeBuffer[65535];
-//	rapidjson::FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
-//	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(os);
-//	docu->Accept(writer);
-//	fclose(fp);
-//}
-//
-//void JSON::SaveOtherLevel
-//(std::string state_name, std::map<std::string, std::unique_ptr<Object>>*state_object)
-//{
-//	if (!levels.HasMember(state_name.c_str()))
-//		UpdateLevelToDocument(state_name);
-//
-//	rapidjson::Document* new_document = new rapidjson::Document;
-//	new_document->SetObject();
-//	for (auto itr = state_object->begin(); itr != state_object->end(); itr++)
-//		AddNewObject(itr->second.get(), itr->first, new_document);
-//
-//	SaveADocument(state_name, new_document);
-//	delete new_document;
-//}
