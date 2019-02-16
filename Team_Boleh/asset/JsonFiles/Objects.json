@@ -2,8 +2,8 @@
     "Object": {
         "Status": {
             "Type": {
-                "Value": 0,
-                "Enum": "Player"
+                "id": 0,
+                "enum": "Player"
             },
             "HP": 5,
             "Damage": 1,
@@ -12,8 +12,8 @@
         },
         "Transform": {
             "position": {
-                "x": 0.0,
-                "y": 0.0
+                "x": 51.0,
+                "y": 69.0
             },
             "scale": {
                 "x": 100.0,
@@ -48,13 +48,14 @@
         "Collision": {
             "id": 0,
             "enum": "box"
-        }
+        },
+        "Particle": {}
     },
     "Object": {
         "Status": {
             "Type": {
-                "Value": 9,
-                "Enum": "None"
+                "id": 9,
+                "enum": "None"
             },
             "HP": 5,
             "Damage": 1,
@@ -81,6 +82,25 @@
         "Collision": {
             "id": 0,
             "enum": "box"
+        },
+        "Particle": {
+            "emit_rate": 50,
+            "life_time": 5.0,
+            "size_variance": 3.0,
+            "color_duration": 500.0,
+            "start_velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "random_velocity": {
+                "x": 5.0,
+                "y": 5.0
+            },
+            "emit_size": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "path": ""
         }
     }
 }

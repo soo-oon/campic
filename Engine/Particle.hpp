@@ -52,6 +52,11 @@ public:
 	void SetLifeTime(float lifeTime_) { static_lifeTime = lifeTime_; }
 	//void SetEmitSize(vector2 size)
 
+	float GetLifeTime() { return static_lifeTime; }
+	float GetSizeVariance() { return static_sizeVariance; }
+	float GetColorDuration() { return static_color_duration; }
+	vector2 GetRandomVelocity() { return static_random_velocity; }
+
 private:
 	void UpdateDirection(float dt);
 	float lifeTime;

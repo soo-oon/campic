@@ -3,6 +3,7 @@
 #include "Animation.hpp"
 #include <iostream>
 #include "Particle.hpp"
+#include "Particle_Generator.hpp"
 
 JSON JSON_;
 
@@ -74,7 +75,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	if(obj->GetComponentByTemplate<Collision>() != nullptr)
 		objCollisionTree = ComponentCollision(obj);
 	
-	if(obj->GetComponentByTemplate<Particle>() != nullptr)
+	if(obj->GetComponentByTemplate<Particle_Generator>() != nullptr)
 		objParticleTree = ComponentParticle(obj);
 
 	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
@@ -83,6 +84,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	objTree.AddMember("Animation", objAnimationTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("RigidBody", objRigidBodyTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Collision", objCollisionTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Particle", objParticleTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -248,8 +250,8 @@ Value JSON::ComponentStatus(Object * obj)
 			break;
 	}
 
-	objType.AddMember("Value", objTypeVal, ObjectDocument.GetAllocator());
-	objType.AddMember("Enum", objTypeString, ObjectDocument.GetAllocator());
+	objType.AddMember("id", objTypeVal, ObjectDocument.GetAllocator());
+	objType.AddMember("enum", objTypeString, ObjectDocument.GetAllocator());
 
 	auto obj_info = obj->GetComponentByTemplate<Status>();
 
@@ -346,7 +348,37 @@ Value JSON::ComponentCollision(Object * obj)
 
 Value JSON::ComponentParticle(Object * obj)
 {
-	return Value();
+	Value particleTree(kArrayType);
+	Value start_velocity, random_velocity, emit_size, path;
+	
+	particleTree.SetObject();
+	start_velocity.SetObject();
+	random_velocity.SetObject();
+	emit_size.SetObject();
+	path.SetObject();
+
+	auto particle_info = obj->GetComponentByTemplate<Particle_Generator>();
+
+	particleTree.AddMember("emit_rate", particle_info->GetEmitRate(), ObjectDocument.GetAllocator());
+	particleTree.AddMember("life_time", particle_info->GetLifeTimeControl(), ObjectDocument.GetAllocator());
+	particleTree.AddMember("size_variance", particle_info->GetSizeVarianceControl(), ObjectDocument.GetAllocator());
+	particleTree.AddMember("color_duration", particle_info->GetColorDuration(), ObjectDocument.GetAllocator());
+
+	start_velocity.AddMember("x", particle_info->GetStartVelocity().x, ObjectDocument.GetAllocator());
+	start_velocity.AddMember("y", particle_info->GetStartVelocity().y, ObjectDocument.GetAllocator());
+	random_velocity.AddMember("x", particle_info->GetRandomVelocity().x, ObjectDocument.GetAllocator());
+	random_velocity.AddMember("y", particle_info->GetRandomVelocity().y, ObjectDocument.GetAllocator());
+	emit_size.AddMember("x", particle_info->GetEmitSize().x, ObjectDocument.GetAllocator());
+	emit_size.AddMember("y", particle_info->GetEmitSize().y, ObjectDocument.GetAllocator());
+
+	particleTree.AddMember("start_velocity", start_velocity, ObjectDocument.GetAllocator());
+	particleTree.AddMember("random_velocity", random_velocity, ObjectDocument.GetAllocator());
+	particleTree.AddMember("emit_size", emit_size, ObjectDocument.GetAllocator());
+
+	path.SetString(particle_info->GetPath().c_str(), ObjectDocument.GetAllocator());
+	particleTree.AddMember("path", path, ObjectDocument.GetAllocator());
+
+	return particleTree;
 }
 
 void JSON::SaveObjectsToJson()
@@ -408,11 +440,10 @@ void JSON::LoadObjectFromJson()
 		animation = obj_array.FindMember("Animation")->value;
 		rigid_body = obj_array.FindMember("RigidBody")->value;
 		collision = obj_array.FindMember("Collision")->value;
-		//animation = obj_array.FindMember("Animation")->value;
-
+		particle = obj_array.FindMember("Particle")->value;
 
 		// Status
-		int obj_type = status.FindMember("Type")->value.FindMember("Value")->value.GetInt();
+		int obj_type = status.FindMember("Type")->value.FindMember("id")->value.GetInt();
 		int hp_ = status.FindMember("HP")->value.GetInt();
 		int attack_damage = status.FindMember("Damage")->value.GetInt();
 		float speed = status.FindMember("Speed")->value.GetFloat();
@@ -433,6 +464,8 @@ void JSON::LoadObjectFromJson()
 		obj.SetTranslation(pos);
 		obj.SetScale(scale);
 		obj.SetRotation(rotation);
+
+		obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 
 		// Sprite
 		bool is_flip = false;
@@ -489,11 +522,27 @@ void JSON::LoadObjectFromJson()
 		obj.AddComponent(new Collision(type));
 
 		// Particle
+		vector2 start, random, size;
 
+		if (particle.HasMember("emit_rate"))
+		{
+			int emit_rate = particle.FindMember("emit_rate")->value.GetInt();
+			auto life_time = particle.FindMember("life_time")->value.GetFloat();
+			auto size_variance = particle.FindMember("size_variance")->value.GetFloat();
+			auto color_duration = particle.FindMember("color_duration")->value.GetFloat();
 
-		obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		obj.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+			start.x = particle.FindMember("start_velocity")->value.FindMember("x")->value.GetFloat();
+			start.y = particle.FindMember("start_velocity")->value.FindMember("y")->value.GetFloat();
+			random.x = particle.FindMember("random_velocity")->value.FindMember("x")->value.GetFloat();
+			random.y = particle.FindMember("random_velocity")->value.FindMember("y")->value.GetFloat();
+			size.x = particle.FindMember("emit_size")->value.FindMember("x")->value.GetFloat();
+			size.y = particle.FindMember("emit_size")->value.FindMember("y")->value.GetFloat();
 
+			auto particle_path = particle.FindMember("path")->value.GetString();
+				
+			obj.AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
+					color_duration, start, random, size, particle_path));
+		}
 		Objectmanager_.AddObject(obj);
 	}
 }

@@ -30,12 +30,12 @@ void level2::Initialize()
 	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	temp.AddComponent(new Status(ObjectType::None ,5, 1, 1.f));
-	//temp.AddComponent(new Particle_Generator(50, 5.0f, 3.0f, 500,{ 0,0 }, { 5,5 }));
+	temp.AddComponent(new Particle_Generator(50, 5.0f, 3.0f, 500,{ 0,0 }, { 5,5 }));
 
 	Objectmanager_.AddObject(temp);
 
-        Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f, 
-            3.0f, 500, { 0,0 }, { 5,5 })));
+       // Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f, 
+           // 3.0f, 500, { 0,0 }, { 5,5 })));
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
