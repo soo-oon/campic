@@ -18,10 +18,8 @@ Creation date: 2018/12/14
 #include "level1.hpp"
 #include "StateManager.hpp"
 #include "level2.hpp"
-#include "MapEditorTest.hpp"
 #include "StartMenu.hpp"
 #include "SplashScreen.hpp"
-#include "Demonstrate.hpp"
 #include "JSON.hpp"
 
 int main()

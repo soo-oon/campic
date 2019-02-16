@@ -3,7 +3,7 @@
 
 enum class ObjectType
 {
-	Player, Sword, Enemy, Boss, Wall, Door, Item, Shooting, None
+	Player, Sword, Enemy, Boss, Wall, Door, Item, Shooting, Camera, None
 };
 
 class Status : public Component

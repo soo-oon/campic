@@ -21,17 +21,39 @@
             },
             "rotation": 0.0
         },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Player.png"
+        "Sprite": {},
+        "Animation": {
+            "map": {
+                "path": {
+                    "id": "player",
+                    "path": "asset/images/Player.png"
+                },
+                "info": {
+                    "image_frames": 8,
+                    "update_frames": 0.05000000074505806,
+                    "is_repeats": true
+                },
+                "path": {
+                    "id": "attack",
+                    "path": "asset/images/attack.png"
+                },
+                "info": {
+                    "image_frames": 4,
+                    "update_frames": 0.10000000149011612,
+                    "is_repeats": false
+                }
+            }
         },
-        "Animation": {},
-        "Camera": {}
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        }
     },
     "Object": {
         "Status": {
             "Type": {
-                "Value": 8,
+                "Value": 9,
                 "Enum": "None"
             },
             "HP": 5,
@@ -55,136 +77,10 @@
             "image_path": "asset/images/Dr_Strange.png"
         },
         "Animation": {},
-        "Camera": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "Value": 8,
-                "Enum": "None"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": -51.0,
-                "y": 256.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "Camera": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "Value": 8,
-                "Enum": "None"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 196.0,
-                "y": 150.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "Camera": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "Value": 8,
-                "Enum": "None"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": -243.0,
-                "y": -189.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "Camera": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "Value": 8,
-                "Enum": "None"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 35.0,
-                "y": -227.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "Camera": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "Value": 8,
-                "Enum": "None"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 339.0,
-                "y": 132.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "Camera": {}
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        }
     }
 }

@@ -46,6 +46,9 @@ public:
 	Value ComponentStatus(Object* obj);
 	Value ComponentCamera(Object* obj);
 	Value ComponentSprite(Object* obj);
+	Value ComponentCollision(Object* obj);
+	Value ComponentParticle(Object* obj);
+
 
 	Document& GetObjectDocument() { return ObjectDocument; }
 
