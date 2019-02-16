@@ -3,7 +3,7 @@
 Copyright (C) 2018 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: HUD_System.hpp
+File Name: HUD.hpp
 Language: C++
 Platform: Visual Studio 2017
 Project: sword of souls
@@ -14,20 +14,29 @@ Creation date: 2018/12/14
 */
 #pragma once
 #include "State.hpp"
-#include "Objectmanager.hpp"
+#include "Object.hpp"
+#include <memory>
 
 class HUD
 {
 public:
-	bool Initialize();
+	bool Initialize(State* HUD_State = nullptr);
 	void Update(float dt);
 	void Quit();
 
-	Objectmanager* Get_HUD_ObjectManager() { return object_manager_HUD; }
+	std::vector<std::shared_ptr<Object>>& Get_HUD_Object_Manager() { return HUD_Object_Manager; }
+	void Add_HUD_Object(Object* obj);
+
+	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
 
 private:
-	State* hud_level = nullptr;
-	Objectmanager* object_manager_HUD = nullptr;
+	void HUD_Activing_Search();
+
+	bool isHUDActive = false;
+	State* m_HUD_State = nullptr;
+
+	std::vector<std::shared_ptr<Object>> HUD_Object_Manager;
+
 };
 
 extern HUD HUD_;

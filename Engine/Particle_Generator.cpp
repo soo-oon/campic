@@ -25,7 +25,6 @@ bool Particle_Generator::Initialize(Object* Ob)
 	for(auto& particle : particles)
 	{
 		particle->Initialize(object->GetTransform().GetTranslation());
-		particle->SetOriginScale(object->GetTransform().GetScale());
 	}
 	return true; 
 }
@@ -55,7 +54,8 @@ void Particle_Generator::SetEmitRate(int rate)
 
 	for(int i = 0; i<rate; ++i)
 	{
-		Particle temp{ lifeTime_Control, sizeVariance_Control, color_duration, startVelocity, randomVelocity };
+		Particle temp{ lifeTime_Control, sizeVariance_Control, color_duration, 
+			startVelocity, randomVelocity, particle_size };
 		particles.push_back(std::make_unique<Particle>(temp));
 	}
 

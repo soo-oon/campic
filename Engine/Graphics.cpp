@@ -23,6 +23,7 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Engine.hpp"
 #include "Particle_Generator.hpp"
+#include "HUD.hpp"
 
 Graphics Graphics_;
 
@@ -300,9 +301,9 @@ void Graphics::Draw()
 
 void Graphics::HUD_Draw()
 {
-	if (!Objectmanager_.GetObjectMap().empty())
+	if (!HUD_.Get_HUD_Object_Manager().empty())
 	{
-		for (auto& obj : Objectmanager_.GetObjectMap())
+		for (auto& obj : HUD_.Get_HUD_Object_Manager())
 		{
 			if (Iscamera)
 			{

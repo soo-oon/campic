@@ -34,19 +34,8 @@ public:
 	void RemoveObject();
 	std::vector<std::unique_ptr<Object>>& GetObjectMap() { return objects_; }
 
-    //void AddObject(std::string key_name);
-    //void RemoveObject(std::string key_name);
-	//bool IsExistPlayer();
-	//int FindMaxID();
-    //std::unique_ptr<Object>& FindObject(std::string key_name);
-    //std::map<std::string, std::unique_ptr<Object>>& GetObjectMap() { return object_map; }
-
 private:
 	std::vector<std::unique_ptr<Object>> objects_;
-	//std::map<std::string, std::unique_ptr<Object>> object_map;
-	//std::vector <std::string > will_remove_object;
-    //std::map<std::string, std::unique_ptr<Object>> object_map;
 };
 
-//extern Objectmanager* Objectmanager_;
 extern Objectmanager Objectmanager_;

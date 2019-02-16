@@ -20,7 +20,7 @@ bool Particle::Initialize(vector2 position)
 
 	float temp_size = RandomNumberGenerator(1.0f, static_sizeVariance);
 	sizeVariance = temp_size;
-	particle_obj->SetScale(origin_size * sizeVariance);
+	particle_obj->SetScale(particle_size * sizeVariance);
 
 	return true;
 }
