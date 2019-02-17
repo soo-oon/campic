@@ -47,6 +47,7 @@ public:
 private:
 	//Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;
+        int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
 };
 

@@ -69,6 +69,7 @@ bool RigidBody::Initialize(Object* Ob)
 		force_accumlator = { 0, 0 };
 		velocity = { 0, 0 };
 	}
+        velocity = { 0, 0 };
     return true;
 }
 
@@ -92,8 +93,9 @@ void RigidBody::Update(float dt)
 	if (magnitude(velocity) < 0.001f)
 		velocity = 0;	
 	
-    // integrate position
-	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (gravity*velocity * dt).x), (object->GetTransform().GetTranslation().y + (gravity*velocity * dt).y) });
+        // integrate position
+	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (gravity*velocity * dt).x),
+            (object->GetTransform().GetTranslation().y + (gravity*velocity * dt).y) });
 }
 
 void RigidBody::Delete()

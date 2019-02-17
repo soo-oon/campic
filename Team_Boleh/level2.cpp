@@ -19,20 +19,40 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Status.hpp"
 #include "Particle_Generator.hpp"
+#include "Card.hpp"
 
 void level2::Initialize()
 {
 	Object temp;
 
-	temp.SetTranslation({ 100,-100 });
+	temp.SetTranslation({ 100,-150 });
 	temp.SetScale({ 50.0f, 50.0f });
 	temp.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        temp.AddComponent(new RigidBody());
 	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-	temp.AddComponent(new Status(ObjectType::None ,5, 1, 1.f));
+	temp.AddComponent(new Status(ObjectType::Enemy ,5, 0, 1.f));
 	temp.AddComponent(new Particle_Generator(100, 2.0f, 5, { 0,0 }, { 3,3 }));
 
 	Objectmanager_.AddObject(temp);
+
+        Object card, card1;
+
+        card.SetTranslation({ 300,300 });
+        card.SetScale({ 30.f,30.f });
+        card.SetMesh(mesh::CreateBox(1,{255,0,0}));
+        card.AddComponent(new Card("Red"));
+        card.AddComponent(new Collision(box_,{0,0},{30.f,30.f}));
+        card.AddComponent(new Status(ObjectType::Item));
+
+        card1.SetTranslation({ 250,-250 });
+        card1.SetScale({ 30.f,30.f });
+        card1.SetMesh(mesh::CreateBox(1,{0,255,0}));
+        card1.AddComponent(new Card("Blue"));
+        card1.AddComponent(new Collision(box_, { 0,0 }, { 30.f,30.f }));
+        card1.AddComponent(new Status(ObjectType::Item));
+        Objectmanager_.AddObject(card);
+        Objectmanager_.AddObject(card1);
 
         //Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 

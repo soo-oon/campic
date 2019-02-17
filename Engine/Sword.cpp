@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Graphics.hpp"
 #include "Status.hpp"
 #include <iostream>
+#include "Player.hpp"
 
 Sword::Sword(Object * player)
 {
@@ -32,7 +33,7 @@ bool Sword::Initialize(Object * Ob)
 		auto temp_translation = owner->GetTransform().GetTranslation();
 		object->SetScale({ 75.0f, 75.0f });
 		object->SetTranslation(temp_translation);
-		object->SetMesh(mesh::CreateBox());
+		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		object->AddComponent(new Sprite("asset/images/trash.png"));
 		//object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
 		object->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
@@ -49,6 +50,21 @@ void Sword::Update(float dt)
 	/*std::cout << owner->GetTransform().GetTranslation().x << ", " <<
 		owner->GetTransform().GetTranslation().y << std::endl;
 		*/
+
+    if(Input::IsKeyPressed(GLFW_KEY_T))
+    {
+        if (
+            owner->GetComponentByTemplate<Player>()->GetCardList().size() == 1)
+        {
+            sword_name = "ice_sword";
+            object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/ice_sword.png");
+        }
+        else
+        {
+            sword_name = "sword";
+            object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/sword.png");
+        }
+    }
 	if (sword_name == "trash")
 	{
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
@@ -68,7 +84,7 @@ void Sword::Update(float dt)
 		}
 		else
 		{
-			owner->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
+			//owner->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
 		}
 	}
 	else if(sword_name == "sword")

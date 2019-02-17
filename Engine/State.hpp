@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include "AudioManager.hpp"
 #include "StateManager.hpp"
 #include "JSON.hpp"
+#include "Sword.hpp"
 
 class JSON;
 
@@ -47,6 +48,7 @@ public:
 
 	void ResetLevelChange() { level_change = false; }
 	void AddPlayer();
+        void AddSword();
 	void Load();
 	void UnLoad();
 

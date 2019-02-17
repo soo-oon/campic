@@ -42,6 +42,7 @@ void StateManager::AddStage(std::string ID, State* state)
 		{
 			m_currentState = first_level.get();
 			m_currentState->AddPlayer();
+                        m_currentState->AddSword();
 			
 		}
 

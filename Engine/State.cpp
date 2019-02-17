@@ -58,8 +58,11 @@ void State::ChangeLevel(std::string ID)
 
 void State::Load()
 {
-	if (Objectmanager_.GetObjectMap().empty())
-		AddPlayer();
+    if (Objectmanager_.GetObjectMap().empty())
+    {
+        AddPlayer();
+        AddSword();
+    }
 }
 
 void State::AddPlayer()
@@ -68,6 +71,14 @@ void State::AddPlayer()
 	player.AddComponent(new Player());
 
 	Objectmanager_.AddObject(player);
+}
+
+void State::AddSword()
+{
+    Object sword;
+    sword.AddComponent(new Sword(Objectmanager_.GetObjectMap()[0].get()));
+
+    Objectmanager_.AddObject(sword);
 }
 
 

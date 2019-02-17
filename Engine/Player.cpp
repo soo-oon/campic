@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include "Status.hpp"
 #include <iostream>
 #include "Graphics.hpp"
+#include "Card.hpp"
 
 bool Player::Initialize(Object * Ob)
 {
@@ -30,8 +31,8 @@ bool Player::Initialize(Object * Ob)
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		object->AddComponent(new RigidBody());
 		object->AddComponent(new Sprite("asset/images/Player.png"));
-		//object->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
-		//object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
+		object->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
 		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 		object->AddComponent(new Status(ObjectType::Player, 5, 1, 1.f));
 
@@ -45,7 +46,7 @@ bool Player::Initialize(Object * Ob)
 
 void Player::Update(float dt)
 {
-	//MovePlayer();
+	MovePlayer();
 	//PlayerMove(Input::GetMousePos(Graphics::checking_zoom));
 }
 
@@ -63,24 +64,35 @@ void Player::MovePlayer()
 		std::cout << "hi" << std::endl;
 	}
 
+        if (Input::IsKeyPressed(GLFW_KEY_V))
+        {
+            boost = 2;
+        }
+        else
+            boost = 1;
 	if (Input::IsKeyPressed(GLFW_KEY_W))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, 2));
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 24 * boost));
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_A))
+	else if (Input::IsKeyPressed(GLFW_KEY_A))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(-2, 0));
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(-24 * boost, 0));
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_S))
+	else if (Input::IsKeyPressed(GLFW_KEY_S))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(0, -2));
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, -24 * boost));
 	}
-	if (Input::IsKeyPressed(GLFW_KEY_D))
+	else if (Input::IsKeyPressed(GLFW_KEY_D))
 	{
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity(vector2(2, 0));
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(24 * boost, 0));
 	}
+        else
+        {
+            object->GetComponentByTemplate<RigidBody>()
+                ->SetVelocity(object->GetComponentByTemplate<RigidBody>()->GetVelocity() * 0.9f);
+        }
 
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	 if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack","player");
 	}

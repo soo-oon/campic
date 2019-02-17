@@ -33,5 +33,6 @@ public:
 	void PlayerMove(vector2 mouse_position);
 
 private:
+    int boost = 1;
 	std::vector<std::string> card_list = {};
 };
