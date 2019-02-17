@@ -28,14 +28,17 @@ class Object
 {
 public:
     void AddComponent(Component* component);
+    void Add_Init_Component(Component* component);
     void SetMesh(Mesh mesh);
     void SetTranslation(const vector2& position);
     void SetScale(const vector2& scale);
     void SetRotation(const float& rotation);
     void SetDepth(const float& depth);
     void SetGravity(float gravity_own);
+	void Set_HUD_Object_Size(const vector2 size) { HUD_Object_size = size; }
 
 	std::vector<Component*> GetComponent() { return components; }
+	vector2 Get_Object_HUD_Size() { return HUD_Object_size; }
 
     float GetGravity();
 
@@ -53,6 +56,7 @@ private:
 	float gravity = 1;
     Mesh object_mesh{};
     Transform transform{};
+	vector2 HUD_Object_size{};
     std::vector<Component*> components;
 };
 

@@ -18,13 +18,13 @@ Creation date: 2018/12/14
 #include "StateManager.hpp"
 #include "Graphics.hpp"
 #include "Input.hpp"
-#include "State.hpp"
 #include "AudioManager.hpp"
 #include "Physics.hpp"
 #include "Imgui_System.hpp"
 #include "JSON.hpp"
 #include "HUD.hpp"
 #include "Picking.h"
+#include "HUD_Level.hpp"
 
 bool Engine::IsQuit;
 
@@ -32,7 +32,6 @@ bool Engine::Initialize()
 {
 	System_Initialize();
 
-	//hud_state = HUD_->GetHUDlevel();
     gameTimer.Reset();
     IsQuit = false;
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -46,19 +45,10 @@ void Engine::Update()
         dt = (float)gameTimer.GetElapsedSeconds();
         gameTimer.Reset();
 		System_Update();
-		//Physics_->PhysicsObjectUpdate(Objectmanager_);
-
-		//HUD_->SetObjectManager(Objectmanager_);
-
-		//Graphics_->HUD_Draw(Objectmanager_);
-		//Graphics_.Draw(&Objectmanager_);
 
 		Graphics_.Draw();
 		Graphics_.EndDraw();
 		IMGUI_.Draw();
-
-		//Json->UpdateLevel(GetSystemByTemplate<StateManager>());
-		//Json->UpdateState(GetSystemByTemplate<StateManager>());
 
         if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             IsQuit = true;
@@ -69,7 +59,6 @@ void Engine::Update()
 
 void Engine::Quit()
 {
-	//JSON_.SaveAtEnd();
 	System_Quit();
 }
 
@@ -83,10 +72,10 @@ void Engine::System_Initialize()
 	AudioManager_.Initialize();
 	Physics_.Initialize();
 	JSON_.Initialize();
-        Picking_.Initialize();
+	Picking_.Initialize();
+ 	HUD_.Initialize(new HUD_Level());
 
 	//TODO make new HUD structure 
-	//HUD_.Initialize();
 	
 }
 
@@ -99,13 +88,13 @@ void Engine::System_Update()
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
 	JSON_.Update(dt);
-        Picking_.Update(dt);
+	Picking_.Update(dt);
+	HUD_.Update(dt);
 
 	// Should Fix All of Update ways (Should Fix Physics class structure)
 	Physics_.Update(dt);
 
 	//TODO make new HUD structure 
-	//HUD_.Update(dt);
 }
 
 void Engine::System_Quit()
@@ -118,7 +107,7 @@ void Engine::System_Quit()
 	AudioManager_.Quit();
 	Physics_.Quit();
 	JSON_.Quit();
-        Picking_.Quit();
+	Picking_.Quit();
 
 	//HUD_.Quit();
 }

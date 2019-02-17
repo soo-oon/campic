@@ -50,63 +50,16 @@ void Objectmanager::Update(float dt)
 
 		if (auto temp = object->get()->GetComponentByTemplate<Status>(); temp != nullptr)
 		{
-                    if (!temp->IsAlive())
-                        object = objects_.erase(object);
-                    else
-                        ++object;
+            if (!temp->IsAlive())
+                object = objects_.erase(object);
+            else
+                ++object;
 		}
 		else
 		{
 			++object;
 		}
 	}
-
-	/*
-	for (std::map<std::string, std::unique_ptr<Object>>::iterator it = object_map.begin();
-		it != object_map.end(); ++it)
-	{
-		Object* obj = it->second.get();
-
-		for(auto& component : obj->GetComponent())
-		{
-			component->Update(dt);
-		}
-
-		
-		if (obj->GetComponentByTemplate<Status>() != nullptr)
-		{
-			//obj->GetComponentByTemplate<Status>()->Update(dt);
-			if (obj->GetComponentByTemplate<Status>()->GetLived() == false)
-			{
-				if (obj->GetComponentByTemplate<Player>() == nullptr)
-					will_remove_object.push_back(it->first);
-			}
-		}
-
-		if(obj->GetComponentByTemplate<FireBall>() != nullptr)
-		{
-			obj->GetComponentByTemplate<FireBall>()->Update(dt);
-			if(obj->GetComponentByTemplate<FireBall>()->IsDead())
-				will_remove_object.push_back(it->first);
-		}
-
-		if (obj->GetComponentByTemplate<Collision>() != nullptr)
-		{
-			//obj->GetComponentByTemplate<Status>()->Update(dt);
-			if (obj->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::get)
-			{
-				if(obj->GetComponentByTemplate<Player>() == nullptr)
-					will_remove_object.push_back(it->first);
-			}
-		}
-		
-	}
-	for (auto erase_object : will_remove_object)
-	{
-		object_map.erase(erase_object);
-	}
-	will_remove_object.clear();
-	*/
 }
 
 void Objectmanager::Quit()
@@ -122,12 +75,10 @@ void Objectmanager::AddObject(Object obj)
 
 	for(unsigned int i =0; i<objects_.size(); ++i)
 	{
-
-		for(auto component : objects_[i]->GetComponent())
-		{
-			component->Initialize(objects_[i].get());
-		}
-
+	    for(auto component : objects_[i]->GetComponent())
+	    {
+		    component->Initialize(objects_[i].get());
+	    }
 	}
 }
 
@@ -150,50 +101,3 @@ void Objectmanager::RemoveObject()
 
 	std::cout << objects_.size() << std::endl;
 }
-
-//void Objectmanager::RemoveObject(std::string key_name)
-//{
-//    auto object(std::make_unique<Object>());
-//    auto found = object_map.find(key_name);
-//    if (found != object_map.end())
-//    {
-//        object = std::move(found->second);
-//        object_map.erase(found);
-//    }
-//}
-
-//bool Objectmanager::IsExistPlayer()
-//{
-//	auto found = object_map.find("Player");
-//
-//	if (found == object_map.end())
-//	{
-//		return false;
-//	}
-//	return true;
-//}
-
-//std::unique_ptr<Object>& Objectmanager::FindObject(std::string key_name)
-//{
-//    auto found = object_map.find(key_name);
-//
-//    if (found == object_map.end())
-//    {
-//        assert(false);
-//    }
-//    return found->second;
-//}
-
-//int Objectmanager::FindMaxID()
-//{
-//	int max = 0;
-//	for (auto itr = object_map.begin(); itr != object_map.end(); itr++)
-//	{
-//		if (itr->second != nullptr)
-//		{
-//			if (max < itr->second.get()->object_id)
-//				max = itr->second.get()->object_id;
-//		}
-//	}
-//	return max;
-//}

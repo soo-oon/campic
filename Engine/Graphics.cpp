@@ -23,6 +23,7 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Engine.hpp"
 #include "Particle_Generator.hpp"
+#include "HUD.hpp"
 
 Graphics Graphics_;
 
@@ -134,20 +135,23 @@ void Graphics::Draw()
 
 			if(auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
 			{
-				for (auto&p : temp->GetParticles())
+				if (temp->IsActive())
 				{
-					particles.clear();
-					if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
+					for (auto&p : temp->GetParticles())
 					{
-						particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
-						for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
+						particles.clear();
+						if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
 						{
-							particles.push_back(
-								{ p->GetParticleObject()->GetMesh().GetPoint(i),
-									p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_) });
+							particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
+							for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
+							{
+								particles.push_back(
+									{ p->GetParticleObject()->GetMesh().GetPoint(i),
+										p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_) });
+							}
+							Draw(p->GetParticleObject()->GetTransform(), particles,
+								p->GetParticleObject()->GetMesh().GetPointListType(), p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
 						}
-						Draw(p->GetParticleObject()->GetTransform(), particles, 
-							p->GetParticleObject()->GetMesh().GetPointListType(), p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
 					}
 				}
 			}
@@ -297,9 +301,9 @@ void Graphics::Draw()
 
 void Graphics::HUD_Draw()
 {
-	if (!Objectmanager_.GetObjectMap().empty())
+	if (!HUD_.Get_HUD_Object_Manager().empty())
 	{
-		for (auto& obj : Objectmanager_.GetObjectMap())
+		for (auto& obj : HUD_.Get_HUD_Object_Manager())
 		{
 			if (Iscamera)
 			{
@@ -326,20 +330,23 @@ void Graphics::HUD_Draw()
 
 			if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
 			{
-				for (auto&p : temp->GetParticles())
+				if (temp->IsActive())
 				{
-					particles.clear();
-					if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
+					for (auto&p : temp->GetParticles())
 					{
-						particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
-						for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
+						particles.clear();
+						if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
 						{
-							particles.push_back(
-								{ p->GetParticleObject()->GetMesh().GetPoint(i),
-									p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_) });
+							particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
+							for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
+							{
+								particles.push_back(
+									{ p->GetParticleObject()->GetMesh().GetPoint(i),
+										p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_) });
+							}
+							Draw(p->GetParticleObject()->GetTransform(), particles,
+								p->GetParticleObject()->GetMesh().GetPointListType(), p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
 						}
-						Draw(p->GetParticleObject()->GetTransform(), particles,
-							p->GetParticleObject()->GetMesh().GetPointListType(), p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
 					}
 				}
 			}

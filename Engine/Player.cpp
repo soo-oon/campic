@@ -30,7 +30,8 @@ bool Player::Initialize(Object * Ob)
 		object->SetScale({ 100.0f, 100.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		object->AddComponent(new RigidBody());
-		object->AddComponent(new Sprite("asset/images/Player.png"));
+
+		//object->AddComponent(new Sprite("asset/images/Player.png"));
 		object->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
 		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));

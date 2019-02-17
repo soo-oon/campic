@@ -64,8 +64,8 @@ bool Application::Initialize()
     window = glfwCreateWindow(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), "Engine ver 0.1 ",
                               nullptr, nullptr);
 
-    mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
+	//mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2),
                          (mode->height / 2) - static_cast<int>(screenSize.y / 2),
                          static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
@@ -104,6 +104,12 @@ bool Application::Initialize()
     }
     glfwSwapInterval(true);
 	srand((unsigned)time(NULL));
+
+	int w, h;
+	glfwGetWindowSize(window, &w, &h);
+	real_screenSize.x = w;
+	real_screenSize.y = h;
+
     return true;
 }
 
@@ -146,14 +152,26 @@ void Application::FullScreen()
 {
     if (fullScreenMode)
     {
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         monitor = glfwGetPrimaryMonitor();
-        glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(mode->width), static_cast<int>(mode->height), mode->refreshRate);
+        glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(mode->width), static_cast<int>(mode->height), 0);
+
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+		real_screenSize.x = w;
+		real_screenSize.y = h;
     }
     else
     {
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2),
                              (mode->height / 2) - static_cast<int>(screenSize.y / 2),
                              static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
+
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+		real_screenSize.x = w;
+		real_screenSize.y = h;
     }
 }
 

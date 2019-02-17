@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "Status.hpp"
 #include "Particle_Generator.hpp"
 #include "Card.hpp"
+#include "Camera.hpp"
 
 void level2::Initialize()
 {
@@ -31,10 +32,14 @@ void level2::Initialize()
         temp.AddComponent(new RigidBody());
 	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-	temp.AddComponent(new Status(ObjectType::Enemy ,5, 0, 1.f));
-	temp.AddComponent(new Particle_Generator(100, 2.0f, 5, { 0,0 }, { 3,3 }));
+	temp.AddComponent(new Status(ObjectType::None ,5, 1, 1.f));
+	//temp.AddComponent(new Particle_Generator(50, 5.0f, 3.0f, 500,{ 0,0 }, { 5,5 }));
+
+	Object camera;
+	camera.AddComponent(new Camera(this));
 
 	Objectmanager_.AddObject(temp);
+	Objectmanager_.AddObject(camera);
 
         Object card, card1;
 
@@ -55,7 +60,10 @@ void level2::Initialize()
         Objectmanager_.AddObject(card1);
 
         //Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
+	Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f, 
+            3.0f, 500, { 0,0 }, { 5,5 }, {10.0f, 10.0f})));
 
+	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
 
@@ -194,13 +202,14 @@ void level2::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
 	{
-		for(auto& obj : Objectmanager_.GetObjectMap())
+		Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Particle_Generator>()->SetEmitRate(1);
+		/*for(auto& obj : Objectmanager_.GetObjectMap())
 		{
 			if(auto temp = obj.get()->GetComponentByTemplate<Status>(); temp->GetObjectType()!= ObjectType::Player)
 			{
 				temp->Damaged(5);
 			}
-		}
+		}*/
 	}
 
 	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
