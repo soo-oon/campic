@@ -16,10 +16,21 @@ Creation date: 2018/12/14
 #pragma once
 
 #include "Component.hpp"
+#include "Object.hpp"
+#include "time.h"
 
 enum class MoveType
 {
 	straight,
+        angler
+};
+
+enum class HadCard
+{
+    red,
+    blue,
+    green,
+    black,
 };
 
 class Enemy : public Component
@@ -29,7 +40,11 @@ public:
 	bool Initialize(Object* Ob);
 	void Update(float dt);
 	void Delete();
-	void MoveEnemy(MoveType move_type);
+	void MoveEnemy();
+        void StraightMove();
+        void AnglerMove();
+
+        void CardDrop();
 private:
 	MoveType move_t;
 };

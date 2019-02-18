@@ -20,6 +20,11 @@ void Status::Delete()
 	
 }
 
+void Status::SetObjectType(ObjectType obj_type)
+{
+    object_type = obj_type;
+}
+
 void Status::Damaged(int damage)
 {
 	hp -= damage;

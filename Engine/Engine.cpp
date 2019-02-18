@@ -71,7 +71,7 @@ void Engine::System_Initialize()
 	IMGUI_.Initialize();
 	AudioManager_.Initialize();
 	Physics_.Initialize();
-	JSON_.Initialize();
+	//JSON_.Initialize();
 	Picking_.Initialize();
  	HUD_.Initialize(new HUD_Level());
 
@@ -87,7 +87,7 @@ void Engine::System_Update()
 	Graphics_.Update(dt);
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
-	JSON_.Update(dt);
+	//JSON_.Update(dt);
 	Picking_.Update(dt);
 	HUD_.Update(dt);
 
@@ -103,10 +103,10 @@ void Engine::System_Quit()
 	StateManager_.Quit();
 	Objectmanager_.Quit();
 	Graphics_.Quit();
-	IMGUI_.Quit();
+	//IMGUI_.Quit();
 	AudioManager_.Quit();
 	Physics_.Quit();
-	JSON_.Quit();
+	//JSON_.Quit();
 	Picking_.Quit();
 
 	//HUD_.Quit();

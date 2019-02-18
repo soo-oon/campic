@@ -18,6 +18,7 @@ public:
 	void Delete() override;
 
 	ObjectType GetObjectType() { return object_type; }
+        void SetObjectType(ObjectType obj_type);
 	bool IsAlive() { return is_alive; }
 	void SetSpeed(float speed_) { speed = speed_; }
 	float GetSpeed() { return speed; }
