@@ -61,38 +61,45 @@ void Player::MovePlayer()
 	/*std::cout << object->GetTransform().GetTranslation().x << ", " << object->GetTransform().GetTranslation().y
 		<< std::endl;*/
 
-	if(object != Objectmanager_.GetObjectMap()[0].get())
+	/*if(object != Objectmanager_.GetObjectMap()[0].get())
 	{
 		std::cout << "hi" << std::endl;
-	}
+	}*/
 
         if (Input::IsKeyPressed(GLFW_KEY_V))
         {
             boost = 2;
         }
-        else
-            boost = 1;
-	if (Input::IsKeyPressed(GLFW_KEY_W))
-	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, 24 * boost));
-	}
-	else if (Input::IsKeyPressed(GLFW_KEY_A))
-	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(-24 * boost, 0));
-	}
-	else if (Input::IsKeyPressed(GLFW_KEY_S))
-	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(0, -24 * boost));
-	}
-	else if (Input::IsKeyPressed(GLFW_KEY_D))
-	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(24 * boost, 0));
-	}
-        else
-        {
+		else
+		{
+			boost = 1;
+		}
+
+		//auto  velocity = object->GetComponentByTemplate<RigidBody>()->GetVelocity();
+		
+		//std::cout << velocity.x << ", " << velocity.y << std::endl;
+
+		if (Input::IsKeyPressed(GLFW_KEY_W))
+		{
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()*24 * boost));
+		}
+		if (Input::IsKeyPressed(GLFW_KEY_A))
+		{
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed()*-24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
+		}
+		if (Input::IsKeyPressed(GLFW_KEY_S))
+		{
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()* -24 * boost));
+		}
+		if (Input::IsKeyPressed(GLFW_KEY_D))
+		{
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed() * 24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
+		}
+
+       // {
             object->GetComponentByTemplate<RigidBody>()
                 ->SetVelocity(object->GetComponentByTemplate<RigidBody>()->GetVelocity() * 0.9f);
-        }
+        //}
 
 	 if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{

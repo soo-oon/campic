@@ -36,7 +36,6 @@ void level2::Initialize()
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	temp.AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
     temp.AddComponent(new Enemy(MoveType::straight));
-	//temp.AddComponent(new Particle_Generator(50, 5.0f, 3.0f, 500,{ 0,0 }, { 5,5 }));
 
 	Object camera;
 	camera.AddComponent(new Camera(this));
@@ -217,6 +216,10 @@ void level2::Update(float dt)
 		}*/
 	}
 
+    if (Input::IsKeyTriggered(GLFW_KEY_Y))
+    {
+        Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Status>()->Damaged(4);
+    }
 	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("StartMenu");
 
