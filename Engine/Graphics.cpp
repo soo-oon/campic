@@ -43,7 +43,6 @@ bool Graphics::Initialize()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
 
-    glBlendEquation(GL_FUNC_ADD);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);

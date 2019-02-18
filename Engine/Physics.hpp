@@ -41,6 +41,8 @@ public:
         // This is intersection check which is AABB version for thin 
         bool IntersectionCheck_AABB(Object object1, Object object2);
         
+		void ResetPreviousSize() { previous_size = 0; }
+
         // This function return true if object is out of window area. 
         bool OutOfCheckBoundary(Object* object);
 

@@ -34,7 +34,7 @@ void level2::Initialize()
 	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	temp.AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
-        temp.AddComponent(new Enemy(MoveType::straight));
+        temp.AddComponent(new Enemy(MoveType::angler));
 	//temp.AddComponent(new Particle_Generator(50, 5.0f, 3.0f, 500,{ 0,0 }, { 5,5 }));
 
 	Object camera;

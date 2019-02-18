@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include <map>
 #include "Sword.hpp"
 #include "Player.hpp"
+#include "Physics.hpp"
 
 StateManager StateManager_;
 
@@ -42,7 +43,7 @@ void StateManager::AddStage(std::string ID, State* state)
 		{
 			m_currentState = first_level.get();
 			m_currentState->AddPlayer();
-                        m_currentState->AddSword();
+                        //m_currentState->AddSword();
 			
 		}
 
@@ -72,6 +73,7 @@ void StateManager::ChangeStage()
 	//}
 
 	m_currentState->Initialize();
+	Physics_.ResetPreviousSize();
 }
 
 void StateManager::Restart()

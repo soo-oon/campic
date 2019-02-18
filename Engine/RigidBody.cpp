@@ -36,6 +36,15 @@ void RigidBody::AddForce(vector2 force)
 
 void RigidBody::SetVelocity(vector2 velocity)
 {
+	//if (velocity.x == 0)
+	//{
+	//	this->velocity.y = velocity.y;
+	//}
+	//else if (velocity.y == 0)
+	//{
+	//	this->velocity.x = velocity.x;
+	//}
+
 	this->velocity = velocity;
 }
 
