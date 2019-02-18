@@ -41,28 +41,27 @@ void Physics::Update(float dt)
 {
 	if (!Objectmanager_.GetObjectMap().empty())
 	{
-
             if (Objectmanager_.GetObjectMap().size() != previous_size)
             {
-                collision_list.clear();
-                for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); )
-                {
-                    if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr && !OutOfCheckBoundary(obj->get()))
+                    collision_list.clear();
+                    for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); )
                     {
-                        if (temp->GetRestitutionType() == RestitutionType::get)
-                        {
-                            obj = Objectmanager_.GetObjectMap().erase(obj);
-                        }
-                        else
-                        {
-                            collision_list.push_back(obj->get());
-                            temp->Update(dt);
-                            ++obj;
-                        }
+                            if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr && !OutOfCheckBoundary(obj->get()))
+                            {
+                                    if (temp->GetRestitutionType() == RestitutionType::get)
+                                    {
+                                        obj = Objectmanager_.GetObjectMap().erase(obj);
+                                    }
+                                    else
+                                    {
+                                        collision_list.push_back(obj->get());
+                                        temp->Update(dt);
+                                        ++obj;
+                                    }
+                            }
+                            else
+                                ++obj;
                     }
-                    else
-                        ++obj;
-                }
                 previous_size = Objectmanager_.GetObjectMap().size();
             }
 
@@ -108,10 +107,10 @@ void Physics::Update(float dt)
 					//}
 					//else
 					if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
-                                        {
-                                            ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
-                                            Reaction(collision_list[i], collision_list[j]);
-                                        }
+                            {
+                                ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+                                Reaction(collision_list[i], collision_list[j]);
+                            }
 				}
 			}
 		}
@@ -131,7 +130,7 @@ void Physics::Update(float dt)
 					}
 					else
 					{
-						//StopReaction(temp);
+						StopReaction(obj->get());
 						//if (auto temp_character = obj->get()->GetComponentByTemplate<Status>(); temp_character != nullptr)
 						//{
 						//	temp_collision->SetRestitutionType(RestitutionType::get);

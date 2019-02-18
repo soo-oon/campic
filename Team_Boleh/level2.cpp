@@ -216,6 +216,10 @@ void level2::Update(float dt)
 		}*/
 	}
 
+    if (Input::IsKeyTriggered(GLFW_KEY_Y))
+    {
+        Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Status>()->Damaged(4);
+    }
 	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("StartMenu");
 

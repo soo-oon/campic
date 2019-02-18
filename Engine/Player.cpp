@@ -80,19 +80,19 @@ void Player::MovePlayer()
 
 		if (Input::IsKeyPressed(GLFW_KEY_W))
 		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, 24 * boost));
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()*24 * boost));
 		}
 		if (Input::IsKeyPressed(GLFW_KEY_A))
 		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(-24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed()*-24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
 		}
 		if (Input::IsKeyPressed(GLFW_KEY_S))
 		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, -24 * boost));
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()* -24 * boost));
 		}
 		if (Input::IsKeyPressed(GLFW_KEY_D))
 		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
+			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed() * 24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
 		}
 
        // {

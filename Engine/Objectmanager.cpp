@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "Sword.hpp"
 #include "Status.hpp"
 #include <iostream>
+#include "Physics.hpp"
 
 Objectmanager Objectmanager_;
 
@@ -51,7 +52,10 @@ void Objectmanager::Update(float dt)
 		if (auto temp = object->get()->GetComponentByTemplate<Status>(); temp != nullptr)
 		{
             if (!temp->IsAlive())
+            {
+                Physics_.ResetPreviousSize();
                 object = objects_.erase(object);
+            }
             else
                 ++object;
 		}
