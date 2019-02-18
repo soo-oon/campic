@@ -22,6 +22,7 @@ Creation date: 2018/12/14
 #include "Card.hpp"
 #include "Camera.hpp"
 #include "Enemy.hpp"
+#include "Sound.hpp"
 
 void level2::Initialize()
 {
@@ -30,11 +31,11 @@ void level2::Initialize()
 	temp.SetTranslation({ 100,-150 });
 	temp.SetScale({ 50.0f, 50.0f });
 	temp.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-        temp.AddComponent(new RigidBody());
+	temp.AddComponent(new RigidBody());
 	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	temp.AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
-        temp.AddComponent(new Enemy(MoveType::straight));
+    temp.AddComponent(new Enemy(MoveType::straight));
 	//temp.AddComponent(new Particle_Generator(50, 5.0f, 3.0f, 500,{ 0,0 }, { 5,5 }));
 
 	Object camera;
@@ -183,15 +184,15 @@ void level2::Update(float dt)
 		ChangeLevel("remake");
 	}
 
-	//if (Input::IsKeyTriggered(GLFW_KEY_F1))
-	//{
-	//	for (auto& obj : Objectmanager_.GetObjectMap())
-	//	{
-	//		JSON_.ObjectsToDocument(obj.get());
-	//	}
-	//	JSON_.GetObjectDocument().SetObject();
-	//	std::cout << "Objects Saved" << std::endl;
-	//}
+	if (Input::IsKeyTriggered(GLFW_KEY_F1))
+	{
+		for (auto& obj : Objectmanager_.GetObjectMap())
+		{
+			JSON_.ObjectsToDocument(obj.get());
+		}
+		JSON_.GetObjectDocument().SetObject();
+		std::cout << "Objects Saved" << std::endl;
+	}
 
 	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
 	//{

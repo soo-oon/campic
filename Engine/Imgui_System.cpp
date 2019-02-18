@@ -65,6 +65,28 @@ void Imgui_System::Update(float dt)
 	{
 		show_window = !show_window;
 	}
+
+	if (show_window)
+	{
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
+			{
+				if (Input::GetMousePos(1.f).x < obj->get()->GetTransform().GetTranslation().x + obj->get()->GetTransform().GetScale().x &&
+					Input::GetMousePos(1.f).x > obj->get()->GetTransform().GetTranslation().x - obj->get()->GetTransform().GetScale().x &&
+					Input::GetMousePos(1.f).y < obj->get()->GetTransform().GetTranslation().y + obj->get()->GetTransform().GetScale().y &&
+					Input::GetMousePos(1.f).y > obj->get()->GetTransform().GetTranslation().y - obj->get()->GetTransform().GetScale().y
+					)
+					selectObj = obj->get();
+			}
+		}
+
+		if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
+		{
+			if (selectObj)
+				selectObj->SetTranslation(Input::GetMousePos(1.f));
+		}
+	}
 }
 
 void Imgui_System::Quit()
@@ -113,7 +135,7 @@ void Imgui_System::Editor(bool show_window)
 
 	// Create editor window
 	ObjectEditor(object_editor);
-	SoundEditor(sound_editor);
+	//SoundEditor(sound_editor);
 
 	ImGui::End();
 }
@@ -123,16 +145,22 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	if (!object_editor)
 		return;
 
-	std::string image_path;
+	if (!selectObj)
+		return;
+
+	selectObj->GetTransform().Imgui_Transform();
+	
+	SpriteHelper();
+	SoundHelper();
+	
+	//SoundHelper(sound_path);
 
 	// Creating Object
-	ImGui::Button("Create Object");
+	//ImGui::Button("Create Object");
 
-	Object obj;
+	//Object obj;
 
-	//SpriteHelper(image_path);
-
-	if (ImGui::IsItemActive())
+	/*if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
 	}
@@ -143,13 +171,15 @@ void Imgui_System::ObjectEditor(bool object_editor)
 		obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
 		obj.SetDepth(0);
 		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
-
-		obj.AddComponent(new Status(ObjectType::None, 5, 1, 1.f));
-		//obj.AddComponent(new Sprite());
-		//obj.GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + image_path);
-		Objectmanager_.AddObject(obj);
+		
+		obj.AddComponent(new Sprite());
+		obj.GetComponentByTemplate<Sprite>()->ChangeSprite(image_dir + image_path);
 	}
 	
+	Objectmanager_.AddObject(obj);*/
+
+
+
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))
 	{
@@ -157,24 +187,81 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	}
 }
 
-std::string Imgui_System::SpriteHelper(std::string image_path) const
+void Imgui_System::SpriteHelper()
 {
-	static std::string current_item = image_path;
-	
-	if (ImGui::BeginCombo("Select Sprite Texture", current_item.c_str()))
+	if (ImGui::TreeNode("Sprite"))
 	{
-		for (int n = 0; n < imageList.size(); n++)
-		{
-			bool is_selected = (current_item.c_str() == imageList[n].c_str());
-			if (ImGui::Selectable(imageList[n].c_str(), is_selected))
-				current_item = imageList[n].c_str();
-			if (is_selected)
-				ImGui::SetItemDefaultFocus();
-		}
-		ImGui::EndCombo();
-	}
+		static std::string current_item = image_path;
 
-	return current_item;
+		if (ImGui::BeginCombo("Select texture", current_item.c_str()))
+		{
+			for (int n = 0; n < imageList.size(); n++)
+			{
+				bool is_selected = (current_item.c_str() == imageList[n].c_str());
+				if (ImGui::Selectable(imageList[n].c_str(), is_selected))
+					current_item = imageList[n].c_str();
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+
+		if (selectObj->GetComponentByTemplate<Sprite>() != nullptr)
+		{
+			if (ImGui::Button("Change Texture"))
+			{
+				selectObj->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/" + current_item);
+			}
+		}
+		else
+		{
+			if (ImGui::Button("Add Texture"))
+			{
+				selectObj->AddComponent(new Sprite("asset/images/" + current_item));
+			}
+		}
+		ImGui::TreePop();
+	}
+}
+
+void Imgui_System::SoundHelper()
+{
+	if (ImGui::TreeNode("Sound"))
+	{
+		static std::string current_item = sound_path;
+
+		if (ImGui::BeginCombo("Select sound", current_item.c_str()))
+		{
+			for (int n = 0; n < soundList.size(); n++)
+			{
+				bool is_selected = (current_item.c_str() == soundList[n].c_str());
+				if (ImGui::Selectable(soundList[n].c_str(), is_selected))
+					current_item = soundList[n].c_str();
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			ImGui::EndCombo();
+		}
+
+		if (selectObj->GetComponentByTemplate<Sound>() != nullptr)
+		{
+			if (ImGui::Button("Change Sound"))
+				selectObj->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/" + current_item);
+			
+			ImGui::SameLine();
+			
+			if (ImGui::Button("Play Sound"))
+				selectObj->GetComponentByTemplate<Sound>()->Play("asset/sounds/" + current_item);
+		}
+		else
+		{
+			if (ImGui::Button("Add Sound"))
+			{
+				selectObj->AddComponent(new Sound("asset/sounds/" + current_item, AudioManager::CATEGORY_SFX, 4));
+			}
+		}
+		ImGui::TreePop();
+	}
 }
 
 void Imgui_System::SoundEditor(bool sound_editor)
@@ -211,7 +298,7 @@ void Imgui_System::SoundEditor(bool sound_editor)
 
 	if (ImGui::Button("Play SFX"))
 	{
-		AudioManager_.PlaySFX(current_path + current_sound,4,4,4,4);
+		//AudioManager_.PlaySFX(current_path + current_sound,4,4,4,4);
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Play Song"))
@@ -280,61 +367,10 @@ void Imgui_System::SoundEditor(bool sound_editor)
 	//}
 //}
 //
-//void Imgui_System::ObjectSprite(Object* obj)
-//{
-	/*if (ImGui::TreeNode("Sprite"))
-	{
-		if (obj->GetComponentByTemplate<Sprite>() == nullptr)
-		{
-			static std::string current_item = "";
-			std::string image_dir = "asset/images/";
-			if (ImGui::BeginCombo("Select Sprite", current_item.c_str()))
-			{
-				for (int n = 0; n < imagelist.size(); n++)
-				{
-					bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-					if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-						current_item = imagelist[n].c_str();
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
-			}
-			if (ImGui::Button("Add Sprite"))
-			{
-				obj->AddComponent(new Sprite());
-			}
-		}
-		else
-		{
-			static std::string current_item = "";
-			std::string image_dir = "asset/images/";
-			if (ImGui::BeginCombo("Select texture", current_item.c_str()))
-			{
-				for (int n = 0; n < imagelist.size(); n++)
-				{
-					bool is_selected = (current_item.c_str() == imagelist[n].c_str());
-					if (ImGui::Selectable(imagelist[n].c_str(), is_selected))
-						current_item = imagelist[n].c_str();
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
-			}
 
-			if (ImGui::Button("Change Sprite"))
-			{
-				obj->GetComponentByTemplate<Sprite>()->Texture_Load(image_dir + current_item);
-				obj->texture_path = image_dir + current_item;
-			}
-		}
-		ImGui::TreePop();
-	}*/
-//}
-
-void Imgui_System::ObjectAnimation(Object* obj)
+void Imgui_System::AnimationHelper()
 {
-	if (ImGui::TreeNode("Animation"))
+	/*if (ImGui::TreeNode("Animation"))
 	{
 		if (obj->GetComponentByTemplate<Animation>() == nullptr)
 		{
@@ -377,129 +413,128 @@ void Imgui_System::ObjectAnimation(Object* obj)
 			obj->GetComponentByTemplate<Animation>()->Imgui_Animation();
 		}
 		ImGui::TreePop();
-	}
+	}*/
 }
 
-//void Imgui_System::ObjectCharacter(Object* obj)
-//{
-//	if(ImGui::TreeNode("Character Type"))
-//	{
-//		if(obj->GetComponentByTemplate<Character>() == nullptr)
-//		{
-//			if(ImGui::Button("Add Object Type"))
-//			{
-//				obj->AddComponent(new Character(ObjectType::none));
-//			}
-//		}
-//		else
-//		{
-//			const char* type_list[8] = { "player", "opponent", "sword", "wall", "card","door","shot","none" };
-//			static std::string current_item = "";
-//			if (ImGui::BeginCombo("Select Collision Type", current_item.c_str()))
-//			{
-//				for (int n = 0; n < 8; n++)
-//				{
-//					bool is_selected = (current_item.c_str() == type_list[n]);
-//					if (ImGui::Selectable(type_list[n], is_selected))
-//					{
-//						current_item = type_list[n];
-//					}
-//					if (is_selected)
-//						ImGui::SetItemDefaultFocus();
-//				}
-//				ImGui::EndCombo();
-//			}
-//			if (ImGui::Button("Change Collision Type"))
-//			{
-//				if (current_item == "player")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::player);
-//				}
-//				if (current_item == "opponent")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::opponent);
-//				}
-//				if (current_item == "sword")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::sword);
-//				}
-//				if (current_item == "wall")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::wall);
-//				}
-//				if (current_item == "card")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::card);
-//				}
-//				if (current_item == "door")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::door);
-//				}
-//				if (current_item == "shot")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::shot);
-//				}
-//				if (current_item == "none")
-//				{
-//					obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::none);
-//				}
-//				obj->AddComponent(new Status());
-//			}
-//		}
-//
-//
-//		if (ImGui::TreeNode("Collision"))
-//		{
-//			int count = 0;
-//
-//			const char* collision_list[3] = { "box", "circle", "triangle" };
-//			static std::string current_item = "";
-//			if (ImGui::BeginCombo("Select Collision Type", current_item.c_str()))
-//			{
-//				for (int n = 0; n < 3; n++)
-//				{
-//					bool is_selected = (current_item.c_str() == collision_list[n]);
-//					if (ImGui::Selectable(collision_list[n], is_selected))
-//					{
-//						current_item = collision_list[n];
-//						count = n;
-//					}
-//					if (is_selected)
-//						ImGui::SetItemDefaultFocus();
-//				}
-//				ImGui::EndCombo();
-//			}
-//
-//			ImGui::SameLine();
-//			ImGui::Text("Collision Type");
-//
-//			if (obj->GetComponentByTemplate<Collision>() == nullptr)
-//			{
-//				if (ImGui::Button("Add Collision Type"))
-//				{
-//					obj->AddComponent(new Collision());
-//				}
-//			}
-//			else
-//			{
-//				if (ImGui::Button("Change Collision Type"))
-//				{
-//					if (count == 0)
-//					{
-//						obj->GetComponentByTemplate<Collision>()->SetCollisionType(box_);
-//					}
-//					if (count == 1)
-//					{
-//						obj->GetComponentByTemplate<Collision>()->SetCollisionType(circle_);
-//					}
-//					if (count == 2)
-//					{
-//						obj->GetComponentByTemplate<Collision>()->SetCollisionType(triangle_);
-//					}
-//				}
-//			}
-//			ImGui::TreePop();
-//		}
-//	ImGui::TreePop();
-//	}
-//}
+void Imgui_System::ObjectCharacter(Object* obj)
+{
+	//if(ImGui::TreeNode("Character Type"))
+	//{
+	//	if(obj->GetComponentByTemplate<Character>() == nullptr)
+	//	{
+	//		if(ImGui::Button("Add Object Type"))
+	//		{
+	//			obj->AddComponent(new Character(ObjectType::none));
+	//		}
+	//	}
+	//	else
+	//	{
+	//		const char* type_list[8] = { "player", "opponent", "sword", "wall", "card","door","shot","none" };
+	//		static std::string current_item = "";
+	//		if (ImGui::BeginCombo("Select Collision Type", current_item.c_str()))
+	//		{
+	//			for (int n = 0; n < 8; n++)
+	//			{
+	//				bool is_selected = (current_item.c_str() == type_list[n]);
+	//				if (ImGui::Selectable(type_list[n], is_selected))
+	//				{
+	//					current_item = type_list[n];
+	//				}
+	//				if (is_selected)
+	//					ImGui::SetItemDefaultFocus();
+	//			}
+	//			ImGui::EndCombo();
+	//		}
+	//		if (ImGui::Button("Change Collision Type"))
+	//		{
+	//			if (current_item == "player")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::player);
+	//			}
+	//			if (current_item == "opponent")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::opponent);
+	//			}
+	//			if (current_item == "sword")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::sword);
+	//			}
+	//			if (current_item == "wall")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::wall);
+	//			}
+	//			if (current_item == "card")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::card);
+	//			}
+	//			if (current_item == "door")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::door);
+	//			}
+	//			if (current_item == "shot")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::shot);
+	//			}
+	//			if (current_item == "none")
+	//			{
+	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::none);
+	//			}
+	//			obj->AddComponent(new Status());
+	//		}
+	//	}
+
+
+		if (ImGui::TreeNode("Collision"))
+		{
+			int count = 0;
+
+			const char* collision_list[3] = { "box", "circle", "triangle" };
+			static std::string current_item = "";
+			if (ImGui::BeginCombo("Select Collision Type", current_item.c_str()))
+			{
+				for (int n = 0; n < 3; n++)
+				{
+					bool is_selected = (current_item.c_str() == collision_list[n]);
+					if (ImGui::Selectable(collision_list[n], is_selected))
+					{
+						current_item = collision_list[n];
+						count = n;
+					}
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
+
+			ImGui::SameLine();
+			ImGui::Text("Collision Type");
+
+			if (obj->GetComponentByTemplate<Collision>() == nullptr)
+			{
+				if (ImGui::Button("Add Collision Type"))
+				{
+					obj->AddComponent(new Collision());
+				}
+			}
+			else
+			{
+				if (ImGui::Button("Change Collision Type"))
+				{
+					if (count == 0)
+					{
+						obj->GetComponentByTemplate<Collision>()->SetCollisionType(box_);
+					}
+					if (count == 1)
+					{
+						obj->GetComponentByTemplate<Collision>()->SetCollisionType(circle_);
+					}
+					if (count == 2)
+					{
+						obj->GetComponentByTemplate<Collision>()->SetCollisionType(triangle_);
+					}
+				}
+			}
+			ImGui::TreePop();
+		}
+	ImGui::TreePop();
+}

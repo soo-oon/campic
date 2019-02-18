@@ -19,7 +19,6 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Picking.cpp" />
     <ClCompile Include="Animation.cpp">
       <Filter>Component\Animation</Filter>
     </ClCompile>
@@ -74,6 +73,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Graphic\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Component\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.hpp" />
@@ -91,7 +93,6 @@
     <ClInclude Include="Timer.hpp">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Picking.h" />
     <ClInclude Include="Component.hpp">
       <Filter>Component</Filter>
     </ClInclude>
@@ -152,6 +153,9 @@
     <ClInclude Include="Mesh.hpp">
       <Filter>Graphic\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.hpp">
+      <Filter>Component\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
@@ -207,6 +211,9 @@
     </Filter>
     <Filter Include="Graphic\Shader\GLSL">
       <UniqueIdentifier>{8b33f5cf-31db-41f4-b8d5-4f2824f4ae59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Sound">
+      <UniqueIdentifier>{21ca3177-c0f4-4740-82a9-2a8e58edca03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

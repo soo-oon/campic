@@ -39,28 +39,31 @@ public:
 
 	void LoadSFX(const std::string& path);
 	void LoadSong(const std::string& path);
-	void PlaySFX(const std::string& path, float minVolume, float maxVolume, float minPitch, float maxPitch);
+	void PlaySFX(const std::string& path, float volume);
 	void PlaySong(const std::string& path);
+	void ChnageSFX(const std::string& path);
+	void ChnageSong(const std::string& path);
 	void StopSFXs();
 	void StopSongs();
 	void SetMasterVolume(float volume);
 	void SetSFXsVolume(float volume); 
 	void SetSongsVolume(float volume);
 
-private:  
-	typedef std::unordered_map<std::string, FMOD::Sound*> SoundMap;  
 	enum Category { CATEGORY_SFX, CATEGORY_SONG, CATEGORY_COUNT };
 	enum FadeState { FADE_NONE, FADE_IN, FADE_OUT };
+
+private:  
+	typedef std::unordered_map<std::string, FMOD::Sound*> SoundMap;  
 	
 	void Load(Category type, const std::string& path);    
 	
-	FMOD::System* system = nullptr;  
-	FMOD::ChannelGroup* master = nullptr;  
+	FMOD::System* system = nullptr;
+	FMOD::ChannelGroup* master = nullptr;
 	FMOD::ChannelGroup* groups[CATEGORY_COUNT];
 	FMOD::Channel* currentSong = nullptr;
 
 	SoundMap sounds[CATEGORY_COUNT];
-	FMOD_MODE modes[CATEGORY_COUNT];  
+	FMOD_MODE modes[CATEGORY_COUNT];
 	
 	std::string currentSongPath; 
 	std::string nextSongPath;   

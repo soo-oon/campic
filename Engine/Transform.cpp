@@ -45,8 +45,8 @@ void Transform::Imgui_Transform()
 {
 	if (ImGui::TreeNode("Transform"))
 	{
-		ImGui::SliderFloat("Translation.x ", &translation.x, -500, 500);
-		ImGui::SliderFloat("Translation.y", &translation.y, -500, 500);
+		//ImGui::SliderFloat("Translation.x ", &translation.x, -500, 500);
+		//ImGui::SliderFloat("Translation.y", &translation.y, -500, 500);
 		ImGui::SliderFloat("Scale.x", &scale.x, 0, 1000);
 		ImGui::SliderFloat("Scale.y", &scale.y, 0, 1000);
 		ImGui::SliderFloat("Rotation", &rotation, 0, 370);

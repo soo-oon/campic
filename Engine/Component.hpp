@@ -24,7 +24,8 @@ enum class Component_Type
 	Camera,
 	Animation,
 	Collision,
-	Particle
+	Particle,
+	Sound
 };
 
 class Object;

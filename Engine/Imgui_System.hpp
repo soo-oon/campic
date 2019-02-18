@@ -45,8 +45,11 @@ public:
 	void Editor(bool show_window);
 	void ObjectEditor(bool object_editor);
 	void SoundEditor(bool sound_editor);
-	std::string SpriteHelper(std::string image_path) const;
-	void ObjectAnimation(Object* obj);
+
+	// Helper
+	void SpriteHelper();
+	void SoundHelper();
+	void AnimationHelper();
 	void ObjectCharacter(Object * obj);
 
 private:
@@ -59,10 +62,16 @@ private:
 	std::vector<std::string> imageList;
 	std::vector<std::string> soundList;
 
+	std::string image_path;
+	std::string sound_path;
+
 	std::string image_dir = "asset/images/";
+	std::string sound_dir = "asset/sounds/";
 
 	//void AllObjectTree(std::vector<std::string> obj_list);
 	//void ObjectSprite(Object* sprite_obj);
+
+	Object* selectObj = nullptr;
 };
 
 extern Imgui_System IMGUI_;

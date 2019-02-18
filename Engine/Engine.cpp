@@ -23,7 +23,6 @@ Creation date: 2018/12/14
 #include "Imgui_System.hpp"
 #include "JSON.hpp"
 #include "HUD.hpp"
-#include "Picking.h"
 #include "HUD_Level.hpp"
 
 bool Engine::IsQuit;
@@ -71,8 +70,7 @@ void Engine::System_Initialize()
 	IMGUI_.Initialize();
 	AudioManager_.Initialize();
 	Physics_.Initialize();
-	//JSON_.Initialize();
-	Picking_.Initialize();
+	JSON_.Initialize();
  	HUD_.Initialize(new HUD_Level());
 
 	//TODO make new HUD structure 
@@ -87,8 +85,7 @@ void Engine::System_Update()
 	Graphics_.Update(dt);
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
-	//JSON_.Update(dt);
-	Picking_.Update(dt);
+	JSON_.Update(dt);
 	HUD_.Update(dt);
 
 	// Should Fix All of Update ways (Should Fix Physics class structure)
@@ -106,8 +103,7 @@ void Engine::System_Quit()
 	//IMGUI_.Quit();
 	AudioManager_.Quit();
 	Physics_.Quit();
-	//JSON_.Quit();
-	Picking_.Quit();
+	JSON_.Quit();
 
 	//HUD_.Quit();
 }

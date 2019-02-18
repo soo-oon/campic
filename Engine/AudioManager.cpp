@@ -106,17 +106,15 @@ void AudioManager::Update(float dt)
 void AudioManager::Quit()
 {
 	// Release sounds in each category  
-	SoundMap::iterator iter;
-
 	for(int i = 0; i < CATEGORY_COUNT; ++i)
 	{
-		for (iter = sounds[i].begin(); iter != sounds[i].end(); ++iter)
+		for (auto& temp : sounds[i])
 		{
-			iter->second->release();
-			sounds[i].clear();
+			temp.second->release();
 		}
+		sounds[i].clear();
 	}
-	
+
 	// Release system  
 	system->release();
 }
@@ -131,7 +129,7 @@ void AudioManager::LoadSong(const std::string& path)
 	Load(CATEGORY_SONG, path);
 }
 
-void AudioManager::PlaySFX(const std::string& path, float minVolume, float maxVolume, float minPitch, float maxPitch)
+void AudioManager::PlaySFX(const std::string& path, float volume)
 {
 	// Try to find sound effect and return if not found  
 	SoundMap::iterator sound = sounds[CATEGORY_SFX].find(path);  
@@ -140,8 +138,8 @@ void AudioManager::PlaySFX(const std::string& path, float minVolume, float maxVo
 		return;
 
 	// Calculate random volume and pitch in selected range 
-	float volume = RandomBetween(minVolume, maxVolume);  
-	float pitch = RandomBetween(minPitch, maxPitch);
+	//float volume = RandomBetween(minVolume, maxVolume);  
+	//float pitch = RandomBetween(minPitch, maxPitch);
 	
 	// Play the sound effect with these initial values  
 	FMOD::Channel* channel;  
@@ -151,7 +149,7 @@ void AudioManager::PlaySFX(const std::string& path, float minVolume, float maxVo
 	
 	float frequency;  
 	channel->getFrequency(&frequency);  
-	channel->setFrequency(ChangeSemitone(frequency, pitch));  
+	channel->setFrequency(frequency);  
 	channel->setPaused(false); 
 }
 
@@ -180,6 +178,14 @@ void AudioManager::PlaySong(const std::string & path)
 	currentSong->setVolume(4.0f);  
 	currentSong->setPaused(false);  
 	fade = FADE_IN; 
+}
+
+void AudioManager::ChnageSFX(const std::string & path)
+{
+}
+
+void AudioManager::ChnageSong(const std::string& path)
+{
 }
 
 void AudioManager::StopSFXs()

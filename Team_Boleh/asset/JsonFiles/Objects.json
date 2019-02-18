@@ -12,8 +12,8 @@
         },
         "Transform": {
             "position": {
-                "x": 51.0,
-                "y": 69.0
+                "x": 0.0,
+                "y": 0.0
             },
             "scale": {
                 "x": 100.0,
@@ -49,40 +49,6 @@
             "id": 0,
             "enum": "box"
         },
-        "Particle": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "id": 9,
-                "enum": "None"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 100.0,
-                "y": -100.0
-            },
-            "scale": {
-                "x": 50.0,
-                "y": 50.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Dr_Strange.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
         "Particle": {
             "emit_rate": 50,
             "life_time": 5.0,
@@ -101,6 +67,169 @@
                 "y": 0.0
             },
             "path": ""
+        },
+        "Sound": {
+            "path": "punch.wav"
         }
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 1,
+                "enum": "Sword"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": -47.96009826660156,
+                "y": 46.306304931640628
+            },
+            "scale": {
+                "x": 75.0,
+                "y": 75.0
+            },
+            "rotation": 46.074066162109378
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/trash.png"
+        },
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 2,
+                "enum": "Enemy"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 100.0,
+                "y": -134.1291046142578
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Dr_Strange.png"
+        },
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {}
+    },
+    "Object": {
+        "Status": {},
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 6,
+                "enum": "Item"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 300.0,
+                "y": 300.0
+            },
+            "scale": {
+                "x": 24.0,
+                "y": 30.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/red_soul.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 6,
+                "enum": "Item"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.0,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 250.0,
+                "y": -250.0
+            },
+            "scale": {
+                "x": 24.0,
+                "y": 30.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/blue_soul.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {}
     }
 }

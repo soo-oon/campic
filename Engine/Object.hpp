@@ -23,6 +23,7 @@ Creation date: 2018/12/14
 #include "Collision.hpp"
 #include "Camera.hpp"
 #include "RigidBody.hpp"
+#include "Sound.hpp"
 
 class Object
 {

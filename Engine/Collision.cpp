@@ -20,7 +20,6 @@ Creation date: 2018/12/14
 
 bool Collision::Initialize(Object* Ob)
 {
-
 	object = Ob;
 
 	collision_mesh = mesh::CreateCollisionBox(type);

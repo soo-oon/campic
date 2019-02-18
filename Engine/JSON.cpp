@@ -36,6 +36,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	Value objRigidBodyTree;
 	Value objCollisionTree(kArrayType);
 	Value objParticleTree(kArrayType);
+	Value objSoundTree(kArrayType);
 	
 	objTree.SetObject();
 	objTransformTree.SetObject();
@@ -46,6 +47,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	objRigidBodyTree.SetObject();
 	objCollisionTree.SetObject();
 	objParticleTree.SetObject();
+	objSoundTree.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
 
@@ -78,6 +80,9 @@ void JSON::ObjectsToDocument(Object* obj)
 	if(obj->GetComponentByTemplate<Particle_Generator>() != nullptr)
 		objParticleTree = ComponentParticle(obj);
 
+	if (obj->GetComponentByTemplate<Sound>() != nullptr)
+		objSoundTree = ComponentSound(obj);
+
 	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sprite", objSpriteTree, ObjectDocument.GetAllocator());
@@ -85,6 +90,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	objTree.AddMember("RigidBody", objRigidBodyTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Collision", objCollisionTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Particle", objParticleTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -381,6 +387,26 @@ Value JSON::ComponentParticle(Object * obj)
 	return particleTree;
 }
 
+Value JSON::ComponentSound(Object * obj)
+{
+	Value container(kArrayType);
+	Value paths;
+
+	container.SetObject();
+	paths.SetObject();
+
+	auto sound_info = obj->GetComponentByTemplate<Sound>();
+	auto path_container = sound_info->GetSoundPaths();
+
+	for(auto& temp : path_container)
+	{
+		paths.SetString(temp.c_str(), ObjectDocument.GetAllocator());
+		container.AddMember("path", paths, ObjectDocument.GetAllocator());
+	}
+
+	return container;
+}
+
 void JSON::SaveObjectsToJson()
 {
 	std::string filename(file_path);
@@ -540,8 +566,8 @@ void JSON::LoadObjectFromJson()
 
 			auto particle_path = particle.FindMember("path")->value.GetString();
 				
-			obj.AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
-					color_duration, start, random, size, particle_path));
+			//obj.AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
+					//color_duration, start, random, size, particle_path));
 		}
 		Objectmanager_.AddObject(obj);
 	}

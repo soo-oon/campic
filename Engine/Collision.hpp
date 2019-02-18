@@ -33,6 +33,7 @@ enum class CollisionState
 	damaged,
 	collided,
 };
+
 class Collision : public Component
 {
 public:
