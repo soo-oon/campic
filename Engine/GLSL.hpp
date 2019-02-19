@@ -25,4 +25,7 @@ namespace GLSL
 
 	extern const std::string particle_vertex;
 	extern const std::string particle_fragment;
+
+	extern const std::string font_vertex;
+	extern const std::string font_fragment;
 }

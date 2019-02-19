@@ -116,6 +116,11 @@ vector2 Mesh::GetTextureCoordinate(size_t index, Sprite* sprite)
 	return textureCoordinates.at(index);
 }
 
+vector2 Mesh::GetTextureCoordinate(size_t index)
+{
+	return textureCoordinates.at(index);
+}
+
 vector2 Mesh::GetAnimationCoordinate(size_t index, Animation* animation)
 {
 	if (!animation->GetCurrentAnimation().sprites->IsFlip())

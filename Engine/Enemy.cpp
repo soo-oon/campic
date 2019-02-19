@@ -102,7 +102,6 @@ void Enemy::CardDrop()
     object->GetComponentByTemplate<Status>()->SetObjectType(ObjectType::Item);
     object->GetTransform().SetScale({ 24.f, 30.f });
     object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale({ 24.f,30.f });
-    srand(time(NULL));
     int random = rand() % 4;
     if (random == 0)
     {
