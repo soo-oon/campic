@@ -29,14 +29,14 @@ bool Player::Initialize(Object * Ob)
 		object->SetTranslation({ 0,0 });
 		object->SetScale({ 100.0f, 100.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-		object->AddComponent(new RigidBody());
+		object->Add_Init_Component(new RigidBody());
 
 		//object->AddComponent(new Sprite("asset/images/Player.png"));
-		object->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+		object->Add_Init_Component(new Animation("asset/images/Player.png", "player", 8, 0.05f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
-		object->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-		object->AddComponent(new Status(ObjectType::Player, 5, 1, 1.f));
-		object->AddComponent(new Sound("punch.wav", AudioManager::CATEGORY_SFX, 4));
+		object->Add_Init_Component(new Collision(box_, {}, { 100.0f, 100.0f }));
+		object->Add_Init_Component(new Status(ObjectType::Player, 5, 1, 1.f));
+		object->Add_Init_Component(new Sound("punch.wav", AudioManager::CATEGORY_SFX, 4));
 
 		/*for(auto temp : object->GetComponent())
 		{

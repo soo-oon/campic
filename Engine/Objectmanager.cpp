@@ -42,6 +42,7 @@ bool Objectmanager::Initialize()
 
 void Objectmanager::Update(float dt)
 {
+	std::cout << objects_.size() << std::endl;
 	for (auto object = objects_.begin(); object != objects_.end();)
 	{
 		for (auto components : object->get()->GetComponent())
@@ -77,12 +78,9 @@ void Objectmanager::AddObject(Object obj)
 
 	std::cout << objects_.size() << std::endl;
 
-	for(unsigned int i =0; i<objects_.size(); ++i)
+ 	for(auto component : objects_[objects_.size()-1]->GetComponent())
 	{
-	    for(auto component : objects_[i]->GetComponent())
-	    {
-		    component->Initialize(objects_[i].get());
-	    }
+		component->Initialize(objects_[objects_.size() - 1].get());
 	}
 }
 

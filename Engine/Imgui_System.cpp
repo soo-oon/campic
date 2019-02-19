@@ -15,7 +15,8 @@ Creation date: 2018/12/14
 #include "Imgui_System.hpp"
 #include <iostream>
 #include "Graphics.hpp"
-#include "Status.hpp"
+#include "stb_image.h"
+#include <imgui_internal.h>
 
 Imgui_System IMGUI_;
 
@@ -52,6 +53,17 @@ bool Imgui_System::Initialize()
 	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
 		soundList.push_back(p.path().filename().string());
+	}
+	//Tile list in project directory
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles"))
+	{
+		tileList.push_back(tile_dir + p.path().filename().string());
+	}
+
+	for (auto& temp : tileList)
+	{
+		auto texture = TileHelper(temp);
+		tile_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
 	std::cout << "IMGUI Initialization Successful" << std::endl;
@@ -133,8 +145,14 @@ void Imgui_System::Editor(bool show_window)
 	if (ImGui::RadioButton("Sound Editor", sound_editor))
 		sound_editor = !sound_editor;
 
+	ImGui::SameLine();
+
+	if (ImGui::RadioButton("Tile Editor", tile_editor))
+		tile_editor = !tile_editor;
+
 	// Create editor window
 	ObjectEditor(object_editor);
+	TileEditor(tile_editor);
 	//SoundEditor(sound_editor);
 
 	ImGui::End();
@@ -149,36 +167,26 @@ void Imgui_System::ObjectEditor(bool object_editor)
 		return;
 
 	selectObj->GetTransform().Imgui_Transform();
-	
+
 	SpriteHelper();
 	SoundHelper();
-	
+
 	//SoundHelper(sound_path);
 
-	// Creating Object
-	//ImGui::Button("Create Object");
-
-	//Object obj;
-
-	/*if (ImGui::IsItemActive())
+	if (ImGui::Button("Delete"))
 	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+		for (auto object = Objectmanager_.GetObjectMap().begin(); object != Objectmanager_.GetObjectMap().end();)
+		{
+			if(object->get() == selectObj)
+			{
+				object = Objectmanager_.GetObjectMap().erase(object);
+			}
+			else
+			{
+				object++;
+			}
+		}
 	}
-
-	if (ImGui::IsItemDeactivated())
-	{
-		obj.SetScale({ 100.f,100.f });
-		obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
-		obj.SetDepth(0);
-		obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
-		
-		obj.AddComponent(new Sprite());
-		obj.GetComponentByTemplate<Sprite>()->ChangeSprite(image_dir + image_path);
-	}
-	
-	Objectmanager_.AddObject(obj);*/
-
-
 
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))
@@ -270,16 +278,18 @@ void Imgui_System::SoundEditor(bool sound_editor)
 		return;
 
 	static std::string current_sound = "";
-
-	if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) // The second parameter is the label previewed before opening the combo.
+	
+	// The second parameter is the label previewed before opening the combo.
+	if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) 
 	{
 		for (int n = 0; n < soundList.size(); n++)
 		{
-			bool is_selected = (current_sound.c_str() == soundList[n].c_str()); // You can store your selection however you want, outside or inside your objects
+			// You can store your selection however you want, outside or inside your objects
+			bool is_selected = (current_sound.c_str() == soundList[n].c_str()); 
 			if (ImGui::Selectable(soundList[n].c_str(), is_selected))
 				current_sound = soundList[n].c_str();
 				if (is_selected)
-					ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+					ImGui::SetItemDefaultFocus();   
 		}
 		ImGui::EndCombo();
 	}
@@ -315,226 +325,93 @@ void Imgui_System::SoundEditor(bool sound_editor)
 	{
 		AudioManager_.StopSongs();
 	}
-
-	//ImGui::SameLine();
-	//if (ImGui::Button("Pause"))
-	//{
-	//	if (sound_manager->IsPlaying())
-	//		sound_manager->Pause(current_path + current_sound);
-	//}
-
-	//static float i = 0;
-	//if(ImGui::SliderFloat("Volume", &i, 0, 10))
-	//{
-	//	sound_manager->SetVolume(i);
-	//}
-
-	//static float speed = 0;
-	//if (ImGui::SliderFloat("Speed", &speed, 0, 5))
-	//{
-	//	sound_manager->SetSoundSpeed(current_path + current_sound, speed);
-	//}
-
 }
 
-//
-//void Imgui_System::AllObjectTree(std::vector<std::string> obj_list)
-//{
-	//for (int i = 0; i < obj_list.size(); i++)
-	//{
-	//	Object* temp = object_manager->FindObject(obj_list.at(i).c_str()).get();
-
-	//	if (temp != nullptr)
-	//	{
-	//		if (!temp->GetMesh().IsVisible())
-	//			continue;
-	//		if (obj_list.at(i) == "displaybox") //this is the display box at map editor
-	//			continue;
-
-	//		if (ImGui::TreeNode(obj_list.at(i).c_str())) //um... update new!
-	//		{
-	//			temp->GetTransform().Imgui_Transform();
-
-	//			ObjectSprite(temp);
-	//			ObjectAnimation(temp);
-	//			ObjectCharacter(temp);
-
-	//			ImGui::TreePop();
-	//			if (ImGui::Button("Delete"))
-	//				temp->GetMesh().Invisible();
-	//		}
-	//	}
-	//}
-//}
-//
-
-void Imgui_System::AnimationHelper()
+void Imgui_System::TileEditor(bool tile_editor)
 {
-	/*if (ImGui::TreeNode("Animation"))
+	if (!tile_editor)
+		return;
+
+	ImGuiID g = ImGui::GetActiveID();
+	int i = 1;
+
+	for (auto& temp : tile_buttons)
 	{
-		if (obj->GetComponentByTemplate<Animation>() == nullptr)
+		//auto texture = TileHelper(temp);
+		if(ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			static std::string current_item = "";
-			std::string image_dir = "asset/images/";
-			if (ImGui::BeginCombo("Select Animation", current_item.c_str()))
-			{
-				for (int n = 0; n < imageList.size(); n++)
-				{
-					bool is_selected = (current_item.c_str() == imageList[n].c_str());
-					if (ImGui::Selectable(imageList[n].c_str(), is_selected))
-						current_item = imageList[n].c_str();
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
-			}
-			if (ImGui::Button("Add Animation"))
-			{
-				obj->AddComponent(new Animation(image_dir+current_item, " ", 4, 0.2f, true));
-				obj->texture_path = image_dir + current_item;
-			}
+			g = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
+			tile_path = temp.first;
 		}
-		else
+
+		if(g == 0)
 		{
-			static std::string current_item = "";
-			std::string image_dir = "asset/images/";
-			if (ImGui::BeginCombo("Select Animation", current_item.c_str()))
+			if (Input::IsKeyTriggered(GLFW_KEY_G))
 			{
-				for (int n = 0; n < imageList.size(); n++)
-				{
-					bool is_selected = (current_item.c_str() == imageList[n].c_str());
-					if (ImGui::Selectable(imageList[n].c_str(), is_selected))
-						current_item = imageList[n].c_str();
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
+				Object obj;
+				obj.SetScale({ 16.f,16.f });
+				obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+				obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+				obj.AddComponent(new Sprite(tile_path));
+				Objectmanager_.AddObject(obj);
 			}
-			obj->GetComponentByTemplate<Animation>()->Imgui_Animation();
+			g = 1;
 		}
-		ImGui::TreePop();
-	}*/
-}
-
-void Imgui_System::ObjectCharacter(Object* obj)
-{
-	//if(ImGui::TreeNode("Character Type"))
-	//{
-	//	if(obj->GetComponentByTemplate<Character>() == nullptr)
-	//	{
-	//		if(ImGui::Button("Add Object Type"))
-	//		{
-	//			obj->AddComponent(new Character(ObjectType::none));
-	//		}
-	//	}
-	//	else
-	//	{
-	//		const char* type_list[8] = { "player", "opponent", "sword", "wall", "card","door","shot","none" };
-	//		static std::string current_item = "";
-	//		if (ImGui::BeginCombo("Select Collision Type", current_item.c_str()))
-	//		{
-	//			for (int n = 0; n < 8; n++)
-	//			{
-	//				bool is_selected = (current_item.c_str() == type_list[n]);
-	//				if (ImGui::Selectable(type_list[n], is_selected))
-	//				{
-	//					current_item = type_list[n];
-	//				}
-	//				if (is_selected)
-	//					ImGui::SetItemDefaultFocus();
-	//			}
-	//			ImGui::EndCombo();
-	//		}
-	//		if (ImGui::Button("Change Collision Type"))
-	//		{
-	//			if (current_item == "player")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::player);
-	//			}
-	//			if (current_item == "opponent")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::opponent);
-	//			}
-	//			if (current_item == "sword")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::sword);
-	//			}
-	//			if (current_item == "wall")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::wall);
-	//			}
-	//			if (current_item == "card")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::card);
-	//			}
-	//			if (current_item == "door")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::door);
-	//			}
-	//			if (current_item == "shot")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::shot);
-	//			}
-	//			if (current_item == "none")
-	//			{
-	//				obj->GetComponentByTemplate<Character>()->SetCharType(ObjectType::none);
-	//			}
-	//			obj->AddComponent(new Status());
-	//		}
-	//	}
-
-
-		if (ImGui::TreeNode("Collision"))
-		{
-			int count = 0;
-
-			const char* collision_list[3] = { "box", "circle", "triangle" };
-			static std::string current_item = "";
-			if (ImGui::BeginCombo("Select Collision Type", current_item.c_str()))
-			{
-				for (int n = 0; n < 3; n++)
-				{
-					bool is_selected = (current_item.c_str() == collision_list[n]);
-					if (ImGui::Selectable(collision_list[n], is_selected))
-					{
-						current_item = collision_list[n];
-						count = n;
-					}
-					if (is_selected)
-						ImGui::SetItemDefaultFocus();
-				}
-				ImGui::EndCombo();
-			}
-
+		
+		if (i != 8)
 			ImGui::SameLine();
-			ImGui::Text("Collision Type");
-
-			if (obj->GetComponentByTemplate<Collision>() == nullptr)
-			{
-				if (ImGui::Button("Add Collision Type"))
-				{
-					obj->AddComponent(new Collision());
-				}
-			}
-			else
-			{
-				if (ImGui::Button("Change Collision Type"))
-				{
-					if (count == 0)
-					{
-						obj->GetComponentByTemplate<Collision>()->SetCollisionType(box_);
-					}
-					if (count == 1)
-					{
-						obj->GetComponentByTemplate<Collision>()->SetCollisionType(circle_);
-					}
-					if (count == 2)
-					{
-						obj->GetComponentByTemplate<Collision>()->SetCollisionType(triangle_);
-					}
-				}
-			}
-			ImGui::TreePop();
-		}
-	ImGui::TreePop();
+		else
+			i = 0;
+		i++;
+	}
 }
+
+GLuint Imgui_System::TileHelper(std::string path)
+{
+	std::vector<GLuint> texture_data;
+
+	int my_image_width, my_image_height;
+	unsigned char* my_image_data = stbi_load(path.c_str(),
+		&my_image_width, &my_image_height, nullptr, STBI_rgb_alpha);
+
+	// Turn the RGBA pixel data into an OpenGL texture:
+	GLuint my_opengl_texture;
+	glGenTextures(1, &my_opengl_texture);
+	glBindTexture(GL_TEXTURE_2D, my_opengl_texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, my_image_width, my_image_height,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, my_image_data);
+
+	//	texture_data.push_back(my_opengl_texture);
+
+	return my_opengl_texture;
+}
+
+
+// Creating Object
+//ImGui::Button("Create Object");
+
+//Object obj;
+
+/*if (ImGui::IsItemActive())
+{
+	ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+}
+
+if (ImGui::IsItemDeactivated())
+{
+	obj.SetScale({ 100.f,100.f });
+	obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+	obj.SetDepth(0);
+	obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
+
+	obj.AddComponent(new Sprite());
+	obj.GetComponentByTemplate<Sprite>()->ChangeSprite(image_dir + image_path);
+}
+
+Objectmanager_.AddObject(obj);*/
+

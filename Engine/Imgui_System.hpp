@@ -24,6 +24,7 @@ Creation date: 2018/12/14
 #include "AudioManager.hpp"
 #include <filesystem>
 #include <string>
+#include <unordered_map>
 
 enum class ComponentType
 {
@@ -46,11 +47,12 @@ public:
 	void ObjectEditor(bool object_editor);
 	void SoundEditor(bool sound_editor);
 
+	void TileEditor(bool tile_editor);
+	GLuint TileHelper(std::string path);
+
 	// Helper
 	void SpriteHelper();
 	void SoundHelper();
-	void AnimationHelper();
-	void ObjectCharacter(Object * obj);
 
 private:
 	GLFWwindow* window = nullptr;
@@ -58,18 +60,26 @@ private:
 	bool show_window = false;
 	bool object_editor = false;
 	bool sound_editor = false;
+	bool tile_editor = false;
 
 	std::vector<std::string> imageList;
 	std::vector<std::string> soundList;
+	std::vector<std::string> tileList;
+
+	std::unordered_map<std::string,ImTextureID> tile_buttons;
 
 	std::string image_path;
 	std::string sound_path;
+	std::string tile_path;
 
 	std::string image_dir = "asset/images/";
 	std::string sound_dir = "asset/sounds/";
+	std::string tile_dir = "asset/images/Tiles/";
 
 	//void AllObjectTree(std::vector<std::string> obj_list);
 	//void ObjectSprite(Object* sprite_obj);
+
+	std::vector<Object*> tiles;
 
 	Object* selectObj = nullptr;
 };
