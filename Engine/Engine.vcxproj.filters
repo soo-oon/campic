@@ -75,6 +75,11 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Component\Sound</Filter>
+    <ClCompile Include="BitmapFont.cpp">
+      <Filter>Component\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Component\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +160,11 @@
     </ClInclude>
     <ClInclude Include="Sound.hpp">
       <Filter>Component\Sound</Filter>
+    <ClInclude Include="BitmapFont.hpp">
+      <Filter>Component\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.hpp">
+      <Filter>Component\Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +224,8 @@
     </Filter>
     <Filter Include="Component\Sound">
       <UniqueIdentifier>{21ca3177-c0f4-4740-82a9-2a8e58edca03}</UniqueIdentifier>
+    <Filter Include="Component\Font">
+      <UniqueIdentifier>{6b0e0049-1061-4549-8541-02531eb0870b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -5,9 +5,20 @@
 bool Particle::Initialize(vector2 position)
 {
 	particle_obj->SetTranslation(position);
-	
-	float temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
-	float temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+
+	float temp_x_dir;
+	float temp_y_dir;
+
+	if (static_random_velocity.x > 0 && static_random_velocity.y > 0)
+	{
+		temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+		temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+	}
+	else
+	{
+		temp_x_dir = RandomNumberGenerator(static_random_velocity.x, 0.0f);
+		temp_y_dir = RandomNumberGenerator(static_random_velocity.y, 0.0f);
+	}
 
 	random_velocity.x = temp_x_dir;
 	random_velocity.y = temp_y_dir;

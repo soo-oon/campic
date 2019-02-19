@@ -144,6 +144,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="BitmapFont.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Collision.cpp">
@@ -155,6 +156,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="GLSL.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="HUD.cpp">
@@ -208,6 +210,7 @@
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioManager.hpp" />
+    <ClInclude Include="BitmapFont.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Card.hpp" />
     <ClInclude Include="Collision.hpp">
@@ -221,6 +224,7 @@
     <ClInclude Include="DepthValue.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="Font.hpp" />
     <ClInclude Include="GLSL.hpp" />
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="HUD.hpp">
