@@ -21,6 +21,7 @@ Creation date: 2018/12/14
 #include <vector>
 #include "Objectmanager.hpp"
 #include "Camera.hpp"
+#include "Font.hpp"
 
 //class Animation;
 
@@ -29,6 +30,7 @@ enum class GraphicsType : int
 	solid_obj,
 	sprite,
 	particle,
+	font,
 	count
 };
 
@@ -74,6 +76,12 @@ private:
 		vector2 position;
 		vector2 particleCoordinate;
 	};
+	struct font
+	{
+		vector2 position;
+		vector2 fontCoordinate;
+	};
+
 
 	affine2d CalculateModelToNDCTransform(const Transform& transform) const;
 
@@ -88,9 +96,13 @@ private:
 	void Draw(const Transform& transform, const std::vector<particle>& vertexes,
 		PointListType draw_type, Color color, Sprite* sprite);
 
+	void Draw(const Transform& transform, const std::vector<font>& vertexes,
+		PointListType draw_type, Color color, const Sprite font_sprite);
+
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();
 	void DescribParticlePosition();
+	void DescribFontPosition();
 
 private:
 	bool Iscamera = false;
@@ -105,6 +117,7 @@ private:
 	Shader Solidshader{};
 	Shader Spriteshader{};
 	Shader Particleshader{};
+	Shader Fontshader{};
 	//TODO make postprocessing and particle shader
 
 	GLuint vertexAttributes[NumberOfVertexTypes] = { 0 };
@@ -115,6 +128,7 @@ private:
 	std::vector<animaition> animation{};
 	std::vector<collsionbox> collsionboxes{};
 	std::vector<particle> particles{};
+	std::vector<font> fontes{};
 };
 
 extern Graphics Graphics_;

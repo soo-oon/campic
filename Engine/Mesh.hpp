@@ -45,14 +45,15 @@ public:
     ~Mesh();
 
     size_t GetPointCount() const;
-	size_t GetTexturePointsCount() const;
-	size_t GetAnimationPointsCount() const;
-	size_t GetCollisionPointsCount() const;
+    size_t GetTexturePointsCount() const;
+    size_t GetAnimationPointsCount() const;
+    size_t GetCollisionPointsCount() const;
 
     vector2 GetPoint(size_t index) const;
     vector2 GetTextureCoordinate(size_t index, Sprite* sprite);
+	vector2 GetTextureCoordinate(size_t index);
     vector2 GetAnimationCoordinate(size_t index, Animation* animation);
-	vector2 GetCollisionCoordinate(size_t index) const;
+    vector2 GetCollisionCoordinate(size_t index) const;
     Color GetColor(size_t index) const;
 
     std::vector<vector2> GetCollisionVectors();
@@ -64,35 +65,36 @@ public:
     void AddPoint(vector2 point);
     void AddTextureCoordinate(vector2 texture_coordinate);
     void AddAnimationCoordinate(vector2 animation_coordinate);
-	void AddCollisionCoordinate(vector2 collision_coordinate);
+    void AddCollisionCoordinate(vector2 collision_coordinate);
 
-	void ChangeColor(Color color);
-	//void Change_Alpha_Value(float dec_value);
+    void ChangeColor(Color color);
+    //void Change_Alpha_Value(float dec_value);
 
-	void Decrease_Alpha(float dec_value);
-	void Increase_Alpha(float inc_value);
+    void Decrease_Alpha(float dec_value);
+    void Increase_Alpha(float inc_value);
 
     void ClearColors();
     void ClearTextureCoordinates();
-	void ClearAnimationCoordinates();
-	void ClearCollisionCoordinates();
+    void ClearAnimationCoordinates();
+    void ClearCollisionCoordinates();
     void ClearPoints();
 
-	bool IsVisible() { return visible; }
+    bool IsVisible() { return visible; }
 
-	//************** Maybe Delete after optimizing Imgui
-	void Invisible() { visible = false; }
-	void Visible() { visible = true; }
-	//*************
+    //************** Maybe Delete after optimizing Imgui
+    void Invisible() { visible = false; }
+    void Visible() { visible = true; }
+    //*************
 
     void Clear();
 
 private:
-	bool visible = true;
+    bool visible = true;
     std::vector<vector2> points{};
     std::vector<vector2> textureCoordinates{};
     std::vector<vector2> animationCoordinates{};
-	std::vector<vector2> collisionCoordinates{};
+    std::vector<vector2> collisionCoordinates{};
+    //std::vector<vector2> fontCoordinates{};
 
     std::vector<Color> colors{};
 
@@ -108,4 +110,5 @@ namespace mesh
     Mesh CreateLineBox(float dimension = 1, Color color = {255, 255, 255});
     Mesh CrateLine(vector2 point_a = {0, 0}, vector2 point_b = {1, 0}, Color color = {255, 255, 255});
     Mesh CreateCollisionBox(CollisionType type = box_, float dimension = 1, Color color = { 255,0,0 });
+    Mesh CreateFont(float dimension = 1, Color color = { 255,255,255 });
 }

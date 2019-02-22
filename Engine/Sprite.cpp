@@ -29,11 +29,11 @@ Creation date: 2018/12/14
 #include "stb_image_write.h"
 #include "Animation.hpp"
 
-Sprite::Sprite(const Sprite& other)
-    : handle_to_texture(other.handle_to_texture), width(other.width),
-      height(other.height)
-{
-}
+//Sprite::Sprite(const Sprite& other)
+//    : handle_to_texture(other.handle_to_texture), width(other.width),
+//      height(other.height)//, path(other.path)
+//{
+//}
 
 Sprite& Sprite::operator=(const Sprite& other)
 {
@@ -88,6 +88,23 @@ bool Sprite::Texture_Load()
     return true;
 }
 
+bool Sprite::FontTexture_Load(const std::string& file_path)
+{
+    path = file_path;
+
+    unsigned char* temp = stbi_load(path.c_str(), &width, &height,
+        nullptr, STBI_rgb_alpha);
+
+    if (temp == nullptr)
+        return false;
+
+    pixel = temp;
+
+    LoadSprite();
+    return true;
+}
+
+
 void Sprite::LoadSprite()
 {
     glGenTextures(1, &handle_to_texture);
@@ -109,7 +126,7 @@ void Sprite::LoadSprite()
                  zero_border, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
 }
 
-void Sprite::Bind(unsigned int slot)
+void Sprite::Bind(unsigned int slot) const
 {
     if (handle_to_texture == 0)
         return;

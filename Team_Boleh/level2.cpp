@@ -23,6 +23,7 @@ Creation date: 2018/12/14
 #include "Camera.hpp"
 #include "Enemy.hpp"
 #include "Sound.hpp"
+#include "Font.hpp"
 
 void level2::Initialize()
 {
@@ -43,29 +44,38 @@ void level2::Initialize()
 	Objectmanager_.AddObject(temp);
 	Objectmanager_.AddObject(camera);
 
-        Object card, card1;
+	Object card, card1;
 
-        card.SetTranslation({ 300,300 });
-        card.SetScale({ 24.f,30.f });
-        card.SetMesh(mesh::CreateBox(1,{255,255,255,255}));
-        card.AddComponent(new Card("Red"));
-        card.AddComponent(new Sprite("asset/images/red_soul.png"));
-        card.AddComponent(new Collision(box_,{0,0},{24.f,30.f}));
-        card.AddComponent(new Status(ObjectType::Item));
+	card.SetTranslation({300, 300});
+	card.SetScale({24.f, 30.f});
+	card.SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
+	card.AddComponent(new Card("Red"));
+	card.AddComponent(new Sprite("asset/images/red_soul.png"));
+	card.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	card.AddComponent(new Status(ObjectType::Item));
 
-        card1.SetTranslation({ 250,-250 });
-        card1.SetScale({ 24.f,30.f });
-        card1.SetMesh(mesh::CreateBox(1,{255,255,255,255}));
-        card1.AddComponent(new Card("Blue"));
-        card1.AddComponent(new Sprite("asset/images/blue_soul.png"));
-        card1.AddComponent(new Collision(box_, { 0,0 }, { 24.f,30.f }));
-        card1.AddComponent(new Status(ObjectType::Item));
-        Objectmanager_.AddObject(card);
-        Objectmanager_.AddObject(card1);
+	card1.SetTranslation({250, -250});
+	card1.SetScale({24.f, 30.f});
+	card1.SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
+	card1.AddComponent(new Card("Blue"));
+	card1.AddComponent(new Sprite("asset/images/blue_soul.png"));
+	card1.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	card1.AddComponent(new Status(ObjectType::Item));
 
-        //Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f, 
-            3.0f, 500, { 0,0 }, { 5,5 }, {10.0f, 10.0f})));
+
+	Object font;
+	font.SetScale({5, 5});
+	font.SetTranslation({0,0});
+	font.AddComponent(new Font("EeEe", "asset/font/sansation.fnt", {0,0,0}));
+
+	Objectmanager_.AddObject(card);
+	Objectmanager_.AddObject(card1);
+	Objectmanager_.AddObject(font);
+
+	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
+	Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f,
+	                                                                             3.0f, 500, {0, 0}, {-5, -5},
+	                                                                             {10.0f, 10.0f})));
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
@@ -88,7 +98,7 @@ void level2::Initialize()
 	Objectmanager_.AddObject(*player);
 	*/
 
-    /*
+	/*
 	AudioManager_.LoadSong("asset/sounds/bgm.mp3");
 	AudioManager_.LoadSFX("asset/sounds/punch.wav");
 	AudioManager_.PlaySong("asset/sounds/bgm.mp3");
@@ -173,7 +183,7 @@ void level2::Initialize()
 	spark = BuildAndRegisterDynamicObject("spark", vector2(200, 0), vector2(100.f, 100.f));
 	spark->AddComponent(new Animation("asset/images/sprite.png", "spark", 7, 0.08f));
 	spark->GetMesh().Invisible();
-    */
+	*/
 }
 
 void level2::Update(float dt)
@@ -270,6 +280,7 @@ void level2::ShutDown()
 {
 	UnLoad();
 }
+
 /*
 Object* level2::BuildAndRegisterStaticObject(std::string object_name, vector2 position, vector2 scale)
 {

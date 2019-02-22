@@ -212,21 +212,21 @@ void Graphics::Draw()
 
                 if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
                 {
-                    for (const auto& pair : temp->GetFontMesh())
-                    {
-                        int page_number = pair.first;
-                        auto mesh = pair.second;
-                        auto temp_sprite = temp->GetFont().GetSprite(page_number);
+					for(const auto& pair : temp->GetFontMesh())
+					{
+						int page_number = pair.first;
+						auto mesh = pair.second;
+						auto temp_sprite = &temp->GetFont().GetSprite(page_number);
 
-                        fontes.clear();
-                        fontes.reserve(mesh.GetPointCount());
+						fontes.clear();
+						fontes.reserve(mesh.GetPointCount());
 
-                        for (std::size_t i = 0; i < mesh.GetPointCount(); ++i)
-                        {
-                            fontes.push_back({mesh.GetPoint(i), mesh.GetTextureCoordinate(i)});
-                        }
-                        Draw(obj->GetTransform(), fontes, mesh.GetPointListType(), mesh.GetColor(0), temp_sprite);
-                    }
+						for(std::size_t i = 0; i <mesh.GetPointCount(); ++i)
+						{
+							fontes.push_back({ mesh.GetPoint(i), mesh.GetTextureCoordinate(i) });
+						}
+						Draw(obj->GetTransform(), fontes, mesh.GetPointListType(), mesh.GetColor(0), temp_sprite);
+					}
                 }
             }
         }
@@ -568,40 +568,40 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 }
 
 void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexes, PointListType draw_type, Color color,
-                    const Sprite font_sprite)
+	Sprite* font_sprite)
 {
-    affine2d to_ndc;
+	affine2d to_ndc;
 
-    if (temp_camera != nullptr)
-    {
-        to_ndc = CalculateModelToNDCTransform(transform);
-    }
-    else
-    {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
-    }
+	if (temp_camera != nullptr)
+	{
+		to_ndc = CalculateModelToNDCTransform(transform);
+	}
+	else
+	{
+		if (transform.GetParent() == nullptr)
+			to_ndc = projection * transform.GetModelToWorld();
+		else
+			to_ndc = projection * transform.GetWorldToModel();
+	}
 
-    const int texture_slot = 0;
-    if (lastBoundTexture != font_sprite.GetTextureHandler())
-    {
-        font_sprite.Bind(texture_slot);
-        lastBoundTexture = font_sprite.GetTextureHandler();
-    }
+	const int texture_slot = 0;
+	if (lastBoundTexture != font_sprite->GetTextureHandler())
+	{
+		font_sprite->Bind(texture_slot);
+		lastBoundTexture = font_sprite->GetTextureHandler();
+	}
 
-    Fontshader.SendUniformVariable("transform", to_ndc);
-    Fontshader.SendUniformVariable("depth", transform.GetDepth());
-    Fontshader.SendUniformVariable("color", color);
-    Fontshader.SendUniformVariable("texture_to_sample", texture_slot);
+	Fontshader.SendUniformVariable("transform", to_ndc);
+	Fontshader.SendUniformVariable("depth", transform.GetDepth());
+	Fontshader.SendUniformVariable("color", color);
+	Fontshader.SendUniformVariable("texture_to_sample", texture_slot);
 
-    glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
+	glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
 
-    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), &vertexes[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), &vertexes[0], GL_DYNAMIC_DRAW);
 
-    glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
+	glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
 
 void Graphics::DescribSolidVertexPosition()
@@ -675,27 +675,27 @@ void Graphics::DescribParticlePosition()
 
 void Graphics::DescribFontPosition()
 {
-    glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
+	glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexAttributes[(int)GraphicsType::font]);
 
-    int position_attribute_location = Fontshader.GetVertexAttributeLocation("position");
-    int texture_coordinate_attribute_location = Fontshader.GetVertexAttributeLocation("texture_coordinate");
+	int position_attribute_location = Fontshader.GetVertexAttributeLocation("position");
+	int texture_coordinate_attribute_location = Fontshader.GetVertexAttributeLocation("texture_coordinate");
 
-    constexpr int two_components_in_vertex_position = 2;
-    constexpr int two_components_in_texture_coordinate = 2;
-    constexpr GLenum float_element_type = GL_FLOAT;
-    constexpr GLboolean not_fixedpoint = GL_FALSE;
-    const void* offset_in_struct = reinterpret_cast<const void*>(offsetof(font, position));
+	constexpr int two_components_in_vertex_position = 2;
+	constexpr int two_components_in_texture_coordinate = 2;
+	constexpr GLenum float_element_type = GL_FLOAT;
+	constexpr GLboolean not_fixedpoint = GL_FALSE;
+	const void* offset_in_struct = reinterpret_cast<const void*>(offsetof(font, position));
 
-    glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position,
-                          float_element_type, not_fixedpoint, sizeof(font), offset_in_struct);
-    glEnableVertexAttribArray(position_attribute_location);
+	glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position,
+		float_element_type, not_fixedpoint, sizeof(font), offset_in_struct);
+	glEnableVertexAttribArray(position_attribute_location);
 
-    offset_in_struct = reinterpret_cast<const void*>(offsetof(font, fontCoordinate));
+	offset_in_struct = reinterpret_cast<const void*>(offsetof(font, fontCoordinate));
 
-    glVertexAttribPointer(texture_coordinate_attribute_location, two_components_in_texture_coordinate,
-                          float_element_type, not_fixedpoint, sizeof(font), offset_in_struct);
-    glEnableVertexAttribArray(texture_coordinate_attribute_location);
+	glVertexAttribPointer(texture_coordinate_attribute_location, two_components_in_texture_coordinate,
+		float_element_type, not_fixedpoint, sizeof(font), offset_in_struct);
+	glEnableVertexAttribArray(texture_coordinate_attribute_location);
 }
 
 namespace

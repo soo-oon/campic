@@ -28,7 +28,7 @@ public:
 	}
 
     ~Sprite() = default;
-    Sprite(const Sprite& other);
+    //Sprite(const Sprite& other);
     Sprite& operator=(const Sprite& other);
 
     bool Initialize(Object* Ob) override;
@@ -38,10 +38,11 @@ public:
 	bool IsFlip() { return flip; }
 	void ChangeSprite(const std::string path_);
     bool Texture_Load();
+    bool FontTexture_Load(const std::string& file_path);
 
 	void SetFlip(bool is_flip) { flip = is_flip; }
 
-    void Bind(unsigned int slot = 0);
+    void Bind(unsigned int slot = 0) const;
     void ScreenShot(const std::string& file_path) const;
     void UnLoadSprite();
     void DeleteSpriteTexture();
