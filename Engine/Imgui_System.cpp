@@ -98,6 +98,20 @@ void Imgui_System::Update(float dt)
 			if (selectObj)
 				selectObj->SetTranslation(Input::GetMousePos(1.f));
 		}
+
+		if (tile_selected == 0)
+		{
+			if (Input::IsKeyPressed(GLFW_KEY_G))
+			{
+				Object obj;
+				obj.SetScale({ 16.f,16.f });
+				obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+				obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+				obj.AddComponent(new Sprite(tile_path));
+				Objectmanager_.AddObject(obj);
+			}
+			tile_selected = 1;
+		}
 	}
 }
 
@@ -332,7 +346,7 @@ void Imgui_System::TileEditor(bool tile_editor)
 	if (!tile_editor)
 		return;
 
-	ImGuiID g = ImGui::GetActiveID();
+	tile_selected = ImGui::GetActiveID();
 	int i = 1;
 
 	for (auto& temp : tile_buttons)
@@ -340,24 +354,10 @@ void Imgui_System::TileEditor(bool tile_editor)
 		//auto texture = TileHelper(temp);
 		if(ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			g = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
+			tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
 		}
 
-		if(g == 0)
-		{
-			if (Input::IsKeyTriggered(GLFW_KEY_G))
-			{
-				Object obj;
-				obj.SetScale({ 16.f,16.f });
-				obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
-				obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-				obj.AddComponent(new Sprite(tile_path));
-				Objectmanager_.AddObject(obj);
-			}
-			g = 1;
-		}
-		
 		if (i != 8)
 			ImGui::SameLine();
 		else
