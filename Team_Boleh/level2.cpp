@@ -72,6 +72,15 @@ void level2::Initialize()
 	Objectmanager_.AddObject(card1);
 	Objectmanager_.AddObject(font);
 
+        Object background;
+
+        background.SetTranslation({ 0 });
+        background.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+        background.SetScale({ 1280.f , 960.f});
+        background.SetDepth(0.99f);
+        background.AddComponent(new Sprite("asset/images/background1.png"));
+        Objectmanager_.AddObject(background);
+
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f,
 	                                                                             3.0f, 500, {0, 0}, {-5, -5},
@@ -114,10 +123,6 @@ void level2::Initialize()
 
 	player = GetObjectManager()->FindObject("Player").get();
 
-	background = BuildAndRegisterDynamicObject("background", vector2(0, 0), vector2());
-	background->SetDepth(0.99f);
-	background->AddComponent(new Sprite());
-	background->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/background.png");
 
 	sword = GetObjectManager()->FindObject("Sword").get();
 
