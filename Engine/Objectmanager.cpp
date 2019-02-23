@@ -42,7 +42,7 @@ bool Objectmanager::Initialize()
 
 void Objectmanager::Update(float dt)
 {
-	std::cout << objects_.size() << std::endl;
+	//std::cout << objects_.size() << std::endl;
 	for (auto object = objects_.begin(); object != objects_.end();)
 	{
 		for (auto components : object->get()->GetComponent())
