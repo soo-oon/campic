@@ -5,8 +5,8 @@ Tile_Map Tile_Map_;
 
 void Tile_Map::Make_Tile(std::string image)
 {
-    int tile_x = Input::GetMousePos(1.f).x;
-    int tile_y = Input::GetMousePos(1.f).y;
+    int tile_x = Input::GetMousePos(Graphics_.camera_zoom).x;
+    int tile_y = Input::GetMousePos(Graphics_.camera_zoom).y;
 
     vector2 tile_position = {0};
     std::cout << tile_x << ", " << tile_y << std::endl;
