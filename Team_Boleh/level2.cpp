@@ -230,6 +230,12 @@ void level2::Update(float dt)
     {
         Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Status>()->Damaged(4);
     }
+    
+
+    if (Input::IsKeyPressed(GLFW_KEY_J))
+    {
+        tile_map_.Make_Tile("asset/images/Dr_Strange.png");
+    }
 	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("StartMenu");
 

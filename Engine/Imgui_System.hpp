@@ -79,6 +79,8 @@ private:
 	//void AllObjectTree(std::vector<std::string> obj_list);
 	//void ObjectSprite(Object* sprite_obj);
 
+	ImGuiID tile_selected = 0;
+
 	std::vector<Object*> tiles;
 
 	Object* selectObj = nullptr;
