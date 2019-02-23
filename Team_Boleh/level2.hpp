@@ -15,7 +15,6 @@ Creation date: 2018/12/14
 
 #pragma once
 #include "State.hpp"
-#include "Tile_Map.h"
 
 class level2 : public State
 {
@@ -40,7 +39,6 @@ public:
 	//void Shot(std::string name);
 
 private:
-    Tile_Map tile_map_;
 	//float dt_sum =0, dt_boss = 0;
 	//float rota_angle = 0, rota_angle1 =0;
 	//float rotate = 0;

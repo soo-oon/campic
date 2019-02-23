@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include "Graphics.hpp"
 #include "stb_image.h"
 #include <imgui_internal.h>
+#include "Tile_Map.hpp"
 
 Imgui_System IMGUI_;
 
@@ -103,12 +104,7 @@ void Imgui_System::Update(float dt)
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				Object obj;
-				obj.SetScale({ 16.f,16.f });
-				obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
-				obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-				obj.AddComponent(new Sprite(tile_path));
-				Objectmanager_.AddObject(obj);
+				Tile_Map_.Make_Tile(tile_path);
 			}
 			tile_selected = 1;
 		}
@@ -385,8 +381,6 @@ GLuint Imgui_System::TileHelper(std::string path)
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, my_image_width, my_image_height,
 			0, GL_RGBA, GL_UNSIGNED_BYTE, my_image_data);
-
-	//	texture_data.push_back(my_opengl_texture);
 
 	return my_opengl_texture;
 }

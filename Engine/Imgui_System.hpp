@@ -8,7 +8,6 @@ Language: C++
 Platform: Visual Studio 2017
 Project: sword of souls
 Primary : Kang Tae Wook
-Secondary : Ji Hun Park
 Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
 */
@@ -75,9 +74,6 @@ private:
 	std::string image_dir = "asset/images/";
 	std::string sound_dir = "asset/sounds/";
 	std::string tile_dir = "asset/images/Tiles/";
-
-	//void AllObjectTree(std::vector<std::string> obj_list);
-	//void ObjectSprite(Object* sprite_obj);
 
 	ImGuiID tile_selected = 0;
 

@@ -12,11 +12,10 @@ const int TEMP_HEIGHT = 960;
 class Tile_Map
 {
 public:
-
     void Make_Tile(std::string image);
-    void Make_Object(std::string& image, vector2 position);
 private:
-
+	void Make_Object(std::string& image, vector2 position);
+	void Make_Ani_Object(std::string& image, vector2 position);
 
     bool tile_grid_1[TEMP_WIDTH / TILE_SIZE / 2][TEMP_HEIGHT / TILE_SIZE / 2] = { false };
     bool tile_grid_2[TEMP_WIDTH / TILE_SIZE / 2][TEMP_HEIGHT / TILE_SIZE / 2] = { false };
@@ -25,4 +24,4 @@ private:
 
 };
 
-extern Tile_Map tile_map_;
+extern Tile_Map Tile_Map_;

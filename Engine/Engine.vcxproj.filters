@@ -79,6 +79,6 @@
     <ClInclude Include="Sword.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="Tile_Map.h" />
+    <ClInclude Include="Tile_Map.hpp" />
   </ItemGroup>
 </Project>

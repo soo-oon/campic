@@ -1,5 +1,7 @@
-#include "Tile_Map.h"
+#include "Tile_Map.hpp"
 #include <iostream>
+
+Tile_Map Tile_Map_;
 
 void Tile_Map::Make_Tile(std::string image)
 {
@@ -66,4 +68,14 @@ void Tile_Map::Make_Object(std::string& image, vector2 position)
     tile.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
     tile.AddComponent(new Sprite(image));
     Objectmanager_.AddObject(tile);
+}
+
+void Tile_Map::Make_Ani_Object(std::string & image, vector2 position)
+{
+	Object tile;
+	tile.SetTranslation({ position });
+	tile.SetScale({ static_cast<float>(TILE_SIZE) });
+	tile.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	tile.AddComponent(new Sprite(image));
+	Objectmanager_.AddObject(tile);
 }
