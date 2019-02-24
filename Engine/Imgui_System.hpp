@@ -47,7 +47,7 @@ public:
 	void SoundEditor(bool sound_editor);
 
 	void TileEditor(bool tile_editor);
-	GLuint TileHelper(std::string path);
+	GLuint ImageHelper(std::string path);
 
 	// Helper
 	void SpriteHelper();

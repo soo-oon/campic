@@ -63,7 +63,7 @@ bool Imgui_System::Initialize()
 
 	for (auto& temp : tileList)
 	{
-		auto texture = TileHelper(temp);
+		auto texture = ImageHelper(temp);
 		tile_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
@@ -150,10 +150,10 @@ void Imgui_System::Editor(bool show_window)
 	if (ImGui::RadioButton("Object Editor", object_editor))
 		object_editor = !object_editor;
 	
-	ImGui::SameLine();
+	//ImGui::SameLine();
 
-	if (ImGui::RadioButton("Sound Editor", sound_editor))
-		sound_editor = !sound_editor;
+	//if (ImGui::RadioButton("Sound Editor", sound_editor))
+	//	sound_editor = !sound_editor;
 
 	ImGui::SameLine();
 
@@ -173,13 +173,13 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	if (!object_editor)
 		return;
 
-	if (!selectObj)
+	if (selectObj == nullptr)
 		return;
 
 	selectObj->GetTransform().Imgui_Transform();
 
 	SpriteHelper();
-	SoundHelper();
+	//SoundHelper();
 
 	//SoundHelper(sound_path);
 
@@ -190,6 +190,7 @@ void Imgui_System::ObjectEditor(bool object_editor)
 			if(object->get() == selectObj)
 			{
 				object = Objectmanager_.GetObjectMap().erase(object);
+				selectObj = nullptr;
 			}
 			else
 			{
@@ -362,7 +363,7 @@ void Imgui_System::TileEditor(bool tile_editor)
 	}
 }
 
-GLuint Imgui_System::TileHelper(std::string path)
+GLuint Imgui_System::ImageHelper(std::string path)
 {
 	std::vector<GLuint> texture_data;
 
