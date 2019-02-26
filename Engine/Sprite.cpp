@@ -88,22 +88,6 @@ bool Sprite::Texture_Load()
     return true;
 }
 
-bool Sprite::FontTexture_Load(const std::string& file_path)
-{
-    path = file_path;
-
-    unsigned char* temp = stbi_load(path.c_str(), &width, &height,
-        nullptr, STBI_rgb_alpha);
-
-    if (temp == nullptr)
-        return false;
-
-    pixel = temp;
-
-    LoadSprite();
-    return true;
-}
-
 
 void Sprite::LoadSprite()
 {

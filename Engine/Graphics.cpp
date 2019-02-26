@@ -25,6 +25,7 @@ Creation date: 2018/12/14
 #include "Particle_Generator.hpp"
 #include "HUD.hpp"
 #include "Mesh.hpp"
+#include "Tile_Map.h"
 
 Graphics Graphics_;
 
@@ -44,7 +45,7 @@ bool Graphics::Initialize()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
 
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);
     bool shaderIsReady = Spriteshader.Compile(GLSL::vertex, GLSL::fragment);
@@ -212,21 +213,17 @@ void Graphics::Draw()
 
                 if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
                 {
-                    for (const auto& pair : temp->GetFontMesh())
-                    {
-                        int page_number = pair.first;
-                        auto mesh = pair.second;
-                        auto temp_sprite = temp->GetFont().GetSprite(page_number);
-
-                        fontes.clear();
-                        fontes.reserve(mesh.GetPointCount());
-
-                        for (std::size_t i = 0; i < mesh.GetPointCount(); ++i)
-                        {
-                            fontes.push_back({mesh.GetPoint(i), mesh.GetTextureCoordinate(i)});
-                        }
-                        Draw(obj->GetTransform(), fontes, mesh.GetPointListType(), mesh.GetColor(0), temp_sprite);
-                    }
+					int index = 0;
+					for(auto temp_mesh : temp->GetFontMeshes())
+					{
+						fontes.clear();
+						for(std::size_t i = 0; i<temp_mesh.GetPointCount(); ++i)
+						{
+							fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
+						}
+						Draw(obj->GetTransform(), fontes, temp_mesh.GetPointListType(), temp_mesh.GetColor(0), temp, index);
+						index++;
+					}
                 }
             }
         }
@@ -333,6 +330,59 @@ void Graphics::HUD_Draw()
                     Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
                 }
             }
+        }
+    }
+}
+
+void Graphics::Tile_Draw()
+{
+    if (!Tile_Map_.GetTileObjectes().empty())
+    {
+        for (auto& obj : Tile_Map_.GetTileObjectes())
+        {
+			if (obj->GetMesh().IsVisible())
+			{
+				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+				{
+					sprite.clear();
+					sprite.reserve(obj->GetMesh().GetTexturePointsCount());
+					for (std::size_t i = 0; i < obj->GetMesh().GetTexturePointsCount(); ++i)
+					{
+						sprite.push_back({
+							obj->GetMesh().GetPoint(i),
+							obj->GetMesh().GetTextureCoordinate(i, temp_sprite)
+							});
+					}
+					Draw(obj->GetTransform(), sprite, obj->GetMesh().GetPointListType(),
+						obj->GetMesh().GetColor(0),
+						temp_sprite);
+				}
+				else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+				{
+					animation.clear();
+					animation.reserve(obj->GetMesh().GetAnimationPointsCount());
+					for (std::size_t i = 0; i < obj->GetMesh().GetAnimationPointsCount(); ++i)
+					{
+						animation.push_back({
+							obj->GetMesh().GetPoint(i),
+							obj->GetMesh().GetAnimationCoordinate(i, temp_animation)
+							});
+					}
+					Draw(obj->GetTransform(), animation, obj->GetMesh().GetPointListType(),
+						obj->GetMesh().GetColor(0),
+						temp_animation->GetCurrentAnimation().sprites);
+				}
+				else if (obj->GetMesh().GetPointCount())
+				{
+					shapes.clear();
+					shapes.reserve(obj->GetMesh().GetPointCount());
+					for (std::size_t i = 0; i < obj->GetMesh().GetPointCount(); ++i)
+					{
+						shapes.push_back({ obj->GetMesh().GetPoint(i) });
+					}
+					Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
+				}
+			}
         }
     }
 }
@@ -488,7 +538,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
     glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
-    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
@@ -525,7 +575,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
     glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
-    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
@@ -562,13 +612,12 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
     glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
-    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), &vertexes[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
 
-void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexes, PointListType draw_type, Color color,
-                    const Sprite font_sprite)
+void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexes, PointListType draw_type, Color color, Font* font_, int index)
 {
     affine2d to_ndc;
 
@@ -584,12 +633,9 @@ void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexe
             to_ndc = projection * transform.GetWorldToModel();
     }
 
-    const int texture_slot = 0;
-    if (lastBoundTexture != font_sprite.GetTextureHandler())
-    {
-        font_sprite.Bind(texture_slot);
-        lastBoundTexture = font_sprite.GetTextureHandler();
-    }
+	const int texture_slot = 0;
+
+	font_->BindTexture(index);
 
     Fontshader.SendUniformVariable("transform", to_ndc);
     Fontshader.SendUniformVariable("depth", transform.GetDepth());
@@ -599,7 +645,9 @@ void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexe
     glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
 
-    glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), &vertexes[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), (const void*)& vertexes[0], GL_DYNAMIC_DRAW);
+
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, vertexes.size() * sizeof(font), (const void*)&vertexes[0]);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }

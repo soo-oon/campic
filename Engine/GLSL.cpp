@@ -163,11 +163,13 @@ namespace GLSL
 
 	void main()
 	{
-	    vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
-	    vec4 new_color = color * texel;
-	    if(new_color.a <= 0.0f)
-	        discard;
-	    output_color = new_color;
+	    vec4 texel = vec4(1.0, 1.0, 1.0, texture(texture_to_sample, interpolated_texture_coordinate).r);
+	    vec4 result_color = color * texel;
+
+		if(result_color.a <= 0.0f)
+			discard;
+
+		output_color = result_color;
 	}
 	)";
 }

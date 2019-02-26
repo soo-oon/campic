@@ -1,6 +1,8 @@
 #include "Tile_Map.h"
 #include <iostream>
 
+Tile_Map Tile_Map_;
+
 void Tile_Map::Make_Tile(std::string image)
 {
     int tile_x = Input::GetMousePos(1.f).x;

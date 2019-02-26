@@ -22,8 +22,8 @@ Creation date: 2018/12/14
 #include "Card.hpp"
 #include "Camera.hpp"
 #include "Enemy.hpp"
-#include "Sound.hpp"
 #include "Font.hpp"
+#include "Sound.hpp"
 
 void level2::Initialize()
 {
@@ -62,11 +62,11 @@ void level2::Initialize()
 	card1.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
 	card1.AddComponent(new Status(ObjectType::Item));
 
-
 	Object font;
-	font.SetScale({5, 5});
-	font.SetTranslation({0,0});
-	font.AddComponent(new Font("EeEe", "asset/font/sansation.fnt", {0,0,0}));
+	font.SetTranslation({ 50, 0 });
+	font.SetMesh(mesh::CreateBox(1, { 255,0,0,255 }));
+	font.AddComponent(new Font("Hi Nice To Meet You", "asset/font/hi.ttf"));
+
 
 	Objectmanager_.AddObject(card);
 	Objectmanager_.AddObject(card1);
