@@ -1,40 +1,46 @@
 #pragma once
-#include "Component.hpp"
-#include "BitmapFont.hpp"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <ft2build.h>
 #include <string>
+#include <unordered_map>
+#include FT_FREETYPE_H
+
+#include "Component.hpp"
+#include "vector2.hpp"
 #include "Mesh.hpp"
+
+struct Character
+{
+	GLuint textureID;
+	vector2 size;
+	vector2 bearing;
+	GLuint advance;
+};
 
 class Font : public Component
 {
 public:
-	Font(std::string text_, std::string font_path_, Color color_ = {255,255,255})
-		: text(text_), font_path(font_path_), color(color_)
-	{
-		font.LoadFromFile(font_path);
-	}
+	Font(std::string text_, std::string path_) 
+	: text(text_), path(path_)
+	{}
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
 	void Delete() override;
+	void LoadFontData();
 
-	//std::string GetString() const;
-	void SetString(const std::string text_string) { text = text_string; }
-	const BitmapFont GetFont() const { return font; }
-	void SetFont(std::string font_path_);
-	Color GetFillColor() const { return color; }
-	void SetFillColor(Color fill_color);
-
-        //const Sprite* sprite = nullptr;
-	std::unordered_map<int, Mesh> GetFontMesh() { return meshes; }
+	void BindTexture(int index);
+	std::vector<Mesh>& GetFontMeshes() { return font_mesh; }
 
 private:
-	void BuildNewMeshesIfNeeded() const;
+	std::vector<Mesh> font_mesh;
+	//Mesh mesh;
+	std::unordered_map<GLchar, Character> characters;
 
-private:
+	//FT_Library ft;
+	//FT_Face face;
+
 	std::string text;
-	std::string font_path;
-	BitmapFont font; 
-	Color color{ 255, 255, 255, 255 };
-	mutable bool needNewMeshes = false;
-	mutable std::unordered_map<int, Mesh> meshes{};
+	std::string path;
 };

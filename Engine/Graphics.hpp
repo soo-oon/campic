@@ -43,6 +43,7 @@ public:
 
 	void Draw();
 	void HUD_Draw();
+    void Tile_Draw();
 	void EndDraw();
 
 	void SetNDC();
@@ -97,7 +98,7 @@ private:
 		PointListType draw_type, Color color, Sprite* sprite);
 
 	void Draw(const Transform& transform, const std::vector<font>& vertexes,
-		PointListType draw_type, Color color, const Sprite font_sprite);
+		PointListType draw_type, Color color, Font* font, int index);
 
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();

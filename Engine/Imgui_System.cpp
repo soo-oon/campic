@@ -74,6 +74,9 @@ bool Imgui_System::Initialize()
 
 void Imgui_System::Update(float dt)
 {
+	// Tile Draw Call
+	Graphics_.Tile_Draw();
+
 	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
 	{
 		show_window = !show_window;

@@ -38,7 +38,6 @@ public:
 	bool IsFlip() { return flip; }
 	void ChangeSprite(const std::string path_);
     bool Texture_Load();
-    bool FontTexture_Load(const std::string& file_path);
 
 	void SetFlip(bool is_flip) { flip = is_flip; }
 
