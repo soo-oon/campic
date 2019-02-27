@@ -99,7 +99,7 @@ void Font::LoadFontData()
 	FT_Done_FreeType(ft);
 
 	auto obj_position = object->GetTransform().GetTranslation();
-
+	font_mesh.clear();
 	for (auto c : text)
 	{
 		Mesh temp;
