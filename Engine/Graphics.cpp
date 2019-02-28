@@ -25,7 +25,7 @@ Creation date: 2018/12/14
 #include "Particle_Generator.hpp"
 #include "HUD.hpp"
 #include "Mesh.hpp"
-#include "Tile_Map.h"
+#include "Tile_Map.hpp"
 
 Graphics Graphics_;
 
@@ -40,35 +40,54 @@ namespace
 
 bool Graphics::Initialize()
 {
+	std::clog << "OpenGL Rendere: " << glGetString(GL_RENDERER) << '\n';
+	std::clog << "OpenGL Version: " << glGetString(GL_VERSION) << "\n\n";
+
     glClearColor(1.0, 1.0, 1.0, 1.0);
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+
 
     bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);
     bool shaderIsReady = Spriteshader.Compile(GLSL::vertex, GLSL::fragment);
     bool particle_shaderIsReady = Particleshader.Compile(GLSL::particle_vertex, GLSL::particle_fragment);
     bool font_shaderIsReady = Fontshader.Compile(GLSL::font_vertex, GLSL::font_fragment);
 
-    if (!shapes_shaderIsReady)
-        return false;
+	if (!shapes_shaderIsReady)
+	{
+		std::cout << "ERROR" << std::endl;
+		return false;
+	}
 
     if (!shaderIsReady)
-        return false;
+	{
+		std::cout << "ERROR" << std::endl;
+		return false;
+	}
 
     if (!particle_shaderIsReady)
-        return false;
+	{
+		std::cout << "ERROR" << std::endl;
+		return false;
+	}
 
     if (!font_shaderIsReady)
-        return false;
+	{
+		std::cout << "ERROR" << std::endl;
+		return false;
+	}
 
     glGenVertexArrays(NumberOfVertexTypes, vertexAttributes);
     glGenBuffers(NumberOfVertexTypes, vertexBuffer);
 
-    DescribVertexPosition();
     DescribSolidVertexPosition();
+    DescribVertexPosition();
     DescribParticlePosition();
     DescribFontPosition();
 
@@ -106,7 +125,6 @@ void Graphics::Update(float dt)
         camera_center = temp_camera->GetCenter();
     }
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     SetNDC();
 }
 
@@ -180,35 +198,8 @@ void Graphics::Draw()
                     {
                         shapes.push_back({obj->GetMesh().GetPoint(i)});
                     }
-                    Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
-                }
-
-                if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
-                {
-                    if (temp->IsActive())
-                    {
-                        for (auto& p : temp->GetParticles())
-                        {
-                            particles.clear();
-                            if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ !=
-                                nullptr)
-                            {
-                                particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
-                                for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount();
-                                     ++i)
-                                {
-                                    particles.push_back(
-                                        {
-                                            p->GetParticleObject()->GetMesh().GetPoint(i),
-                                            p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_)
-                                        });
-                                }
-                                Draw(p->GetParticleObject()->GetTransform(), particles,
-                                     p->GetParticleObject()->GetMesh().GetPointListType(),
-                                     p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
-                            }
-                        }
-                    }
+                    Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), 
+						obj->GetMesh().GetColor(0));
                 }
 
                 if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
@@ -225,6 +216,34 @@ void Graphics::Draw()
 						index++;
 					}
                 }
+
+				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+				{
+					if (temp->IsActive())
+					{
+						for (auto& p : temp->GetParticles())
+						{
+							particles.clear();
+							if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ !=
+								nullptr)
+							{
+								particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
+								for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount();
+									++i)
+								{
+									particles.push_back(
+										{
+											p->GetParticleObject()->GetMesh().GetPoint(i),
+											p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_)
+										});
+								}
+								Draw(p->GetParticleObject()->GetTransform(), particles,
+									p->GetParticleObject()->GetMesh().GetPointListType(),
+									p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
+							}
+						}
+					}
+				}
             }
         }
     }
@@ -402,6 +421,12 @@ void Graphics::Quit()
     Solidshader.Delete();
 }
 
+void Graphics::BeginDraw()
+{
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void Graphics::SetNDC()
 {
     if (temp_camera != nullptr)
@@ -449,6 +474,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
 {
     affine2d to_ndc;
 
+	Shader::UseShader(Solidshader);
+
     if (temp_camera != nullptr)
     {
         to_ndc = CalculateModelToNDCTransform(transform);
@@ -479,6 +506,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
                     Color color)
 {
     affine2d to_ndc;
+
+	Shader::UseShader(Solidshader);
 
     if (temp_camera != nullptr)
     {
@@ -511,6 +540,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 {
     affine2d to_ndc;
 
+	Shader::UseShader(Spriteshader);
+
     if (temp_camera != nullptr)
     {
         to_ndc = CalculateModelToNDCTransform(transform);
@@ -530,10 +561,13 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
         lastBoundTexture = sprite->GetTextureHandler();
     }
 
+	if (color.Alpha < 20)
+		int a = 5;
+
     Spriteshader.SendUniformVariable("transform", to_ndc);
     Spriteshader.SendUniformVariable("depth", transform.GetDepth());
     Spriteshader.SendUniformVariable("color", color);
-    Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
+    Spriteshader.SendUniformVariable("texture_to_sample", 0);
 
     glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
@@ -547,6 +581,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
                     const Color color, Sprite* sprite)
 {
     affine2d to_ndc;
+
+	Shader::UseShader(Spriteshader);
 
     if (temp_camera != nullptr)
     {
@@ -585,6 +621,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 {
     affine2d to_ndc;
 
+	Shader::UseShader(Particleshader);
+
     if (temp_camera != nullptr)
     {
         to_ndc = CalculateModelToNDCTransform(transform);
@@ -604,13 +642,13 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
         lastBoundTexture = sprite->GetTextureHandler();
     }
 
-    Spriteshader.SendUniformVariable("transform", to_ndc);
-    Spriteshader.SendUniformVariable("depth", transform.GetDepth());
-    Spriteshader.SendUniformVariable("color", color);
-    Spriteshader.SendUniformVariable("texture_to_sample", texture_slot);
+	Particleshader.SendUniformVariable("transform", to_ndc);
+	Particleshader.SendUniformVariable("depth", transform.GetDepth());
+	Particleshader.SendUniformVariable("color", color);
+	Particleshader.SendUniformVariable("texture_to_sample", texture_slot);
 
-    glBindVertexArray(vertexAttributes[(int)GraphicsType::sprite]);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
+    glBindVertexArray(vertexAttributes[(int)GraphicsType::particle]);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::particle]);
 
     glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
 
@@ -620,6 +658,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexes, PointListType draw_type, Color color, Font* font_, int index)
 {
     affine2d to_ndc;
+
+	Shader::UseShader(Fontshader);
 
     if (temp_camera != nullptr)
     {
@@ -640,14 +680,12 @@ void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexe
     Fontshader.SendUniformVariable("transform", to_ndc);
     Fontshader.SendUniformVariable("depth", transform.GetDepth());
     Fontshader.SendUniformVariable("color", color);
-    Fontshader.SendUniformVariable("texture_to_sample", texture_slot);
+    Fontshader.SendUniformVariable("text", texture_slot);
 
     glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
 
 	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), (const void*)& vertexes[0], GL_DYNAMIC_DRAW);
-
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, vertexes.size() * sizeof(font), (const void*)&vertexes[0]);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
@@ -660,15 +698,15 @@ void Graphics::DescribSolidVertexPosition()
 
     int position_attribute_location = Solidshader.GetVertexAttributeLocation("position");
 
-    constexpr int two_components_in_vertex_position = 2;
-    constexpr GLenum float_element_type = GL_FLOAT;
-    constexpr GLboolean not_fixedpoint = GL_FALSE;
-    const void* offset_in_struct = (const void*)offsetof(solidshape, position);
+	constexpr int two_components_in_vertex_position = 2;
+	constexpr GLenum float_element_type = GL_FLOAT;
+	constexpr GLboolean not_fixedpoint = GL_FALSE;
+	const void* offset_in_struct = (const void*)offsetof(solidshape, position);
 
-    glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position, float_element_type,
-                          not_fixedpoint, sizeof(solidshape), offset_in_struct);
+	glVertexAttribPointer(position_attribute_location, two_components_in_vertex_position, float_element_type,
+		not_fixedpoint, sizeof(solidshape), offset_in_struct);
 
-    glEnableVertexAttribArray(position_attribute_location);
+	glEnableVertexAttribArray(position_attribute_location);
 }
 
 void Graphics::DescribVertexPosition()

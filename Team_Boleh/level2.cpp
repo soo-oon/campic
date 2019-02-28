@@ -31,7 +31,8 @@ void level2::Initialize()
 
 	temp.SetTranslation({ 100,-150 });
 	temp.SetScale({ 50.0f, 50.0f });
-	temp.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	temp.SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+	temp.SetDepth(0.0f);
 	temp.AddComponent(new RigidBody());
 	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
 	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
@@ -41,7 +42,7 @@ void level2::Initialize()
 	Object camera;
 	camera.AddComponent(new Camera(this));
 
-	Objectmanager_.AddObject(temp);
+	//Objectmanager_.AddObject(temp);
 	Objectmanager_.AddObject(camera);
 
 	Object card, card1;
@@ -51,7 +52,7 @@ void level2::Initialize()
 	card.SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
 	card.AddComponent(new Card("Red"));
 	card.AddComponent(new Sprite("asset/images/red_soul.png"));
-	card.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	//card.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
 	card.AddComponent(new Status(ObjectType::Item));
 
 	card1.SetTranslation({250, -250});
@@ -59,19 +60,20 @@ void level2::Initialize()
 	card1.SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
 	card1.AddComponent(new Card("Blue"));
 	card1.AddComponent(new Sprite("asset/images/blue_soul.png"));
-	card1.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	//card1.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
 	card1.AddComponent(new Status(ObjectType::Item));
+
 
 	Object font;
 	font.SetTranslation({ 50, 0 });
-	font.SetMesh(mesh::CreateBox(1, { 255,0,0,255 }));
-	font.AddComponent(new Font("Hi Nice To Meet You", "asset/font/hi.ttf"));
+	font.SetDepth(0.0f);
+	font.AddComponent(new Font("1234", "asset/font/default.ttf"));
 
 
 	Objectmanager_.AddObject(card);
 	Objectmanager_.AddObject(card1);
-	Objectmanager_.AddObject(font);
-
+	//Objectmanager_.AddObject(font);
+	
         Object background;
 
         background.SetTranslation({ 0 });
@@ -79,12 +81,17 @@ void level2::Initialize()
         background.SetScale({ 1280.f , 960.f});
         background.SetDepth(0.99f);
         background.AddComponent(new Sprite("asset/images/background1.png"));
+
+		Objectmanager_.AddObject(font);
+
+		Objectmanager_.AddObject(temp);
         Objectmanager_.AddObject(background);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f,
-	                                                                             3.0f, 500, {0, 0}, {-5, -5},
-	                                                                             {10.0f, 10.0f})));
+	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
+	                                                                             5.0f, 200, {0, 0}, {0, 5},
+	                                                                             {10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
@@ -218,18 +225,6 @@ void level2::Update(float dt)
 	//	//JSON_.GetObjectDocument().SetObject();
 	//	std::cout << "Objects Loaded" << std::endl;
 	//}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
-	{
-		Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Particle_Generator>()->SetEmitRate(1);
-		/*for(auto& obj : Objectmanager_.GetObjectMap())
-		{
-			if(auto temp = obj.get()->GetComponentByTemplate<Status>(); temp->GetObjectType()!= ObjectType::Player)
-			{
-				temp->Damaged(5);
-			}
-		}*/
-	}
 
     if (Input::IsKeyTriggered(GLFW_KEY_Y))
     {

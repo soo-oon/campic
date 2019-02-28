@@ -2,26 +2,16 @@
 #include "RandomFunction.hpp"
 #include <iostream>
 
-bool Particle::Initialize(vector2 position)
+bool Particle::Initialize(Object* Ob)
 {
-	particle_obj->SetTranslation(position);
+	if (base_obj == nullptr)
+		base_obj = Ob;
+	
+	//particle_obj->SetTranslation(Ob->GetTransform().GetTranslation());
+	particle_obj->SetDepth(Ob->GetTransform().GetDepth());
 
-	float temp_x_dir;
-	float temp_y_dir;
-
-	if (static_random_velocity.x > 0 && static_random_velocity.y > 0)
-	{
-		temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
-		temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
-	}
-	else
-	{
-		temp_x_dir = RandomNumberGenerator(static_random_velocity.x, 0.0f);
-		temp_y_dir = RandomNumberGenerator(static_random_velocity.y, 0.0f);
-	}
-
-	random_velocity.x = temp_x_dir;
-	random_velocity.y = temp_y_dir;
+	SetRandomEmitSize();
+	SetRandomDirection();
 
 	float temp_color_duration = RandomNumberGenerator(0.0f, static_color_duration);
 	color_duration = temp_color_duration;
@@ -61,17 +51,211 @@ void Particle::Update(float dt, vector2 random_velocity_)
 
 void Particle::RespawnParticleObj(Object* obj)
 {
-	Initialize(obj->GetTransform().GetTranslation());
+	Initialize(obj);
     particle_obj->GetMesh().ChangeColor({ 255,255,255 });
     isrespawn = false;
     lifeTime = static_lifeTime;
 }
 
 
+void Particle::SetEmitSize(vector2 size)
+{
+
+}
+
+void Particle::SetParticle_Fire_Type(Particle_Fire_Type type)
+{
+	m_type = type;
+	Initialize(base_obj);
+}
+
+void Particle::SetRandomDirection()
+{
+	float temp_x_dir = 0;
+	float temp_y_dir = 0;
+
+	switch (m_type)
+	{
+	case Particle_Fire_Type::Divergent:
+		{
+			if (static_random_velocity.x == 0)
+			{
+				if (static_random_velocity.y > 0)
+				{
+					temp_x_dir = 0;
+					temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+				}
+				else
+				{
+					static_random_velocity.y = abs(static_random_velocity.y);
+					temp_x_dir = 0;
+					temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+				}
+			}
+			else if (static_random_velocity.y == 0)
+			{
+				if (static_random_velocity.x > 0)
+				{
+					temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+					temp_y_dir = 0;
+				}
+				else
+				{
+					static_random_velocity.x = abs(static_random_velocity.x);
+					temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+					temp_y_dir = 0;
+				}
+			}
+			else
+			{
+				if (static_random_velocity.x > 0 && static_random_velocity.y > 0)
+				{
+					temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+					temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+				}
+				else if (static_random_velocity.x < 0)
+				{
+					static_random_velocity.x = abs(static_random_velocity.x);
+					temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+					temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+				}
+				else
+				{
+					static_random_velocity.y = abs(static_random_velocity.y);
+					temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+					temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+				}
+
+			}
+		}
+		break;
+	case Particle_Fire_Type::OneWay:
+		{
+			if (static_random_velocity.x == 0)
+			{
+				if (static_random_velocity.y > 0)
+				{
+					temp_x_dir = 0;
+					temp_y_dir = RandomNumberGenerator(0.0f, static_random_velocity.y);
+				}
+				else
+				{
+					temp_x_dir = 0;
+					temp_y_dir = RandomNumberGenerator(static_random_velocity.y, 0.0f);
+				}
+			}
+			else if (static_random_velocity.y == 0)
+			{
+				if (static_random_velocity.x > 0)
+				{
+					temp_x_dir = RandomNumberGenerator(0.0f, static_random_velocity.x);
+					temp_y_dir = 0;
+				}
+				else
+				{
+					temp_x_dir = RandomNumberGenerator(static_random_velocity.x, 0.0f);
+					temp_y_dir = 0;
+				}
+			}
+			else
+			{
+				if (static_random_velocity.x > 0 && static_random_velocity.y > 0)
+				{
+					temp_x_dir = RandomNumberGenerator(0.0f, static_random_velocity.x);
+					temp_y_dir = RandomNumberGenerator(0.0f, static_random_velocity.y);
+				}
+				else if (static_random_velocity.x < 0)
+				{
+					temp_x_dir = RandomNumberGenerator(static_random_velocity.x, 0.0f);
+					temp_y_dir = RandomNumberGenerator(0.0f, static_random_velocity.y);
+				}
+				else
+				{
+					temp_x_dir = RandomNumberGenerator(0.0f, static_random_velocity.x);
+					temp_y_dir = RandomNumberGenerator(static_random_velocity.y, 0.0f);
+				}
+
+			}
+		}
+		break;
+	}
+
+	random_velocity.x = temp_x_dir;
+	random_velocity.y = temp_y_dir;
+}
+
+void Particle::SetRandomEmitSize()
+{
+	float temp_x_size;
+	float temp_y_size;
+
+	if (static_emit_size.x != 0 && static_emit_size.y != 0)
+	{
+		if (static_emit_size.x < 0 || static_emit_size.y < 0)
+		{
+			std::cout << "Should Change The Emit Size To Positive Number" << std::endl;
+			if (static_emit_size.x < 0)
+			{
+				static_emit_size.x = abs(static_emit_size.x);
+			}
+			else
+			{
+				static_emit_size.y = abs(static_emit_size.y);
+			}
+		}
+		temp_x_size = RandomNumberGenerator(-static_emit_size.x, static_emit_size.x);
+		temp_y_size = RandomNumberGenerator(-static_emit_size.y, static_emit_size.y);
+	}
+	else
+	{
+		if(static_emit_size.x ==0)
+		{
+			if(static_emit_size.y < 0)
+			{
+				std::cout << "Should Change The Emit Size To Positive Number" << std::endl;
+				static_emit_size.y = abs(static_emit_size.y);
+			}
+			temp_x_size = 0;
+			temp_y_size = RandomNumberGenerator(-static_emit_size.y, static_emit_size.y);
+		}
+		else if(static_emit_size.y == 0)
+		{
+			if (static_emit_size.x < 0)
+			{
+				std::cout << "Should Change The Emit Size To Positive Number" << std::endl;
+				static_emit_size.x = abs(static_emit_size.x);
+			}
+			temp_x_size = RandomNumberGenerator(-static_emit_size.x, static_emit_size.x);
+			temp_y_size = 0;
+		}
+		else
+		{
+			temp_x_size = 0;
+			temp_y_size = 0;
+		}
+	}
+
+	emit_size.x = temp_x_size;
+	emit_size.y = temp_y_size;
+
+	auto temp_position = base_obj->GetTransform().GetTranslation();
+	particle_obj->SetTranslation({ temp_position.x + emit_size.x , temp_position.y + emit_size.y });
+}
+
 void Particle::UpdateDirection(float dt)
 {
-	vector2 temp_position = particle_obj->GetTransform().GetTranslation();
+	if(m_type == Particle_Fire_Type::Integrate)
+	{
+		vector2 current_pos = particle_obj->GetTransform().GetTranslation();
+		vector2 diff = base_obj->GetTransform().GetTranslation() - current_pos;
+		vector2 target_pos = diff * dt + current_pos;
+		particle_obj->GetTransform().SetTranslation(target_pos);
+	}
+	else
+	{
+		vector2 temp_position = particle_obj->GetTransform().GetTranslation();
 
-	particle_obj->SetTranslation({ temp_position.x + random_velocity.x + startVelocity.x,
-		temp_position.y + random_velocity.y + startVelocity.y});
+		particle_obj->SetTranslation({ temp_position.x + random_velocity.x + startVelocity.x,
+			temp_position.y + random_velocity.y + startVelocity.y });
+	}
 }

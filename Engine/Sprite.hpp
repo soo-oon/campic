@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include <gl/glew.h>
 #include <string>
 #include "Color.hpp"
+#include <vector>
 
 class Sprite : public Component
 {

@@ -76,8 +76,10 @@ void Sprite::ChangeSprite(const std::string path_)
 
 bool Sprite::Texture_Load()
 {
+	int channels;
+
     unsigned char* temp = stbi_load(path.c_str(), &width, &height,
-                                          nullptr, STBI_rgb_alpha);
+                                          &channels, STBI_rgb_alpha);
 
     if (temp == nullptr)
         return false;
@@ -106,7 +108,7 @@ void Sprite::LoadSprite()
     const int base_mipmap_level = 0;
     const int zero_border = 0;
 
-    glTexImage2D(GL_TEXTURE_2D, base_mipmap_level, GL_RGBA16, width, height,
+    glTexImage2D(GL_TEXTURE_2D, base_mipmap_level, GL_RGBA8, width, height,
                  zero_border, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
 }
 

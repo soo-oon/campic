@@ -29,6 +29,7 @@ bool Player::Initialize(Object * Ob)
 		object->SetTranslation({ 0,0 });
 		object->SetScale({ 100.0f, 100.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+		object->SetDepth(-0.1f);
 		object->Add_Init_Component(new RigidBody());
 
 		//object->AddComponent(new Sprite("asset/images/Player.png"));

@@ -26,21 +26,24 @@ Creation date: 2018/12/14
 class Shader
 {
 public:
+	static void UseShader(const Shader& shader);
+	
+public:
     Shader() = default;
-    Shader& Use();
+    /*Shader& Use();*/
 
     void Delete();
 
     bool Compile(const std::string& vertex_scr,
                  const std::string& fragment_src);
 
-    void SendUniformVariable(const std::string& name, GLfloat value);
+    void SendUniformVariable(const std::string& name, float value);
 
-    void SendUniformVariable(const std::string& name, GLint value);
+    void SendUniformVariable(const std::string& name, int value);
 
-    void SendUniformVariable(const std::string& name, vector2 vector);
+    void SendUniformVariable(const std::string& name, vector2& vector);
 
-    void SendUniformVariable(const std::string& name, vector3 vector);
+    void SendUniformVariable(const std::string& name, vector3& vector);
 
     void SendUniformVariable(const std::string& name, const affine2d& affine_matrix);
 
@@ -51,9 +54,12 @@ public:
     GLuint GetShaderHandler() const { return handle_to_shader; }
 
 private:
-    std::map<std::string, int> uniformNameToLocation{};
+	int GetUniformLocation(const std::string& name);
 
 private:
-    void Compile_Check(GLuint object, std::string type);
-    GLuint handle_to_shader;
+
+private:
+    /*void Compile_Check(GLuint object, std::string type);*/
+    std::map<std::string, int> uniformNameToLocation{};
+	unsigned handle_to_shader = 0;
 };

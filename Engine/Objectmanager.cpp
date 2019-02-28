@@ -14,6 +14,7 @@ Creation date: 2018/12/14
 */
 
 #include "Objectmanager.hpp"
+#include <algorithm>
 #include <cassert>
 #include "Camera.hpp"
 #include "Player.hpp"
@@ -42,7 +43,6 @@ bool Objectmanager::Initialize()
 
 void Objectmanager::Update(float dt)
 {
-	//std::cout << objects_.size() << std::endl;
 	for (auto object = objects_.begin(); object != objects_.end();)
 	{
 		for (auto components : object->get()->GetComponent())
@@ -76,12 +76,18 @@ void Objectmanager::AddObject(Object obj)
 {
 	objects_.push_back(std::make_unique<Object>(obj));
 
+	//objects_[0]->GetTransform().GetDepth()
+
+
 	std::cout << objects_.size() << std::endl;
 
  	for(auto component : objects_[objects_.size()-1]->GetComponent())
 	{
 		component->Initialize(objects_[objects_.size() - 1].get());
 	}
+
+	std::stable_sort(objects_.begin(), objects_.end(), 
+		[](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
 }
 
 void Objectmanager::RemoveObject()

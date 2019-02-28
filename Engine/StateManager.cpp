@@ -88,7 +88,7 @@ void StateManager::Pause()
 
 void StateManager::Update(float dt)
 {
-	if (m_currentState->IsLevelChange())
+ 	if (m_currentState->IsLevelChange())
 		ChangeStage();
 
 	if (m_pause == false)

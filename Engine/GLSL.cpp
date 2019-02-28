@@ -47,52 +47,54 @@ namespace GLSL
 	)";
 
     const std::string vertex =
-        R"(
-	#version 330
+		R"(
+#version 330
 
-	layout (location = 0) in vec2 position;
-	layout (location = 1) in vec2 texture_coordinate;
+layout(location = 1) in vec2 position;
+layout(location = 2) in vec2 texture_coordinate;
 
-	uniform mat3 transform;
-	uniform float depth;
+uniform mat3 transform;
+uniform float depth;
 
-	out vec2 interpolated_texture_coordinate;
+out vec2 interpolated_texture_coordinate;
 
-	void main()
-	{
-		vec3 position = transform * vec3(position, 1.0f);
-		gl_Position = vec4(position.xy, depth, 1.0);
-		interpolated_texture_coordinate = texture_coordinate;
-	}
-	)";
+void main()
+{
+    vec3 position = transform * vec3(position, 1.0f);
+    gl_Position = vec4(position.xy, depth, 1.0);
+    interpolated_texture_coordinate = texture_coordinate;
+}
+)";
 
     const std::string fragment =
-        R"(
-	#version 330
-	
-	in vec2 interpolated_texture_coordinate;
+		R"(
+#version 330
 
-	uniform vec4 color;
-	uniform sampler2D texture_to_sample;
+in vec2 interpolated_texture_coordinate;
 
-	out vec4 output_color;
+uniform vec4 color;
+uniform sampler2D texture_to_sample;
 
-	void main()
-	{
-		vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
-		vec4 new_color = color * texel;
-		if(new_color.a <= 0.0f)
+out vec4 output_color;
+
+void main()
+{
+    vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
+    vec4 new_color = color * texel;
+
+	if(new_color.a < 0.1)
 			discard;
-		output_color = new_color;
-	}
-	)";
+
+    output_color = new_color;
+}
+)";
 
 	const std::string particle_vertex =
 		R"(
 	#version 330 core
 
-	layout (location = 0) in vec2 position;
-	layout (location = 1) in vec2 texture_coordinate;
+	layout (location = 3) in vec2 position;
+	layout (location = 4) in vec2 texture_coordinate;
 	
 	uniform mat3 transform;
 	uniform float depth;
@@ -123,7 +125,7 @@ namespace GLSL
 		vec4 texel = texture(texture_to_sample, _texture_coordinate);
 		vec4 result_color = color * texel;
 
-		if(result_color.a <= 0.0f)
+		if(result_color.a < 0.1)
 			discard;
 
 		output_color = result_color;
@@ -134,8 +136,8 @@ namespace GLSL
 		R"(
 	#version 330
 
-	layout(location = 0) in vec2 position;
-	layout(location = 1) in vec2 texture_coordinate;
+	layout(location = 5) in vec2 position;
+	layout(location = 6) in vec2 texture_coordinate;
 
 	uniform mat3 transform;
 	uniform float depth;
@@ -144,7 +146,7 @@ namespace GLSL
 
 	void main()
 	{
-	    vec3 position = transform * vec3(position, 1.0f);
+	    vec3 position = transform * vec3(position, 1.0);
 	    gl_Position = vec4(position.xy, depth, 1.0);
 	    interpolated_texture_coordinate = texture_coordinate;
 	}
@@ -155,21 +157,21 @@ namespace GLSL
 	#version 330
 
 	in vec2 interpolated_texture_coordinate;
-
-	uniform vec4 color;
-	uniform sampler2D texture_to_sample;
-
 	out vec4 output_color;
+
+	uniform sampler2D text;
+	uniform vec4 color;
+
 
 	void main()
 	{
-	    vec4 texel = vec4(1.0, 1.0, 1.0, texture(texture_to_sample, interpolated_texture_coordinate).r);
-	    vec4 result_color = color * texel;
+		vec4 text_color = texture(text, interpolated_texture_coordinate);
+		vec4 sampled = vec4(1.0, 1.0, 1.0, text_color.r);
 
-		if(result_color.a <= 0.0f)
+		if(sampled.a < 0.1)
 			discard;
 
-		output_color = result_color;
+		output_color = color * sampled;
 	}
 	)";
 }

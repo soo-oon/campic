@@ -14,40 +14,6 @@ bool Font::Initialize(Object * Ob)
 
 void Font::Update(float dt)
 {
-	/*auto obj_position = object->GetTransform().GetTranslation();
-
-	for (auto c : text)
-	{
-		Mesh temp;
-
-		Character ch = characters[c];
-
-		GLfloat xpos = obj_position.x + ch.bearing.x * 1;
-		GLfloat ypos = obj_position.y - (ch.size.y - ch.bearing.y) * 1;
-
-		GLfloat w = ch.size.x * 1;
-		GLfloat h = ch.size.y * 1;
-
-		temp.AddPoint({ xpos, ypos });
-		temp.AddTextureCoordinate({ 0, 1 });
-
-		temp.AddPoint({ xpos + w, ypos });
-		temp.AddTextureCoordinate({ 1, 1 });
-
-		temp.AddPoint({ xpos, ypos + h });
-		temp.AddTextureCoordinate({ 0,0 });
-
-		temp.AddPoint({ xpos + w, ypos + h });
-		temp.AddTextureCoordinate({ 1, 0 });
-
-		temp.SetPointListType(PointListType::TriangleStrip);
-
-		font_mesh.push_back(temp);
-
-		glBindTexture(GL_TEXTURE_2D, ch.textureID);
-
-		obj_position.x += (ch.advance >> 6) * 1;
-	}*/
 }
 
 void Font::Delete()
@@ -85,13 +51,13 @@ void Font::LoadFontData()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows,
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, static_cast<GLsizei>(face->glyph->bitmap.width), static_cast<GLsizei>(face->glyph->bitmap.rows),
 			0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
 		Character character = {
 			texture, vector2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 			vector2(face->glyph->bitmap_left, face->glyph->bitmap_top), face->glyph->advance.x };
+
 		characters.insert(std::make_pair(c, character));
 	}
 
@@ -106,31 +72,37 @@ void Font::LoadFontData()
 
 		Character ch = characters[c];
 
-		GLfloat xpos = obj_position.x + ch.bearing.x * 1;
-		GLfloat ypos = obj_position.y - (ch.size.y - ch.bearing.y) * 1;
+		GLfloat xpos = obj_position.x + ch.bearing.x;
+		GLfloat ypos = obj_position.y - (ch.size.y - ch.bearing.y);
 
-		GLfloat w = ch.size.x * 1;
-		GLfloat h = ch.size.y * 1;
+		GLfloat w = ch.size.x;
+		GLfloat h = ch.size.y;
+
+		temp.AddPoint({ xpos, ypos+h });
+		temp.AddTextureCoordinate({ 0, 0 });
 
 		temp.AddPoint({ xpos, ypos });
 		temp.AddTextureCoordinate({ 0, 1 });
 
-		temp.AddPoint({ xpos + w, ypos });
-		temp.AddTextureCoordinate({ 1, 1 });
+		temp.AddPoint({ xpos + w, ypos});
+		temp.AddTextureCoordinate({ 1,1 });
 
 		temp.AddPoint({ xpos, ypos + h });
-		temp.AddTextureCoordinate({ 0,0 });
+		temp.AddTextureCoordinate({ 0, 0 });
+
+		temp.AddPoint({ xpos + w, ypos});
+		temp.AddTextureCoordinate({ 1, 1 });
 
 		temp.AddPoint({ xpos + w, ypos + h });
 		temp.AddTextureCoordinate({ 1, 0 });
 
-		temp.SetPointListType(PointListType::TriangleStrip);
+		temp.SetPointListType(PointListType::Triangles);
 
-		temp.AddColor({ 0,0,0,255 });
+		temp.AddColor({ 255,0,0,255 });
 
 		font_mesh.push_back(temp);
 
-		obj_position.x += (ch.advance >> 6) * 1;
+		obj_position.x += (ch.advance >> 6);
 	}
 }
 

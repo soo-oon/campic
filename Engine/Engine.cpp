@@ -45,6 +45,7 @@ void Engine::Update()
         gameTimer.Reset();
 		System_Update();
 
+		Graphics_.BeginDraw();
 		Graphics_.Draw();
 		Graphics_.EndDraw();
 		IMGUI_.Draw();

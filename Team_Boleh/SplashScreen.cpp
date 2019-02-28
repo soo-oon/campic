@@ -22,7 +22,7 @@ Creation date: 2018/12/14
 void SplashScreen::Initialize()
 {
 	logo.SetTranslation({ 0,0 });
-	logo.SetScale({ 300, 150 });
+	logo.SetScale({ 500, 150 });
 	logo.SetMesh(mesh::CreateBox());
 	logo.AddComponent(new Sprite("asset/images/DigiPen_.png"));
 	//logo.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/DigiPen_.png");

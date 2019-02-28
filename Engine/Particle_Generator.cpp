@@ -14,6 +14,7 @@ Creation date: 2018/12/14
 */
 
 #include "Particle_Generator.hpp"
+#include <iostream>
 
 bool Particle_Generator::Initialize(Object* Ob)
 {
@@ -24,7 +25,7 @@ bool Particle_Generator::Initialize(Object* Ob)
 
 	for(auto& particle : particles)
 	{
-		particle->Initialize(object->GetTransform().GetTranslation());
+		particle->Initialize(object);
 	}
 	return true; 
 }
@@ -100,6 +101,22 @@ void Particle_Generator::SetSizeVariance(float sizeVariance_)
 	for (auto& particle_obj : particles)
 	{
 		particle_obj->SetSizeVariance(sizeVariance_);
+	}
+}
+
+void Particle_Generator::SetEmitSize(vector2 size)
+{
+	for(auto& particle_obj : particles)
+	{
+		particle_obj->SetEmitSize(size);
+	}
+}
+
+void Particle_Generator::SetParticle_Fire_Type(Particle_Fire_Type type_)
+{
+	for (auto& particle_obj : particles)
+	{
+		particle_obj->SetParticle_Fire_Type(type_);
 	}
 }
 

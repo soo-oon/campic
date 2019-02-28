@@ -71,6 +71,7 @@ void State::AddPlayer()
 	player.AddComponent(new Player());
 
 	Objectmanager_.AddObject(player);
+	m_player = Objectmanager_.GetObjectMap()[Objectmanager_.GetObjectMap().size() - 1].get();
 }
 
 void State::AddSword()

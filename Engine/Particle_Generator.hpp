@@ -19,7 +19,6 @@ Creation date: 2018/12/14
 #include "Particle.hpp"
 #include <vector>
 
-
 class Particle_Generator : public Component
 {
 public:
@@ -33,7 +32,7 @@ public:
 		for(int i = 0; i<emitRate; ++i)
 		{
 		    Particle temp{ lifeTime_Control, sizeVariance_Control, color_duration, 
-		    	startVelocity, randomVelocity, particle_size, path };
+		    	startVelocity, randomVelocity, particle_size, emitSize, m_type, path };
 		    particles.push_back(std::make_unique<Particle>(temp));
 		}
 	}
@@ -43,7 +42,7 @@ public:
 	void Delete() override;
 	std::vector<std::unique_ptr<Particle>>& GetParticles() { return particles; }
 
-	bool IsActive() { return isActive; }
+	bool IsActive() const { return isActive; }
 	void ToggleActive() { isActive = !isActive; }
 
 	void SetEmitRate(int rate);
@@ -52,16 +51,19 @@ public:
 	void ChangeSprite(const std::string path);
 	void SetLifeTime(float lifeTime_);
 	void SetSizeVariance(float sizeVariance_);
-	//void SetEmitSize(vector2 size);
+	void SetEmitSize(vector2 size);
+	void SetParticle_Fire_Type(Particle_Fire_Type type_);
 
-	int GetEmitRate() { return emitRate; }
-	float GetLifeTimeControl() { return lifeTime_Control; }
-	float GetSizeVarianceControl() { return sizeVariance_Control; }
-	float GetColorDuration() { return color_duration; }
-	vector2 GetStartVelocity() { return startVelocity; }
-	vector2 GetRandomVelocity() { return randomVelocity; }
-	vector2 GetEmitSize() { return emitSize; }
-	std::string GetPath() { return path; }
+	int GetEmitRate() const { return emitRate; }
+	float GetLifeTimeControl() const { return lifeTime_Control; }
+	float GetSizeVarianceControl() const { return sizeVariance_Control; }
+	float GetColorDuration() const { return color_duration; }
+	vector2 GetStartVelocity() const { return startVelocity; }
+	vector2 GetRandomVelocity() const { return randomVelocity; }
+	vector2 GetEmitSize() const { return emitSize; }
+	Particle_Fire_Type GetParticle_Fire_Type() const { return m_type; }
+
+	std::string GetPath() const { return path; }
 
 private:
     int emitRate;
@@ -70,10 +72,11 @@ private:
 	float color_duration;
 	vector2 startVelocity;
 	vector2 randomVelocity;
-	vector2 particle_size;
 	vector2 emitSize;
+	vector2 particle_size;
 	bool isActive = true;
 
+	Particle_Fire_Type m_type = Particle_Fire_Type::Divergent;
 	std::string path;
 
 	std::vector<std::unique_ptr<Particle>> particles;

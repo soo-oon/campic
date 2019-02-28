@@ -41,6 +41,7 @@ public:
 	void Update(float dt);
 	void Quit();
 
+	void BeginDraw();
 	void Draw();
 	void HUD_Draw();
     void Tile_Draw();
@@ -119,10 +120,9 @@ private:
 	Shader Spriteshader{};
 	Shader Particleshader{};
 	Shader Fontshader{};
-	//TODO make postprocessing and particle shader
 
-	GLuint vertexAttributes[NumberOfVertexTypes] = { 0 };
-	GLuint vertexBuffer[NumberOfVertexTypes] = { 0 };
+	unsigned vertexAttributes[NumberOfVertexTypes] = { 0 };
+	unsigned vertexBuffer[NumberOfVertexTypes] = { 0 };
 
 	std::vector<solidshape> shapes{};
 	std::vector<texture> sprite{};

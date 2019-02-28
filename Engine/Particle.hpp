@@ -3,20 +3,25 @@
 #include "Object.hpp"
 #include "Sprite.hpp"
 
+enum class Particle_Fire_Type
+{
+	Divergent, Integrate, OneWay
+};
 
 class Particle
 {
 public:
 	Particle(float lifeTime_ = 5.0f, float sizeVariance_ = 3.0f, float color_duration_ = 10.0f,
 				vector2 start_velocity_ = { 0,0 }, vector2 random_velocity_ = { 0,0 }, 
-					vector2 particle_size_ = { 10.0f,10.0f },std::string path = {})
+		vector2 particle_size_ = { 10.0f,10.0f }, vector2 emit_size_ = { 0,0 }, Particle_Fire_Type type = Particle_Fire_Type::Divergent, std::string path = {})
 		: static_lifeTime(lifeTime_), static_sizeVariance(sizeVariance_),startVelocity(start_velocity_), 
-	static_color_duration(color_duration_), static_random_velocity(random_velocity_), particle_size(particle_size_)
+	static_color_duration(color_duration_), static_random_velocity(random_velocity_),particle_size(particle_size_), static_emit_size(emit_size_), m_type(type)
 	{
 		lifeTime = static_lifeTime;
 		sizeVariance = static_sizeVariance;
 		color_duration = static_color_duration;
 		random_velocity = static_random_velocity;
+		emit_size = static_emit_size;
 
 		particle_obj = new Object();
 		particle_obj->SetMesh(mesh::CreateBox(1, { 255,255,255 }));
@@ -38,7 +43,7 @@ public:
 		}
 	}
 
-	bool Initialize(vector2 position);
+	bool Initialize(Object* Ob);
 	void Update(float dt, vector2 random_velocity_);
 
 	bool IsRespawn() { return isrespawn; }
@@ -50,7 +55,8 @@ public:
 	void SetSizeVariance(float sizeVariance_) { static_sizeVariance = sizeVariance_; }
 	void ChangeSprite(const std::string path) { particle_obj->GetComponentByTemplate<Sprite>()->ChangeSprite(path); }
 	void SetLifeTime(float lifeTime_) { static_lifeTime = lifeTime_; }
-	//void SetEmitSize(vector2 size)
+	void SetEmitSize(vector2 size);
+	void SetParticle_Fire_Type(Particle_Fire_Type type);
 
 	float GetLifeTime() { return static_lifeTime; }
 	float GetSizeVariance() { return static_sizeVariance; }
@@ -58,22 +64,26 @@ public:
 	vector2 GetRandomVelocity() { return static_random_velocity; }
 
 private:
+	void SetRandomDirection();
+	void SetRandomEmitSize();
 	void UpdateDirection(float dt);
 	float lifeTime;
 	float sizeVariance;
-	float color_duration;
 	vector2 startVelocity;
+	float color_duration;
 	vector2 random_velocity{};
+	vector2 emit_size{};
 	Object* particle_obj = nullptr;
 	bool isrespawn = false;
 
 //static
 private:
+	Object* base_obj = nullptr;
 	float static_lifeTime;
 	float static_sizeVariance;
 	float static_color_duration;
 	vector2 static_random_velocity{};
+	vector2 static_emit_size{};
 	vector2 particle_size{};
-
-	//Direction direction_ = Direction::None;
+	Particle_Fire_Type m_type;
 };
