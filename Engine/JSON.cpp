@@ -355,12 +355,14 @@ Value JSON::ComponentCollision(Object * obj)
 Value JSON::ComponentParticle(Object * obj)
 {
 	Value particleTree(kArrayType);
-	Value start_velocity, random_velocity, emit_size, path;
+	Value start_velocity, random_velocity, particle_size,emit_size, path, isActive;
 	
 	particleTree.SetObject();
 	start_velocity.SetObject();
 	random_velocity.SetObject();
+	particle_size.SetObject();
 	emit_size.SetObject();
+	isActive.SetObject();
 	path.SetObject();
 
 	auto particle_info = obj->GetComponentByTemplate<Particle_Generator>();
@@ -374,14 +376,18 @@ Value JSON::ComponentParticle(Object * obj)
 	start_velocity.AddMember("y", particle_info->GetStartVelocity().y, ObjectDocument.GetAllocator());
 	random_velocity.AddMember("x", particle_info->GetRandomVelocity().x, ObjectDocument.GetAllocator());
 	random_velocity.AddMember("y", particle_info->GetRandomVelocity().y, ObjectDocument.GetAllocator());
+	particle_size.AddMember("x", particle_info->GetParticleSize().x, ObjectDocument.GetAllocator());
+	particle_size.AddMember("y", particle_info->GetParticleSize().y, ObjectDocument.GetAllocator());
 	emit_size.AddMember("x", particle_info->GetEmitSize().x, ObjectDocument.GetAllocator());
 	emit_size.AddMember("y", particle_info->GetEmitSize().y, ObjectDocument.GetAllocator());
+	isActive.SetBool(particle_info->GetIsActive());
+	path.SetString(particle_info->GetPath().c_str(), ObjectDocument.GetAllocator());
 
 	particleTree.AddMember("start_velocity", start_velocity, ObjectDocument.GetAllocator());
 	particleTree.AddMember("random_velocity", random_velocity, ObjectDocument.GetAllocator());
+	particleTree.AddMember("particle_size", particle_size, ObjectDocument.GetAllocator());
 	particleTree.AddMember("emit_size", emit_size, ObjectDocument.GetAllocator());
-
-	path.SetString(particle_info->GetPath().c_str(), ObjectDocument.GetAllocator());
+	particleTree.AddMember("isActive", isActive, ObjectDocument.GetAllocator());
 	particleTree.AddMember("path", path, ObjectDocument.GetAllocator());
 
 	return particleTree;
@@ -548,7 +554,8 @@ void JSON::LoadObjectFromJson()
 		obj.AddComponent(new Collision(type));
 
 		// Particle
-		vector2 start, random, size;
+		vector2 start, random, particle_size, emit_size;
+		
 
 		if (particle.HasMember("emit_rate"))
 		{
@@ -561,13 +568,16 @@ void JSON::LoadObjectFromJson()
 			start.y = particle.FindMember("start_velocity")->value.FindMember("y")->value.GetFloat();
 			random.x = particle.FindMember("random_velocity")->value.FindMember("x")->value.GetFloat();
 			random.y = particle.FindMember("random_velocity")->value.FindMember("y")->value.GetFloat();
-			size.x = particle.FindMember("emit_size")->value.FindMember("x")->value.GetFloat();
-			size.y = particle.FindMember("emit_size")->value.FindMember("y")->value.GetFloat();
+			particle_size.x = particle.FindMember("particle_size")->value.FindMember("x")->value.GetFloat();
+			particle_size.y = particle.FindMember("particle_size")->value.FindMember("y")->value.GetFloat();
+			emit_size.x = particle.FindMember("emit_size")->value.FindMember("x")->value.GetFloat();
+			emit_size.y = particle.FindMember("emit_size")->value.FindMember("y")->value.GetFloat();
+			bool isActive = particle.FindMember("isActive")->value.GetBool();
 
-			auto particle_path = particle.FindMember("path")->value.GetString();
+			std::string particle_path = particle.FindMember("path")->value.GetString();
 				
-			//obj.AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
-					//color_duration, start, random, size, particle_path));
+			obj.AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
+					color_duration, start, random, particle_size, emit_size, particle_path, isActive));
 		}
 		Objectmanager_.AddObject(obj);
 	}

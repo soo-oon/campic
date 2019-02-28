@@ -2,114 +2,6 @@
     "Object": {
         "Status": {
             "Type": {
-                "id": 0,
-                "enum": "Player"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "player",
-                    "path": "asset/images/Player.png"
-                },
-                "info": {
-                    "image_frames": 8,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                },
-                "path": {
-                    "id": "attack",
-                    "path": "asset/images/attack.png"
-                },
-                "info": {
-                    "image_frames": 4,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": false
-                }
-            }
-        },
-        "RigidBody": true,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {
-            "emit_rate": 50,
-            "life_time": 5.0,
-            "size_variance": 3.0,
-            "color_duration": 500.0,
-            "start_velocity": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "random_velocity": {
-                "x": 5.0,
-                "y": 5.0
-            },
-            "emit_size": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "path": ""
-        },
-        "Sound": {
-            "path": "punch.wav"
-        }
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "id": 1,
-                "enum": "Sword"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": -47.96009826660156,
-                "y": 46.306304931640628
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 46.074066162109378
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/trash.png"
-        },
-        "Animation": {},
-        "RigidBody": true,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
                 "id": 2,
                 "enum": "Enemy"
             },
@@ -120,8 +12,8 @@
         },
         "Transform": {
             "position": {
-                "x": 100.0,
-                "y": -134.1291046142578
+                "x": 99.75520324707031,
+                "y": -146.7209930419922
             },
             "scale": {
                 "x": 50.0,
@@ -229,6 +121,26 @@
             "id": 0,
             "enum": "box"
         },
+        "Particle": {},
+        "Sound": {}
+    },
+    "Object": {
+        "Status": {},
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 5.0,
+                "y": 5.0
+            },
+            "rotation": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
         "Particle": {},
         "Sound": {}
     }
