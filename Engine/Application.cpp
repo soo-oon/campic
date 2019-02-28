@@ -158,8 +158,8 @@ void Application::FullScreen()
 
 		int w, h;
 		glfwGetWindowSize(window, &w, &h);
-		real_screenSize.x = w;
-		real_screenSize.y = h;
+		real_screenSize.x = (float)w;
+		real_screenSize.y = (float)h;
     }
     else
     {
@@ -170,8 +170,8 @@ void Application::FullScreen()
 
 		int w, h;
 		glfwGetWindowSize(window, &w, &h);
-		real_screenSize.x = w;
-		real_screenSize.y = h;
+		real_screenSize.x = (float)w;
+		real_screenSize.y = (float)h;
     }
 }
 

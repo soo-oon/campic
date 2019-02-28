@@ -67,7 +67,6 @@ void level2::Initialize()
 	font.SetMesh(mesh::CreateBox(1, { 255,0,0,255 }));
 	font.AddComponent(new Font("Hi Nice To Meet You", "asset/font/hi.ttf"));
 
-
 	Objectmanager_.AddObject(card);
 	Objectmanager_.AddObject(card1);
 	Objectmanager_.AddObject(font);
@@ -209,16 +208,16 @@ void level2::Update(float dt)
 		std::cout << "Objects Saved" << std::endl;
 	}
 
-	if (Input::IsKeyTriggered(GLFW_KEY_F2))
-	{
-		for (auto& obj : Objectmanager_.GetObjectMap())
-		{
-			JSON_.ObjectsToDocument(obj.get());
-		}
-		JSON_.LoadObjectFromJson();
-		//JSON_.GetObjectDocument().SetObject();
-		std::cout << "Objects Loaded" << std::endl;
-	}
+	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
+	//{
+	//	for (auto& obj : Objectmanager_.GetObjectMap())
+	//	{
+	//		JSON_.ObjectsToDocument(obj.get());
+	//	}
+	//	JSON_.LoadObjectFromJson();
+	//	//JSON_.GetObjectDocument().SetObject();
+	//	std::cout << "Objects Loaded" << std::endl;
+	//}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
 	{

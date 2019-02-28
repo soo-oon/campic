@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Particle.hpp"
 #include "Particle_Generator.hpp"
+#include "Font.hpp"
 
 JSON JSON_;
 
@@ -37,6 +38,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	Value objCollisionTree(kArrayType);
 	Value objParticleTree(kArrayType);
 	Value objSoundTree(kArrayType);
+	Value objFontTree(kArrayType);
 	
 	objTree.SetObject();
 	objTransformTree.SetObject();
@@ -48,6 +50,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	objCollisionTree.SetObject();
 	objParticleTree.SetObject();
 	objSoundTree.SetObject();
+	objFontTree.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
 
@@ -83,6 +86,9 @@ void JSON::ObjectsToDocument(Object* obj)
 	if (obj->GetComponentByTemplate<Sound>() != nullptr)
 		objSoundTree = ComponentSound(obj);
 
+	if (obj->GetComponentByTemplate<Font>() != nullptr)
+		objFontTree = ComponentFont(obj);
+
 	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sprite", objSpriteTree, ObjectDocument.GetAllocator());
@@ -91,6 +97,7 @@ void JSON::ObjectsToDocument(Object* obj)
 	objTree.AddMember("Collision", objCollisionTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Particle", objParticleTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -409,6 +416,26 @@ Value JSON::ComponentSound(Object * obj)
 		paths.SetString(temp.c_str(), ObjectDocument.GetAllocator());
 		container.AddMember("path", paths, ObjectDocument.GetAllocator());
 	}
+
+	return container;
+}
+
+Value JSON::ComponentFont(Object * obj)
+{
+	Value container(kArrayType);
+	Value paths, text;
+
+	container.SetObject();
+	paths.SetObject();
+	text.SetObject();
+
+	auto font_info = obj->GetComponentByTemplate<Font>();
+
+	text.SetString(font_info->GetText().c_str(), ObjectDocument.GetAllocator());
+	paths.SetString(font_info->GetPath().c_str(), ObjectDocument.GetAllocator());
+
+	container.AddMember("text", text, ObjectDocument.GetAllocator());
+	container.AddMember("path", paths, ObjectDocument.GetAllocator());
 
 	return container;
 }

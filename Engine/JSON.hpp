@@ -49,6 +49,7 @@ public:
 	Value ComponentCollision(Object* obj);
 	Value ComponentParticle(Object* obj);
 	Value ComponentSound(Object* obj);
+	Value ComponentFont(Object* obj);
 
 	Document& GetObjectDocument() { return ObjectDocument; }
 
