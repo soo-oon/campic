@@ -25,10 +25,10 @@ class Particle_Generator : public Component
 public:
 	Particle_Generator(int rate_ = 50, float lifeTime_ = 5.0f, float sizeVariance_ = 3.0f, float color_duration_ = 10.0f
 		, vector2 startVelocity_ = { 0,0 }, vector2 randomVelocity_ = { 1,1 }, 
-		vector2 particle_size_ = { 10.0f, 10.0f }, vector2 emitSize_ = { 0,0 }, std::string path = {})
+		vector2 particle_size_ = { 10.0f, 10.0f }, vector2 emitSize_ = { 0,0 }, std::string path = {}, bool IsActive_ = true)
 		: emitRate(rate_), lifeTime_Control(lifeTime_), sizeVariance_Control(sizeVariance_), 
 			color_duration(color_duration_), startVelocity(startVelocity_), 
-				randomVelocity(randomVelocity_), emitSize(emitSize_), particle_size(particle_size_)
+				randomVelocity(randomVelocity_), particle_size(particle_size_), emitSize(emitSize_), isActive(IsActive_)
 	{
 		for(int i = 0; i<emitRate; ++i)
 		{
@@ -60,7 +60,9 @@ public:
 	float GetColorDuration() { return color_duration; }
 	vector2 GetStartVelocity() { return startVelocity; }
 	vector2 GetRandomVelocity() { return randomVelocity; }
+	vector2 GetParticleSize() { return particle_size; }
 	vector2 GetEmitSize() { return emitSize; }
+	bool GetIsActive() { return isActive; }
 	std::string GetPath() { return path; }
 
 private:

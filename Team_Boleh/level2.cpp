@@ -72,14 +72,15 @@ void level2::Initialize()
 	Objectmanager_.AddObject(card1);
 	Objectmanager_.AddObject(font);
 
-        Object background;
 
-        background.SetTranslation({ 0 });
-        background.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-        background.SetScale({ 1280.f , 960.f});
-        background.SetDepth(0.99f);
-        background.AddComponent(new Sprite("asset/images/background1.png"));
-        Objectmanager_.AddObject(background);
+    Object background;
+
+    background.SetTranslation({ 0 });
+    background.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+    background.SetScale({ 1280.f , 960.f});
+    background.SetDepth(0.99f);
+    background.AddComponent(new Sprite("asset/images/background1.png"));
+    Objectmanager_.AddObject(background);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	Objectmanager_.GetObjectMap()[0]->Add_Init_Component((new Particle_Generator(50, 5.0f,
@@ -208,16 +209,16 @@ void level2::Update(float dt)
 		std::cout << "Objects Saved" << std::endl;
 	}
 
-	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
-	//{
-	//	/*for (auto& obj : Objectmanager_.GetObjectMap())
-	//	{
-	//		JSON_.ObjectsToDocument(obj.get());
-	//	}*/
-	//	JSON_.LoadObjectFromJson();
-	//	//JSON_.GetObjectDocument().SetObject();
-	//	std::cout << "Objects Loaded" << std::endl;
-	//}
+	if (Input::IsKeyTriggered(GLFW_KEY_F2))
+	{
+		for (auto& obj : Objectmanager_.GetObjectMap())
+		{
+			JSON_.ObjectsToDocument(obj.get());
+		}
+		JSON_.LoadObjectFromJson();
+		//JSON_.GetObjectDocument().SetObject();
+		std::cout << "Objects Loaded" << std::endl;
+	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
 	{
