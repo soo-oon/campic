@@ -69,10 +69,8 @@ void level2::Initialize()
 	font.SetDepth(0.0f);
 	font.AddComponent(new Font("1234", "asset/font/default.ttf"));
 
-
 	Objectmanager_.AddObject(card);
 	Objectmanager_.AddObject(card1);
-	//Objectmanager_.AddObject(font);
 	
         Object background;
 
@@ -217,10 +215,10 @@ void level2::Update(float dt)
 
 	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
 	//{
-	//	/*for (auto& obj : Objectmanager_.GetObjectMap())
+	//	for (auto& obj : Objectmanager_.GetObjectMap())
 	//	{
 	//		JSON_.ObjectsToDocument(obj.get());
-	//	}*/
+	//	}
 	//	JSON_.LoadObjectFromJson();
 	//	//JSON_.GetObjectDocument().SetObject();
 	//	std::cout << "Objects Loaded" << std::endl;

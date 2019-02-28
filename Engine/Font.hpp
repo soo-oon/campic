@@ -33,6 +33,9 @@ public:
 	void BindTexture(int index);
 	std::vector<Mesh>& GetFontMeshes() { return font_mesh; }
 
+	std::string GetText() { return text; }
+	std::string GetPath() { return path; }
+
 private:
 	std::vector<Mesh> font_mesh;
 	//Mesh mesh;
