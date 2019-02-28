@@ -31,6 +31,6 @@ private:
 	bool ischange_level = false;
 	bool ischange = false;
 	float time_count = 0.0f;
-	Object logo;
-	Object background;
+	Object* logo = nullptr;
+	Object* background = nullptr;
 };

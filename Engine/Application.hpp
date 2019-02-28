@@ -39,6 +39,7 @@ public:
     void Key_Poll_Event();
     void PollEvent();
     void FullScreen();
+	std::string GetFPS() { return fps; }
 
 private:
 	float fpsEllapsedTime = 0;
@@ -50,6 +51,7 @@ private:
     GLFWwindow* window = nullptr;
     bool fullScreenMode = false;
 
+	std::string fps;
     std::string title;
     vector2 screenSize;
 	vector2 real_screenSize;

@@ -67,8 +67,8 @@ void State::Load()
 
 void State::AddPlayer()
 {
-	Object player;
-	player.AddComponent(new Player());
+	Object* player = new Object();
+	player->AddComponent(new Player());
 
 	Objectmanager_.AddObject(player);
 	m_player = Objectmanager_.GetObjectMap()[Objectmanager_.GetObjectMap().size() - 1].get();
@@ -76,8 +76,8 @@ void State::AddPlayer()
 
 void State::AddSword()
 {
-    Object sword;
-    sword.AddComponent(new Sword(Objectmanager_.GetObjectMap()[0].get()));
+    Object* sword = new Object();
+    sword->AddComponent(new Sword(Objectmanager_.GetObjectMap()[0].get()));
 
     Objectmanager_.AddObject(sword);
 }

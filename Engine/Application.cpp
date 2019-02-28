@@ -107,8 +107,8 @@ bool Application::Initialize()
 
 	int w, h;
 	glfwGetWindowSize(window, &w, &h);
-	real_screenSize.x = w;
-	real_screenSize.y = h;
+	real_screenSize.x = static_cast<float>(w);
+	real_screenSize.y = static_cast<float>(h);
 
     return true;
 }
@@ -120,7 +120,8 @@ void Application::Update(float dt)
 	if (fpsEllapsedTime >= 1.0f)
 	{
 		
-		title += std::to_string(int(fpsFrames / fpsEllapsedTime));
+		fps = std::to_string(int(fpsFrames / fpsEllapsedTime));
+		title += fps;
 		fpsEllapsedTime = 0;
 		fpsFrames = 0;
 		glfwSetWindowTitle(window, title.c_str());

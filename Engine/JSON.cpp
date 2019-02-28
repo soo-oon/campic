@@ -483,7 +483,7 @@ void JSON::LoadObjectFromJson()
 		Value& obj_array = temp.value;
 
 		Value status, transform, animation, sprite, rigid_body, collision, particle;
-		Object obj;
+		Object* obj = new Object();
 
 		status.SetObject();
 		transform.SetObject();
@@ -508,7 +508,7 @@ void JSON::LoadObjectFromJson()
 		float speed = status.FindMember("Speed")->value.GetFloat();
 		bool is_alive = status.FindMember("isAlive")->value.GetBool();
 
-		obj.AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
+		obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
 
 		// Transform
 		vector2 pos, scale;
@@ -520,11 +520,11 @@ void JSON::LoadObjectFromJson()
 		scale.y = transform.FindMember("scale")->value.FindMember("y")->value.GetFloat();
 		rotation = transform.FindMember("rotation")->value.GetFloat();
 
-		obj.SetTranslation(pos);
-		obj.SetScale(scale);
-		obj.SetRotation(rotation);
+		obj->SetTranslation(pos);
+		obj->SetScale(scale);
+		obj->SetRotation(rotation);
 
-		obj.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 
 		// Sprite
 		bool is_flip = false;
@@ -535,8 +535,8 @@ void JSON::LoadObjectFromJson()
 			path = sprite.FindMember("image_path")->value.GetString();
 			is_flip = sprite.FindMember("is_flip")->value.GetBool();
 
-			obj.AddComponent(new Sprite(path));
-			obj.GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
+			obj->AddComponent(new Sprite(path));
+			obj->GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
 		}
 
 		// Animation
@@ -558,11 +558,11 @@ void JSON::LoadObjectFromJson()
 				is_repeat.push_back(map_array.FindMember("info")->value.FindMember("is_repeats")->value.GetBool());
 			}
 
-			obj.AddComponent(new Animation(ani_path.at(0), id.at(0),image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
+			obj->AddComponent(new Animation(ani_path.at(0), id.at(0),image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
 
 			for(int i = 1; i < id.size(); i++)
 			{
-				obj.GetComponentByTemplate<Animation>()->AddAnimaition(ani_path.at(i), id.at(i), image_frame.at(i), 
+				obj->GetComponentByTemplate<Animation>()->AddAnimaition(ani_path.at(i), id.at(i), image_frame.at(i),
 					update_frame.at(i), is_repeat.at(i));
 			}
 		}
@@ -572,13 +572,13 @@ void JSON::LoadObjectFromJson()
 		is_rigid = rigid_body.GetBool();
 		
 		if (is_rigid)
-			obj.AddComponent(new RigidBody());
+			obj->AddComponent(new RigidBody());
 
 		// Collision
 		CollisionType type;
 		type = static_cast<CollisionType>(collision.FindMember("id")->value.GetInt());
 		
-		obj.AddComponent(new Collision(type));
+		obj->AddComponent(new Collision(type));
 
 		// Particle
 		vector2 start, random, particle_size, emit_size;
@@ -603,7 +603,7 @@ void JSON::LoadObjectFromJson()
 
 			std::string particle_path = particle.FindMember("path")->value.GetString();
 				
-			obj.AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
+			obj->AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
 					color_duration, start, random, particle_size, emit_size, particle_path, isActive));
 		}
 		Objectmanager_.AddObject(obj);

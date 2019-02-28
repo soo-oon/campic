@@ -30,12 +30,12 @@ public:
     bool Initialize();
     void Update(float dt);
     void Quit();
-	void AddObject(Object obj);
+	void AddObject(Object* obj);
 	void RemoveObject();
-	std::vector<std::unique_ptr<Object>>& GetObjectMap() { return objects_; }
+	std::vector<std::shared_ptr<Object>>& GetObjectMap() { return objects_; }
 
 private:
-	std::vector<std::unique_ptr<Object>> objects_;
+	std::vector<std::shared_ptr<Object>> objects_;
 };
 
 extern Objectmanager Objectmanager_;

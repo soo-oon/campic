@@ -66,8 +66,8 @@ void Engine::System_Initialize()
 {
 	Application_.Initialize();
 	StateManager_.Initialize();
-	Objectmanager_.Initialize();
 	Graphics_.Initialize();
+	Objectmanager_.Initialize();
 	IMGUI_.Initialize();
 	AudioManager_.Initialize();
 	Physics_.Initialize();
@@ -82,8 +82,8 @@ void Engine::System_Update()
 {
 	Application_.Update(dt);
 	StateManager_.Update(dt);
-	Objectmanager_.Update(dt);
 	Graphics_.Update(dt);
+	Objectmanager_.Update(dt);
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
 	JSON_.Update(dt);
@@ -99,8 +99,8 @@ void Engine::System_Quit()
 {
 	Application_.Quit();
 	StateManager_.Quit();
-	Objectmanager_.Quit();
 	Graphics_.Quit();
+	Objectmanager_.Quit();
 	//IMGUI_.Quit();
 	AudioManager_.Quit();
 	Physics_.Quit();

@@ -72,12 +72,11 @@ void Objectmanager::Quit()
 	objects_.clear();
 }
 
-void Objectmanager::AddObject(Object obj)
+void Objectmanager::AddObject(Object* obj)
 {
-	objects_.push_back(std::make_unique<Object>(obj));
+	std::shared_ptr<Object> temp(obj);
 
-	//objects_[0]->GetTransform().GetDepth()
-
+	objects_.push_back(temp);
 
 	std::cout << objects_.size() << std::endl;
 

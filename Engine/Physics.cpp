@@ -62,7 +62,7 @@ void Physics::Update(float dt)
                             else
                                 ++obj;
                     }
-                previous_size = Objectmanager_.GetObjectMap().size();
+                previous_size = static_cast<int>(Objectmanager_.GetObjectMap().size());
             }
 
             //Objectmanager_.GetObjectMap().erase(std::remove_if(Objectmanager_.GetObjectMap().begin()

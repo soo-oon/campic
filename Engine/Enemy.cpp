@@ -99,35 +99,35 @@ void Enemy::AnglerMove()
 
 void Enemy::CardDrop()
 {
-    Object card;
-    card.SetTranslation({ object->GetTransform().GetTranslation() });
-    card.SetScale({ 24.f, 30.f });
-    card.SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    card.AddComponent(new Status(ObjectType::Item));
-    card.AddComponent(new Collision(box_, { object->GetTransform().GetTranslation() }, { 24.f,30.f }));
+    Object* card = new Object();
+    card->SetTranslation({ object->GetTransform().GetTranslation() });
+    card->SetScale({ 24.f, 30.f });
+    card->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    card->AddComponent(new Status(ObjectType::Item));
+    card->AddComponent(new Collision(box_, { object->GetTransform().GetTranslation() }, { 24.f,30.f }));
     object->GetComponentByTemplate<Status>()->SetObjectType(ObjectType::Item);
     object->GetTransform().SetScale({ 24.f, 30.f });
     object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale({ 24.f,30.f });
     int random = rand() % 4;
     if (random == 0)
     {
-        card.AddComponent(new Sprite("asset/images/red_soul.png"));
-        card.AddComponent(new Card("Red"));
+        card->AddComponent(new Sprite("asset/images/red_soul.png"));
+        card->AddComponent(new Card("Red"));
     }
     else if (random == 1)
     {
-        card.AddComponent(new Sprite("asset/images/blue_soul.png"));
-        card.AddComponent(new Card("Blue"));
+        card->AddComponent(new Sprite("asset/images/blue_soul.png"));
+        card->AddComponent(new Card("Blue"));
     }
     else if (random == 2)
     {
-        card.AddComponent(new Sprite("asset/images/green_soul.png"));
-        card.AddComponent(new Card("Green"));
+        card->AddComponent(new Sprite("asset/images/green_soul.png"));
+        card->AddComponent(new Card("Green"));
     }
     else
     {
-        card.AddComponent(new Sprite("asset/images/black_soul.png"));
-        card.AddComponent(new Card("Black"));
+        card->AddComponent(new Sprite("asset/images/black_soul.png"));
+        card->AddComponent(new Card("Black"));
     }
     Objectmanager_.AddObject(card);
 }

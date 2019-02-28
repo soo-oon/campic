@@ -34,3 +34,16 @@ struct Color
 	bool isAlphaDone = false;
     vector4 RGBAfloat() const;
 };
+
+namespace  Colors
+{
+	extern const Color Black;
+	extern const Color White;
+	extern const Color Red;
+	extern const Color Green;
+	extern const Color Blue;
+	extern const Color Yellow;
+	extern const Color Magenta;
+	extern const Color Cyan;
+	extern const Color Transparent;
+}

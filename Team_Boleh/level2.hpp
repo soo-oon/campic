@@ -39,6 +39,7 @@ public:
 	//void Shot(std::string name);
 
 private:
+	std::vector<Object*> obj;
 	//float dt_sum =0, dt_boss = 0;
 	//float rota_angle = 0, rota_angle1 =0;
 	//float rotate = 0;

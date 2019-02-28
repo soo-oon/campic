@@ -24,66 +24,63 @@ Creation date: 2018/12/14
 #include "Enemy.hpp"
 #include "Font.hpp"
 #include "Sound.hpp"
+#include "Application.hpp"
 
 void level2::Initialize()
 {
-	Object temp;
+	Object* temp = new Object();
+	temp->SetTranslation({ 100,-150 });
+	temp->SetScale({ 50.0f, 50.0f });
+	temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+	temp->SetDepth(0.0f);
+	temp->AddComponent(new RigidBody());
+	temp->AddComponent(new Sprite("asset/images/Dr_Strange.png"));
+	temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	temp->AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
+    temp->AddComponent(new Enemy(MoveType::straight));
 
-	temp.SetTranslation({ 100,-150 });
-	temp.SetScale({ 50.0f, 50.0f });
-	temp.SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-	temp.SetDepth(0.0f);
-	temp.AddComponent(new RigidBody());
-	temp.AddComponent(new Sprite("asset/images/Dr_Strange.png"));
-	temp.AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-	temp.AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
-    temp.AddComponent(new Enemy(MoveType::straight));
+	Object* camera = new Object();
+	camera->AddComponent(new Camera(this));
 
-	Object camera;
-	camera.AddComponent(new Camera(this));
+	Object* card = new Object();
+	card->SetTranslation({300, 300});
+	card->SetScale({24.f, 30.f});
+	card->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
+	card->AddComponent(new Card("Red"));
+	card->AddComponent(new Sprite("asset/images/red_soul.png"));
+	card->AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	card->AddComponent(new Status(ObjectType::Item));
 
-	//Objectmanager_.AddObject(temp);
-	Objectmanager_.AddObject(camera);
-
-	Object card, card1;
-
-	card.SetTranslation({300, 300});
-	card.SetScale({24.f, 30.f});
-	card.SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
-	card.AddComponent(new Card("Red"));
-	card.AddComponent(new Sprite("asset/images/red_soul.png"));
-	//card.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
-	card.AddComponent(new Status(ObjectType::Item));
-
-	card1.SetTranslation({250, -250});
-	card1.SetScale({24.f, 30.f});
-	card1.SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
-	card1.AddComponent(new Card("Blue"));
-	card1.AddComponent(new Sprite("asset/images/blue_soul.png"));
-	//card1.AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
-	card1.AddComponent(new Status(ObjectType::Item));
+	Object* card1 = new Object();
+	card1->SetTranslation({250, -250});
+	card1->SetScale({24.f, 30.f});
+	card1->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
+	card1->AddComponent(new Card("Blue"));
+	card1->AddComponent(new Sprite("asset/images/blue_soul.png"));
+	card1->AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	card1->AddComponent(new Status(ObjectType::Item));
 
 
-	Object font;
-	font.SetTranslation({ 50, 0 });
-	font.SetDepth(0.0f);
-	font.AddComponent(new Font("1234", "asset/font/default.ttf"));
+	Object* font = new Object();
+	font->SetTranslation({ 50, 0 });
+	font->SetDepth(0.0f);
+	font->AddComponent(new Font("1234", "asset/font/default.ttf", Colors::Blue));
 
-	Objectmanager_.AddObject(card);
-	Objectmanager_.AddObject(card1);
 	
-        Object background;
+    Object* background = new Object();
+    background->SetTranslation({ 0 });
+    background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+    background->SetScale({ 1280.f , 960.f});
+    background->SetDepth(0.99f);
+    background->AddComponent(new Sprite("asset/images/background1.png"));
 
-        background.SetTranslation({ 0 });
-        background.SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-        background.SetScale({ 1280.f , 960.f});
-        background.SetDepth(0.99f);
-        background.AddComponent(new Sprite("asset/images/background1.png"));
+	obj.push_back(temp);
+	obj.push_back(camera);
+	obj.push_back(card);
+	obj.push_back(card1);
+	obj.push_back(font);
+	obj.push_back(background);
 
-		Objectmanager_.AddObject(font);
-
-		Objectmanager_.AddObject(temp);
-        Objectmanager_.AddObject(background);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
@@ -91,6 +88,11 @@ void level2::Initialize()
 	                                                                             {10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
 	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
 
+
+	for(auto i : obj)
+	{
+		Objectmanager_.AddObject(i);
+	}
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
@@ -198,6 +200,8 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {
+	obj[4]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
+
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
 		ChangeLevel("remake");

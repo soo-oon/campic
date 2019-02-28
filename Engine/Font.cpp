@@ -55,8 +55,8 @@ void Font::LoadFontData()
 			0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
 		Character character = {
-			texture, vector2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-			vector2(face->glyph->bitmap_left, face->glyph->bitmap_top), face->glyph->advance.x };
+			texture, vector2(static_cast<float>(face->glyph->bitmap.width), static_cast<float>(face->glyph->bitmap.rows)),
+			vector2(static_cast<float>(face->glyph->bitmap_left), static_cast<float>(face->glyph->bitmap_top)), static_cast<GLuint>(face->glyph->advance.x) };
 
 		characters.insert(std::make_pair(c, character));
 	}
@@ -98,12 +98,25 @@ void Font::LoadFontData()
 
 		temp.SetPointListType(PointListType::Triangles);
 
-		temp.AddColor({ 255,0,0,255 });
+		temp.AddColor(m_color);
 
 		font_mesh.push_back(temp);
 
 		obj_position.x += (ch.advance >> 6);
 	}
+}
+
+void Font::SetText(std::string text_)
+{
+	text = text_;
+	LoadFontData();
+}
+
+void Font::SetPath(std::string path_)
+{
+	path = path_;
+	LoadFontData();
+
 }
 
 void Font::BindTexture(int index)

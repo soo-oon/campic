@@ -21,29 +21,30 @@ struct Character
 class Font : public Component
 {
 public:
-	Font(std::string text_, std::string path_) 
-	: text(text_), path(path_)
+	Font(std::string text_ = "Empty", std::string path_ = "asset/font/default.ttf", Color color = {0,0,0,255})
+	: text(text_), path(path_), m_color(color)
 	{}
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
 	void Delete() override;
-	void LoadFontData();
+
+	void SetText(std::string text_);
+	void SetPath(std::string path_);
 
 	void BindTexture(int index);
 	std::vector<Mesh>& GetFontMeshes() { return font_mesh; }
 
 	std::string GetText() { return text; }
 	std::string GetPath() { return path; }
+	Color GetFontColor() { return m_color; }
 
 private:
+	void LoadFontData();
 	std::vector<Mesh> font_mesh;
-	//Mesh mesh;
 	std::unordered_map<GLchar, Character> characters;
-
-	//FT_Library ft;
-	//FT_Face face;
 
 	std::string text;
 	std::string path;
+	Color m_color;
 };
