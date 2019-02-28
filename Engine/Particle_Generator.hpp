@@ -63,6 +63,7 @@ public:
 	vector2 GetStartVelocity() const { return startVelocity; }
 	vector2 GetRandomVelocity() const { return randomVelocity; }
 	vector2 GetEmitSize() const { return emitSize; }
+	vector2 GetParticleSize() { return particle_size; }
 	Particle_Fire_Type GetParticle_Fire_Type() const { return m_type; }
 
 private:
