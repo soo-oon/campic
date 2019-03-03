@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "stb_image.h"
 #include <imgui_internal.h>
 #include "Tile_Map.hpp"
+#include "Physics.hpp"
 
 Imgui_System IMGUI_;
 
@@ -50,6 +51,11 @@ bool Imgui_System::Initialize()
 	{
 		imageList.push_back(p.path().filename().string());
 	}
+	//Enemy Image List
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Enemies"))
+	{
+		enemyList.push_back(enemy_dir + p.path().filename().string());
+	}
 	//Sound list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
@@ -61,10 +67,17 @@ bool Imgui_System::Initialize()
 		tileList.push_back(tile_dir + p.path().filename().string());
 	}
 
+	// Add texture into imgui
 	for (auto& temp : tileList)
 	{
 		auto texture = ImageHelper(temp);
 		tile_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
+	}
+
+	for(auto& temp : enemyList)
+	{
+		auto texture = ImageHelper(temp);
+		enemy_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
 	std::cout << "IMGUI Initialization Successful" << std::endl;
@@ -74,8 +87,6 @@ bool Imgui_System::Initialize()
 
 void Imgui_System::Update(float dt)
 {
-	// Tile Draw Call
-
 	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
 	{
 		show_window = !show_window;
@@ -150,8 +161,21 @@ void Imgui_System::Editor(bool show_window)
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Text("Frame Rate (%.1f FPS)", io.Framerate);
 
+	if (ImGui::RadioButton("Object Creator", object_creator))
+	{
+		object_creator = !object_creator;
+		object_editor = false;
+		tile_editor = false;
+	}
+
+	ImGui::SameLine();
+
 	if (ImGui::RadioButton("Object Editor", object_editor))
+	{
 		object_editor = !object_editor;
+		object_creator = false;
+		tile_editor = false;
+	}
 	
 	//ImGui::SameLine();
 
@@ -161,14 +185,98 @@ void Imgui_System::Editor(bool show_window)
 	ImGui::SameLine();
 
 	if (ImGui::RadioButton("Tile Editor", tile_editor))
+	{
 		tile_editor = !tile_editor;
+		object_creator = false;
+		object_editor = false;
+	}
 
 	// Create editor window
+	ObjectCreator(object_creator);
 	ObjectEditor(object_editor);
 	TileEditor(tile_editor);
 	//SoundEditor(sound_editor);
 
 	ImGui::End();
+}
+
+void Imgui_System::ObjectCreator(bool object_creator)
+{
+	if (!object_creator)
+		return;
+
+	//if (ImGui::ImageButton(enemy_buttons.find("asset/images/Enemies/boss.png")->second, ImVec2(50, 50)))
+	//{
+	//	if (ImGui::IsItemActive())
+	//	{
+	//		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	//	}
+
+	//	if (ImGui::IsItemDeactivated())
+	//	{
+	//		Object* obj = new Object;
+	//		obj->SetScale({ 100.f,100.f });
+	//		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+	//		obj->SetDepth(0);
+	//		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	//		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));
+
+	//		Objectmanager_.AddObject(obj);
+	//	}
+	//}
+	ImGui::Button("Create Boss");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* obj = new Object;
+		obj->SetScale({ 100.f,100.f });
+		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		obj->SetDepth(0);
+		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));
+
+		Objectmanager_.AddObject(obj);
+	}
+
+	ImGui::Button("Create Slime");
+
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* obj = new Object;
+		obj->SetScale({ 100.f,100.f });
+		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		obj->SetDepth(0);
+		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		obj->AddComponent(new Animation("asset/images/Enemies/slime.png", "slime", 6, 0.05f));
+
+		Objectmanager_.AddObject(obj);
+	}
+
+	ImGui::Button("Create Scorpion");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* obj = new Object;
+		obj->SetScale({ 100.f,100.f });
+		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		obj->SetDepth(0);
+		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		obj->AddComponent(new Animation("asset/images/Enemies/scol.png", "scol", 6, 0.05f));
+
+		Objectmanager_.AddObject(obj);
+	}
 }
 
 void Imgui_System::ObjectEditor(bool object_editor)
@@ -182,9 +290,6 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	selectObj->GetTransform().Imgui_Transform();
 
 	SpriteHelper();
-	//SoundHelper();
-
-	//SoundHelper(sound_path);
 
 	if (ImGui::Button("Delete"))
 	{
@@ -206,6 +311,7 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	if (ImGui::Button("Clear All"))
 	{
 		Objectmanager_.GetObjectMap().clear();
+		Physics_.ResetPreviousSize();
 	}
 }
 
@@ -248,7 +354,7 @@ void Imgui_System::SpriteHelper()
 
 void Imgui_System::SoundHelper()
 {
-	if (ImGui::TreeNode("Sound"))
+	/*if (ImGui::TreeNode("Sound"))
 	{
 		static std::string current_item = sound_path;
 
@@ -282,63 +388,63 @@ void Imgui_System::SoundHelper()
 				selectObj->AddComponent(new Sound("asset/sounds/" + current_item, AudioManager::CATEGORY_SFX, 4));
 			}
 		}
-		ImGui::TreePop();
-	}
+		ImGui::TreePop();*/
+	//}
 }
 
 void Imgui_System::SoundEditor(bool sound_editor)
 {
-	if (!sound_editor)
-		return;
+	//if (!sound_editor)
+	//	return;
 
-	static std::string current_sound = "";
-	
-	// The second parameter is the label previewed before opening the combo.
-	if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) 
-	{
-		for (int n = 0; n < soundList.size(); n++)
-		{
-			// You can store your selection however you want, outside or inside your objects
-			bool is_selected = (current_sound.c_str() == soundList[n].c_str()); 
-			if (ImGui::Selectable(soundList[n].c_str(), is_selected))
-				current_sound = soundList[n].c_str();
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();   
-		}
-		ImGui::EndCombo();
-	}
+	//static std::string current_sound = "";
+	//
+	//// The second parameter is the label previewed before opening the combo.
+	//if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) 
+	//{
+	//	for (int n = 0; n < soundList.size(); n++)
+	//	{
+	//		// You can store your selection however you want, outside or inside your objects
+	//		bool is_selected = (current_sound.c_str() == soundList[n].c_str()); 
+	//		if (ImGui::Selectable(soundList[n].c_str(), is_selected))
+	//			current_sound = soundList[n].c_str();
+	//			if (is_selected)
+	//				ImGui::SetItemDefaultFocus();   
+	//	}
+	//	ImGui::EndCombo();
+	//}
 
-	const std::string current_path = "asset/sounds/";
+	//const std::string current_path = "asset/sounds/";
 
-	if (ImGui::Button("Load SFX"))
-	{
-		AudioManager_.LoadSFX(current_path + current_sound);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("Load Song"))
-	{
-		AudioManager_.LoadSong(current_path + current_sound);
-	}
+	//if (ImGui::Button("Load SFX"))
+	//{
+	//	AudioManager_.LoadSFX(current_path + current_sound);
+	//}
+	//ImGui::SameLine();
+	//if (ImGui::Button("Load Song"))
+	//{
+	//	AudioManager_.LoadSong(current_path + current_sound);
+	//}
 
-	if (ImGui::Button("Play SFX"))
-	{
-		//AudioManager_.PlaySFX(current_path + current_sound,4,4,4,4);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("Play Song"))
-	{
-		AudioManager_.PlaySong(current_path + current_sound);
-	}
+	//if (ImGui::Button("Play SFX"))
+	//{
+	//	//AudioManager_.PlaySFX(current_path + current_sound,4,4,4,4);
+	//}
+	//ImGui::SameLine();
+	//if (ImGui::Button("Play Song"))
+	//{
+	//	AudioManager_.PlaySong(current_path + current_sound);
+	//}
 
-	if(ImGui::Button("Stop SFXs"))
-	{
-		AudioManager_.StopSFXs();
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("Stop Songs"))
-	{
-		AudioManager_.StopSongs();
-	}
+	//if(ImGui::Button("Stop SFXs"))
+	//{
+	//	AudioManager_.StopSFXs();
+	//}
+	//ImGui::SameLine();
+	//if (ImGui::Button("Stop Songs"))
+	//{
+	//	AudioManager_.StopSongs();
+	//}
 }
 
 void Imgui_System::TileEditor(bool tile_editor)
