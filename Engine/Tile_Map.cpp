@@ -23,8 +23,8 @@ void Tile_Map::Make_Tile(std::string image, Tile_Kind kind)
 
 void Tile_Map::Delete_Tile()
 {
-    int tile_x = Input::GetMousePos(Graphics_.camera_zoom).x + TEMP_WIDTH / 2;
-    int tile_y = Input::GetMousePos(Graphics_.camera_zoom).y + TEMP_HEIGHT / 2;
+    int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x) + TEMP_WIDTH / 2;
+    int tile_y = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).y) + TEMP_HEIGHT/2;
 
     if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
     {
@@ -40,7 +40,8 @@ void Tile_Map::Make_Object(std::string& image,int x , int y, vector2 position, T
     tile->SetTranslation({ position });
     tile->SetScale({ static_cast<float>(TILE_SIZE) });
     tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-    tile->AddComponent(new Sprite(image));
+    tile->Add_Init_Component(new Sprite(image));
+
     if (kind == Tile_Kind::Physics)
         physics_tiles.insert(std::pair<int, Object*>((x*TEMP_WIDTH + y) / TILE_SIZE, tile));
     else

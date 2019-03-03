@@ -25,6 +25,7 @@ Creation date: 2018/12/14
 #include "Font.hpp"
 #include "Sound.hpp"
 #include "Application.hpp"
+#include "Tile_Map.hpp"
 
 void level2::Initialize()
 {
@@ -225,6 +226,10 @@ void level2::Update(float dt)
 		JSON_.GetObjectDocument().SetObject();
 		std::cout << "Objects Saved" << std::endl;
 	}
+
+	if (Input::IsKeyTriggered(GLFW_KEY_I))
+		Tile_Map_.Delete_Tile();
+
 
 	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
 	//{

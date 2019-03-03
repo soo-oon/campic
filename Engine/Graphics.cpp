@@ -42,7 +42,7 @@ bool Graphics::Initialize()
 	std::clog << "OpenGL Rendere: " << glGetString(GL_RENDERER) << '\n';
 	std::clog << "OpenGL Version: " << glGetString(GL_VERSION) << "\n\n";
 
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
 
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
@@ -354,54 +354,25 @@ void Graphics::HUD_Draw()
 
 void Graphics::Tile_Draw()
 {
-    if (!Tile_Map_.GetGraphicsTiles().empty())
-    {
-        for (auto it = Tile_Map_.GetGraphicsTiles().begin(); it != Tile_Map_.GetGraphicsTiles().end(); ++it)
-        {
-			if (it->second->GetMesh().IsVisible())
+	if(!Tile_Map_.GetGraphicsTiles().empty())
+	{
+		for (auto it = Tile_Map_.GetGraphicsTiles().begin(); it != Tile_Map_.GetGraphicsTiles().end(); ++it)
+		{
+			if(auto temp_sprite = it->second->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
 			{
-				if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+				sprite.clear();
+				sprite.reserve(it->second->GetMesh().GetTexturePointsCount());
+				for (std::size_t i = 0; i < it->second->GetMesh().GetTexturePointsCount(); ++i)
 				{
-					sprite.clear();
-					sprite.reserve(it->second->GetMesh().GetTexturePointsCount());
-					for (std::size_t i = 0; i < it->second->GetMesh().GetTexturePointsCount(); ++i)
-					{
-						sprite.push_back({
-                                                        it->second->GetMesh().GetPoint(i),
-                                                        it->second->GetMesh().GetTextureCoordinate(i, temp_sprite)
-							});
-					}
-					Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
-                                            it->second->GetMesh().GetColor(0),
-						temp_sprite);
+					sprite.push_back({
+						it->second->GetMesh().GetPoint(i),
+						it->second->GetMesh().GetTextureCoordinate(i, temp_sprite)
+						});
 				}
-				else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
-				{
-					animation.clear();
-					animation.reserve(it->second->GetMesh().GetAnimationPointsCount());
-					for (std::size_t i = 0; i < it->second->GetMesh().GetAnimationPointsCount(); ++i)
-					{
-						animation.push_back({
-                                                        it->second->GetMesh().GetPoint(i),
-                                                        it->second->GetMesh().GetAnimationCoordinate(i, temp_animation)
-							});
-					}
-					Draw(it->second->GetTransform(), animation, it->second->GetMesh().GetPointListType(),
-                                            it->second->GetMesh().GetColor(0),
-						temp_animation->GetCurrentAnimation().sprites);
-				}
-				else if (it->second->GetMesh().GetPointCount())
-				{
-					shapes.clear();
-					shapes.reserve(it->second->GetMesh().GetPointCount());
-					for (std::size_t i = 0; i < it->second->GetMesh().GetPointCount(); ++i)
-					{
-						shapes.push_back({ it->second->GetMesh().GetPoint(i) });
-					}
-					Draw(it->second->GetTransform(), shapes, it->second->GetMesh().GetPointListType(), it->second->GetMesh().GetColor(0));
-				}
+				Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
+					it->second->GetMesh().GetColor(0),temp_sprite);
 			}
-        }
+		}
     }
 }
 
@@ -453,12 +424,9 @@ void Graphics::SetNDC()
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
     affine2d myNDC;
-	affine2d check;
 
 	myNDC = transform.GetModelToWorld();
-	
-	if (transform.GetParent() != nullptr)
-		check = transform.GetModelToWorld();
+
 
     if (temp_camera != nullptr)
     {

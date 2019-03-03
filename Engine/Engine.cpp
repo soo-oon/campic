@@ -24,6 +24,7 @@ Creation date: 2018/12/14
 #include "JSON.hpp"
 #include "HUD.hpp"
 #include "HUD_Level.hpp"
+#include "Tile_Map.hpp"
 
 bool Engine::IsQuit;
 
@@ -47,6 +48,7 @@ void Engine::Update()
 
 		Graphics_.BeginDraw();
 		Graphics_.Draw();
+		Graphics_.Tile_Draw();
 		Graphics_.EndDraw();
 		IMGUI_.Draw();
 
