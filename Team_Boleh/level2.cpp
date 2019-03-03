@@ -67,19 +67,19 @@ void level2::Initialize()
 	font->AddComponent(new Font("1234", "asset/font/default.ttf", Colors::Blue));
 
 	
-    Object* background = new Object();
-    background->SetTranslation({ 0 });
-    background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-    background->SetScale({ 1280.f , 960.f});
-    background->SetDepth(0.99f);
-    background->AddComponent(new Sprite("asset/images/background1.png"));
+    //Object* background = new Object();
+    //background->SetTranslation({ 0 });
+    //background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+    //background->SetScale({ 1280.f , 960.f});
+    //background->SetDepth(0.99f);
+    //background->AddComponent(new Sprite("asset/images/background1.png"));
 
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
 	obj.push_back(font);
-	obj.push_back(background);
+	//obj.push_back(background);
 
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));

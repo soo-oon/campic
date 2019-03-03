@@ -40,6 +40,7 @@
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Tile_Map.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Door.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -78,5 +79,6 @@
     <ClInclude Include="Tile_Map.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="Door.hpp" />
   </ItemGroup>
 </Project>

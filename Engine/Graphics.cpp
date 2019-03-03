@@ -355,51 +355,51 @@ void Graphics::HUD_Draw()
 
 void Graphics::Tile_Draw()
 {
-    if (!Tile_Map_.GetTileObjectes().empty())
+    if (!Tile_Map_.GetGraphicsTiles().empty())
     {
-        for (auto& obj : Tile_Map_.GetTileObjectes())
+        for (auto it = Tile_Map_.GetGraphicsTiles().begin(); it != Tile_Map_.GetGraphicsTiles().end(); ++it)
         {
-			if (obj->GetMesh().IsVisible())
+			if (it->second->GetMesh().IsVisible())
 			{
-				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+				if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
 				{
 					sprite.clear();
-					sprite.reserve(obj->GetMesh().GetTexturePointsCount());
-					for (std::size_t i = 0; i < obj->GetMesh().GetTexturePointsCount(); ++i)
+					sprite.reserve(it->second->GetMesh().GetTexturePointsCount());
+					for (std::size_t i = 0; i < it->second->GetMesh().GetTexturePointsCount(); ++i)
 					{
 						sprite.push_back({
-							obj->GetMesh().GetPoint(i),
-							obj->GetMesh().GetTextureCoordinate(i, temp_sprite)
+                                                        it->second->GetMesh().GetPoint(i),
+                                                        it->second->GetMesh().GetTextureCoordinate(i, temp_sprite)
 							});
 					}
-					Draw(obj->GetTransform(), sprite, obj->GetMesh().GetPointListType(),
-						obj->GetMesh().GetColor(0),
+					Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
+                                            it->second->GetMesh().GetColor(0),
 						temp_sprite);
 				}
-				else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+				else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
 				{
 					animation.clear();
-					animation.reserve(obj->GetMesh().GetAnimationPointsCount());
-					for (std::size_t i = 0; i < obj->GetMesh().GetAnimationPointsCount(); ++i)
+					animation.reserve(it->second->GetMesh().GetAnimationPointsCount());
+					for (std::size_t i = 0; i < it->second->GetMesh().GetAnimationPointsCount(); ++i)
 					{
 						animation.push_back({
-							obj->GetMesh().GetPoint(i),
-							obj->GetMesh().GetAnimationCoordinate(i, temp_animation)
+                                                        it->second->GetMesh().GetPoint(i),
+                                                        it->second->GetMesh().GetAnimationCoordinate(i, temp_animation)
 							});
 					}
-					Draw(obj->GetTransform(), animation, obj->GetMesh().GetPointListType(),
-						obj->GetMesh().GetColor(0),
+					Draw(it->second->GetTransform(), animation, it->second->GetMesh().GetPointListType(),
+                                            it->second->GetMesh().GetColor(0),
 						temp_animation->GetCurrentAnimation().sprites);
 				}
-				else if (obj->GetMesh().GetPointCount())
+				else if (it->second->GetMesh().GetPointCount())
 				{
 					shapes.clear();
-					shapes.reserve(obj->GetMesh().GetPointCount());
-					for (std::size_t i = 0; i < obj->GetMesh().GetPointCount(); ++i)
+					shapes.reserve(it->second->GetMesh().GetPointCount());
+					for (std::size_t i = 0; i < it->second->GetMesh().GetPointCount(); ++i)
 					{
-						shapes.push_back({ obj->GetMesh().GetPoint(i) });
+						shapes.push_back({ it->second->GetMesh().GetPoint(i) });
 					}
-					Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
+					Draw(it->second->GetTransform(), shapes, it->second->GetMesh().GetPointListType(), it->second->GetMesh().GetColor(0));
 				}
 			}
         }
