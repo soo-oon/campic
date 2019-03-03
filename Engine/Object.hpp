@@ -35,6 +35,7 @@ public:
     void SetScale(const vector2& scale);
     void SetRotation(const float& rotation);
     void SetDepth(const float& depth);
+	void SetParent(const Transform* transform_);
     void SetGravity(float gravity_own);
 	void Set_HUD_Object_Size(const vector2 size) { HUD_Object_size = size; }
 

@@ -66,11 +66,11 @@ affine2d Transform::GetTRS()
 
 affine2d Transform::GetWorldToModel() const
 {
-    affine2d trans = build_translation(-translation.x, -translation.y);
-    affine2d scale_ = nonuniform_scale_affine(1 / scale.x, 1 / scale.y);
-    affine2d rotate_ = rotation_affine(-rotation);
+    affine2d trans = build_translation(translation.x, translation.y);
+    affine2d scale_ = nonuniform_scale_affine(scale.x, scale.y);
+    affine2d rotate_ = rotation_affine(rotation);
 
-    affine2d temp = scale_ * rotate_ * trans;
+    affine2d temp = trans * rotate_ * scale_;
 
     const Transform* temp_transform = this;
     if (parent != NULL)
@@ -82,8 +82,7 @@ affine2d Transform::GetWorldToModel() const
             affine2d rotate_parent = rotation_affine(-temp_transform->parent->rotation);
 
             affine2d temp_parent = scale_parent * rotate_parent * trans_parent;
-
-            temp *= temp_parent;
+            temp = temp_parent * temp;
 
             temp_transform = temp_transform->parent;
         }

@@ -35,9 +35,9 @@ void level2::Initialize()
 	temp->SetDepth(0.0f);
 	temp->AddComponent(new RigidBody());
 	temp->AddComponent(new Sprite("asset/images/Dr_Strange.png"));
-	temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	//temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
 	temp->AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
-    temp->AddComponent(new Enemy(MoveType::straight));
+    //temp->AddComponent(new Enemy(MoveType::straight));
 
 	Object* camera = new Object();
 	camera->AddComponent(new Camera(this));
@@ -74,13 +74,21 @@ void level2::Initialize()
     background->SetDepth(0.99f);
     background->AddComponent(new Sprite("asset/images/background1.png"));
 
+	Object* child_obj1 = new Object();
+	child_obj1->SetTranslation({ 0,50 });
+	child_obj1->SetMesh(mesh::CreateBox(1, Colors::White));
+	child_obj1->SetDepth(-0.1f);
+	child_obj1->SetScale(150);
+	child_obj1->AddComponent(new Sprite("asset/images/life.png"));
+	child_obj1->SetParent(&GetPlayerPointer()->GetTransform());
+
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
 	obj.push_back(font);
 	obj.push_back(background);
-
+	obj.push_back(child_obj1);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
@@ -286,6 +294,7 @@ void level2::Update(float dt)
 
 void level2::ShutDown()
 {
+	obj.clear();
 	UnLoad();
 }
 

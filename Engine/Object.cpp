@@ -53,6 +53,16 @@ void Object::SetDepth(const float& depth)
     transform.SetDepth(depth);
 }
 
+void Object::SetParent(const Transform* transform_)
+{
+	transform.SetParent(transform_);
+
+	//arctan --> atan2
+	auto temp = transform.GetWorldToModel();
+	transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
+	transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
+}
+
 void Object::SetGravity(float gravity_own)
 {
 	gravity = gravity_own;

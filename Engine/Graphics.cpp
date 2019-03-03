@@ -21,7 +21,6 @@ Creation date: 2018/12/14
 #include "Camera.hpp"
 #include "State.hpp"
 #include <iostream>
-#include "Engine.hpp"
 #include "Particle_Generator.hpp"
 #include "HUD.hpp"
 #include "Mesh.hpp"
@@ -43,7 +42,7 @@ bool Graphics::Initialize()
 	std::clog << "OpenGL Rendere: " << glGetString(GL_RENDERER) << '\n';
 	std::clog << "OpenGL Version: " << glGetString(GL_VERSION) << "\n\n";
 
-    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
 
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
@@ -454,12 +453,16 @@ void Graphics::SetNDC()
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
     affine2d myNDC;
+	affine2d check;
 
-    myNDC = transform.GetModelToWorld();
+	myNDC = transform.GetModelToWorld();
+	
+	if (transform.GetParent() != nullptr)
+		check = transform.GetModelToWorld();
 
     if (temp_camera != nullptr)
     {
-        myNDC = projection * temp_camera->WorldToCamera() * myNDC;
+    	myNDC = projection * temp_camera->WorldToCamera() * myNDC;
     }
     else
     {
@@ -482,10 +485,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
     }
     else
     {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
+    	to_ndc = projection * transform.GetModelToWorld();
     }
 
     Solidshader.SendUniformVariable("transform", to_ndc);
@@ -515,10 +515,7 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
     }
     else
     {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
+    	to_ndc = projection * transform.GetModelToWorld();
     }
 
     Solidshader.SendUniformVariable("transform", to_ndc);
@@ -542,17 +539,14 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 
 	Shader::UseShader(Spriteshader);
 
-    if (temp_camera != nullptr)
-    {
-        to_ndc = CalculateModelToNDCTransform(transform);
-    }
-    else
-    {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
-    }
+	if (temp_camera != nullptr)
+	{
+		to_ndc = CalculateModelToNDCTransform(transform);
+	}
+	else
+	{
+		to_ndc = projection * transform.GetModelToWorld();
+	}
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
@@ -560,9 +554,6 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
         sprite->Bind(texture_slot);
         lastBoundTexture = sprite->GetTextureHandler();
     }
-
-	if (color.Alpha < 20)
-		int a = 5;
 
     Spriteshader.SendUniformVariable("transform", to_ndc);
     Spriteshader.SendUniformVariable("depth", transform.GetDepth());
@@ -584,18 +575,14 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
 
 	Shader::UseShader(Spriteshader);
 
-    if (temp_camera != nullptr)
-    {
-        to_ndc = CalculateModelToNDCTransform(transform);
-    }
-    else
-    {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
-    }
-
+	if (temp_camera != nullptr)
+	{
+		to_ndc = CalculateModelToNDCTransform(transform);
+	}
+	else
+	{
+		to_ndc = projection * transform.GetModelToWorld();
+	}
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
     {
@@ -623,17 +610,14 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 
 	Shader::UseShader(Particleshader);
 
-    if (temp_camera != nullptr)
-    {
-        to_ndc = CalculateModelToNDCTransform(transform);
-    }
-    else
-    {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
-    }
+	if (temp_camera != nullptr)
+	{
+		to_ndc = CalculateModelToNDCTransform(transform);
+	}
+	else
+	{
+		to_ndc = projection * transform.GetModelToWorld();
+	}
 
     const int texture_slot = 0;
     if (lastBoundTexture != sprite->GetTextureHandler())
@@ -661,17 +645,14 @@ void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexe
 
 	Shader::UseShader(Fontshader);
 
-    if (temp_camera != nullptr)
-    {
-        to_ndc = CalculateModelToNDCTransform(transform);
-    }
-    else
-    {
-        if (transform.GetParent() == nullptr)
-            to_ndc = projection * transform.GetModelToWorld();
-        else
-            to_ndc = projection * transform.GetWorldToModel();
-    }
+	if (temp_camera != nullptr)
+	{
+		to_ndc = CalculateModelToNDCTransform(transform);
+	}
+	else
+	{
+		to_ndc = projection * transform.GetModelToWorld();
+	}
 
 	const int texture_slot = 0;
 

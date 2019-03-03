@@ -82,4 +82,5 @@ void SplashScreen::Update(float dt)
 
 void SplashScreen::ShutDown()
 {
+	UnLoad();
 }
