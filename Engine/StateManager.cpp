@@ -61,7 +61,7 @@ void StateManager::ChangeStage()
 {
 	std::string next_level = m_currentState->GetNextLevel();
 
-	m_currentState->UnLoad();
+	m_currentState->ShutDown();
 	m_currentState->ResetLevelChange();
 	m_currentState = states.find(next_level)->second.get();
 

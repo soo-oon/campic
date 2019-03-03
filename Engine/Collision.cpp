@@ -22,6 +22,7 @@ bool Collision::Initialize(Object* Ob)
 {
 	object = Ob;
 
+	collision_transform.SetDepth(Ob->GetTransform().GetDepth());
 	collision_mesh = mesh::CreateCollisionBox(type);
 
 	return true;

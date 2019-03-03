@@ -40,6 +40,7 @@ public:
 	Color GetFontColor() { return m_color; }
 
 private:
+	void MakeFontMesh();
 	void LoadFontData();
 	std::vector<Mesh> font_mesh;
 	std::unordered_map<GLchar, Character> characters;

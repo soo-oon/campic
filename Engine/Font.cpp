@@ -9,6 +9,7 @@ bool Font::Initialize(Object * Ob)
 		object = Ob;
 	}
 	LoadFontData();
+	MakeFontMesh();
 	return true;
 }
 
@@ -19,6 +20,7 @@ void Font::Update(float dt)
 void Font::Delete()
 {
 }
+
 
 void Font::LoadFontData()
 {
@@ -63,7 +65,10 @@ void Font::LoadFontData()
 
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
+}
 
+void Font::MakeFontMesh()
+{
 	auto obj_position = object->GetTransform().GetTranslation();
 	font_mesh.clear();
 	for (auto c : text)
@@ -78,19 +83,19 @@ void Font::LoadFontData()
 		GLfloat w = ch.size.x;
 		GLfloat h = ch.size.y;
 
-		temp.AddPoint({ xpos, ypos+h });
+		temp.AddPoint({ xpos, ypos + h });
 		temp.AddTextureCoordinate({ 0, 0 });
 
 		temp.AddPoint({ xpos, ypos });
 		temp.AddTextureCoordinate({ 0, 1 });
 
-		temp.AddPoint({ xpos + w, ypos});
+		temp.AddPoint({ xpos + w, ypos });
 		temp.AddTextureCoordinate({ 1,1 });
 
 		temp.AddPoint({ xpos, ypos + h });
 		temp.AddTextureCoordinate({ 0, 0 });
 
-		temp.AddPoint({ xpos + w, ypos});
+		temp.AddPoint({ xpos + w, ypos });
 		temp.AddTextureCoordinate({ 1, 1 });
 
 		temp.AddPoint({ xpos + w, ypos + h });
@@ -109,7 +114,7 @@ void Font::LoadFontData()
 void Font::SetText(std::string text_)
 {
 	text = text_;
-	LoadFontData();
+	MakeFontMesh();
 }
 
 void Font::SetPath(std::string path_)
