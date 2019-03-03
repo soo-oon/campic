@@ -43,6 +43,7 @@ void Engine::Update()
     {
         dt = (float)gameTimer.GetElapsedSeconds();
         gameTimer.Reset();
+
 		System_Update();
 
 		Graphics_.BeginDraw();
@@ -71,8 +72,8 @@ void Engine::System_Initialize()
 	IMGUI_.Initialize();
 	AudioManager_.Initialize();
 	Physics_.Initialize();
-	JSON_.Initialize();
  	HUD_.Initialize(new HUD_Level());
+	JSON_.Initialize();
 
 	//TODO make new HUD structure 
 	
@@ -88,9 +89,9 @@ void Engine::System_Update()
 	AudioManager_.Update(dt);
 	JSON_.Update(dt);
 	HUD_.Update(dt);
+	Physics_.Update(dt);
 
 	// Should Fix All of Update ways (Should Fix Physics class structure)
-	Physics_.Update(dt);
 
 	//TODO make new HUD structure 
 }

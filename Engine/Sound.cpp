@@ -17,12 +17,12 @@ void Sound::Delete()
 
 void Sound::Play(std::string path)
 {
-	AudioManager_.PlaySFX(audio_source + path, volume);
+	AudioManager_.PlaySFX(path, volume);
 }
 
 void Sound::AddSound(std::string path_)
 {
-	paths.push_back(audio_source + path_);
+	paths.push_back(path_);
 	AudioManager_.LoadSFX(path_);
 }
 

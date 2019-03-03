@@ -43,6 +43,7 @@ public:
 
 	void Draw();
 	void Editor(bool show_window);
+	void ObjectCreator(bool object_creator);
 	void ObjectEditor(bool object_editor);
 	void SoundEditor(bool sound_editor);
 
@@ -57,27 +58,29 @@ private:
 	GLFWwindow* window = nullptr;
 	
 	bool show_window = false;
+	bool object_creator = false;
 	bool object_editor = false;
 	bool sound_editor = false;
 	bool tile_editor = false;
 
 	std::vector<std::string> imageList;
+	std::vector<std::string> enemyList;
 	std::vector<std::string> soundList;
 	std::vector<std::string> tileList;
 
 	std::unordered_map<std::string,ImTextureID> tile_buttons;
+	std::unordered_map<std::string, ImTextureID> enemy_buttons;
 
 	std::string image_path;
 	std::string sound_path;
 	std::string tile_path;
 
 	std::string image_dir = "asset/images/";
+	std::string enemy_dir = "asset/images/Enemies/";
 	std::string sound_dir = "asset/sounds/";
 	std::string tile_dir = "asset/images/Tiles/";
 
 	ImGuiID tile_selected = 0;
-
-	std::vector<Object*> tiles;
 
 	Object* selectObj = nullptr;
 };

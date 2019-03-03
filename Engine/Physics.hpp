@@ -46,6 +46,8 @@ public:
         // This function return true if object is out of window area. 
         bool OutOfCheckBoundary(Object* object);
 
+
+
 private:
 	//Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;

@@ -46,7 +46,7 @@ void level2::Initialize()
 	card->SetTranslation({300, 300});
 	card->SetScale({24.f, 30.f});
 	card->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
-	card->AddComponent(new Card("Red"));
+	//card->AddComponent(new Card("Red"));
 	card->AddComponent(new Sprite("asset/images/red_soul.png"));
 	card->AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
 	card->AddComponent(new Status(ObjectType::Item));
@@ -55,18 +55,16 @@ void level2::Initialize()
 	card1->SetTranslation({250, -250});
 	card1->SetScale({24.f, 30.f});
 	card1->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
-	card1->AddComponent(new Card("Blue"));
+	//card1->AddComponent(new Card("Blue"));
 	card1->AddComponent(new Sprite("asset/images/blue_soul.png"));
 	card1->AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
 	card1->AddComponent(new Status(ObjectType::Item));
 
-
-	Object* font = new Object();
+	/*Object* font = new Object();
 	font->SetTranslation({ 50, 0 });
 	font->SetDepth(0.0f);
-	font->AddComponent(new Font("1234", "asset/font/default.ttf", Colors::Blue));
+	font->AddComponent(new Font("1234", "asset/font/default.ttf", Colors::Blue));*/
 
-	
     Object* background = new Object();
     background->SetTranslation({ 0 });
     background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
@@ -78,9 +76,8 @@ void level2::Initialize()
 	obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
-	obj.push_back(font);
+	//obj.push_back(font);
 	obj.push_back(background);
-
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
@@ -88,13 +85,12 @@ void level2::Initialize()
 	                                                                             {10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
 	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
 
-
 	for(auto i : obj)
 	{
 		Objectmanager_.AddObject(i);
 	}
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
+	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
 
 
@@ -200,7 +196,7 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {
-	obj[4]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
+	//obj[4]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
@@ -217,16 +213,16 @@ void level2::Update(float dt)
 		std::cout << "Objects Saved" << std::endl;
 	}
 
-	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
-	//{
-	//	for (auto& obj : Objectmanager_.GetObjectMap())
-	//	{
-	//		JSON_.ObjectsToDocument(obj.get());
-	//	}
-	//	JSON_.LoadObjectFromJson();
-	//	//JSON_.GetObjectDocument().SetObject();
-	//	std::cout << "Objects Loaded" << std::endl;
-	//}
+	if (Input::IsKeyTriggered(GLFW_KEY_F2))
+	{
+		for (auto& obj : Objectmanager_.GetObjectMap())
+		{
+			JSON_.ObjectsToDocument(obj.get());
+		}
+		JSON_.LoadObjectFromJson();
+		//JSON_.GetObjectDocument().SetObject();
+		std::cout << "Objects Loaded" << std::endl;
+	}
 
     if (Input::IsKeyTriggered(GLFW_KEY_Y))
     {
