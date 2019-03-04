@@ -14,7 +14,7 @@ Creation date: 2018/12/14
 */
 #include "control_angle.hpp"
 
-float Make_Angle_Degree(float a)
+float To_Degree(float a)
 {
 
     if (a == -1 + epsilon)
@@ -31,7 +31,7 @@ float Make_Angle_Degree(float a)
     return a;
 }
 
-float Making_Radian(float a)
+float To_Radian(float a)
 {
     return (a*PI) / 180.0f;
 }

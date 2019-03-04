@@ -9,6 +9,8 @@ void Tile_Map::Make_Tile(std::string image, Tile_Kind kind)
     int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x + TEMP_WIDTH/2);
     int tile_y = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).y + TEMP_HEIGHT/2);
 
+	std::cout << tile_x << ", " << tile_y << std::endl;
+
     vector2 tile_position = {0};
 
     if (!tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])

@@ -167,5 +167,5 @@ float Angle_Between_Vector(vector3 v1, vector3 v2)
 {
     float a = dot(v1, v2) / (magnitude(v1)*magnitude(v2));
 
-    return Make_Angle_Degree(a);
+    return To_Degree(a);
 }
