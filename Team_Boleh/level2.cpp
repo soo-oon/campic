@@ -74,12 +74,12 @@ void level2::Initialize()
 	child_obj1->AddComponent(new Sprite("asset/images/life.png"));
 	child_obj1->SetParent(&GetPlayerPointer()->GetTransform());
 
-    Object* background = new Object();
-    background->SetTranslation({ 0 });
-    background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-    background->SetScale({ 1280.f , 960.f});
-    background->SetDepth(0.99f);
-    background->AddComponent(new Sprite("asset/images/background1.png"));
+    //Object* background = new Object();
+    //background->SetTranslation({ 0 });
+    //background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+    //background->SetScale({ 1280.f , 960.f});
+    //background->SetDepth(0.99f);
+    //background->AddComponent(new Sprite("asset/images/background1.png"));
 
 	obj.push_back(temp);
 	obj.push_back(camera);
@@ -87,7 +87,7 @@ void level2::Initialize()
 	obj.push_back(card1);
 	obj.push_back(font);
 	obj.push_back(child_obj1);
-	obj.push_back(background);
+	//obj.push_back(background);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
