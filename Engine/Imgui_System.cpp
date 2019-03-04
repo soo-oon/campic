@@ -133,7 +133,7 @@ void Imgui_System::Update(float dt)
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
 				Tile_Map_.Make_Tile(tile_path, Tile_Kind::Graphics);
-                                std::cout << Tile_Map_.GetGraphicsTiles().size() << std::endl;
+                                //std::cout << Tile_Map_.GetGraphicsTiles().size() << std::endl;
 			}
 			non_ani_tile_selected = true;
 			ani_tile_selected = false;
