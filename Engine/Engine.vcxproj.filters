@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Application.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
@@ -41,10 +40,12 @@
     <ClCompile Include="Tile_Map.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Application.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
-    <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Card.hpp" />
@@ -80,5 +81,13 @@
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Door.hpp" />
+    <ClInclude Include="Application.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{33a5b682-4e4f-4f2a-ab62-3ebeb5f6433a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
