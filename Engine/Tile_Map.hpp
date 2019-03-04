@@ -23,10 +23,17 @@ public:
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicsTiles() { return physics_tiles; }
     void Make_Tile(std::string image, Tile_Kind kind);
+	void Make_Ani_Tile(std::string image, Tile_Kind kind);
     void Delete_Tile();
+	void Delete_Ani_Tile();
 private:
+<<<<<<< HEAD
 	void Make_Object(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
 	void Make_Ani_Object(std::string & image, int x, int y, vector2 position, Tile_Kind kind);
+=======
+	void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
+	void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
+>>>>>>> tw
 
     std::unordered_map<int, Object*> graphics_tiles;
     std::unordered_map<int, Object*> physics_tiles;
