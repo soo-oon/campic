@@ -14,12 +14,13 @@ Creation date: 2018/12/14
 */
 
 #include "Object.hpp"
-
+#include "control_angle.hpp"
+#include <iostream>
+//#include <iostream>
 
 void Object::AddComponent(Component* component)
 {
     components.push_back(component);
-    //component->Initialize(this);
 }
 
 void Object::Add_Init_Component(Component* component)
@@ -59,6 +60,10 @@ void Object::SetParent(const Transform* transform_)
 
 	//arctan --> atan2
 	auto temp = transform.GetWorldToModel();
+	affine2d rotate_ = rotation_affine(-transform.GetRotation());
+
+	temp *= rotate_;
+
 	transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
 	transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
 }

@@ -162,8 +162,8 @@ matrix2 rotation(float degree)
 {
     matrix2 m;
 
-    float cos_value = cos(Making_Radian(degree));
-    float sin_value = sin(Making_Radian(degree));
+    float cos_value = cos(To_Radian(degree));
+    float sin_value = sin(To_Radian(degree));
 
     m.matrix[0][0] = cos_value;
     m.matrix[0][1] = -sin_value;

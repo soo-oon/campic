@@ -21,6 +21,6 @@ const float PI = 4.0f * std::atan(1.0f);
 const float epsilon = std::numeric_limits<float>::epsilon();
 
 
-float Make_Angle_Degree(float a);
+float To_Degree(float a);
 
-float Making_Radian(float a);
+float To_Radian(float a);

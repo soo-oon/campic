@@ -146,8 +146,8 @@ affine2d rotation_affine(float degree)
 {
     affine2d c;
 
-    float cos_value = cos(Making_Radian(degree));
-    float sin_value = sin(Making_Radian(degree));
+    float cos_value = cos(To_Radian(degree));
+    float sin_value = sin(To_Radian(degree));
 
     c.affine[0][0] = cos_value;
     c.affine[0][1] = -sin_value;
