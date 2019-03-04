@@ -62,16 +62,25 @@ bool Imgui_System::Initialize()
 		soundList.push_back(p.path().filename().string());
 	}
 	//Tile list in project directory
-	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles"))
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Non_Ani"))
 	{
-		tileList.push_back(tile_dir + p.path().filename().string());
+		non_ani_tileList.push_back(non_ani_tile_dir + p.path().filename().string());
+	}
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Ani"))
+	{
+		ani_tileList.push_back(ani_tile_dir + p.path().filename().string());
 	}
 
 	// Add texture into imgui
-	for (auto& temp : tileList)
+	for (auto& temp : non_ani_tileList)
 	{
 		auto texture = ImageHelper(temp);
-		tile_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
+		non_ani_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
+	}
+	for (auto& temp : ani_tileList)
+	{
+		auto texture = ImageHelper(temp);
+		ani_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
 	for(auto& temp : enemyList)
@@ -90,6 +99,8 @@ void Imgui_System::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
 	{
 		show_window = !show_window;
+		if (!show_window)
+			imgui_key_call_back = false;
 	}
 
 	if (show_window)
@@ -103,7 +114,10 @@ void Imgui_System::Update(float dt)
 					Input::GetMousePos(1.f).y < obj->get()->GetTransform().GetTranslation().y + obj->get()->GetTransform().GetScale().y &&
 					Input::GetMousePos(1.f).y > obj->get()->GetTransform().GetTranslation().y - obj->get()->GetTransform().GetScale().y
 					)
+				{
 					selectObj = obj->get();
+					imgui_key_call_back = true;
+				}
 			}
 		}
 
@@ -111,16 +125,29 @@ void Imgui_System::Update(float dt)
 		{
 			if (selectObj)
 				selectObj->SetTranslation(Input::GetMousePos(1.f));
+			//imgui_key_call_back = false;
 		}
 
-		if (tile_selected == 0)
+		if (!non_ani_tile_selected)
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
 				Tile_Map_.Make_Tile(tile_path, Tile_Kind::Graphics);
                                 std::cout << Tile_Map_.GetGraphicsTiles().size() << std::endl;
 			}
-			tile_selected = 1;
+			non_ani_tile_selected = true;
+			ani_tile_selected = false;
+		}
+
+		if (!ani_tile_selected)
+		{
+			if (Input::IsKeyPressed(GLFW_KEY_G))
+			{
+				Tile_Map_.Make_Tile(tile_path, Tile_Kind::Graphics);
+				std::cout << Tile_Map_.GetGraphicsTiles().size() << std::endl;
+			}
+			non_ani_tile_selected = false;
+			ani_tile_selected = true;
 		}
 	}
 }
@@ -205,44 +232,10 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (!object_creator)
 		return;
 
-	//if (ImGui::ImageButton(enemy_buttons.find("asset/images/Enemies/boss.png")->second, ImVec2(50, 50)))
-	//{
-	//	if (ImGui::IsItemActive())
-	//	{
-	//		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	//	}
+	ImGui::Text("Enemy");
+	ImGui::Separator();
 
-	//	if (ImGui::IsItemDeactivated())
-	//	{
-	//		Object* obj = new Object;
-	//		obj->SetScale({ 100.f,100.f });
-	//		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
-	//		obj->SetDepth(0);
-	//		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-	//		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));
-
-	//		Objectmanager_.AddObject(obj);
-	//	}
-	//}
-	ImGui::Button("Create Boss");
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
-
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* obj = new Object;
-		obj->SetScale({ 100.f,100.f });
-		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
-		obj->SetDepth(0);
-		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));
-
-		Objectmanager_.AddObject(obj);
-	}
-
-	ImGui::Button("Create Slime");
+	ImGui::Button("Slime");
 
 	if (ImGui::IsItemActive())
 	{
@@ -260,7 +253,9 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(obj);
 	}
 
-	ImGui::Button("Create Scorpion");
+	ImGui::SameLine();
+
+	ImGui::Button("Scorpion");
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -277,6 +272,27 @@ void Imgui_System::ObjectCreator(bool object_creator)
 
 		Objectmanager_.AddObject(obj);
 	}
+
+	ImGui::Text("Boss");
+	ImGui::Separator();
+
+	ImGui::Button("Boss");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* obj = new Object;
+		obj->SetScale({ 100.f,100.f });
+		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		obj->SetDepth(0);
+		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));
+
+		Objectmanager_.AddObject(obj);
+	}
 }
 
 void Imgui_System::ObjectEditor(bool object_editor)
@@ -288,6 +304,9 @@ void Imgui_System::ObjectEditor(bool object_editor)
 		return;
 
 	selectObj->GetTransform().Imgui_Transform();
+
+	if(selectObj->GetComponentByTemplate<Animation>() != nullptr)
+		selectObj->GetComponentByTemplate<Animation>()->Imgui_Animation();
 
 	SpriteHelper();
 
@@ -452,15 +471,19 @@ void Imgui_System::TileEditor(bool tile_editor)
 	if (!tile_editor)
 		return;
 
-	tile_selected = ImGui::GetActiveID();
-	int i = 1;
+	/*ani_tile_selected = ImGui::GetActiveID();
+	non_ani_tile_selected = ImGui::GetActiveID();*/
 
-	for (auto& temp : tile_buttons)
+	int i = 1, j = 1;
+
+	ImGui::Text("Non-Animated Tiles");
+	ImGui::Separator();
+
+	for (auto& temp : non_ani_tileList_buttons)
 	{
-		//auto texture = TileHelper(temp);
 		if(ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
+			non_ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
 		}
 
@@ -470,6 +493,28 @@ void Imgui_System::TileEditor(bool tile_editor)
 			i = 0;
 		i++;
 	}
+
+	ImGui::Spacing();
+	ImGui::Separator();
+	ImGui::Text("Animated Tiles");
+
+	for (auto& temp : ani_tileList_buttons)
+	{
+		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
+		{
+			ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
+			tile_path = temp.first;
+		}
+
+		if (j != 8)
+			ImGui::SameLine();
+		else
+			j = 0;
+		j++;
+	}
+
+
+
 }
 
 GLuint Imgui_System::ImageHelper(std::string path)

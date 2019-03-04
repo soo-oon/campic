@@ -31,8 +31,12 @@ class JSON
 {
 public:
 	bool Initialize();
-	void Update(float dt);
+	void Update(float /*dt*/);
 	void Quit();
+
+	//Player
+	void PlayerToDoc(Object* obj);
+
 
 	//Objects
 	void ObjectsToDocument(Object* obj);
@@ -52,9 +56,11 @@ public:
 	Value ComponentFont(Object* obj);
 
 	Document& GetObjectDocument() { return ObjectDocument; }
+	Document& GetPlayerDocument() { return PlayerDocument; }
 
 private:
 	Document ObjectDocument;
+	Document PlayerDocument;
 	StringBuffer ObjectBuffer;
 
 	std::string file_path = "asset/JsonFiles/";

@@ -25,15 +25,6 @@ Creation date: 2018/12/14
 #include <string>
 #include <unordered_map>
 
-enum class ComponentType
-{
-	Animation,
-	Sprite,
-	Character,
-	RigidBody,
-	Collision
-};
-
 class Imgui_System
 {
 public:
@@ -50,11 +41,14 @@ public:
 	void TileEditor(bool tile_editor);
 	GLuint ImageHelper(std::string path);
 
+	bool GetKeyCallBack() { return imgui_key_call_back; }
+
 	// Helper
 	void SpriteHelper();
 	void SoundHelper();
 
 private:
+	bool imgui_key_call_back = false;
 	GLFWwindow* window = nullptr;
 	
 	bool show_window = false;
@@ -66,9 +60,11 @@ private:
 	std::vector<std::string> imageList;
 	std::vector<std::string> enemyList;
 	std::vector<std::string> soundList;
-	std::vector<std::string> tileList;
+	std::vector<std::string> ani_tileList;
+	std::vector<std::string> non_ani_tileList;
 
-	std::unordered_map<std::string,ImTextureID> tile_buttons;
+	std::unordered_map<std::string,ImTextureID> ani_tileList_buttons;
+	std::unordered_map<std::string, ImTextureID> non_ani_tileList_buttons;
 	std::unordered_map<std::string, ImTextureID> enemy_buttons;
 
 	std::string image_path;
@@ -78,9 +74,11 @@ private:
 	std::string image_dir = "asset/images/";
 	std::string enemy_dir = "asset/images/Enemies/";
 	std::string sound_dir = "asset/sounds/";
-	std::string tile_dir = "asset/images/Tiles/";
+	std::string ani_tile_dir = "asset/images/Tiles/Ani/";
+	std::string non_ani_tile_dir = "asset/images/Tiles/Non_Ani/";
 
-	ImGuiID tile_selected = 0;
+	ImGuiID ani_tile_selected = false;
+	ImGuiID non_ani_tile_selected = false;
 
 	Object* selectObj = nullptr;
 };

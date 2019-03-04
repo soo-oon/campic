@@ -21,6 +21,7 @@ Creation date: 2018/12/14
 #include <memory>
 #include <string>
 #include "imgui_impl_glfw.h"
+#include "Imgui_System.hpp"
 
 Application Application_;
 
@@ -219,7 +220,10 @@ namespace
 
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
     {
-        Input::SetMousePressed(button, action);
+		if(IMGUI_.GetKeyCallBack())
+       		ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
+		else
+			Input::SetMousePressed(button, action);
     }
 
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)

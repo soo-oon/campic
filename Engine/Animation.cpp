@@ -80,7 +80,13 @@ void Animation::ChangeAnimation(std::string ID, std::string original_ID)
 
 void Animation::Imgui_Animation()
 {	
-	//ImGui::SliderFloat("update_frame", &update_frame, 0.2f, 0.3f);
-	//ImGui::SliderInt("image frame", &image_frame, 0, 20);
-	//ImGui::SliderFloat("frame_per_second", &frame_per_second, 0.1f, 0.2f);
+	if (ImGui::TreeNode("Animation"))
+	{
+		ImGui::InputFloat("update_frame", &current_animation.update_frames, 0.f, 1.f);
+		ImGui::InputInt("image frame", &current_animation.image_frames, 0, 20);
+
+		ImGui::TreePop();
+	}
+
+	
 }

@@ -23,6 +23,14 @@ void JSON::Quit()
 {
 }
 
+void JSON::PlayerToDoc(Object* obj)
+{
+	//Trees for player info
+	Value playerTree(kArrayType);
+
+
+}
+
 void JSON::ObjectsToDocument(Object* obj)
 {
 	//Trees for object info
@@ -56,7 +64,9 @@ void JSON::ObjectsToDocument(Object* obj)
 
 	if (obj->GetComponentByTemplate<Status>() != nullptr)
 	{
-		objStatusTree = ComponentStatus(obj);
+		//Save objects that is not player
+		if(obj->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player)
+			objStatusTree = ComponentStatus(obj);
 		if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
 		{
 			objCameraTree = ComponentCamera(obj);

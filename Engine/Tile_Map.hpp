@@ -26,10 +26,12 @@ public:
     void Delete_Tile();
 private:
 	void Make_Object(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
-	void Make_Ani_Object(std::string& image, vector2 position);
+	void Make_Ani_Object(std::string & image, int x, int y, vector2 position, Tile_Kind kind);
 
     std::unordered_map<int, Object*> graphics_tiles;
     std::unordered_map<int, Object*> physics_tiles;
+
+	int m_number = 0;
 
     bool tile_grid[TEMP_WIDTH / TILE_SIZE][TEMP_HEIGHT / TILE_SIZE] = { false };
     

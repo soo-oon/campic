@@ -74,7 +74,6 @@ void Object::SetGravity(float gravity_own)
 }
 
 
-
 float Object::GetGravity()
 {
 	return gravity;
