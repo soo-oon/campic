@@ -10,10 +10,10 @@ const int TILE_SIZE = 64;
 const int TEMP_WIDTH = 12800;
 const int TEMP_HEIGHT = 10240;
 
-enum class Tile_Kind
+enum class Tile_Type
 {
-    Physics,
-    Graphics
+    Physical,
+    Graphical
 };
 
 
@@ -22,18 +22,14 @@ class Tile_Map
 public:
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicsTiles() { return physics_tiles; }
-    void Make_Tile(std::string image, Tile_Kind kind);
-	void Make_Ani_Tile(std::string image, Tile_Kind kind);
+    void Make_Tile(std::string image, Tile_Type type);
+	void Make_Ani_Tile(std::string image, Tile_Type type);
     void Delete_Tile();
 	void Delete_Ani_Tile();
+
 private:
-<<<<<<< HEAD
-	void Make_Object(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
-	void Make_Ani_Object(std::string & image, int x, int y, vector2 position, Tile_Kind kind);
-=======
-	void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
-	void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
->>>>>>> tw
+	void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
+	void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
 
     std::unordered_map<int, Object*> graphics_tiles;
     std::unordered_map<int, Object*> physics_tiles;

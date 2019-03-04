@@ -220,9 +220,9 @@ namespace
 
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
     {
-		if(IMGUI_.GetKeyCallBack())
+	/*	if(IMGUI_.GetKeyCallBack())
        		ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
-		else
+		else*/
 			Input::SetMousePressed(button, action);
     }
 

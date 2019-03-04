@@ -372,6 +372,22 @@ void Graphics::Tile_Draw()
 				Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
 					it->second->GetMesh().GetColor(0),temp_sprite);
 			}
+
+			/*else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+			{
+				animation.clear();
+				animation.reserve(it->second->GetMesh().GetAnimationPointsCount());
+				for (std::size_t i = 0; i < it->second->GetMesh().GetAnimationPointsCount(); ++i)
+				{
+					animation.push_back({
+						it->second->GetMesh().GetPoint(i),
+						it->second->GetMesh().GetAnimationCoordinate(i, temp_animation)
+						});
+				}
+				Draw(it->second->GetTransform(), animation, it->second->GetMesh().GetPointListType(),
+					it->second->GetMesh().GetColor(0),
+					temp_animation->GetCurrentAnimation().sprites);
+			}*/
 		}
     }
 }

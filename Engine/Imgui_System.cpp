@@ -128,26 +128,19 @@ void Imgui_System::Update(float dt)
 			//imgui_key_call_back = false;
 		}
 
-		if (!non_ani_tile_selected)
+		if (is_normal_tile)
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				Tile_Map_.Make_Tile(tile_path, Tile_Kind::Graphics);
-                                //std::cout << Tile_Map_.GetGraphicsTiles().size() << std::endl;
+				Tile_Map_.Make_Tile(tile_path, Tile_Type::Graphical);
 			}
-			non_ani_tile_selected = true;
-			ani_tile_selected = false;
 		}
-
-		if (!ani_tile_selected)
+		else
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				Tile_Map_.Make_Tile(tile_path, Tile_Kind::Graphics);
-				std::cout << Tile_Map_.GetGraphicsTiles().size() << std::endl;
+				Tile_Map_.Make_Ani_Tile(tile_path, Tile_Type::Graphical);
 			}
-			non_ani_tile_selected = false;
-			ani_tile_selected = true;
 		}
 	}
 }
@@ -471,10 +464,8 @@ void Imgui_System::TileEditor(bool tile_editor)
 	if (!tile_editor)
 		return;
 
-	/*ani_tile_selected = ImGui::GetActiveID();
-	non_ani_tile_selected = ImGui::GetActiveID();*/
-
-	int i = 1, j = 1;
+	int i = 1;
+	int j = 1;
 
 	ImGui::Text("Non-Animated Tiles");
 	ImGui::Separator();
@@ -483,8 +474,9 @@ void Imgui_System::TileEditor(bool tile_editor)
 	{
 		if(ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			non_ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
+			//non_ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
+			is_normal_tile = true;
 		}
 
 		if (i != 8)
@@ -502,8 +494,9 @@ void Imgui_System::TileEditor(bool tile_editor)
 	{
 		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
+			//ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
+			is_normal_tile = false;
 		}
 
 		if (j != 8)

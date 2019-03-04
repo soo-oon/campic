@@ -22,9 +22,11 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include "prettywriter.h"
 #include "StateManager.hpp"
+#include "Tile_Map.hpp"
 #include "State.hpp"
 #include <map>
 
+enum class Tile_Type;
 using namespace rapidjson;
 
 class JSON
@@ -37,12 +39,17 @@ public:
 	//Player
 	void PlayerToDoc(Object* obj);
 
-
 	//Objects
 	void ObjectsToDocument(Object* obj);
 	void SaveObjectsToJson();
 	void LoadObjectFromJson();
 	Document LoadObjectDocumentFromJson();
+
+	//Tiles
+	void TilesToDocument(int grid_, Object * obj, Tile_Type type);
+	void SaveTilesToJson(Tile_Type type);
+	void LoadTilesFromJson();
+	Document LoadTilesDocumentFromJson();
 
 	//Helper class
 	Value ComponentAnimation(Object* obj);
@@ -56,12 +63,16 @@ public:
 	Value ComponentFont(Object* obj);
 
 	Document& GetObjectDocument() { return ObjectDocument; }
-	Document& GetPlayerDocument() { return PlayerDocument; }
+	//Document& GetPlayerDocument() { return PlayerDocument; }
+	Document& GetTileDocument() { return TileDocument; }
 
 private:
 	Document ObjectDocument;
-	Document PlayerDocument;
+	//Document PlayerDocument;
+	Document TileDocument;
+
 	StringBuffer ObjectBuffer;
+	StringBuffer TileBuffer;
 
 	std::string file_path = "asset/JsonFiles/";
 

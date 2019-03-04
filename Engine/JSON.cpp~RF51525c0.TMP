@@ -11,7 +11,6 @@ JSON JSON_;
 bool JSON::Initialize()
 {
 	ObjectDocument.SetObject();
-	TileDocument.SetObject();
 
 	return true;
 }
@@ -527,14 +526,13 @@ Document JSON::LoadObjectDocumentFromJson()
 	return object_lists;
 }
 
-void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
+void JSON::TilesToDocument(Object * obj, Tile_Kind type)
 {
 	Value tileTree(kArrayType);
 
-	Value grid, sprite, animation, scale, pos, tile_type, IsAnimated;
+	Value sprite, animation, scale, pos, tile_type, IsAnimated;
 
 	tileTree.SetObject();
-	grid.SetObject();
 	scale.SetObject();
 	pos.SetObject();
 	sprite.SetObject();
@@ -542,7 +540,7 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 	tile_type.SetObject();
 	IsAnimated.SetObject();
 
-	grid.SetInt(grid_);
+	// image path, scale, position, tile type, ani or normal
 	tile_type.SetInt(static_cast<int>(type));
 	scale.AddMember("x", obj->GetTransform().GetScale().x, TileDocument.GetAllocator());
 	scale.AddMember("y", obj->GetTransform().GetScale().y, TileDocument.GetAllocator());
@@ -561,22 +559,21 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 		IsAnimated.SetBool(true);
 	}
 
-	tileTree.AddMember("grid", grid, TileDocument.GetAllocator());
 	tileTree.AddMember("tile_type", tile_type, TileDocument.GetAllocator());
 	tileTree.AddMember("scale", scale, TileDocument.GetAllocator());
 	tileTree.AddMember("pos", pos, TileDocument.GetAllocator());
 	tileTree.AddMember("sprite", sprite, TileDocument.GetAllocator());
-	tileTree.AddMember("animation", animation, TileDocument.GetAllocator());
+	tileTree.AddMember("animation", tile_type, TileDocument.GetAllocator());
 	tileTree.AddMember("IsAnimated", IsAnimated, TileDocument.GetAllocator());
 
 	TileDocument.AddMember("Tile", tileTree, TileDocument.GetAllocator());
 
-	TileDocument.Parse(TileBuffer.GetString());
+	TileDocument.Parse(TileDocument.GetString());
 
-	SaveTilesToJson(type);
+	SaveTilesToJson();
 }
 
-void JSON::SaveTilesToJson(Tile_Type type)
+void JSON::SaveTilesToJson(Tile_Kind type)
 {
 	std::string filename(file_path);
 
