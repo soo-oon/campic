@@ -28,7 +28,7 @@ void Tile_Map::Delete_Tile()
 
     if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
     {
-        graphics_tiles.erase((tile_x*TEMP_WIDTH + tile_y) / TILE_SIZE);
+        graphics_tiles.erase((tile_x / TILE_SIZE *TEMP_WIDTH + tile_y / TILE_SIZE) / TILE_SIZE);
         tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = false;
     }
 
@@ -43,9 +43,9 @@ void Tile_Map::Make_Object(std::string& image,int x , int y, vector2 position, T
     tile->Add_Init_Component(new Sprite(image));
 
     if (kind == Tile_Kind::Physics)
-        physics_tiles.insert(std::pair<int, Object*>((x*TEMP_WIDTH + y) / TILE_SIZE, tile));
+        physics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE *TEMP_WIDTH + y / TILE_SIZE) / TILE_SIZE, tile));
     else
-        graphics_tiles.insert(std::pair<int, Object*>((x*TEMP_WIDTH + y) / TILE_SIZE, tile));
+        graphics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE *TEMP_WIDTH + y / TILE_SIZE) / TILE_SIZE, tile));
 }
 
 void Tile_Map::Make_Ani_Object(std::string & image, vector2 position)

@@ -7,11 +7,11 @@ class AudioManager;
 class Sound : public Component
 {
 public:
-	Sound(std::string path_, AudioManager::Category category_, float volume_)
+	Sound(std::string path_, AudioManager::Category category_ = AudioManager::CATEGORY_SFX, float volume_ = 3.f)
 	: path(path_), category(category_), volume(volume_)
 	{
 		paths.push_back(path);
-		AudioManager_.LoadSFX(audio_source + path);
+		AudioManager_.LoadSFX(path);
 	}
 
 	bool Initialize(Object* Ob) override;
@@ -24,12 +24,9 @@ public:
 	std::vector<std::string> GetSoundPaths() const { return paths; }
 	AudioManager::Category& GetCategory() { return category; };
 
-
 private:
 	std::vector<std::string> paths;
 	std::string path;
-
-	std::string audio_source = "asset/sounds/";
 
 	AudioManager::Category category;
 	float volume;

@@ -162,13 +162,12 @@ Value JSON::ComponentAnimation(Object* obj)
 Value JSON::ComponentTransform(Object * obj)
 {
 	Value objTransformTree(kArrayType);
-	Value pos, scale, rotation, depth;
+	Value pos, scale, rotation;
 
 	objTransformTree.SetObject();
 	pos.SetObject();
 	scale.SetObject();
 	rotation.SetObject();
-	depth.SetObject();
 
 	pos.AddMember("x", obj->GetTransform().GetTranslation().x, ObjectDocument.GetAllocator());
 	pos.AddMember("y", obj->GetTransform().GetTranslation().y, ObjectDocument.GetAllocator());
@@ -178,12 +177,9 @@ Value JSON::ComponentTransform(Object * obj)
 
 	rotation.SetFloat(obj->GetTransform().GetRotation());
 
-	depth.SetFloat(obj->GetTransform().GetDepth());
-
 	objTransformTree.AddMember("position", pos, ObjectDocument.GetAllocator());
 	objTransformTree.AddMember("scale", scale, ObjectDocument.GetAllocator());
 	objTransformTree.AddMember("rotation", rotation, ObjectDocument.GetAllocator());
-	objTransformTree.AddMember("depth", depth, ObjectDocument.GetAllocator());
 
 	return objTransformTree;
 }
@@ -536,7 +532,7 @@ void JSON::LoadObjectFromJson()
 		particle.SetObject();
 		sound.SetObject();
 		//font.SetObject();
-		
+
 		status = obj_array.FindMember("Status")->value;
 		transform = obj_array.FindMember("Transform")->value;
 		sprite = obj_array.FindMember("Sprite")->value;
@@ -561,19 +557,17 @@ void JSON::LoadObjectFromJson()
 
 	    //////////////////////////////////////// Transform
 		vector2 pos, scale;
-		float rotation, depth;
+		float rotation;
 
 		pos.x = transform.FindMember("position")->value.FindMember("x")->value.GetFloat();
 		pos.y = transform.FindMember("position")->value.FindMember("y")->value.GetFloat();
 		scale.x = transform.FindMember("scale")->value.FindMember("x")->value.GetFloat();
 		scale.y = transform.FindMember("scale")->value.FindMember("y")->value.GetFloat();
 		rotation = transform.FindMember("rotation")->value.GetFloat();
-		depth = transform.FindMember("depth")->value.GetFloat();
 
 		obj->SetTranslation(pos);
 		obj->SetScale(scale);
 		obj->SetRotation(rotation);
-		obj->SetDepth(depth);
 
 		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 

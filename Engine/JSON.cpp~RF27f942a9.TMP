@@ -162,13 +162,12 @@ Value JSON::ComponentAnimation(Object* obj)
 Value JSON::ComponentTransform(Object * obj)
 {
 	Value objTransformTree(kArrayType);
-	Value pos, scale, rotation, depth;
+	Value pos, scale, rotation;
 
 	objTransformTree.SetObject();
 	pos.SetObject();
 	scale.SetObject();
 	rotation.SetObject();
-	depth.SetObject();
 
 	pos.AddMember("x", obj->GetTransform().GetTranslation().x, ObjectDocument.GetAllocator());
 	pos.AddMember("y", obj->GetTransform().GetTranslation().y, ObjectDocument.GetAllocator());
@@ -178,12 +177,9 @@ Value JSON::ComponentTransform(Object * obj)
 
 	rotation.SetFloat(obj->GetTransform().GetRotation());
 
-	depth.SetFloat(obj->GetTransform().GetDepth());
-
 	objTransformTree.AddMember("position", pos, ObjectDocument.GetAllocator());
 	objTransformTree.AddMember("scale", scale, ObjectDocument.GetAllocator());
 	objTransformTree.AddMember("rotation", rotation, ObjectDocument.GetAllocator());
-	objTransformTree.AddMember("depth", depth, ObjectDocument.GetAllocator());
 
 	return objTransformTree;
 }
@@ -397,36 +393,7 @@ Value JSON::ComponentParticle(Object * obj)
 	emit_size.AddMember("y", particle_info->GetEmitSize().y, ObjectDocument.GetAllocator());
 	isActive.SetBool(particle_info->GetIsActive());
 	path.SetString(particle_info->GetPath().c_str(), ObjectDocument.GetAllocator());
-
-	auto m_type = particle_info->GetParticle_Fire_Type();
-
-	switch(m_type)
-	{
-		case Particle_Fire_Type::Divergent :
-		{
-			m_id.SetInt(0);
-			m_enum.SetString("Divergent");
-			break;
-		}
-		case Particle_Fire_Type::Integrate :
-		{
-			m_id.SetInt(1);
-			m_enum.SetString("Integrate");
-			break;
-		}
-		case Particle_Fire_Type::OneWay :
-		{
-			m_id.SetInt(2);
-			m_enum.SetString("OneWay");
-			break;
-		}
-
-		default :
-			break;
-	}
-
-	fire_type.AddMember("id", m_id, ObjectDocument.GetAllocator());
-	fire_type.AddMember("enum", m_enum, ObjectDocument.GetAllocator());
+	m_id.SetInt(static_cast<int>(particle_info->GetParticle_Fire_Type()));
 
 	particleTree.AddMember("start_velocity", start_velocity, ObjectDocument.GetAllocator());
 	particleTree.AddMember("random_velocity", random_velocity, ObjectDocument.GetAllocator());
@@ -434,7 +401,6 @@ Value JSON::ComponentParticle(Object * obj)
 	particleTree.AddMember("emit_size", emit_size, ObjectDocument.GetAllocator());
 	particleTree.AddMember("isActive", isActive, ObjectDocument.GetAllocator());
 	particleTree.AddMember("path", path, ObjectDocument.GetAllocator());
-	particleTree.AddMember("fire_type", fire_type, ObjectDocument.GetAllocator());
 
 	return particleTree;
 }
@@ -442,10 +408,9 @@ Value JSON::ComponentParticle(Object * obj)
 Value JSON::ComponentSound(Object * obj)
 {
 	Value container(kArrayType);
-	Value map,paths;
+	Value paths;
 
 	container.SetObject();
-	map.SetObject();
 	paths.SetObject();
 
 	auto sound_info = obj->GetComponentByTemplate<Sound>();
@@ -454,10 +419,8 @@ Value JSON::ComponentSound(Object * obj)
 	for(auto& temp : path_container)
 	{
 		paths.SetString(temp.c_str(), ObjectDocument.GetAllocator());
-		map.AddMember("path", paths, ObjectDocument.GetAllocator());
+		container.AddMember("path", paths, ObjectDocument.GetAllocator());
 	}
-
-	container.AddMember("map", map, ObjectDocument.GetAllocator());
 
 	return container;
 }
@@ -524,7 +487,7 @@ void JSON::LoadObjectFromJson()
 	{
 		Value& obj_array = temp.value;
 
-		Value status, transform, animation, sprite, rigid_body, collision, particle, sound,font;
+		Value status, transform, animation, sprite, rigid_body, collision, particle;
 		Object* obj = new Object();
 
 		status.SetObject();
@@ -534,9 +497,7 @@ void JSON::LoadObjectFromJson()
 		rigid_body.SetObject();
 		collision.SetObject();
 		particle.SetObject();
-		sound.SetObject();
-		//font.SetObject();
-		
+
 		status = obj_array.FindMember("Status")->value;
 		transform = obj_array.FindMember("Transform")->value;
 		sprite = obj_array.FindMember("Sprite")->value;
@@ -544,40 +505,33 @@ void JSON::LoadObjectFromJson()
 		rigid_body = obj_array.FindMember("RigidBody")->value;
 		collision = obj_array.FindMember("Collision")->value;
 		particle = obj_array.FindMember("Particle")->value;
-		sound = obj_array.FindMember("Sound")->value;
-		//font = obj_array.FindMember("Font")->value;
 
-		//////////////////////////////////////////// Status
-		if (status.HasMember("Type"))
-		{
-			int obj_type = status.FindMember("Type")->value.FindMember("id")->value.GetInt();
-			int hp_ = status.FindMember("HP")->value.GetInt();
-			int attack_damage = status.FindMember("Damage")->value.GetInt();
-			float speed = status.FindMember("Speed")->value.GetFloat();
-			bool is_alive = status.FindMember("isAlive")->value.GetBool();
+		// Status
+		int obj_type = status.FindMember("Type")->value.FindMember("id")->value.GetInt();
+		int hp_ = status.FindMember("HP")->value.GetInt();
+		int attack_damage = status.FindMember("Damage")->value.GetInt();
+		float speed = status.FindMember("Speed")->value.GetFloat();
+		bool is_alive = status.FindMember("isAlive")->value.GetBool();
 
-			obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
-		}
+		obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
 
-	    //////////////////////////////////////// Transform
+		// Transform
 		vector2 pos, scale;
-		float rotation, depth;
+		float rotation;
 
 		pos.x = transform.FindMember("position")->value.FindMember("x")->value.GetFloat();
 		pos.y = transform.FindMember("position")->value.FindMember("y")->value.GetFloat();
 		scale.x = transform.FindMember("scale")->value.FindMember("x")->value.GetFloat();
 		scale.y = transform.FindMember("scale")->value.FindMember("y")->value.GetFloat();
 		rotation = transform.FindMember("rotation")->value.GetFloat();
-		depth = transform.FindMember("depth")->value.GetFloat();
 
 		obj->SetTranslation(pos);
 		obj->SetScale(scale);
 		obj->SetRotation(rotation);
-		obj->SetDepth(depth);
 
 		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 
-		////////////////////////////////////////////////// Sprite
+		// Sprite
 		bool is_flip = false;
 		std::string path;
 
@@ -590,7 +544,7 @@ void JSON::LoadObjectFromJson()
 			obj->GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
 		}
 
-		//////////////////////////////////////////// Animation
+		// Animation
 		std::vector<std::string> id, ani_path;
 		std::vector<int> image_frame;
 		std::vector<float> update_frame;
@@ -618,22 +572,22 @@ void JSON::LoadObjectFromJson()
 			}
 		}
 
-		/////////////////////////////////////////////// RigidBody
+		// RigidBody
 		bool is_rigid = false;
 		is_rigid = rigid_body.GetBool();
 		
 		if (is_rigid)
 			obj->AddComponent(new RigidBody());
 
-		/////////////////////////////////////////////// Collision
-		if (collision.HasMember("id"))
-		{
-			CollisionType type = static_cast<CollisionType>(collision.FindMember("id")->value.GetInt());
+		// Collision
+		CollisionType type;
+		type = static_cast<CollisionType>(collision.FindMember("id")->value.GetInt());
+		
+		obj->AddComponent(new Collision(type));
 
-			obj->AddComponent(new Collision(type));
-		}
-		////////////////////////////////////////////// Particle
+		// Particle
 		vector2 start, random, particle_size, emit_size;
+		
 
 		if (particle.HasMember("emit_rate"))
 		{
@@ -655,41 +609,8 @@ void JSON::LoadObjectFromJson()
 			std::string particle_path = particle.FindMember("path")->value.GetString();
 				
 			obj->AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
-					color_duration, start, random, particle_size, emit_size,  particle_path, isActive));
+					color_duration, start, random, particle_size, emit_size, particle_path, isActive));
 		}
-
-		////////////////////////////////////////////////////Sound
-		if(sound.HasMember("map"))
-		{
-			std::vector<std::string> sound_path;
-			for (auto& temp_ : sound.FindMember("map")->value.GetObject())
-			{
-				Value& map_array = sound.FindMember("map")->value;
-				sound_path.push_back(map_array.FindMember("path")->value.GetString());
-			}
-
-			obj->AddComponent(new Sound(sound_path[0]));
-
-			for (int i = 1; i < sound_path.size(); i++)
-			{
-				obj->GetComponentByTemplate<Sound>()->AddSound(sound_path[i]);
-			}
-		}
-
-		//////////////////////////////////////////Font
-		//if (font.HasMember("text"))
-		//{
-		//	std::string font_text = font.FindMember("text")->value.GetString();
-		//	std::string font_path;
-		//	if (font.HasMember("path"))
-		//	{
-		//		font_path = font.FindMember("path")->value.GetString();
-		//	}
-		//	obj->AddComponent(new Font(font_text, font_path));
-		//}
-		
 		Objectmanager_.AddObject(obj);
 	}
-
-
 }

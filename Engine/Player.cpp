@@ -37,7 +37,7 @@ bool Player::Initialize(Object * Ob)
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
 		object->Add_Init_Component(new Collision(box_, {}, { 100.0f, 100.0f }));
 		object->Add_Init_Component(new Status(ObjectType::Player, 5, 1, 1.f));
-		object->Add_Init_Component(new Sound("punch.wav", AudioManager::CATEGORY_SFX, 4));
+		object->Add_Init_Component(new Sound("asset/sounds/punch.wav"));
 
 		/*for(auto temp : object->GetComponent())
 		{
@@ -105,7 +105,7 @@ void Player::MovePlayer()
 	 if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack","player");
-		object->GetComponentByTemplate<Sound>()->Play("punch.wav");
+		object->GetComponentByTemplate<Sound>()->Play("asset/sounds/punch.wav");
 	}
 
 	/*if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(1, 0)) > 0)

@@ -63,7 +63,7 @@ void Physics::Update(float dt)
                                 ++obj;
                     }
                 previous_size = static_cast<int>(Objectmanager_.GetObjectMap().size());
-            }
+            
 
             //Objectmanager_.GetObjectMap().erase(std::remove_if(Objectmanager_.GetObjectMap().begin()
             //    , Objectmanager_.GetObjectMap().end(), [](std::unique_ptr<Object> object)
@@ -89,31 +89,32 @@ void Physics::Update(float dt)
 		}*/
 	}
 
-	if (collision_list.size() > 1)
-	{
-		for (size_t i = 0; i < collision_list.size() ; i++)
-		{
-			for (size_t j = i+1; j < collision_list.size(); j++)
+			if (collision_list.size() > 1)
 			{
-				if (i != j)
+				for (size_t i = 0; i < collision_list.size(); i++)
 				{
-					//if (*collision_list[i]->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetRotation() != 0 || *collision_list[j]->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetRotation() != 0)
-					//{
-					//	if (IntersectionCheck(*collision_list[i], *collision_list[j]))
-					//	{
-					//		ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
-					//		Reaction(collision_list[i], collision_list[j]);
-					//	}
-					//}
-					//else
-					if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
-                            {
-                                ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
-                                Reaction(collision_list[i], collision_list[j]);
-                            }
+					for (size_t j = i + 1; j < collision_list.size(); j++)
+					{
+						if (i != j)
+						{
+							//if (*collision_list[i]->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetRotation() != 0 || *collision_list[j]->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetRotation() != 0)
+							//{
+							//	if (IntersectionCheck(*collision_list[i], *collision_list[j]))
+							//	{
+							//		ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+							//		Reaction(collision_list[i], collision_list[j]);
+							//	}
+							//}
+							//else
+							if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
+							{
+								ChangeRestitutionOfOjbect(*collision_list[i], *collision_list[j]);
+								Reaction(collision_list[i], collision_list[j]);
+							}
+						}
+					}
 				}
 			}
-		}
 	}
 
 	if (!Objectmanager_.GetObjectMap().empty())
