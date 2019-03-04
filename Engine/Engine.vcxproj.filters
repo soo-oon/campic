@@ -1,93 +1,316 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Font.cpp" />
-    <ClCompile Include="GLSL.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="HUD.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_glfw.cpp" />
-    <ClCompile Include="imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Imgui_System.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="JSON.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Objectmanager.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Particle_Generator.cpp" />
-    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Reaction.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="State.cpp" />
-    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Sword.cpp" />
-    <ClCompile Include="Tile_Map.cpp" />
-    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Application.cpp">
+      <Filter>Engine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Engine\AudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Engine\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="JSON.cpp">
+      <Filter>Engine\JSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile_Map.cpp">
+      <Filter>Engine\Tile_Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Graphics\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Graphics\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSL.cpp">
+      <Filter>Graphics\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui_System.cpp">
+      <Filter>Engine\IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Component\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Imgui_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Imgui_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Imgui_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw.cpp">
+      <Filter>Imgui_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>Imgui_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Imgui_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Component\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle_Generator.cpp">
+      <Filter>Component\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Component\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Component\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="Objectmanager.cpp">
+      <Filter>Object\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Object\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Object\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>State\StateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>State\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Reaction.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.hpp" />
-    <ClInclude Include="AudioManager.hpp" />
-    <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Card.hpp" />
-    <ClInclude Include="Collision.hpp" />
-    <ClInclude Include="Color.hpp" />
-    <ClInclude Include="Component.hpp" />
-    <ClInclude Include="DepthValue.hpp" />
     <ClInclude Include="Enemy.hpp" />
-    <ClInclude Include="Engine.hpp" />
-    <ClInclude Include="Font.hpp" />
-    <ClInclude Include="GLSL.hpp" />
-    <ClInclude Include="Graphics.hpp" />
-    <ClInclude Include="HUD.hpp" />
-    <ClInclude Include="Imgui_System.hpp" />
-    <ClInclude Include="Input.hpp" />
-    <ClInclude Include="JSON.hpp" />
-    <ClInclude Include="Mesh.hpp" />
-    <ClInclude Include="Object.hpp" />
-    <ClInclude Include="Objectmanager.hpp" />
-    <ClInclude Include="Particle.hpp" />
-    <ClInclude Include="Particle_Generator.hpp" />
-    <ClInclude Include="Physics.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Reaction.hpp" />
-    <ClInclude Include="RigidBody.hpp" />
-    <ClInclude Include="Shader.hpp" />
-    <ClInclude Include="Sound.hpp" />
-    <ClInclude Include="Sprite.hpp" />
-    <ClInclude Include="State.hpp" />
-    <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="Sword.hpp" />
-    <ClInclude Include="Tile_Map.hpp" />
-    <ClInclude Include="Timer.hpp" />
-    <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Door.hpp" />
     <ClInclude Include="Application.hpp">
+      <Filter>Engine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.hpp">
+      <Filter>Engine\AudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.hpp">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.hpp">
+      <Filter>Engine\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="JSON.hpp">
+      <Filter>Engine\JSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.hpp">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile_Map.hpp">
+      <Filter>Engine\Tile_Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>Graphics\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.hpp">
+      <Filter>Graphics\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSL.hpp">
+      <Filter>Graphics\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui_System.hpp">
+      <Filter>Engine\IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthValue.hpp">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.hpp">
+      <Filter>Component\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.hpp">
+      <Filter>Component\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle_Generator.hpp">
+      <Filter>Component\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.hpp">
+      <Filter>Component\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.hpp">
+      <Filter>Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="Objectmanager.hpp">
+      <Filter>Object\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Object\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.hpp">
+      <Filter>Object\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Object\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.hpp">
+      <Filter>State\StateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>State\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Reaction.hpp">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
       <UniqueIdentifier>{33a5b682-4e4f-4f2a-ab62-3ebeb5f6433a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Application">
+      <UniqueIdentifier>{d4eeacaa-ba74-4dfe-afd5-6a37f1ee7e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\AudioManager">
+      <UniqueIdentifier>{d020a134-ac3f-4458-b9e6-f2f760d3af07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\HUD">
+      <UniqueIdentifier>{a7234b88-6b2e-4963-8ccb-2b5bbe07c766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{85318510-3707-4bba-9286-711b75bc310d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\JSON">
+      <UniqueIdentifier>{dd6607e3-d4cb-41ae-ba56-ad20eb9cfd76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Tile_Map">
+      <UniqueIdentifier>{443cd35b-05c7-4bce-802a-b417c0e9254c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{329d8e5c-b72a-401e-be40-6232579722f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Color">
+      <UniqueIdentifier>{3284675e-bc86-45bd-8158-11e6c2231bf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Graphic">
+      <UniqueIdentifier>{a6e5a64a-4063-4c5c-9dbf-fc87219de50d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Shader">
+      <UniqueIdentifier>{26ca1c71-bb72-4ca1-9d0a-1d375a984974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GLSL">
+      <UniqueIdentifier>{0fc8b80a-f967-43c9-86d4-43b4b195a1e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\IMGUI">
+      <UniqueIdentifier>{5f7ce1bb-f9eb-4775-a19e-213ecbd33929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{5a1337b5-8c38-4be4-ae78-d28c1cfa9bae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animation">
+      <UniqueIdentifier>{38184c6b-7a40-4d71-9f4d-dbf3a3a406d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{4d1ce66c-d651-40c9-b308-996f340d4acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collision">
+      <UniqueIdentifier>{0ed1b439-979c-4c95-a471-3e6e3522d202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Font">
+      <UniqueIdentifier>{71679c71-355f-4e3d-94b2-bbb9270b125f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui_Lib">
+      <UniqueIdentifier>{4789ac11-7824-476b-bb8d-3c11c54a5784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Particle">
+      <UniqueIdentifier>{097108bb-f69d-415e-b4d2-ffcf069c7b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Sprite">
+      <UniqueIdentifier>{5d0b9b99-1077-4e47-aa55-0afd3b9da630}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Sound">
+      <UniqueIdentifier>{65247d0b-a3b6-4c6c-87b1-7fd4aad10bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\RigidBody">
+      <UniqueIdentifier>{ca02d820-cb31-40e1-a67c-8ea256f0618e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{0a7b3f43-7afc-4928-8444-8bb61e4fd242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\ObjectManager">
+      <UniqueIdentifier>{5a5f83aa-b662-4c96-8768-997c3fa842e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Mesh">
+      <UniqueIdentifier>{ce6f23d0-ad2c-4d3b-8fe5-e0bfb536eedd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Object">
+      <UniqueIdentifier>{623e4931-88e6-4cbe-ade7-f4ae6b419c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Transform">
+      <UniqueIdentifier>{37c4bb24-f683-47b7-89ed-ba753be8412b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{c6846168-65de-44f6-aec8-23a437ff2346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\StateManager">
+      <UniqueIdentifier>{4a30056f-0b18-4ded-b814-cce163a84895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State\State">
+      <UniqueIdentifier>{01d13943-5707-4adf-ab38-5f7d82970b2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{b72e6b94-c552-46b4-8314-63aba8d177bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
