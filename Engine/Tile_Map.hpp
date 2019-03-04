@@ -23,13 +23,17 @@ public:
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicsTiles() { return physics_tiles; }
     void Make_Tile(std::string image, Tile_Kind kind);
+	void Make_Ani_Tile(std::string image, Tile_Kind kind);
     void Delete_Tile();
+	void Delete_Ani_Tile();
 private:
-	void Make_Object(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
-	void Make_Ani_Object(std::string& image, vector2 position);
+	void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
+	void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Kind kind);
 
     std::unordered_map<int, Object*> graphics_tiles;
     std::unordered_map<int, Object*> physics_tiles;
+
+	int m_number = 0;
 
     bool tile_grid[TEMP_WIDTH / TILE_SIZE][TEMP_HEIGHT / TILE_SIZE] = { false };
     
