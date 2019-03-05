@@ -26,9 +26,19 @@ Creation date: 2018/12/14
 #include "Sound.hpp"
 #include "Application.hpp"
 #include "Tile_Map.hpp"
+#include "Boss.hpp"
 
 void level2::Initialize()
 {
+	/*Object* boss = new Object();
+	boss->SetTranslation({ 50, -100 });
+	boss->SetScale({ 50.0f, 50.0f });
+	boss->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+	boss->SetDepth(0.0f);
+	boss->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+	boss->AddComponent(new Status(ObjectType::Boss, 10, 1, 0, true));
+	boss->AddComponent(new Boss(BossSkillType::PopUp));*/
+
 	Object* temp = new Object();
 	temp->SetTranslation({ 100,-150 });
 	temp->SetScale({ 50.0f, 50.0f });
@@ -114,6 +124,7 @@ void level2::Initialize()
         enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
         enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
 
+    //obj.push_back(boss);
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
@@ -125,7 +136,7 @@ void level2::Initialize()
 	obj.push_back(background);
 
 
-        GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
+    GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
@@ -137,6 +148,7 @@ void level2::Initialize()
 	{
 		Objectmanager_.AddObject(i);
 	}
+
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
