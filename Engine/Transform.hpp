@@ -34,7 +34,7 @@ public:
     vector2 GetScale() const;
     void SetScale(const vector2& scale_value);
 
-    float GetRotation();
+    float GetRotation() const;
     void SetRotation(float rotation_value);
 
     const Transform* GetParent() const;

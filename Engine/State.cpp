@@ -61,7 +61,7 @@ void State::Load()
     if (Objectmanager_.GetObjectMap().empty())
     {
         AddPlayer();
-        //AddSword();
+        AddSword();
     }
 }
 
@@ -77,7 +77,7 @@ void State::AddPlayer()
 void State::AddSword()
 {
     Object* sword = new Object();
-    sword->AddComponent(new Sword(Objectmanager_.GetObjectMap()[0].get()));
+    sword->AddComponent(new Sword(m_player));
 
     Objectmanager_.AddObject(sword);
 }

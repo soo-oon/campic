@@ -49,7 +49,7 @@ void level2::Initialize()
 	card->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
 	//card->AddComponent(new Card("Red"));
 	card->AddComponent(new Sprite("asset/images/red_soul.png"));
-	card->AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	card->AddComponent(new Collision(box_));
 	card->AddComponent(new Status(ObjectType::Item));
 
 	Object* card1 = new Object();
@@ -58,7 +58,7 @@ void level2::Initialize()
 	card1->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
 	//card1->AddComponent(new Card("Blue"));
 	card1->AddComponent(new Sprite("asset/images/blue_soul.png"));
-	card1->AddComponent(new Collision(box_, {0, 0}, {24.f, 30.f}));
+	card1->AddComponent(new Collision(box_));
 	card1->AddComponent(new Status(ObjectType::Item));
 
 	Object* font = new Object();
@@ -401,7 +401,8 @@ void level2::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 	sword->SetTranslation(vector2(
 		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x,
 		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y));
-	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
+	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y,
+	mouse_position.x - player->GetTransform().GetTranslation().x);
 	float angledeg = (180 / 3.14f)* anglerad;
 	sword->SetRotation(angledeg - 90);
 }
