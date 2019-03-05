@@ -32,6 +32,7 @@ bool Particle_Generator::Initialize(Object* Ob)
 
 void Particle_Generator::Update(float dt)
 {
+	inter_time += dt;
 	if (isActive)
 	{
 		for (auto& particle_obj : particles)
@@ -46,9 +47,7 @@ void Particle_Generator::Update(float dt)
 			}
 			else
 			{
-				inter_time += dt;
-
-				if(inter_time > duration_time)
+				if(duration_time > inter_time)
 				{
 					particle_obj->Update(dt, randomVelocity);
 					if (particle_obj->IsRespawn())
@@ -58,6 +57,7 @@ void Particle_Generator::Update(float dt)
 				}
 				else
 				{
+					isActive = false;
 					inter_time = 0.0f;
 				}
 			}

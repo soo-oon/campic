@@ -67,9 +67,6 @@ void Player::Update(float dt)
 
 	direction = normalize(direction);
 
-	std::cout << angle << std::endl;
-
-
 	MovePlayer();
 
 	//object->GetComponentByTemplate<Animation>()->ChangeAnimation("e");

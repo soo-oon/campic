@@ -142,7 +142,9 @@ void level2::Initialize()
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(100, 5.0f,
 	                                                                             5.0f, 200, {0, 0}, {0, 5},
 	                                                                             {10.0f, 10.0f}, {Application_.GetScreenSize()}, "asset/images/feather.png")));
-	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Integrate);
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
 
 	for(auto i : obj)
 	{
