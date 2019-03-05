@@ -53,6 +53,8 @@ public:
 	void SetSizeVariance(float sizeVariance_);
 	void SetEmitSize(vector2 size);
 	void SetParticle_Fire_Type(Particle_Fire_Type type_);
+	void SetIsRepeat(bool condition) { is_repeat = condition; }
+	void SetDurationTime(float duration_time_) { duration_time = duration_time_; }
 
 	bool GetIsActive() { return isActive; }
 	std::string GetPath() const { return path; }
@@ -65,6 +67,11 @@ public:
 	vector2 GetEmitSize() const { return emitSize; }
 	vector2 GetParticleSize() { return particle_size; }
 	Particle_Fire_Type GetParticle_Fire_Type() const { return m_type; }
+	bool GetIsRepeat() { return is_repeat; }
+	float GetDurationTime() { return duration_time; }
+
+private:
+	float inter_time=0.0f;
 
 private:
     int emitRate;
@@ -76,6 +83,8 @@ private:
 	vector2 emitSize;
 	vector2 particle_size;
 	bool isActive = true;
+	bool is_repeat = true;
+	float duration_time = 0.0f;
 
 	Particle_Fire_Type m_type = Particle_Fire_Type::Divergent;
 	std::string path;

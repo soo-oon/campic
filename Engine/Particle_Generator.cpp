@@ -36,11 +36,32 @@ void Particle_Generator::Update(float dt)
 	{
 		for (auto& particle_obj : particles)
 		{
-			particle_obj->Update(dt, randomVelocity);
-			if (particle_obj->IsRespawn())
+			if (is_repeat)
 			{
-				particle_obj->RespawnParticleObj(object);
+				particle_obj->Update(dt, randomVelocity);
+				if (particle_obj->IsRespawn())
+				{
+					particle_obj->RespawnParticleObj(object);
+				}
 			}
+			else
+			{
+				inter_time += dt;
+
+				if(inter_time > duration_time)
+				{
+					particle_obj->Update(dt, randomVelocity);
+					if (particle_obj->IsRespawn())
+					{
+						particle_obj->RespawnParticleObj(object);
+					}
+				}
+				else
+				{
+					inter_time = 0.0f;
+				}
+			}
+
 		}
 	}
 }

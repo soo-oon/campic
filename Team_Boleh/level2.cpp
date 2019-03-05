@@ -130,18 +130,18 @@ void level2::Initialize()
 	obj.push_back(card);
 	obj.push_back(card1);
 	obj.push_back(font);
-        obj.push_back(enemy);
+	obj.push_back(enemy);
 	obj.push_back(child_obj1);
-        obj.push_back(door);
+	obj.push_back(door);
 	obj.push_back(background);
 
 
     GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
+	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(100, 5.0f,
 	                                                                             5.0f, 200, {0, 0}, {0, 5},
-	                                                                             {10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
+	                                                                             {10.0f, 10.0f}, {Application_.GetScreenSize()}, "asset/images/feather.png")));
 	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
 
 	for(auto i : obj)

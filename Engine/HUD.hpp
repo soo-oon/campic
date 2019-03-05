@@ -27,7 +27,7 @@ public:
 	std::vector<std::shared_ptr<Object>>& Get_HUD_Object_Manager() { return HUD_Object_Manager; }
 	void Add_HUD_Object(Object* obj);
 
-
+	State* Get_HUD_State() { return m_HUD_State; }
 	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
 
 private:
