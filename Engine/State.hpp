@@ -56,6 +56,7 @@ public:
 	Object* GetPlayerPointer() { return m_player; }
 	State_Information information_ = State_Information::None;
 
+
 private:
 	Object* m_player = nullptr;
 	//std::unique_ptr<Objectmanager> objectmanager;

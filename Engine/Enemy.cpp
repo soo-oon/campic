@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Status.hpp"
 #include "Input.hpp"
 #include "Card.hpp"
+#include "Player.hpp"
 
 Enemy::Enemy(MoveType move_type)
 {
@@ -32,7 +33,7 @@ bool Enemy::Initialize(Object * Ob)
 
 void Enemy::Update(float dt)
 {
-    MoveEnemy();
+    //MoveEnemy();
     if(!object->GetComponentByTemplate<Status>()->IsAlive())
     {
         CardDrop();
@@ -54,19 +55,45 @@ void Enemy::MoveEnemy()
     }
 }
 
-void Enemy::StraightMove()
+void Enemy::Move(vector2 position)
 {
     if (object->GetComponentByTemplate<RigidBody>())
     {
-        vector2 come = vector2(Objectmanager_.GetObjectMap()[0].get()->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x,
-            Objectmanager_.GetObjectMap()[0].get()->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y);
-        vector2 no_come = normalize(come);
+
+        vector2 come = vector2(position.x - object->GetTransform().GetTranslation().x,
+            position.y - object->GetTransform().GetTranslation().y);
+        vector2 n_come = normalize(come);
         if (magnitude(come) < magnitude(object->GetTransform().GetScale()))
         {
             object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
         }
         else
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity(5 * no_come);
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity(5 * n_come);
+    }
+}
+
+void Enemy::StraightMove()
+{
+    Object *player = nullptr; 
+    if (object->GetComponentByTemplate<RigidBody>())
+    {
+        for(auto i = Objectmanager_.GetObjectMap().begin(); i != Objectmanager_.GetObjectMap().end(); ++i)
+        {
+            if(i->get()->GetComponentByTemplate<Player>() != nullptr)
+            {
+                player = i->get();
+            }
+        }
+
+        vector2 come = vector2(player->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x,
+            player->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y);
+        vector2 n_come = normalize(come);
+        if (magnitude(come) < magnitude(object->GetTransform().GetScale()))
+        {
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+        }
+        else
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity(5 * n_come);
     }
 }
 

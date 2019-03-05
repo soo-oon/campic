@@ -18,7 +18,7 @@ Creation date: 2018/12/14
 #include "Collision.hpp"
 #include "RigidBody.hpp"
 
-    void Reaction(Object* object, Object* di_object, float bounce = 1);
+    void Reaction(Object* object, Object* di_object, float bounce = 10);
     void StopReaction(Object* object);
     void BounceReaction(Object* object, float bounce = 1);
     void AttackedReaction(Object* object, Object* di_object, float power = 50);

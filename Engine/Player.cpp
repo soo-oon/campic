@@ -20,8 +20,6 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Graphics.hpp"
 #include "Card.hpp"
-#include "Application.hpp"
-#include "control_angle.hpp"
 
 bool Player::Initialize(Object * Ob)
 {
@@ -38,7 +36,7 @@ bool Player::Initialize(Object * Ob)
 		object->Add_Init_Component(new Animation("asset/images/Player.png", "player", 8, 0.05f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
 		object->Add_Init_Component(new Collision(box_));
-		object->Add_Init_Component(new Status(ObjectType::Player, 5, 1, 1.f));
+		object->Add_Init_Component(new Status(ObjectType::Player, 500, 1, 1.f));
 		object->Add_Init_Component(new Sound("asset/sounds/punch.wav"));
 
 		/*for(auto temp : object->GetComponent())

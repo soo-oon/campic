@@ -43,6 +43,7 @@ public:
 	void MoveEnemy();
         void StraightMove();
         void AnglerMove();
+        void Move(vector2 position);
 
         void CardDrop();
 private:

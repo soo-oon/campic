@@ -75,6 +75,16 @@ void level2::Initialize()
 	child_obj1->AddComponent(new Sprite("asset/images/life.png"));
 	child_obj1->SetParent(&GetPlayerPointer()->GetTransform());
 
+        door = new Object();
+        door->SetTranslation({ 500,0 });
+        door->SetMesh(mesh::CreateBox(1, Colors::White));
+        door->SetDepth(-0.1f);
+        //child_obj1->SetRotation(0);
+        door->SetScale(50);
+        door->AddComponent(new Sprite("asset/images/door.png"));
+        door->AddComponent(new Collision(box_));
+        door->AddComponent(new Status(ObjectType::Door));
+
     //Object* background = new Object();
     //background->SetTranslation({ 0 });
     //background->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
@@ -82,13 +92,40 @@ void level2::Initialize()
     //background->SetDepth(0.99f);
     //background->AddComponent(new Sprite("asset/images/background1.png"));
 
+        int w, h;
+        glfwGetWindowSize(Application_.GetWindow(), &w, &h);
+
+        Object * background = new Object();
+        background->SetTranslation({ 0,0 });
+        background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
+        background->SetMesh(mesh::CreateBox(1,{100,100,255}));
+        background->SetDepth(0.9f);
+        background->AddComponent(new Sprite("asset/images/background1.png"));
+        //background.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/UI/Menu_background.png");
+        
+        enemy = new Object();
+        enemy->SetTranslation({ -250, 250 });
+        enemy->SetScale({ 50 });
+        enemy->SetMesh(mesh::CreateBox());
+        enemy->AddComponent(new Enemy(MoveType::straight));
+        enemy->AddComponent(new RigidBody());
+        enemy->AddComponent(new Collision());
+        enemy->AddComponent(new Status(ObjectType::Enemy));
+        enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
+        enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
+
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
 	obj.push_back(font);
+        obj.push_back(enemy);
 	obj.push_back(child_obj1);
-	//obj.push_back(background);
+        obj.push_back(door);
+	obj.push_back(background);
+
+
+        GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
@@ -226,23 +263,26 @@ void level2::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 	{
-		//for (auto& obj : Objectmanager_.GetObjectMap())
-		//{
-		//	JSON_.ObjectsToDocument(obj.get());
-		//}
-		//JSON_.LoadObjectFromJson();
-		////JSON_.GetObjectDocument().SetObject();
-		//std::cout << "Objects Loaded" << std::endl;
-
-		for(auto& tiles : Tile_Map_.GetGraphicsTiles())
+		for (auto& obj : Objectmanager_.GetObjectMap())
 		{
-			JSON_.TilesToDocument(tiles.first,tiles.second, Tile_Type::Graphical);
+			JSON_.ObjectsToDocument(obj.get());
 		}
-		JSON_.GetTileDocument().SetObject();
+		JSON_.LoadObjectFromJson();
+		//JSON_.GetObjectDocument().SetObject();
+		std::cout << "Objects Loaded" << std::endl;
 	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_I))
 		Tile_Map_.Delete_Tile();
+
+        enemy->GetComponentByTemplate<Enemy>()->Move(GetPlayerPointer()->GetTransform().GetTranslation());
+
+    if(enemy->GetComponentByTemplate<RigidBody>()->GetVelocity().x < 0)
+    {
+        enemy->GetComponentByTemplate<Animation>()->ChangeAnimation("right", "left");
+    }
+    else
+        enemy->GetComponentByTemplate<Animation>()->ChangeAnimation("left", "right");
 
     if (Input::IsKeyTriggered(GLFW_KEY_Y))
     {
@@ -254,9 +294,9 @@ void level2::Update(float dt)
     {
         tile_map_.Make_Tile("asset/images/Dr_Strange.png");
     }*/
-	/*if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
-		ChangeLevel("StartMenu");
-
+	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
+		ChangeLevel("Room1");
+                /*
 	if (!player->GetComponentByTemplate<Status>()->GetLived())
 		ChangeLevel("StartMenu");
 
@@ -407,8 +447,7 @@ void level2::SwordSwing(vector2 mouse_position, Object* player, Object* sword)
 	sword->SetTranslation(vector2(
 		player->GetTransform().GetTranslation().x + swing_direction.x *player->GetTransform().GetScale().x,
 		player->GetTransform().GetTranslation().y + swing_direction.y *player->GetTransform().GetScale().y));
-	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y,
-	mouse_position.x - player->GetTransform().GetTranslation().x);
+	float anglerad = atan2(mouse_position.y - player->GetTransform().GetTranslation().y, mouse_position.x - player->GetTransform().GetTranslation().x);
 	float angledeg = (180 / 3.14f)* anglerad;
 	sword->SetRotation(angledeg - 90);
 }

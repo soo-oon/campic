@@ -47,6 +47,8 @@ public:
 	void Update(float dt);
 	void Quit();
 
+    vector2 player_position = {0};
+
 private:
 	State* m_currentState = nullptr;
 	std::unordered_map <std::string, std::unique_ptr<State>> states;

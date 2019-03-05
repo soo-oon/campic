@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include "JSON.hpp"
 #include "Player.hpp"
 #include "Objectmanager.hpp"
+#include "Status.hpp"
 
 //void State::UpdateObjManager(float dt)
 //{
@@ -61,7 +62,19 @@ void State::Load()
     if (Objectmanager_.GetObjectMap().empty())
     {
         AddPlayer();
-        AddSword();
+        //AddSword();
+    }
+
+    if(m_player == nullptr)
+    {
+        for(auto player : Objectmanager_.GetObjectMap())
+        {
+            if(player->GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
+            {
+                m_player = player.get();
+            }
+        }
+
     }
 }
 
@@ -77,7 +90,7 @@ void State::AddPlayer()
 void State::AddSword()
 {
     Object* sword = new Object();
-    sword->AddComponent(new Sword(m_player));
+    sword->AddComponent(new Sword(Objectmanager_.GetObjectMap()[0].get()));
 
     Objectmanager_.AddObject(sword);
 }
