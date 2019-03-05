@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Graphics.hpp"
 #include "Card.hpp"
+#include "control_angle.hpp"
 
 bool Player::Initialize(Object * Ob)
 {
@@ -32,9 +33,15 @@ bool Player::Initialize(Object * Ob)
 		object->SetDepth(-0.1f);
 		object->Add_Init_Component(new RigidBody());
 
-		//object->AddComponent(new Sprite("asset/images/Player.png"));
-		object->Add_Init_Component(new Animation("asset/images/Player.png", "player", 8, 0.05f));
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/attack.png", "attack", 4, 0.1f, false);
+		object->Add_Init_Component(new Animation("asset/images/Player/S.png", "player_s", 8, 0.05f));
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/E.png", "player_e", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/W.png", "player_w", 7, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N.png", "player_n", 4, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/S_E.png", "player_s_e", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/S_W.png", "player_s_w", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N_E.png", "player_n_e", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N_W.png", "player_n_w", 8, 0.05f);
+
 		object->Add_Init_Component(new Collision(box_));
 		object->Add_Init_Component(new Status(ObjectType::Player, 500, 1, 1.f));
 		object->Add_Init_Component(new Sound("asset/sounds/punch.wav"));
@@ -49,7 +56,22 @@ bool Player::Initialize(Object * Ob)
 
 void Player::Update(float dt)
 {
+	auto temp = object->GetTransform().GetTranslation();
+	vector2 mouse = Input::GetMousePos(Graphics_.camera_zoom);
+
+	direction.x = mouse.x - temp.x;
+	direction.y = mouse.y - temp.y;
+
+	float angle = atan2(mouse.y - temp.y, mouse.x - temp.x);
+	angle = To_Degree(angle);
+
+	direction = normalize(direction);
+
+	std::cout << angle << std::endl;
+
+
 	MovePlayer();
+	PlayerAnimation(angle);
 	//PlayerMove(Input::GetMousePos(Graphics::checking_zoom));
 }
 
@@ -59,65 +81,33 @@ void Player::Delete()
 
 void Player::MovePlayer()
 {
-	/*std::cout << object->GetTransform().GetTranslation().x << ", " << object->GetTransform().GetTranslation().y
-		<< std::endl;*/
-
-	/*if(object != Objectmanager_.GetObjectMap()[0].get())
-	{
-		std::cout << "hi" << std::endl;
-	}*/
-
-        if (Input::IsKeyPressed(GLFW_KEY_V))
-        {
-            boost = 2;
-        }
-		else
-		{
-			boost = 1;
-		}
-
-		//auto  velocity = object->GetComponentByTemplate<RigidBody>()->GetVelocity();
-		
-		//std::cout << velocity.x << ", " << velocity.y << std::endl;
-
-		if (Input::IsKeyPressed(GLFW_KEY_W))
-		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()*24 * boost));
-		}
-		if (Input::IsKeyPressed(GLFW_KEY_A))
-		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed()*-24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
-		}
-		if (Input::IsKeyPressed(GLFW_KEY_S))
-		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()* -24 * boost));
-		}
-		if (Input::IsKeyPressed(GLFW_KEY_D))
-		{
-			object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed() * 24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
-		}
-
-       // {
-            object->GetComponentByTemplate<RigidBody>()
-                ->SetVelocity(object->GetComponentByTemplate<RigidBody>()->GetVelocity() * 0.9f);
-        //}
-
-	 if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("attack","player");
-		object->GetComponentByTemplate<Sound>()->Play("asset/sounds/punch.wav");
-	}
-
-	/*if (dot(object->GetComponentByTemplate<RigidBody>()->GetVelocity(), vector2(1, 0)) > 0)
-	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
-		object->GetComponentByTemplate<Animation>()->GetCurrentAnimation().sprites->Flip_Not();
-	}
+    if (Input::IsKeyPressed(GLFW_KEY_V))
+    {
+        boost = 2;
+    }
 	else
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player");
-		object->GetComponentByTemplate<Animation>()->GetCurrentAnimation().sprites->Flip();
-	}*/
+		boost = 1;
+	}
+
+
+	if (Input::IsKeyPressed(GLFW_KEY_W))
+	{
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()*24 * boost));
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_A))
+	{
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed()*-24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_S))
+	{
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<RigidBody>()->GetVelocity().x, object->GetComponentByTemplate<Status>()->GetSpeed()* -24 * boost));
+	}
+	if (Input::IsKeyPressed(GLFW_KEY_D))
+	{
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity(vector2(object->GetComponentByTemplate<Status>()->GetSpeed() * 24 * boost, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y));
+	}
+	object->GetComponentByTemplate<RigidBody>()->SetVelocity(object->GetComponentByTemplate<RigidBody>()->GetVelocity() * 0.9f);
 
 }
 
@@ -134,4 +124,40 @@ void Player::ClearCardList()
 std::vector<std::string> Player::GetCardList()
 {
 	return card_list;
+}
+
+void Player::PlayerAnimation(float angle)
+{
+	if(angle <= 22.5f && angle > -22.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_e");
+	}
+	else if(angle > 22.5f && angle <= 67.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_n_e");
+	}
+	else if(angle > 67.5f && angle <= 112.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_n");
+	}
+	else if( angle > 112.5f && angle <=157.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_n_w");
+	}
+	else if(angle > 157.5f && angle <= -157.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_w");
+	}
+	else if (angle > -157.5f && angle <= -112.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_s_w");
+	}
+	else if (angle > -112.5f && angle <= -67.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_s");
+	}
+	else if (angle > -67.5f && angle <= -22.5f)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_s_e");
+	}
 }

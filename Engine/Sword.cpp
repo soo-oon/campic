@@ -41,7 +41,7 @@ bool Sword::Initialize(Object * Ob)
 		object->Add_Init_Component(new Status(ObjectType::Sword, 5, 1, 1.f));
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 		object->SetDepth(m_owner->GetTransform().GetDepth() - 0.1);
-		object->SetParent(&m_owner->GetTransform());
+		//object->SetParent(&m_owner->GetTransform());
 	}
 	return true;
 }

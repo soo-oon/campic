@@ -33,6 +33,9 @@ public:
 	//void PlayerMove(vector2 mouse_position);
 
 private:
+	void PlayerAnimation(float angle);
+
+	vector2 direction;
     int boost = 1;
 	std::vector<std::string> card_list = {};
 };

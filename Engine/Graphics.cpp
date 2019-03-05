@@ -441,22 +441,7 @@ affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) cons
     affine2d myNDC;
 	auto temp_transform = transform;
 
-	if(temp_transform.GetParent() != nullptr)
-	{
-		auto temp = temp_transform.GetWorldToModel();
-		affine2d rotate_ = rotation_affine(-temp_transform.GetRotation());
-
-		temp *= rotate_;
-
-		temp_transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
-		temp_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
-
-		myNDC = temp_transform.GetModelToWorld();
-	}
-	else
-	{
-		myNDC = transform.GetModelToWorld();
-	}
+	myNDC = transform.GetModelToWorld();
 
     if (temp_camera != nullptr)
     {

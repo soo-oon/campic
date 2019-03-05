@@ -15,6 +15,7 @@ Creation date: 2018/12/14
 
 #pragma once
 #include "State.hpp"
+#include "Object.hpp"
 
 class level2 : public State
 {

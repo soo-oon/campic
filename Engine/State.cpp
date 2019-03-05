@@ -62,7 +62,7 @@ void State::Load()
     if (Objectmanager_.GetObjectMap().empty())
     {
         AddPlayer();
-        //AddSword();
+        AddSword();
     }
 
     if(m_player == nullptr)
