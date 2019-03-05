@@ -15,6 +15,7 @@ Creation date: 2018/12/14
 #include "HUD.hpp"
 #include "Status.hpp"
 #include "Graphics.hpp"
+#include <iostream>
 
 HUD HUD_;
 
@@ -33,6 +34,12 @@ bool HUD::Initialize(State* HUD_State)
 
 void HUD::Update(float dt)
 {
+	if(m_HUD_State->GetPlayerPointer() == nullptr)
+	{
+		std::cout << "hi" << std::endl;
+		SetPlayer(StateManager_.GetCurrentState()->GetPlayerPointer());
+	}
+
 	if(!isHUDActive)
 	{
 		HUD_Activing_Search();
@@ -40,7 +47,6 @@ void HUD::Update(float dt)
 	else if(isHUDActive && m_HUD_State != nullptr)
 	{
 		m_HUD_State->Update(dt);
-		Graphics_.HUD_Draw();
 	}
 }
 
@@ -60,6 +66,11 @@ void HUD::Add_HUD_Object(Object* obj)
 			component->Initialize(HUD_Object_Manager[i].get());
 		}
 	}
+}
+
+void HUD::SetPlayer(Object* obj)
+{
+	m_HUD_State->SetPlayerPointer(obj);
 }
 
 void HUD::HUD_Activing_Search()

@@ -50,6 +50,7 @@ void Engine::Update()
 		Graphics_.BeginDraw();
 		Graphics_.Draw();
 		Graphics_.Tile_Draw();
+		Graphics_.HUD_Draw();
 		Graphics_.EndDraw();
 		IMGUI_.Draw();
 

@@ -36,7 +36,7 @@ enum class HadCard
 class Enemy : public Component
 {
 public:
-	Enemy(MoveType move_type);
+	Enemy(MoveType move_type, Object* player);
 	bool Initialize(Object* Ob);
 	void Update(float dt);
 	void Delete();
@@ -46,6 +46,10 @@ public:
         void Move(vector2 position);
 
         void CardDrop();
+
+		Object* GetPlayerPointer() { return m_player; }
 private:
+	Object* m_player = nullptr;
+
 	MoveType move_t;
 };

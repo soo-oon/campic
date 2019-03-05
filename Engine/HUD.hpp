@@ -27,9 +27,11 @@ public:
 	std::vector<std::shared_ptr<Object>>& Get_HUD_Object_Manager() { return HUD_Object_Manager; }
 	void Add_HUD_Object(Object* obj);
 
+
 	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
 
 private:
+	void SetPlayer(Object* obj);
 	void HUD_Activing_Search();
 
 	bool isHUDActive = false;

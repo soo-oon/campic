@@ -147,7 +147,7 @@ void Player::PlayerAnimation(float angle)
 	{
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("n_w");
 	}
-	else if(angle > 157.5f && angle <= -157.5f)
+	else if(angle > 157.5f || angle <= -157.5f)
 	{
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("w");
 	}

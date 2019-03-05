@@ -39,6 +39,8 @@ void Animation::Update(float dt)
 		}
 		else
 		{
+			is_done = true;
+
 		    if (current_animation.is_repeats)
 		    {
 				current_animation.previous_current_coordinate.x = 0;
