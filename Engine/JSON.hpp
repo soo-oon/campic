@@ -48,8 +48,8 @@ public:
 	//Tiles
 	void TilesToDocument(int grid_, Object * obj, Tile_Type type);
 	void SaveTilesToJson(Tile_Type type);
-	void LoadTilesFromJson();
-	Document LoadTilesDocumentFromJson();
+	void LoadTilesFromJson(Tile_Type type);
+	Document LoadTilesDocumentFromJson(Tile_Type type);
 
 	//Helper class
 	Value ComponentAnimation(Object* obj);
