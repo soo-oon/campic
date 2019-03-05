@@ -141,3 +141,8 @@ void Collision::SetIsDoorClose()
 {
 	isdoor = false;
 }
+
+void Collision::SetCollisionScale(vector2 size_)
+{
+	collision_transform.SetScale(size_);
+}

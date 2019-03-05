@@ -20,6 +20,8 @@ enum class Tile_Type
 class Tile_Map
 {
 public:
+	void Update(float dt);
+
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }
     void Make_Tile(std::string image, Tile_Type type);

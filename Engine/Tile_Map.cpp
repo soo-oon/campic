@@ -4,6 +4,17 @@
 
 Tile_Map Tile_Map_;
 
+void Tile_Map::Update(float dt)
+{
+	for(auto it = graphics_tiles.begin(); it != graphics_tiles.end(); ++it)
+	{
+		for(auto component : it->second->GetComponent())
+		{
+			component->Update(dt);
+		}
+	}
+}
+
 void Tile_Map::Make_Tile(std::string image, Tile_Type type)
 {
 	int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x + TEMP_WIDTH / 2);

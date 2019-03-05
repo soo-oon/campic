@@ -65,6 +65,9 @@ public:
 	bool GetIsDoor();
 	void SetIsDoorClose();
 
+	void SetCollisionScale(vector2 size_);
+	//void SetCollision
+
 private:
 	vector2 collision_previous_position;
 	RestitutionType restitution_ = RestitutionType::none;

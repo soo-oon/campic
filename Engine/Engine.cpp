@@ -93,6 +93,7 @@ void Engine::System_Update()
 	HUD_.Update(dt);
 	Physics_.Update(dt);
 
+	Tile_Map_.Update(dt);
 	// Should Fix All of Update ways (Should Fix Physics class structure)
 
 	//TODO make new HUD structure 

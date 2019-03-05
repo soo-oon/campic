@@ -372,8 +372,7 @@ void Graphics::Tile_Draw()
 				Draw(it->second->GetTransform(), sprite, it->second->GetMesh().GetPointListType(),
 					it->second->GetMesh().GetColor(0),temp_sprite);
 			}
-
-			/*else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+			else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
 			{
 				animation.clear();
 				animation.reserve(it->second->GetMesh().GetAnimationPointsCount());
@@ -387,7 +386,7 @@ void Graphics::Tile_Draw()
 				Draw(it->second->GetTransform(), animation, it->second->GetMesh().GetPointListType(),
 					it->second->GetMesh().GetColor(0),
 					temp_animation->GetCurrentAnimation().sprites);
-			}*/
+			}
 		}
     }
 }
