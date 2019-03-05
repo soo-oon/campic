@@ -73,7 +73,7 @@ public:
 
     void Delete() override;
 
-	void ChangeAnimation(std::string ID, std::string original_ID = NULL);
+	void ChangeAnimation(std::string ID, std::string original_ID = std::string{});
 
 	bool IsDone() { return is_done; }
 

@@ -33,14 +33,14 @@ bool Player::Initialize(Object * Ob)
 		object->SetDepth(-0.1f);
 		object->Add_Init_Component(new RigidBody());
 
-		object->Add_Init_Component(new Animation("asset/images/Player/S.png", "player_s", 8, 0.05f));
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/E.png", "player_e", 8, 0.05f);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/W.png", "player_w", 7, 0.05f);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N.png", "player_n", 4, 0.05f);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/S_E.png", "player_s_e", 8, 0.05f);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/S_W.png", "player_s_w", 8, 0.05f);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N_E.png", "player_n_e", 8, 0.05f);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N_W.png", "player_n_w", 8, 0.05f);
+		object->Add_Init_Component(new Animation("asset/images/Player/S.png", "s", 8, 0.05f));
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/E.png", "e", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/W.png", "w", 7, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N.png", "n", 4, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/S_E.png", "s_e", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/S_W.png", "s_w", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N_E.png", "n_e", 8, 0.05f);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/N_W.png", "n_w", 8, 0.05f);
 
 		object->Add_Init_Component(new Collision(box_));
 		object->Add_Init_Component(new Status(ObjectType::Player, 500, 1, 1.f));
@@ -71,6 +71,9 @@ void Player::Update(float dt)
 
 
 	MovePlayer();
+
+	//object->GetComponentByTemplate<Animation>()->ChangeAnimation("e");
+
 	PlayerAnimation(angle);
 	//PlayerMove(Input::GetMousePos(Graphics::checking_zoom));
 }
@@ -130,34 +133,34 @@ void Player::PlayerAnimation(float angle)
 {
 	if(angle <= 22.5f && angle > -22.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_e");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("e");
 	}
 	else if(angle > 22.5f && angle <= 67.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_n_e");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("n_e");
 	}
 	else if(angle > 67.5f && angle <= 112.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_n");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("n");
 	}
 	else if( angle > 112.5f && angle <=157.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_n_w");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("n_w");
 	}
 	else if(angle > 157.5f && angle <= -157.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_w");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("w");
 	}
 	else if (angle > -157.5f && angle <= -112.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_s_w");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("s_w");
 	}
 	else if (angle > -112.5f && angle <= -67.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_s");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("s");
 	}
 	else if (angle > -67.5f && angle <= -22.5f)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("player_s_e");
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("s_e");
 	}
 }

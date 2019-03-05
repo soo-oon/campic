@@ -67,11 +67,11 @@ void level2::Initialize()
 	font->AddComponent(new Font("1234", "asset/font/default.ttf", Colors::Blue));
 	
 	Object* child_obj1 = new Object();
-	child_obj1->SetTranslation({ 0,50 });
+	child_obj1->SetTranslation({ 0,80 });
 	child_obj1->SetMesh(mesh::CreateBox(1, Colors::White));
 	child_obj1->SetDepth(-0.1f);
 	//child_obj1->SetRotation(0);
-	child_obj1->SetScale(150);
+	child_obj1->SetScale(50);
 	child_obj1->AddComponent(new Sprite("asset/images/life.png"));
 	child_obj1->SetParent(&GetPlayerPointer()->GetTransform());
 
