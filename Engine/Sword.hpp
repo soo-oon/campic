@@ -22,20 +22,22 @@ struct vector2;
 class Sword : public Component
 {
 public:
-	Sword(Object* player);
+	Sword(Object* owner);
 
 	bool Initialize(Object* Ob);
 	void Update(float dt);
 	void SetOwner(Object* player);
 	void Delete() override;
-	void SwordMove(vector2 mouse_position);
+	void SwordMove(float angle);
 	void SetName(std::string sword_string);
 	std::string GetName();
 	void Wheelwind();
 
 private:
+	vector2 direction;
+
 	float angle = 0;
 	bool skill = false;
 	std::string sword_name = "trash";
-	Object* owner;
+	Object* m_owner;
 };

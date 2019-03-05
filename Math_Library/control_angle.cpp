@@ -16,22 +16,14 @@ Creation date: 2018/12/14
 
 float To_Degree(float a)
 {
-
-    if (a == -1 + epsilon)
-    {
-        a = -1;
-    }
-    else if (a == 1 + epsilon)
-    {
-        a = 1;
-    }
-    a = acos(a);
-    a /= (float)(PI / 180.0f);
+	a = (180.0f / PI)*a;
 
     return a;
 }
+
 
 float To_Radian(float a)
 {
     return (a*PI) / 180.0f;
 }
+

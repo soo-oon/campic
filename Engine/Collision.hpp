@@ -37,12 +37,8 @@ enum class CollisionState
 class Collision : public Component
 {
 public:
-	Collision(CollisionType type_ = box_, vector2 translation_ = {0,0}, 
-		vector2 scale_ = {100,100}, float rotation_ = 0) : type(type_)
+	Collision(CollisionType type_ = box_) : type(type_)
 	{
-		collision_transform.SetTranslation(translation_);
-		collision_transform.SetScale(scale_);
-		collision_transform.SetRotation(rotation_);
 	}
 
 	bool Initialize(Object* Ob) override;

@@ -29,8 +29,7 @@ bool FireBall::Initialize(Object* Ob)
 	object->SetRotation(o_sword->GetTransform().GetRotation() + 90);
 	object->SetScale({ o_player->GetTransform().GetScale().x,o_player->GetTransform().GetScale().y });
 	object->SetTranslation({ o_player->GetTransform().GetTranslation().x, o_player->GetTransform().GetTranslation().y });
-	object->AddComponent(new Collision(box_, vector2(o_player->GetTransform().GetTranslation().x, o_player->GetTransform().GetTranslation().y), 
-		{ o_player->GetTransform().GetScale().x, o_player->GetTransform().GetScale().y }));
+	object->AddComponent(new Collision(box_));
 	object->AddComponent(new RigidBody());
 	object->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * a);
 	object->AddComponent(new Animation("asset/images/shot.png", "power", 4, 0.25));

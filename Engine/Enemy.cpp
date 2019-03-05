@@ -104,7 +104,7 @@ void Enemy::CardDrop()
     card->SetScale({ 24.f, 30.f });
     card->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     card->AddComponent(new Status(ObjectType::Item));
-    card->AddComponent(new Collision(box_, { object->GetTransform().GetTranslation() }, { 24.f,30.f }));
+    card->AddComponent(new Collision(box_));
     object->GetComponentByTemplate<Status>()->SetObjectType(ObjectType::Item);
     object->GetTransform().SetScale({ 24.f, 30.f });
     object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale({ 24.f,30.f });

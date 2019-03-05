@@ -19,10 +19,11 @@ Creation date: 2018/12/14
 #include "Status.hpp"
 #include <iostream>
 #include "Player.hpp"
+#include "control_angle.hpp"
 
 Sword::Sword(Object * player)
 {
-	owner = player;
+	m_owner = player;
 }
 
 bool Sword::Initialize(Object * Ob)
@@ -30,27 +31,24 @@ bool Sword::Initialize(Object * Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
-		auto temp_translation = owner->GetTransform().GetTranslation();
+		object->SetTranslation({ 50,0 });
 		object->SetScale({ 75.0f, 75.0f });
-		object->SetTranslation(temp_translation);
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-		object->AddComponent(new Sprite("asset/images/trash.png"));
+		object->Add_Init_Component(new Sprite("asset/images/trash.png"));
 		//object->GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/trash.png");
-		object->AddComponent(new Collision(box_, {}, { 40.0f, 40.0f }));
-		object->AddComponent(new RigidBody());
+		object->Add_Init_Component(new Collision(box_));
+		object->Add_Init_Component(new RigidBody());
+		object->Add_Init_Component(new Status(ObjectType::Sword, 5, 1, 1.f));
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
-		object->AddComponent(new Status(ObjectType::Sword, 5, 1, 1.f));
-		object->SetDepth(0.978f);
+		object->SetDepth(m_owner->GetTransform().GetDepth() - 0.1);
+		object->SetParent(&m_owner->GetTransform());
 	}
 	return true;
 }
 
 void Sword::Update(float dt)
 {
-	/*std::cout << owner->GetTransform().GetTranslation().x << ", " <<
-		owner->GetTransform().GetTranslation().y << std::endl;
-		*/
-
+	/*
     if(Input::IsKeyPressed(GLFW_KEY_T))
     {
         if (
@@ -96,19 +94,43 @@ void Sword::Update(float dt)
 		SwordMove(Input::GetMousePos(Graphics::camera_zoom));
 	else
 		Wheelwind();
+	*/
+
+	auto temp = m_owner->GetTransform().GetTranslation();
+	vector2 mouse = Input::GetMousePos(Graphics_.camera_zoom);
+
+	direction.x = mouse.x - temp.x;
+	direction.y = mouse.y - temp.y;
+
+	float angle = atan2(mouse.y - temp.y, mouse.x - temp.x);
+	angle = To_Degree(angle);
+
+	direction = normalize(direction);
+
+	//std::cout << check.x << ", " << check.y << std::endl;
+
+
+	//object->SetRotation(To_Degree(angle));
+	SwordMove(angle);
 }
 
 void Sword::SetOwner(Object* player)
 {
-	owner = player;
+	m_owner = player;
 }
 
 void Sword::Delete()
 {
 }
 
-void Sword::SwordMove(vector2 mouse_position)
+void Sword::SwordMove(float angle)
 {
+	vector2 temp = { m_owner->GetTransform().GetTranslation().x + direction.x * m_owner->GetTransform().GetScale().x,
+		m_owner->GetTransform().GetTranslation().y + direction.y * m_owner->GetTransform().GetScale().y };
+
+	object->SetTranslation(temp);
+	object->SetRotation(angle);
+	/*
 	vector2 swing_direction = normalize(vector2(mouse_position.x - owner->GetTransform().GetTranslation().x,
 		mouse_position.y - owner->GetTransform().GetTranslation().y));
 	object->SetTranslation(vector2(
@@ -117,6 +139,8 @@ void Sword::SwordMove(vector2 mouse_position)
 	float anglerad = atan2(mouse_position.y - owner->GetTransform().GetTranslation().y, mouse_position.x - owner->GetTransform().GetTranslation().x);
 	float angledeg = (180 / 3.14f)* anglerad;
 	object->SetRotation(angledeg - 90);
+	*/
+
 	//sword->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetRotation(angledeg - 90);
 //float a = dot(sword->GetTransform().GetTranslation(), vector2(0, 1))/ magnitude(sword->GetTransform().GetTranslation());
 //if(mouse_position.x > player->GetTransform().GetTranslation().x)
@@ -142,6 +166,7 @@ std::string Sword::GetName()
 
 void Sword::Wheelwind()
 {
+	/*
 	float x_vel, y_vel;
 	angle -= 10;
 	if (angle > -360) {
@@ -157,4 +182,5 @@ void Sword::Wheelwind()
 		skill = false;
 		object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/ice_sword.png");
 	}
+	*/
 }

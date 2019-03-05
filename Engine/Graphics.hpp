@@ -97,7 +97,6 @@ private:
 		PointListType draw_type, Color color, Sprite* sprite);
 	void Draw(const Transform& transform, const std::vector<particle>& vertexes,
 		PointListType draw_type, Color color, Sprite* sprite);
-
 	void Draw(const Transform& transform, const std::vector<font>& vertexes,
 		PointListType draw_type, Color color, Font* font, int index);
 

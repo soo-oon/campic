@@ -20,11 +20,16 @@ Creation date: 2018/12/14
 
 bool Collision::Initialize(Object* Ob)
 {
-	object = Ob;
+	if (object == nullptr)
+	{
+		object = Ob;
 
-	collision_transform.SetDepth(Ob->GetTransform().GetDepth());
-	collision_mesh = mesh::CreateCollisionBox(type);
-
+		collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+		collision_transform.SetScale(object->GetTransform().GetScale());
+		collision_transform.SetRotation(object->GetTransform().GetRotation());
+		collision_transform.SetDepth(object->GetTransform().GetDepth());
+		collision_mesh = mesh::CreateCollisionBox(type);
+	}
 	return true;
 }
 
@@ -32,6 +37,7 @@ bool Collision::Initialize(Object* Ob)
 void Collision::Update(float dt)
 {
 	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+
 	if (restitution_ != RestitutionType::exit_)
 		isdoor = false;
 	if(GetRestitutionType() != RestitutionType::get)
