@@ -157,7 +157,8 @@ void Imgui_System::Draw()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-		
+
+	//ImGui::ShowDemoWindow(&show_window);
 	Editor(show_window);
 
 	ImGui::Render();
@@ -215,7 +216,51 @@ void Imgui_System::Editor(bool show_window)
 	ObjectCreator(object_creator);
 	ObjectEditor(object_editor);
 	TileEditor(tile_editor);
-	//SoundEditor(sound_editor);
+
+	for (int i = 0; i < 50; i++)
+		ImGui::Spacing();
+
+	if(ImGui::Button("Save Objects"))
+	{
+		JSON_.SaveObjectsToJson();
+	}
+
+	ImGui::SameLine();
+
+	if (ImGui::Button("Load Objects"))
+	{
+		JSON_.LoadObjectFromJson();
+	}
+
+	if(ImGui::Button("Save G_Tiles"))
+	{
+		JSON_.SaveTilesToJson(Tile_Type::Graphical);
+	}
+
+	ImGui::SameLine();
+
+	if (ImGui::Button("Load G_Tiles"))
+	{
+		JSON_.LoadTilesFromJson(Tile_Type::Graphical);
+	}
+
+	if (ImGui::Button("Save P_Tiles"))
+	{
+		JSON_.SaveTilesToJson(Tile_Type::Physical);
+	}
+	ImGui::SameLine();
+
+	if (ImGui::Button("Load P_Tiles"))
+	{
+		JSON_.LoadTilesFromJson(Tile_Type::Physical);
+	}
+
+	// Delete ALL Object
+	if (ImGui::Button("Clear All"))
+	{
+		Objectmanager_.GetObjectMap().clear();
+		Physics_.ResetPreviousSize();
+	}
 
 	ImGui::End();
 }
@@ -318,13 +363,6 @@ void Imgui_System::ObjectEditor(bool object_editor)
 			}
 		}
 	}
-
-	// Delete ALL Object
-	if (ImGui::Button("Clear All"))
-	{
-		Objectmanager_.GetObjectMap().clear();
-		Physics_.ResetPreviousSize();
-	}
 }
 
 void Imgui_System::SpriteHelper()
@@ -364,100 +402,6 @@ void Imgui_System::SpriteHelper()
 	}
 }
 
-void Imgui_System::SoundHelper()
-{
-	/*if (ImGui::TreeNode("Sound"))
-	{
-		static std::string current_item = sound_path;
-
-		if (ImGui::BeginCombo("Select sound", current_item.c_str()))
-		{
-			for (int n = 0; n < soundList.size(); n++)
-			{
-				bool is_selected = (current_item.c_str() == soundList[n].c_str());
-				if (ImGui::Selectable(soundList[n].c_str(), is_selected))
-					current_item = soundList[n].c_str();
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();
-			}
-			ImGui::EndCombo();
-		}
-
-		if (selectObj->GetComponentByTemplate<Sound>() != nullptr)
-		{
-			if (ImGui::Button("Change Sound"))
-				selectObj->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/" + current_item);
-			
-			ImGui::SameLine();
-			
-			if (ImGui::Button("Play Sound"))
-				selectObj->GetComponentByTemplate<Sound>()->Play("asset/sounds/" + current_item);
-		}
-		else
-		{
-			if (ImGui::Button("Add Sound"))
-			{
-				selectObj->AddComponent(new Sound("asset/sounds/" + current_item, AudioManager::CATEGORY_SFX, 4));
-			}
-		}
-		ImGui::TreePop();*/
-	//}
-}
-
-void Imgui_System::SoundEditor(bool sound_editor)
-{
-	//if (!sound_editor)
-	//	return;
-
-	//static std::string current_sound = "";
-	//
-	//// The second parameter is the label previewed before opening the combo.
-	//if (ImGui::BeginCombo("Select Sound", current_sound.c_str())) 
-	//{
-	//	for (int n = 0; n < soundList.size(); n++)
-	//	{
-	//		// You can store your selection however you want, outside or inside your objects
-	//		bool is_selected = (current_sound.c_str() == soundList[n].c_str()); 
-	//		if (ImGui::Selectable(soundList[n].c_str(), is_selected))
-	//			current_sound = soundList[n].c_str();
-	//			if (is_selected)
-	//				ImGui::SetItemDefaultFocus();   
-	//	}
-	//	ImGui::EndCombo();
-	//}
-
-	//const std::string current_path = "asset/sounds/";
-
-	//if (ImGui::Button("Load SFX"))
-	//{
-	//	AudioManager_.LoadSFX(current_path + current_sound);
-	//}
-	//ImGui::SameLine();
-	//if (ImGui::Button("Load Song"))
-	//{
-	//	AudioManager_.LoadSong(current_path + current_sound);
-	//}
-
-	//if (ImGui::Button("Play SFX"))
-	//{
-	//	//AudioManager_.PlaySFX(current_path + current_sound,4,4,4,4);
-	//}
-	//ImGui::SameLine();
-	//if (ImGui::Button("Play Song"))
-	//{
-	//	AudioManager_.PlaySong(current_path + current_sound);
-	//}
-
-	//if(ImGui::Button("Stop SFXs"))
-	//{
-	//	AudioManager_.StopSFXs();
-	//}
-	//ImGui::SameLine();
-	//if (ImGui::Button("Stop Songs"))
-	//{
-	//	AudioManager_.StopSongs();
-	//}
-}
 
 void Imgui_System::TileEditor(bool tile_editor)
 {

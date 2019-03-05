@@ -21,18 +21,21 @@ class Tile_Map
 {
 public:
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
-    std::unordered_map<int, Object*>& GetPhysicsTiles() { return physics_tiles; }
+    std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }
     void Make_Tile(std::string image, Tile_Type type);
 	void Make_Ani_Tile(std::string image, Tile_Type type);
     void Delete_Tile();
 	void Delete_Ani_Tile();
+
+	void InsertGraphicalTiles(int grid_, Object* tiles);
+	void InsertPhysicalTiles(int grid_, Object* tiles);
 
 private:
 	void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
 	void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
 
     std::unordered_map<int, Object*> graphics_tiles;
-    std::unordered_map<int, Object*> physics_tiles;
+    std::unordered_map<int, Object*> physical_tiles;
 
 	int m_number = 0;
 

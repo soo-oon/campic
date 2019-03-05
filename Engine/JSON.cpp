@@ -29,7 +29,6 @@ void JSON::PlayerToDoc(Object* obj)
 	//Trees for player info
 	Value playerTree(kArrayType);
 
-
 }
 
 void JSON::ObjectsToDocument(Object* obj)
@@ -581,7 +580,7 @@ void JSON::SaveTilesToJson(Tile_Type type)
 	std::string filename(file_path);
 
 	if(static_cast<int>(type) == 0)
-		filename.append("Physics_Tiles.json");
+		filename.append("Physical_Tiles.json");
 	else
 		filename.append("Graphics_Tiles.json");
 
@@ -596,26 +595,150 @@ void JSON::SaveTilesToJson(Tile_Type type)
 	fclose(fp);
 }
 
-void JSON::LoadTilesFromJson()
-{
-}
-
-Document JSON::LoadTilesDocumentFromJson()
+Document JSON::LoadTilesDocumentFromJson(Tile_Type type)
 {
 	std::string filename(file_path);
-	filename.append("Tiles.json");
+
+	if (static_cast<int>(type) == 0)
+		filename.append("Physical_Tiles.json");
+	else
+		filename.append("Graphics_Tiles.json");
 
 	FILE* fp = fopen(filename.c_str(), "r+");
 
 	char readBuffer[65535];
 	FileReadStream is(fp, readBuffer, sizeof(readBuffer));
 
-	Document tile_lists;
-	tile_lists.ParseStream(is);
+	Document Tiles;
+	Tiles.ParseStream(is);
 
 	fclose(fp);
 
-	return tile_lists;
+	return Tiles;
+}
+
+void JSON::LoadTilesFromJson(Tile_Type type)
+{
+	TileDocument = LoadTilesDocumentFromJson(type);
+
+	for (auto& temp : TileDocument.GetObject())
+	{
+		Value& tile_array = temp.value;
+
+		Value status, tile_type, grid, scale, pos, animation, sprite, rigid_body, collision, isAnimated;
+		Object* obj = new Object();
+
+		//status.SetObject();
+		sprite.SetObject();
+		animation.SetObject();
+		//rigid_body.SetObject();
+		//collision.SetObject();
+		isAnimated.SetObject();
+		tile_type.SetObject();
+		grid.SetObject();
+		scale.SetObject();
+		pos.SetObject();
+
+		//status = tile_array.FindMember("Status")->value;
+		grid = tile_array.FindMember("grid")->value;
+		tile_type = tile_array.FindMember("tile_type")->value;
+		scale = tile_array.FindMember("scale")->value;
+		pos = tile_array.FindMember("pos")->value;
+		sprite = tile_array.FindMember("sprite")->value;
+		animation = tile_array.FindMember("animation")->value;
+		//rigid_body = tile_array.FindMember("RigidBody")->value;
+		//collision = tile_array.FindMember("Collision")->value;
+		isAnimated = tile_array.FindMember("IsAnimated")->value;
+
+		int grid_ = grid.GetInt();
+
+		//////////////////////////////////////////// Status
+		/*if (status.HasMember("Type"))
+		{
+			int obj_type = status.FindMember("Type")->value.FindMember("id")->value.GetInt();
+			int hp_ = status.FindMember("HP")->value.GetInt();
+			int attack_damage = status.FindMember("Damage")->value.GetInt();
+			float speed = status.FindMember("Speed")->value.GetFloat();
+			bool is_alive = status.FindMember("isAlive")->value.GetBool();
+
+			obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
+		}*/
+
+		//////////////////////////////////////// Transform
+		vector2 position, scale_;
+
+		position.x = pos.FindMember("pos")->value.FindMember("x")->value.GetFloat();
+		position.y = pos.FindMember("pos")->value.FindMember("y")->value.GetFloat();
+		scale_.x = pos.FindMember("scale")->value.FindMember("x")->value.GetFloat();
+		scale_.y = pos.FindMember("scale")->value.FindMember("y")->value.GetFloat();
+
+		obj->SetTranslation(position);
+		obj->SetScale(scale_);
+
+		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+
+		////////////////////////////////////////////////// Sprite
+		bool is_flip = false;
+		std::string path;
+
+		if (sprite.HasMember("is_flip"))
+		{
+			path = sprite.FindMember("image_path")->value.GetString();
+			is_flip = sprite.FindMember("is_flip")->value.GetBool();
+
+			obj->AddComponent(new Sprite(path));
+			obj->GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
+		}
+
+		//////////////////////////////////////////// Animation
+		std::vector<std::string> id, ani_path;
+		std::vector<int> image_frame;
+		std::vector<float> update_frame;
+		std::vector<bool> is_repeat;
+
+		if (animation.HasMember("map"))
+		{
+			for (auto& temp_ : animation.FindMember("map")->value.GetObject())
+			{
+				Value& map_array = animation.FindMember("map")->value;
+
+				id.push_back(map_array.FindMember("path")->value.FindMember("id")->value.GetString());
+				ani_path.push_back(map_array.FindMember("path")->value.FindMember("path")->value.GetString());
+				image_frame.push_back(map_array.FindMember("info")->value.FindMember("image_frames")->value.GetInt());
+				update_frame.push_back(map_array.FindMember("info")->value.FindMember("update_frames")->value.GetFloat());
+				is_repeat.push_back(map_array.FindMember("info")->value.FindMember("is_repeats")->value.GetBool());
+			}
+
+			obj->AddComponent(new Animation(ani_path.at(0), id.at(0), image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
+
+			for (int i = 1; i < id.size(); i++)
+			{
+				obj->GetComponentByTemplate<Animation>()->AddAnimaition(ani_path.at(i), id.at(i), image_frame.at(i),
+					update_frame.at(i), is_repeat.at(i));
+			}
+		}
+
+		if (static_cast<int>(type) == 0)
+			Tile_Map_.InsertPhysicalTiles(grid_, obj);
+		else
+			Tile_Map_.InsertGraphicalTiles(grid_, obj);
+
+
+		///////////////////////////////////////////////// RigidBody
+		//bool is_rigid = false;
+		//is_rigid = rigid_body.GetBool();
+
+		//if (is_rigid)
+		//	obj->AddComponent(new RigidBody());
+
+		///////////////////////////////////////////////// Collision
+		//if (collision.HasMember("id"))
+		//{
+		//	CollisionType type = static_cast<CollisionType>(collision.FindMember("id")->value.GetInt());
+
+		//	obj->AddComponent(new Collision(type));
+		//}
+	}
 }
 
 void JSON::LoadObjectFromJson()

@@ -74,7 +74,7 @@ void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, 
 
 	if (type == Tile_Type::Physical)
 	{
-		physics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
+		physical_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
 	}
 	else
 		graphics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
@@ -92,10 +92,20 @@ void Tile_Map::Ani_Tile(std::string& image, int x, int y, vector2 position, Tile
 
 	if (type == Tile_Type::Physical)
 	{
-		physics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
+		physical_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
 	}
 	else
 		graphics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
 
 	std::cout << graphics_tiles.size() << std::endl;
+}
+
+void Tile_Map::InsertGraphicalTiles(int grid_, Object * tiles)
+{
+	graphics_tiles.insert(std::pair<int, Object*>(grid_, tiles));
+}
+
+void Tile_Map::InsertPhysicalTiles(int grid_, Object * tiles)
+{
+	physical_tiles.insert(std::pair<int, Object*>(grid_, tiles));
 }
