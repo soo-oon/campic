@@ -165,7 +165,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossRoom.cpp" />
+    <ClCompile Include="BossSkill.cpp" />
     <ClCompile Include="HUD_Level.cpp" />
     <ClCompile Include="level1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -199,7 +201,9 @@
     <ClCompile Include="Store.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boss.hpp" />
     <ClInclude Include="BossRoom.h" />
+    <ClInclude Include="BossSkill.hpp" />
     <ClInclude Include="FireBall.hpp" />
     <ClInclude Include="HUD_Level.hpp" />
     <ClInclude Include="level1.hpp">

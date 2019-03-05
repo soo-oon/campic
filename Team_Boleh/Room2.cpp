@@ -40,7 +40,7 @@ void Room2::Initialize()
     enemy->SetTranslation({ -250, 250 });
     enemy->SetScale({ 50 });
     enemy->SetMesh(mesh::CreateBox());
-    enemy->AddComponent(new Enemy(MoveType::straight));
+    enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
     enemy->AddComponent(new RigidBody());
     enemy->AddComponent(new Collision());
     enemy->AddComponent(new Status(ObjectType::Enemy));

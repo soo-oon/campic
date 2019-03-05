@@ -3,53 +3,48 @@
 Copyright (C) 2018 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Enemy.hpp
+File Name: Boss.hpp
 Language: C++
 Platform: Visual Studio 2017
 Project: sword of souls
-Primary : Jung Soon Woo
+Primary : HyunSung Kim
 Secondary :
-Creation date: 2018/12/14
+Creation date: 2019/03/06
 - End Header ----------------------------------------------------------------
 */
-
 #pragma once
-
 #include "Component.hpp"
 #include "Object.hpp"
 #include "time.h"
 
-enum class MoveType
+enum class BossSkillType
 {
-	straight,
-        angler
+	ShootOut,
+	PopUp
 };
 
-enum class HadCard
-{
-    red,
-    blue,
-    green,
-    black,
-};
+//enum class HadCard
+//{
+//	red,
+//	blue,
+//	green,
+//	black
+//};
 
-class Enemy : public Component
+class Boss : public Component
 {
 public:
-	Enemy(MoveType move_type, Object* player);
-	bool Initialize(Object* Ob);
+	Boss(BossSkillType skill);
+	bool Initialize(Object* boss_obj);
 	void Update(float dt);
 	void Delete();
-	void MoveEnemy();
-        void StraightMove();
-        void AnglerMove();
-        void Move(vector2 position);
-
-        void CardDrop();
-
-		Object* GetPlayerPointer() { return m_player; }
+	void BossAttack();
+	void ShootOutAttack();
+	void PopUpAttack();
+	void CardDrop();
+	float GetTime();
+	float SetTime(float set_time);
 private:
-	Object* m_player = nullptr;
-
-	MoveType move_t;
+	float boss_time;
+	BossSkillType boss_skill;
 };

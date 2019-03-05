@@ -26,6 +26,8 @@ public:
 	void Damaged(int damage);
 	int GetHp() { return hp; }
 
+	void ObjectDie() { is_alive = false; }
+
 private:
 	ObjectType object_type;
 	int hp;

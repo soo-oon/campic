@@ -20,7 +20,7 @@ Creation date: 2018/12/14
 #include "Card.hpp"
 #include "Player.hpp"
 
-Enemy::Enemy(MoveType move_type)
+Enemy::Enemy(MoveType move_type, Object* player)
 {
 	move_t = move_type;
 }

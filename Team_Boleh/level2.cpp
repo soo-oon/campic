@@ -26,9 +26,30 @@ Creation date: 2018/12/14
 #include "Sound.hpp"
 #include "Application.hpp"
 #include "Tile_Map.hpp"
+#include "Boss.hpp"
 
 void level2::Initialize()
 {
+	/*Object* boss = new Object();
+	boss->SetTranslation({ 50, -100 });
+	boss->SetScale({ 50.0f, 50.0f });
+	boss->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+	boss->SetDepth(0.0f);
+	boss->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+	boss->AddComponent(new Status(ObjectType::Boss, 10, 1, 0, true));
+	boss->AddComponent(new Boss(BossSkillType::PopUp));*/
+
+	Object* temp = new Object();
+	temp->SetTranslation({ 100,-150 });
+	temp->SetScale({ 50.0f, 50.0f });
+	temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+	temp->SetDepth(0.0f);
+	temp->AddComponent(new RigidBody());
+	temp->AddComponent(new Sprite("asset/images/Dr_Strange.png"));
+	//temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	temp->AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
+    //temp->AddComponent(new Enemy(MoveType::straight));
+
 	Object* camera = new Object();
 	camera->AddComponent(new Camera(this));
 
@@ -81,6 +102,7 @@ void level2::Initialize()
     //background->SetDepth(0.99f);
     //background->AddComponent(new Sprite("asset/images/background1.png"));
 
+<<<<<<< HEAD
     int w, h;
     glfwGetWindowSize(Application_.GetWindow(), &w, &h);
 
@@ -103,26 +125,33 @@ void level2::Initialize()
     enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
     enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
 
+    //obj.push_back(boss);
+	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
 	obj.push_back(font);
-    obj.push_back(enemy);
-	//obj.push_back(child_obj1);
-    obj.push_back(door);
+	obj.push_back(enemy);
+	obj.push_back(child_obj1);
+	obj.push_back(door);
 	obj.push_back(background);
+
 
     GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,5.0f, 200, {0, 0}, {0, 5},
-		{10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
-	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
+	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(100, 5.0f,
+	                                                                             5.0f, 200, {0, 0}, {0, 5},
+	                                                                             {10.0f, 10.0f}, {Application_.GetScreenSize()}, "asset/images/feather.png")));
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Integrate);
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
+	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
 
 	for(auto i : obj)
 	{
 		Objectmanager_.AddObject(i);
 	}
+
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
