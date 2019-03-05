@@ -65,13 +65,14 @@ void JSON::ObjectsToDocument(Object* obj)
 	if (obj->GetComponentByTemplate<Status>() != nullptr)
 	{
 		//Save objects that is not player
-		if(obj->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player)
-			objStatusTree = ComponentStatus(obj);
-		if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
+		//if(obj->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player)
+			
+		/*if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
 		{
 			objCameraTree = ComponentCamera(obj);
 			objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
-		}
+		}*/
+		objStatusTree = ComponentStatus(obj);
 	}
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
@@ -667,10 +668,10 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 		//////////////////////////////////////// Transform
 		vector2 position, scale_;
 
-		position.x = pos.FindMember("pos")->value.FindMember("x")->value.GetFloat();
-		position.y = pos.FindMember("pos")->value.FindMember("y")->value.GetFloat();
-		scale_.x = pos.FindMember("scale")->value.FindMember("x")->value.GetFloat();
-		scale_.y = pos.FindMember("scale")->value.FindMember("y")->value.GetFloat();
+		position.x = pos.FindMember("x")->value.GetFloat();
+		position.y = pos.FindMember("y")->value.GetFloat();
+		scale_.x = scale.FindMember("x")->value.GetFloat();
+		scale_.y = scale.FindMember("y")->value.GetFloat();
 
 		obj->SetTranslation(position);
 		obj->SetScale(scale_);
@@ -678,26 +679,28 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 
 		////////////////////////////////////////////////// Sprite
-		bool is_flip = false;
-		std::string path;
 
 		if (sprite.HasMember("is_flip"))
 		{
+			bool is_flip = false;
+			std::string path;
+
 			path = sprite.FindMember("image_path")->value.GetString();
 			is_flip = sprite.FindMember("is_flip")->value.GetBool();
 
-			obj->AddComponent(new Sprite(path));
+			obj->Add_Init_Component(new Sprite(path));
 			obj->GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
 		}
 
 		//////////////////////////////////////////// Animation
-		std::vector<std::string> id, ani_path;
-		std::vector<int> image_frame;
-		std::vector<float> update_frame;
-		std::vector<bool> is_repeat;
 
 		if (animation.HasMember("map"))
 		{
+			std::vector<std::string> id, ani_path;
+			std::vector<int> image_frame;
+			std::vector<float> update_frame;
+			std::vector<bool> is_repeat;
+
 			for (auto& temp_ : animation.FindMember("map")->value.GetObject())
 			{
 				Value& map_array = animation.FindMember("map")->value;

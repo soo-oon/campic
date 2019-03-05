@@ -28,6 +28,8 @@ bool Imgui_System::Initialize()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
+	//ImGui::GetCurrentWindow()->WindowBorderSize
+
 	const char* glsl_version = "#version 300 es";
 
 	window = glfwGetCurrentContext();
@@ -35,7 +37,10 @@ bool Imgui_System::Initialize()
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+	/*glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+	glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
+	glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
+	glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);*/
 
 	ImGui::StyleColorsDark();
 
@@ -218,11 +223,32 @@ void Imgui_System::Editor(bool show_window)
 	TileEditor(tile_editor);
 
 	for (int i = 0; i < 50; i++)
+	{
+		if(tile_editor)
+		{
+			if (i == 5)
+				break;
+		}
+		if(object_editor)
+		{
+			if (i == 30)
+				break;
+		}
+		if (object_creator)
+		{
+			if (i == 30)
+				break;
+		}
 		ImGui::Spacing();
+	}
 
 	if(ImGui::Button("Save Objects"))
 	{
-		JSON_.SaveObjectsToJson();
+		for(auto& obj : Objectmanager_.GetObjectMap())
+		{
+			JSON_.ObjectsToDocument(obj.get());
+		}
+		JSON_.GetObjectDocument().SetObject();
 	}
 
 	ImGui::SameLine();
@@ -234,7 +260,11 @@ void Imgui_System::Editor(bool show_window)
 
 	if(ImGui::Button("Save G_Tiles"))
 	{
-		JSON_.SaveTilesToJson(Tile_Type::Graphical);
+		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
+		{
+			JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
+		}
+		JSON_.GetTileDocument().SetObject();
 	}
 
 	ImGui::SameLine();
@@ -244,7 +274,7 @@ void Imgui_System::Editor(bool show_window)
 		JSON_.LoadTilesFromJson(Tile_Type::Graphical);
 	}
 
-	if (ImGui::Button("Save P_Tiles"))
+	/*if (ImGui::Button("Save P_Tiles"))
 	{
 		JSON_.SaveTilesToJson(Tile_Type::Physical);
 	}
@@ -253,7 +283,7 @@ void Imgui_System::Editor(bool show_window)
 	if (ImGui::Button("Load P_Tiles"))
 	{
 		JSON_.LoadTilesFromJson(Tile_Type::Physical);
-	}
+	}*/
 
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))

@@ -29,17 +29,6 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	Object* temp = new Object();
-	temp->SetTranslation({ 100,-150 });
-	temp->SetScale({ 50.0f, 50.0f });
-	temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-	temp->SetDepth(0.0f);
-	temp->AddComponent(new RigidBody());
-	temp->AddComponent(new Sprite("asset/images/Dr_Strange.png"));
-	//temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
-	temp->AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
-    //temp->AddComponent(new Enemy(MoveType::straight));
-
 	Object* camera = new Object();
 	camera->AddComponent(new Camera(this));
 
@@ -62,9 +51,9 @@ void level2::Initialize()
 	card1->AddComponent(new Status(ObjectType::Item));
 
 	Object* font = new Object();
-	font->SetTranslation({ 50, 0 });
+	font->SetTranslation({ 0, 300 });
 	font->SetDepth(0.0f);
-	font->AddComponent(new Font("1234", "asset/font/default.ttf", Colors::Blue));
+	font->AddComponent(new Font("Sword of Souls", "asset/font/default.ttf", Colors::Blue));
 	
 	Object* child_obj1 = new Object();
 	child_obj1->SetTranslation({ 0,80 });
@@ -75,15 +64,15 @@ void level2::Initialize()
 	child_obj1->AddComponent(new Sprite("asset/images/life.png"));
 	child_obj1->SetParent(&GetPlayerPointer()->GetTransform());
 
-        door = new Object();
-        door->SetTranslation({ 500,0 });
-        door->SetMesh(mesh::CreateBox(1, Colors::White));
-        door->SetDepth(-0.1f);
-        //child_obj1->SetRotation(0);
-        door->SetScale(50);
-        door->AddComponent(new Sprite("asset/images/door.png"));
-        door->AddComponent(new Collision(box_));
-        door->AddComponent(new Status(ObjectType::Door));
+    door = new Object();
+    door->SetTranslation({ 500,0 });
+    door->SetMesh(mesh::CreateBox(1, Colors::White));
+    door->SetDepth(-0.1f);
+    //child_obj1->SetRotation(0);
+    door->SetScale(50);
+    door->AddComponent(new Sprite("asset/images/door.png"));
+    door->AddComponent(new Collision(box_));
+    door->AddComponent(new Status(ObjectType::Door));
 
     //Object* background = new Object();
     //background->SetTranslation({ 0 });
@@ -92,45 +81,42 @@ void level2::Initialize()
     //background->SetDepth(0.99f);
     //background->AddComponent(new Sprite("asset/images/background1.png"));
 
-        int w, h;
-        glfwGetWindowSize(Application_.GetWindow(), &w, &h);
+    int w, h;
+    glfwGetWindowSize(Application_.GetWindow(), &w, &h);
 
-        Object * background = new Object();
-        background->SetTranslation({ 0,0 });
-        background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
-        background->SetMesh(mesh::CreateBox(1,{100,100,255}));
-        background->SetDepth(0.9f);
-        background->AddComponent(new Sprite("asset/images/background1.png"));
-        //background.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/UI/Menu_background.png");
-        
-        enemy = new Object();
-        enemy->SetTranslation({ -250, 250 });
-        enemy->SetScale({ 50 });
-        enemy->SetMesh(mesh::CreateBox());
-        enemy->AddComponent(new Enemy(MoveType::straight));
-        enemy->AddComponent(new RigidBody());
-        enemy->AddComponent(new Collision());
-        enemy->AddComponent(new Status(ObjectType::Enemy));
-        enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
-        enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
+    Object * background = new Object();
+    background->SetTranslation({ 0,0 });
+    background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
+    background->SetMesh(mesh::CreateBox(1,{100,100,255}));
+    background->SetDepth(0.9f);
+    background->AddComponent(new Sprite("asset/images/background1.png"));
+    //background.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/UI/Menu_background.png");
+    
+    enemy = new Object();
+    enemy->SetTranslation({ -250, 250 });
+    enemy->SetScale({ 50 });
+    enemy->SetMesh(mesh::CreateBox());
+    enemy->AddComponent(new Enemy(MoveType::straight));
+    enemy->AddComponent(new RigidBody());
+    enemy->AddComponent(new Collision());
+    enemy->AddComponent(new Status(ObjectType::Enemy));
+    enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
+    enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
 
-	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
 	obj.push_back(font);
-        obj.push_back(enemy);
-	obj.push_back(child_obj1);
-        obj.push_back(door);
+    obj.push_back(enemy);
+	//obj.push_back(child_obj1);
+    obj.push_back(door);
 	obj.push_back(background);
 
-
-        GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
+    GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,
-	                                                                             5.0f, 200, {0, 0}, {0, 5},
-	                                                                             {10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
+	GetPlayerPointer()->Add_Init_Component((new Particle_Generator(50, 5.0f,5.0f, 200, {0, 0}, {0, 5},
+		{10.0f, 10.0f}, {500,500}, "asset/images/feather.png")));
 	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
 
 	for(auto i : obj)
@@ -244,7 +230,7 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {
-	obj[4]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
+	//obj[4]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
@@ -261,15 +247,33 @@ void level2::Update(float dt)
 		std::cout << "Objects Saved" << std::endl;
 	}
 
+	//if (Input::IsKeyTriggered(GLFW_KEY_F2))
+	//{
+	//	for (auto& obj : Objectmanager_.GetObjectMap())
+	//	{
+	//		JSON_.ObjectsToDocument(obj.get());
+	//	}
+	//	JSON_.LoadObjectFromJson();
+	//	//JSON_.GetObjectDocument().SetObject();
+	//	std::cout << "Objects Loaded" << std::endl;
+	//}
+
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 	{
-		for (auto& obj : Objectmanager_.GetObjectMap())
+		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
 		{
-			JSON_.ObjectsToDocument(obj.get());
+			JSON_.TilesToDocument(tiles.first,tiles.second,Tile_Type::Graphical);
 		}
-		JSON_.LoadObjectFromJson();
-		//JSON_.GetObjectDocument().SetObject();
-		std::cout << "Objects Loaded" << std::endl;
+		JSON_.GetTileDocument().SetObject();
+
+		std::cout << "Tiles Saved" << std::endl;
+	}
+
+	if (Input::IsKeyTriggered(GLFW_KEY_F3))
+	{
+		JSON_.LoadTilesFromJson(Tile_Type::Graphical);
+
+		std::cout << "Tiles Loaded" << std::endl;
 	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_I))
@@ -289,18 +293,11 @@ void level2::Update(float dt)
         Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Status>()->Damaged(4);
     }
     
-/*
-    if (Input::IsKeyPressed(GLFW_KEY_J))
-    {
-        tile_map_.Make_Tile("asset/images/Dr_Strange.png");
-    }*/
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("Room1");
-                /*
-	if (!player->GetComponentByTemplate<Status>()->GetLived())
-		ChangeLevel("StartMenu");
+         
 
-
+	/*
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{
 		shot_char++;

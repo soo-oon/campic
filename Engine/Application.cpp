@@ -220,10 +220,8 @@ namespace
 
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
     {
-	/*	if(IMGUI_.GetKeyCallBack())
-       		ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
-		else*/
-			Input::SetMousePressed(button, action);
+       	ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
+		Input::SetMousePressed(button, action);
     }
 
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
