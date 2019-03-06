@@ -40,16 +40,44 @@ void Room2::Initialize()
     enemy->SetTranslation({ -250, 250 });
     enemy->SetScale({ 50 });
     enemy->SetMesh(mesh::CreateBox());
-    enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
     enemy->AddComponent(new RigidBody());
     enemy->AddComponent(new Collision());
-    enemy->AddComponent(new Status(ObjectType::Enemy));
+    enemy->AddComponent(new Status(ObjectType::Enemy,5,1,1.5));
+    enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
     enemy->AddComponent(new Animation("asset/images/Enemies/3_Left.png", "right", 4, 0.2f, true));
     enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);
+
+
+    Object* enemy1 = new Object();
+    enemy1->SetTranslation({ 250, 250 });
+    enemy1->SetScale({ 50 });
+    enemy1->SetMesh(mesh::CreateBox());
+    enemy1->AddComponent(new RigidBody());
+    enemy1->AddComponent(new Collision());
+    enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+    enemy1->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
+    enemy1->AddComponent(new Animation("asset/images/Enemies/3_Left.png", "right", 4, 0.2f, true));
+    enemy1->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);
+
+
+     Object* enemy2 = new Object();
+    enemy2->SetTranslation({ -250, -250 });
+    enemy2->SetScale({ 50 });
+    enemy2->SetMesh(mesh::CreateBox());
+    enemy2->AddComponent(new RigidBody());
+    enemy2->AddComponent(new Collision());
+    enemy2->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+    enemy2->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
+    enemy2->AddComponent(new Animation("asset/images/Enemies/3_Left.png", "right", 4, 0.2f, true));
+    enemy2->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);
     GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
+
+
 
     Objectmanager_.AddObject(room1);
     Objectmanager_.AddObject(enemy);
+    Objectmanager_.AddObject(enemy1);
+    Objectmanager_.AddObject(enemy2);
     Objectmanager_.AddObject(boss_room);
     Objectmanager_.AddObject(background);
 }
@@ -59,7 +87,7 @@ void Room2::Update(float dt)
     if (Input::IsKeyTriggered(GLFW_KEY_Q) && room1->GetComponentByTemplate<Collision>()->GetIsDoor())
     {
         StateManager_.player_position = GetPlayerPointer()->GetTransform().GetTranslation();
-		ChangeLevel("Room1");
+        ChangeLevel("Room1");
     }
     if (Input::IsKeyTriggered(GLFW_KEY_Q) && boss_room->GetComponentByTemplate<Collision>()->GetIsDoor())
     {
