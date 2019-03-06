@@ -78,7 +78,7 @@ void Objectmanager::AddObject(Object* obj)
 
 	objects_.push_back(temp);
 
-	std::cout << objects_.size() << std::endl;
+	//std::cout << objects_.size() << std::endl;
 
  	for(auto component : objects_[objects_.size()-1]->GetComponent())
 	{

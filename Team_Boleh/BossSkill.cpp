@@ -13,28 +13,36 @@ Creation date: 2019/03/06
 - End Header ----------------------------------------------------------------
 */
 #include "BossSkill.hpp"
-#include "Object.hpp"
 #include "Input.hpp"
 #include "Graphics.hpp"
 #include "Status.hpp"
+#include "RandomFunction.hpp"
+#include "control_angle.hpp"
+
+BossSkill::BossSkill(std::string path, Object* obj, Object* player)
+{
+	m_boss = obj;
+	m_player = player;
+
+	skill_obj = new Object();
+	skill_obj->SetTranslation(m_boss->GetTransform().GetTranslation());
+	skill_obj->SetMesh(mesh::CreateBox(1, Colors::White));
+	skill_obj->SetScale({ 150, 150 });
+	skill_obj->Add_Init_Component(new Animation(path, "shoot", 4, 1.0f));
+	//skill_obj->Add_Init_Component(new Collision(CollisionType::box_));
+	//skill_obj->Add_Init_Component(new Status(ObjectType::None, 10, 0, 0, true));
+
+	static_random_velocity = { 10,10 };
+}
 
 bool BossSkill::Initialize(Object* obj)
 {
-	object = obj;
-	object->SetMesh(mesh::CreateBox());
-	vector2 accel = normalize(vector2(o_boss->GetTransform().GetTranslation().x,
-		o_boss->GetTransform().GetTranslation().y));
-	object->SetScale({ o_boss->GetTransform().GetScale().x, o_boss->GetTransform().GetScale().y });
-	object->SetTranslation({ o_boss->GetTransform().GetTranslation().x, o_boss->GetTransform().GetTranslation().y });
-	object->Add_Init_Component(new Collision(box_));
-	object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale({ o_boss->GetTransform().GetScale().x, o_boss->GetTransform().GetScale().y });
-	object->Add_Init_Component(new RigidBody());
-	object->GetComponentByTemplate<RigidBody>()->SetVelocity(200 * accel);
-	object->Add_Init_Component(new Animation("asset/images/shot.png", "power", 4, 0.25));
-	object->Add_Init_Component(new Status(ObjectType::Shooting, 1, 1, 1.f));
+	if (m_boss == nullptr)
+		m_boss = obj;
+
+	SetRandomDirection();
 
 	return true;
-
 }
 
 float BossSkill::GetAccountTime()
@@ -47,28 +55,86 @@ float BossSkill::SetAccountTime(float set_account)
 	return account_time = set_account;
 }
 
-float BossSkill::GetLifeTime()
+void BossSkill::UpdateDirection(float dt)
 {
-	return life_time;
+	vector2 temp_position = skill_obj->GetTransform().GetTranslation();
+
+	skill_obj->SetTranslation({ temp_position.x + random_velocity.x,
+		temp_position.y + random_velocity.y});
 }
 
-float BossSkill::SetLifeTime(float set_life)
+void BossSkill::SetRandomDirection()
 {
-	return life_time = set_life;
-}
+	float temp_x_dir = 0.0f, temp_y_dir = 0.0f;
 
-Object* BossSkill::GetBossPointer()
-{
-	return o_boss;
+	if (static_random_velocity.x == 0)
+	{
+		if (static_random_velocity.y > 0)
+		{
+			temp_x_dir = 0;
+			temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+		}
+		else
+		{
+			static_random_velocity.y = abs(static_random_velocity.y);
+			temp_x_dir = 0;
+			temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+		}
+	}
+	else if (static_random_velocity.y == 0)
+	{
+		if (static_random_velocity.x > 0)
+		{
+			temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+			temp_y_dir = 0;
+		}
+		else
+		{
+			static_random_velocity.x = abs(static_random_velocity.x);
+			temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+			temp_y_dir = 0;
+		}
+	}
+	else
+	{
+		if (static_random_velocity.x > 0 && static_random_velocity.y > 0)
+		{
+			temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+			temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+		}
+		else if (static_random_velocity.x < 0)
+		{
+			static_random_velocity.x = abs(static_random_velocity.x);
+			temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+			temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+		}
+		else
+		{
+			static_random_velocity.y = abs(static_random_velocity.y);
+			temp_x_dir = RandomNumberGenerator(-static_random_velocity.x, static_random_velocity.x);
+			temp_y_dir = RandomNumberGenerator(-static_random_velocity.y, static_random_velocity.y);
+		}
+	}
+
+	random_velocity.x = temp_x_dir;
+	random_velocity.y = temp_y_dir;
+
+	float angle = To_Degree(atan2(random_velocity.y, random_velocity.x));
+
+	skill_obj->SetRotation(angle);
 }
 
 void BossSkill::Update(float dt)
 {
-	account_time += dt;
-	if (account_time > life_time)
-		object->GetComponentByTemplate<Status>()->ObjectDie();
+	live_time -= dt;
+	UpdateDirection(dt);
+
+	if(live_time <= 0)
+	{
+		isdead = true;
+	}
 }
+
 void BossSkill::Delete()
 {
-
 }

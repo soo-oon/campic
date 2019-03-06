@@ -36,7 +36,6 @@ void HUD::Update(float dt)
 {
 	if(m_HUD_State->GetPlayerPointer() == nullptr)
 	{
-		std::cout << "hi" << std::endl;
 		SetPlayer(StateManager_.GetCurrentState()->GetPlayerPointer());
 	}
 

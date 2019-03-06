@@ -19,6 +19,14 @@ Creation date: 2019/03/06
 #include "Timer.hpp"
 #include "BossSkill.hpp"
 #include "RandomFunction.hpp"
+#include <iostream>
+
+Boss::Boss(BossSkillType skill, std::string path_, Object* player)
+{
+	boss_skill = skill;
+	m_player = player;
+	path = path_;
+}
 
 float Boss::GetTime()
 {
@@ -30,32 +38,60 @@ float Boss::SetTime(float set_time)
 	return boss_time = set_time;
 }
 
-Boss::Boss(BossSkillType skill)
-{
-	boss_skill = skill;
-}
 
 bool Boss::Initialize(Object* boss_obj)
 {
-	if(object == nullptr)
+	if (object == nullptr)
+	{
 		object = boss_obj;
-	return false;
+
+	}
+	for (int i = 0; i < 15; ++i)
+	{
+		shoot_attack.push_back(std::make_unique<BossSkill>(path, object, m_player));
+	}
+
+	for(auto& obj : shoot_attack)
+	{
+		obj->Initialize(object);
+		//Objectmanager_.AddObject(obj->GetFireObject());
+	}
+
+	return true;
 }
 
 void Boss::Update(float dt)
 {
 	boss_time += dt;
 
-	if (boss_time >= 2.0f)
+	if (shoot_attack.empty())
 	{
-		BossAttack();
+		shoot_attack.clear();
+		Initialize(object);
 		boss_time = 0;
 	}
 
-	if (!object->GetComponentByTemplate<Status>()->IsAlive())
+	if (boss_time >= 5.0f)
+	{
+		for(auto obj = shoot_attack.begin(); obj != shoot_attack.end();)
+		{
+			if(!obj->get()->IsDead())
+			{
+				obj->get()->Update(dt);
+				++obj;
+			}
+			else
+			{
+				obj = shoot_attack.erase(obj);
+			}
+		}
+	}
+
+
+	/*if (!object->GetComponentByTemplate<Status>()->IsAlive())
 	{
 		CardDrop();
-	}
+	}*/
 }
 
 void Boss::Delete()
@@ -78,11 +114,6 @@ void Boss::BossAttack()
 
 void Boss::ShootOutAttack()
 {
-	Object* attack = new Object();
-	attack->AddComponent(new BossSkill(object, 2));
-
-	Objectmanager_.AddObject(attack);
-
 }
 
 void Boss::PopUpAttack()

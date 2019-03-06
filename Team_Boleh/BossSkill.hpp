@@ -13,28 +13,41 @@ Creation date: 2019/03/06
 - End Header ----------------------------------------------------------------
 */
 #pragma once
-#include "Component.hpp"
+#include "Object.hpp"
 
-class Object;
-
-class BossSkill : public Component
+class BossSkill
 {
 public:
-	BossSkill(Object* boss_, float time_) : o_boss(boss_), life_time(time_)
-	{}
-	bool Initialize(Object* obj) override;
-	void Update(float dt) override;
-	void Delete() override;
-	Object* GetBossPointer();
+	BossSkill(std::string path, Object* obj, Object* player);
+	bool Initialize(Object* obj);
+	void Update(float dt);
+	void Delete();
+
+
 	float GetAccountTime();
 	float SetAccountTime(float set_account);
 	float GetLifeTime();
 	float SetLifeTime(float set_life);
 	bool IsDead() { return isdead; }
 
+
+	Object* GetFireObject() { return skill_obj; }
+
 private:
-	Object* o_boss;
+	vector2 random_velocity;
+
+private:
+	float live_time = 5.0f;
+
+	vector2 static_random_velocity;
+
+	void UpdateDirection(float dt);
+	void SetRandomDirection();
+	
+	Object* skill_obj = nullptr;
+	Object* m_boss = nullptr;
+	Object* m_player = nullptr;
+
 	float account_time;
-	float life_time;
 	bool isdead = false;
 };
