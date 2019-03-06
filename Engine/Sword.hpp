@@ -44,6 +44,9 @@ public:
 private:
 	vector2 direction;
 
+	float enchant_sound_duration = 0;
+	bool toggle_enchant = false;
+
 	float angle = 0;
 	bool skill = false;
     Sword_kind sword_kind_ = Sword_kind::Normal;

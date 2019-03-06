@@ -40,6 +40,8 @@ bool AudioManager::Initialize()
     
 	// Seed random number generator for SFXs  
 
+	LoadSong("asset/sounds/enchant.mp3");
+
 	std::cout << "AudioManager Initialization Successful" << std::endl;
 
 	return true;
@@ -148,9 +150,9 @@ void AudioManager::PlaySFX(const std::string& path, float volume)
 	channel->setVolume(volume);  
 	
 	float frequency;  
-	channel->getFrequency(&frequency);  
-	channel->setFrequency(frequency);  
-	channel->setPaused(false); 
+	channel->getFrequency(&frequency); 
+	channel->setFrequency(frequency);
+	channel->setPaused(false);
 }
 
 void AudioManager::PlaySong(const std::string & path)
@@ -186,6 +188,7 @@ void AudioManager::ChnageSFX(const std::string & path)
 
 void AudioManager::ChnageSong(const std::string& path)
 {
+	
 }
 
 void AudioManager::StopSFXs()

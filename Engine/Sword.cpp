@@ -48,6 +48,7 @@ bool Sword::Initialize(Object * Ob)
             5.0f, 200, { 0, 0 }, { 0, 5 },
             { 10.0f, 10.0f }, { Application_.GetScreenSize() }, "asset/images/red_soul.png",false)));
 	}
+
 	return true;
 }
 
@@ -60,24 +61,27 @@ void Sword::Update(float dt)
     {
         if (Input::IsKeyTriggered(GLFW_KEY_T))
         {
+			toggle_enchant = true;
             sword_name = "ice_sword";
             m_owner->GetComponentByTemplate<Particle_Generator>()->ToggleActive();
             m_owner->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Integrate);
             m_owner->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
-            m_owner->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
-
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(7.0f);
             m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+			AudioManager_.PlaySong("asset/sounds/enchant.mp3");
         }
+
         if (Input::IsKeyTriggered(GLFW_KEY_H))
         {
+			toggle_enchant = true;
             sword_name = "big_sword";
             m_owner->GetComponentByTemplate<Particle_Generator>()->SetPath("asset/images/blue_soul.png");
             m_owner->GetComponentByTemplate<Particle_Generator>()->ToggleActive();
             m_owner->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Divergent);
             m_owner->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
-            m_owner->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
-
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(7.0f);
             m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+			AudioManager_.PlaySong("asset/sounds/enchant.mp3");
         }
         if(Input::IsKeyTriggered(GLFW_KEY_KP_0))
         {
@@ -104,6 +108,17 @@ void Sword::Update(float dt)
             m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
         }
     }
+
+	if (toggle_enchant)
+	{
+		enchant_sound_duration += dt;
+		if (enchant_sound_duration > 8)
+		{
+			toggle_enchant = false;
+			AudioManager_.PlaySong("asset/sounds/plaid.mp3");
+			enchant_sound_duration = 0;
+		}
+	}
 
     if (m_owner->GetComponentByTemplate<Particle_Generator>()->GetIsDone() && sword_name == "ice_sword")
     {
