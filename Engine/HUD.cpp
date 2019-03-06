@@ -59,7 +59,6 @@ void HUD::Add_HUD_Object(Object* obj)
 
     HUD_Object_Manager.push_back(temp);
 
-
     for (auto component : HUD_Object_Manager[HUD_Object_Manager.size() - 1]->GetComponent())
     {
         component->Initialize(HUD_Object_Manager[HUD_Object_Manager.size() - 1].get());

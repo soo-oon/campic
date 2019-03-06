@@ -55,7 +55,7 @@ void SplashScreen::Update(float dt)
 			 logo->GetTransform().GetScale().y + 55 * dt });
 		}
 		else if(time_count > 3.0f)
-			ChangeLevel("remake");
+			ChangeLevel("test");
 	}
 	else
 	{
@@ -76,7 +76,7 @@ void SplashScreen::Update(float dt)
 	}
 
 	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
-		ChangeLevel("remake");
+		ChangeLevel("test");
 }
 
 

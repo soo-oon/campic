@@ -23,17 +23,8 @@ void HUD_Level::Initialize()
     soul->AddComponent(new Sprite("asset/images/purple_soul.png"));
 
 
-    font = new Object();
-    font->SetTranslation({ -Application_.GetScreenSize().x / 2 + (soul->GetTransform().GetScale().x / 2 + 50),
-        -Application_.GetScreenSize().y / 2 + (soul->GetTransform().GetScale().y / 2) });
-    font->SetScale(50);
-    font->Set_HUD_Object_Size(font->GetTransform().GetScale());
-    font->SetDepth(0.0f);
-    font->AddComponent(new Font(point, "asset/font/default.ttf", Colors::White));
-
-
     HUD_.Add_HUD_Object(soul);
-    HUD_.Add_HUD_Object(font);
+    //HUD_.Add_HUD_Object(font);
 	HUD_.Add_HUD_Object(hp);
 }
 
@@ -48,14 +39,6 @@ void HUD_Level::Update(float dt)
     soul->SetTranslation({ ((-Application_.GetScreenSize().x / 2) + (soul->Get_Object_HUD_Size().x / 2)) / Graphics::camera_zoom,
         ((-Application_.GetScreenSize().y / 2) + (soul->Get_Object_HUD_Size().y / 2)) / Graphics::camera_zoom });
     
-    point = std::to_string( GetPlayerPointer()->GetComponentByTemplate<Player>()->GetPoint()) ;
-    font->GetComponentByTemplate<Font>()->SetText(point);
-    //font->GetComponentByTemplate<Font>().Se
-    //font->SetScale({ font->Get_Object_HUD_Size().x / Graphics::camera_zoom,font->Get_Object_HUD_Size().y / Graphics::camera_zoom });
-    //font->SetTranslation({ ((-Application_.GetScreenSize().x / 2) + (soul->Get_Object_HUD_Size().x / 2)) / Graphics::camera_zoom,
-       // ((-Application_.GetScreenSize().y / 2) + (soul->Get_Object_HUD_Size().y / 2)) / Graphics::camera_zoom });
-
-	//hp->SetTranslation({ hp->GetTransform().GetTranslation().x + 1, hp->GetTransform().GetTranslation().y});
 }
 
 void HUD_Level::ShutDown()

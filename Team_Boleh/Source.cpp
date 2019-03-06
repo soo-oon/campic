@@ -25,6 +25,7 @@ Creation date: 2018/12/14
 #include "Room2.hpp"
 #include "BossRoom.h"
 #include "Store.h"
+#include "test.hpp"
 
 int main()
 {
@@ -33,6 +34,7 @@ int main()
     engine.Initialize();
 
     StateManager_.AddStage("Splash_Screen", new SplashScreen());
+	StateManager_.AddStage("test", new test());
     StateManager_.AddStage("remake", new level2());
     StateManager_.AddStage("Room1", new Room1());
     StateManager_.AddStage("Room2", new Room2());
