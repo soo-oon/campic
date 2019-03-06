@@ -90,6 +90,8 @@ void Player::MovePlayer()
 		boost = 3;
 	}
 
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		object->GetComponentByTemplate<Sound>()->Play("asset/sounds/punch.wav");
 
 	if (Input::IsKeyPressed(GLFW_KEY_W))
 	{

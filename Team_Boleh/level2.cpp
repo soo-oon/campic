@@ -151,6 +151,8 @@ void level2::Initialize()
 		Objectmanager_.AddObject(i);
 	}
 
+	AudioManager_.LoadSFX("asset/sounds/door.wav");
+
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
 	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
@@ -314,6 +316,7 @@ void level2::Update(float dt)
     
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("Room1");
+
          
 
 	/*

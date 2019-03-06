@@ -26,6 +26,7 @@ StateManager StateManager_;
 bool StateManager::Initialize()
 {
 	m_currentState = nullptr;
+
 	return true;
 }
 

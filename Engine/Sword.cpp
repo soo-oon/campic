@@ -42,7 +42,7 @@ bool Sword::Initialize(Object * Ob)
 		object->Add_Init_Component(new RigidBody());
 		object->Add_Init_Component(new Status(ObjectType::Sword, 5, 1, 1.f));
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
-		object->SetDepth(m_owner->GetTransform().GetDepth() - 0.1);
+		object->SetDepth(m_owner->GetTransform().GetDepth() - 0.1f);
 		//object->SetParent(&m_owner->GetTransform());
         m_owner->Add_Init_Component((new Particle_Generator(100, 5.0f,
             5.0f, 200, { 0, 0 }, { 0, 5 },
