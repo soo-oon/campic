@@ -39,12 +39,14 @@ void Enemy::Update(float dt)
     {
         CardDrop();
     }
-    if (object->GetComponentByTemplate<RigidBody>()->GetVelocity().x < 0)
-    {
-        object->GetComponentByTemplate<Animation>()->ChangeAnimation("right", "left");
+    if (object->GetComponentByTemplate<Animation>()) {
+        if (object->GetComponentByTemplate<RigidBody>()->GetVelocity().x < 0)
+        {
+            object->GetComponentByTemplate<Animation>()->ChangeAnimation("right", "left");
+        }
+        else
+            object->GetComponentByTemplate<Animation>()->ChangeAnimation("left", "right");
     }
-    else
-        object->GetComponentByTemplate<Animation>()->ChangeAnimation("left", "right");
 
 }
 
@@ -97,10 +99,10 @@ void Enemy::AnglerMove()
 {
     if(object->GetComponentByTemplate<RigidBody>())
     {
-        if (abs(Objectmanager_.GetObjectMap()[0].get()->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x) >
-            abs(Objectmanager_.GetObjectMap()[0].get()->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y))
+        if (abs(m_player->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x) >
+            abs(m_player->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y))
         {
-            if(Objectmanager_.GetObjectMap()[0].get()->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x > 0)
+            if(m_player->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x > 0)
                 object->GetComponentByTemplate<RigidBody>()->SetVelocity({
                     object->GetComponentByTemplate<Status>()->GetSpeed() * 5 , 0 });
             else
@@ -110,7 +112,7 @@ void Enemy::AnglerMove()
 
         else
         {
-            if(Objectmanager_.GetObjectMap()[0].get()->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y > 0)
+            if(m_player->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y > 0)
                 object->GetComponentByTemplate<RigidBody>()->SetVelocity({
                     0, object->GetComponentByTemplate<Status>()->GetSpeed() * 5 });
             else
@@ -122,35 +124,35 @@ void Enemy::AnglerMove()
 
 void Enemy::CardDrop()
 {
-    Object* card = new Object();
-    card->SetTranslation({ object->GetTransform().GetTranslation() });
-    card->SetScale({ 24.f, 30.f });
-    card->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    card->AddComponent(new Status(ObjectType::Item));
-    card->AddComponent(new Collision(box_));
+    Object* soul = new Object();
+    soul->SetTranslation({ object->GetTransform().GetTranslation() });
+    soul->SetScale({ 24.f, 30.f });
+    soul->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    soul->AddComponent(new Status(ObjectType::Item));
+    soul->AddComponent(new Collision(box_));
     object->GetComponentByTemplate<Status>()->SetObjectType(ObjectType::Item);
     object->GetTransform().SetScale({ 24.f, 30.f });
     object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale({ 24.f,30.f });
     int random = rand() % 4;
     if (random == 0)
     {
-        card->AddComponent(new Sprite("asset/images/red_soul.png"));
-        card->AddComponent(new Card("Red"));
+        soul->AddComponent(new Sprite("asset/images/red_soul.png"));
+        soul->AddComponent(new Card("Red"));
     }
     else if (random == 1)
     {
-        card->AddComponent(new Sprite("asset/images/blue_soul.png"));
-        card->AddComponent(new Card("Blue"));
+        soul->AddComponent(new Sprite("asset/images/blue_soul.png"));
+        soul->AddComponent(new Card("Blue"));
     }
     else if (random == 2)
     {
-        card->AddComponent(new Sprite("asset/images/green_soul.png"));
-        card->AddComponent(new Card("Green"));
+        soul->AddComponent(new Sprite("asset/images/green_soul.png"));
+        soul->AddComponent(new Card("Green"));
     }
     else
     {
-        card->AddComponent(new Sprite("asset/images/black_soul.png"));
-        card->AddComponent(new Card("Black"));
+        soul->AddComponent(new Sprite("asset/images/black_soul.png"));
+        soul->AddComponent(new Card("Black"));
     }
-    Objectmanager_.AddObject(card);
+    Objectmanager_.AddObject(soul);
 }

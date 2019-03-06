@@ -44,28 +44,13 @@ void level2::Initialize()
 	//Object* camera = new Object();
 	//camera->AddComponent(new Camera(this));
 
-	Object* card = new Object();
-	card->SetTranslation({300, 300});
-	card->SetScale({24.f, 30.f});
-	card->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
-	//card->AddComponent(new Card("Red"));
-	card->AddComponent(new Sprite("asset/images/red_soul.png"));
-	card->AddComponent(new Collision(box_));
-	card->AddComponent(new Status(ObjectType::Item));
 
-	Object* card1 = new Object();
-	card1->SetTranslation({250, -250});
-	card1->SetScale({24.f, 30.f});
-	card1->SetMesh(mesh::CreateBox(1, {255, 255, 255, 255}));
-	//card1->AddComponent(new Card("Blue"));
-	card1->AddComponent(new Sprite("asset/images/blue_soul.png"));
-	card1->AddComponent(new Collision(box_));
-	card1->AddComponent(new Status(ObjectType::Item));
 
-	Object* font = new Object();
-	font->SetTranslation({ 0, 0 });
-	font->SetDepth(0.0f);
-	font->AddComponent(new Font("Sword of Souls", "asset/font/default.ttf", Colors::White));
+	//Object* font = new Object();
+	//font->SetTranslation({ 0, 300 });
+	//font->SetDepth(0.0f);
+	//font->AddComponent(new Font("Sword of Souls", "asset/font/default.ttf", Colors::Blue));
+
 	
 	Object* child_obj1 = new Object();
 	child_obj1->SetTranslation({ 0,80 });
@@ -108,22 +93,46 @@ void level2::Initialize()
     enemy->SetTranslation({ -250, 250 });
     enemy->SetScale({ 50 });
     enemy->SetMesh(mesh::CreateBox());
-    enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
     enemy->AddComponent(new RigidBody());
     enemy->AddComponent(new Collision());
-    enemy->AddComponent(new Status(ObjectType::Enemy));
+    enemy->AddComponent(new Status(ObjectType::Enemy, 5,1,1.5));
+    enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
     enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
     enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
 
+    Object* enemy1 = new Object();
+    enemy1->SetTranslation({ 250, 250 });
+    enemy1->SetScale({ 50 });
+    enemy1->SetMesh(mesh::CreateBox());
+    enemy1->AddComponent(new RigidBody());
+    enemy1->AddComponent(new Collision());
+    enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+    enemy1->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
+    enemy1->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5, 0.2f, true));
+    enemy1->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
+
+
+    Object* enemy2 = new Object();
+    enemy2->SetTranslation({ -250, -250 });
+    enemy2->SetScale({ 50 });
+    enemy2->SetMesh(mesh::CreateBox());
+    enemy2->AddComponent(new RigidBody());
+    enemy2->AddComponent(new Collision());
+    enemy2->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+    enemy2->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
+    enemy2->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5, 0.2f, true));
+    enemy2->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
+
+    //obj.push_back(boss);
 	obj.push_back(temp);
-	//obj.push_back(camera);
-	obj.push_back(card);
-	obj.push_back(card1);
+	obj.push_back(camera);
 	//obj.push_back(font);
 	obj.push_back(enemy);
 	obj.push_back(child_obj1);
 	obj.push_back(door);
 	obj.push_back(background);
+    obj.push_back(enemy1);
+    obj.push_back(enemy2);
 
 
     GetPlayerPointer()->SetTranslation(-StateManager_.player_position);
@@ -136,17 +145,13 @@ void level2::Initialize()
 	//GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
 	//GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
 
-
-
 	for(auto i : obj)
 	{
 		Objectmanager_.AddObject(i);
 	}
 
-	AudioManager_.LoadSFX("asset/sounds/door.wav");
-
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
+	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
 
 
@@ -252,7 +257,6 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
-	//obj[5]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
@@ -308,6 +312,45 @@ void level2::Update(float dt)
     
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("Room1");
+
+	/*
+	if (Input::IsKeyTriggered(GLFW_KEY_C))
+	{
+		shot_char++;
+		Shot(shot_string + std::to_string(shot_char));
+	}
+
+	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		GetSoundMap()->Play("asset/sounds/punch.wav");
+	}
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		GetSoundMap()->Play("asset/sounds/punch.wav");
+	}
+
+	if(boss->GetComponentByTemplate<Collision>() != nullptr)
+		BossMovement(boss, player, 20);
+
+	if (Input::IsKeyTriggered(GLFW_KEY_E))
+	{
+		for (auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
+		{
+			find(i);
+		}
+		if (card_list.size() > 1)
+		{
+			change_sword = true;
+			GetSoundMap()->Play("asset/sounds/inchant.mp3");
+			player->GetComponentByTemplate<Player>()->ClearCardList();
+		}
+	}
+	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
+	if (change_sword)
+	{
+		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
+	}*/
 }
 
 void level2::ShutDown()
