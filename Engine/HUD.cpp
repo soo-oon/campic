@@ -56,16 +56,18 @@ void HUD::Quit()
 
 void HUD::Add_HUD_Object(Object* obj)
 {
-	std::shared_ptr<Object> temp(obj);
-	HUD_Object_Manager.push_back(temp);
+    std::shared_ptr<Object> temp(obj);
 
-	for (unsigned int i = 0; i < HUD_Object_Manager.size(); ++i)
-	{
-		for (auto component : HUD_Object_Manager[i]->GetComponent())
-		{
-			component->Initialize(HUD_Object_Manager[i].get());
-		}
-	}
+    HUD_Object_Manager.push_back(temp);
+
+
+    for (auto component : HUD_Object_Manager[HUD_Object_Manager.size() - 1]->GetComponent())
+    {
+        component->Initialize(HUD_Object_Manager[HUD_Object_Manager.size() - 1].get());
+    }
+
+    std::stable_sort(HUD_Object_Manager.begin(), HUD_Object_Manager.end(),
+        [](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
 }
 
 void HUD::SetPlayer(Object* obj)

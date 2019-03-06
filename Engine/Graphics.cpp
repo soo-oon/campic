@@ -349,6 +349,20 @@ void Graphics::HUD_Draw()
 						}
 						Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
 					}
+                    else if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+                    {
+                        int index = 0;
+                        for (auto temp_mesh : temp->GetFontMeshes())
+                        {
+                            fontes.clear();
+                            for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
+                            {
+                                fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
+                            }
+                            Draw(obj->GetTransform(), fontes, temp_mesh.GetPointListType(), temp_mesh.GetColor(0), temp, index);
+                            index++;
+                        }
+                    }
 				}
 			}
 		}

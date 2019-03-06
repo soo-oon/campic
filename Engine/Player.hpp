@@ -29,15 +29,15 @@ public:
 	void MovePlayer();
 	void SetCardList(std::string card);
 	void ClearCardList();
-    void SetPoint(float point) { Enchant_point = point; }
-    float GetPoint() { return Enchant_point; }
+    void SetPoint(int point) { Enchant_point = point; }
+    int GetPoint() { return Enchant_point; }
 	std::vector<std::string> GetCardList();
 	//void PlayerMove(vector2 mouse_position);
 
 private:
 	void PlayerAnimation(float angle);
 
-    float Enchant_point = 0;
+    int Enchant_point = 0;
 
 	vector2 direction;
     int boost = 1;

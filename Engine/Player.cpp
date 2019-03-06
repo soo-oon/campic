@@ -83,11 +83,11 @@ void Player::MovePlayer()
 {
     if (Input::IsKeyPressed(GLFW_KEY_V))
     {
-        boost = 2;
+        boost = 4;
     }
 	else
 	{
-		boost = 1;
+		boost = 3;
 	}
 
 
