@@ -25,6 +25,7 @@ Creation date: 2018/12/14
 #include "HUD.hpp"
 #include "Mesh.hpp"
 #include "Tile_Map.hpp"
+#include "Boss.hpp"
 
 Graphics Graphics_;
 
@@ -240,6 +241,28 @@ void Graphics::Draw()
 									p->GetParticleObject()->GetMesh().GetPointListType(),
 									p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
 							}
+						}
+					}
+				}
+
+				if(auto temp = obj->GetComponentByTemplate<Boss>(); temp != nullptr)
+				{
+					for(auto& fire : temp->GetAttackObj())
+					{
+						if (auto temp_animation = fire->GetFireObject()->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+						{
+							animation.clear();
+							animation.reserve(obj->GetMesh().GetAnimationPointsCount());
+							for (std::size_t i = 0; i < obj->GetMesh().GetAnimationPointsCount(); ++i)
+							{
+								animation.push_back({
+									obj->GetMesh().GetPoint(i),
+									obj->GetMesh().GetAnimationCoordinate(i, temp_animation)
+									});
+							}
+							Draw(fire->GetFireObject()->GetTransform(), animation, fire->GetFireObject()->GetMesh().GetPointListType(),
+								fire->GetFireObject()->GetMesh().GetColor(0),
+								temp_animation->GetCurrentAnimation().sprites);
 						}
 					}
 				}

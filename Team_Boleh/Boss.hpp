@@ -15,7 +15,8 @@ Creation date: 2019/03/06
 #pragma once
 #include "Component.hpp"
 #include "Object.hpp"
-#include "time.h"
+#include <memory>
+#include "BossSkill.hpp"
 
 enum class BossSkillType
 {
@@ -34,17 +35,24 @@ enum class BossSkillType
 class Boss : public Component
 {
 public:
-	Boss(BossSkillType skill);
+	Boss(BossSkillType skill, std::string path, Object* player);
 	bool Initialize(Object* boss_obj);
 	void Update(float dt);
 	void Delete();
+
 	void BossAttack();
 	void ShootOutAttack();
 	void PopUpAttack();
 	void CardDrop();
 	float GetTime();
 	float SetTime(float set_time);
+
+	std::vector<std::unique_ptr<BossSkill>>& GetAttackObj() { return shoot_attack; }
+
 private:
-	float boss_time;
+	std::string path;
+	Object* m_player = nullptr;
+	std::vector<std::unique_ptr<BossSkill>> shoot_attack;
+	float boss_time = 0;
 	BossSkillType boss_skill;
 };

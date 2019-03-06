@@ -30,14 +30,14 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	/*Object* boss = new Object();
-	boss->SetTranslation({ 50, -100 });
-	boss->SetScale({ 50.0f, 50.0f });
-	boss->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-	boss->SetDepth(0.0f);
-	boss->AddComponent(new Animation("asset/images/Player.png", "player", 8, 0.05f));
+	Object* boss = new Object();
+	boss->SetTranslation({ 300, 0 });
+	boss->SetScale({ 150, 150 });
+	boss->SetMesh(mesh::CreateBox(1, Colors::White));
+	boss->SetDepth(-0.1f);
+	boss->AddComponent(new Animation("asset/images/Enemies/Boss_ver1.png", "boss1", 2, 1.0f));
+	boss->AddComponent(new Boss(BossSkillType::ShootOut, "asset/images/shot.png", GetPlayerPointer()));
 	boss->AddComponent(new Status(ObjectType::Boss, 10, 1, 0, true));
-	boss->AddComponent(new Boss(BossSkillType::PopUp));*/
 
 	Object* temp = new Object();
 	temp->SetTranslation({ 100,-150 });
@@ -124,7 +124,7 @@ void level2::Initialize()
         enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
         enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
 
-    //obj.push_back(boss);
+    obj.push_back(boss);
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(card);
@@ -146,13 +146,15 @@ void level2::Initialize()
 	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
 	GetPlayerPointer()->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
 
+
+
 	for(auto i : obj)
 	{
 		Objectmanager_.AddObject(i);
 	}
 
 	//Objectmanager_.GetObjectMap()[0]->AddComponent(new Particle_Generator(100, 1.0f, 5, { 0,0 }, { 3,3 }));
-	std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
+	//std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
 	//std::cout << "-------------" << std::endl;
 
 
@@ -258,7 +260,8 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {
-	obj[4]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
+	
+	obj[5]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
@@ -303,55 +306,8 @@ void level2::Update(float dt)
         Objectmanager_.GetObjectMap()[1]->GetComponentByTemplate<Status>()->Damaged(4);
     }
     
-/*
-    if (Input::IsKeyPressed(GLFW_KEY_J))
-    {
-        tile_map_.Make_Tile("asset/images/Dr_Strange.png");
-    }*/
 	if (Input::IsKeyTriggered(GLFW_KEY_Q) && door->GetComponentByTemplate<Collision>()->GetIsDoor())
 		ChangeLevel("Room1");
-                /*
-	if (!player->GetComponentByTemplate<Status>()->GetLived())
-		ChangeLevel("StartMenu");
-
-
-	if (Input::IsKeyTriggered(GLFW_KEY_C))
-	{
-		shot_char++;
-		Shot(shot_string + std::to_string(shot_char));
-	}
-
-	GetObjectManager()->FindObject("background")->SetScale(GetStateScreenSize());
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		GetSoundMap()->Play("asset/sounds/punch.wav");
-	}
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		GetSoundMap()->Play("asset/sounds/punch.wav");
-	}
-
-	if(boss->GetComponentByTemplate<Collision>() != nullptr)
-		BossMovement(boss, player, 20);
-
-	if (Input::IsKeyTriggered(GLFW_KEY_E))
-	{
-		for (auto& i : player->GetComponentByTemplate<Player>()->GetCardList())
-		{
-			find(i);
-		}
-		if (card_list.size() > 1)
-		{
-			change_sword = true;
-			GetSoundMap()->Play("asset/sounds/inchant.mp3");
-			player->GetComponentByTemplate<Player>()->ClearCardList();
-		}
-	}
-	spark->GetTransform().SetTranslation(vector2(sword->GetTransform().GetTranslation().x, sword->GetTransform().GetTranslation().y));
-	if (change_sword)
-	{
-		Enchanted(sword, spark, card_list.at(0), card_list.at(1), dt);
-	}*/
 }
 
 void level2::ShutDown()
