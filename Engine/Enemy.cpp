@@ -23,6 +23,7 @@ Creation date: 2018/12/14
 Enemy::Enemy(MoveType move_type, Object* player)
 {
 	move_t = move_type;
+        m_player = player;
 }
 
 bool Enemy::Initialize(Object * Ob)
@@ -33,11 +34,18 @@ bool Enemy::Initialize(Object * Ob)
 
 void Enemy::Update(float dt)
 {
-    //MoveEnemy();
+    MoveEnemy();
     if(!object->GetComponentByTemplate<Status>()->IsAlive())
     {
         CardDrop();
     }
+    if (object->GetComponentByTemplate<RigidBody>()->GetVelocity().x < 0)
+    {
+        object->GetComponentByTemplate<Animation>()->ChangeAnimation("right", "left");
+    }
+    else
+        object->GetComponentByTemplate<Animation>()->ChangeAnimation("left", "right");
+
 }
 
 void Enemy::Delete()
@@ -54,39 +62,28 @@ void Enemy::MoveEnemy()
         AnglerMove();
     }
 }
-
-void Enemy::Move(vector2 position)
-{
-    if (object->GetComponentByTemplate<RigidBody>())
-    {
-
-        vector2 come = vector2(position.x - object->GetTransform().GetTranslation().x,
-            position.y - object->GetTransform().GetTranslation().y);
-        vector2 n_come = normalize(come);
-        if (magnitude(come) < magnitude(object->GetTransform().GetScale()))
-        {
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-        }
-        else
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity(5 * n_come);
-    }
-}
+//
+//void Enemy::Move(vector2 position)
+//{
+//    if (object->GetComponentByTemplate<RigidBody>())
+//    {
+//        vector2 come = vector2(position.x - object->GetTransform().GetTranslation().x,
+//            position.y - object->GetTransform().GetTranslation().y);
+//        vector2 n_come = normalize(come);
+//        if (magnitude(come) < magnitude(object->GetTransform().GetScale()))
+//        {
+//            object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+//        }
+//        else
+//            object->GetComponentByTemplate<RigidBody>()->SetVelocity(5 * n_come);
+//    }
+//}
 
 void Enemy::StraightMove()
 {
-    Object *player = nullptr; 
-    if (object->GetComponentByTemplate<RigidBody>())
-    {
-        for(auto i = Objectmanager_.GetObjectMap().begin(); i != Objectmanager_.GetObjectMap().end(); ++i)
-        {
-            if(i->get()->GetComponentByTemplate<Player>() != nullptr)
-            {
-                player = i->get();
-            }
-        }
 
-        vector2 come = vector2(player->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x,
-            player->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y);
+        vector2 come = vector2(m_player->GetTransform().GetTranslation().x - object->GetTransform().GetTranslation().x,
+            m_player->GetTransform().GetTranslation().y - object->GetTransform().GetTranslation().y);
         vector2 n_come = normalize(come);
         if (magnitude(come) < magnitude(object->GetTransform().GetScale()))
         {
@@ -94,7 +91,6 @@ void Enemy::StraightMove()
         }
         else
             object->GetComponentByTemplate<RigidBody>()->SetVelocity(5 * n_come);
-    }
 }
 
 void Enemy::AnglerMove()

@@ -209,7 +209,8 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
 	{	
 		if (object2.GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
-			object1.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
+			object2.GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::damaged);
+                        object1.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
 		}
 	}
 	else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword

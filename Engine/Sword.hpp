@@ -17,6 +17,14 @@ Creation date: 2018/12/14
 #include "Object.hpp"
 #include <vector2.hpp>
 
+enum class Sword_kind
+{
+    Normal,
+    Ice,
+    Big,
+    Unique,
+};
+
 struct vector2;
 
 class Sword : public Component
@@ -38,6 +46,7 @@ private:
 
 	float angle = 0;
 	bool skill = false;
+    Sword_kind sword_kind_ = Sword_kind::Normal;
 	std::string sword_name = "trash";
 	Object* m_owner;
 };

@@ -82,14 +82,6 @@ void Room1::Update(float dt)
         ChangeLevel("remake");
     }
 
-    enemy->GetComponentByTemplate<Enemy>()->Move(GetPlayerPointer()->GetTransform().GetTranslation());
-
-    if (enemy->GetComponentByTemplate<RigidBody>()->GetVelocity().x < 0)
-    {
-        enemy->GetComponentByTemplate<Animation>()->ChangeAnimation("right", "left");
-    }
-    else
-        enemy->GetComponentByTemplate<Animation>()->ChangeAnimation("left", "right");
 }
 
 void Room1::ShutDown()

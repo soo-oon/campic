@@ -15,5 +15,8 @@ public:
 	void ShutDown() override;
 
 private:
+    Object* font = nullptr;
 	Object* hp = nullptr;
+    Object* soul = nullptr;
+    std::string point = {""};
 };

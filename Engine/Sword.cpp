@@ -20,6 +20,8 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Player.hpp"
 #include "control_angle.hpp"
+#include "Particle_Generator.hpp"
+#include "Application.hpp"
 
 Sword::Sword(Object * player)
 {
@@ -42,12 +44,85 @@ bool Sword::Initialize(Object * Ob)
 		object->GetComponentByTemplate<Collision>()->SetRestitutionType(RestitutionType::none);
 		object->SetDepth(m_owner->GetTransform().GetDepth() - 0.1);
 		//object->SetParent(&m_owner->GetTransform());
+        m_owner->Add_Init_Component((new Particle_Generator(100, 5.0f,
+            5.0f, 200, { 0, 0 }, { 0, 5 },
+            { 10.0f, 10.0f }, { Application_.GetScreenSize() }, "asset/images/red_soul.png",false)));
 	}
 	return true;
 }
 
 void Sword::Update(float dt)
 {
+    if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+        object->GetComponentByTemplate<Collision>()->ToggleIsDamaged();
+
+    if (m_owner->GetComponentByTemplate<Player>()->GetPoint() >= 100)
+    {
+        if (Input::IsKeyTriggered(GLFW_KEY_T))
+        {
+            sword_name = "ice_sword";
+            m_owner->GetComponentByTemplate<Particle_Generator>()->ToggleActive();
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Integrate);
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
+
+            m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+        }
+        if (Input::IsKeyTriggered(GLFW_KEY_H))
+        {
+            sword_name = "big_sword";
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetPath("asset/images/blue_soul.png");
+            m_owner->GetComponentByTemplate<Particle_Generator>()->ToggleActive();
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Divergent);
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetIsRepeat(false);
+            m_owner->GetComponentByTemplate<Particle_Generator>()->SetDurationTime(5.0f);
+
+            m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+        }
+        if(Input::IsKeyTriggered(GLFW_KEY_KP_0))
+        {
+            sword_name = "ice_sword";
+            object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Sword/red_sword.png");
+            m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+        }
+        if (Input::IsKeyTriggered(GLFW_KEY_KP_1))
+        {
+            sword_name = "ice_sword";
+            object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Sword/green_sword.png");
+            m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+        }
+        if (Input::IsKeyTriggered(GLFW_KEY_KP_2))
+        {
+            sword_name = "ice_sword";
+            object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Sword/black_sword.png");
+            m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+        }
+        if (Input::IsKeyTriggered(GLFW_KEY_KP_3))
+        {
+            sword_name = "ice_sword";
+            object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Sword/blue_sword.png");
+            m_owner->GetComponentByTemplate<Player>()->SetPoint(0);
+        }
+    }
+
+    if (m_owner->GetComponentByTemplate<Particle_Generator>()->GetIsDone() && sword_name == "ice_sword")
+    {
+        object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/ice_sword.png");
+        sword_kind_ = Sword_kind::Ice;
+        m_owner->GetComponentByTemplate<Particle_Generator>()->SetIsDone(false);
+    }
+    if (m_owner->GetComponentByTemplate<Particle_Generator>()->GetIsDone() && sword_name == "big_sword")
+    {
+        object->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/sword.png");
+        sword_kind_ = Sword_kind::Big;
+        m_owner->GetComponentByTemplate<Particle_Generator>()->SetIsDone(false);
+    }
+
+    if (Input::IsKeyTriggered(GLFW_KEY_Y))
+    {
+        m_owner->GetComponentByTemplate<Player>()->SetPoint(100);
+    }
+    
 	/*
     if(Input::IsKeyPressed(GLFW_KEY_T))
     {

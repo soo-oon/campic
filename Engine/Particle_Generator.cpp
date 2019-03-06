@@ -32,9 +32,9 @@ bool Particle_Generator::Initialize(Object* Ob)
 
 void Particle_Generator::Update(float dt)
 {
-	inter_time += dt;
 	if (isActive)
 	{
+        inter_time += dt;
 		for (auto& particle_obj : particles)
 		{
 			if (is_repeat)
@@ -58,6 +58,7 @@ void Particle_Generator::Update(float dt)
 				else
 				{
 					isActive = false;
+                    is_done = !isActive;
 					inter_time = 0.0f;
 				}
 			}

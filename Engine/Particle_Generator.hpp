@@ -46,6 +46,7 @@ public:
 	void ToggleActive() { isActive = !isActive; }
 
 	void SetEmitRate(int rate);
+    void SetPath(std::string path_) { path = path_; }
 	void SetStartVelocity(vector2 velocity);
 	void SetRandomVelocity(vector2 velocity);
 	void ChangeSprite(const std::string path);
@@ -55,10 +56,12 @@ public:
 	void SetParticle_Fire_Type(Particle_Fire_Type type_);
 	void SetIsRepeat(bool condition) { is_repeat = condition; }
 	void SetDurationTime(float duration_time_) { duration_time = duration_time_; }
+    void SetIsDone(bool done) { is_done = done; }
 
 	bool GetIsActive() { return isActive; }
 	std::string GetPath() const { return path; }
 	int GetEmitRate() const { return emitRate; }
+    bool GetIsDone() const { return is_done; }
 	float GetLifeTimeControl() const { return lifeTime_Control; }
 	float GetSizeVarianceControl() const { return sizeVariance_Control; }
 	float GetColorDuration() const { return color_duration; }
@@ -74,6 +77,7 @@ private:
 	float inter_time=0.0f;
 
 private:
+    bool is_done = false;
     int emitRate;
 	float lifeTime_Control;
 	float sizeVariance_Control;
