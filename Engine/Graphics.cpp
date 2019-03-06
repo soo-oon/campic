@@ -330,6 +330,21 @@ void Graphics::HUD_Draw()
 					}
 				}
 
+				if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+				{
+					int index = 0;
+					for (auto temp_mesh : temp->GetFontMeshes())
+					{
+						fontes.clear();
+						for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
+						{
+							fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
+						}
+						Draw(obj->GetTransform(), fontes, temp_mesh.GetPointListType(), temp_mesh.GetColor(0), temp, index);
+						index++;
+					}
+				}
+
 				if (obj->GetMesh().IsVisible())
 				{
 					if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
@@ -372,20 +387,6 @@ void Graphics::HUD_Draw()
 						}
 						Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
 					}
-                    else if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
-                    {
-                        int index = 0;
-                        for (auto temp_mesh : temp->GetFontMeshes())
-                        {
-                            fontes.clear();
-                            for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
-                            {
-                                fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
-                            }
-                            Draw(obj->GetTransform(), fontes, temp_mesh.GetPointListType(), temp_mesh.GetColor(0), temp, index);
-                            index++;
-                        }
-                    }
 				}
 			}
 		}
@@ -479,7 +480,7 @@ void Graphics::SetNDC()
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
     affine2d myNDC;
-	auto temp_transform = transform;
+	//auto temp_transform = transform;
 
 	myNDC = transform.GetModelToWorld();
 

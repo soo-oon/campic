@@ -30,15 +30,6 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	Object* boss = new Object();
-	boss->SetTranslation({ 300, 0 });
-	boss->SetScale({ 150, 150 });
-	boss->SetMesh(mesh::CreateBox(1, Colors::White));
-	boss->SetDepth(-0.1f);
-	boss->AddComponent(new Animation("asset/images/Enemies/Boss_ver1.png", "boss1", 2, 1.0f));
-	boss->AddComponent(new Boss(BossSkillType::ShootOut, "asset/images/shot.png", GetPlayerPointer()));
-	boss->AddComponent(new Status(ObjectType::Boss, 10, 1, 0, true));
-
 	Object* temp = new Object();
 	temp->SetTranslation({ 100,-150 });
 	temp->SetScale({ 50.0f, 50.0f });
@@ -50,8 +41,8 @@ void level2::Initialize()
 	temp->AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
     //temp->AddComponent(new Enemy(MoveType::straight));
 
-	Object* camera = new Object();
-	camera->AddComponent(new Camera(this));
+	//Object* camera = new Object();
+	//camera->AddComponent(new Camera(this));
 
 	Object* card = new Object();
 	card->SetTranslation({300, 300});
@@ -72,9 +63,9 @@ void level2::Initialize()
 	card1->AddComponent(new Status(ObjectType::Item));
 
 	Object* font = new Object();
-	font->SetTranslation({ 0, 300 });
+	font->SetTranslation({ 0, 0 });
 	font->SetDepth(0.0f);
-	font->AddComponent(new Font("Sword of Souls", "asset/font/default.ttf", Colors::Blue));
+	font->AddComponent(new Font("Sword of Souls", "asset/font/default.ttf", Colors::White));
 	
 	Object* child_obj1 = new Object();
 	child_obj1->SetTranslation({ 0,80 });
@@ -124,12 +115,11 @@ void level2::Initialize()
     enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
     enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
 
-    obj.push_back(boss);
 	obj.push_back(temp);
-	obj.push_back(camera);
+	//obj.push_back(camera);
 	obj.push_back(card);
 	obj.push_back(card1);
-	obj.push_back(font);
+	//obj.push_back(font);
 	obj.push_back(enemy);
 	obj.push_back(child_obj1);
 	obj.push_back(door);
@@ -262,7 +252,7 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
-	obj[5]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
+	//obj[5]->GetComponentByTemplate<Font>()->SetText(Application_.GetFPS());
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{

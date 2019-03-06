@@ -18,5 +18,5 @@ private:
     Object* font = nullptr;
 	Object* hp = nullptr;
     Object* soul = nullptr;
-    std::string point = {""};
+    std::string point = "hi";
 };
