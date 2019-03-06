@@ -175,7 +175,7 @@ void AudioManager::PlaySong(const std::string & path)
 	currentSongPath = path;  
 	system->playSound(sound->second, NULL, false, &currentSong);
 	currentSong->setChannelGroup(groups[CATEGORY_SONG]);  
-	currentSong->setVolume(4.0f);  
+	currentSong->setVolume(0.4f);  
 	currentSong->setPaused(false);  
 	fade = FADE_IN; 
 }

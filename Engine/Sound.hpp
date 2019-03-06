@@ -7,7 +7,7 @@ class AudioManager;
 class Sound : public Component
 {
 public:
-	Sound(std::string path_, AudioManager::Category category_ = AudioManager::CATEGORY_SFX, float volume_ = 3.f)
+	Sound(std::string path_, AudioManager::Category category_ = AudioManager::CATEGORY_SFX, float volume_ = 0.3f)
 	: path(path_), category(category_), volume(volume_)
 	{
 		paths.push_back(path);

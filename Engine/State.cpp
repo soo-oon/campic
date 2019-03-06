@@ -55,6 +55,9 @@ void State::ChangeLevel(std::string ID)
 {
 	level_change = true;
 	change_level = ID;
+
+	if(ID == "Boss")
+		AudioManager_.PlaySong("asset/sounds/bgm.mp3");
 }
 
 void State::Load()
@@ -64,6 +67,11 @@ void State::Load()
         AddPlayer();
         AddSword();
     }
+
+	AudioManager_.LoadSong("asset/sounds/bgm.mp3");
+	AudioManager_.LoadSong("asset/sounds/plaid.mp3");
+
+	AudioManager_.PlaySong("asset/sounds/plaid.mp3");
 
     if(m_player == nullptr)
     {
