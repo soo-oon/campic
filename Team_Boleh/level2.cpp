@@ -36,13 +36,13 @@ void level2::Initialize()
 	temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
 	temp->SetDepth(0.0f);
 	temp->AddComponent(new RigidBody());
-	temp->AddComponent(new Sprite("asset/images/Dr_Strange.png"));
-	//temp->AddComponent(new Collision(box_, {}, { 100.0f, 100.0f }));
+	temp->AddComponent(new Collision(box_));
+	temp->AddComponent(new Animation("asset/images/Enemies/1_Right.png", "rigsdfsfht", 5, 0.2f, true));
 	temp->AddComponent(new Status(ObjectType::Enemy ,5, 1, 1.f));
     //temp->AddComponent(new Enemy(MoveType::straight));
 
-	//Object* camera = new Object();
-	//camera->AddComponent(new Camera(this));
+	Object* camera = new Object();
+	camera->AddComponent(new Camera(this));
 
 
 
