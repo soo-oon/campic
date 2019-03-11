@@ -3,129 +3,8 @@
         "Status": {},
         "Transform": {
             "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1280.0,
-                "y": 960.0
-            },
-            "rotation": 0.0,
-            "depth": 0.8999999761581421
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/background1.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "id": 6,
-                "enum": "Item"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 300.0,
-                "y": 300.0
-            },
-            "scale": {
-                "x": 24.0,
-                "y": 30.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/red_soul.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
-                "id": 6,
-                "enum": "Item"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 250.0,
-                "y": -250.0
-            },
-            "scale": {
-                "x": 24.0,
-                "y": 30.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/blue_soul.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 300.0
+                "x": -150.0,
+                "y": 150.0
             },
             "scale": {
                 "x": 1.0,
@@ -141,7 +20,7 @@
         "Particle": {},
         "Sound": {},
         "Font": {
-            "text": "Sword of Souls",
+            "text": "Welcome To Sword Of Souls",
             "path": "asset/font/default.ttf"
         }
     },
@@ -153,13 +32,13 @@
             },
             "HP": 5,
             "Damage": 1,
-            "Speed": 1.0,
+            "Speed": 1.5,
             "isAlive": true
         },
         "Transform": {
             "position": {
-                "x": -140.05874633789063,
-                "y": 120.87144470214844
+                "x": -67.0,
+                "y": 260.0
             },
             "scale": {
                 "x": 50.0,
@@ -179,13 +58,188 @@
                     "image_frames": 5,
                     "update_frames": 0.20000000298023225,
                     "is_repeats": true
-                },
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 2,
+                "enum": "Enemy"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.5,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 246.0,
+                "y": 155.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {
+            "map": {
                 "path": {
-                    "id": "left",
-                    "path": "asset/images/Enemies/1_Right.png"
+                    "id": "fffff",
+                    "path": "asset/images/Enemies/2_Left.png"
                 },
                 "info": {
-                    "image_frames": 5,
+                    "image_frames": 4,
+                    "update_frames": 0.20000000298023225,
+                    "is_repeats": true
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 2,
+                "enum": "Enemy"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.5,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": -65.0,
+                "y": 130.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {
+            "map": {
+                "path": {
+                    "id": "fsdf",
+                    "path": "asset/images/Enemies/slime.png"
+                },
+                "info": {
+                    "image_frames": 6,
+                    "update_frames": 0.20000000298023225,
+                    "is_repeats": true
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 2,
+                "enum": "Enemy"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.5,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 368.0,
+                "y": -35.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {
+            "map": {
+                "path": {
+                    "id": "asdf",
+                    "path": "asset/images/Enemies/scol.png"
+                },
+                "info": {
+                    "image_frames": 6,
+                    "update_frames": 0.20000000298023225,
+                    "is_repeats": true
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {}
+    },
+    "Object": {
+        "Status": {
+            "Type": {
+                "id": 2,
+                "enum": "Enemy"
+            },
+            "HP": 5,
+            "Damage": 1,
+            "Speed": 1.5,
+            "isAlive": true
+        },
+        "Transform": {
+            "position": {
+                "x": 6.0,
+                "y": -251.0
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {
+            "map": {
+                "path": {
+                    "id": "right",
+                    "path": "asset/images/Enemies/3_Left.png"
+                },
+                "info": {
+                    "image_frames": 4,
                     "update_frames": 0.20000000298023225,
                     "is_repeats": true
                 }
@@ -204,212 +258,8 @@
         "Status": {},
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": 290.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "slime",
-                    "path": "asset/images/Enemies/slime.png"
-                },
-                "info": {
-                    "image_frames": 6,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 52.0,
-                "y": 151.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "scol",
-                    "path": "asset/images/Enemies/scol.png"
-                },
-                "info": {
-                    "image_frames": 6,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": -71.0,
-                "y": 67.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "scol",
-                    "path": "asset/images/Enemies/scol.png"
-                },
-                "info": {
-                    "image_frames": 6,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 170.0,
-                "y": 246.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "boss",
-                    "path": "asset/images/Enemies/boss.png"
-                },
-                "info": {
-                    "image_frames": 5,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 268.0,
-                "y": 97.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "slime",
-                    "path": "asset/images/Enemies/slime.png"
-                },
-                "info": {
-                    "image_frames": 6,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 301.0,
-                "y": -53.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {
-            "map": {
-                "path": {
-                    "id": "slime",
-                    "path": "asset/images/Enemies/slime.png"
-                },
-                "info": {
-                    "image_frames": 6,
-                    "update_frames": 0.05000000074505806,
-                    "is_repeats": true
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {},
-        "Transform": {
-            "position": {
-                "x": 376.0,
-                "y": 202.0
+                "x": -504.0,
+                "y": -125.0
             },
             "scale": {
                 "x": 100.0,
@@ -451,8 +301,8 @@
         },
         "Transform": {
             "position": {
-                "x": 127.2130126953125,
-                "y": -248.29629516601563
+                "x": 71.52476501464844,
+                "y": 0.0
             },
             "scale": {
                 "x": 100.0,
@@ -544,7 +394,7 @@
             "enum": "box"
         },
         "Particle": {
-            "emit_rate": 50,
+            "emit_rate": 100,
             "life_time": 5.0,
             "size_variance": 5.0,
             "color_duration": 200.0,
@@ -561,11 +411,11 @@
                 "y": 10.0
             },
             "emit_size": {
-                "x": 500.0,
-                "y": 500.0
+                "x": 1280.0,
+                "y": 960.0
             },
-            "isActive": true,
-            "path": "asset/images/feather.png",
+            "isActive": false,
+            "path": "asset/images/red_soul.png",
             "fire_type": {
                 "id": 0,
                 "enum": "Divergent"
@@ -581,43 +431,6 @@
     "Object": {
         "Status": {
             "Type": {
-                "id": 5,
-                "enum": "Door"
-            },
-            "HP": 5,
-            "Damage": 1,
-            "Speed": 1.0,
-            "isAlive": true
-        },
-        "Transform": {
-            "position": {
-                "x": 500.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 50.0,
-                "y": 50.0
-            },
-            "rotation": 0.0,
-            "depth": -0.10000000149011612
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/door.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {}
-    },
-    "Object": {
-        "Status": {
-            "Type": {
                 "id": 1,
                 "enum": "Sword"
             },
@@ -628,14 +441,14 @@
         },
         "Transform": {
             "position": {
-                "x": 39.19218444824219,
-                "y": -200.44383239746095
+                "x": -28.3074951171875,
+                "y": 5.78953742980957
             },
             "scale": {
                 "x": 75.0,
                 "y": 75.0
             },
-            "rotation": 151.3065948486328,
+            "rotation": 176.68096923828126,
             "depth": -0.20000000298023225
         },
         "Sprite": {

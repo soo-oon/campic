@@ -763,7 +763,7 @@ void JSON::LoadObjectFromJson()
 		collision.SetObject();
 		particle.SetObject();
 		sound.SetObject();
-		//font.SetObject();
+		font.SetObject();
 		
 		status = obj_array.FindMember("Status")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -773,7 +773,7 @@ void JSON::LoadObjectFromJson()
 		collision = obj_array.FindMember("Collision")->value;
 		particle = obj_array.FindMember("Particle")->value;
 		sound = obj_array.FindMember("Sound")->value;
-		//font = obj_array.FindMember("Font")->value;
+		font = obj_array.FindMember("Font")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("Type"))
@@ -905,16 +905,16 @@ void JSON::LoadObjectFromJson()
 		}
 
 		//////////////////////////////////////////Font
-		//if (font.HasMember("text"))
-		//{
-		//	std::string font_text = font.FindMember("text")->value.GetString();
-		//	std::string font_path;
-		//	if (font.HasMember("path"))
-		//	{
-		//		font_path = font.FindMember("path")->value.GetString();
-		//	}
-		//	obj->AddComponent(new Font(font_text, font_path));
-		//}
+		if (font.HasMember("text"))
+		{
+			std::string font_text = font.FindMember("text")->value.GetString();
+			std::string font_path;
+			if (font.HasMember("path"))
+			{
+				font_path = font.FindMember("path")->value.GetString();
+			}
+			obj->AddComponent(new Font(font_text, font_path));
+		}
 		
 		Objectmanager_.AddObject(obj);
 	}
