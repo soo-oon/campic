@@ -129,7 +129,7 @@ void Application::Update(float dt)
 		title = "Engine ver 0.1 ";
 	}
 
-	//Input::Triggerd_Reset();
+	Input::Triggerd_Reset();
 	//glfwSwapBuffers(window);
 
     PollEvent();

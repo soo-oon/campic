@@ -53,7 +53,7 @@ private:
     vector2 position;
     vector2 viewing_direction;
     float friction = 0.99f;
-    float gravity = 1;
+    float gravity = 0.5f;
     float inverse_mass = 1;
 
     bool collision_switch = false;

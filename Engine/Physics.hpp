@@ -64,9 +64,9 @@ public:
     {
         float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
         float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
-        float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
-        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
-        if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+        float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
+        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+            if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
         {
             if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
             {

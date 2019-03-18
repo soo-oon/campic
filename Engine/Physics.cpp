@@ -60,16 +60,13 @@ void Physics::Update(float dt)
             }
             previous_size = static_cast<int>(Objectmanager_.GetObjectMap().size());
         }
-        tile_list.clear();
-        for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();obj++)
-        {
-            if(obj->get()->GetObjectType() == ObjectType::Player)
-            {
-                TileCheck(obj->get());
-            }
-        }
         if (collision_list.size() >= 1)
         {
+            tile_list.clear();
+            for (auto tile = Tile_Map_.GetGraphicsTiles().begin(); tile != Tile_Map_.GetGraphicsTiles().end(); tile++)
+            {
+                tile_list.push_back(tile->second);
+            }
             for(int i = 0; i < collision_list.size(); i ++)
             {
                 for (auto tile : tile_list) {
