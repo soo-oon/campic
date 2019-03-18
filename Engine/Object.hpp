@@ -25,47 +25,52 @@ Creation date: 2018/12/14
 #include "RigidBody.hpp"
 #include "Sound.hpp"
 
+enum class Object_Draw_Type
+{
+	None, Sprite, Animation, Particle, Collision, Camera, Font
+};
+
 class Object
 {
 public:
+	Object(Object_Draw_Type type) : m_draw_type(type)
+	{}
     void AddComponent(Component* component);
-    void Add_Init_Component(Component* component);
+    void AddInitComponent(Component* component);
+
+public:
     void SetMesh(Mesh mesh);
     void SetTranslation(const vector2& position);
     void SetScale(const vector2& scale);
     void SetRotation(const float& rotation);
     void SetDepth(const float& depth);
 	void SetParent(const Transform* transform_);
-    void SetGravity(float gravity_own);
-	void Set_HUD_Object_Size(const vector2 size) { HUD_Object_size = size; }
+	void SetObjectDrawType(Object_Draw_Type type);
+	void SetIsDead(bool condition);
 
-	std::vector<Component*> GetComponent() { return components; }
-	vector2 Get_Object_HUD_Size() { return HUD_Object_size; }
-
-    float GetGravity();
-
+public:
+	bool IsDead() { return isdead; }
+	std::vector<Component*> GetComponent() { return m_component; }
     Mesh& GetMesh();
     Transform& GetTransform();
+	Object_Draw_Type GetObjectDrawType() { return m_draw_type; }
+
 
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate() const;
 
-	std::string texture_path = "no_texture";
-	int object_id = 0;
-	int component_type_id = 0;
-
 private:
-	float gravity = 1;
-    Mesh object_mesh{};
-    Transform transform{};
-	vector2 HUD_Object_size{};
-    std::vector<Component*> components;
+	bool isdead = false;
+	Object_Draw_Type m_draw_type = Object_Draw_Type::None;
+    Mesh m_mesh{};
+    Transform m_transform{};
+    std::vector<Component*> m_component;
 };
 
 template <typename COMPONENT>
 COMPONENT* Object::GetComponentByTemplate() const
 {
-    for (auto i : components)
+    for (auto i : m_component)
     {
         if (typeid(COMPONENT) == typeid(*i))
         {

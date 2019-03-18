@@ -134,6 +134,138 @@ void Graphics::Draw()
     {
         for (auto& obj : Objectmanager_.GetObjectMap())
         {
+			if (obj->GetMesh().IsVisible())
+			{
+				switch (obj->GetObjectDrawType())
+				{
+				case Object_Draw_Type::Camera:
+				{
+					if(Iscamera)
+						temp_camera = obj->GetComponentByTemplate<Camera>();
+				}
+				break;
+
+				case Object_Draw_Type::Sprite:
+				{
+					auto temp_sprite = obj->GetComponentByTemplate<Sprite>();
+					sprite.clear();
+					sprite.reserve(obj->GetMesh().GetTexturePointsCount());
+					for (std::size_t i = 0; i < obj->GetMesh().GetTexturePointsCount(); ++i)
+					{
+						sprite.push_back({
+							obj->GetMesh().GetPoint(i),
+							obj->GetMesh().GetTextureCoordinate(i, temp_sprite)
+							});
+					}
+					Draw(obj->GetTransform(), sprite, obj->GetMesh().GetPointListType(),
+						obj->GetMesh().GetColor(0),
+						temp_sprite);
+				}
+				break;
+
+				case Object_Draw_Type::Animation:
+				{
+					auto temp_animation = obj->GetComponentByTemplate<Animation>();
+					animation.clear();
+					animation.reserve(obj->GetMesh().GetAnimationPointsCount());
+					for (std::size_t i = 0; i < obj->GetMesh().GetAnimationPointsCount(); ++i)
+					{
+						animation.push_back({
+							obj->GetMesh().GetPoint(i),
+							obj->GetMesh().GetAnimationCoordinate(i, temp_animation)
+							});
+					}
+					Draw(obj->GetTransform(), animation, obj->GetMesh().GetPointListType(),
+						obj->GetMesh().GetColor(0),
+						temp_animation->GetCurrentAnimation().sprites);
+				}
+				break;
+
+				case Object_Draw_Type::Particle:
+				{
+					auto particle = obj->GetComponentByTemplate<Particle_Generator>();
+					if (particle->IsActive())
+					{
+						for (auto& p : particle->GetParticles())
+						{
+							particles.clear();
+							if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ !=
+								nullptr)
+							{
+								particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
+								for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount();
+									++i)
+								{
+									particles.push_back(
+										{
+											p->GetParticleObject()->GetMesh().GetPoint(i),
+											p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_)
+										});
+								}
+								Draw(p->GetParticleObject()->GetTransform(), particles,
+									p->GetParticleObject()->GetMesh().GetPointListType(),
+									p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
+							}
+						}
+					}
+				}
+				break;
+
+				case Object_Draw_Type::Collision:
+				{
+					if (auto temp = obj->GetComponentByTemplate<Collision>();
+						temp->GetCollsionMesh().IsVisible())
+					{
+						collsionboxes.clear();
+						collsionboxes.reserve(temp->GetCollsionMesh().GetCollisionPointsCount());
+						for (std::size_t i = 0; i < temp->GetCollsionMesh().GetCollisionPointsCount(); ++i)
+						{
+							collsionboxes.push_back({
+								temp->GetCollsionMesh().GetCollisionCoordinate(i)
+								});
+						}
+						Draw(temp->GetCollisionTransform(), collsionboxes, temp->GetCollsionMesh().GetPointListType(),
+							temp->GetCollsionMesh().GetColor(0));
+					}
+				}
+				break;
+
+				case Object_Draw_Type::Font:
+				{
+					auto temp_font = obj->GetComponentByTemplate<Font>();
+					int index = 0;
+					for (auto temp_mesh : temp_font->GetFontMeshes())
+					{
+						fontes.clear();
+						for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
+						{
+							fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
+						}
+						Draw(obj->GetTransform(), fontes, temp_mesh.GetPointListType(), temp_mesh.GetColor(0), temp_font, index);
+						index++;
+					}
+				}
+				break;
+
+				case Object_Draw_Type::None:
+				{
+					shapes.clear();
+					shapes.reserve(obj->GetMesh().GetPointCount());
+					for (std::size_t i = 0; i < obj->GetMesh().GetPointCount(); ++i)
+					{
+						shapes.push_back({ obj->GetMesh().GetPoint(i) });
+					}
+					Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(),
+						obj->GetMesh().GetColor(0));
+				}
+				break;
+
+				default:
+					break;
+				}
+
+			}
+			/*
             if (Iscamera)
             {
                 if (auto temp = obj->GetComponentByTemplate<Camera>(); temp != nullptr)
@@ -141,7 +273,7 @@ void Graphics::Draw()
                     temp_camera = temp;
                 }
             }
-
+			
             if (auto temp = obj->GetComponentByTemplate<Collision>(); temp != nullptr)
             {
                 if (temp->GetCollsionMesh().IsVisible())
@@ -158,8 +290,11 @@ void Graphics::Draw()
                          temp->GetCollsionMesh().GetColor(0));
                 }
             }
+			
+
             if (obj->GetMesh().IsVisible())
             {
+				
                 if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
                 {
                     sprite.clear();
@@ -175,6 +310,8 @@ void Graphics::Draw()
                          obj->GetMesh().GetColor(0),
                          temp_sprite);
                 }
+				
+				
                 else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
                 {
                     animation.clear();
@@ -190,6 +327,8 @@ void Graphics::Draw()
                          obj->GetMesh().GetColor(0),
                          temp_animation->GetCurrentAnimation().sprites);
                 }
+		
+				
                 else if (obj->GetMesh().GetPointCount())
                 {
                     shapes.clear();
@@ -201,7 +340,9 @@ void Graphics::Draw()
                     Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), 
 						obj->GetMesh().GetColor(0));
                 }
+				
 
+				
                 if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
                 {
 					int index = 0;
@@ -216,6 +357,7 @@ void Graphics::Draw()
 						index++;
 					}
                 }
+				
 
 				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
 				{
@@ -244,153 +386,14 @@ void Graphics::Draw()
 						}
 					}
 				}
-
-				if(auto temp = obj->GetComponentByTemplate<Boss>(); temp != nullptr)
-				{
-					for(auto& fire : temp->GetAttackObj())
-					{
-						if (auto temp_animation = fire->GetFireObject()->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
-						{
-							animation.clear();
-							animation.reserve(obj->GetMesh().GetAnimationPointsCount());
-							for (std::size_t i = 0; i < obj->GetMesh().GetAnimationPointsCount(); ++i)
-							{
-								animation.push_back({
-									obj->GetMesh().GetPoint(i),
-									obj->GetMesh().GetAnimationCoordinate(i, temp_animation)
-									});
-							}
-							Draw(fire->GetFireObject()->GetTransform(), animation, fire->GetFireObject()->GetMesh().GetPointListType(),
-								fire->GetFireObject()->GetMesh().GetColor(0),
-								temp_animation->GetCurrentAnimation().sprites);
-						}
-					}
-				}
-            }
+			*/
         }
     }
 }
 
 void Graphics::HUD_Draw()
 {
-    if (!HUD_.Get_HUD_Object_Manager().empty())
-    {
-		if (HUD_.Get_HUD_State()->GetPlayerPointer() != nullptr)
-		{
-			for (auto& obj : HUD_.Get_HUD_Object_Manager())
-			{
-				if (Iscamera)
-				{
-					if (auto temp = obj->GetComponentByTemplate<Camera>(); temp != nullptr)
-					{
-						temp_camera = temp;
-					}
-				}
-
-				if (auto temp = obj->GetComponentByTemplate<Collision>(); temp != nullptr)
-				{
-					if (temp->GetCollsionMesh().IsVisible())
-					{
-						collsionboxes.clear();
-						collsionboxes.reserve(temp->GetCollsionMesh().GetCollisionPointsCount());
-						for (std::size_t i = 0; i < temp->GetCollsionMesh().GetCollisionPointsCount(); ++i)
-						{
-							collsionboxes.push_back({
-								temp->GetCollsionMesh().GetCollisionCoordinate(i)
-								});
-						}
-						Draw(temp->GetCollisionTransform(), collsionboxes, temp->GetCollsionMesh().GetPointListType(),
-							temp->GetCollsionMesh().GetColor(0));
-					}
-				}
-
-				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
-				{
-					if (temp->IsActive())
-					{
-						for (auto& p : temp->GetParticles())
-						{
-							particles.clear();
-							if (auto sprite_ = p->GetParticleObject()->GetComponentByTemplate<Sprite>(); sprite_ != nullptr)
-							{
-								particles.reserve(p->GetParticleObject()->GetMesh().GetTexturePointsCount());
-								for (std::size_t i = 0; i < p->GetParticleObject()->GetMesh().GetTexturePointsCount(); ++i)
-								{
-									particles.push_back(
-										{
-											p->GetParticleObject()->GetMesh().GetPoint(i),
-											p->GetParticleObject()->GetMesh().GetTextureCoordinate(i, sprite_)
-										});
-								}
-								Draw(p->GetParticleObject()->GetTransform(), particles,
-									p->GetParticleObject()->GetMesh().GetPointListType(),
-									p->GetParticleObject()->GetMesh().GetColor(0), sprite_);
-							}
-						}
-					}
-				}
-
-				if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
-				{
-					int index = 0;
-					for (auto temp_mesh : temp->GetFontMeshes())
-					{
-						fontes.clear();
-						for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
-						{
-							fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
-						}
-						Draw(obj->GetTransform(), fontes, temp_mesh.GetPointListType(), temp_mesh.GetColor(0), temp, index);
-						index++;
-					}
-				}
-
-				if (obj->GetMesh().IsVisible())
-				{
-					if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
-					{
-						sprite.clear();
-						sprite.reserve(obj->GetMesh().GetTexturePointsCount());
-						for (std::size_t i = 0; i < obj->GetMesh().GetTexturePointsCount(); ++i)
-						{
-							sprite.push_back({
-								obj->GetMesh().GetPoint(i),
-								obj->GetMesh().GetTextureCoordinate(i, temp_sprite)
-								});
-						}
-						Draw(obj->GetTransform(), sprite, obj->GetMesh().GetPointListType(),
-							obj->GetMesh().GetColor(0),
-							temp_sprite);
-					}
-					else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
-					{
-						animation.clear();
-						animation.reserve(obj->GetMesh().GetAnimationPointsCount());
-						for (std::size_t i = 0; i < obj->GetMesh().GetAnimationPointsCount(); ++i)
-						{
-							animation.push_back({
-								obj->GetMesh().GetPoint(i),
-								obj->GetMesh().GetAnimationCoordinate(i, temp_animation)
-								});
-						}
-						Draw(obj->GetTransform(), animation, obj->GetMesh().GetPointListType(),
-							obj->GetMesh().GetColor(0),
-							temp_animation->GetCurrentAnimation().sprites);
-					}
-					else if (obj->GetMesh().GetPointCount())
-					{
-						shapes.clear();
-						shapes.reserve(obj->GetMesh().GetPointCount());
-						for (std::size_t i = 0; i < obj->GetMesh().GetPointCount(); ++i)
-						{
-							shapes.push_back({ obj->GetMesh().GetPoint(i) });
-						}
-						Draw(obj->GetTransform(), shapes, obj->GetMesh().GetPointListType(), obj->GetMesh().GetColor(0));
-					}
-				}
-			}
-		}
-    }
+ 
 }
 
 void Graphics::Tile_Draw()
@@ -480,7 +483,6 @@ void Graphics::SetNDC()
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
     affine2d myNDC;
-	//auto temp_transform = transform;
 
 	myNDC = transform.GetModelToWorld();
 
@@ -523,6 +525,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<solidshape>& v
     glBufferData(GL_ARRAY_BUFFER, sizeof(solidshape) * vertexes.size(), (const void*)(&vertexes[0]),
                  GL_DYNAMIC_DRAW);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)(vertexes.size()));
 }
 
@@ -552,6 +556,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<collsionbox>& 
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(collsionbox) * vertexes.size(), (const void*)(&vertexes[0]),
                  GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)(vertexes.size()));
 }
@@ -589,6 +595,9 @@ void Graphics::Draw(const Transform& transform, const std::vector<texture>& vert
 
     glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
 
@@ -623,6 +632,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<animaition>& v
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::sprite]);
 
 	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
@@ -660,6 +671,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<particle>& ver
 
     glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(texture), (const void*)&vertexes[0], GL_DYNAMIC_DRAW);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }
 
@@ -691,6 +704,8 @@ void Graphics::Draw(const Transform& transform, const std::vector<font>& vertexe
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
 
 	glBufferData(GL_ARRAY_BUFFER, vertexes.size() * sizeof(font), (const void*)& vertexes[0], GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glDrawArrays(ToGLPrimitiveMode(draw_type), 0, (GLsizei)vertexes.size());
 }

@@ -154,5 +154,6 @@ void Enemy::CardDrop()
         soul->AddComponent(new Sprite("asset/images/black_soul.png"));
         soul->AddComponent(new Card("Black"));
     }
+
     Objectmanager_.AddObject(soul);
 }

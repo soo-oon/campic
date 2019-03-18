@@ -26,15 +26,6 @@ class JSON;
 class State
 {
 public:
-	//virtual void UpdateObjManager(float dt);
-	//virtual void UpdateJsonState(StateManager* current);
-	//virtual std::unique_ptr<Objectmanager>& GetObjectManager(){return objectmanager;}
-	//virtual vector2 GetStateScreenSize() { return screen_size_; }
-	//virtual void SetStateScreenSize(vector2 size) { screen_size_ = size; }
-	//virtual void AddPlayer();
-	//virtual void SecondPlanForPlayer(Object* player);
-	//virtual JSON* GetJson() { return json; }
-
 	virtual void Initialize() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void ShutDown() = 0;
@@ -47,22 +38,13 @@ public:
 	virtual void ChangeLevel(std::string ID);
 
 	void ResetLevelChange() { level_change = false; }
-	void AddPlayer();
-        void AddSword();
+
 	void Load();
 	void UnLoad();
 
-	void SetPlayerPointer(Object* obj) { m_player = obj; }
-	Object* GetPlayerPointer() { return m_player; }
 	State_Information information_ = State_Information::None;
 
-
 private:
-	Object* m_player = nullptr;
-	//std::unique_ptr<Objectmanager> objectmanager;
-	//JSON* json = nullptr;
-
-	vector2 screen_size_{};
 	std::string change_level;
 
 	bool iscamera = false;

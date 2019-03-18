@@ -16,78 +16,75 @@ Creation date: 2018/12/14
 #include "Object.hpp"
 #include "control_angle.hpp"
 #include <iostream>
-//#include <iostream>
 
 void Object::AddComponent(Component* component)
 {
-    components.push_back(component);
+    m_component.push_back(component);
 }
 
-void Object::Add_Init_Component(Component* component)
+void Object::AddInitComponent(Component* component)
 {
     component->Initialize(this);
-    components.push_back(component);
+    m_component.push_back(component);
 }
 
 void Object::SetMesh(Mesh mesh)
 {
-    object_mesh = mesh;
+    m_mesh = mesh;
 }
 
 void Object::SetTranslation(const vector2& position)
 {
-	transform.SetTranslation(position);
+	m_transform.SetTranslation(position);
 }
 
 void Object::SetScale(const vector2& scale)
 {
-	transform.SetScale(scale);
+	m_transform.SetScale(scale);
 
 }
 
 void Object::SetRotation(const float& rotation)
 {
-    transform.SetRotation(rotation);
+	m_transform.SetRotation(rotation);
 }
 
 void Object::SetDepth(const float& depth)
 {
-    transform.SetDepth(depth);
+	m_transform.SetDepth(depth);
 }
 
 void Object::SetParent(const Transform* transform_)
 {
-	transform.SetParent(transform_);
+	m_transform.SetParent(transform_);
 
-	////arctan --> atan2
-	auto temp = transform.GetWorldToModel();
-	affine2d rotate_ = rotation_affine(-transform.GetRotation());
+	auto temp = m_transform.GetWorldToModel();
+	affine2d rotate_ = rotation_affine(-m_transform.GetRotation());
 
 	temp *= rotate_;
 
-	transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
-	transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
+	m_transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
+	m_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
 }
 
-void Object::SetGravity(float gravity_own)
+void Object::SetObjectDrawType(Object_Draw_Type type)
 {
-	gravity = gravity_own;
+	m_draw_type = type;
 }
 
-
-float Object::GetGravity()
+void Object::SetIsDead(bool condition)
 {
-	return gravity;
+	isdead = condition;
 }
 
 
 Mesh& Object::GetMesh()
 {
-    return object_mesh;
+    return m_mesh;
 }
 
 Transform& Object::GetTransform()
 {
-    return transform;
+    return m_transform;
 }
 

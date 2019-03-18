@@ -19,38 +19,6 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include "Status.hpp"
 
-//void State::UpdateObjManager(float dt)
-//{
-//	objectmanager->Update(dt);
-//}
-//
-//void State::UpdateJsonState(StateManager* current)
-//{
-//	json->UpdateState(current);
-//}
-
-//void State::Load()
-//{
-//	change_level.clear();
-//	level_change = false;
-//	objectmanager = std::make_unique<Objectmanager>();
-//	json = new JSON();
-//	json->LoadLevelDocument();
-//
-//	sound = new Sound();
-//	sound->Initialize();
-//}
-//
-//void State::UnLoad()
-//{
-//	json->SaveAtEachDocument();
-//	objectmanager.release();
-//	objectmanager = nullptr;
-//	sound->Quit();
-//	delete sound;
-//	delete json;
-//}
-
 void State::ChangeLevel(std::string ID)
 {
 	level_change = true;
@@ -62,45 +30,7 @@ void State::ChangeLevel(std::string ID)
 
 void State::Load()
 {
-    if (Objectmanager_.GetObjectMap().empty())
-    {
-        AddPlayer();
-        AddSword();
-    }
-
-	AudioManager_.LoadSong("asset/sounds/bgm.mp3");
-	AudioManager_.LoadSong("asset/sounds/plaid.mp3");
-
-	AudioManager_.PlaySong("asset/sounds/plaid.mp3");
-
-    if(m_player == nullptr)
-    {
-        for(auto player : Objectmanager_.GetObjectMap())
-        {
-            if(player->GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
-            {
-                m_player = player.get();
-            }
-        }
-
-    }
-}
-
-void State::AddPlayer()
-{
-	Object* player = new Object();
-	player->AddComponent(new Player());
-
-	Objectmanager_.AddObject(player);
-	m_player = Objectmanager_.GetObjectMap()[Objectmanager_.GetObjectMap().size() - 1].get();
-}
-
-void State::AddSword()
-{
-    Object* sword = new Object();
-    sword->AddComponent(new Sword(Objectmanager_.GetObjectMap()[0].get()));
-
-    Objectmanager_.AddObject(sword);
+ 
 }
 
 

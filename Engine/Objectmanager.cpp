@@ -57,8 +57,10 @@ void Objectmanager::Update(float dt)
                 Physics_.ResetPreviousSize();
                 object = objects_.erase(object);
             }
-            else
-                ++object;
+			else
+			{
+				++object;
+			}
 		}
 		else
 		{
@@ -77,8 +79,6 @@ void Objectmanager::AddObject(Object* obj)
 	std::shared_ptr<Object> temp(obj);
 
 	objects_.push_back(temp);
-
-	//std::cout << objects_.size() << std::endl;
 
  	for(auto component : objects_[objects_.size()-1]->GetComponent())
 	{

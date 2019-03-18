@@ -16,17 +16,6 @@ Creation date: 2018/12/14
 
 #pragma once
 
-enum class Component_Type
-{
-	None, 
-	Sprite,
-	RigidBody,
-	Camera,
-	Animation,
-	Collision,
-	Particle,
-	Sound
-};
 
 class Object;
 
@@ -36,7 +25,6 @@ private:
 public:
     virtual ~Component()
     {};
-	Component_Type type = Component_Type::None;
     Object* object;
 
     virtual bool Initialize(Object* Ob) = 0;

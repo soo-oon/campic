@@ -68,7 +68,6 @@ public:
     void AddCollisionCoordinate(vector2 collision_coordinate);
 
     void ChangeColor(Color color);
-    //void Change_Alpha_Value(float dec_value);
 
     void Decrease_Alpha(float dec_value);
     void Increase_Alpha(float inc_value);
@@ -81,10 +80,8 @@ public:
 
     bool IsVisible() { return visible; }
 
-    //************** Maybe Delete after optimizing Imgui
     void Invisible() { visible = false; }
     void Visible() { visible = true; }
-    //*************
 
     void Clear();
 
@@ -94,7 +91,6 @@ private:
     std::vector<vector2> textureCoordinates{};
     std::vector<vector2> animationCoordinates{};
     std::vector<vector2> collisionCoordinates{};
-    //std::vector<vector2> fontCoordinates{};
 
     std::vector<Color> colors{};
 

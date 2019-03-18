@@ -36,25 +36,18 @@ void StateManager::AddStage(std::string ID, State* state)
 
 	if (m_currentState == nullptr)
 	{
-		if(auto& first_level = states.find(ID)->second; first_level->information_ == State_Information::Splash)
+		if(auto& first_level = states.find(ID)->second; 
+			first_level->information_ == State_Information::Splash)
 		{
 			m_currentState = first_level.get();
 		}
 		else
 		{
+			//TODO Chnage this
 			m_currentState = first_level.get();
-			m_currentState->AddPlayer();
-                        //m_currentState->AddSword();
-			
 		}
 
 		m_currentState->Initialize();
-		/*if (states.find(ID)->second->information_ == State_Information::Splash)
-		{
-			m_currentState = states.find(ID)->second.get();
-			m_currentState->Load();
-			m_currentState->Initialize();
-		}*/
 	}
 }
 
@@ -67,11 +60,6 @@ void StateManager::ChangeStage()
 	m_currentState = states.find(next_level)->second.get();
 
 	m_currentState->Load();
-
-	//if (m_currentState->information_ == State_Information::Game)
-	//{
-	//	m_currentState->AddPlayer();
-	//}
 
 	m_currentState->Initialize();
 	Physics_.ResetPreviousSize();
@@ -94,9 +82,7 @@ void StateManager::Update(float dt)
 
 	if (m_pause == false)
 	{
-		//m_currentState->UpdateObjManager(dt);
 		m_currentState->Update(dt);
-		//m_currentState->UpdateJsonState(this);
 	}
 }
 

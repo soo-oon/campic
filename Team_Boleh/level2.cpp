@@ -125,7 +125,7 @@ void level2::Initialize()
 
     //obj.push_back(boss);
 	obj.push_back(temp);
-	obj.push_back(camera);
+	//obj.push_back(camera);
 	//obj.push_back(font);
 	obj.push_back(enemy);
 	//obj.push_back(child_obj1);

@@ -2,6 +2,7 @@
 #include "Application.hpp"
 #include "Status.hpp"
 #include "Enemy.hpp"
+#include <iostream>
 
 
 void Room2::Initialize()
@@ -84,6 +85,11 @@ void Room2::Initialize()
 
 void Room2::Update(float dt)
 {
+	if (enemy->GetComponentByTemplate<Status>()->IsAlive())
+		std::cout << "live" << std::endl;
+	else
+		std::cout << "die" << std::endl;
+
     if (Input::IsKeyTriggered(GLFW_KEY_Q) && room1->GetComponentByTemplate<Collision>()->GetIsDoor())
     {
         StateManager_.player_position = GetPlayerPointer()->GetTransform().GetTranslation();

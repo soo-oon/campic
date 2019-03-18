@@ -54,6 +54,7 @@ void Room1::Initialize()
     enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
     enemy->AddComponent(new Animation("asset/images/Enemies/2_Left.png", "right", 4, 0.2f, true));
     enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/2_Right.png", "left", 4, 0.2f, true);
+
     Object* enemy1 = new Object();
     enemy1->SetTranslation({ 250, 250 });
     enemy1->SetScale({ 50 });

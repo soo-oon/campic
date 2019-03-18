@@ -35,19 +35,17 @@ class State;
 class StateManager
 {
 public:
+	bool Initialize();
+	void Update(float dt);
+	void Quit();
+
 	void AddStage(std::string ID, State* state);
 	void ChangeStage();
 	void Restart();
 	void Pause();
 
 	State* GetCurrentState() { return m_currentState; }
-        std::unordered_map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
-
-	bool Initialize();
-	void Update(float dt);
-	void Quit();
-
-    vector2 player_position = {0};
+	std::unordered_map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
 
 private:
 	State* m_currentState = nullptr;
