@@ -20,29 +20,34 @@ enum class Tile_Type
 class Tile_Map
 {
 public:
-	void Update(float dt);
+    void Update(float dt);
 
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }
     void Make_Tile(std::string image, Tile_Type type);
-	void Make_Ani_Tile(std::string image, Tile_Type type);
+    void Make_Ani_Tile(std::string image, Tile_Type type);
     void Delete_Tile();
-	void Delete_Ani_Tile();
+    void Delete_Ani_Tile();
+    Object* GetSpecificTile(vector2 position);
 
-	void InsertGraphicalTiles(int grid_, Object* tiles);
-	void InsertPhysicalTiles(int grid_, Object* tiles);
+    bool CheckTile(vector2 position)
+    {
+
+    }
+
+    void InsertGraphicalTiles(int grid_, Object* tiles);
+    void InsertPhysicalTiles(int grid_, Object* tiles);
 
 private:
-	void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
-	void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
+    void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
+    void Ani_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);
 
     std::unordered_map<int, Object*> graphics_tiles;
     std::unordered_map<int, Object*> physical_tiles;
 
-	int m_number = 0;
+    int m_number = 0;
 
-    bool tile_grid[TEMP_WIDTH / TILE_SIZE][TEMP_HEIGHT / TILE_SIZE] = { false };
-    
+    bool tile_grid[TEMP_WIDTH / TILE_SIZE][TEMP_HEIGHT / TILE_SIZE] = {false};
 };
 
 extern Tile_Map Tile_Map_;

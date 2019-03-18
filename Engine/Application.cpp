@@ -129,7 +129,7 @@ void Application::Update(float dt)
 		title = "Engine ver 0.1 ";
 	}
 
-	Input::Triggerd_Reset();
+	//Input::Triggerd_Reset();
 	//glfwSwapBuffers(window);
 
     PollEvent();
@@ -179,7 +179,7 @@ void Application::FullScreen()
 
 void Application::PollEvent()
 {
-	glfwSwapInterval(true);
+	//glfwSwapInterval(true);
     glfwPollEvents();
     Key_Poll_Event();
 }

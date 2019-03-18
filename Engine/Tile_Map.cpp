@@ -75,6 +75,7 @@ void Tile_Map::Delete_Ani_Tile()
 	}
 }
 
+
 void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, Tile_Type type)
 {
 	Object* tile = new Object();
@@ -119,4 +120,12 @@ void Tile_Map::InsertGraphicalTiles(int grid_, Object * tiles)
 void Tile_Map::InsertPhysicalTiles(int grid_, Object * tiles)
 {
 	physical_tiles.insert(std::pair<int, Object*>(grid_, tiles));
+}
+
+
+Object * Tile_Map::GetSpecificTile(vector2 position)
+{
+    if(graphics_tiles.find(position.x / TILE_SIZE * TEMP_WIDTH + position.y / TILE_SIZE) != graphics_tiles.end())
+    return graphics_tiles[position.x / TILE_SIZE * TEMP_WIDTH + position.y / TILE_SIZE];
+    return nullptr;
 }

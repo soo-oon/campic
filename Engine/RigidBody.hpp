@@ -29,22 +29,29 @@ public:
 		type = Component_Type::RigidBody;
 	}
 
-    void CollisionOn();
-    void SetMass(float mass);
-    void SetVelocity(vector2 velocity);
-    void AddVelocity(vector2 velocity);
-    vector2 GetPreviousPosition();
-    vector2 GetVelocity();
-    vector2 GetPosition();
-    void AddForce(vector2 force);
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
     void Delete() override;
+    void CollisionOn() { collision_switch = true; }
+    void AddVelocity(vector2 velocity_) { velocity += velocity_; }
+    void AddForce(vector2 force) { force_accumlator += force; }
+public:
+    void SetMass(float mass) { inverse_mass = 1.f / mass; }
+    void SetVelocity(vector2 velocity_) { velocity = velocity_; }
+    void SetViewingDirection(vector2 direction) { viewing_direction = direction; }
+public:
+    vector2 GetPreviousPosition() { return previous_position; }
+    vector2 GetVelocity() { return velocity; }
+    vector2 GetPosition(){ return position; }
+    vector2 GetViewingDirection() { return viewing_direction; }
+    
+
 private:
     vector2 previous_position;
     vector2 force_accumlator; // mess 
     vector2 velocity;
     vector2 position;
+    vector2 viewing_direction;
     float friction = 0.99f;
     float gravity = 1;
     float inverse_mass = 1;

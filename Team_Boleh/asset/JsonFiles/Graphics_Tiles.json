@@ -1,63 +1,18 @@
 {
     "Tile": {
-        "grid": 1305674,
+        "grid": 1177677,
         "tile_type": 1,
         "scale": {
             "x": 64.0,
             "y": 64.0
         },
         "pos": {
-            "x": 160.0,
-            "y": -352.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile15",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1216077,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -288.0,
+            "x": -480.0,
             "y": -160.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1228877,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -224.0,
-            "y": -160.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
         },
         "animation": {},
         "IsAnimated": false
@@ -75,25 +30,79 @@
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
         },
         "animation": {},
         "IsAnimated": false
     },
     "Tile": {
-        "grid": 1305677,
+        "grid": 1190477,
         "tile_type": 1,
         "scale": {
             "x": 64.0,
             "y": 64.0
         },
         "pos": {
-            "x": 160.0,
+            "x": -416.0,
             "y": -160.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+        },
+        "animation": {},
+        "IsAnimated": false
+    },
+    "Tile": {
+        "grid": 1203277,
+        "tile_type": 1,
+        "scale": {
+            "x": 64.0,
+            "y": 64.0
+        },
+        "pos": {
+            "x": -352.0,
+            "y": -160.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+        },
+        "animation": {},
+        "IsAnimated": false
+    },
+    "Tile": {
+        "grid": 1216077,
+        "tile_type": 1,
+        "scale": {
+            "x": 64.0,
+            "y": 64.0
+        },
+        "pos": {
+            "x": -288.0,
+            "y": -160.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+        },
+        "animation": {},
+        "IsAnimated": false
+    },
+    "Tile": {
+        "grid": 1228877,
+        "tile_type": 1,
+        "scale": {
+            "x": 64.0,
+            "y": 64.0
+        },
+        "pos": {
+            "x": -224.0,
+            "y": -160.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
         },
         "animation": {},
         "IsAnimated": false
@@ -111,702 +120,9 @@
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
         },
         "animation": {},
         "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1267277,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -32.0,
-            "y": -160.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1331274,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 288.0,
-            "y": -352.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile17",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1228876,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -224.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile3",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1280077,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 32.0,
-            "y": -160.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1292877,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 96.0,
-            "y": -160.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1318477,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 224.0,
-            "y": -160.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1164881,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -544.0,
-            "y": 96.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1331275,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 288.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile18",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1241675,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -160.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile5",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1164880,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -544.0,
-            "y": 32.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1177680,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -480.0,
-            "y": 32.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_corner_front_left.png"
-        },
-        "animation": {},
-        "IsAnimated": false
-    },
-    "Tile": {
-        "grid": 1216075,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -288.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile1",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1318474,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 224.0,
-            "y": -352.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile16",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1216076,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -288.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile2",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1241676,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -160.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile4",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1254475,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -96.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile6",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1267275,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -32.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile7",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1280075,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 32.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile8",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1292875,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 96.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile9",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1292876,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 96.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile10",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1280076,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 32.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile11",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1267276,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -32.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile12",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1254476,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -96.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile13",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1228875,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": -224.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile14",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1318476,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 224.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile19",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1305676,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 160.0,
-            "y": -224.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile20",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1305675,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 160.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile21",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
-    },
-    "Tile": {
-        "grid": 1318475,
-        "tile_type": 1,
-        "scale": {
-            "x": 64.0,
-            "y": 64.0
-        },
-        "pos": {
-            "x": 224.0,
-            "y": -288.0
-        },
-        "sprite": {},
-        "animation": {
-            "map": {
-                "path": {
-                    "id": "tile22",
-                    "path": "asset/images/Tiles/Ani/Wall_Water_Ani.png"
-                },
-                "info": {
-                    "image_frames": 3,
-                    "update_frames": 0.10000000149011612,
-                    "is_repeats": true
-                }
-            }
-        },
-        "IsAnimated": true
     }
 }

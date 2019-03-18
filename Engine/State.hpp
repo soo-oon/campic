@@ -19,7 +19,6 @@ Creation date: 2018/12/14
 #include "AudioManager.hpp"
 #include "StateManager.hpp"
 #include "JSON.hpp"
-#include "Sword.hpp"
 
 class JSON;
 

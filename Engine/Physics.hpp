@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include "Collision.hpp"
 #include "Reaction.hpp"
+#include "Tile_Map.hpp"
 
 class Physics
 {
@@ -29,6 +30,8 @@ public:
 	void Quit();
 
 	void ChangeRestitutionOfOjbect(Object object1, Object object2);
+
+    void Restitution(Object* object1, Object* object2);
 
 	// This function is used by intersection check. You do not use it for collision check.
 	bool CollisionOnAxis(vector2 Axis, std::vector<vector2> owner, std::vector<vector2> object);
@@ -46,11 +49,82 @@ public:
         // This function return true if object is out of window area. 
         bool OutOfCheckBoundary(Object* object);
 
+    bool TransparentCheck(Object* object)
+    {
+        float value = dot(vector2(0, 1), object->GetComponentByTemplate<RigidBody>()->GetViewingDirection());
+        if (value > 0)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    void TileCheck(Object* object)
+    {
+        float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+        float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+        float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
+        if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+        {
+            if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+            {
+                if(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + 1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 +1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + 1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +1 }));
+            }
+            else
+            {
+                if(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }));
+                if(Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }));
+                if(Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }));
+            }
+        }
+        else
+        {
+            if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+            {
+                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + 1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + 1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + 1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 + 1 }));
+            }
+            else
+            {
+                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }));
+            }
+        }
+    }
+
 
 
 private:
 	//Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;
+    std::vector<Object*> tile_list;
+    std::vector<Object*> static_list;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
 };

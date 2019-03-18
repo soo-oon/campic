@@ -1,11 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Sword.cpp" />
-    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Application.cpp">
       <Filter>Engine\Application</Filter>
     </ClCompile>
@@ -113,11 +109,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Card.hpp" />
-    <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Sword.hpp" />
-    <ClInclude Include="Door.hpp" />
     <ClInclude Include="Application.hpp">
       <Filter>Engine\Application</Filter>
     </ClInclude>
