@@ -13,7 +13,6 @@ Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
 */
 #include "HUD.hpp"
-#include "Status.hpp"
 #include "Graphics.hpp"
 #include <iostream>
 
@@ -77,17 +76,17 @@ void HUD::HUD_Activing_Search()
 {
 	if (!Objectmanager_.GetObjectMap().empty())
 	{
-		for (auto& object : Objectmanager_.GetObjectMap())
-		{
-			if (auto status = object->GetComponentByTemplate<Status>(); status != nullptr)
-			{
-				if (status->GetObjectType() == ObjectType::Player)
-				{
-					isHUDActive = true;
-					return;
-				}
-			}
-		}
+		//for (auto& object : Objectmanager_.GetObjectMap())
+		//{
+		//	if (auto status = object->GetComponentByTemplate<Status>(); status != nullptr)
+		//	{
+		//		if (status->GetObjectType() == ObjectType::Player)
+		//		{
+		//			isHUDActive = true;
+		//			return;
+		//		}
+		//	}
+		//}
 	}
 	isHUDActive = false;
 }

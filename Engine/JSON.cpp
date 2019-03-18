@@ -1,5 +1,4 @@
 #include "JSON.hpp"
-#include "Status.hpp"
 #include "Animation.hpp"
 #include <iostream>
 #include "Particle.hpp"
@@ -62,18 +61,18 @@ void JSON::ObjectsToDocument(Object* obj)
 
 	objTransformTree = ComponentTransform(obj);
 
-	if (obj->GetComponentByTemplate<Status>() != nullptr)
-	{
-		//Save objects that is not player
-		//if(obj->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player)
-			
-		/*if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
-		{
-			objCameraTree = ComponentCamera(obj);
-			objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
-		}*/
-		objStatusTree = ComponentStatus(obj);
-	}
+	//if (obj->GetComponentByTemplate<Status>() != nullptr)
+	//{
+	//	//Save objects that is not player
+	//	//if(obj->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player)
+	//		
+	//	/*if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
+	//	{
+	//		objCameraTree = ComponentCamera(obj);
+	//		objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+	//	}*/
+	//	objStatusTree = ComponentStatus(obj);
+	//}
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
 
@@ -210,86 +209,86 @@ Value JSON::ComponentStatus(Object * obj)
 	objTypeVal.SetObject();
 	isAlive.SetObject();
 
-	auto type = obj->GetComponentByTemplate<Status>()->GetObjectType();
+	//auto type = obj->GetComponentByTemplate<Status>()->GetObjectType();
 
-	switch (type)
-	{
-		case ObjectType::Player:
-		{
-			objTypeVal.SetInt(0);
-			objTypeString.SetString("Player");
-			break;
-		}
-		case ObjectType::Sword:
-		{
-			objTypeVal.SetInt(1);
-			objTypeString.SetString("Sword");
-			break;
-		}
-		case ObjectType::Enemy:
-		{
-			objTypeVal.SetInt(2);
-			objTypeString.SetString("Enemy");
-			break;
-		}
-		case ObjectType::Boss:
-		{
-			objTypeVal.SetInt(3);
-			objTypeString.SetString("Boss");
-			break;
-		}
-		case ObjectType::Wall:
-		{
-			objTypeVal.SetInt(4);
-			objTypeString.SetString("Door");
-			break;
-		}
-		case ObjectType::Door:
-		{
-			objTypeVal.SetInt(5);
-			objTypeString.SetString("Door");
-			break;
-		}
-		case ObjectType::Item:
-		{
-			objTypeVal.SetInt(6);
-			objTypeString.SetString("Item");
-			break;
-		}
-		case ObjectType::Shooting:
-		{
-			objTypeVal.SetInt(7);
-			objTypeString.SetString("Shooting");
-			break;
-		}
-		case ObjectType::Camera:
-		{
-			objTypeVal.SetInt(8);
-			objTypeString.SetString("Camera");
-			break;
-		}
-		case ObjectType::None:
-		{
-			objTypeVal.SetInt(9);
-			objTypeString.SetString("None");
-			break;
-		}
-		default:
-			break;
-	}
+	//switch (type)
+	//{
+	//	case ObjectType::Player:
+	//	{
+	//		objTypeVal.SetInt(0);
+	//		objTypeString.SetString("Player");
+	//		break;
+	//	}
+	//	case ObjectType::Sword:
+	//	{
+	//		objTypeVal.SetInt(1);
+	//		objTypeString.SetString("Sword");
+	//		break;
+	//	}
+	//	case ObjectType::Enemy:
+	//	{
+	//		objTypeVal.SetInt(2);
+	//		objTypeString.SetString("Enemy");
+	//		break;
+	//	}
+	//	case ObjectType::Boss:
+	//	{
+	//		objTypeVal.SetInt(3);
+	//		objTypeString.SetString("Boss");
+	//		break;
+	//	}
+	//	case ObjectType::Wall:
+	//	{
+	//		objTypeVal.SetInt(4);
+	//		objTypeString.SetString("Door");
+	//		break;
+	//	}
+	//	case ObjectType::Door:
+	//	{
+	//		objTypeVal.SetInt(5);
+	//		objTypeString.SetString("Door");
+	//		break;
+	//	}
+	//	case ObjectType::Item:
+	//	{
+	//		objTypeVal.SetInt(6);
+	//		objTypeString.SetString("Item");
+	//		break;
+	//	}
+	//	case ObjectType::Shooting:
+	//	{
+	//		objTypeVal.SetInt(7);
+	//		objTypeString.SetString("Shooting");
+	//		break;
+	//	}
+	//	case ObjectType::Camera:
+	//	{
+	//		objTypeVal.SetInt(8);
+	//		objTypeString.SetString("Camera");
+	//		break;
+	//	}
+	//	case ObjectType::None:
+	//	{
+	//		objTypeVal.SetInt(9);
+	//		objTypeString.SetString("None");
+	//		break;
+	//	}
+	//	default:
+	//		break;
+	//}
 
 	objType.AddMember("id", objTypeVal, ObjectDocument.GetAllocator());
 	objType.AddMember("enum", objTypeString, ObjectDocument.GetAllocator());
 
-	auto obj_info = obj->GetComponentByTemplate<Status>();
+	//auto obj_info = obj->GetComponentByTemplate<Status>();
 
-	isAlive.SetBool(obj_info->IsAlive());
+	//isAlive.SetBool(obj_info->IsAlive());
 
-	objStatusTree.AddMember("Type", objType, ObjectDocument.GetAllocator());
-	objStatusTree.AddMember("HP", obj_info->GetHp(), ObjectDocument.GetAllocator());
-	objStatusTree.AddMember("Damage", obj_info->GetDamage(), ObjectDocument.GetAllocator());
-	objStatusTree.AddMember("Speed", obj_info->GetSpeed(), ObjectDocument.GetAllocator());
-	objStatusTree.AddMember("isAlive", obj_info->IsAlive(), ObjectDocument.GetAllocator());
+	//objStatusTree.AddMember("Type", objType, ObjectDocument.GetAllocator());
+	//objStatusTree.AddMember("HP", obj_info->GetHp(), ObjectDocument.GetAllocator());
+	//objStatusTree.AddMember("Damage", obj_info->GetDamage(), ObjectDocument.GetAllocator());
+	//objStatusTree.AddMember("Speed", obj_info->GetSpeed(), ObjectDocument.GetAllocator());
+	//objStatusTree.AddMember("isAlive", obj_info->IsAlive(), ObjectDocument.GetAllocator());
 
 	return objStatusTree;
 }
@@ -784,7 +783,7 @@ void JSON::LoadObjectFromJson()
 			float speed = status.FindMember("Speed")->value.GetFloat();
 			bool is_alive = status.FindMember("isAlive")->value.GetBool();
 
-			obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
+			//obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
 		}
 
 	    //////////////////////////////////////// Transform

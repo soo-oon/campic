@@ -19,8 +19,6 @@ Creation date: 2018/12/14
 #include <imgui_internal.h>
 #include "Tile_Map.hpp"
 #include "Physics.hpp"
-#include "status.hpp"
-#include "Enemy.hpp"
 
 Imgui_System IMGUI_;
 
@@ -321,7 +319,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
         enemy->SetMesh(mesh::CreateBox());
         enemy->AddComponent(new RigidBody());
         enemy->AddComponent(new Collision());
-        enemy->AddComponent(new Status(ObjectType::Enemy, 5,1,1.5));
+        //enemy->AddComponent(new Status(ObjectType::Enemy, 5,1,1.5));
         //enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
         enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
         //enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
@@ -345,7 +343,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		enemy1->SetMesh(mesh::CreateBox());
 		enemy1->AddComponent(new RigidBody());
 		enemy1->AddComponent(new Collision());
-		enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+		//enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
 		//enemy1->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
 		enemy1->AddComponent(new Animation("asset/images/Enemies/2_Left.png", "fffff" , 4, 0.2f, true));
 		//enemy1->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
@@ -369,7 +367,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		enemy2->SetMesh(mesh::CreateBox());
 		enemy2->AddComponent(new RigidBody());
 		enemy2->AddComponent(new Collision());
-		enemy2->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+		//enemy2->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
 		//enemy2->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
 		enemy2->AddComponent(new Animation("asset/images/Enemies/scol.png", "asdf", 6, 0.2f, true));
 		//enemy2->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
@@ -394,7 +392,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		enemy->SetMesh(mesh::CreateBox());
 		enemy->AddComponent(new RigidBody());
 		enemy->AddComponent(new Collision());
-		enemy->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+		//enemy->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
 		//enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
 		enemy->AddComponent(new Animation("asset/images/Enemies/slime.png", "fsdf", 6, 0.2f, true));
 		//enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);
@@ -418,7 +416,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		enemy1->SetMesh(mesh::CreateBox());
 		enemy1->AddComponent(new RigidBody());
 		enemy1->AddComponent(new Collision());
-		enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
+		//enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
 		//enemy1->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
 		enemy1->AddComponent(new Animation("asset/images/Enemies/3_Left.png", "right", 4, 0.2f, true));
 		//enemy1->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);

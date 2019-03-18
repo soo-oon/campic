@@ -15,17 +15,10 @@ Creation date: 2018/12/14
 
 #include "Application.hpp"
 #include "Engine.hpp"
-#include "level1.hpp"
 #include "StateManager.hpp"
 #include "level2.hpp"
-#include "StartMenu.hpp"
 #include "SplashScreen.hpp"
 #include "JSON.hpp"
-#include "Room1.h"
-#include "Room2.hpp"
-#include "BossRoom.h"
-#include "Store.h"
-#include "test.hpp"
 
 int main()
 {
@@ -33,13 +26,8 @@ int main()
 
     engine.Initialize();
 
-    StateManager_.AddStage("Splash_Screen", new SplashScreen());
-	StateManager_.AddStage("test", new test());
+    //StateManager_.AddStage("Splash_Screen", new SplashScreen());
     StateManager_.AddStage("remake", new level2());
-    StateManager_.AddStage("Room1", new Room1());
-    StateManager_.AddStage("Room2", new Room2());
-    StateManager_.AddStage("Boss", new BossRoom());
-    StateManager_.AddStage("Store", new Store());
 
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
     StateManager_->AddStage("StartMenu", new StartMenu());
