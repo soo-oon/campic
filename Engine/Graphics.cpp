@@ -25,7 +25,6 @@ Creation date: 2018/12/14
 #include "HUD.hpp"
 #include "Mesh.hpp"
 #include "Tile_Map.hpp"
-#include "Boss.hpp"
 
 Graphics Graphics_;
 

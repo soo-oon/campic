@@ -26,6 +26,7 @@ void Tile_Map::Make_Tile(std::string image, Tile_Type type)
     {
         tile_position = { (float)((2 * (floor)(tile_x / TILE_SIZE) + 1)* TILE_SIZE / 2) - TEMP_WIDTH / 2
             , (float)((2 * (floor)(tile_y / TILE_SIZE) + 1)*TILE_SIZE) / 2 - TEMP_HEIGHT / 2 };
+        std::cout << tile_position.x << ", " << tile_position.y << std::endl;
        
     	Normal_Tile(image, tile_x, tile_y, tile_position, type);
         
@@ -75,6 +76,7 @@ void Tile_Map::Delete_Ani_Tile()
 	}
 }
 
+
 void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, Tile_Type type)
 {
 	Object* tile = new Object();
@@ -82,6 +84,7 @@ void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, 
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->Add_Init_Component(new Sprite(image));
+    tile->Add_Init_Component(new Collision(box_));
 
 	if (type == Tile_Type::Physical)
 	{
@@ -119,4 +122,16 @@ void Tile_Map::InsertGraphicalTiles(int grid_, Object * tiles)
 void Tile_Map::InsertPhysicalTiles(int grid_, Object * tiles)
 {
 	physical_tiles.insert(std::pair<int, Object*>(grid_, tiles));
+}
+
+
+Object * Tile_Map::GetSpecificTile(vector2 position)
+{
+
+    vector2 tile_position = { (float)((2 * (floor)((position.x + TEMP_WIDTH/2) / TILE_SIZE) + 1)* TILE_SIZE / 2)
+        , (float)((2 * (floor)((position.y + TEMP_HEIGHT /2) / TILE_SIZE) + 1)*TILE_SIZE) / 2 };
+   // std::cout << (position.x + TEMP_WIDTH / 2) / TILE_SIZE * TEMP_WIDTH + (position.y + TEMP_HEIGHT / 2) / TILE_SIZE << std::endl;
+    if(graphics_tiles.find(((tile_position.x) / TILE_SIZE * TEMP_WIDTH + (tile_position.y) / TILE_SIZE)) != graphics_tiles.end())
+    return graphics_tiles[static_cast<int>(((tile_position.x + TEMP_WIDTH / 2) / TILE_SIZE * TEMP_WIDTH + (tile_position.y + TEMP_HEIGHT / 2) / TILE_SIZE))];
+    return nullptr;
 }

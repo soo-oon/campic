@@ -17,7 +17,6 @@ Creation date: 2018/12/14
 #include "JSON.hpp"
 #include "Player.hpp"
 #include "Objectmanager.hpp"
-#include "Status.hpp"
 
 void State::ChangeLevel(std::string ID)
 {
@@ -30,9 +29,11 @@ void State::ChangeLevel(std::string ID)
 
 void State::Load()
 {
- 
-}
+	AudioManager_.LoadSong("asset/sounds/bgm.mp3");
+	AudioManager_.LoadSong("asset/sounds/plaid.mp3");
 
+	AudioManager_.PlaySong("asset/sounds/plaid.mp3");
+}
 
 void State::UnLoad()
 {

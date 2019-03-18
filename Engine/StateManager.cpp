@@ -17,7 +17,6 @@ Creation date: 2018/12/14
 #include "State.hpp"
 #include "Graphics.hpp"
 #include <map>
-#include "Sword.hpp"
 #include "Player.hpp"
 #include "Physics.hpp"
 

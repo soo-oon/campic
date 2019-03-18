@@ -14,7 +14,6 @@ Creation date: 2018/12/14
 */
 
 #include "Reaction.hpp"
-#include "status.hpp"
 
 void Reaction(Object* object, Object* di_object,float bounce)
 {
@@ -22,6 +21,10 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	{
 		StopReaction(object);
 	}
+        if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
+        {
+            StopReaction(di_object);
+        }
 	else if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::bounce)
 	{
 		BounceReaction(object);
@@ -34,7 +37,6 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if (object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			AttackedReaction(object, di_object); 
-			di_object->GetComponentByTemplate<Status>()->Damaged(object->GetComponentByTemplate<Status>()->GetDamage());
 		}
 		object->GetComponentByTemplate<Collision>()->Nohit();
 	}
@@ -43,7 +45,6 @@ void Reaction(Object* object, Object* di_object,float bounce)
 		if (di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
 		{
 			AttackedReaction(di_object, object);
-			object->GetComponentByTemplate<Status>()->Damaged(di_object->GetComponentByTemplate<Status>()->GetDamage());
 		}
 		di_object->GetComponentByTemplate<Collision>()->Nohit();
 	}
@@ -55,10 +56,6 @@ void Reaction(Object* object, Object* di_object,float bounce)
 	{
 			DoorReaction(di_object);
 	}
-	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
-	{
-		StopReaction(di_object);
-	}
 	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::bounce)
 	{
 		BounceReaction(di_object);
@@ -69,10 +66,11 @@ void Reaction(Object* object, Object* di_object,float bounce)
 }
 void StopReaction(Object* object)
 {
-	object->GetTransform().SetTranslation({
-		object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().x,
-		object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().y });
-	object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+	object->GetComponentByTemplate<RigidBody>()->SetVelocity({object->GetComponentByTemplate<RigidBody>()->GetVelocity().x , 0});
+        object->GetComponentByTemplate<Collision>()->SetIsGround(true);
+        object->GetTransform().SetTranslation({
+                object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().x,
+                object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().y });
 }
 void BounceReaction(Object *object, float bounce)
 {
@@ -96,4 +94,20 @@ void DisappearReaction(Object * object)
 void DoorReaction(Object * object)
 {
 	object->GetComponentByTemplate<Collision>()->ToggleIsDoor();
+}
+
+void CollReaction(Object* object, Object* di_object)
+{
+    vector2 velo1 = object->GetComponentByTemplate<RigidBody>()->GetVelocity();
+    vector2 velo2 = di_object->GetComponentByTemplate<RigidBody>()->GetVelocity();
+    if(magnitude(velo1) > magnitude(velo2))
+    {
+        object->GetComponentByTemplate<RigidBody>()->SetVelocity(velo1 - velo2);
+        di_object->GetComponentByTemplate<RigidBody>()->AddVelocity(1.2f*(velo1 - velo2));
+    }
+    else
+    {
+        di_object->GetComponentByTemplate<RigidBody>()->SetVelocity(velo2 - velo1);
+        object->GetComponentByTemplate<RigidBody>()->AddVelocity(1.2f*(velo2 - velo1));
+    }
 }

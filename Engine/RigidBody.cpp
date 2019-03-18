@@ -16,58 +16,6 @@ Creation date: 2018/12/14
 #include "RigidBody.hpp"
 #include "Player.hpp"
 #include <iostream>
-#include "Status.hpp"
-
-
-void RigidBody::CollisionOn()
-{
-    collision_switch = true;
-}
-
-void RigidBody::SetMass(float mass)
-{
-	inverse_mass = 1.f / mass;
-}
-
-void RigidBody::AddForce(vector2 force)
-{
-	force_accumlator += force;
-}
-
-void RigidBody::SetVelocity(vector2 velocity)
-{
-	//if (velocity.x == 0)
-	//{
-	//	this->velocity.y = velocity.y;
-	//}
-	//else if (velocity.y == 0)
-	//{
-	//	this->velocity.x = velocity.x;
-	//}
-
-	this->velocity = velocity;
-}
-
-void RigidBody::AddVelocity(vector2 velocity)
-{
-	this->velocity += velocity;
-}
-
-vector2 RigidBody::GetPreviousPosition()
-{
-	return previous_position;
-}
-
-vector2 RigidBody::GetVelocity()
-{
-	return velocity;
-}
-
-vector2 RigidBody::GetPosition()
-{
-	return position;
-}
-
 
 bool RigidBody::Initialize(Object* Ob)
 {
@@ -77,6 +25,7 @@ bool RigidBody::Initialize(Object* Ob)
 		previous_position = object->GetTransform().GetTranslation();
 		force_accumlator = { 0, 0 };
 		velocity = { 0, 0 };
+        viewing_direction = { 0,0 };
 	}
         velocity = { 0, 0 };
     return true;
@@ -84,14 +33,15 @@ bool RigidBody::Initialize(Object* Ob)
 
 void RigidBody::Update(float dt)
 {
+    // for stop reaction
 	previous_position = object->GetTransform().GetTranslation();
 
-	gravity = 1 / object->GetGravity();
+    // normalized velocity.
+    viewing_direction = normalize(velocity);
+    
 	// calculate current velocity.
 	velocity += inverse_mass * (force_accumlator * dt);
-	if(object->GetComponentByTemplate<Status>() != nullptr)
-		velocity *=object->GetComponentByTemplate<Status>()->GetSpeed();
-
+    
 	// zero out accumulated force
 	force_accumlator = {0, 0};
 
@@ -103,8 +53,14 @@ void RigidBody::Update(float dt)
 		velocity = 0;	
 	
         // integrate position
-	object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (gravity*velocity * dt).x),
-            (object->GetTransform().GetTranslation().y + (gravity*velocity * dt).y) });
+        if (!object->GetComponentByTemplate<Collision>()->GetIsGround())
+        {
+            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x),
+                (object->GetTransform().GetTranslation().y + (velocity * dt).y) -gravity });
+        }
+        else
+            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x),
+                (object->GetTransform().GetTranslation().y) });
 }
 
 void RigidBody::Delete()

@@ -30,6 +30,16 @@ enum class Object_Draw_Type
 	None, Sprite, Animation, Particle, Collision, Camera, Font
 };
 
+enum class ObjectType {
+    Player,
+    Wall,
+    Door,
+    Item_Static,
+    Item_Dynamic,
+    Camera,
+    None,
+}; 
+
 class Object
 {
 public:
@@ -37,6 +47,7 @@ public:
 	{}
     void AddComponent(Component* component);
     void AddInitComponent(Component* component);
+
 
 public:
     void SetMesh(Mesh mesh);
@@ -54,7 +65,17 @@ public:
     Mesh& GetMesh();
     Transform& GetTransform();
 	Object_Draw_Type GetObjectDrawType() { return m_draw_type; }
+	
+	void Set_HUD_Object_Size(const vector2 size) { HUD_Object_size = size; }
+    void SetObjectType(ObjectType obj_type) { object_type = obj_type; }
+    void SetObjectDead() { isDead = true; }
 
+public:
+    ObjectType GetObjectType() { return object_type; }
+	std::vector<Component*> GetComponent() { return components; }
+	vector2 Get_Object_HUD_Size() { return HUD_Object_size; }
+    Mesh& GetMesh();
+    Transform& GetTransform();
 
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate() const;
@@ -65,6 +86,7 @@ private:
     Mesh m_mesh{};
     Transform m_transform{};
     std::vector<Component*> m_component;
+	ObjectType object_type = ObjectType::None;
 };
 
 template <typename COMPONENT>

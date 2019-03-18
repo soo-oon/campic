@@ -37,8 +37,6 @@ bool AudioManager::Initialize()
     // Set up modes for each category  
 	modes[CATEGORY_SFX] = FMOD_DEFAULT;  
 	modes[CATEGORY_SONG] = FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL;
-    
-	// Seed random number generator for SFXs  
 
 	LoadSong("asset/sounds/enchant.mp3");
 
@@ -102,7 +100,7 @@ void AudioManager::Update(float dt)
 		nextSongPath.clear();
 	}  
 	
-	system->update(); 
+	system->update();
 }
 
 void AudioManager::Quit()

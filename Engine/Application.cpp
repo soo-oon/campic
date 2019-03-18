@@ -179,7 +179,7 @@ void Application::FullScreen()
 
 void Application::PollEvent()
 {
-	glfwSwapInterval(true);
+	//glfwSwapInterval(true);
     glfwPollEvents();
     Key_Poll_Event();
 }

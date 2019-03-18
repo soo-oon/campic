@@ -24,3 +24,4 @@ Creation date: 2018/12/14
     void AttackedReaction(Object* object, Object* di_object, float power = 50);
     void DisappearReaction(Object* object);
     void DoorReaction(Object* object);
+    void CollReaction(Object* object, Object* di_object);

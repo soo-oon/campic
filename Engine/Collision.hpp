@@ -45,37 +45,49 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
-	void SetRestitutionType(RestitutionType restitution);
-        RestitutionType& GetRestitutionType();
+    void Compute_AABB(Mesh mesh, int num_point);
 
-	void Compute_AABB(Mesh mesh, int num_point);
+    void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
 
-	Mesh& GetCollsionMesh();
-	Transform& GetCollisionTransform();
+    void ToggleIsDamaged();
+    bool GetIsDamaged();
+    void Nohit();
+    void ToggleIsDoor();
 
-	void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
 
-	CollisionType& GetCollisionType();
-	void SetCollisionType(CollisionType type_) { type = type_; }
-	std::vector<vector2> GetCollisionCalculateTRS();
-	void ToggleIsDamaged();
-	bool GetIsDamaged();
-	void Nohit();
-	void ToggleIsDoor();
-	bool GetIsDoor();
-	void SetIsDoorClose();
 
-	void SetCollisionScale(vector2 size_);
+public:
+    void SetIsGet(bool get) { isGet = get; }
+    void SetCollisionType(CollisionType type_) { type = type_; }
+    void SetIsDoorClose();
+    void SetIsGround(bool ground) { isGround = ground; }
+    void SetCollisionScale(vector2 size_);
+    void SetRestitutionType(RestitutionType restitution);
+
+public:
+    bool GetisGet() { return isGet; }
+    bool GetIsDoor();
+    bool GetIsGround() { return isGround; }
+    CollisionType& GetCollisionType();
+    std::vector<vector2> GetCollisionCalculateTRS();
+    Mesh& GetCollsionMesh();
+    Transform& GetCollisionTransform();
+    RestitutionType& GetRestitutionType();
+
+
+
 	//void SetCollision
 
 private:
 	vector2 collision_previous_position;
 	RestitutionType restitution_ = RestitutionType::none;
+    Transform collision_transform{};
+    CollisionType type = box_;
 	std::vector<vector2> collision_TRS;
 	Mesh collision_mesh{};
 	float height =0 , width = 0;
-	Transform collision_transform{};
-	CollisionType type = box_;
+    bool isGet = false;
+    bool isGround = false;
 	bool isdamaged = false;
 	bool isdoor = false;
 };
