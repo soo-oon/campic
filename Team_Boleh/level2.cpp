@@ -34,7 +34,6 @@ void level2::Initialize()
 	player_camera->AddComponent(new Sprite("asset/images/camera_frame.png"));
 	player_camera->AddComponent(new Capture());
 	SetPlayerPointer(player_camera);
-
 	
     temp = new Object();
     temp->SetTranslation({ 100,-150 });
@@ -43,7 +42,7 @@ void level2::Initialize()
     temp->SetDepth(0.0f);
     temp->AddComponent(new RigidBody());
     temp->AddComponent(new Collision(box_));
-    temp->SetObjectType(ObjectType::None);
+    temp->SetObjectType(ObjectType::Player);
     temp->AddComponent(new Animation("asset/images/Enemies/1_Right.png", "rigsdfsfht", 5, 0.2f, true));
     //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -93,7 +92,7 @@ void level2::Update(float dt)
     }
     if (Input::IsKeyTriggered(GLFW_KEY_S))
     {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -10 });
+        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -50 });
     }
     if (Input::IsKeyTriggered(GLFW_KEY_W))
     {
@@ -123,26 +122,21 @@ void level2::Update(float dt)
 		{
 			JSON_.ObjectsToDocument(obj.get());
 		}
-		JSON_.GetObjectDocument().SetObject();
-		std::cout << "Objects Saved" << std::endl;
+		
+		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
+		{
+			JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
+		}
+		
+		std::cout << "Objects and Tiles Saved" << std::endl;
 	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 	{
-		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
-		{
-			JSON_.TilesToDocument(tiles.first,tiles.second,Tile_Type::Graphical);
-		}
-		JSON_.GetTileDocument().SetObject();
-
-		std::cout << "Tiles Saved" << std::endl;
-	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_F3))
-	{
 		JSON_.LoadTilesFromJson(Tile_Type::Graphical);
+		JSON_.LoadObjectFromJson();
 
-		std::cout << "Tiles Loaded" << std::endl;
+		std::cout << "Objects and Tiles Loaded" << std::endl;
 	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_I))
