@@ -23,9 +23,19 @@ Creation date: 2018/12/14
 #include "Sound.hpp"
 #include "Application.hpp"
 #include "Tile_Map.hpp"
+#include "Capture.hpp"
 
 void level2::Initialize()
 {
+	player_camera = new Object();
+	player_camera->SetScale({ 508.0f, 354.0f });
+	player_camera->SetMesh(mesh::CreateBox(1, Colors::Red));
+	player_camera->SetObjectType(ObjectType::None);
+	player_camera->AddComponent(new Sprite("asset/images/camera_frame.png"));
+	player_camera->AddComponent(new Capture());
+	SetPlayerPointer(player_camera);
+
+	
     temp = new Object();
     temp->SetTranslation({ 100,-150 });
     temp->SetScale({ 50.0f, 50.0f });
@@ -33,12 +43,12 @@ void level2::Initialize()
     temp->SetDepth(0.0f);
     temp->AddComponent(new RigidBody());
     temp->AddComponent(new Collision(box_));
-    temp->SetObjectType(ObjectType::Player);
+    temp->SetObjectType(ObjectType::None);
     temp->AddComponent(new Animation("asset/images/Enemies/1_Right.png", "rigsdfsfht", 5, 0.2f, true));
     //temp->AddComponent(new Enemy(MoveType::straight));
 
 
-    wall = new Object();
+    /*wall = new Object();
     wall->SetTranslation({ 100,-300 });
     wall->SetScale({ 50.0f, 20.0f });
     wall->SetMesh(mesh::CreateBox(1, { 255,255,0, 255 }));
@@ -57,12 +67,14 @@ void level2::Initialize()
     background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
     background->SetMesh(mesh::CreateBox(1,{100,100,255}));
     background->SetDepth(0.9f);
-    background->AddComponent(new Sprite("asset/images/background1.png"));
+	background->SetObjectType(ObjectType::Background);
+    background->AddComponent(new Sprite("asset/images/background1.png"));*/
     
 	obj.push_back(temp);
-	obj.push_back(camera);
-        obj.push_back(wall);
-	obj.push_back(background);
+	//obj.push_back(camera);
+	//obj.push_back(wall);
+	//obj.push_back(background);
+	obj.push_back(player_camera);
 
 	for(auto i : obj)
 	{

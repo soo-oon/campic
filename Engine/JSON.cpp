@@ -687,7 +687,7 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 			path = sprite.FindMember("image_path")->value.GetString();
 			is_flip = sprite.FindMember("is_flip")->value.GetBool();
 
-			obj->Add_Init_Component(new Sprite(path));
+			obj->AddInitComponent(new Sprite(path));
 			obj->GetComponentByTemplate<Sprite>()->SetFlip(is_flip);
 		}
 

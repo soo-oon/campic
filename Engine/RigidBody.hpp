@@ -24,11 +24,6 @@ Creation date: 2018/12/14
 class RigidBody : public Component
 {
 public:
-	RigidBody()
-	{
-		type = Component_Type::RigidBody;
-	}
-
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
     void Delete() override;

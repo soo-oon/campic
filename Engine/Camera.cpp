@@ -20,9 +20,7 @@ Creation date: 2018/12/14
 
 Camera::Camera(vector2 camera_center, vector2 camera_up)
 	: center(camera_center), up(camera_up)
-{
-	type = Component_Type::Camera;
-}
+{}
 
 bool Camera::Initialize(Object* Ob)
 {

@@ -37,13 +37,14 @@ enum class ObjectType {
     Item_Static,
     Item_Dynamic,
     Camera,
+	Background,
     None,
 }; 
 
 class Object
 {
 public:
-	Object(Object_Draw_Type type) : m_draw_type(type)
+	Object(Object_Draw_Type type = Object_Draw_Type::None) : m_draw_type(type)
 	{}
     void AddComponent(Component* component);
     void AddInitComponent(Component* component);
@@ -65,17 +66,9 @@ public:
     Mesh& GetMesh();
     Transform& GetTransform();
 	Object_Draw_Type GetObjectDrawType() { return m_draw_type; }
-	
-	void Set_HUD_Object_Size(const vector2 size) { HUD_Object_size = size; }
+	ObjectType GetObjectType() {return object_type;}
     void SetObjectType(ObjectType obj_type) { object_type = obj_type; }
-    void SetObjectDead() { isDead = true; }
-
-public:
-    ObjectType GetObjectType() { return object_type; }
-	std::vector<Component*> GetComponent() { return components; }
-	vector2 Get_Object_HUD_Size() { return HUD_Object_size; }
-    Mesh& GetMesh();
-    Transform& GetTransform();
+    void SetObjectDead() { isdead = true; }
 
     template <typename COMPONENT>
     COMPONENT* GetComponentByTemplate() const;

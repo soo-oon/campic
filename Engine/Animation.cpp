@@ -26,32 +26,35 @@ bool Animation::Initialize(Object* Ob)
 
 void Animation::Update(float dt)
 {
-    frame_time += dt;
+	if (isactive)
+	{
+		frame_time += dt;
 
-    if (frame_time > current_animation.update_frames)
-    {
-		frame_time = 0;
-
-		if (current_animation.previous_current_coordinate.y < 1)
+		if (frame_time > current_animation.update_frames)
 		{
-			current_animation.previous_current_coordinate.x += current_animation.frame_per_seconds;
-			current_animation.previous_current_coordinate.y += current_animation.frame_per_seconds;
-		}
-		else
-		{
-			is_done = true;
+			frame_time = 0;
 
-		    if (current_animation.is_repeats)
-		    {
-				current_animation.previous_current_coordinate.x = 0;
-				current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
-		    }
-		    else
-		    {
-				current_animation = previous_animation;
-		    }
+			if (current_animation.previous_current_coordinate.y < 1)
+			{
+				current_animation.previous_current_coordinate.x += current_animation.frame_per_seconds;
+				current_animation.previous_current_coordinate.y += current_animation.frame_per_seconds;
+			}
+			else
+			{
+				is_done = true;
+
+				if (current_animation.is_repeats)
+				{
+					current_animation.previous_current_coordinate.x = 0;
+					current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
+				}
+				else
+				{
+					current_animation = previous_animation;
+				}
+			}
 		}
-    }
+	}
 }
 
 void Animation::AddAnimaition(const std::string path, const std::string ID,
@@ -78,6 +81,11 @@ void Animation::ChangeAnimation(std::string ID, std::string original_ID)
 		current_animation.previous_current_coordinate.x = 0;
 		current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
 	}
+}
+
+void Animation::SetIsActive(bool condition)
+{
+	isactive = condition;
 }
 
 void Animation::Imgui_Animation()

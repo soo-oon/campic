@@ -69,13 +69,15 @@ public:
     void Update(float dt) override;
 
 	void AddAnimaition(const std::string path, const std::string ID, 
-		int image_frame_, float update_frame_, bool repeat = true);
+	int image_frame_, float update_frame_, bool repeat = true);
 
     void Delete() override;
 
 	void ChangeAnimation(std::string ID, std::string original_ID = std::string{});
+	void SetIsActive(bool condition);
 
 	bool IsDone() { return is_done; }
+	bool IsActive() { return isactive; }
 
 	void Imgui_Animation();
 
@@ -90,6 +92,7 @@ private:
 	Animation_Information previous_animation;
     std::unordered_map<std::string, Animation_Information> animations;
 
+	bool isactive = true;
 	bool is_done = false;
     float frame_time = 0;
 };

@@ -33,11 +33,6 @@ bool HUD::Initialize(State* HUD_State)
 
 void HUD::Update(float dt)
 {
-	if(m_HUD_State->GetPlayerPointer() == nullptr)
-	{
-		SetPlayer(StateManager_.GetCurrentState()->GetPlayerPointer());
-	}
-
 	if(!isHUDActive)
 	{
 		HUD_Activing_Search();
@@ -69,7 +64,6 @@ void HUD::Add_HUD_Object(Object* obj)
 
 void HUD::SetPlayer(Object* obj)
 {
-	m_HUD_State->SetPlayerPointer(obj);
 }
 
 void HUD::HUD_Activing_Search()

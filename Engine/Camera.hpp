@@ -21,17 +21,11 @@ Creation date: 2018/12/14
 
 class Camera : public Component
 {
-public:
-	Camera()
-	{
-		type = Component_Type::Camera;
-	}
-	
+public:	
 	template<typename T>
 	Camera(T* state)
 	{
 		state->SetCamera();
-		type = Component_Type::Camera;
 	}
 	Camera(vector2 camera_center, vector2 camera_up);
 

@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include <iostream>
 #include "Physics.hpp"
+#include "Capture.hpp"
 
 Objectmanager Objectmanager_;
 
@@ -72,10 +73,20 @@ void Objectmanager::AddObject(Object* obj)
 
 void Objectmanager::RemoveObject()
 {
-	for(auto object = objects_.begin(); object != objects_.end();)
+	std::cout << "Before: " << objects_.size() << std::endl;
+	for(auto& object : objects_)
 	{
-			object++;
+		/*if(auto capture_save = object->GetComponentByTemplate<Capture>();
+			capture_save != nullptr)
+		{
+			for(auto c_obj : capture_save->GetCaptureObject())
+			{
+				capture_obj.push_back(*c_obj);
+			}
+		}*/
 	}
+	objects_.clear();
+	std::cout << "After: " << objects_.size() << std::endl;
 
-	std::cout << objects_.size() << std::endl;
+	//std::cout << objects_.size() << std::endl;
 }

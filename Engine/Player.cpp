@@ -25,19 +25,6 @@ bool Player::Initialize(Object * Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
-		object->SetTranslation({ 0,0 });
-		object->SetScale({ 100.0f, 100.0f });
-		object->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-		object->SetDepth(-0.1f);
-		object->Add_Init_Component(new RigidBody());
-
-		object->Add_Init_Component(new Collision(box_));
-		object->Add_Init_Component(new Sound("asset/sounds/punch.wav"));
-
-		/*for(auto temp : object->GetComponent())
-		{
-			temp->Initialize(object);
-		}*/
 	}
 	return true;
 }

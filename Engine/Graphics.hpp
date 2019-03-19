@@ -87,6 +87,8 @@ private:
 
 	affine2d CalculateModelToNDCTransform(const Transform& transform) const;
 
+	void DrawParticle(Object* obj);
+
 	void Draw(const Transform& transform, const std::vector<solidshape>& vertexes,
 		PointListType draw_type, Color color);
 	void Draw(const Transform& transform, const std::vector<collsionbox>& vertexes,
@@ -99,7 +101,6 @@ private:
 		PointListType draw_type, Color color, Sprite* sprite);
 	void Draw(const Transform& transform, const std::vector<font>& vertexes,
 		PointListType draw_type, Color color, Font* font, int index);
-
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();
 	void DescribParticlePosition();
