@@ -29,11 +29,11 @@ void State::ChangeLevel(std::string ID)
 
 void State::Load()
 {
-	/*for(auto c_obj : Objectmanager_.GetCaptureObject())
+	for(auto& c_obj : Objectmanager_.GetCaptureObject())
 	{
-		Objectmanager_.AddObject(&c_obj);
+		Objectmanager_.AddObject(c_obj.get());
 	}
-	Objectmanager_.GetCaptureObject().clear();*/
+	Objectmanager_.GetCaptureObject().clear();
 
 	AudioManager_.LoadSong("asset/sounds/bgm.mp3");
 	AudioManager_.LoadSong("asset/sounds/plaid.mp3");

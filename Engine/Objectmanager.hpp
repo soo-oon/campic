@@ -33,11 +33,11 @@ public:
 	void AddObject(Object* obj);
 	void RemoveObject();
 	std::vector<std::shared_ptr<Object>>& GetObjectMap() { return objects_; }
-	std::vector<Object>& GetCaptureObject() { return capture_obj; }
+	std::vector<std::shared_ptr<Object>>& GetCaptureObject() { return capture_obj; }
 
 private:
 	std::vector<std::shared_ptr<Object>> objects_;
-	std::vector<Object> capture_obj;
+	std::vector<std::shared_ptr<Object>> capture_obj;
 };
 
 extern Objectmanager Objectmanager_;

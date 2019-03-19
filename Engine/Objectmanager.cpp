@@ -76,14 +76,15 @@ void Objectmanager::RemoveObject()
 	std::cout << "Before: " << objects_.size() << std::endl;
 	for(auto& object : objects_)
 	{
-		/*if(auto capture_save = object->GetComponentByTemplate<Capture>();
+		if(auto capture_save = object->GetComponentByTemplate<Capture>();
 			capture_save != nullptr)
 		{
-			for(auto c_obj : capture_save->GetCaptureObject())
+			for(auto& c_obj : capture_save->GetCaptureObject())
 			{
-				capture_obj.push_back(*c_obj);
+				std::shared_ptr<Object> temp(c_obj);
+				capture_obj.push_back(temp);
 			}
-		}*/
+		}
 	}
 	objects_.clear();
 	std::cout << "After: " << objects_.size() << std::endl;
