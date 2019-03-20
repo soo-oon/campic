@@ -4,6 +4,7 @@
 #include "Particle.hpp"
 #include "Particle_Generator.hpp"
 #include "Font.hpp"
+#include "Capture.hpp"
 
 JSON JSON_;
 
@@ -36,8 +37,8 @@ void JSON::ObjectsToDocument(Object* obj)
 	Value objTree(kArrayType);
 
 	//Status info
-	Value objStatusTree(kArrayType);
 	Value objTransformTree(kArrayType);
+	Value objStatusTree(kArrayType);
 	Value objSpriteTree(kArrayType);
 	Value objAnimationTree(kArrayType);
 	Value objCameraTree(kArrayType);
@@ -46,33 +47,24 @@ void JSON::ObjectsToDocument(Object* obj)
 	Value objParticleTree(kArrayType);
 	Value objSoundTree(kArrayType);
 	Value objFontTree(kArrayType);
+	Value objCaptureTree;
 	
 	objTree.SetObject();
 	objTransformTree.SetObject();
+	objStatusTree.SetObject();
 	objAnimationTree.SetObject();
 	objCameraTree.SetObject();
-	objStatusTree.SetObject();
 	objSpriteTree.SetObject();
 	objRigidBodyTree.SetObject();
 	objCollisionTree.SetObject();
 	objParticleTree.SetObject();
 	objSoundTree.SetObject();
 	objFontTree.SetObject();
+	objCaptureTree.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
+	objStatusTree = ComponentStatus(obj);
 
-	//if (obj->GetComponentByTemplate<Status>() != nullptr)
-	//{
-	//	//Save objects that is not player
-	//	//if(obj->GetComponentByTemplate<Status>()->GetObjectType() != ObjectType::Player)
-	//		
-	//	/*if (objStatusTree.FindMember("Type")->value.FindMember("Enum")->value == "Camera")
-	//	{
-	//		objCameraTree = ComponentCamera(obj);
-	//		objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
-	//	}*/
-	//	objStatusTree = ComponentStatus(obj);
-	//}
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
 
@@ -99,7 +91,9 @@ void JSON::ObjectsToDocument(Object* obj)
 	if (obj->GetComponentByTemplate<Font>() != nullptr)
 		objFontTree = ComponentFont(obj);
 
-	objTree.AddMember("Status", objStatusTree, ObjectDocument.GetAllocator());
+	//if(obj->GetComponentByTemplate<Capture>() != nullptr)
+
+	objTree.AddMember("Type", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sprite", objSpriteTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Animation", objAnimationTree, ObjectDocument.GetAllocator());
@@ -200,97 +194,20 @@ Value JSON::ComponentTransform(Object * obj)
 
 Value JSON::ComponentStatus(Object * obj)
 {
-	Value objStatusTree(kArrayType);
-	Value objType, objTypeString, objTypeVal, isAlive;
+	Value objTypeTree(kArrayType);
+	Value isDead, type;
 
-	objStatusTree.SetObject();
-	objType.SetObject();
-	objTypeString.SetObject();
-	objTypeVal.SetObject();
-	isAlive.SetObject();
+	objTypeTree.SetObject();
+	isDead.SetObject();
+	type.SetObject();
 
-	//auto type = obj->GetComponentByTemplate<Status>()->GetObjectType();
+	isDead.SetBool(obj->IsDead());
+	type.SetInt(static_cast<int>(obj->GetObjectType()));
 
-	//switch (type)
-	//{
-	//	case ObjectType::Player:
-	//	{
-	//		objTypeVal.SetInt(0);
-	//		objTypeString.SetString("Player");
-	//		break;
-	//	}
-	//	case ObjectType::Sword:
-	//	{
-	//		objTypeVal.SetInt(1);
-	//		objTypeString.SetString("Sword");
-	//		break;
-	//	}
-	//	case ObjectType::Enemy:
-	//	{
-	//		objTypeVal.SetInt(2);
-	//		objTypeString.SetString("Enemy");
-	//		break;
-	//	}
-	//	case ObjectType::Boss:
-	//	{
-	//		objTypeVal.SetInt(3);
-	//		objTypeString.SetString("Boss");
-	//		break;
-	//	}
-	//	case ObjectType::Wall:
-	//	{
-	//		objTypeVal.SetInt(4);
-	//		objTypeString.SetString("Door");
-	//		break;
-	//	}
-	//	case ObjectType::Door:
-	//	{
-	//		objTypeVal.SetInt(5);
-	//		objTypeString.SetString("Door");
-	//		break;
-	//	}
-	//	case ObjectType::Item:
-	//	{
-	//		objTypeVal.SetInt(6);
-	//		objTypeString.SetString("Item");
-	//		break;
-	//	}
-	//	case ObjectType::Shooting:
-	//	{
-	//		objTypeVal.SetInt(7);
-	//		objTypeString.SetString("Shooting");
-	//		break;
-	//	}
-	//	case ObjectType::Camera:
-	//	{
-	//		objTypeVal.SetInt(8);
-	//		objTypeString.SetString("Camera");
-	//		break;
-	//	}
-	//	case ObjectType::None:
-	//	{
-	//		objTypeVal.SetInt(9);
-	//		objTypeString.SetString("None");
-	//		break;
-	//	}
-	//	default:
-	//		break;
-	//}
+	objTypeTree.AddMember("type", type, ObjectDocument.GetAllocator());
+	objTypeTree.AddMember("isDead", isDead, ObjectDocument.GetAllocator());
 
-	objType.AddMember("id", objTypeVal, ObjectDocument.GetAllocator());
-	objType.AddMember("enum", objTypeString, ObjectDocument.GetAllocator());
-
-	//auto obj_info = obj->GetComponentByTemplate<Status>();
-
-	//isAlive.SetBool(obj_info->IsAlive());
-
-	//objStatusTree.AddMember("Type", objType, ObjectDocument.GetAllocator());
-	//objStatusTree.AddMember("HP", obj_info->GetHp(), ObjectDocument.GetAllocator());
-	//objStatusTree.AddMember("Damage", obj_info->GetDamage(), ObjectDocument.GetAllocator());
-	//objStatusTree.AddMember("Speed", obj_info->GetSpeed(), ObjectDocument.GetAllocator());
-	//objStatusTree.AddMember("isAlive", obj_info->IsAlive(), ObjectDocument.GetAllocator());
-
-	return objStatusTree;
+	return objTypeTree;
 }
 
 Value JSON::ComponentCamera(Object* obj)
@@ -506,6 +423,8 @@ void JSON::SaveObjectsToJson()
 	ObjectDocument.Accept(writer);
 	
 	fclose(fp);
+
+	JSON_.GetObjectDocument().SetObject();
 }
 
 Document JSON::LoadObjectDocumentFromJson()
@@ -530,7 +449,7 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 {
 	Value tileTree(kArrayType);
 
-	Value grid, sprite, animation, scale, pos, tile_type, IsAnimated;
+	Value grid, collision, sprite, animation, scale, pos, tile_type, IsAnimated;
 
 	tileTree.SetObject();
 	grid.SetObject();
@@ -540,6 +459,7 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 	animation.SetObject();
 	tile_type.SetObject();
 	IsAnimated.SetObject();
+	collision.SetObject();
 
 	grid.SetInt(grid_);
 	tile_type.SetInt(static_cast<int>(type));
@@ -560,6 +480,9 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 		IsAnimated.SetBool(true);
 	}
 
+	if (obj->GetComponentByTemplate<Collision>() != nullptr)
+		collision = ComponentCollision(obj);
+
 	tileTree.AddMember("grid", grid, TileDocument.GetAllocator());
 	tileTree.AddMember("tile_type", tile_type, TileDocument.GetAllocator());
 	tileTree.AddMember("scale", scale, TileDocument.GetAllocator());
@@ -567,6 +490,7 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 	tileTree.AddMember("sprite", sprite, TileDocument.GetAllocator());
 	tileTree.AddMember("animation", animation, TileDocument.GetAllocator());
 	tileTree.AddMember("IsAnimated", IsAnimated, TileDocument.GetAllocator());
+	tileTree.AddMember("collision", collision, TileDocument.GetAllocator());
 
 	TileDocument.AddMember("Tile", tileTree, TileDocument.GetAllocator());
 
@@ -593,6 +517,8 @@ void JSON::SaveTilesToJson(Tile_Type type)
 	TileDocument.Accept(writer);
 
 	fclose(fp);
+
+	JSON_.GetTileDocument().SetObject();
 }
 
 Document JSON::LoadTilesDocumentFromJson(Tile_Type type)
@@ -632,14 +558,13 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 		sprite.SetObject();
 		animation.SetObject();
 		//rigid_body.SetObject();
-		//collision.SetObject();
+		collision.SetObject();
 		isAnimated.SetObject();
 		tile_type.SetObject();
 		grid.SetObject();
 		scale.SetObject();
 		pos.SetObject();
 
-		//status = tile_array.FindMember("Status")->value;
 		grid = tile_array.FindMember("grid")->value;
 		tile_type = tile_array.FindMember("tile_type")->value;
 		scale = tile_array.FindMember("scale")->value;
@@ -647,22 +572,10 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 		sprite = tile_array.FindMember("sprite")->value;
 		animation = tile_array.FindMember("animation")->value;
 		//rigid_body = tile_array.FindMember("RigidBody")->value;
-		//collision = tile_array.FindMember("Collision")->value;
+		collision = tile_array.FindMember("collision")->value;
 		isAnimated = tile_array.FindMember("IsAnimated")->value;
 
 		int grid_ = grid.GetInt();
-
-		//////////////////////////////////////////// Status
-		/*if (status.HasMember("Type"))
-		{
-			int obj_type = status.FindMember("Type")->value.FindMember("id")->value.GetInt();
-			int hp_ = status.FindMember("HP")->value.GetInt();
-			int attack_damage = status.FindMember("Damage")->value.GetInt();
-			float speed = status.FindMember("Speed")->value.GetFloat();
-			bool is_alive = status.FindMember("isAlive")->value.GetBool();
-
-			obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
-		}*/
 
 		//////////////////////////////////////// Transform
 		vector2 position, scale_;
@@ -720,12 +633,6 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 			}
 		}
 
-		if (static_cast<int>(type) == 0)
-			Tile_Map_.InsertPhysicalTiles(grid_, obj);
-		else
-			Tile_Map_.InsertGraphicalTiles(grid_, obj);
-
-
 		///////////////////////////////////////////////// RigidBody
 		//bool is_rigid = false;
 		//is_rigid = rigid_body.GetBool();
@@ -734,12 +641,20 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 		//	obj->AddComponent(new RigidBody());
 
 		///////////////////////////////////////////////// Collision
-		//if (collision.HasMember("id"))
-		//{
-		//	CollisionType type = static_cast<CollisionType>(collision.FindMember("id")->value.GetInt());
+		if (collision.HasMember("id"))
+		{
+			int collision_type = collision.FindMember("id")->value.GetInt();
 
-		//	obj->AddComponent(new Collision(type));
-		//}
+			obj->AddComponent(new Collision(static_cast<CollisionType>(collision_type)));
+		}
+
+		if (static_cast<int>(type) == 0)
+			Tile_Map_.InsertPhysicalTiles(grid_, obj);
+                else
+                {
+                    Tile_Map_.InsertGraphicalTiles(grid_, obj);
+                    Tile_Map_.SetReset(false);
+                }
 	}
 }
 
@@ -751,7 +666,8 @@ void JSON::LoadObjectFromJson()
 	{
 		Value& obj_array = temp.value;
 
-		Value status, transform, animation, sprite, rigid_body, collision, particle, sound,font;
+		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font;
+		
 		Object* obj = new Object();
 
 		status.SetObject();
@@ -764,7 +680,7 @@ void JSON::LoadObjectFromJson()
 		sound.SetObject();
 		font.SetObject();
 		
-		status = obj_array.FindMember("Status")->value;
+		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
 		sprite = obj_array.FindMember("Sprite")->value;
 		animation = obj_array.FindMember("Animation")->value;
@@ -775,13 +691,13 @@ void JSON::LoadObjectFromJson()
 		font = obj_array.FindMember("Font")->value;
 
 		//////////////////////////////////////////// Status
-		if (status.HasMember("Type"))
+		if (status.HasMember("type"))
 		{
-			int obj_type = status.FindMember("Type")->value.FindMember("id")->value.GetInt();
-			int hp_ = status.FindMember("HP")->value.GetInt();
-			int attack_damage = status.FindMember("Damage")->value.GetInt();
-			float speed = status.FindMember("Speed")->value.GetFloat();
-			bool is_alive = status.FindMember("isAlive")->value.GetBool();
+			bool isDead = status.FindMember("isDead")->value.GetBool();
+			int obj_type = status.FindMember("type")->value.GetInt();
+
+			obj->SetIsDead(isDead);
+			obj->SetObjectType(static_cast<ObjectType>(obj_type));
 
 			//obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
 		}

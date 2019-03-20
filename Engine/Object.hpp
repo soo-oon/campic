@@ -37,7 +37,8 @@ enum class ObjectType {
     Item_Static,
     Item_Dynamic,
     Camera,
-	Background,
+    Background,
+    Projectile,
     None,
 }; 
 

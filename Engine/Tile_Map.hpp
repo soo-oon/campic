@@ -20,6 +20,7 @@ enum class Tile_Type
 class Tile_Map
 {
 public:
+    bool Initialize();
     void Update(float dt);
 
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
@@ -29,6 +30,7 @@ public:
     void Delete_Tile();
     void Delete_Ani_Tile();
     Object* GetSpecificTile(vector2 position);
+    void SetReset(bool reset) { init = reset; }
 
     bool CheckTile(vector2 position)
     {
@@ -46,6 +48,7 @@ private:
     std::unordered_map<int, Object*> physical_tiles;
 
     int m_number = 0;
+    bool init = false;
 
     bool tile_grid[TEMP_WIDTH / TILE_SIZE][TEMP_HEIGHT / TILE_SIZE] = {false};
 };

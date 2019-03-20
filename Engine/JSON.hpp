@@ -63,12 +63,10 @@ public:
 	Value ComponentFont(Object* obj);
 
 	Document& GetObjectDocument() { return ObjectDocument; }
-	//Document& GetPlayerDocument() { return PlayerDocument; }
 	Document& GetTileDocument() { return TileDocument; }
 
 private:
 	Document ObjectDocument;
-	//Document PlayerDocument;
 	Document TileDocument;
 
 	StringBuffer ObjectBuffer;

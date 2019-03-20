@@ -107,6 +107,7 @@
     <ClCompile Include="Reaction.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Reaction.hpp">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Projectile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
