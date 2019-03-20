@@ -70,52 +70,60 @@ public:
         {
             if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
             {
-                if(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + 1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 +1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + 1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +1 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 + 32, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + 32, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + 32, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + 32, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + 32 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 +32 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + 32 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +32 }));
             }
             else
             {
-                if(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_1 }));
-                if(Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 + 1, y_2 }));
-                if(Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }));
-                if(Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 + 32, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + 32, y_1 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 + 32, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + 32, y_2 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 , y_2 - 32 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - 32 }));
+                if(Tile_Map_.GetSpecificTile({ x_2 , y_2 - 32 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - 32 }));
             }
         }
         else
         {
             if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
             {
-                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + 1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + 1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + 1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 + 1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - 32, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 32, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - 32, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 32, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + 32 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + 32 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + 32 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +32 }));
             }
             else
             {
-                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
-                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - 1, y_1 }) != nullptr)
-                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 1, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }) != nullptr)
-                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 - 1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }) != nullptr)
-                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 - 1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - 32, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 32, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - 32, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - 32, y_2 }));
             }
         }
+    }
+    void GroundCheck(Object* object)
+    {
+
+        float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+        float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+        float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
+        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+        if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - 32 }) != nullptr)
+            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - 32 }));
+        if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - 32 }) != nullptr)
+            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - 32 }));
     }
 
 
@@ -124,6 +132,7 @@ private:
 	//Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;
     std::vector<Object*> tile_list;
+    std::vector<Object*> ground_list;
     std::vector<Object*> static_list;
     std::vector<Object*> projectile_list;
         int previous_size = 0;

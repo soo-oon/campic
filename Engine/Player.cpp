@@ -28,11 +28,11 @@ bool Player::Initialize(Object * Ob)
 		object->SetTranslation({ 100,-150 });
 		object->SetScale({ 50.0f, 50.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-		object->SetDepth(0.0f);
+		object->SetDepth(-0.5f);
 		object->AddInitComponent(new RigidBody());
 		object->AddInitComponent(new Collision(box_));
 		object->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
-		object->SetObjectType(ObjectType::None);
+		object->SetObjectType(ObjectType::Player);
 	}
 	return true;
 }
@@ -51,19 +51,24 @@ void Player::MovePlayer()
 	if (Input::IsKeyTriggered(GLFW_KEY_D))
 	{
 		object->GetComponentByTemplate<Animation>()->SetFlip(false);
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, 0 });
+		object->GetComponentByTemplate<RigidBody>()->AddVelocity({ 100, 0 });
 	}
 	if (Input::IsKeyTriggered(GLFW_KEY_S))
 	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -100 });
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -50 });
 	}
-	if (Input::IsKeyTriggered(GLFW_KEY_W))
-	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,100 });
-	}
+        if (object->GetComponentByTemplate<RigidBody>()->GetRest() == false)
+        {
+            if (Input::IsKeyTriggered(GLFW_KEY_W))
+            {
+                object->GetComponentByTemplate<Collision>()->SetIsGround(false);
+                object->GetComponentByTemplate<RigidBody>()->AddVelocity({ 0,150 });
+                object->GetComponentByTemplate<RigidBody>()->SetRest(true);
+            }
+        }
 	if (Input::IsKeyTriggered(GLFW_KEY_A))
 	{
 		object->GetComponentByTemplate<Animation>()->SetFlip(true);
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
+		object->GetComponentByTemplate<RigidBody>()->AddVelocity({ -100, 0 });
 	}
 }

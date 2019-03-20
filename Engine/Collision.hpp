@@ -79,7 +79,7 @@ public:
 	//void SetCollision
 
 private:
-	vector2 collision_previous_position;
+	vector2 collision_m_previous_position;
 	RestitutionType restitution_ = RestitutionType::none;
     Transform collision_transform{};
     CollisionType type = box_;

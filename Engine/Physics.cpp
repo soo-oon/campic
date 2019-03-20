@@ -29,14 +29,6 @@ bool Physics::Initialize()
 
 void Physics::Update(float dt)
 {
-    if(!Tile_Map_.GetGraphicsTiles().empty())
-    {
-        tile_list.clear();
-        for (auto tile = Tile_Map_.GetGraphicsTiles().begin(); tile != Tile_Map_.GetGraphicsTiles().end(); tile++)
-        {
-            tile_list.push_back(tile->second);
-        }
-    }
     if (!Objectmanager_.GetObjectMap().empty())
     {
         if (Objectmanager_.GetObjectMap().size() != previous_size)
@@ -73,16 +65,31 @@ void Physics::Update(float dt)
             }
             previous_size = static_cast<int>(Objectmanager_.GetObjectMap().size());
         }
-        if (collision_list.size() >= 1)
+        if (collision_list.size() >0)
         {
-            for(int i = 0; i < collision_list.size(); i ++)
+            for (int i = 0; i < collision_list.size(); i++)
             {
+                tile_list.clear();
+                ground_list.clear();
+                TileCheck(collision_list[i]);
+                GroundCheck(collision_list[i]);
                 for (auto tile : tile_list) {
                     if (IntersectionCheck_AABB(collision_list[i], tile))
                     {
-                        StopReaction_dev(collision_list[i],tile);
+                        StopReaction(collision_list[i]);
                     }
                 }
+                if (ground_list.size() > 0) {
+                    for (auto ground : ground_list) {
+                        if (IntersectionCheck_AABB(collision_list[i], ground))
+                        {
+                            StopReaction(collision_list[i]);
+                        }
+                    }
+                }
+                else
+                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
+
                 if(collision_list[i]->GetObjectType() == ObjectType::Player)
                 {
                     for (auto projectile : projectile_list) {
@@ -92,13 +99,13 @@ void Physics::Update(float dt)
                         }
                     }
                 }
-                for(auto static_object : static_list)
-                {
-                    if (IntersectionCheck_AABB(collision_list[i], static_object))
-                    {
-                        StopReaction(collision_list[i]);
-                    }
-                }
+                //for(auto static_object : static_list)
+                //{
+                //    if (IntersectionCheck_AABB(collision_list[i], static_object))
+                //    {
+                //        StopReaction(collision_list[i]);
+                //    }
+                //}
                 for(int j = i ; j < collision_list.size(); j ++)
                 {
                     if(i != j)

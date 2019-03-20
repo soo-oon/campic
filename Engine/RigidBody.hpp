@@ -28,29 +28,32 @@ public:
     void Update(float dt) override;
     void Delete() override;
     void CollisionOn() { collision_switch = true; }
-    void AddVelocity(vector2 velocity_) { velocity += velocity_; }
-    void AddForce(vector2 force) { force_accumlator += force; }
+    void AddVelocity(vector2 velocity_) { m_velocity += velocity_; }
+    void AddForce(vector2 force) { m_force_accumlator += force; }
 public:
     void SetMass(float mass) { inverse_mass = 1.f / mass; }
-    void SetVelocity(vector2 velocity_) { velocity = velocity_; }
-    void SetViewingDirection(vector2 direction) { viewing_direction = direction; }
+    void SetVelocity(vector2 velocity_) { m_velocity = velocity_; }
+    void SetViewingDirection(vector2 direction) { m_viewing_direction = direction; }
+    void SetRest(bool rest) { isRest = rest; }
 public:
-    vector2 GetPreviousPosition() { return previous_position; }
-    vector2 GetVelocity() { return velocity; }
-    vector2 GetPosition(){ return position; }
-    vector2 GetViewingDirection() { return viewing_direction; }
+    vector2 GetPreviousPosition() { return m_previous_position; }
+    vector2 GetVelocity() { return m_velocity; }
+    vector2 GetPosition(){ return m_position; }
+    vector2 GetViewingDirection() { return m_viewing_direction; }
+    bool GetRest() { return isRest; }
     
 
 private:
-    vector2 previous_position;
-    vector2 force_accumlator; // mess 
-    vector2 velocity;
-    vector2 position;
-    vector2 viewing_direction;
+    vector2 m_previous_position;
+    vector2 m_force_accumlator; // mess 
+    vector2 m_velocity;
+    vector2 m_position;
+    vector2 m_viewing_direction;
     float friction = 0.99f;
-    float gravity = 0.0f;
+    float gravity = 1.f;
     float inverse_mass = 1;
 
+    bool isRest = false;
     bool collision_switch = false;
 
     Transform transform;

@@ -16,51 +16,65 @@ Creation date: 2018/12/14
 #include "RigidBody.hpp"
 #include "Player.hpp"
 #include <iostream>
+#include "Input.hpp"
 
 bool RigidBody::Initialize(Object* Ob)
 {
 	if (object == nullptr)
 	{
-		object = Ob;
-		previous_position = object->GetTransform().GetTranslation();
-		force_accumlator = { 0, 0 };
-		velocity = { 0, 0 };
-        viewing_direction = { 0,0 };
+	    object = Ob;
+	    m_previous_position = object->GetTransform().GetTranslation();
+	    m_force_accumlator = { 0, 0 };
+	    m_velocity = { 0, 0 };
+            m_viewing_direction = { 0,0 };
+            isRest = false;
 	}
-        velocity = { 0, 0 };
+        m_velocity = { 0, 0 };
     return true;
 }
 
 void RigidBody::Update(float dt)
 {
-    // for stop reaction
-	previous_position = object->GetTransform().GetTranslation();
+    if(m_velocity.x > 100)
+        m_velocity.x = 100;
+    if (m_velocity.y > 100)
+        m_velocity.y = 100;
+    if (m_velocity.y < -100)
+        m_velocity.y = -100;
+        // for stop reaction
+	m_previous_position = object->GetTransform().GetTranslation();
 
-    // normalized velocity.
-    viewing_direction = normalize(velocity);
+        // normalized velocity.
+        m_viewing_direction = normalize(m_velocity);
     
 	// calculate current velocity.
-	velocity += inverse_mass * (force_accumlator * dt);
+	m_velocity += inverse_mass * (m_force_accumlator * dt);
     
 	// zero out accumulated force
-	force_accumlator = {0, 0};
+	m_force_accumlator = {0, 0};
 
 	//friction always activated
 	//velocity *= friction;
+        m_velocity.y -= gravity;
 
 	// integrate position
-	if (magnitude(velocity) < 0.001f)
-		velocity = 0;	
-	
+	if (magnitude(m_velocity) < 0.001f)
+		m_velocity = 0;	
         // integrate position
         if (!object->GetComponentByTemplate<Collision>()->GetIsGround())
         {
-            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x),
-                (object->GetTransform().GetTranslation().y + (velocity * dt).y) -gravity });
+            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                (object->GetTransform().GetTranslation().y + (m_velocity* dt).y)});
+
+            std::cout << object->GetComponentByTemplate<RigidBody>()->GetVelocity().x << ", "
+                << object->GetComponentByTemplate<RigidBody>()->GetVelocity().y << std::endl;
         }
         else
-            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (velocity * dt).x),
+        {
+            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
                 (object->GetTransform().GetTranslation().y) });
+            isRest = false;
+        }
 }
 
 void RigidBody::Delete()

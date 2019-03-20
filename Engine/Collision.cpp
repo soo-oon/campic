@@ -42,7 +42,6 @@ void Collision::Update(float dt)
 		isdoor = false;
 	if(GetRestitutionType() != RestitutionType::get)
 	SetRestitutionType(RestitutionType::none);
-        isGround = false;
 }
 
 void Collision::Delete()

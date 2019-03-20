@@ -148,11 +148,14 @@ void Tile_Map::InsertPhysicalTiles(int grid_, Object * tiles)
 
 Object * Tile_Map::GetSpecificTile(vector2 position)
 {
-
-    vector2 tile_position = { (float)((2 * (floor)((position.x + TEMP_WIDTH/2) / TILE_SIZE) + 1)* TILE_SIZE / 2)
-        , (float)((2 * (floor)((position.y + TEMP_HEIGHT /2) / TILE_SIZE) + 1)*TILE_SIZE) / 2 };
-   // std::cout << (position.x + TEMP_WIDTH / 2) / TILE_SIZE * TEMP_WIDTH + (position.y + TEMP_HEIGHT / 2) / TILE_SIZE << std::endl;
-    if(graphics_tiles.find(((tile_position.x) / TILE_SIZE * TEMP_WIDTH + (tile_position.y) / TILE_SIZE)) != graphics_tiles.end())
-    return graphics_tiles[static_cast<int>(((tile_position.x + TEMP_WIDTH / 2) / TILE_SIZE * TEMP_WIDTH + (tile_position.y + TEMP_HEIGHT / 2) / TILE_SIZE))];
+    int tile_position_x = static_cast<int>(position.x) + TEMP_WIDTH / 2;
+    int tile_position_y = static_cast<int>(position.y) + TEMP_HEIGHT / 2;
+    if (!graphics_tiles.empty())
+    {
+        if (graphics_tiles.find(tile_position_x / TILE_SIZE * TEMP_WIDTH + tile_position_y / TILE_SIZE) == graphics_tiles.end())
+            return nullptr;
+        else
+            return graphics_tiles.at(tile_position_x / TILE_SIZE * TEMP_WIDTH + tile_position_y / TILE_SIZE);
+    }
     return nullptr;
 }
