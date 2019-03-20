@@ -255,7 +255,7 @@ void Imgui_System::Editor(bool show_window)
 
 	if (ImGui::Button("Load Objects"))
 	{
-		JSON_.LoadObjectFromJson();
+		//JSON_.LoadObjectFromJson();
 	}
 
 	if(ImGui::Button("Save G_Tiles"))
@@ -271,7 +271,7 @@ void Imgui_System::Editor(bool show_window)
 
 	if (ImGui::Button("Load G_Tiles"))
 	{
-		JSON_.LoadTilesFromJson(Tile_Type::Graphical);
+		//JSON_.LoadTilesFromJson(Tile_Type::Graphical);
 	}
 
 	/*if (ImGui::Button("Save P_Tiles"))
