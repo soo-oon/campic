@@ -33,6 +33,5 @@ private:
 	std::vector<Object*> obj;
         Object* temp = nullptr;
         Object* wall = nullptr;
-        Object* cannon = nullptr;
 		Object* player_camera = nullptr;
 };
