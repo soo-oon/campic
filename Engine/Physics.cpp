@@ -29,6 +29,14 @@ bool Physics::Initialize()
 
 void Physics::Update(float dt)
 {
+    if(!Tile_Map_.GetGraphicsTiles().empty())
+    {
+        tile_list.clear();
+        for (auto tile = Tile_Map_.GetGraphicsTiles().begin(); tile != Tile_Map_.GetGraphicsTiles().end(); tile++)
+        {
+            tile_list.push_back(tile->second);
+        }
+    }
     if (!Objectmanager_.GetObjectMap().empty())
     {
         if (Objectmanager_.GetObjectMap().size() != previous_size)
@@ -52,6 +60,11 @@ void Physics::Update(float dt)
                         static_list.push_back(obj->get());
                         ++obj;
                     }
+                    else if (obj->get()->GetObjectType() == ObjectType::Projectile )
+                    {
+                        projectile_list.push_back(obj->get());
+                        ++obj;
+                    }
                     else
                         ++obj;
                 }
@@ -62,17 +75,21 @@ void Physics::Update(float dt)
         }
         if (collision_list.size() >= 1)
         {
-            tile_list.clear();
-            for (auto tile = Tile_Map_.GetGraphicsTiles().begin(); tile != Tile_Map_.GetGraphicsTiles().end(); tile++)
-            {
-                tile_list.push_back(tile->second);
-            }
             for(int i = 0; i < collision_list.size(); i ++)
             {
                 for (auto tile : tile_list) {
                     if (IntersectionCheck_AABB(*collision_list[i], *tile))
                     {
                         StopReaction(collision_list[i]);
+                    }
+                }
+                if(collision_list[i]->GetObjectType() == ObjectType::Player)
+                {
+                    for (auto projectile : projectile_list) {
+                        if (IntersectionCheck_AABB(*collision_list[i], *projectile))
+                        {
+                            StopReaction(collision_list[i]);
+                        }
                     }
                 }
                 for(auto static_object : static_list)

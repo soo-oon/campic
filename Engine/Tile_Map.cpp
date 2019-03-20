@@ -4,8 +4,29 @@
 
 Tile_Map Tile_Map_;
 
+
+bool Tile_Map::Initialize()
+{
+    if (!graphics_tiles.empty())
+    {
+        for (auto& obj : graphics_tiles)
+        {
+            for (auto& component : obj.second->GetComponent())
+            {
+                component->Initialize(obj.second);
+            }
+        }
+    }
+    return true;
+}
+
 void Tile_Map::Update(float dt)
 {
+    if(!init)
+    {
+        Initialize();
+        init = true;
+    }
 	for(auto it = graphics_tiles.begin(); it != graphics_tiles.end(); ++it)
 	{
 		for(auto component : it->second->GetComponent())

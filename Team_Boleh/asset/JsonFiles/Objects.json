@@ -1,13 +1,13 @@
 {
     "Object": {
         "Type": {
-            "type": 0,
+            "type": 7,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 100.0,
-                "y": -150.0
+                "x": -423.0,
+                "y": 175.0
             },
             "scale": {
                 "x": 50.0,
@@ -20,11 +20,11 @@
         "Animation": {
             "map": {
                 "path": {
-                    "id": "rigsdfsfht",
-                    "path": "asset/images/Enemies/1_Right.png"
+                    "id": "right",
+                    "path": "asset/images/Enemies/3_Left.png"
                 },
                 "info": {
-                    "image_frames": 5,
+                    "image_frames": 4,
                     "update_frames": 0.20000000298023225,
                     "is_repeats": true
                 }

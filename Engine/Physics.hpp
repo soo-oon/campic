@@ -44,7 +44,7 @@ public:
         // This is intersection check which is AABB version for thin 
         bool IntersectionCheck_AABB(Object object1, Object object2);
         
-		void ResetPreviousSize() { previous_size = 0; }
+	void ResetPreviousSize() { previous_size = 0; }
 
         // This function return true if object is out of window area. 
         bool OutOfCheckBoundary(Object* object);
@@ -125,6 +125,7 @@ private:
 	std::vector<Object*> collision_list;
     std::vector<Object*> tile_list;
     std::vector<Object*> static_list;
+    std::vector<Object*> projectile_list;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
 };

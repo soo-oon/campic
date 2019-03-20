@@ -24,6 +24,7 @@ Creation date: 2018/12/14
 #include "Application.hpp"
 #include "Tile_Map.hpp"
 #include "Capture.hpp"
+#include "Projectile.hpp"
 
 void level2::Initialize()
 {
@@ -42,11 +43,20 @@ void level2::Initialize()
     temp->SetDepth(0.0f);
     temp->AddComponent(new RigidBody());
     temp->AddComponent(new Collision(box_));
-    temp->SetObjectType(ObjectType::Player);
+    temp->SetObjectType(ObjectType::None);
     temp->AddComponent(new Animation("asset/images/Enemies/1_Right.png", "rigsdfsfht", 5, 0.2f, true));
     //temp->AddComponent(new Enemy(MoveType::straight));
 
 
+    Object* cannon = new Object();
+    cannon->SetTranslation({ 100,0 });
+    cannon->SetScale({ 50.0f, 50.0f });
+    cannon->SetMesh(mesh::CreateBox(1, { 0,0,255, 255 }));
+    cannon->SetDepth(0.0f);
+    cannon->AddComponent(new RigidBody());
+    cannon->AddComponent(new Collision(box_));
+    cannon->SetObjectType(ObjectType::Item_Static);
+    cannon->AddComponent(new Projectile(Projectile_Type::Cannon));
     /*wall = new Object();
     wall->SetTranslation({ 100,-300 });
     wall->SetScale({ 50.0f, 20.0f });
@@ -73,6 +83,7 @@ void level2::Initialize()
 	//obj.push_back(camera);
 	//obj.push_back(wall);
 	//obj.push_back(background);
+        obj.push_back(cannon);
 	obj.push_back(player_camera);
 
 	for(auto i : obj)

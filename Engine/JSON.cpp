@@ -650,8 +650,11 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 
 		if (static_cast<int>(type) == 0)
 			Tile_Map_.InsertPhysicalTiles(grid_, obj);
-		else
-			Tile_Map_.InsertGraphicalTiles(grid_, obj);
+                else
+                {
+                    Tile_Map_.InsertGraphicalTiles(grid_, obj);
+                    Tile_Map_.SetReset(false);
+                }
 	}
 }
 
