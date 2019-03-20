@@ -10,8 +10,10 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
-	std::vector<std::shared_ptr<Object>>& GetCaptureObject() { return capture_object; }
+	std::vector<Object*>& GetCaptureObject() { return capture_object; }
 private:
 	void Capturing();
-	std::vector<std::shared_ptr<Object>> capture_object;
+	void CreateCaptureObject();
+
+	std::vector<Object*> capture_object;
 };

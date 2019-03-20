@@ -46,6 +46,9 @@ class Object
 public:
 	Object(Object_Draw_Type type = Object_Draw_Type::None) : m_draw_type(type)
 	{}
+
+	Object(const Object& obj);
+
     void AddComponent(Component* component);
     void AddInitComponent(Component* component);
 
@@ -59,6 +62,8 @@ public:
 	void SetParent(const Transform* transform_);
 	void SetObjectDrawType(Object_Draw_Type type);
 	void SetIsDead(bool condition);
+
+	void CopyObject(Object obj);
 
 public:
 	bool IsDead() { return isdead; }

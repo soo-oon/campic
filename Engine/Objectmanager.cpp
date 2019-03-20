@@ -42,12 +42,17 @@ bool Objectmanager::Initialize()
 
 void Objectmanager::Update(float dt)
 {
-	for (auto object = objects_.begin(); object != objects_.end();  object++)
+	auto size = objects_.size();
+
+	for (auto object = objects_.begin(); object != objects_.end();  ++object)
 	{
 		for (auto components : object->get()->GetComponent())
 		{
 			components->Update(dt);
 		}
+
+		if (size != objects_.size())
+			break;
 	}
 }
 
@@ -71,21 +76,25 @@ void Objectmanager::AddObject(Object* obj)
 		[](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
 }
 
+void Objectmanager::AddObject(std::shared_ptr<Object> obj)
+{
+	objects_.push_back(obj);
+
+	for (auto component : objects_[objects_.size() - 1]->GetComponent())
+	{
+		component->Initialize(objects_[objects_.size() - 1].get());
+	}
+
+	std::stable_sort(objects_.begin(), objects_.end(),
+		[](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
+}
+
 void Objectmanager::RemoveObject()
 {
 	std::cout << "Before: " << objects_.size() << std::endl;
-	for(auto& object : objects_)
-	{
-		if(auto capture_save = object->GetComponentByTemplate<Capture>();
-			capture_save != nullptr)
-		{
-			for(auto& c_obj : capture_save->GetCaptureObject())
-			{
-				std::shared_ptr<Object> temp(c_obj);
-				capture_obj.push_back(temp);
-			}
-		}
-	}
+	//auto check = StateManager_.GetCurrentState()->GetPlayerPointer();
+	//auto sibal = check->GetComponentByTemplate<Capture>()->GetCaptureObject();
+
 	objects_.clear();
 	std::cout << "After: " << objects_.size() << std::endl;
 

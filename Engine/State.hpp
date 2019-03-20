@@ -37,16 +37,12 @@ public:
 	virtual void ChangeLevel(std::string ID);
 
 	void ResetLevelChange() { level_change = false; }
-	void SetPlayerPointer(Object* obj) { m_player = obj; }
-
-	Object* GetPlayerPointer() { return m_player; }
 	void Load();
 	void UnLoad();
 
 	State_Information information_ = State_Information::None;
 
 private:
-	Object* m_player = nullptr;
 	std::string change_level;
 
 	bool iscamera = false;

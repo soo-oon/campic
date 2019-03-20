@@ -17,6 +17,20 @@ Creation date: 2018/12/14
 #include "control_angle.hpp"
 #include <iostream>
 
+
+Object::Object(const Object& obj)
+{
+	m_transform = obj.m_transform;
+	m_mesh = obj.m_mesh;
+	m_component = obj.m_component;
+	object_type = obj.object_type;
+
+	for(auto compoent : m_component)
+	{
+		compoent->Initialize(this);
+	}
+}
+
 void Object::AddComponent(Component* component)
 {
     m_component.push_back(component);
@@ -76,7 +90,6 @@ void Object::SetIsDead(bool condition)
 {
 	isdead = condition;
 }
-
 
 Mesh& Object::GetMesh()
 {

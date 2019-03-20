@@ -33,14 +33,13 @@ void level2::Initialize()
 	player_camera->SetObjectType(ObjectType::None);
 	player_camera->AddComponent(new Sprite("asset/images/camera_frame.png"));
 	player_camera->AddComponent(new Capture());
-	SetPlayerPointer(player_camera);
 
 	
     temp = new Object();
     temp->SetTranslation({ 100,-150 });
     temp->SetScale({ 50.0f, 50.0f });
     temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    temp->SetDepth(0.0f);
+    temp->SetDepth(-0.5f);
     temp->AddComponent(new RigidBody());
     temp->AddComponent(new Collision(box_));
     temp->SetObjectType(ObjectType::None);
@@ -84,16 +83,15 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
-
     if (!temp)
         std::cout << " noeno" << std::endl;
     if (Input::IsKeyTriggered(GLFW_KEY_D))
     {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({50, 0});
+        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({100, 0});
     }
     if (Input::IsKeyTriggered(GLFW_KEY_S))
     {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -10 });
+        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -100 });
     }
     if (Input::IsKeyTriggered(GLFW_KEY_W))
     {
@@ -101,7 +99,7 @@ void level2::Update(float dt)
     }
     if (Input::IsKeyTriggered(GLFW_KEY_A))
     {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ -50, 0 });
+        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
     }
 
     if (Input::IsKeyTriggered(GLFW_KEY_O))

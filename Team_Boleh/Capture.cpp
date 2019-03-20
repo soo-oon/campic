@@ -15,11 +15,16 @@ void Capture::Update(float dt)
 	vector2 mouse_pos = Input::GetMousePos(Graphics_.camera_zoom);
 	object->SetTranslation(mouse_pos);
 
-	std::cout << capture_object.size() << std::endl;
+	std::cout << capture_object.size();
 
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		Capturing();
+	}
+
+	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		CreateCaptureObject();
 	}
 }
 
@@ -42,21 +47,24 @@ void Capture::Capturing()
 			if (save_obj_pos.x >= min_pos.x && save_obj_pos.x <= max_pos.x &&
 				save_obj_pos.y >= min_pos.y && save_obj_pos.y <= max_pos.y)
 			{
-				std::shared_ptr<Object> temp = std::make_shared<Object>();
-
+				Object* temp = new Object();
+				temp->SetMesh(mesh::CreateBox(1, Colors::Red));
 				temp->SetTranslation(obj->GetTransform().GetTranslation());
+				temp->SetObjectType(ObjectType::None);
 				temp->SetScale(obj->GetTransform().GetScale());
-				temp->SetMesh(mesh::CreateBox());
-				temp->AddInitComponent(obj->GetComponentByTemplate<Animation>());
-				temp->GetComponentByTemplate<Animation>()->SetIsActive(false);
 
-
-				//std::shared_ptr<Object> temp(obj);
+				//temp->GetComponentByTemplate<Animation>()->SetIsActive(false);
 				capture_object.push_back(temp);
-				//capture_object[capture_object.size() - 1]->GetComponentByTemplate<Animation>()->SetIsActive(false);
-				//capture_object[capture_object.size() - 1]->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-				//capture_object[capture_object.size() - 1]->GetComponentByTemplate<RigidBody>().
 			}
 		}
 	}
+}
+
+void Capture::CreateCaptureObject()
+{
+	for(auto c_obj : capture_object)
+	{
+		Objectmanager_.AddObject(c_obj);
+	}
+	capture_object.clear();
 }
