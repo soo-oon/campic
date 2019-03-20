@@ -20,7 +20,10 @@ Creation date: 2018/12/14
 
 bool Animation::Initialize(Object* Ob)
 {
-    object = Ob;
+	if (object == nullptr)
+	{
+		object = Ob;
+	}
     return true;
 }
 

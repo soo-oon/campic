@@ -33,6 +33,7 @@ public:
 	void AddObject(Object* obj);
 	void AddObject(std::shared_ptr<Object> obj);
 
+	Object* GetPlayer();
 	void RemoveObject();
 
 	std::vector<std::shared_ptr<Object>>& GetObjectMap() { return objects_; }

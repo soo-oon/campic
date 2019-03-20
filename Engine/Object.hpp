@@ -39,6 +39,7 @@ enum class ObjectType {
     Camera,
     Background,
     Projectile,
+	Capture_Obj,
     None,
 }; 
 

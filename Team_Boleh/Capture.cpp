@@ -15,17 +15,16 @@ void Capture::Update(float dt)
 	vector2 mouse_pos = Input::GetMousePos(Graphics_.camera_zoom);
 	object->SetTranslation(mouse_pos);
 
-	std::cout << capture_object.size();
-
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		Capturing();
-	}
-
-	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
-	{
 		CreateCaptureObject();
 	}
+
+	//if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	//{
+	//	CreateCaptureObject();
+	//}
 }
 
 void Capture::Delete()
@@ -41,15 +40,27 @@ void Capture::Capturing()
 
 	for(auto& obj : Objectmanager_.GetObjectMap())
 	{
-		if (obj->GetObjectType() == ObjectType::Player && obj.get() != object)
+		if (obj->GetObjectType() == ObjectType::None && obj.get() != object)
 		{
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
 			if (save_obj_pos.x >= min_pos.x && save_obj_pos.x <= max_pos.x &&
 				save_obj_pos.y >= min_pos.y && save_obj_pos.y <= max_pos.y)
 			{
 				Object* temp = new Object(*obj.get());
-				temp->SetObjectType(ObjectType::Item_Static);
+				temp->SetObjectType(ObjectType::Capture_Obj);
+
+				if(auto temp_animation = temp->GetComponentByTemplate<Animation>();
+					temp_animation != nullptr)
+				{
+					temp_animation->SetIsActive(false);
+				}
+
 				capture_object.push_back(temp);
+
+				auto player_ = Objectmanager_.GetPlayer();
+				player_->SetTranslation(reset_pos);
+
+				std::cout << capture_object.size() << std::endl;
 			}
 		}
 	}

@@ -23,6 +23,9 @@ class Component
 {
 private:
 public:
+	/*Component()
+		:object(nullptr)
+	{};*/
     virtual ~Component()
     {};
     Object* object;

@@ -40,10 +40,14 @@ public:
 	void Load();
 	void UnLoad();
 
+	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
+	vector2 GetPlayerPosition() { return player_pos; }
+
 	State_Information information_ = State_Information::None;
 
 private:
 	std::string change_level;
+	vector2 player_pos;
 
 	bool iscamera = false;
 	bool level_change = false;

@@ -25,25 +25,21 @@ Creation date: 2018/12/14
 #include "Tile_Map.hpp"
 #include "Capture.hpp"
 #include "Projectile.hpp"
+#include "Player.hpp"
 
 void level2::Initialize()
 {
+    temp = new Object();
+    temp->AddInitComponent(new Player());
+	SetPlayerPosition(temp->GetTransform().GetTranslation());
+
 	player_camera = new Object();
 	player_camera->SetScale({ 508.0f, 354.0f });
 	player_camera->SetMesh(mesh::CreateBox(1, Colors::Red));
 	player_camera->SetObjectType(ObjectType::None);
 	player_camera->AddComponent(new Sprite("asset/images/camera_frame.png"));
-	player_camera->AddComponent(new Capture());
+	player_camera->AddComponent(new Capture(GetPlayerPosition()));
 	
-    temp = new Object();
-    temp->SetTranslation({ 100,-150 });
-    temp->SetScale({ 50.0f, 50.0f });
-    temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    temp->SetDepth(-0.5f);
-    temp->AddComponent(new RigidBody());
-    temp->AddComponent(new Collision(box_));
-    temp->SetObjectType(ObjectType::Player);
-    temp->AddComponent(new Animation("asset/images/Enemies/1_Right.png", "rigsdfsfht", 5, 0.2f, true));
     //temp->AddComponent(new Enemy(MoveType::straight));
 
 

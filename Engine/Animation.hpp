@@ -68,8 +68,20 @@ public:
     };
 
 	Animation(const Animation& copy_animation)
+		: Component(copy_animation)
 	{
-		current_animation = copy_animation.current_animation;
+		current_animation = Animation_Information(copy_animation.current_animation);
+		current_animation.sprites = new Sprite(copy_animation.current_animation.sprites->GetPath());
+
+		if(copy_animation.current_animation.sprites->IsFlip())
+		{
+			current_animation.sprites->SetFlip(true);
+		}
+		else
+		{
+			current_animation.sprites->SetFlip(false);
+		}
+
 		current_animation.sprites->Texture_Load();
 
 		current_animation.previous_current_coordinate.x = 0;
@@ -91,6 +103,8 @@ public:
 
 	bool IsDone() { return is_done; }
 	bool IsActive() { return isactive; }
+
+	void SetFlip(bool condition) { current_animation.sprites->SetFlip(condition); }
 
 	void Imgui_Animation();
 

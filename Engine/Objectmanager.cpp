@@ -89,6 +89,19 @@ void Objectmanager::AddObject(std::shared_ptr<Object> obj)
 		[](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
 }
 
+Object* Objectmanager::GetPlayer()
+{
+	for(auto& obj : objects_)
+	{
+		if(auto temp_player = obj->GetComponentByTemplate<Player>();
+			temp_player != nullptr)
+		{
+			return obj.get();
+		}
+	}
+	return nullptr;
+}
+
 void Objectmanager::RemoveObject()
 {
 	std::cout << "Before: " << objects_.size() << std::endl;
