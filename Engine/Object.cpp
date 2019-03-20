@@ -22,12 +22,30 @@ Object::Object(const Object& obj)
 {
 	m_transform = obj.m_transform;
 	m_mesh = obj.m_mesh;
-	m_component = obj.m_component;
 	object_type = obj.object_type;
 
-	for(auto compoent : m_component)
+	for(auto compoent : obj.m_component)
 	{
-		compoent->Initialize(this);
+		if(auto temp_animation = obj.GetComponentByTemplate<Animation>();
+			(temp_animation != nullptr) && (compoent == temp_animation))
+		{
+			m_component.push_back(new Animation(*temp_animation));
+		}
+		else if(auto temp_collision = obj.GetComponentByTemplate<Collision>();
+			(temp_collision != nullptr) && (compoent == temp_collision))
+		{
+			m_component.push_back(new Collision(temp_collision->GetCollisionType()));
+		}
+		else if(auto temp_rigidbody = obj.GetComponentByTemplate<RigidBody>();
+			(temp_rigidbody != nullptr) && (temp_rigidbody == compoent))
+		{
+			m_component.push_back(new RigidBody());
+		}
+		else if(auto temp_sprite = obj.GetComponentByTemplate<Sprite>();
+			(temp_sprite != nullptr) && (temp_sprite == compoent))
+		{
+			m_component.push_back(new Sprite(temp_sprite->GetPath()));
+		}
 	}
 }
 

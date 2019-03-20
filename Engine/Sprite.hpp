@@ -27,9 +27,11 @@ public:
 		: path(file_path_), handle_to_texture(0)
 	{
 	}
+	Sprite(const Sprite& copy_sprite)
+		: path(copy_sprite.path), handle_to_texture(0)
+	{}
 
     ~Sprite() = default;
-    //Sprite(const Sprite& other);
     Sprite& operator=(const Sprite& other);
 
     bool Initialize(Object* Ob) override;
@@ -47,6 +49,7 @@ public:
     void UnLoadSprite();
     void DeleteSpriteTexture();
 
+public:
     int GetPixelsBufferBytesSize() const;
     int GetWidth() const { return width; }
     int GetHeigth() const { return height; }
@@ -64,5 +67,5 @@ private:
     int width = 0;
     int height = 0;
     static const int ChannelsPerColor = sizeof(Color::RGBA32);
-    unsigned char* pixel;
+    unsigned char* pixel = nullptr;
 };

@@ -41,19 +41,14 @@ void Capture::Capturing()
 
 	for(auto& obj : Objectmanager_.GetObjectMap())
 	{
-		if (obj->GetObjectType() == ObjectType::None && obj.get() != object)
+		if (obj->GetObjectType() == ObjectType::Player && obj.get() != object)
 		{
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
 			if (save_obj_pos.x >= min_pos.x && save_obj_pos.x <= max_pos.x &&
 				save_obj_pos.y >= min_pos.y && save_obj_pos.y <= max_pos.y)
 			{
-				Object* temp = new Object();
-				temp->SetMesh(mesh::CreateBox(1, Colors::Red));
-				temp->SetTranslation(obj->GetTransform().GetTranslation());
-				temp->SetObjectType(ObjectType::None);
-				temp->SetScale(obj->GetTransform().GetScale());
-
-				//temp->GetComponentByTemplate<Animation>()->SetIsActive(false);
+				Object* temp = new Object(*obj.get());
+				temp->SetObjectType(ObjectType::Item_Static);
 				capture_object.push_back(temp);
 			}
 		}
