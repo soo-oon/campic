@@ -78,15 +78,15 @@ void Physics::Update(float dt)
             for(int i = 0; i < collision_list.size(); i ++)
             {
                 for (auto tile : tile_list) {
-                    if (IntersectionCheck_AABB(*collision_list[i], *tile))
+                    if (IntersectionCheck_AABB(collision_list[i], tile))
                     {
-                        StopReaction(collision_list[i]);
+                        StopReaction_dev(collision_list[i],tile);
                     }
                 }
                 if(collision_list[i]->GetObjectType() == ObjectType::Player)
                 {
                     for (auto projectile : projectile_list) {
-                        if (IntersectionCheck_AABB(*collision_list[i], *projectile))
+                        if (IntersectionCheck_AABB(collision_list[i], projectile))
                         {
                             StopReaction(collision_list[i]);
                         }
@@ -94,7 +94,7 @@ void Physics::Update(float dt)
                 }
                 for(auto static_object : static_list)
                 {
-                    if (IntersectionCheck_AABB(*collision_list[i], *static_object))
+                    if (IntersectionCheck_AABB(collision_list[i], static_object))
                     {
                         StopReaction(collision_list[i]);
                     }
@@ -103,7 +103,7 @@ void Physics::Update(float dt)
                 {
                     if(i != j)
                     {
-                        if (IntersectionCheck_AABB(*collision_list[i], *collision_list[j]))
+                        if (IntersectionCheck_AABB(collision_list[i], collision_list[j]))
                         {
                             CollReaction(collision_list[i], collision_list[j]);
                         }
@@ -319,10 +319,10 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
     return true;
 }
 
-bool Physics::IntersectionCheck_AABB(Object object1, Object object2)
+bool Physics::IntersectionCheck_AABB(Object* object1, Object* object2)
 {
-    std::vector<vector2> owner = object1.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
-    std::vector<vector2> object = object2.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    std::vector<vector2> owner = object1->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    std::vector<vector2> object = object2->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
     if (owner[0].x > object[0].x && owner[0].x > object[1].x)
         return false;
     if (owner[1].x < object[0].x && owner[1].x < object[1].x)

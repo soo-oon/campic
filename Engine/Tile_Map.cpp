@@ -105,7 +105,7 @@ void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, 
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->AddInitComponent(new Sprite(image));
-    tile->AddInitComponent(new Collision(box_));
+        tile->AddInitComponent(new Collision(box_));
 
 	if (type == Tile_Type::Physical)
 	{
