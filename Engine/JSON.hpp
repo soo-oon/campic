@@ -42,14 +42,18 @@ public:
 	//Objects
 	void ObjectsToDocument(Object* obj);
 	void SaveObjectsToJson();
-	void LoadObjectFromJson();
-	Document LoadObjectDocumentFromJson();
+	void LoadObjectFromJson(const std::string& file, const std::string& path);
+	Document LoadObjectDocumentFromJson(const std::string& file, const std::string& path);
 
 	//Tiles
 	void TilesToDocument(int grid_, Object * obj, Tile_Type type);
 	void SaveTilesToJson(Tile_Type type);
-	void LoadTilesFromJson(Tile_Type type);
-	Document LoadTilesDocumentFromJson(Tile_Type type);
+	void LoadTilesFromJson(Tile_Type type, const std::string& file);
+	Document LoadTilesDocumentFromJson(Tile_Type type, const std::string& file);
+
+	//Levels
+	void SaveLevel();
+	void LoadLevel(const std::string& file, const std::string& path);
 
 	//Helper class
 	Value ComponentAnimation(Object* obj);
@@ -66,13 +70,13 @@ public:
 	Document& GetTileDocument() { return TileDocument; }
 
 private:
-	Document ObjectDocument;
-	Document TileDocument;
+	Document ObjectDocument{};
+	Document TileDocument{};
 
-	StringBuffer ObjectBuffer;
-	StringBuffer TileBuffer;
+	StringBuffer ObjectBuffer{};
+	StringBuffer TileBuffer{};
 
-	std::string file_path = "asset/JsonFiles/";
+	std::string file_path = "asset/JsonFiles/Levels/";
 
 };
 
