@@ -423,14 +423,13 @@ void JSON::SaveObjectsToJson()
 	ObjectDocument.Accept(writer);
 	
 	fclose(fp);
-
-	JSON_.GetObjectDocument().SetObject();
 }
 
-Document JSON::LoadObjectDocumentFromJson()
+Document JSON::LoadObjectDocumentFromJson(const std::string& file, const std::string& path)
 {
 	std::string filename(file_path);
-	filename.append("Objects.json");
+	filename.append(file);
+	filename.append(path);
 
 	FILE* fp = fopen(filename.c_str(), "r+");
 
@@ -517,13 +516,12 @@ void JSON::SaveTilesToJson(Tile_Type type)
 	TileDocument.Accept(writer);
 
 	fclose(fp);
-
-	JSON_.GetTileDocument().SetObject();
 }
 
-Document JSON::LoadTilesDocumentFromJson(Tile_Type type)
+Document JSON::LoadTilesDocumentFromJson(Tile_Type type, const std::string& file)
 {
 	std::string filename(file_path);
+	file_path.append(file);
 
 	if (static_cast<int>(type) == 0)
 		filename.append("Physical_Tiles.json");
@@ -543,21 +541,33 @@ Document JSON::LoadTilesDocumentFromJson(Tile_Type type)
 	return Tiles;
 }
 
-void JSON::LoadTilesFromJson(Tile_Type type)
+void JSON::SaveLevel()
 {
-	TileDocument = LoadTilesDocumentFromJson(type);
+	SaveObjectsToJson();
+	SaveTilesToJson(Tile_Type::Graphical);
+	SaveTilesToJson(Tile_Type::Physical);
+}
+
+void JSON::LoadLevel(const std::string& file, const std::string& path)
+{
+	LoadObjectFromJson(file, path);
+	LoadTilesFromJson(Tile_Type::Graphical, file);
+	LoadTilesFromJson(Tile_Type::Physical, file);
+}
+
+void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
+{
+	TileDocument = LoadTilesDocumentFromJson(type, file);
 
 	for (auto& temp : TileDocument.GetObject())
 	{
 		Value& tile_array = temp.value;
 
-		Value status, tile_type, grid, scale, pos, animation, sprite, rigid_body, collision, isAnimated;
+		Value tile_type, grid, scale, pos, animation, sprite, collision, isAnimated;
 		Object* obj = new Object();
 
-		//status.SetObject();
 		sprite.SetObject();
 		animation.SetObject();
-		//rigid_body.SetObject();
 		collision.SetObject();
 		isAnimated.SetObject();
 		tile_type.SetObject();
@@ -571,7 +581,6 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 		pos = tile_array.FindMember("pos")->value;
 		sprite = tile_array.FindMember("sprite")->value;
 		animation = tile_array.FindMember("animation")->value;
-		//rigid_body = tile_array.FindMember("RigidBody")->value;
 		collision = tile_array.FindMember("collision")->value;
 		isAnimated = tile_array.FindMember("IsAnimated")->value;
 
@@ -633,13 +642,6 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 			}
 		}
 
-		///////////////////////////////////////////////// RigidBody
-		//bool is_rigid = false;
-		//is_rigid = rigid_body.GetBool();
-
-		//if (is_rigid)
-		//	obj->AddComponent(new RigidBody());
-
 		///////////////////////////////////////////////// Collision
 		if (collision.HasMember("id"))
 		{
@@ -658,9 +660,9 @@ void JSON::LoadTilesFromJson(Tile_Type type)
 	}
 }
 
-void JSON::LoadObjectFromJson()
+void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 {
-	ObjectDocument = LoadObjectDocumentFromJson();
+	ObjectDocument = LoadObjectDocumentFromJson(file, path);
 
 	for (auto& temp : ObjectDocument.GetObject())
 	{

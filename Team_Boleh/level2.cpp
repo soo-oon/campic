@@ -56,7 +56,7 @@ void level2::Initialize()
     cannon->AddComponent(new RigidBody());
     cannon->AddComponent(new Collision(box_));
     cannon->SetObjectType(ObjectType::Item_Static);
-    cannon->AddComponent(new Projectile(Projectile_Type::Cannon));
+    //cannon->AddComponent(new Projectile(Projectile_Type::Cannon));
     /*wall = new Object();
     wall->SetTranslation({ 100,-300 });
     wall->SetScale({ 50.0f, 20.0f });
@@ -133,11 +133,13 @@ void level2::Update(float dt)
 		{
 			JSON_.ObjectsToDocument(obj.get());
 		}
+		JSON_.GetObjectDocument().SetObject();
 		
 		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
 		{
 			JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
 		}
+		JSON_.GetTileDocument().SetObject();
 		
 		std::cout << "Objects and Tiles Saved" << std::endl;
 	}
