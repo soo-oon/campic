@@ -25,3 +25,5 @@ Creation date: 2018/12/14
     void DisappearReaction(Object* object);
     void DoorReaction(Object* object);
     void CollReaction(Object* object, Object* di_object);
+    void StopReaction_dev(Object* object, Object* static_object);
+    void OffSetReaction(Object* object);

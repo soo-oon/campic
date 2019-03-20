@@ -111,3 +111,43 @@ void CollReaction(Object* object, Object* di_object)
         object->GetComponentByTemplate<RigidBody>()->AddVelocity(1.2f*(velo2 - velo1));
     }
 }
+
+void StopReaction_dev(Object* object, Object* static_object)
+{
+    if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x >
+        object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
+    {
+        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+        {
+            object->GetTransform().SetTranslation(
+                { static_object->GetTransform().GetTranslation().x - static_object->GetTransform().GetScale().x/2
+                    - object->GetTransform().GetScale().x/2 -0.5f,
+                object->GetTransform().GetTranslation().y });
+        }
+        else
+            object->GetTransform().SetTranslation(
+                { object->GetTransform().GetTranslation().x ,
+                static_object->GetTransform().GetTranslation().y + static_object->GetTransform().GetScale().y /2
+                + object->GetTransform().GetScale().y/2 + 0.5f});
+    }
+    else if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x <
+        object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
+    {
+        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+            object->GetTransform().SetTranslation(
+                { object->GetTransform().GetTranslation().x ,
+                static_object->GetTransform().GetTranslation().y - static_object->GetTransform().GetScale().y /2
+                - object->GetTransform().GetScale().y /2 - 0.5f});
+        else
+            object->GetTransform().SetTranslation(
+                { static_object->GetTransform().GetTranslation().x + static_object->GetTransform().GetScale().x/2
+                    + object->GetTransform().GetScale().x/2 + 0.5f,
+                object->GetTransform().GetTranslation().y  });
+
+    }
+       
+}
+
+void OffSetReaction(Object * object)
+{
+}
