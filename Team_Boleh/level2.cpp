@@ -48,7 +48,7 @@ void level2::Initialize()
     //temp->AddComponent(new Enemy(MoveType::straight));
 
 
-    Object* cannon = new Object();
+    cannon = new Object();
     cannon->SetTranslation({ 100,0 });
     cannon->SetScale({ 50.0f, 50.0f });
     cannon->SetMesh(mesh::CreateBox(1, { 0,0,255, 255 }));
@@ -113,7 +113,20 @@ void level2::Update(float dt)
     {
         temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ -50, 0 });
     }
-
+    if (Input::IsKeyTriggered(GLFW_KEY_L))
+    {
+        Object* missile = new Object;
+        missile->SetTranslation({ cannon->GetTransform().GetTranslation() });
+        missile->SetScale({ 50.0f, 50.0f });
+        missile->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+        missile->AddInitComponent(new RigidBody());
+        missile->AddInitComponent(new Collision(box_));
+        missile->SetObjectType(ObjectType::None);
+        missile->AddInitComponent(new Sprite("asset/images/sword.png"));
+        missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 10,10 });
+        Objectmanager_.AddObject(missile);
+        std::cout << Objectmanager_.GetObjectMap().size() << std::endl;
+    }
     if (Input::IsKeyTriggered(GLFW_KEY_O))
     {
         if (!Tile_Map_.GetSpecificTile({ 2000,2000 }))

@@ -10,7 +10,7 @@ bool Projectile::Initialize(Object * Ob)
 
 void Projectile::Update(float dt)
 {
-    while (m_shot_count == 0)
+    while (m_shot_count != 0)
     {
         if (Projectile_Type::Arrow == m_projectile)
             ArrowUpdate();
@@ -26,16 +26,16 @@ void Projectile::Delete()
 
 void Projectile::CannonUpdate()
 {
-        std::shared_ptr<Object> missile = std::make_shared<Object>();
-        missile->SetTranslation({ object->GetTransform().GetTranslation() });
-        missile->SetScale({ 50.0f, 50.0f });
-        missile->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-        missile->SetDepth(0.0f);
-        missile->AddComponent(new RigidBody());
-        missile->AddComponent(new Collision(box_));
-        missile->SetObjectType(ObjectType::Item_Dynamic);
-        missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 50,50 });
-        Objectmanager_.AddObject(missile.get());
+    std::shared_ptr<Object> missile = std::make_shared<Object>();
+    missile->SetTranslation({ object->GetTransform().GetTranslation() });
+    missile->SetScale({ 50.0f, 50.0f });
+    missile->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+    missile->SetDepth(0.0f);
+    missile->AddComponent(new RigidBody());
+    missile->AddComponent(new Collision(box_));
+    missile->SetObjectType(ObjectType::Item_Dynamic);
+    missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 50,50 });
+    Objectmanager_.AddObject(missile.get());
 }
 
 void Projectile::ArrowUpdate()
