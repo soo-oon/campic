@@ -52,8 +52,6 @@ public:
 	vector2 GetDisplaySize() { return displaysize; }
 
 	static vector2 camera_center;
-	static float camera_zoom;
-
 private:
 	struct solidshape
 	{

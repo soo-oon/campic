@@ -28,7 +28,7 @@ bool Player::Initialize(Object * Ob)
 		object->SetTranslation({ 100,-150 });
 		object->SetScale({ 50.0f, 50.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-		object->SetDepth(-0.5f);
+		object->SetDepth(0.0f);
 		object->AddInitComponent(new RigidBody());
 		object->AddInitComponent(new Collision(box_));
 		object->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));

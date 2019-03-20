@@ -12,19 +12,32 @@ bool Capture::Initialize(Object* Ob)
 
 void Capture::Update(float dt)
 {
-	vector2 mouse_pos = Input::GetMousePos(Graphics_.camera_zoom);
+	vector2 mouse_pos = Input::GetMousePos();
+
+
+	//std::cout << Graphics_.camera_zoom << std::endl;
+	//std::cout << mouse_pos.x << ", " << mouse_pos.y << std::endl;
+
 	object->SetTranslation(mouse_pos);
 
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
+		cheese = true;
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("cheese");
 		Capturing();
 		CreateCaptureObject();
 	}
 
-	//if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
-	//{
-	//	CreateCaptureObject();
-	//}
+	if(cheese)
+	{
+		object->GetMesh().Decrease_Alpha(5);
+		if (object->GetMesh().GetColor(0).Alpha <= 15)
+		{
+			object->GetComponentByTemplate<Animation>()->ChangeAnimation("basic_camera");
+			object->GetMesh().ChangeColor({ 255,255,255,255 });
+			cheese = false;
+		}
+	}
 }
 
 void Capture::Delete()
@@ -43,8 +56,14 @@ void Capture::Capturing()
 		if (obj->GetObjectType() == ObjectType::None && obj.get() != object)
 		{
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
-			if (save_obj_pos.x >= min_pos.x && save_obj_pos.x <= max_pos.x &&
-				save_obj_pos.y >= min_pos.y && save_obj_pos.y <= max_pos.y)
+			vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()/2;
+
+			vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
+			vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };
+			
+
+			if ((min_obj.x >= min_pos.x)&& (max_obj.x <= max_pos.x) && 
+				(min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
 			{
 				Object* temp = new Object(*obj.get());
 				temp->SetObjectType(ObjectType::Capture_Obj);
