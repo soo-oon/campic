@@ -143,7 +143,8 @@ void Graphics::Draw()
 					}
 				}
 
-				if (auto temp = obj->GetComponentByTemplate<Collision>(); temp != nullptr)
+				if (auto temp = obj->GetComponentByTemplate<Collision>(); 
+					temp != nullptr)
 				{
 					if (temp->GetCollsionMesh().IsVisible())
 					{

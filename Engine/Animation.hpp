@@ -40,6 +40,7 @@ public:
         frame_per_seconds = 1.0f / image_frames;
     };
 
+	std::string id;
     Sprite * sprites = nullptr;
 	std::string path;
     int image_frames = 0;
@@ -57,6 +58,7 @@ public:
     {
         current_animation = Animation_Information(path_, image_frame_, update_frame_, repeat);
 		current_animation.sprites->Texture_Load();
+		current_animation.id = ID;
 
         current_animation.previous_current_coordinate.x = 0;
 		current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
@@ -64,6 +66,17 @@ public:
         animations.insert(std::make_pair(ID, current_animation));
 
     };
+
+	Animation(const Animation& copy_animation)
+	{
+		current_animation = copy_animation.current_animation;
+		current_animation.sprites->Texture_Load();
+
+		current_animation.previous_current_coordinate.x = 0;
+		current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
+
+		animations.insert(std::make_pair(current_animation.id, current_animation));
+	}
 
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
