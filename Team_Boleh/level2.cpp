@@ -34,12 +34,19 @@ void level2::Initialize()
 	SetPlayerPosition(temp->GetTransform().GetTranslation());
 
 	player_camera = new Object();
-	player_camera->SetScale({ 508.0f, 354.0f });
-	player_camera->SetMesh(mesh::CreateBox(1, Colors::Red));
+	player_camera->SetScale({ 300.0f, 175.0f });
+	player_camera->SetDepth(-0.2f);
+	player_camera->SetMesh(mesh::CreateBox(1, {255,255,255,255}));
 	player_camera->SetObjectType(ObjectType::None);
-	player_camera->AddComponent(new Sprite("asset/images/camera_frame.png"));
+	player_camera->AddComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
+	player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
 	player_camera->AddComponent(new Capture(GetPlayerPosition()));
-	
+
+
+	Object* camera = new Object();
+	camera->SetObjectType(ObjectType::Camera);
+	camera->AddComponent(new Camera(this));
+
     //temp->AddComponent(new Enemy(MoveType::straight));
 
 
@@ -81,6 +88,7 @@ void level2::Initialize()
 	//obj.push_back(background);
     //obj.push_back(cannon);
 	obj.push_back(player_camera);
+	obj.push_back(camera);
 
 	for(auto i : obj)
 	{
@@ -90,6 +98,9 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
+	//auto check = obj[2]->GetComponentByTemplate<Camera>()->GetCenter();
+	//obj[2]->GetComponentByTemplate<Camera>()->SetCenter(obj[0]->GetTransform().GetTranslation());
+
     if (!temp)
         std::cout << " noeno" << std::endl;
     if (Input::IsKeyTriggered(GLFW_KEY_D))

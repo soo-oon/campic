@@ -19,6 +19,7 @@ private:
 	void Capturing();
 	void CreateCaptureObject();
 
+	bool cheese = false;
 	vector2 reset_pos;
 	std::vector<Object*> capture_object;
 };

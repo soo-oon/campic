@@ -156,7 +156,8 @@ void Application::FullScreen()
     {
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         monitor = glfwGetPrimaryMonitor();
-        glfwSetWindowMonitor(window, monitor, 0, 0, static_cast<int>(mode->width), static_cast<int>(mode->height), 0);
+        glfwSetWindowMonitor(window, monitor, 0, 0, 
+			static_cast<int>(mode->width), static_cast<int>(mode->height), 0);
 
 		int w, h;
 		glfwGetWindowSize(window, &w, &h);

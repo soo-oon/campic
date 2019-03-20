@@ -114,10 +114,10 @@ void Imgui_System::Update(float dt)
 		{
 			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
 			{
-				if (Input::GetMousePos(1.f).x < obj->get()->GetTransform().GetTranslation().x + obj->get()->GetTransform().GetScale().x &&
-					Input::GetMousePos(1.f).x > obj->get()->GetTransform().GetTranslation().x - obj->get()->GetTransform().GetScale().x &&
-					Input::GetMousePos(1.f).y < obj->get()->GetTransform().GetTranslation().y + obj->get()->GetTransform().GetScale().y &&
-					Input::GetMousePos(1.f).y > obj->get()->GetTransform().GetTranslation().y - obj->get()->GetTransform().GetScale().y
+				if (Input::GetMousePos().x < obj->get()->GetTransform().GetTranslation().x + obj->get()->GetTransform().GetScale().x &&
+					Input::GetMousePos().x > obj->get()->GetTransform().GetTranslation().x - obj->get()->GetTransform().GetScale().x &&
+					Input::GetMousePos().y < obj->get()->GetTransform().GetTranslation().y + obj->get()->GetTransform().GetScale().y &&
+					Input::GetMousePos().y > obj->get()->GetTransform().GetTranslation().y - obj->get()->GetTransform().GetScale().y
 					)
 				{
 					selectObj = obj->get();
@@ -129,7 +129,7 @@ void Imgui_System::Update(float dt)
 		if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
 		{
 			if (selectObj)
-				selectObj->SetTranslation(Input::GetMousePos(1.f));
+				selectObj->SetTranslation(Input::GetMousePos());
 			//imgui_key_call_back = false;
 		}
 
@@ -314,7 +314,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* enemy = new Object;
 		enemy = new Object();
-		enemy->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		enemy->SetTranslation({ Input::GetMousePos() });
 	    enemy->SetScale({ 50 });
         enemy->SetMesh(mesh::CreateBox());
         enemy->AddComponent(new RigidBody());
@@ -338,7 +338,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (ImGui::IsItemDeactivated())
 	{
 		Object* enemy1 = new Object();
-		enemy1->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		enemy1->SetTranslation({ Input::GetMousePos() });
 		enemy1->SetScale({ 50 });
 		enemy1->SetMesh(mesh::CreateBox());
 		enemy1->AddComponent(new RigidBody());
@@ -362,7 +362,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (ImGui::IsItemDeactivated())
 	{
 		Object* enemy2 = new Object();
-		enemy2->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		enemy2->SetTranslation({ Input::GetMousePos() });
 		enemy2->SetScale({ 50 });
 		enemy2->SetMesh(mesh::CreateBox());
 		enemy2->AddComponent(new RigidBody());
@@ -387,7 +387,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (ImGui::IsItemDeactivated())
 	{
 		Object* enemy = new Object();
-		enemy->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		enemy->SetTranslation({ Input::GetMousePos() });
 		enemy->SetScale({ 50 });
 		enemy->SetMesh(mesh::CreateBox());
 		enemy->AddComponent(new RigidBody());
@@ -411,7 +411,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (ImGui::IsItemDeactivated())
 	{
 		Object* enemy1 = new Object();
-		enemy1->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		enemy1->SetTranslation({ Input::GetMousePos() });
 		enemy1->SetScale({ 50 });
 		enemy1->SetMesh(mesh::CreateBox());
 		enemy1->AddComponent(new RigidBody());
@@ -439,7 +439,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* obj = new Object;
 		obj->SetScale({ 100.f,100.f });
-		obj->SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
+		obj->SetTranslation({ Input::GetMousePos() });
 		obj->SetDepth(0);
 		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));

@@ -53,7 +53,7 @@ public:
     static bool IsKeyAnyReleased();
 
     static void SetMousePos(double x_pos, double y_pos);
-    static vector2 GetMousePos(float zoom);
+    static vector2 GetMousePos();
 
     static void SetMousePressed(int button, int action);
 	static void SetMouseWheelScroll(double x_offset, double y_offset);

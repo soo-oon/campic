@@ -136,9 +136,9 @@ void Input::SetMousePos(double x_pos, double y_pos)
     mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) + Graphics::camera_center.y;
 }
 
-vector2 Input::GetMousePos(float zoom)
+vector2 Input::GetMousePos()
 {
-    return mousePos / zoom;
+    return mousePos;
 }
 
 void Input::SetMousePressed(int button, int action)

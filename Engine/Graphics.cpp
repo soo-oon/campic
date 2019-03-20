@@ -29,7 +29,7 @@ Creation date: 2018/12/14
 Graphics Graphics_;
 
 vector2 Graphics::camera_center{};
-float Graphics::camera_zoom;
+//float Graphics::camera_zoom;
 
 namespace
 {
@@ -115,12 +115,12 @@ void Graphics::Update(float dt)
 
     if (temp_camera == nullptr)
     {
-        camera_zoom = 1.0f;
+        //camera_zoom = 1.0f;
         camera_center = 0;
     }
     else
     {
-        camera_zoom = temp_camera->GetZoomValue();
+        //camera_zoom = temp_camera->GetZoomValue();
         camera_center = temp_camera->GetCenter();
     }
 

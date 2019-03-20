@@ -38,8 +38,8 @@ void Tile_Map::Update(float dt)
 
 void Tile_Map::Make_Tile(std::string image, Tile_Type type)
 {
-	int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x + TEMP_WIDTH / 2);
-	int tile_y = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).y + TEMP_HEIGHT / 2);
+	int tile_x = static_cast<int>(Input::GetMousePos().x + TEMP_WIDTH / 2);
+	int tile_y = static_cast<int>(Input::GetMousePos().y + TEMP_HEIGHT / 2);
 
     vector2 tile_position = {0};
 
@@ -57,8 +57,8 @@ void Tile_Map::Make_Tile(std::string image, Tile_Type type)
 
 void Tile_Map::Make_Ani_Tile(std::string image, Tile_Type type)
 {
-	int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x + TEMP_WIDTH / 2);
-	int tile_y = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).y + TEMP_HEIGHT / 2);
+	int tile_x = static_cast<int>(Input::GetMousePos().x + TEMP_WIDTH / 2);
+	int tile_y = static_cast<int>(Input::GetMousePos().y + TEMP_HEIGHT / 2);
 
 	vector2 tile_position = { 0 };
 
@@ -75,8 +75,8 @@ void Tile_Map::Make_Ani_Tile(std::string image, Tile_Type type)
 
 void Tile_Map::Delete_Tile()
 {
-	int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x) + TEMP_WIDTH / 2;
-	int tile_y = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).y) + TEMP_HEIGHT / 2;
+	int tile_x = static_cast<int>(Input::GetMousePos().x) + TEMP_WIDTH / 2;
+	int tile_y = static_cast<int>(Input::GetMousePos().y) + TEMP_HEIGHT / 2;
 
     if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
     {
@@ -87,8 +87,8 @@ void Tile_Map::Delete_Tile()
 
 void Tile_Map::Delete_Ani_Tile()
 {
-	int tile_x = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).x) + TEMP_WIDTH / 2;
-	int tile_y = static_cast<int>(Input::GetMousePos(Graphics_.camera_zoom).y) + TEMP_HEIGHT / 2;
+	int tile_x = static_cast<int>(Input::GetMousePos().x) + TEMP_WIDTH / 2;
+	int tile_y = static_cast<int>(Input::GetMousePos().y) + TEMP_HEIGHT / 2;
 
 	if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
 	{
