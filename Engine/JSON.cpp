@@ -414,6 +414,7 @@ void JSON::SaveObjectsToJson(const std::string& file, const std::string& path)
 	std::string filename(file_path);
 	filename.append(file);
 	filename.append(path);
+	filename.append(".json");
 
 	FILE* fp = fopen(filename.c_str(), "w+");
 		
@@ -431,6 +432,7 @@ Document JSON::LoadObjectDocumentFromJson(const std::string& file, const std::st
 	std::string filename(file_path);
 	filename.append(file);
 	filename.append(path);
+	filename.append(".json");
 
 	FILE* fp = fopen(filename.c_str(), "r+");
 
@@ -445,7 +447,7 @@ Document JSON::LoadObjectDocumentFromJson(const std::string& file, const std::st
 	return object_lists;
 }
 
-void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
+void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type, const std::string& path)
 {
 	Value tileTree(kArrayType);
 
@@ -496,12 +498,13 @@ void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type)
 
 	TileDocument.Parse(TileBuffer.GetString());
 
-	SaveTilesToJson(type);
+	SaveTilesToJson(type,path);
 }
 
-void JSON::SaveTilesToJson(Tile_Type type)
+void JSON::SaveTilesToJson(Tile_Type type, const std::string& path)
 {
 	std::string filename(file_path);
+	filename.append(path);
 
 	if(static_cast<int>(type) == 0)
 		filename.append("Physical_Tiles.json");
@@ -522,7 +525,7 @@ void JSON::SaveTilesToJson(Tile_Type type)
 Document JSON::LoadTilesDocumentFromJson(Tile_Type type, const std::string& file)
 {
 	std::string filename(file_path);
-	file_path.append(file);
+	filename.append(file);
 
 	if (static_cast<int>(type) == 0)
 		filename.append("Physical_Tiles.json");
@@ -542,11 +545,16 @@ Document JSON::LoadTilesDocumentFromJson(Tile_Type type, const std::string& file
 	return Tiles;
 }
 
-void JSON::SaveLevel(const std::string& file, const std::string& path)
+void JSON::SaveLevelObject(Object* obj, const std::string& file, const std::string& path)
 {
-	SaveObjectsToJson(file, path);
-	SaveTilesToJson(Tile_Type::Graphical);
-	SaveTilesToJson(Tile_Type::Physical);
+	ObjectsToDocument(obj,file, path);
+	SaveTilesToJson(Tile_Type::Graphical, file);
+	SaveTilesToJson(Tile_Type::Physical, file);
+}
+
+void JSON::SaveLevelTiles(int grid, Object * tiles, Tile_Type type, const std::string & file, const std::string & path)
+{
+	TilesToDocument(grid, tiles, type, path);
 }
 
 void JSON::LoadLevel(const std::string& file, const std::string& path)

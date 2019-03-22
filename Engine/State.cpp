@@ -24,11 +24,25 @@ void State::ChangeLevel(std::string ID)
 	change_level = ID;
 }
 
-void State::Load()
+void State::LoadLevel()
 {
-	//AudioManager_.LoadSong("asset/sounds/bgm.mp3");
-	//AudioManager_.LoadSong("asset/sounds/plaid.mp3");
-	//AudioManager_.PlaySong("asset/sounds/plaid.mp3");
+	JSON_.LoadLevel(level_indicator + "/", level_indicator);
+}
+
+void State::SaveLevel()
+{
+	for (auto& i : Objectmanager_.GetObjectMap())
+	{
+		JSON_.SaveLevelObject(i.get(),level_indicator + "/", level_indicator);
+	}
+	for(auto& i : Tile_Map_.GetGraphicsTiles())
+	{
+		JSON_.TilesToDocument(i.first, i.second, Tile_Type::Graphical, level_indicator + "/");
+	}
+	for (auto& i : Tile_Map_.GetPhysicalTiles())
+	{
+		JSON_.TilesToDocument(i.first,i.second, Tile_Type::Physical, level_indicator+"/");
+	}
 }
 
 void State::UnLoad()

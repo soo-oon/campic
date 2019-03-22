@@ -46,6 +46,7 @@ void StateManager::AddStage(std::string ID, State* state)
 			m_currentState = first_level.get();
 		}
 
+		m_currentState->SetLevelIndicator(ID);
 		m_currentState->Initialize();
 	}
 }
@@ -58,7 +59,7 @@ void StateManager::ChangeStage()
 	m_currentState->ResetLevelChange();
 	m_currentState = states.find(next_level)->second.get();
 
-	m_currentState->Load();
+	m_currentState->LoadLevel();
 
 	m_currentState->Initialize();
 	Physics_.ResetPreviousSize();
@@ -83,6 +84,12 @@ void StateManager::Update(float dt)
 	{
 		m_currentState->Update(dt);
 	}
+
+	if (Input::IsKeyTriggered(GLFW_KEY_F1))
+		m_currentState->SaveLevel();
+
+	if (Input::IsKeyTriggered(GLFW_KEY_F2))
+		m_currentState->LoadLevel();
 }
 
 void StateManager::Quit()

@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include "level2.hpp"
 #include "SplashScreen.hpp"
 #include "JSON.hpp"
+#include "Level1.hpp"
 
 int main()
 {
@@ -27,6 +28,7 @@ int main()
     engine.Initialize();
 
     //StateManager_.AddStage("Splash_Screen", new SplashScreen());
+	StateManager_.AddStage("Level1", new Level1());
     StateManager_.AddStage("remake", new level2());
 
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());

@@ -37,15 +37,18 @@ public:
 	virtual void ChangeLevel(std::string ID);
 
 	void ResetLevelChange() { level_change = false; }
-	void Load();
+	void SaveLevel();
+	void LoadLevel();
 	void UnLoad();
 
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
+	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
 
 	State_Information information_ = State_Information::None;
 
 private:
+	std::string level_indicator;
 	std::string change_level;
 	vector2 player_pos;
 

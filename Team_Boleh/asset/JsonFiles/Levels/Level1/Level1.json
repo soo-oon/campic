@@ -1,13 +1,13 @@
 {
     "Object": {
         "Type": {
-            "type": 8,
+            "type": 9,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 100.0,
-                "y": -150.0
+                "x": 135.0,
+                "y": -113.47039031982422
             },
             "scale": {
                 "x": 50.0,
@@ -20,8 +20,8 @@
         "Animation": {
             "map": {
                 "path": {
-                    "id": "rigsdfsfht",
-                    "path": "asset/images/Enemies/1_Right.png"
+                    "id": "right",
+                    "path": "asset/images/Enemies/1_Left.png"
                 },
                 "info": {
                     "image_frames": 5,
@@ -41,13 +41,13 @@
     },
     "Object": {
         "Type": {
-            "type": 3,
+            "type": 9,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 100.0,
-                "y": 0.0
+                "x": -140.0,
+                "y": 316.31170654296877
             },
             "scale": {
                 "x": 50.0,
@@ -57,7 +57,19 @@
             "depth": 0.0
         },
         "Sprite": {},
-        "Animation": {},
+        "Animation": {
+            "map": {
+                "path": {
+                    "id": "fffff",
+                    "path": "asset/images/Enemies/2_Left.png"
+                },
+                "info": {
+                    "image_frames": 4,
+                    "update_frames": 0.20000000298023225,
+                    "is_repeats": true
+                }
+            }
+        },
         "RigidBody": true,
         "Collision": {
             "id": 0,

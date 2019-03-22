@@ -246,7 +246,7 @@ void Imgui_System::Editor(bool show_window)
 	{
 		for(auto& obj : Objectmanager_.GetObjectMap())
 		{
-			JSON_.ObjectsToDocument(obj.get());
+			//JSON_.ObjectsToDocument(obj.get());
 		}
 		JSON_.GetObjectDocument().SetObject();
 	}
@@ -262,7 +262,7 @@ void Imgui_System::Editor(bool show_window)
 	{
 		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
 		{
-			JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
+			//JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
 		}
 		JSON_.GetTileDocument().SetObject();
 	}

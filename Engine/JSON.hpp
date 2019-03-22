@@ -7,7 +7,7 @@ File Name: JSON.hpp
 Language: C++
 Platform: Visual Studio 2017
 Project: sword of souls
-Primary : Ji Hun Park
+Primary : Kang Tae Wook
 Secondary :
 Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
@@ -46,13 +46,14 @@ public:
 	Document LoadObjectDocumentFromJson(const std::string& file, const std::string& path);
 
 	//Tiles
-	void TilesToDocument(int grid_, Object * obj, Tile_Type type);
-	void SaveTilesToJson(Tile_Type type);
+	void TilesToDocument(int grid_, Object * obj, Tile_Type type, const std::string& path);
+	void SaveTilesToJson(Tile_Type type, const std::string& path);
 	void LoadTilesFromJson(Tile_Type type, const std::string& file);
 	Document LoadTilesDocumentFromJson(Tile_Type type, const std::string& file);
 
 	//Levels
-	void SaveLevel(const std::string& file, const std::string& path);
+	void SaveLevelObject(Object* obj, const std::string& file, const std::string& path);
+	void SaveLevelTiles(int grid, Object* tiles, Tile_Type type, const std::string& file, const std::string& path);
 	void LoadLevel(const std::string& file, const std::string& path);
 
 	//Helper class
