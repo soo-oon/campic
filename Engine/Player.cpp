@@ -51,24 +51,24 @@ void Player::MovePlayer()
 	if (Input::IsKeyTriggered(GLFW_KEY_D))
 	{
 		object->GetComponentByTemplate<Animation>()->SetFlip(false);
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity({ 100, 0 });
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, 0 });
 	}
 	if (Input::IsKeyTriggered(GLFW_KEY_S))
 	{
 		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -50 });
 	}
-        if (object->GetComponentByTemplate<RigidBody>()->GetRest() == false)
+        if (object->GetComponentByTemplate<RigidBody>()->GetJumping() == false)
         {
             if (Input::IsKeyTriggered(GLFW_KEY_W))
             {
                 object->GetComponentByTemplate<Collision>()->SetIsGround(false);
-                object->GetComponentByTemplate<RigidBody>()->AddVelocity({ 0,150 });
-                object->GetComponentByTemplate<RigidBody>()->SetRest(true);
+                object->GetComponentByTemplate<RigidBody>()->SetVelocity({ object->GetComponentByTemplate<RigidBody>()->GetVelocity().x,100 });
+                object->GetComponentByTemplate<RigidBody>()->SetJumping(true);
             }
         }
 	if (Input::IsKeyTriggered(GLFW_KEY_A))
 	{
 		object->GetComponentByTemplate<Animation>()->SetFlip(true);
-		object->GetComponentByTemplate<RigidBody>()->AddVelocity({ -100, 0 });
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
 	}
 }

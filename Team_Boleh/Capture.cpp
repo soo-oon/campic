@@ -67,6 +67,8 @@ void Capture::Capturing()
 				(min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
 			{
 				Object* temp = new Object(*obj.get());
+                                temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+                                temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 				temp->SetObjectType(ObjectType::Capture_Obj);
 
 				if(auto temp_animation = temp->GetComponentByTemplate<Animation>();

@@ -7,8 +7,9 @@ class Capture : public Component
 {
 public:
 	Capture(vector2 pos)
-		:reset_pos(pos)
-	{}
+        {
+            pos;
+        }
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
@@ -20,6 +21,6 @@ private:
 	void CreateCaptureObject();
 
 	bool cheese = false;
-	vector2 reset_pos;
+	vector2 reset_pos = vector2{0,0};
 	std::vector<Object*> capture_object;
 };

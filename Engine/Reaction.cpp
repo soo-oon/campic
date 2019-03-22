@@ -15,59 +15,63 @@ Creation date: 2018/12/14
 
 #include "Reaction.hpp"
 
-void Reaction(Object* object, Object* di_object,float bounce)
+//void Reaction(Object* object, Object* di_object,float bounce)
+//{
+//	if (object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::stop)
+//	{
+//		StopReaction(object);
+//	}
+//        if (di_object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::stop)
+//        {
+//            StopReaction(di_object);
+//        }
+//	else if (object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::bounce)
+//	{
+//		BounceReaction(object);
+//	}
+//	else if(object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::none)
+//	{
+//	}
+//	if(object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::damaged)
+//	{
+//		if (object->GetComponentByTemplate<Collision>()->GetIsDamaged())
+//		{
+//			AttackedReaction(object, di_object); 
+//		}
+//		object->GetComponentByTemplate<Collision>()->Nohit();
+//	}
+//	else if (di_object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::damaged)
+//	{
+//		if (di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
+//		{
+//			AttackedReaction(di_object, object);
+//		}
+//		di_object->GetComponentByTemplate<Collision>()->Nohit();
+//	}
+//	if (object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::exit_)
+//	{
+//			DoorReaction(object);
+//	}
+//	if (di_object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::exit_)
+//	{
+//			DoorReaction(di_object);
+//	}
+//	else if (di_object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::bounce)
+//	{
+//		BounceReaction(di_object);
+//	}
+//	else if (di_object->GetComponentByTemplate<Collision>()->GetJumpingitutionType() == RestitutionType::none)
+//	{
+//	}
+//}
+void StopReaction(Object* object,bool ground)
 {
-	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
-	{
-		StopReaction(object);
-	}
-        if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::stop)
-        {
-            StopReaction(di_object);
-        }
-	else if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::bounce)
-	{
-		BounceReaction(object);
-	}
-	else if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::none)
-	{
-	}
-	if(object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
-	{
-		if (object->GetComponentByTemplate<Collision>()->GetIsDamaged())
-		{
-			AttackedReaction(object, di_object); 
-		}
-		object->GetComponentByTemplate<Collision>()->Nohit();
-	}
-	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::damaged)
-	{
-		if (di_object->GetComponentByTemplate<Collision>()->GetIsDamaged())
-		{
-			AttackedReaction(di_object, object);
-		}
-		di_object->GetComponentByTemplate<Collision>()->Nohit();
-	}
-	if (object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit_)
-	{
-			DoorReaction(object);
-	}
-	if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::exit_)
-	{
-			DoorReaction(di_object);
-	}
-	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::bounce)
-	{
-		BounceReaction(di_object);
-	}
-	else if (di_object->GetComponentByTemplate<Collision>()->GetRestitutionType() == RestitutionType::none)
-	{
-	}
-}
-void StopReaction(Object* object)
-{
-	object->GetComponentByTemplate<RigidBody>()->SetVelocity({object->GetComponentByTemplate<RigidBody>()->GetVelocity().x , 0});
-        object->GetComponentByTemplate<Collision>()->SetIsGround(true);
+    if(!ground)
+    {
+        object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+    }
+        object->GetComponentByTemplate<Collision>()->SetIsGround(ground);
+        object->GetComponentByTemplate<RigidBody>()->SetJumping(!ground);
         object->GetTransform().SetTranslation({
                 object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().x,
                 object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().y });

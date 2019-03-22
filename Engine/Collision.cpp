@@ -40,20 +40,20 @@ void Collision::Update(float dt)
 
 	if (restitution_ != RestitutionType::exit_)
 		isdoor = false;
-	if(GetRestitutionType() != RestitutionType::get)
-	SetRestitutionType(RestitutionType::none);
+	if(GetJumpingitutionType() != RestitutionType::get)
+	SetJumpingitutionType(RestitutionType::none);
 }
 
 void Collision::Delete()
 {
 }
 
-void Collision::SetRestitutionType(RestitutionType restitution)
+void Collision::SetJumpingitutionType(RestitutionType restitution)
 {
 	restitution_ = restitution;
 }
 
-RestitutionType & Collision::GetRestitutionType()
+RestitutionType & Collision::GetJumpingitutionType()
 {
     return restitution_;
 }

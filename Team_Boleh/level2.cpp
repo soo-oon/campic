@@ -103,22 +103,22 @@ void level2::Update(float dt)
 
     if (!temp)
         std::cout << " noeno" << std::endl;
-    if (Input::IsKeyTriggered(GLFW_KEY_D))
-    {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({100, 0});
-    }
-    if (Input::IsKeyTriggered(GLFW_KEY_S))
-    {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -100 });
-    }
-    if (Input::IsKeyTriggered(GLFW_KEY_W))
-    {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,100});
-    }
-    if (Input::IsKeyTriggered(GLFW_KEY_A))
-    {
-        temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
-    }
+    //if (Input::IsKeyTriggered(GLFW_KEY_D))
+    //{
+    //    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({100, 0});
+    //}
+    //if (Input::IsKeyTriggered(GLFW_KEY_S))
+    //{
+    //    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -100 });
+    //}
+    //if (Input::IsKeyTriggered(GLFW_KEY_W))
+    //{
+    //    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,100});
+    //}
+    //if (Input::IsKeyTriggered(GLFW_KEY_A))
+    //{
+    //    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
+    //}
 
     if (Input::IsKeyTriggered(GLFW_KEY_O))
     {
