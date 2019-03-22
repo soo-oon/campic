@@ -102,7 +102,7 @@ void level2::Update(float dt)
 	//obj[2]->GetComponentByTemplate<Camera>()->SetCenter(obj[0]->GetTransform().GetTranslation());
 
     if (!temp)
-        std::cout << " noeno" << std::endl;
+        std::cout << " noeno" << std::endl;/*
     if (Input::IsKeyTriggered(GLFW_KEY_D))
     {
         temp->GetComponentByTemplate<RigidBody>()->SetVelocity({100, 0});
@@ -118,7 +118,7 @@ void level2::Update(float dt)
     if (Input::IsKeyTriggered(GLFW_KEY_A))
     {
         temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
-    }
+    }*/
 
     if (Input::IsKeyTriggered(GLFW_KEY_O))
     {
