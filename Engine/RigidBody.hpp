@@ -31,16 +31,18 @@ public:
     void AddVelocity(vector2 velocity_) { m_velocity += velocity_; }
     void AddForce(vector2 force) { m_force_accumlator += force; }
 public:
-    void SetMass(float mass) { inverse_mass = 1.f / mass; }
+    void SetMass(float mass) { m_inverse_mass = 1.f / mass; }
     void SetVelocity(vector2 velocity_) { m_velocity = velocity_; }
     void SetViewingDirection(vector2 direction) { m_viewing_direction = direction; }
-    void SetRest(bool rest) { isRest = rest; }
+    void SetJumping(bool rest) { isJumping = rest; }
+    void SetGravity(float gravity_) { m_gravity = gravity_; }
 public:
     vector2 GetPreviousPosition() { return m_previous_position; }
     vector2 GetVelocity() { return m_velocity; }
     vector2 GetPosition(){ return m_position; }
     vector2 GetViewingDirection() { return m_viewing_direction; }
-    bool GetRest() { return isRest; }
+    float GetGravity() { return m_gravity; }
+    bool GetJumping() { return isJumping; }
     
 
 private:
@@ -49,11 +51,11 @@ private:
     vector2 m_velocity;
     vector2 m_position;
     vector2 m_viewing_direction;
-    float friction = 0.99f;
-    float gravity = 1.f;
-    float inverse_mass = 1;
+    float m_friction = 0.99f;
+    float m_gravity = 1.5f;
+    float m_inverse_mass = 1;
 
-    bool isRest = false;
+    bool isJumping = false;
     bool collision_switch = false;
 
     Transform transform;

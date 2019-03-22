@@ -27,7 +27,7 @@ bool RigidBody::Initialize(Object* Ob)
 	    m_force_accumlator = { 0, 0 };
 	    m_velocity = { 0, 0 };
             m_viewing_direction = { 0,0 };
-            isRest = false;
+            isJumping = false;
 	}
         m_velocity = { 0, 0 };
     return true;
@@ -48,14 +48,14 @@ void RigidBody::Update(float dt)
         m_viewing_direction = normalize(m_velocity);
     
 	// calculate current velocity.
-	m_velocity += inverse_mass * (m_force_accumlator * dt);
+	m_velocity += m_inverse_mass * (m_force_accumlator * dt);
     
 	// zero out accumulated force
 	m_force_accumlator = {0, 0};
 
-	//friction always activated
-	//velocity *= friction;
-        m_velocity.y -= gravity;
+	//m_friction always activated
+	m_velocity *= m_friction;
+        m_velocity.y -= m_gravity;
 
 	// integrate position
 	if (magnitude(m_velocity) < 0.001f)
@@ -65,15 +65,12 @@ void RigidBody::Update(float dt)
         {
             object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
                 (object->GetTransform().GetTranslation().y + (m_velocity* dt).y)});
-
-            std::cout << object->GetComponentByTemplate<RigidBody>()->GetVelocity().x << ", "
-                << object->GetComponentByTemplate<RigidBody>()->GetVelocity().y << std::endl;
         }
         else
         {
             object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
                 (object->GetTransform().GetTranslation().y) });
-            isRest = false;
+            isJumping = false;
         }
 }
 

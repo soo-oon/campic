@@ -57,6 +57,11 @@ void Physics::Update(float dt)
                         projectile_list.push_back(obj->get());
                         ++obj;
                     }
+                    else if (obj->get()->GetObjectType() == ObjectType::Capture_Obj)
+                    {
+                        capture_list.push_back(obj->get());
+                        ++obj;
+                    }
                     else
                         ++obj;
                 }
@@ -76,26 +81,34 @@ void Physics::Update(float dt)
                 for (auto tile : tile_list) {
                     if (IntersectionCheck_AABB(collision_list[i], tile))
                     {
-                        StopReaction(collision_list[i]);
+                        StopReaction(collision_list[i], false);
                     }
                 }
                 if (ground_list.size() > 0) {
                     for (auto ground : ground_list) {
                         if (IntersectionCheck_AABB(collision_list[i], ground))
                         {
-                            StopReaction(collision_list[i]);
+                            StopReaction(collision_list[i], true);
                         }
                     }
                 }
                 else
                     collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
 
+                if (capture_list.size() > 0) {
+                    for (auto capture : capture_list) {
+                        if (IntersectionCheck_AABB(collision_list[i], capture))
+                        {
+                            StopReaction(collision_list[i], false);
+                        }
+                    }
+                }
                 if(collision_list[i]->GetObjectType() == ObjectType::Player)
                 {
                     for (auto projectile : projectile_list) {
                         if (IntersectionCheck_AABB(collision_list[i], projectile))
                         {
-                            StopReaction(collision_list[i]);
+                            StopReaction(collision_list[i], true);
                         }
                     }
                 }
@@ -134,22 +147,22 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
     if (object1.GetObjectType() == ObjectType::None
         && object2.GetObjectType() == ObjectType::Wall)
     {
-        object1.GetComponentByTemplate<Collision>()->SetRestitutionType(stop);
-        object2.GetComponentByTemplate<Collision>()->SetRestitutionType(none);
+        object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
+        object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
     }
 
     //if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Wall)
     //{
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(stop);
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(none);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword)
     //{
     //    if (object2.GetComponentByTemplate<Collision>()->GetIsDamaged())
     //    {
-    //        object2.GetComponentByTemplate<Collision>()->SetRestitutionType(damaged);
+    //        object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(damaged);
     //        object1.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
     //    }
     //}
@@ -158,7 +171,7 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
     //{
     //    if (object1.GetComponentByTemplate<Collision>()->GetIsDamaged())
     //    {
-    //        object1.GetComponentByTemplate<Collision>()->SetRestitutionType(damaged);
+    //        object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(damaged);
     //        object2.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
     //    }
     //}
@@ -166,27 +179,27 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Shooting)
     //{
     //    object1.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(get);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
     //    previous_size -= 1;
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Shooting
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
     //{
     //    object2.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(get);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
     //    previous_size -= 1;
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Item)
     //{
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(get);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
     //    previous_size -= 1;
     //    object1.GetComponentByTemplate<Player>()->SetCardList(object2.GetComponentByTemplate<Card>()->GetName());
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Item
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
     //{
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(get);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
     //    previous_size -= 1;
     //    if (object1.GetComponentByTemplate<Card>() != nullptr)
     //        object2.GetComponentByTemplate<Player>()->SetCardList(object1.GetComponentByTemplate<Card>()->GetName());
@@ -194,38 +207,38 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
     //{
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(stop);
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(stop);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
     //{
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(bounce);
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(bounce);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
     //    object2.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
     //{
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(bounce);
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(bounce);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
     //    object1.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
     //}
     //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword)
     //{
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(none);
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(none);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
     //}
     //if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Door
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
     //{
-    //    object1.GetComponentByTemplate<Collision>()->SetRestitutionType(exit_);
+    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(exit_);
     //}
     //if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
     //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Door)
     //{
-    //    object2.GetComponentByTemplate<Collision>()->SetRestitutionType(exit_);
+    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(exit_);
     //}
 }
 

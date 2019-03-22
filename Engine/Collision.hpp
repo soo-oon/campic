@@ -62,7 +62,7 @@ public:
     void SetIsDoorClose();
     void SetIsGround(bool ground) { isGround = ground; }
     void SetCollisionScale(vector2 size_);
-    void SetRestitutionType(RestitutionType restitution);
+    void SetJumpingitutionType(RestitutionType restitution);
 
 public:
     bool GetisGet() { return isGet; }
@@ -72,7 +72,7 @@ public:
     std::vector<vector2> GetCollisionCalculateTRS();
     Mesh& GetCollsionMesh();
     Transform& GetCollisionTransform();
-    RestitutionType& GetRestitutionType();
+    RestitutionType& GetJumpingitutionType();
 
 
 
