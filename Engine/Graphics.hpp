@@ -22,6 +22,7 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include "Camera.hpp"
 #include "Font.hpp"
+#include "Particle_Generator.hpp"
 
 //class Animation;
 
@@ -85,20 +86,40 @@ private:
 
 	affine2d CalculateModelToNDCTransform(const Transform& transform) const;
 
-	void DrawParticle(Object* obj);
+	//void DrawParticle(Object* obj);
 
+	void DrawSolidShape(Object* obj);
+
+	void DrawSprite(Object* obj, Sprite* sprite_);
+
+	void DrawCollisionBox(Object* obj, Collision* collision);
+
+	void DrawAnimation(Object* obj, Animation* animation_);
+
+	void DrawParticle(Particle_Generator* particles);
+
+	void DrawFont(Object* obj, Font* font);
+
+	/*
 	void Draw(const Transform& transform, const std::vector<solidshape>& vertexes,
 		PointListType draw_type, Color color);
+
 	void Draw(const Transform& transform, const std::vector<collsionbox>& vertexes,
 		PointListType draw_type, Color color);
+
 	void Draw(const Transform& transform, const std::vector<texture>& vertexes,
 		PointListType draw_type, Color color, Sprite* sprite);
+
 	void Draw(const Transform& transform, const std::vector<animaition>& vertexes,
 		PointListType draw_type, Color color, Sprite* sprite);
+
 	void Draw(const Transform& transform, const std::vector<particle>& vertexes,
 		PointListType draw_type, Color color, Sprite* sprite);
+
 	void Draw(const Transform& transform, const std::vector<font>& vertexes,
 		PointListType draw_type, Color color, Font* font, int index);
+	*/
+
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();
 	void DescribParticlePosition();
