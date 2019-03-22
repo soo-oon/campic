@@ -31,7 +31,7 @@ void JSON::PlayerToDoc(Object* obj)
 
 }
 
-void JSON::ObjectsToDocument(Object* obj)
+void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)
 {
 	//Trees for object info
 	Value objTree(kArrayType);
@@ -107,7 +107,7 @@ void JSON::ObjectsToDocument(Object* obj)
 
 	ObjectDocument.Parse(ObjectBuffer.GetString());
 
-	SaveObjectsToJson();
+	SaveObjectsToJson(file, path);
 }
 
 Value JSON::ComponentAnimation(Object* obj)
@@ -409,10 +409,11 @@ Value JSON::ComponentFont(Object * obj)
 	return container;
 }
 
-void JSON::SaveObjectsToJson()
+void JSON::SaveObjectsToJson(const std::string& file, const std::string& path)
 {
 	std::string filename(file_path);
-	filename.append("Objects.json");
+	filename.append(file);
+	filename.append(path);
 
 	FILE* fp = fopen(filename.c_str(), "w+");
 		
@@ -541,9 +542,9 @@ Document JSON::LoadTilesDocumentFromJson(Tile_Type type, const std::string& file
 	return Tiles;
 }
 
-void JSON::SaveLevel()
+void JSON::SaveLevel(const std::string& file, const std::string& path)
 {
-	SaveObjectsToJson();
+	SaveObjectsToJson(file, path);
 	SaveTilesToJson(Tile_Type::Graphical);
 	SaveTilesToJson(Tile_Type::Physical);
 }

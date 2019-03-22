@@ -40,8 +40,8 @@ public:
 	void PlayerToDoc(Object* obj);
 
 	//Objects
-	void ObjectsToDocument(Object* obj);
-	void SaveObjectsToJson();
+	void ObjectsToDocument(Object* obj, const std::string& file, const std::string& path);
+	void SaveObjectsToJson(const std::string& file, const std::string& path);
 	void LoadObjectFromJson(const std::string& file, const std::string& path);
 	Document LoadObjectDocumentFromJson(const std::string& file, const std::string& path);
 
@@ -52,7 +52,7 @@ public:
 	Document LoadTilesDocumentFromJson(Tile_Type type, const std::string& file);
 
 	//Levels
-	void SaveLevel();
+	void SaveLevel(const std::string& file, const std::string& path);
 	void LoadLevel(const std::string& file, const std::string& path);
 
 	//Helper class
@@ -77,7 +77,6 @@ private:
 	StringBuffer TileBuffer{};
 
 	std::string file_path = "asset/JsonFiles/Levels/";
-
 };
 
 extern JSON JSON_;
