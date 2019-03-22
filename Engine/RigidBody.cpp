@@ -37,6 +37,8 @@ void RigidBody::Update(float dt)
 {
     if(m_velocity.x > 100)
         m_velocity.x = 100;
+	if (m_velocity.x < -100)
+		m_velocity.x = -100;
     if (m_velocity.y > 100)
         m_velocity.y = 100;
     if (m_velocity.y < -100)
