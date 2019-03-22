@@ -108,6 +108,7 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="MapManger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp" />
@@ -208,6 +209,7 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.hpp" />
+    <ClInclude Include="MapManger.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
