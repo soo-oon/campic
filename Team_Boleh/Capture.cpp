@@ -25,7 +25,7 @@ void Capture::Update(float dt)
 		cheese = true;
 		object->GetComponentByTemplate<Animation>()->ChangeAnimation("cheese");
 		Capturing();
-		CreateCaptureObject();
+		//CreateCaptureObject();
 	}
 
 	if(cheese)
@@ -50,6 +50,7 @@ void Capture::Capturing()
 	vector2 object_size = object->GetTransform().GetScale()/2;
 	vector2 min_pos = { object_pos.x - object_size.x, object_pos.y - object_size.y};
 	vector2 max_pos = { object_pos.x + object_size.x, object_pos.y + object_size.y };
+        
 
 	for(auto& obj : Objectmanager_.GetObjectMap())
 	{
@@ -58,41 +59,46 @@ void Capture::Capturing()
 		{
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
 			vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()/2;
+                        auto player_ = Objectmanager_.GetPlayer();
 
 			vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
 			vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };
-			
 
-			if ((min_obj.x >= min_pos.x)&& (max_obj.x <= max_pos.x) && 
-				(min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
-			{
-				Object* temp = new Object(*obj.get());
+                        vector2 reset_min = { reset_pos.x - player_->GetTransform().GetScale().x / 2, reset_pos.y - player_->GetTransform().GetScale().x / 2 };
+                        vector2 reset_max = { reset_pos.x + player_->GetTransform().GetScale().x / 2, reset_pos.y + player_->GetTransform().GetScale().x / 2 };
+
+                        if ((min_obj.x >= reset_max.x) || (max_obj.x <= reset_min.x) ||
+                            (min_obj.y >= reset_max.y) || (max_obj.y <= reset_min.y))
+                        {
+                            if ((min_obj.x >= min_pos.x) && (max_obj.x <= max_pos.x) &&
+                                (min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
+                            {
+                                Object* temp = new Object(*obj.get());
                                 temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
                                 temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-				temp->SetObjectType(ObjectType::Capture_Obj);
+                                temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
+                                temp->SetObjectType(ObjectType::Capture_Obj);
 
-				if(auto temp_animation = temp->GetComponentByTemplate<Animation>();
-					temp_animation != nullptr)
-				{
-					temp_animation->SetIsActive(false);
-				}
+                                if (auto temp_animation = temp->GetComponentByTemplate<Animation>();
+                                    temp_animation != nullptr)
+                                {
+                                    temp_animation->SetIsActive(false);
+                                }
 
-				capture_object.push_back(temp);
+                                player_->SetTranslation(reset_pos);
 
-				auto player_ = Objectmanager_.GetPlayer();
-				player_->SetTranslation(reset_pos);
-
-				std::cout << capture_object.size() << std::endl;
-			}
+                                Objectmanager_.AddObject(temp);
+                                break;
+                            }
+                        }
 		}
 	}
 }
 
-void Capture::CreateCaptureObject()
-{
-	for(auto c_obj : capture_object)
-	{
-		Objectmanager_.AddObject(c_obj);
-	}
-	capture_object.clear();
-}
+//void Capture::CreateCaptureObject()
+//{
+//	for(auto c_obj : capture_object)
+//	{
+//	}
+//	capture_object.clear();
+//}

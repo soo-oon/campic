@@ -27,6 +27,7 @@ bool RigidBody::Initialize(Object* Ob)
 	    m_force_accumlator = { 0, 0 };
 	    m_velocity = { 0, 0 };
             m_viewing_direction = { 0,0 };
+            m_next_position = { 0,0 };
             isJumping = false;
 	}
         m_velocity = { 0, 0 };
@@ -63,17 +64,25 @@ void RigidBody::Update(float dt)
 	if (magnitude(m_velocity) < 0.001f)
 		m_velocity = 0;	
         // integrate position
+        if (isMoving) {
+            if (!object->GetComponentByTemplate<Collision>()->GetIsGround())
+            {
+                object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                    (object->GetTransform().GetTranslation().y + (m_velocity* dt).y) });
+            }
+            else
+            {
+                object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                    (object->GetTransform().GetTranslation().y) });
+                isJumping = false;
+            }
+        }
         if (!object->GetComponentByTemplate<Collision>()->GetIsGround())
-        {
-            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
-                (object->GetTransform().GetTranslation().y + (m_velocity* dt).y)});
-        }
+            m_next_position = { (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                    (object->GetTransform().GetTranslation().y + (m_velocity* dt).y) };
         else
-        {
-            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
-                (object->GetTransform().GetTranslation().y) });
-            isJumping = false;
-        }
+            m_next_position = { (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                (object->GetTransform().GetTranslation().y) };
 }
 
 void RigidBody::Delete()

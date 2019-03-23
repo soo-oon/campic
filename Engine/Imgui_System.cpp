@@ -246,7 +246,7 @@ void Imgui_System::Editor(bool show_window)
 	{
 		for(auto& obj : Objectmanager_.GetObjectMap())
 		{
-			JSON_.ObjectsToDocument(obj.get());
+			//JSON_.ObjectsToDocument(obj.get());
 		}
 		JSON_.GetObjectDocument().SetObject();
 	}

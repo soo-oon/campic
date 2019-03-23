@@ -64,17 +64,21 @@ Creation date: 2018/12/14
 //	{
 //	}
 //}
-void StopReaction(Object* object,bool ground)
+void StopReaction(Object* object, Object* object_,bool ground)
 {
     if(!ground)
     {
         object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
     }
+    if (object_->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation()  
+        != object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation())
+    {
         object->GetComponentByTemplate<Collision>()->SetIsGround(ground);
         object->GetComponentByTemplate<RigidBody>()->SetJumping(!ground);
         object->GetTransform().SetTranslation({
                 object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().x,
                 object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().y });
+    }
 }
 void BounceReaction(Object *object, float bounce)
 {
@@ -128,16 +132,18 @@ void StopReaction_dev(Object* object, Object* static_object)
                     - object->GetTransform().GetScale().x/2 -1.f,
                 object->GetTransform().GetTranslation().y });
         }
-        else
+        else {
             object->GetTransform().SetTranslation(
                 { object->GetTransform().GetTranslation().x ,
-                static_object->GetTransform().GetTranslation().y + static_object->GetTransform().GetScale().y /2
-                + object->GetTransform().GetScale().y/2 + 1.f});
+                static_object->GetTransform().GetTranslation().y + static_object->GetTransform().GetScale().y / 2
+                + object->GetTransform().GetScale().y / 2 + 1.f });
+            object->GetComponentByTemplate<Collision>()->SetIsGround(true);
+        }
     }
     else if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x <
         object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
     {
-        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y >= 0)
             object->GetTransform().SetTranslation(
                 { object->GetTransform().GetTranslation().x ,
                 static_object->GetTransform().GetTranslation().y - static_object->GetTransform().GetScale().y /2
@@ -149,7 +155,6 @@ void StopReaction_dev(Object* object, Object* static_object)
                 object->GetTransform().GetTranslation().y  });
 
     }
-    object->GetComponentByTemplate<Collision>()->SetIsGround(true);
        
 }
 
