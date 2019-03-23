@@ -25,7 +25,7 @@ bool Player::Initialize(Object * Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
-		object->SetTranslation({ 100,-150 });
+		object->SetTranslation({ 0,0 });
 		object->SetScale({ 50.0f, 50.0f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
 		object->SetDepth(-0.5f);
@@ -48,10 +48,10 @@ void Player::Delete()
 
 void Player::MovePlayer()
 {
-	if (Input::IsKeyTriggered(GLFW_KEY_D))
+	if (Input::IsKeyPressed(GLFW_KEY_D))
 	{
 		object->GetComponentByTemplate<Animation>()->SetFlip(false);
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, 0 });
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
 	}
 	if (Input::IsKeyTriggered(GLFW_KEY_S))
 	{
@@ -69,6 +69,6 @@ void Player::MovePlayer()
 	if (Input::IsKeyTriggered(GLFW_KEY_A))
 	{
 		object->GetComponentByTemplate<Animation>()->SetFlip(true);
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, 0 });
+		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
 	}
 }

@@ -87,12 +87,12 @@ void Engine::System_Update()
 	Application_.Update(dt);
 	StateManager_.Update(dt);
 	Graphics_.Update(dt);
+        Physics_.Update(dt);
 	Objectmanager_.Update(dt);
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
 	JSON_.Update(dt);
 	HUD_.Update(dt);
-	Physics_.Update(dt);
 
 	Tile_Map_.Update(dt);
 	// Should Fix All of Update ways (Should Fix Physics class structure)

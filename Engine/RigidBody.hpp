@@ -34,15 +34,19 @@ public:
     void SetMass(float mass) { m_inverse_mass = 1.f / mass; }
     void SetVelocity(vector2 velocity_) { m_velocity = velocity_; }
     void SetViewingDirection(vector2 direction) { m_viewing_direction = direction; }
-    void SetJumping(bool rest) { isJumping = rest; }
+    void SetNextPosition(vector2 position) { m_next_position = position; }
     void SetGravity(float gravity_) { m_gravity = gravity_; }
+    void SetJumping(bool rest) { isJumping = rest; }
+    void SetMoving(bool move) { isMoving = move; }
 public:
     vector2 GetPreviousPosition() { return m_previous_position; }
     vector2 GetVelocity() { return m_velocity; }
     vector2 GetPosition(){ return m_position; }
     vector2 GetViewingDirection() { return m_viewing_direction; }
+    vector2 GetNextPosition() { return m_next_position; }
     float GetGravity() { return m_gravity; }
     bool GetJumping() { return isJumping; }
+    bool GetMoving() { return isMoving; }
     
 
 private:
@@ -51,10 +55,12 @@ private:
     vector2 m_velocity;
     vector2 m_position;
     vector2 m_viewing_direction;
+    vector2 m_next_position;
     float m_friction = 0.99f;
     float m_gravity = 1.5f;
     float m_inverse_mass = 1;
 
+    bool isMoving = true;
     bool isJumping = false;
     bool collision_switch = false;
 
