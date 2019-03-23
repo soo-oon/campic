@@ -42,7 +42,8 @@ public:
 	// This is real intersection check which you use.
 	bool IntersectionCheck(Object object1, Object object2);
         // This is intersection check which is AABB version for thin 
-        bool IntersectionCheck_AABB(Object* object1, Object* object2);
+        bool IntersectionCheckAABB(Object* object1, Object* object2);
+        bool IntersectionCheckAABBPositionBase(Object* object1, Object* object2);
         
 	void ResetPreviousSize() { previous_size = 0; }
 

@@ -33,6 +33,7 @@ void Physics::Update(float dt)
     {
         if (Objectmanager_.GetObjectMap().size() != previous_size)
         {
+            capture_list.clear();
             collision_list.clear();
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
@@ -79,42 +80,64 @@ void Physics::Update(float dt)
                 TileCheck(collision_list[i]);
                 GroundCheck(collision_list[i]);
                 for (auto tile : tile_list) {
-                    if (IntersectionCheck_AABB(collision_list[i], tile))
+                    if (IntersectionCheckAABB(collision_list[i], tile))
                     {
-                        StopReaction(collision_list[i], false);
+                        StopReaction(collision_list[i],tile, false);
                     }
                 }
-                if (ground_list.size() > 0) {
-                    for (auto ground : ground_list) {
-                        if (IntersectionCheck_AABB(collision_list[i], ground))
-                        {
-                            StopReaction(collision_list[i], true);
+                if (capture_list.size() > 0) {
+                    for (auto capture : capture_list) {
+                        if (ground_list.size() > 0) {
+                            for (auto ground : ground_list) {
+                                if (IntersectionCheckAABB(collision_list[i], ground))
+                                {
+                                    StopReaction(collision_list[i], ground, true);
+                                }
+                            }
                         }
+                        if (IntersectionCheckAABB(collision_list[i], capture))
+                        {
+                            StopReaction(collision_list[i], capture, false);
+                            break;
+                        }
+                            if (capture->GetTransform().GetTranslation().y < collision_list[i]->GetTransform().GetTranslation().y)
+                            {
+                                if (IntersectionCheckAABBPositionBase(collision_list[i], capture))
+                                {
+                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(true);
+                                }
+                                else
+                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
+                            }
                     }
                 }
                 else
-                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
-
-                if (capture_list.size() > 0) {
-                    for (auto capture : capture_list) {
-                        if (IntersectionCheck_AABB(collision_list[i], capture))
-                        {
-                            StopReaction(collision_list[i], false);
+                {
+                    if (ground_list.size() > 0) {
+                        for (auto ground : ground_list) {
+                            if (IntersectionCheckAABB(collision_list[i], ground))
+                            {
+                                StopReaction(collision_list[i], ground, true);
+                            }
                         }
                     }
+                    else
+                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
                 }
+
+                
                 if(collision_list[i]->GetObjectType() == ObjectType::Player)
                 {
                     for (auto projectile : projectile_list) {
-                        if (IntersectionCheck_AABB(collision_list[i], projectile))
+                        if (IntersectionCheckAABB(collision_list[i], projectile))
                         {
-                            StopReaction(collision_list[i], true);
+                            StopReaction(collision_list[i],projectile, true);
                         }
                     }
                 }
                 //for(auto static_object : static_list)
                 //{
-                //    if (IntersectionCheck_AABB(collision_list[i], static_object))
+                //    if (IntersectionCheckAABB(collision_list[i], static_object))
                 //    {
                 //        StopReaction(collision_list[i]);
                 //    }
@@ -123,7 +146,7 @@ void Physics::Update(float dt)
                 {
                     if(i != j)
                     {
-                        if (IntersectionCheck_AABB(collision_list[i], collision_list[j]))
+                        if (IntersectionCheckAABB(collision_list[i], collision_list[j]))
                         {
                             CollReaction(collision_list[i], collision_list[j]);
                         }
@@ -339,7 +362,7 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
     return true;
 }
 
-bool Physics::IntersectionCheck_AABB(Object* object1, Object* object2)
+bool Physics::IntersectionCheckAABB(Object* object1, Object* object2)
 {
     std::vector<vector2> owner = object1->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
     std::vector<vector2> object = object2->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
@@ -353,6 +376,28 @@ bool Physics::IntersectionCheck_AABB(Object* object1, Object* object2)
         return false;
 
     return true;
+}
+
+bool Physics::IntersectionCheckAABBPositionBase(Object* object1, Object* object2)
+{
+    //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
+    vector2 min_obj = { object1->GetTransform().GetTranslation().x- object1->GetTransform().GetScale().x/2,
+        object1->GetTransform().GetTranslation().y - 1 - object1->GetTransform().GetScale().y/2 };
+    vector2 max_obj = { object1->GetTransform().GetTranslation().x + object1->GetTransform().GetScale().x/2,
+        object1->GetTransform().GetTranslation().y + object1->GetTransform().GetScale().y/2 };
+
+    vector2 min_pos = { object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale().x/2,
+        object2->GetTransform().GetTranslation().y - object2->GetTransform().GetScale().y/2 };
+    vector2 max_pos = { object2->GetTransform().GetTranslation().x + object2->GetTransform().GetScale().x/2,
+        object2->GetTransform().GetTranslation().y + object2->GetTransform().GetScale().y/2 };
+
+    if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||
+        (min_obj.y >= max_pos.y) || (max_obj.y <= min_pos.y))
+    {
+        return false;
+    }
+    else
+        return true;
 }
 
 

@@ -19,7 +19,7 @@ Creation date: 2018/12/14
 #include "RigidBody.hpp"
 
     void Reaction(Object* object, Object* di_object, float bounce = 10);
-    void StopReaction(Object* object,bool ground);
+    void StopReaction(Object* object,Object* object_,bool ground);
     void BounceReaction(Object* object, float bounce = 1);
     void AttackedReaction(Object* object, Object* di_object, float power = 50);
     void DisappearReaction(Object* object);

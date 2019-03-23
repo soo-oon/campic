@@ -166,9 +166,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Capture.cpp" />
-    <ClCompile Include="HUD_Level.cpp" />
+    <ClCompile Include="HUD_Level.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level3.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SplashScreen.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -185,9 +189,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Capture.hpp" />
-    <ClInclude Include="HUD_Level.hpp" />
+    <ClInclude Include="HUD_Level.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Level1.hpp" />
     <ClInclude Include="Level3.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="SplashScreen.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

@@ -48,6 +48,7 @@ public:
     void Compute_AABB(Mesh mesh, int num_point);
 
     void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
+    void ChangeCollisionBoxTranslation(vector2 translation) { collision_transform.SetTranslation(translation); }
 
     void ToggleIsDamaged();
     bool GetIsDamaged();

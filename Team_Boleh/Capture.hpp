@@ -6,19 +6,18 @@
 class Capture : public Component
 {
 public:
-	Capture(vector2 pos)
-        {
-            pos;
-        }
+	Capture(vector2 pos) : reset_pos(pos){}
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
 	void Delete() override;
 
+	void SetResetPosition(vector2 size) { reset_pos = size; }
+
 	std::vector<Object*>& GetCaptureObject() { return capture_object; }
 private:
 	void Capturing();
-	void CreateCaptureObject();
+	//void CreateCaptureObject();
 
 	bool cheese = false;
 	vector2 reset_pos = vector2{0,0};
