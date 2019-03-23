@@ -125,7 +125,8 @@ void Sprite::Bind(unsigned int slot) const
 
 void Sprite::ScreenShot(const std::string& file_path) const
 {
-	if (!stbi_write_png(file_path.c_str(), width, height, STBI_rgb_alpha, pixel, width*ChannelsPerColor))
+	if (!stbi_write_png(file_path.c_str(), width, height, STBI_rgb_alpha, 
+		pixel, width*ChannelsPerColor))
 		return;
 }
 

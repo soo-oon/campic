@@ -246,20 +246,10 @@ void Graphics::SetNDC()
 
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
-    affine2d myNDC;
+    affine2d complex_matrix;
 
-	myNDC = transform.GetModelToWorld();
-
-    if (temp_camera != nullptr)
-    {
-    	myNDC = projection * temp_camera->WorldToCamera() * myNDC;
-    }
-    else
-    {
-        myNDC = projection * myNDC;
-    }
-
-    return myNDC;
+	complex_matrix = projection * temp_camera->WorldToCamera() * complex_matrix;
+    return complex_matrix;
 }
 
 void Graphics::DrawSolidShape(Object* obj)
@@ -414,6 +404,7 @@ void Graphics::DrawAnimation(Object* obj, Animation* animation_)
 	{
 		to_ndc = projection * obj->GetTransform().GetModelToWorld();
 	}
+
 	const int texture_slot = 0;
 	if (lastBoundTexture != animation_->GetCurrentAnimation().sprites->GetTextureHandler())
 	{

@@ -57,6 +57,7 @@ void Capture::Capturing()
 			&& obj.get() != object)
 		{
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
+			
 			vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()/2;
 
 			vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
@@ -67,8 +68,8 @@ void Capture::Capturing()
 				(min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
 			{
 				Object* temp = new Object(*obj.get());
-                                temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-                                temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+                temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+                temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 				temp->SetObjectType(ObjectType::Capture_Obj);
 
 				if(auto temp_animation = temp->GetComponentByTemplate<Animation>();
