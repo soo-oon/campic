@@ -7,6 +7,7 @@ void Level1::Initialize()
 
 void Level1::Update(float dt)
 {
+
 }
 
 void Level1::ShutDown()

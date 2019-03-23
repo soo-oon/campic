@@ -54,8 +54,8 @@ void Engine::Update()
 		Graphics_.EndDraw();
 		IMGUI_.Draw();
 
-        if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
-            IsQuit = true;
+        //if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+            //IsQuit = true;
     }
 
     Quit();

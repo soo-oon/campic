@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "SplashScreen.hpp"
 #include "JSON.hpp"
 #include "Level1.hpp"
+#include "MainMenu.hpp"
 
 int main()
 {
@@ -29,7 +30,8 @@ int main()
 
     //StateManager_.AddStage("Splash_Screen", new SplashScreen());
 	StateManager_.AddStage("Level1", new Level1());
-    StateManager_.AddStage("remake", new level2());
+    //StateManager_.AddStage("remake", new level2());
+	//StateManager_.AddStage("MainMenu", new MainMenu());
 
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
     StateManager_->AddStage("StartMenu", new StartMenu());
