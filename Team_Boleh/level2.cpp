@@ -33,7 +33,7 @@ void level2::Initialize()
     temp->SetTranslation({ -400,0 });
     temp->SetScale({ 50.0f, 50.0f });
     temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    temp->SetDepth(-0.5f);
+    temp->SetDepth(-0.1f);
     temp->SetObjectType(ObjectType::Player);
     temp->AddInitComponent(new RigidBody());
     temp->AddInitComponent(new Collision(box_));
@@ -46,7 +46,7 @@ void level2::Initialize()
 	player_camera->SetMesh(mesh::CreateBox(1, {255,255,255,255}));
 	player_camera->SetObjectType(ObjectType::None);
 	player_camera->AddComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
-	player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
+	//player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
 	player_camera->AddComponent(new Capture(GetPlayerPosition()));
 
 
@@ -122,7 +122,7 @@ void level2::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
-		ChangeLevel("remake");
+		ChangeLevel("Level2");
 	}
 
 	// if (Input::IsKeyTriggered(GLFW_KEY_F1))
@@ -152,9 +152,6 @@ void level2::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_I))
 		Tile_Map_.Delete_Tile();
-
-    
-
 }
 
 void level2::ShutDown()

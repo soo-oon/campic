@@ -53,6 +53,9 @@ void Objectmanager::Update(float dt)
 
 		if (size != objects_.size())
 			break;
+
+		SetPlayer(object->get());
+		SetCaptureObject(object->get());
 	}
 }
 
@@ -89,16 +92,32 @@ void Objectmanager::AddObject(std::shared_ptr<Object> obj)
 		[](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
 }
 
-Object* Objectmanager::GetPlayer()
+void Objectmanager::SetCaptureObject(Object* obj)
 {
-	for(auto& obj : objects_)
+	if (StateManager_.GetCurrentState()->GetCaptureObjectPointer() == nullptr)
 	{
-		if(obj->GetObjectType() == ObjectType::Player)
+		for (auto& obj : objects_)
 		{
-			return obj.get();
+			if (obj->GetComponentByTemplate<Capture>() != nullptr)
+			{
+				StateManager_.GetCurrentState()->SetCaptureObjectPointer(obj.get());
+			}
 		}
 	}
-	return nullptr;
+}
+
+void Objectmanager::SetPlayer(Object* obj)
+{
+	if (StateManager_.GetCurrentState()->GetPlayerObjectPointer() == nullptr)
+	{
+		for (auto& obj : objects_)
+		{
+			if (obj->GetObjectType() == ObjectType::Player)
+			{
+				StateManager_.GetCurrentState()->SetPlayerObjectPointer(obj.get());
+			}
+		}
+	}
 }
 
 void Objectmanager::RemoveObject()

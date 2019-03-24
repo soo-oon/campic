@@ -176,7 +176,44 @@ void Graphics::Draw()
 
 void Graphics::HUD_Draw()
 {
- 
+	if (!HUD_.Get_HUD_Object_Manager().empty())
+	{
+		for (auto& obj : HUD_.Get_HUD_Object_Manager())
+		{
+			if (obj->GetMesh().IsVisible())
+			{
+				if (auto temp = obj->GetComponentByTemplate<Collision>();
+					temp != nullptr)
+				{
+					DrawCollisionBox(obj.get(), temp);
+				}
+
+				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+				{
+					DrawSprite(obj.get(), temp_sprite);
+				}
+				else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+				{
+					DrawAnimation(obj.get(), temp_animation);
+				}
+				else if (obj->GetMesh().GetPointCount())
+				{
+					DrawSolidShape(obj.get());
+				}
+
+				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+				{
+					DrawParticle(temp);
+				}
+
+				if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+				{
+					DrawFont(obj.get(), temp);
+				}
+
+			}
+		}
+	}
 }
 
 void Graphics::Tile_Draw()

@@ -44,11 +44,13 @@ public:
     Mesh() = default;
     ~Mesh();
 
+	// Get Total Count about Coordinate
     size_t GetPointCount() const;
     size_t GetTexturePointsCount() const;
     size_t GetAnimationPointsCount() const;
     size_t GetCollisionPointsCount() const;
 
+	// Get Specific index of vertex
     vector2 GetPoint(size_t index) const;
     vector2 GetTextureCoordinate(size_t index, Sprite* sprite);
 	vector2 GetTextureCoordinate(size_t index);
@@ -58,28 +60,33 @@ public:
 
     std::vector<vector2> GetCollisionVectors();
 
-    PointListType GetPointListType() const;
-    void SetPointListType(PointListType list_type);
-
+	// Add Coordinate
     void AddColor(Color color);
     void AddPoint(vector2 point);
     void AddTextureCoordinate(vector2 texture_coordinate);
     void AddAnimationCoordinate(vector2 animation_coordinate);
     void AddCollisionCoordinate(vector2 collision_coordinate);
 
-    void ChangeColor(Color color);
+	// PointListType
+    PointListType GetPointListType() const;
+    void SetPointListType(PointListType list_type);
 
+	// Color
+	void SetAlphaZero();
+	void SetAlphaFill();
+    void ChangeColor(Color color);
     void Decrease_Alpha(float dec_value);
     void Increase_Alpha(float inc_value);
 
+	// Clear
     void ClearColors();
     void ClearTextureCoordinates();
     void ClearAnimationCoordinates();
     void ClearCollisionCoordinates();
     void ClearPoints();
 
+	// Visible
     bool IsVisible() { return visible; }
-
     void Invisible() { visible = false; }
     void Visible() { visible = true; }
 

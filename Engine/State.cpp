@@ -20,6 +20,9 @@ Creation date: 2018/12/14
 
 void State::ChangeLevel(std::string ID)
 {
+	player_obj = nullptr;
+	capture_obj = nullptr;
+
 	level_change = true;
 	change_level = ID;
 }
