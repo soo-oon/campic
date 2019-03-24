@@ -20,20 +20,9 @@ void Capture::Update(float dt)
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		cheese = true;
-		//object->GetComponentByTemplate<Animation>()->ChangeAnimation("cheese");
 		Capturing();
 	}
 
-	/*if(cheese)
-	{
-		object->GetMesh().Decrease_Alpha(5);
-		if (object->GetMesh().GetColor(0).Alpha <= 15)
-		{
-			object->GetComponentByTemplate<Animation>()->ChangeAnimation("basic_camera");
-			object->GetMesh().ChangeColor({ 255,255,255,255 });
-			cheese = false;
-		}
-	}*/
 }
 
 void Capture::Delete()
