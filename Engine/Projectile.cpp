@@ -5,17 +5,37 @@
 bool Projectile::Initialize(Object * Ob)
 {
     object = Ob;
+     missile = new Object;
+    missile->SetTranslation({ object->GetTransform().GetTranslation() });
+    missile->SetScale({ 50.0f, 50.0f });
+    missile->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+    missile->SetDepth(0.0f);
+    missile->AddComponent(new RigidBody());
+    missile->AddComponent(new Collision(box_));
+    missile->SetObjectType(ObjectType::Projectile);
+    missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 150,150 });
+
+     arrow = new Object;
+    arrow->SetTranslation({ object->GetTransform().GetTranslation() });
+    arrow->SetScale({ 50.0f, 50.0f });
+    arrow->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+    arrow->SetDepth(0.0f);
+    arrow->AddComponent(new RigidBody());
+    arrow->AddComponent(new Collision(box_));
+    arrow->SetObjectType(ObjectType::Projectile);
+    arrow->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-50 });
+
     return true;
 }
 
 void Projectile::Update(float dt)
 {
-    while (m_shot_count == 0)
+    if (Input::IsKeyTriggered(GLFW_KEY_6))
     {
         if (Projectile_Type::Arrow == m_projectile)
             ArrowUpdate();
         else
-            CannonUpdate();
+             CannonUpdate();
         --m_shot_count;
     }
 }
@@ -26,28 +46,14 @@ void Projectile::Delete()
 
 void Projectile::CannonUpdate()
 {
-        std::shared_ptr<Object> missile = std::make_shared<Object>();
-        missile->SetTranslation({ object->GetTransform().GetTranslation() });
-        missile->SetScale({ 50.0f, 50.0f });
-        missile->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-        missile->SetDepth(0.0f);
-        missile->AddComponent(new RigidBody());
-        missile->AddComponent(new Collision(box_));
-        missile->SetObjectType(ObjectType::Item_Dynamic);
-        missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 50,50 });
-        Objectmanager_.AddObject(missile.get());
+    Object* temp = new Object(*missile);
+    Objectmanager_.AddObject(temp);
+    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 150,150 });
 }
 
 void Projectile::ArrowUpdate()
 {
-    std::shared_ptr<Object> arrow = std::make_shared<Object>();
-    arrow->SetTranslation({ object->GetTransform().GetTranslation() });
-    arrow->SetScale({ 50.0f, 50.0f });
-    arrow->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    arrow->SetDepth(0.0f);
-    arrow->AddComponent(new RigidBody());
-    arrow->AddComponent(new Collision(box_));
-    arrow->SetObjectType(ObjectType::Item_Dynamic);
-    arrow->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-50 });
-    Objectmanager_.AddObject(arrow.get());
+    Object* temp = new Object(*arrow);
+    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-150 });
+    Objectmanager_.AddObject(temp);
 }
