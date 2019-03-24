@@ -29,8 +29,9 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void ShutDown() = 0;
 
-	virtual void SetCamera() { iscamera = true; }
-	virtual bool IsCamera() { return iscamera; }
+	void SetCamera() { iscamera = true; }
+	bool IsCamera() { return iscamera; }
+
 
 	virtual bool IsLevelChange() { return level_change; }
 	virtual std::string GetNextLevel() { return change_level; }

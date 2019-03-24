@@ -17,14 +17,12 @@ Creation date: 2018/12/14
 #include "Shader.hpp"
 #include "Transform.hpp"
 #include "Object.hpp"
-#include "Sprite.hpp"
 #include <vector>
-#include "Objectmanager.hpp"
-#include "Camera.hpp"
 #include "Font.hpp"
 #include "Particle_Generator.hpp"
 
-//class Animation;
+class Sprite;
+class ObjectManager;
 
 enum class GraphicsType : int
 {
@@ -127,7 +125,7 @@ private:
 
 private:
 	bool Iscamera = false;
-	Camera* temp_camera = nullptr;	
+	Camera* temp_camera = nullptr;
 
 	static const int NumberOfVertexTypes = (int)GraphicsType::count;
 	vector2 displaysize{};
