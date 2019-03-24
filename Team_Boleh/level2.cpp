@@ -35,7 +35,6 @@ void level2::Initialize()
     temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
     temp->SetDepth(-0.5f);
     temp->SetObjectType(ObjectType::Player);
-    temp->AddInitComponent(new Player());
     temp->AddInitComponent(new RigidBody());
     temp->AddInitComponent(new Collision(box_));
     temp->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
@@ -53,7 +52,7 @@ void level2::Initialize()
 
 	Object* camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
-	camera->AddComponent(new Camera(this));
+	camera->AddComponent(new Camera("Level2"));
 
     //temp->AddComponent(new Enemy(MoveType::straight));
 

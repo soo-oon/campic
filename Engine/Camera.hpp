@@ -17,16 +17,18 @@ Creation date: 2018/12/14
 #include "Component.hpp"
 #include "vector2.hpp"
 #include "affine2d.hpp"
-#include "Object.hpp"
+#include <string>
 
 class Camera : public Component
 {
-public:	
-	template<typename T>
-	Camera(T* state)
+public:
+	Camera() = default;
+
+	Camera(std::string curr_level_)
+		: curr_level(curr_level_)
 	{
-		state->SetCamera();
 	}
+
 	Camera(vector2 camera_center, vector2 camera_up);
 
 	bool Initialize(Object* Ob) override;
@@ -49,6 +51,7 @@ public:
 	affine2d WorldToCamera() const;
 
 private:
+	std::string curr_level;
 	float zoom = 1.0f;
 	vector2 center{};
 	vector2 up{ 0,1 };

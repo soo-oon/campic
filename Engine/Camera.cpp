@@ -16,6 +16,7 @@ Creation date: 2018/12/14
 #include "Camera.hpp"
 #include "matrix2.hpp"
 #include "Input.hpp"
+#include "State.hpp"
 #include <iostream>
 
 Camera::Camera(vector2 camera_center, vector2 camera_up)
@@ -27,6 +28,7 @@ bool Camera::Initialize(Object* Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
+		StateManager_.GetStateMap().find(curr_level)->second->SetCamera();
 	}
 	return true;
 }

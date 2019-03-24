@@ -92,7 +92,7 @@ Object* Objectmanager::GetPlayer()
 {
 	for(auto& obj : objects_)
 	{
-		if(obj->GetObjectType()== ObjectType::Player)
+		if(obj->GetObjectType() == ObjectType::Player)
 		{
 			return obj.get();
 		}

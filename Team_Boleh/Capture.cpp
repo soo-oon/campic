@@ -55,7 +55,7 @@ void Capture::Capturing()
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
 			
 			vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()/2;
-                        auto player_ = Objectmanager_.GetPlayer();
+			auto player_ = Objectmanager_.GetPlayer();
 
 			vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
 			vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };
@@ -83,8 +83,8 @@ void Capture::Capturing()
 					}
 
 					player_->SetTranslation(reset_pos);
-                                        player_->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
-                                        player_->GetComponentByTemplate<Collision>()->SetIsGround(false);
+                    player_->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
+                    player_->GetComponentByTemplate<Collision>()->SetIsGround(false);
 					Objectmanager_.AddObject(temp);
 					break;
 				}
