@@ -59,7 +59,7 @@ void StateManager::ChangeStage()
 	m_currentState->ResetLevelChange();
 	m_currentState = states.find(next_level)->second.get();
 
-	m_currentState->LoadLevel();
+	//m_currentState->LoadLevel();
 
 	m_currentState->Initialize();
 	Physics_.ResetPreviousSize();

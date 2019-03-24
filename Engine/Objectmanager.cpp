@@ -121,12 +121,12 @@ void Objectmanager::SetPlayer(Object* obj)
 
 void Objectmanager::RemoveObject()
 {
-	std::cout << "Before: " << objects_.size() << std::endl;
+	//std::cout << "Before: " << objects_.size() << std::endl;
 	//auto check = StateManager_.GetCurrentState()->GetPlayerPointer();
 	//auto sibal = check->GetComponentByTemplate<Capture>()->GetCaptureObject();
 
 	objects_.clear();
-	std::cout << "After: " << objects_.size() << std::endl;
+	//std::cout << "After: " << objects_.size() << std::endl;
 
 	//std::cout << objects_.size() << std::endl;
 }

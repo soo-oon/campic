@@ -29,31 +29,31 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	LoadLevel();
- //   temp = new Object();
- //   temp->SetTranslation({ -400,0 });
- //   temp->SetScale({ 50.0f, 50.0f });
- //   temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
- //   temp->SetDepth(-0.5f);
- //   temp->SetObjectType(ObjectType::Player);
- //   temp->AddInitComponent(new RigidBody());
- //   temp->AddInitComponent(new Collision(box_));
- //   temp->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
- //   SetPlayerPosition(temp->GetTransform().GetTranslation());
+	//LoadLevel();
+    temp = new Object();
+    temp->SetTranslation({ -400,0 });
+    temp->SetScale({ 50.0f, 50.0f });
+    temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+    temp->SetDepth(-0.5f);
+    temp->SetObjectType(ObjectType::Player);
+    temp->AddInitComponent(new RigidBody());
+    temp->AddInitComponent(new Collision(box_));
+    temp->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
+    SetPlayerPosition(temp->GetTransform().GetTranslation());
 
-	//player_camera = new Object();
-	//player_camera->SetScale({ 300.0f, 175.0f });
-	//player_camera->SetDepth(-0.2f);
-	//player_camera->SetMesh(mesh::CreateBox(1, {255,255,255,255}));
-	//player_camera->SetObjectType(ObjectType::None);
-	//player_camera->AddComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
-	//player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
-	//player_camera->AddComponent(new Capture(GetPlayerPosition()));
+	player_camera = new Object();
+	player_camera->SetScale({ 300.0f, 175.0f });
+	player_camera->SetDepth(-0.2f);
+	player_camera->SetMesh(mesh::CreateBox(1, {255,255,255,255}));
+	player_camera->SetObjectType(ObjectType::None);
+	player_camera->AddComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
+	player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
+	player_camera->AddComponent(new Capture(GetPlayerPosition()));
 
 
-	//Object* camera = new Object();
-	//camera->SetObjectType(ObjectType::Camera);
-	//camera->AddComponent(new Camera("Level2"));
+	Object* camera = new Object();
+	camera->SetObjectType(ObjectType::Camera);
+	camera->AddComponent(new Camera("Level2"));
 
  //   //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -90,17 +90,17 @@ void level2::Initialize()
 	//background->SetObjectType(ObjectType::Background);
  //   background->AddComponent(new Sprite("asset/images/background1.png"));*/
  //   
-	//obj.push_back(temp);
-	//obj.push_back(camera);
+	obj.push_back(temp);
+	obj.push_back(camera);
+	obj.push_back(player_camera);
 	////obj.push_back(wall);
 	////obj.push_back(background);
  //       obj.push_back(cannon);
-	//obj.push_back(player_camera);
 
-	//for(auto i : obj)
-	//{
-	//	Objectmanager_.AddObject(i);
-	//}
+	for(auto i : obj)
+	{
+		Objectmanager_.AddObject(i);
+	}
 }
 
 void level2::Update(float dt)
@@ -141,5 +141,6 @@ void level2::Update(float dt)
 
 void level2::ShutDown()
 {
+	obj.clear();
 	UnLoad();
 }
