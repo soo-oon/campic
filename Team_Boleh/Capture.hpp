@@ -13,6 +13,7 @@ public:
 	void Delete() override;
 
 	void SetResetPosition(vector2 size) { reset_pos = size; }
+	vector2 GetResetPosition()const { return reset_pos; }
 
 	std::vector<Object*>& GetCaptureObject() { return capture_object; }
 private:

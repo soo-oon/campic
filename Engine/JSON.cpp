@@ -47,7 +47,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objParticleTree(kArrayType);
 	Value objSoundTree(kArrayType);
 	Value objFontTree(kArrayType);
-	Value objCaptureTree;
+	Value objCaptureTree(kArrayType);
+	Value capture;
 	
 	objTree.SetObject();
 	objTransformTree.SetObject();
@@ -61,6 +62,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objSoundTree.SetObject();
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
+	capture.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
 	objStatusTree = ComponentStatus(obj);
@@ -91,7 +93,13 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	if (obj->GetComponentByTemplate<Font>() != nullptr)
 		objFontTree = ComponentFont(obj);
 
-	//if(obj->GetComponentByTemplate<Capture>() != nullptr)
+	if (obj->GetComponentByTemplate<Capture>() != nullptr)
+	{
+		capture.AddMember("x", obj->GetComponentByTemplate<Capture>()->GetResetPosition().x, ObjectDocument.GetAllocator());
+		capture.AddMember("y", obj->GetComponentByTemplate<Capture>()->GetResetPosition().y, ObjectDocument.GetAllocator());
+
+		objCaptureTree.AddMember("pos", capture, ObjectDocument.GetAllocator());
+	}
 
 	objTree.AddMember("Type", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
@@ -102,6 +110,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Particle", objParticleTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -113,28 +122,30 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 Value JSON::ComponentAnimation(Object* obj)
 {
 	Value objAnimationTree(kArrayType);
-	Value objAnimationMap(kArrayType);
-	Value objAnimation;
+	Value objtree(kArrayType);
 	Value current_animation, previous_animation;
 	std::vector<Value*> animation_string;
 	std::vector<Value*> animation_map;
 
 	//Animation_Information class
 	objAnimationTree.SetObject();
-	objAnimationMap.SetObject();
 	current_animation.SetObject();
 	previous_animation.SetObject();
+	objtree.SetObject();
 
 	auto animation_info = obj->GetComponentByTemplate<Animation>();
-
+	int i = 0;
 	for (auto& temp : animation_info->GetAnimationMap())
 	{
-		int i = 0;
 		Value animation_path, id, path;
 		Value animation_info_;
 		Value animation_is_repeats;
 		Value animation_pc_coordinate;
+		Value objAnimationMap;
 
+		id.SetObject();
+		path.SetObject();
+		objAnimationMap.SetObject();
 		animation_path.SetObject();
 		animation_info_.SetObject();
 		animation_is_repeats.SetObject();
@@ -155,10 +166,12 @@ Value JSON::ComponentAnimation(Object* obj)
 
 		objAnimationMap.AddMember("path", *animation_string.at(i), ObjectDocument.GetAllocator());
 		objAnimationMap.AddMember("info", *animation_map.at(i), ObjectDocument.GetAllocator());
+		
+		objtree.AddMember("map", objAnimationMap, ObjectDocument.GetAllocator());
 		++i;
 	}
 
-	objAnimationTree.AddMember("map", objAnimationMap, ObjectDocument.GetAllocator());
+	objAnimationTree.AddMember("maps", objtree, ObjectDocument.GetAllocator());
 
 	return objAnimationTree;
 }
@@ -677,7 +690,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 	{
 		Value& obj_array = temp.value;
 
-		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font;
+		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture;
 		
 		Object* obj = new Object();
 
@@ -690,6 +703,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		particle.SetObject();
 		sound.SetObject();
 		font.SetObject();
+		capture.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -700,6 +714,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		particle = obj_array.FindMember("Particle")->value;
 		sound = obj_array.FindMember("Sound")->value;
 		font = obj_array.FindMember("Font")->value;
+		capture = obj_array.FindMember("Capture")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -750,12 +765,12 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		std::vector<float> update_frame;
 		std::vector<bool> is_repeat;
 
-		if(animation.HasMember("map"))
+		if(animation.HasMember("maps"))
 		{
-			for (auto& temp_ : animation.FindMember("map")->value.GetObject())
+			for (auto& temp_ : animation.FindMember("maps")->value.GetObject())
 			{
-				Value& map_array = animation.FindMember("map")->value;
-			
+				Value& map_array = temp_.value;
+
 				id.push_back(map_array.FindMember("path")->value.FindMember("id")->value.GetString());
 				ani_path.push_back(map_array.FindMember("path")->value.FindMember("path")->value.GetString());
 				image_frame.push_back(map_array.FindMember("info")->value.FindMember("image_frames")->value.GetInt());
@@ -840,6 +855,16 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 				font_path = font.FindMember("path")->value.GetString();
 			}
 			obj->AddComponent(new Font(font_text, font_path));
+		}
+
+		//////////////////////////////////////////Capture
+		if(capture.HasMember("pos"))
+		{
+			vector2 reset_pos;
+			reset_pos.x = capture.FindMember("pos")->value.FindMember("x")->value.GetFloat();
+			reset_pos.y = capture.FindMember("pos")->value.FindMember("y")->value.GetFloat();
+
+			obj->AddComponent(new Capture(reset_pos));
 		}
 		
 		Objectmanager_.AddObject(obj);

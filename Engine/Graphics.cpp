@@ -246,7 +246,7 @@ void Graphics::SetNDC()
 
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
 {
-    affine2d complex_matrix;
+	affine2d complex_matrix = transform.GetModelToWorld();
 
 	complex_matrix = projection * temp_camera->WorldToCamera() * complex_matrix;
     return complex_matrix;

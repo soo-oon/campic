@@ -9,6 +9,7 @@
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="level2.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="LevelSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Capture.hpp" />
@@ -18,5 +19,6 @@
     <ClInclude Include="SplashScreen.hpp" />
     <ClInclude Include="level2.hpp" />
     <ClInclude Include="MainMenu.hpp" />
+    <ClInclude Include="LevelSelector.hpp" />
   </ItemGroup>
 </Project>
