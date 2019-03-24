@@ -36,7 +36,6 @@ bool Objectmanager::Initialize()
 			}
 		}
 	}
-
 	return true;
 }
 
@@ -93,8 +92,7 @@ Object* Objectmanager::GetPlayer()
 {
 	for(auto& obj : objects_)
 	{
-		if(auto temp_player = obj->GetComponentByTemplate<Player>();
-			temp_player != nullptr)
+		if(obj->GetObjectType()== ObjectType::Player)
 		{
 			return obj.get();
 		}

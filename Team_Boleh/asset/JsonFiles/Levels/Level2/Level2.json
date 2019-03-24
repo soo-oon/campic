@@ -27,13 +27,42 @@
     },
     "Object": {
         "Type": {
+            "type": 3,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 100.0,
+                "y": -599.0886840820313
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {}
+    },
+    "Object": {
+        "Type": {
             "type": 9,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -298.0,
-                "y": 147.0
+                "x": -336.0,
+                "y": -69.0
             },
             "scale": {
                 "x": 300.0,
@@ -76,8 +105,8 @@
         "Font": {},
         "Capture": {
             "pos": {
-                "x": 100.0,
-                "y": -150.0
+                "x": -400.0,
+                "y": 0.0
             }
         }
     },
@@ -88,8 +117,137 @@
         },
         "Transform": {
             "position": {
-                "x": 100.0,
-                "y": -256.3858947753906
+                "x": -391.7076721191406,
+                "y": -65.81147003173828
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "player",
+                        "path": "asset/images/Enemies/1_Right.png"
+                    },
+                    "info": {
+                        "image_frames": 5,
+                        "update_frames": 0.20000000298023225,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 8,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -325.9245300292969,
+                "y": 53.11025619506836
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "player",
+                        "path": "asset/images/Enemies/1_Right.png"
+                    },
+                    "info": {
+                        "image_frames": 5,
+                        "update_frames": 0.20000000298023225,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 8,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -341.26629638671877,
+                "y": -29.62547492980957
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "player",
+                        "path": "asset/images/Enemies/1_Right.png"
+                    },
+                    "info": {
+                        "image_frames": 5,
+                        "update_frames": 0.20000000298023225,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 8,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -462.1266174316406,
+                "y": -49.0142822265625
             },
             "scale": {
                 "x": 50.0,

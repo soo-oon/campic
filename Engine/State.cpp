@@ -26,7 +26,7 @@ void State::ChangeLevel(std::string ID)
 
 void State::LoadLevel()
 {
-	//JSON_.LoadLevel(level_indicator + "/", level_indicator);
+	JSON_.LoadLevel(level_indicator + "/", level_indicator);
 }
 
 void State::LoadLevel(const std::string& current_level)

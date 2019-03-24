@@ -70,8 +70,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
 
-	//if(obj->GetComponentByTemplate<Camera>() != nullptr)
-		//objCameraTree = ComponentCamera(obj);
+	if(obj->GetComponentByTemplate<Camera>() != nullptr)
+		objCameraTree = ComponentCamera(obj);
 	
 	if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		objSpriteTree = ComponentSprite(obj);
@@ -226,15 +226,18 @@ Value JSON::ComponentStatus(Object * obj)
 Value JSON::ComponentCamera(Object* obj)
 {
 	Value objCameraTree(kArrayType);
-	Value center, up, right;
+	Value level_name, zoom,center, up, right;
 
 	objCameraTree.SetObject();
+	level_name.SetObject();
+	zoom.SetObject();
 	center.SetObject();
 	up.SetObject();
 	right.SetObject();
 
 	auto obj_info = obj->GetComponentByTemplate<Camera>();
 
+	zoom.AddMember("zoom", obj_info->GetZoomValue(), ObjectDocument.GetAllocator());
 	center.AddMember("x", obj_info->GetCenter().x, ObjectDocument.GetAllocator());
 	center.AddMember("y", obj_info->GetCenter().y, ObjectDocument.GetAllocator());
 	up.AddMember("x", obj_info->GetUp().x, ObjectDocument.GetAllocator());
@@ -242,7 +245,7 @@ Value JSON::ComponentCamera(Object* obj)
 	right.AddMember("x", obj_info->GetRight().x, ObjectDocument.GetAllocator());
 	right.AddMember("y", obj_info->GetRight().y, ObjectDocument.GetAllocator());
 
-	objCameraTree.AddMember("zoom", obj_info->GetZoomValue(), ObjectDocument.GetAllocator());
+	objCameraTree.AddMember("zoom", zoom, ObjectDocument.GetAllocator());
 	objCameraTree.AddMember("center", center, ObjectDocument.GetAllocator());
 	objCameraTree.AddMember("up", up, ObjectDocument.GetAllocator());
 	objCameraTree.AddMember("right", right, ObjectDocument.GetAllocator());
