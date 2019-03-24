@@ -25,11 +25,6 @@ Creation date: 2018/12/14
 #include "RigidBody.hpp"
 #include "Sound.hpp"
 
-enum class Object_Draw_Type
-{
-	None, Sprite, Animation, Particle, Collision, Camera, Font
-};
-
 enum class ObjectType {
     Player,
     Wall,
@@ -39,6 +34,7 @@ enum class ObjectType {
     Camera,
     Background,
     Projectile,
+	Font,
 	Capture_Obj,
     None,
 }; 
@@ -46,7 +42,7 @@ enum class ObjectType {
 class Object
 {
 public:
-	Object(Object_Draw_Type type = Object_Draw_Type::None) : m_draw_type(type)
+	Object()
 	{}
 
 	Object(const Object& obj);
@@ -62,17 +58,13 @@ public:
     void SetRotation(const float& rotation);
     void SetDepth(const float& depth);
 	void SetParent(const Transform* transform_);
-	void SetObjectDrawType(Object_Draw_Type type);
 	void SetIsDead(bool condition);
-
-	void CopyObject(Object obj);
 
 public:
 	bool IsDead() { return isdead; }
 	std::vector<Component*> GetComponent() { return m_component; }
     Mesh& GetMesh();
     Transform& GetTransform();
-	Object_Draw_Type GetObjectDrawType() { return m_draw_type; }
 	ObjectType GetObjectType() {return object_type;}
     void SetObjectType(ObjectType obj_type) { object_type = obj_type; }
     void SetObjectDead() { isdead = true; }
@@ -82,7 +74,6 @@ public:
 
 private:
 	bool isdead = false;
-	Object_Draw_Type m_draw_type = Object_Draw_Type::None;
     Mesh m_mesh{};
     Transform m_transform{};
     std::vector<Component*> m_component;
