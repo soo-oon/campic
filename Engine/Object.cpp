@@ -99,11 +99,6 @@ void Object::SetParent(const Transform* transform_)
 	m_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
 }
 
-void Object::SetObjectDrawType(Object_Draw_Type type)
-{
-	m_draw_type = type;
-}
-
 void Object::SetIsDead(bool condition)
 {
 	isdead = condition;

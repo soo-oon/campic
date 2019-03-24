@@ -485,10 +485,10 @@ void Graphics::DrawParticle(Particle_Generator* particles_)
 	}
 }
 
-void Graphics::DrawFont(Object* obj, Font* font)
+void Graphics::DrawFont(Object* obj, Font* font_)
 {
 	int index = 0;
-	for (auto temp_mesh : font->GetFontMeshes())
+	for (auto temp_mesh : font_->GetFontMeshes())
 	{
 		fontes.clear();
 		for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
@@ -511,7 +511,7 @@ void Graphics::DrawFont(Object* obj, Font* font)
 
 		const int texture_slot = 0;
 
-		font->BindTexture(index);
+		font_->BindTexture(index);
 
 		Fontshader.SendUniformVariable("transform", to_ndc);
 		Fontshader.SendUniformVariable("depth", obj->GetTransform().GetDepth());
