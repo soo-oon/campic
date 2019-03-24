@@ -15,6 +15,9 @@ public:
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
 
+	bool IsCheese() { return cheese; }
+	void SetCheese(bool condition) { cheese = condition; }
+
 	std::vector<Object*>& GetCaptureObject() { return capture_object; }
 private:
 	void Capturing();

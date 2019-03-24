@@ -96,7 +96,6 @@ void level2::Initialize()
 	////obj.push_back(background);
  //       obj.push_back(cannon);
 	//obj.push_back(player_camera);
-	////obj.push_back(camera);
 
 	//for(auto i : obj)
 	//{
@@ -108,8 +107,36 @@ void level2::Update(float dt)
 {	
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
-		ChangeLevel("remake");
+		ChangeLevel("Level2");
 	}
+
+	// if (Input::IsKeyTriggered(GLFW_KEY_F1))
+	// {
+	// 	for (auto& obj : Objectmanager_.GetObjectMap())
+	// 	{
+	// 		JSON_.ObjectsToDocument(obj.get());
+	// 	}
+	// 	JSON_.GetObjectDocument().SetObject();
+		
+	// 	for (auto& tiles : Tile_Map_.GetGraphicsTiles())
+	// 	{
+	// 		JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
+	// 	}
+	// 	JSON_.GetTileDocument().SetObject();
+		
+	// 	std::cout << "Objects and Tiles Saved" << std::endl;
+	// }
+
+	// if (Input::IsKeyTriggered(GLFW_KEY_F2))
+	// {
+	// 	JSON_.LoadTilesFromJson(Tile_Type::Graphical);
+	// 	JSON_.LoadObjectFromJson();
+
+	// 	std::cout << "Objects and Tiles Loaded" << std::endl;
+	// }
+
+	if (Input::IsKeyTriggered(GLFW_KEY_I))
+		Tile_Map_.Delete_Tile();
 }
 
 void level2::ShutDown()

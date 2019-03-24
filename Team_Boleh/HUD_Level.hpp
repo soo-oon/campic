@@ -17,4 +17,5 @@ public:
 
 private:
 	Object* g_Option = nullptr;
+	Object* h_cheese = nullptr;
 };

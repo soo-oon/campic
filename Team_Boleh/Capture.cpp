@@ -2,6 +2,7 @@
 #include "Input.hpp"
 #include "Graphics.hpp"
 #include <iostream>
+#include "State.hpp"
 
 bool Capture::Initialize(Object* Ob)
 {
@@ -19,11 +20,11 @@ void Capture::Update(float dt)
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		cheese = true;
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("cheese");
+		//object->GetComponentByTemplate<Animation>()->ChangeAnimation("cheese");
 		Capturing();
 	}
 
-	if(cheese)
+	/*if(cheese)
 	{
 		object->GetMesh().Decrease_Alpha(5);
 		if (object->GetMesh().GetColor(0).Alpha <= 15)
@@ -32,7 +33,7 @@ void Capture::Update(float dt)
 			object->GetMesh().ChangeColor({ 255,255,255,255 });
 			cheese = false;
 		}
-	}
+	}*/
 }
 
 void Capture::Delete()
@@ -55,7 +56,7 @@ void Capture::Capturing()
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
 			
 			vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()/2;
-			auto player_ = Objectmanager_.GetPlayer();
+			auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 
 			vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
 			vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };

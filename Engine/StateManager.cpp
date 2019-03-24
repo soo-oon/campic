@@ -77,13 +77,13 @@ void StateManager::Pause()
 
 void StateManager::Update(float dt)
 {
- 	if (m_currentState->IsLevelChange())
-		ChangeStage();
-
 	if (m_pause == false)
 	{
 		m_currentState->Update(dt);
 	}
+
+	if (m_currentState->IsLevelChange())
+		ChangeStage();
 
 	if (Input::IsKeyTriggered(GLFW_KEY_F1))
 		m_currentState->SaveLevel();
