@@ -83,7 +83,8 @@ void Capture::Capturing()
 					}
 
 					player_->SetTranslation(reset_pos);
-
+                                        player_->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
+                                        player_->GetComponentByTemplate<Collision>()->SetIsGround(false);
 					Objectmanager_.AddObject(temp);
 					break;
 				}

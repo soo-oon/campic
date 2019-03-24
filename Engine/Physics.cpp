@@ -79,10 +79,12 @@ void Physics::Update(float dt)
                 ground_list.clear();
                 TileCheck(collision_list[i]);
                 GroundCheck(collision_list[i]);
-                for (auto tile : tile_list) {
-                    if (IntersectionCheckAABB(collision_list[i], tile))
-                    {
-                        StopReaction(collision_list[i],tile, false);
+                if (tile_list.size() > 0) {
+                    for (auto tile : tile_list) {
+                        if (IntersectionCheckAABB(collision_list[i], tile))
+                        {
+                            StopReaction(collision_list[i], tile, false);
+                        }
                     }
                 }
                 if (capture_list.size() > 0) {
@@ -95,6 +97,10 @@ void Physics::Update(float dt)
                                 }
                             }
                         }
+                        else
+                            collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
+                        if (collision_list[i]->GetComponentByTemplate<Collision>()->GetIsGround())
+                            break;
                         if (IntersectionCheckAABB(collision_list[i], capture))
                         {
                             StopReaction(collision_list[i], capture, false);
@@ -104,7 +110,9 @@ void Physics::Update(float dt)
                             {
                                 if (IntersectionCheckAABBPositionBase(collision_list[i], capture))
                                 {
+                                    if (!collision_list[i]->GetComponentByTemplate<Collision>()->GetIsGround()) 
                                     collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(true);
+                                    break;
                                 }
                                 else
                                     collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);

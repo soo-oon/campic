@@ -30,7 +30,15 @@ Creation date: 2018/12/14
 void level2::Initialize()
 {
     temp = new Object();
+    temp->SetTranslation({ -400,0 });
+    temp->SetScale({ 50.0f, 50.0f });
+    temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+    temp->SetDepth(-0.5f);
     temp->AddInitComponent(new Player());
+    temp->AddInitComponent(new RigidBody());
+    temp->AddInitComponent(new Collision(box_));
+    temp->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
+    temp->SetObjectType(ObjectType::Player);
 	SetPlayerPosition(temp->GetTransform().GetTranslation());
 
 	player_camera = new Object();
@@ -43,9 +51,9 @@ void level2::Initialize()
 	player_camera->AddComponent(new Capture(GetPlayerPosition()));
 
 
-	Object* camera = new Object();
-	camera->SetObjectType(ObjectType::Camera);
-	camera->AddComponent(new Camera(this));
+	//Object* camera = new Object();
+	//camera->SetObjectType(ObjectType::Camera);
+	//camera->AddComponent(new Camera(this));
 
     //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -88,7 +96,7 @@ void level2::Initialize()
 	//obj.push_back(background);
     //obj.push_back(cannon);
 	obj.push_back(player_camera);
-	obj.push_back(camera);
+	//obj.push_back(camera);
 
 	for(auto i : obj)
 	{

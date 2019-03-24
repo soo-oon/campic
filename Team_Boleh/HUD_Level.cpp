@@ -16,7 +16,7 @@ void HUD_Level::Initialize()
 
 	HUD_.Toggle_HUD_Active();
 
-	Objectmanager_.AddObject(g_Option);
+	//Objectmanager_.AddObject(g_Option);
 }
 
 void HUD_Level::Update(float dt)

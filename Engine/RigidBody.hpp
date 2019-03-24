@@ -57,7 +57,7 @@ private:
     vector2 m_viewing_direction;
     vector2 m_next_position;
     float m_friction = 0.99f;
-    float m_gravity = 1.5f;
+    float m_gravity = 1.f;
     float m_inverse_mass = 1;
 
     bool isMoving = true;

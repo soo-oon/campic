@@ -30,8 +30,8 @@ int main()
 
     //StateManager_.AddStage("Splash_Screen", new SplashScreen());
 
-	StateManager_.AddStage("Level1", new Level1());
-    //StateManager_.AddStage("remake", new level2());
+	//StateManager_.AddStage("Level1", new Level1());
+    StateManager_.AddStage("remake", new level2());
 	//StateManager_.AddStage("MainMenu", new MainMenu());
 
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
