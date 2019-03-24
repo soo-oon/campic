@@ -36,6 +36,8 @@ void Physics::Update(float dt)
             capture_list.clear();
             collision_list.clear();
             projectile_list.clear();
+            static_list.clear();
+            dynamic_list.clear();
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
                 if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr )

@@ -108,7 +108,7 @@ void level2::Update(float dt)
 {	
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
-		ChangeLevel("remake");
+		ChangeLevel("Level2");
 	}
 }
 
