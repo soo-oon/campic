@@ -40,6 +40,7 @@ public:
 	void SetCenter(vector2 camera_center);
 	vector2 GetUp() const;
 	vector2 GetRight() const;
+	std::string GetLevelInfo() { return curr_level; }
 
 	void ResetUp(vector2 camera_up = { 0,1 });
 

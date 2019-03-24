@@ -24,13 +24,6 @@ void JSON::Quit()
 {
 }
 
-void JSON::PlayerToDoc(Object* obj)
-{
-	//Trees for player info
-	Value playerTree(kArrayType);
-
-}
-
 void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)
 {
 	//Trees for object info
@@ -63,6 +56,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
 	capture.SetObject();
+
 
 	objTransformTree = ComponentTransform(obj);
 	objStatusTree = ComponentStatus(obj);
@@ -111,6 +105,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -230,25 +225,25 @@ Value JSON::ComponentCamera(Object* obj)
 
 	objCameraTree.SetObject();
 	level_name.SetObject();
-	zoom.SetObject();
 	center.SetObject();
 	up.SetObject();
 	right.SetObject();
 
 	auto obj_info = obj->GetComponentByTemplate<Camera>();
 
-	zoom.AddMember("zoom", obj_info->GetZoomValue(), ObjectDocument.GetAllocator());
 	center.AddMember("x", obj_info->GetCenter().x, ObjectDocument.GetAllocator());
 	center.AddMember("y", obj_info->GetCenter().y, ObjectDocument.GetAllocator());
 	up.AddMember("x", obj_info->GetUp().x, ObjectDocument.GetAllocator());
 	up.AddMember("y", obj_info->GetUp().y, ObjectDocument.GetAllocator());
 	right.AddMember("x", obj_info->GetRight().x, ObjectDocument.GetAllocator());
 	right.AddMember("y", obj_info->GetRight().y, ObjectDocument.GetAllocator());
+	level_name.SetString(obj->GetComponentByTemplate<Camera>()->GetLevelInfo().c_str(),ObjectDocument.GetAllocator());
 
-	objCameraTree.AddMember("zoom", zoom, ObjectDocument.GetAllocator());
+	objCameraTree.AddMember("zoom", obj_info->GetZoomValue(), ObjectDocument.GetAllocator());
 	objCameraTree.AddMember("center", center, ObjectDocument.GetAllocator());
 	objCameraTree.AddMember("up", up, ObjectDocument.GetAllocator());
 	objCameraTree.AddMember("right", right, ObjectDocument.GetAllocator());
+	objCameraTree.AddMember("level", level_name, ObjectDocument.GetAllocator());
 
 	return objCameraTree;
 }
@@ -693,7 +688,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 	{
 		Value& obj_array = temp.value;
 
-		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture;
+		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
 		
 		Object* obj = new Object();
 
@@ -707,6 +702,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		sound.SetObject();
 		font.SetObject();
 		capture.SetObject();
+		camera.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -718,6 +714,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		sound = obj_array.FindMember("Sound")->value;
 		font = obj_array.FindMember("Font")->value;
 		capture = obj_array.FindMember("Capture")->value;
+		camera = obj_array.FindMember("Camera")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -727,8 +724,6 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->SetIsDead(isDead);
 			obj->SetObjectType(static_cast<ObjectType>(obj_type));
-
-			//obj->AddComponent(new Status(static_cast<ObjectType>(obj_type), hp_, attack_damage, speed, is_alive));
 		}
 
 	    //////////////////////////////////////// Transform
@@ -869,6 +864,24 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->AddComponent(new Capture(reset_pos));
 		}
+
+		//////////////////////////////////////////Camera
+		if(camera.HasMember("zoom"))
+		{
+			float zoom = camera.FindMember("zoom")->value.GetFloat();
+			vector2 center, up, right;
+
+			center.x = camera.FindMember("center")->value.FindMember("x")->value.GetFloat();
+			center.y = camera.FindMember("center")->value.FindMember("y")->value.GetFloat();
+			up.x = camera.FindMember("up")->value.FindMember("x")->value.GetFloat();
+			up.y = camera.FindMember("up")->value.FindMember("y")->value.GetFloat();
+			right.x = camera.FindMember("right")->value.FindMember("x")->value.GetFloat();
+			right.y = camera.FindMember("right")->value.FindMember("y")->value.GetFloat();
+			std::string level = camera.FindMember("level")->value.GetString();
+
+			obj->AddComponent(new Camera(level));
+		}
+
 		
 		Objectmanager_.AddObject(obj);
 	}

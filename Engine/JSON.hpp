@@ -36,9 +36,6 @@ public:
 	void Update(float /*dt*/);
 	void Quit();
 
-	//Player
-	void PlayerToDoc(Object* obj);
-
 	//Objects
 	void ObjectsToDocument(Object* obj, const std::string& file, const std::string& path);
 	void SaveObjectsToJson(const std::string& file, const std::string& path);

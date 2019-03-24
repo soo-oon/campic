@@ -90,6 +90,14 @@ void StateManager::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 		m_currentState->LoadLevel();
+
+	if (Input::IsKeyTriggered(GLFW_KEY_I))
+		Tile_Map_.Delete_Tile();
+
+	if(Input::IsKeyTriggered(GLFW_KEY_R))
+	{
+		
+	}
 }
 
 void StateManager::Quit()

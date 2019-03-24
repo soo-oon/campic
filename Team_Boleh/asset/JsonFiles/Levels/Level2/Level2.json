@@ -23,7 +23,23 @@
         "Particle": {},
         "Sound": {},
         "Font": {},
-        "Capture": {}
+        "Capture": {},
+        "Camera": {
+            "zoom": 1.0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "up": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "right": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "level": "Level2"
+        }
     },
     "Object": {
         "Type": {
@@ -33,7 +49,7 @@
         "Transform": {
             "position": {
                 "x": 100.0,
-                "y": -599.0886840820313
+                "y": -8.24009895324707
             },
             "scale": {
                 "x": 50.0,
@@ -52,17 +68,18 @@
         "Particle": {},
         "Sound": {},
         "Font": {},
-        "Capture": {}
+        "Capture": {},
+        "Camera": {}
     },
     "Object": {
         "Type": {
-            "type": 9,
+            "type": 10,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -336.0,
-                "y": -69.0
+                "x": -43.0,
+                "y": 112.0
             },
             "scale": {
                 "x": 300.0,
@@ -108,7 +125,8 @@
                 "x": -400.0,
                 "y": 0.0
             }
-        }
+        },
+        "Camera": {}
     },
     "Object": {
         "Type": {
@@ -117,8 +135,8 @@
         },
         "Transform": {
             "position": {
-                "x": -391.7076721191406,
-                "y": -65.81147003173828
+                "x": -400.0,
+                "y": -8.24009895324707
             },
             "scale": {
                 "x": 50.0,
@@ -151,135 +169,7 @@
         "Particle": {},
         "Sound": {},
         "Font": {},
-        "Capture": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 8,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -325.9245300292969,
-                "y": 53.11025619506836
-            },
-            "scale": {
-                "x": 50.0,
-                "y": 50.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "player",
-                        "path": "asset/images/Enemies/1_Right.png"
-                    },
-                    "info": {
-                        "image_frames": 5,
-                        "update_frames": 0.20000000298023225,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": true,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 8,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -341.26629638671877,
-                "y": -29.62547492980957
-            },
-            "scale": {
-                "x": 50.0,
-                "y": 50.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "player",
-                        "path": "asset/images/Enemies/1_Right.png"
-                    },
-                    "info": {
-                        "image_frames": 5,
-                        "update_frames": 0.20000000298023225,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": true,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 8,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -462.1266174316406,
-                "y": -49.0142822265625
-            },
-            "scale": {
-                "x": 50.0,
-                "y": 50.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "player",
-                        "path": "asset/images/Enemies/1_Right.png"
-                    },
-                    "info": {
-                        "image_frames": 5,
-                        "update_frames": 0.20000000298023225,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": true,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {}
+        "Capture": {},
+        "Camera": {}
     }
 }
