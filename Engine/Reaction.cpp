@@ -80,10 +80,7 @@ void StaticReaction(Object* object)
 
 void StopReaction(Object* object, Object* object_,bool ground)
 {
-    if(!ground)
-    {
         object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-    }
     if (object_->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation()  
         != object->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation())
     {

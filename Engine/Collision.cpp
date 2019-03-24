@@ -104,25 +104,6 @@ std::vector<vector2> Collision::GetCollisionCalculateTRS()
 	return temp;
 }
 
-void Collision::ToggleIsDamaged()
-{
-	//if(isdamaged == false)
-	//{
-		isdamaged = true;
-	//}
-	//else
-	//isdamaged = false;
-}
-
-bool Collision::GetIsDamaged()
-{
-	return isdamaged;
-}
-
-void Collision::Nohit()
-{
-	isdamaged = false;
-}
 
 void Collision::ToggleIsDoor()
 {

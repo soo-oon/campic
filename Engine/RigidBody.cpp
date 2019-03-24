@@ -38,8 +38,6 @@ bool RigidBody::Initialize(Object* Ob)
 
 void RigidBody::Update(float dt)
 {
-    if(isPlayer)
-        MovePlayer();
     if(m_velocity.x > 100)
         m_velocity.x = 100;
 	if (m_velocity.x < -100)
@@ -61,7 +59,7 @@ void RigidBody::Update(float dt)
 	m_force_accumlator = {0, 0};
 
 	//m_friction always activated
-	m_velocity *= m_friction;
+	//m_velocity *= m_friction;
         m_velocity.y -= m_gravity;
 
 	// integrate position
@@ -87,6 +85,8 @@ void RigidBody::Update(float dt)
         else
             m_next_position = { (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
                 (object->GetTransform().GetTranslation().y) };
+        if (isPlayer)
+            MovePlayer();
 }
 
 void RigidBody::Delete()
@@ -95,15 +95,6 @@ void RigidBody::Delete()
 
 void RigidBody::MovePlayer()
 {
-    if (Input::IsKeyPressed(GLFW_KEY_D))
-    {
-        object->GetComponentByTemplate<Animation>()->SetFlip(false);
-        object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
-    }
-    if (Input::IsKeyTriggered(GLFW_KEY_S))
-    {
-        object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -50 });
-    }
     if (object->GetComponentByTemplate<RigidBody>()->GetJumping() == false)
     {
         if (Input::IsKeyTriggered(GLFW_KEY_W))
@@ -114,9 +105,38 @@ void RigidBody::MovePlayer()
             object->GetComponentByTemplate<RigidBody>()->SetJumping(true);
         }
     }
-    if (Input::IsKeyTriggered(GLFW_KEY_A))
+    if (Input::IsKeyPressed(GLFW_KEY_D))
     {
-        object->GetComponentByTemplate<Animation>()->SetFlip(true);
-        object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
+        if (!object->GetComponentByTemplate<Collision>()->GetIsStopped())
+        {
+            object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
+            key_press_d = true;
+        }
+        else
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
+    }
+    else if (Input::IsKeyTriggered(GLFW_KEY_S))
+    {
+        object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -50 });
+    }
+    else if (Input::IsKeyPressed(GLFW_KEY_A))
+    {
+        if (!object->GetComponentByTemplate<Collision>()->GetIsStopped())
+        {
+            object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
+            key_press_a = true;
+        }
+        else
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
+    }
+    if (Input::IsKeyReleased(GLFW_KEY_A) )
+        key_press_a = false;
+    if (Input::IsKeyReleased(GLFW_KEY_D))
+        key_press_d = false;
+        if(!key_press_a && !key_press_d)
+    {
+        object->GetComponentByTemplate<RigidBody>()->SetVelocity(object->GetComponentByTemplate<RigidBody>()->GetVelocity()*m_friction);
     }
 }

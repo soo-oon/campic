@@ -60,6 +60,8 @@ private:
     float m_friction = 0.99f;
     float m_gravity = 1.f;
     float m_inverse_mass = 1;
+    bool key_press_a = false;
+    bool key_press_d = false;
 
     bool isMoving = true;
     bool isPlayer = false;

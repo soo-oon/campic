@@ -51,9 +51,6 @@ public:
     void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
     void ChangeCollisionBoxTranslation(vector2 translation) { collision_transform.SetTranslation(translation); }
 
-    void ToggleIsDamaged();
-    bool GetIsDamaged();
-    void Nohit();
     void ToggleIsDoor();
 
 
@@ -63,6 +60,7 @@ public:
     void SetIsDoorClose();
     void SetIsGround(bool ground) { isGround = ground; }
     void SetIsCapobj(bool cap) { isCapobj = cap; }
+    void SetIsStopped(bool cap) { isStopped = cap; }
     void SetCollisionScale(vector2 size_);
     void SetJumpingitutionType(RestitutionType restitution);
 
@@ -71,6 +69,7 @@ public:
     bool GetIsDoor();
     bool GetIsGround() { return isGround; }
     bool GetIsCapobj() { return isCapobj; }
+    bool GetIsStopped() { return isStopped; }
     CollisionType& GetCollisionType();
     std::vector<vector2> GetCollisionCalculateTRS();
     Mesh& GetCollsionMesh();
@@ -91,6 +90,6 @@ private:
     bool isGet = false;
     bool isGround = false;
     bool isCapobj = false;
-    bool isdamaged = false;
+    bool isStopped = false;
     bool isdoor = false;
 };

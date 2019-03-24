@@ -123,6 +123,14 @@ void Physics::Update(float dt)
                                 else
                                     collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
                             }
+                                if (IntersectionCheckAABBPosition(collision_list[i], capture))
+                                {
+                                        collision_list[i]->GetComponentByTemplate<Collision>()->SetIsStopped(true);
+                                    break;
+                                }
+                                else
+                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsStopped(false);
+
                     }
                 }
                 else
@@ -410,6 +418,29 @@ bool Physics::IntersectionCheckAABBPositionBase(Object* object1, Object* object2
 
     if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||
         (min_obj.y >= max_pos.y) || (max_obj.y <= min_pos.y))
+    {
+        return false;
+    }
+    else
+        return true;
+}
+
+bool Physics::IntersectionCheckAABBPosition(Object* object1, Object* object2)
+{
+    //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
+    vector2 min_obj, max_obj, min_pos, max_pos;
+         min_obj = { object1->GetTransform().GetTranslation().x - 2 - object1->GetTransform().GetScale().x / 2,
+            object1->GetTransform().GetTranslation().y - object1->GetTransform().GetScale().y / 2 };
+         max_obj = { object1->GetTransform().GetTranslation().x + 2 + object1->GetTransform().GetScale().x / 2,
+            object1->GetTransform().GetTranslation().y + object1->GetTransform().GetScale().y / 2 };
+
+         min_pos = { object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale().x / 2,
+            object2->GetTransform().GetTranslation().y - object2->GetTransform().GetScale().y / 2 };
+         max_pos = { object2->GetTransform().GetTranslation().x + object2->GetTransform().GetScale().x / 2,
+            object2->GetTransform().GetTranslation().y + object2->GetTransform().GetScale().y / 2 };
+
+    if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||
+        (min_obj.y >= max_pos.y) || (max_obj.y <= min_pos.y) )
     {
         return false;
     }
