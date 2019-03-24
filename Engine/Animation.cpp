@@ -64,7 +64,7 @@ void Animation::AddAnimaition(const std::string path, const std::string ID,
 	int image_frame_, float update_frame_, bool repeat)
 {
     animations.insert(std::make_pair(ID, 
-        Animation_Information(path, image_frame_, update_frame_, repeat)));
+        Animation_Information(path, ID, image_frame_, update_frame_, repeat)));
 }
 
 void Animation::Delete()

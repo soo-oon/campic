@@ -31,9 +31,9 @@ class Animation_Information
 public:
     Animation_Information() = default;
 
-    Animation_Information(const std::string path_, /*std::string ID,*/ int image_frame_,
+    Animation_Information(const std::string path_, std::string ID, int image_frame_,
         float update_frame_, bool repeat = true)
-        : path(path_), image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
+        : path(path_), id(ID),image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
     {
         sprites = new Sprite(path);
 
@@ -56,7 +56,7 @@ public:
     Animation(std::string path_, std::string ID, int image_frame_, 
 		float update_frame_, bool repeat = true )
     {
-        current_animation = Animation_Information(path_, image_frame_, update_frame_, repeat);
+        current_animation = Animation_Information(path_, ID, image_frame_, update_frame_, repeat);
 		current_animation.sprites->Texture_Load();
 		current_animation.id = ID;
 
@@ -113,7 +113,6 @@ public:
 	std::unordered_map<std::string, Animation_Information> GetAnimationMap(){ return animations; }
 	float GetFrameTime() { return frame_time; }
  
-
 private:
     Animation_Information current_animation;
 	Animation_Information previous_animation;
