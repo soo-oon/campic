@@ -37,10 +37,10 @@ bool Imgui_System::Initialize()
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	/*glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
-	glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
-	glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
-	glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);*/
+	//glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
+	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
+	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
 
 	ImGui::StyleColorsDark();
 

@@ -39,6 +39,7 @@ public:
 	void ResetLevelChange() { level_change = false; }
 	void SaveLevel();
 	void LoadLevel();
+	void LoadLevel(const std::string& current_level);
 	void UnLoad();
 
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
