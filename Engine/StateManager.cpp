@@ -59,7 +59,7 @@ void StateManager::ChangeStage()
 	m_currentState->ResetLevelChange();
 	m_currentState = states.find(next_level)->second.get();
 
-	m_currentState->LoadLevel();
+	//m_currentState->LoadLevel();
 
 	m_currentState->Initialize();
 	Physics_.ResetPreviousSize();
@@ -77,13 +77,13 @@ void StateManager::Pause()
 
 void StateManager::Update(float dt)
 {
- 	if (m_currentState->IsLevelChange())
-		ChangeStage();
-
 	if (m_pause == false)
 	{
 		m_currentState->Update(dt);
 	}
+
+	if (m_currentState->IsLevelChange())
+		ChangeStage();
 
 	if (Input::IsKeyTriggered(GLFW_KEY_F1))
 		m_currentState->SaveLevel();

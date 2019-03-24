@@ -43,13 +43,23 @@ public:
 	void LoadLevel(const std::string& current_level);
 	void UnLoad();
 
+
+	void SetPlayerObjectPointer(Object* obj) { player_obj = obj; }
+	void SetCaptureObjectPointer(Object* obj) { capture_obj = obj; }
+
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
 	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
 
+	Object* GetPlayerObjectPointer() { return player_obj; }
+	Object* GetCaptureObjectPointer() { return capture_obj; }
+
 	State_Information information_ = State_Information::None;
 
 private:
+	Object* player_obj = nullptr;
+	Object* capture_obj = nullptr;
+
 	std::string level_indicator;
 	std::string change_level;
 	vector2 player_pos;

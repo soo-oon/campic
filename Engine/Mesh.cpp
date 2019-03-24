@@ -189,6 +189,16 @@ void Mesh::SetPointListType(PointListType list_type)
     point_type = list_type;
 }
 
+void Mesh::SetAlphaZero()
+{
+	colors[0].Alpha = 0;
+}
+
+void Mesh::SetAlphaFill()
+{
+	colors[0].Alpha = 255;
+}
+
 void Mesh::AddColor(Color color)
 {
     colors.push_back(color);

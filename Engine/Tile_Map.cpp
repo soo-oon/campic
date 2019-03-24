@@ -124,6 +124,7 @@ void Tile_Map::Ani_Tile(std::string& image, int x, int y, vector2 position, Tile
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->AddInitComponent(new Animation(image, tile_name, 3, 0.1f, true));
+	tile->AddInitComponent(new Collision(box_));
 
 	if (type == Tile_Type::Physical)
 	{
