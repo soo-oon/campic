@@ -51,9 +51,9 @@ void level2::Initialize()
 	player_camera->AddComponent(new Capture(GetPlayerPosition()));
 
 
-	//Object* camera = new Object();
-	//camera->SetObjectType(ObjectType::Camera);
-	//camera->AddComponent(new Camera(this));
+	Object* camera = new Object();
+	camera->SetObjectType(ObjectType::Camera);
+	camera->AddComponent(new Camera(this));
 
     //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -91,7 +91,7 @@ void level2::Initialize()
     background->AddComponent(new Sprite("asset/images/background1.png"));*/
     
 	obj.push_back(temp);
-	//obj.push_back(camera);
+	obj.push_back(camera);
 	//obj.push_back(wall);
 	//obj.push_back(background);
     //obj.push_back(cannon);
