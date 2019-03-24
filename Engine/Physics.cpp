@@ -99,23 +99,21 @@ void Physics::Update(float dt)
                         }
                         else
                             collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
-                        if (collision_list[i]->GetComponentByTemplate<Collision>()->GetIsGround())
-                            break;
                         if (IntersectionCheckAABB(collision_list[i], capture))
                         {
-                            StopReaction(collision_list[i], capture, false);
+                            StopReaction(collision_list[i], capture, collision_list[i]->GetComponentByTemplate<Collision>()->GetIsGround());
                             break;
                         }
                             if (capture->GetTransform().GetTranslation().y < collision_list[i]->GetTransform().GetTranslation().y)
                             {
                                 if (IntersectionCheckAABBPositionBase(collision_list[i], capture))
                                 {
-                                    if (!collision_list[i]->GetComponentByTemplate<Collision>()->GetIsGround()) 
-                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(true);
+                                    if (!collision_list[i]->GetComponentByTemplate<Collision>()->GetIsCapobj()) 
+                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(true);
                                     break;
                                 }
                                 else
-                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsGround(false);
+                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
                             }
                     }
                 }

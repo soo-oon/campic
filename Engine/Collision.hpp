@@ -19,31 +19,32 @@ Creation date: 2018/12/14
 
 enum RestitutionType
 {
-	bounce,
-	stop,
-	ghost,
-	damaged,
+    bounce,
+    stop,
+    ghost,
+    damaged,
     get,
-	exit_,
-	none,
-	size
+    exit_,
+    none,
+    size
 };
+
 enum class CollisionState
 {
-	damaged,
-	collided,
+    damaged,
+    collided,
 };
 
 class Collision : public Component
 {
 public:
-	Collision(CollisionType type_ = box_) : type(type_)
-	{
-	}
+    Collision(CollisionType type_ = box_) : type(type_)
+    {
+    }
 
-	bool Initialize(Object* Ob) override;
-	void Update(float dt) override;
-	void Delete() override;
+    bool Initialize(Object* Ob) override;
+    void Update(float dt) override;
+    void Delete() override;
 
     void Compute_AABB(Mesh mesh, int num_point);
 
@@ -56,12 +57,12 @@ public:
     void ToggleIsDoor();
 
 
-
 public:
     void SetIsGet(bool get) { isGet = get; }
     void SetCollisionType(CollisionType type_) { type = type_; }
     void SetIsDoorClose();
     void SetIsGround(bool ground) { isGround = ground; }
+    void SetIsCapobj(bool cap) { isCapobj = cap; }
     void SetCollisionScale(vector2 size_);
     void SetJumpingitutionType(RestitutionType restitution);
 
@@ -69,6 +70,7 @@ public:
     bool GetisGet() { return isGet; }
     bool GetIsDoor();
     bool GetIsGround() { return isGround; }
+    bool GetIsCapobj() { return isCapobj; }
     CollisionType& GetCollisionType();
     std::vector<vector2> GetCollisionCalculateTRS();
     Mesh& GetCollsionMesh();
@@ -76,19 +78,19 @@ public:
     RestitutionType& GetJumpingitutionType();
 
 
-
-	//void SetCollision
+    //void SetCollision
 
 private:
-	vector2 collision_m_previous_position;
-	RestitutionType restitution_ = RestitutionType::none;
+    vector2 collision_m_previous_position;
+    RestitutionType restitution_ = none;
     Transform collision_transform{};
     CollisionType type = box_;
-	std::vector<vector2> collision_TRS;
-	Mesh collision_mesh{};
-	float height =0 , width = 0;
+    std::vector<vector2> collision_TRS;
+    Mesh collision_mesh{};
+    float height = 0, width = 0;
     bool isGet = false;
     bool isGround = false;
-	bool isdamaged = false;
-	bool isdoor = false;
+    bool isCapobj = false;
+    bool isdamaged = false;
+    bool isdoor = false;
 };

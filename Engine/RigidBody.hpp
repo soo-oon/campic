@@ -27,6 +27,7 @@ public:
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
     void Delete() override;
+    void MovePlayer();
     void CollisionOn() { collision_switch = true; }
     void AddVelocity(vector2 velocity_) { m_velocity += velocity_; }
     void AddForce(vector2 force) { m_force_accumlator += force; }
@@ -61,6 +62,7 @@ private:
     float m_inverse_mass = 1;
 
     bool isMoving = true;
+    bool isPlayer = false;
     bool isJumping = false;
     bool collision_switch = false;
 

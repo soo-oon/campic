@@ -39,36 +39,8 @@ bool Player::Initialize(Object * Ob)
 
 void Player::Update(float dt)
 {
-	MovePlayer();
 }
 
 void Player::Delete()
 {
-}
-
-void Player::MovePlayer()
-{
-	if (Input::IsKeyPressed(GLFW_KEY_D))
-	{
-		object->GetComponentByTemplate<Animation>()->SetFlip(false);
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
-	}
-	if (Input::IsKeyTriggered(GLFW_KEY_S))
-	{
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0, -50 });
-	}
-        if (object->GetComponentByTemplate<RigidBody>()->GetJumping() == false)
-        {
-            if (Input::IsKeyTriggered(GLFW_KEY_W))
-            {
-                object->GetComponentByTemplate<Collision>()->SetIsGround(false);
-                object->GetComponentByTemplate<RigidBody>()->SetVelocity({ object->GetComponentByTemplate<RigidBody>()->GetVelocity().x,100 });
-                object->GetComponentByTemplate<RigidBody>()->SetJumping(true);
-            }
-        }
-	if (Input::IsKeyTriggered(GLFW_KEY_A))
-	{
-		object->GetComponentByTemplate<Animation>()->SetFlip(true);
-		object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100, object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
-	}
 }

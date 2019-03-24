@@ -29,7 +29,9 @@ public:
 
 private:
     Projectile_Type m_projectile;
-    int m_shot_count;
+    Object* missile;
+    Object* arrow;
+    int m_shot_count = 3;
 
 };
 
