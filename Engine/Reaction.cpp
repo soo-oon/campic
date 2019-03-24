@@ -14,6 +14,7 @@ Creation date: 2018/12/14
 */
 
 #include "Reaction.hpp"
+#include "Physics.hpp"
 
 //void Reaction(Object* object, Object* di_object,float bounce)
 //{
@@ -64,6 +65,19 @@ Creation date: 2018/12/14
 //	{
 //	}
 //}
+
+void DeleteReaction(Object* object)
+{
+    object->GetComponentByTemplate<Collision>()->SetIsGet(true);
+    Physics_.ResetPreviousSize();
+}
+
+void StaticReaction(Object* object)
+{
+    object->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+}
+
+
 void StopReaction(Object* object, Object* object_,bool ground)
 {
     if(!ground)
@@ -97,6 +111,17 @@ void AttackedReaction(Object* object , Object* di_object, float power)
 
 void DisappearReaction(Object * object)
 {
+    for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
+    {
+        if (obj->get() == object)
+        {
+           
+            obj = Objectmanager_.GetObjectMap().erase(obj);
+            ++obj;
+        }
+        else
+            ++obj;
+    }
 }
 
 void DoorReaction(Object * object)
@@ -111,12 +136,14 @@ void CollReaction(Object* object, Object* di_object)
     if(magnitude(velo1) > magnitude(velo2))
     {
         object->GetComponentByTemplate<RigidBody>()->SetVelocity(velo1 - velo2);
-        di_object->GetComponentByTemplate<RigidBody>()->AddVelocity(1.2f*(velo1 - velo2));
+        di_object->GetComponentByTemplate<RigidBody>()->AddVelocity(100.2f*(velo1 - velo2));
+        di_object->GetComponentByTemplate<RigidBody>()->SetGravity(0);
     }
     else
     {
         di_object->GetComponentByTemplate<RigidBody>()->SetVelocity(velo2 - velo1);
-        object->GetComponentByTemplate<RigidBody>()->AddVelocity(1.2f*(velo2 - velo1));
+        object->GetComponentByTemplate<RigidBody>()->AddVelocity(100.2f*(velo2 - velo1));
+        object->GetComponentByTemplate<RigidBody>()->SetGravity(0);
     }
 }
 

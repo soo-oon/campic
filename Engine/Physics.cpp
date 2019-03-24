@@ -35,6 +35,7 @@ void Physics::Update(float dt)
         {
             capture_list.clear();
             collision_list.clear();
+            projectile_list.clear();
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
                 if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr )
@@ -43,12 +44,17 @@ void Physics::Update(float dt)
                     {
                         obj = Objectmanager_.GetObjectMap().erase(obj);
                     }
-                    else if(obj->get()->GetObjectType() == ObjectType::Item_Dynamic || obj->get()->GetObjectType() == ObjectType::Player)
+                    else if( obj->get()->GetObjectType() == ObjectType::Player)
                     {
                         collision_list.push_back(obj->get());
                         ++obj;
                     }
-                    else if (obj->get()->GetObjectType() == ObjectType::Item_Static || obj->get()->GetObjectType() == ObjectType::Wall)
+                    else if (obj->get()->GetObjectType() == ObjectType::Item_Dynamic)
+                    {
+                        dynamic_list.push_back(obj->get());
+                        ++obj;
+                    }
+                    else if (obj->get()->GetObjectType() == ObjectType::Item_Static)
                     {
                         static_list.push_back(obj->get());
                         ++obj;
@@ -125,6 +131,11 @@ void Physics::Update(float dt)
                             {
                                 StopReaction(collision_list[i], ground, true);
                             }
+                            for(auto obj : static_list)
+                            if(IntersectionCheckAABB(obj, ground))
+                            {
+                                StaticReaction(obj);
+                            }
                         }
                     }
                     else
@@ -132,15 +143,23 @@ void Physics::Update(float dt)
                 }
 
                 
-                if(collision_list[i]->GetObjectType() == ObjectType::Player)
-                {
-                    for (auto projectile : projectile_list) {
-                        if (IntersectionCheckAABB(collision_list[i], projectile))
+                    for (int j = 0; j < projectile_list.size(); j++) {
+                        for (int k = j; k < projectile_list.size(); k++)
                         {
-                            StopReaction(collision_list[i],projectile, true);
+                            if (j != k)
+                            {
+                                if(IntersectionCheckAABB(projectile_list[j], projectile_list[k]))
+                                {
+                                    DeleteReaction(projectile_list[j]);
+                                    DeleteReaction(projectile_list[k]);
+                                }
+                            }
+                        }
+                        if (IntersectionCheckAABB(collision_list[i], projectile_list[j]))
+                        {
+                            StopReaction(collision_list[i], projectile_list[j], false);
                         }
                     }
-                }
                 //for(auto static_object : static_list)
                 //{
                 //    if (IntersectionCheckAABB(collision_list[i], static_object))
@@ -148,16 +167,6 @@ void Physics::Update(float dt)
                 //        StopReaction(collision_list[i]);
                 //    }
                 //}
-                for(int j = i ; j < collision_list.size(); j ++)
-                {
-                    if(i != j)
-                    {
-                        if (IntersectionCheckAABB(collision_list[i], collision_list[j]))
-                        {
-                            CollReaction(collision_list[i], collision_list[j]);
-                        }
-                    }
-                }
             }
 
         }

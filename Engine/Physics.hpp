@@ -154,6 +154,7 @@ private:
     std::vector<Object*> static_list;
     std::vector<Object*> projectile_list;
     std::vector<Object*> capture_list;
+    std::vector<Object*> dynamic_list;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
 };

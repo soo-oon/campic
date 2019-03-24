@@ -12,7 +12,7 @@ bool Projectile::Initialize(Object * Ob)
     missile->SetDepth(0.0f);
     missile->AddComponent(new RigidBody());
     missile->AddComponent(new Collision(box_));
-    missile->SetObjectType(ObjectType::Item_Static);
+    missile->SetObjectType(ObjectType::Projectile);
     missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 150,150 });
 
      arrow = new Object;
@@ -22,7 +22,7 @@ bool Projectile::Initialize(Object * Ob)
     arrow->SetDepth(0.0f);
     arrow->AddComponent(new RigidBody());
     arrow->AddComponent(new Collision(box_));
-    arrow->SetObjectType(ObjectType::Item_Static);
+    arrow->SetObjectType(ObjectType::Projectile);
     arrow->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-50 });
 
     return true;
@@ -48,10 +48,12 @@ void Projectile::CannonUpdate()
 {
     Object* temp = new Object(*missile);
     Objectmanager_.AddObject(temp);
+    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 150,150 });
 }
 
 void Projectile::ArrowUpdate()
 {
     Object* temp = new Object(*arrow);
     Objectmanager_.AddObject(temp);
+    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-150 });
 }
