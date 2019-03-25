@@ -76,7 +76,7 @@ vector2 vector2::operator-() const
     return vector2(-x, -y);
 }
 
-vector2 vector2::operator-(vector2& v) const
+vector2 vector2::operator-(vector2 v) const
 {
     vector2 result = *this;
     result -= v;
