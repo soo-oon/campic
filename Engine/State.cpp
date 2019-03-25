@@ -20,8 +20,11 @@ Creation date: 2018/12/14
 
 void State::ChangeLevel(std::string ID)
 {
-	player_obj = nullptr;
-	capture_obj = nullptr;
+	if (player_obj != nullptr)
+		player_obj = nullptr;
+
+	if (capture_obj != nullptr)
+		capture_obj = nullptr;
 
 	level_change = true;
 	change_level = ID;
@@ -55,5 +58,11 @@ void State::SaveLevel()
 
 void State::UnLoad()
 {
+	if (player_obj != nullptr)
+		player_obj = nullptr;
+
+	if (capture_obj != nullptr)
+		capture_obj = nullptr;
+
 	Objectmanager_.RemoveObject();
 }

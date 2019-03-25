@@ -290,7 +290,7 @@ void Imgui_System::Editor(bool show_window)
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))
 	{
-		Objectmanager_.GetObjectMap().clear();
+		StateManager_.GetCurrentState()->UnLoad();
 		Tile_Map_.GetGraphicsTiles().clear();
 		Physics_.ResetPreviousSize();
 	}
@@ -323,9 +323,9 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		player->AddInitComponent(new RigidBody());
 		player->AddInitComponent(new Collision(box_));
 		player->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
-		Objectmanager_.SetPlayer(player);
-
 		Objectmanager_.AddObject(player);
+
+		Objectmanager_.SetPlayer(player);
 	}
 
 	ImGui::SameLine();
@@ -346,9 +346,9 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
 		player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
 		player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation()));
-		Objectmanager_.SetCaptureObject(player_camera);
-
 		Objectmanager_.AddObject(player_camera);
+
+		Objectmanager_.SetCaptureObject(player_camera);
 	}
 }
 
