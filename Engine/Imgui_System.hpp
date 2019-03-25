@@ -81,6 +81,7 @@ private:
 	ImGuiID non_ani_tile_selected = false;
 
 	bool is_normal_tile = true;
+	bool graphics_tile = false;
 
 	Object* selectObj = nullptr;
 };

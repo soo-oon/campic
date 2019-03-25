@@ -30,8 +30,5 @@ public:
 	void ShutDown() override;
 
 private:
-	std::vector<Object*> obj;
-        Object* temp = nullptr;
-        Object* wall = nullptr;
-		Object* player_camera = nullptr;
+	Object* player_camera = nullptr;
 };

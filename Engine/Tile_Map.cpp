@@ -105,10 +105,10 @@ void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, 
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->AddInitComponent(new Sprite(image));
-        tile->AddInitComponent(new Collision(box_));
 
 	if (type == Tile_Type::Physical)
 	{
+		tile->AddInitComponent(new Collision(box_));
 		physical_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
 	}
 	else
@@ -124,16 +124,14 @@ void Tile_Map::Ani_Tile(std::string& image, int x, int y, vector2 position, Tile
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->AddInitComponent(new Animation(image, tile_name, 3, 0.1f, true));
-	tile->AddInitComponent(new Collision(box_));
 
 	if (type == Tile_Type::Physical)
 	{
+		tile->AddInitComponent(new Collision(box_));
 		physical_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
 	}
 	else
 		graphics_tiles.insert(std::pair<int, Object*>((x / TILE_SIZE * TEMP_WIDTH + y / TILE_SIZE), tile));
-
-	std::cout << graphics_tiles.size() << std::endl;
 }
 
 void Tile_Map::InsertGraphicalTiles(int grid_, Object * tiles)

@@ -139,14 +139,20 @@ void Imgui_System::Update(float dt)
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				Tile_Map_.Make_Tile(tile_path, Tile_Type::Graphical);
+				if(graphics_tile)
+					Tile_Map_.Make_Tile(tile_path, Tile_Type::Graphical);
+				else
+					Tile_Map_.Make_Tile(tile_path, Tile_Type::Physical);
 			}
 		}
 		else
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				Tile_Map_.Make_Ani_Tile(tile_path, Tile_Type::Graphical);
+				if(graphics_tile)
+					Tile_Map_.Make_Ani_Tile(tile_path, Tile_Type::Graphical);
+				else
+					Tile_Map_.Make_Ani_Tile(tile_path, Tile_Type::Physical);
 			}
 		}
 	}
@@ -204,11 +210,6 @@ void Imgui_System::Editor(bool show_window)
 		object_creator = false;
 		tile_editor = false;
 	}
-	
-	//ImGui::SameLine();
-
-	//if (ImGui::RadioButton("Sound Editor", sound_editor))
-	//	sound_editor = !sound_editor;
 
 	ImGui::SameLine();
 
@@ -255,38 +256,6 @@ void Imgui_System::Editor(bool show_window)
 
 	ImGui::SameLine();
 
-	if (ImGui::Button("Load Objects"))
-	{
-		//JSON_.LoadObjectFromJson();
-	}
-
-	if(ImGui::Button("Save G_Tiles"))
-	{
-		for (auto& tiles : Tile_Map_.GetGraphicsTiles())
-		{
-			//JSON_.TilesToDocument(tiles.first, tiles.second, Tile_Type::Graphical);
-		}
-		JSON_.GetTileDocument().SetObject();
-	}
-
-	ImGui::SameLine();
-
-	if (ImGui::Button("Load G_Tiles"))
-	{
-		//JSON_.LoadTilesFromJson(Tile_Type::Graphical);
-	}
-
-	/*if (ImGui::Button("Save P_Tiles"))
-	{
-		JSON_.SaveTilesToJson(Tile_Type::Physical);
-	}
-	ImGui::SameLine();
-
-	if (ImGui::Button("Load P_Tiles"))
-	{
-		JSON_.LoadTilesFromJson(Tile_Type::Physical);
-	}*/
-
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))
 	{
@@ -303,7 +272,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (!object_creator)
 		return;
 
-	ImGui::Text("Room1");
+	ImGui::Text("Archetype");
 	ImGui::Separator();
 
 	ImGui::Button("Player");
@@ -330,7 +299,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 
 	ImGui::SameLine();
 
-	ImGui::Button("Camera");
+	ImGui::Button("Capture Camera");
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -427,6 +396,17 @@ void Imgui_System::TileEditor(bool tile_editor)
 	if (!tile_editor)
 		return;
 
+	ImGui::Separator();
+
+	if (ImGui::RadioButton("Create Graphic Tile", graphics_tile))
+	{
+		graphics_tile = !graphics_tile;
+	}
+
+	ImGui::Text("If not selected, creates physical tile");
+
+	ImGui::Separator();
+
 	int i = 1;
 	int j = 1;
 
@@ -457,7 +437,6 @@ void Imgui_System::TileEditor(bool tile_editor)
 	{
 		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			//ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
 			is_normal_tile = false;
 		}
@@ -468,9 +447,6 @@ void Imgui_System::TileEditor(bool tile_editor)
 			j = 0;
 		j++;
 	}
-
-
-
 }
 
 GLuint Imgui_System::ImageHelper(std::string path)
@@ -495,28 +471,3 @@ GLuint Imgui_System::ImageHelper(std::string path)
 
 	return my_opengl_texture;
 }
-
-
-// Creating Object
-//ImGui::Button("Create Object");
-
-//Object obj;
-
-/*if (ImGui::IsItemActive())
-{
-	ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-}
-
-if (ImGui::IsItemDeactivated())
-{
-	obj.SetScale({ 100.f,100.f });
-	obj.SetTranslation({ Input::GetMousePos(Graphics::camera_zoom).x, Input::GetMousePos(Graphics::camera_zoom).y });
-	obj.SetDepth(0);
-	obj.SetMesh(mesh::CreateBox(1, { 255, 0, 0, 255 }));
-
-	obj.AddComponent(new Sprite());
-	obj.GetComponentByTemplate<Sprite>()->ChangeSprite(image_dir + image_path);
-}
-
-Objectmanager_.AddObject(obj);*/
-
