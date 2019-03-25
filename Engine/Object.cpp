@@ -104,6 +104,21 @@ void Object::SetIsDead(bool condition)
 	isdead = condition;
 }
 
+bool Object::Isvisible()
+{
+	return m_mesh.IsVisible();
+}
+
+void Object::SetVisible()
+{
+	m_mesh.Visible();
+}
+
+void Object::SetInvisible()
+{
+	m_mesh.Invisible();
+}
+
 Mesh& Object::GetMesh()
 {
     return m_mesh;

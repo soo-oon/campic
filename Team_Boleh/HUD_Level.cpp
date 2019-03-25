@@ -19,7 +19,8 @@ void HUD_Level::Initialize()
 	h_cheese->SetDepth(-0.5f);
 	h_cheese->SetMesh(mesh::CreateBox(1, Colors::Yellow));
 	h_cheese->SetObjectType(ObjectType::Background);
-	h_cheese->GetMesh().Invisible();
+	h_cheese->SetInvisible();
+	//h_cheese->GetMesh().Invisible();
 	//h_cheese->GetMesh().SetAlphaZero();
 
 	HUD_.Add_HUD_Object(h_cheese);
@@ -37,15 +38,15 @@ void HUD_Level::Update(float dt)
 		{
 			if (cheese->IsCheese())
 			{
-				if (!h_cheese->GetMesh().IsVisible())
-					h_cheese->GetMesh().Visible();
+				if (!h_cheese->Isvisible())
+					h_cheese->SetVisible();
 
 				h_cheese->GetMesh().Decrease_Alpha(10);
 
 				if (h_cheese->GetMesh().GetColor(0).Alpha <= 15)
 				{
 					h_cheese->GetMesh().SetAlphaFill();
-					h_cheese->GetMesh().Invisible();
+					h_cheese->SetInvisible();
 					StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>()->SetCheese(false);
 				}
 			}

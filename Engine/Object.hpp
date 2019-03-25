@@ -60,6 +60,10 @@ public:
 	void SetParent(const Transform* transform_);
 	void SetIsDead(bool condition);
 
+	bool Isvisible();
+	void SetVisible();
+	void SetInvisible();
+
 public:
 	bool IsDead() { return isdead; }
 	std::vector<Component*> GetComponent() { return m_component; }
