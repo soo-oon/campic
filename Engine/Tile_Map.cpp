@@ -81,6 +81,7 @@ void Tile_Map::Delete_Tile()
     if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
     {
         graphics_tiles.erase((tile_x / TILE_SIZE *TEMP_WIDTH + tile_y / TILE_SIZE));
+		physical_tiles.erase((tile_x / TILE_SIZE * TEMP_WIDTH + tile_y / TILE_SIZE));
         tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = false;
     }
 }
@@ -93,6 +94,7 @@ void Tile_Map::Delete_Ani_Tile()
 	if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
 	{
 		graphics_tiles.erase((tile_x / TILE_SIZE * TEMP_WIDTH + tile_y / TILE_SIZE));
+		physical_tiles.erase((tile_x / TILE_SIZE * TEMP_WIDTH + tile_y / TILE_SIZE));
 		tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = false;
 	}
 }
@@ -149,12 +151,12 @@ Object * Tile_Map::GetSpecificTile(vector2 position)
 {
     int tile_position_x = static_cast<int>(position.x) + TEMP_WIDTH / 2;
     int tile_position_y = static_cast<int>(position.y) + TEMP_HEIGHT / 2;
-    if (!graphics_tiles.empty())
+    if (!physical_tiles.empty())
     {
-        if (graphics_tiles.find(tile_position_x / TILE_SIZE * TEMP_WIDTH + tile_position_y / TILE_SIZE) == graphics_tiles.end())
+        if (physical_tiles.find(tile_position_x / TILE_SIZE * TEMP_WIDTH + tile_position_y / TILE_SIZE) == physical_tiles.end())
             return nullptr;
         else
-            return graphics_tiles.at(tile_position_x / TILE_SIZE * TEMP_WIDTH + tile_position_y / TILE_SIZE);
+            return physical_tiles.at(tile_position_x / TILE_SIZE * TEMP_WIDTH + tile_position_y / TILE_SIZE);
     }
     return nullptr;
 }

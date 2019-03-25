@@ -522,7 +522,7 @@ void JSON::SaveTilesToJson(Tile_Type type, const std::string& path)
 	else
 		filename.append("Graphics_Tiles.json");
 
-	FILE* fp = fopen(filename.c_str(), "w+");
+	FILE* fp = fopen(filename.c_str(), "wb+");
 
 	char writeBuffer[65535];
 	FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
@@ -543,7 +543,7 @@ Document JSON::LoadTilesDocumentFromJson(Tile_Type type, const std::string& file
 	else
 		filename.append("Graphics_Tiles.json");
 
-	FILE* fp = fopen(filename.c_str(), "r+");
+	FILE* fp = fopen(filename.c_str(), "rb+");
 
 	char readBuffer[65535];
 	FileReadStream is(fp, readBuffer, sizeof(readBuffer));
@@ -559,8 +559,6 @@ Document JSON::LoadTilesDocumentFromJson(Tile_Type type, const std::string& file
 void JSON::SaveLevelObject(Object* obj, const std::string& file, const std::string& path)
 {
 	ObjectsToDocument(obj,file, path);
-	SaveTilesToJson(Tile_Type::Graphical, file);
-	SaveTilesToJson(Tile_Type::Physical, file);
 }
 
 void JSON::SaveLevelTiles(int grid, Object * tiles, Tile_Type type, const std::string & file, const std::string & path)
@@ -653,7 +651,7 @@ void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
 				is_repeat.push_back(map_array.FindMember("info")->value.FindMember("is_repeats")->value.GetBool());
 			}
 
-			obj->AddComponent(new Animation(ani_path.at(0), id.at(0), image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
+			obj->AddInitComponent(new Animation(ani_path.at(0), id.at(0), image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
 
 			for (int i = 1; i < id.size(); i++)
 			{
@@ -667,16 +665,16 @@ void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
 		{
 			int collision_type = collision.FindMember("id")->value.GetInt();
 
-			obj->AddComponent(new Collision(static_cast<CollisionType>(collision_type)));
+			obj->AddInitComponent(new Collision(static_cast<CollisionType>(collision_type)));
 		}
 
 		if (static_cast<int>(type) == 0)
 			Tile_Map_.InsertPhysicalTiles(grid_, obj);
-                else
-                {
-                    Tile_Map_.InsertGraphicalTiles(grid_, obj);
-                    Tile_Map_.SetReset(false);
-                }
+        else
+        {
+            Tile_Map_.InsertGraphicalTiles(grid_, obj);
+            Tile_Map_.SetReset(false);
+        }
 	}
 }
 
