@@ -19,6 +19,8 @@ Creation date: 2018/12/14
 #include <imgui_internal.h>
 #include "Tile_Map.hpp"
 #include "Physics.hpp"
+#include "Capture.hpp"
+//#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
 
@@ -304,7 +306,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	ImGui::Text("Room1");
 	ImGui::Separator();
 
-	ImGui::Button("Enemy1");
+	ImGui::Button("Player");
 
 	if (ImGui::IsItemActive())
 	{
@@ -312,24 +314,23 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	}
 	if (ImGui::IsItemDeactivated())
 	{
-		Object* enemy = new Object;
-		enemy = new Object();
-		enemy->SetTranslation({ Input::GetMousePos() });
-	    enemy->SetScale({ 50 });
-        enemy->SetMesh(mesh::CreateBox());
-        enemy->AddComponent(new RigidBody());
-        enemy->AddComponent(new Collision());
-        //enemy->AddComponent(new Status(ObjectType::Enemy, 5,1,1.5));
-        //enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
-        enemy->AddComponent(new Animation("asset/images/Enemies/1_Left.png", "right", 5,0.2f, true));
-        //enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
+		Object* player = new Object();
+		player->SetTranslation(Input::GetMousePos());
+		player->SetScale({ 50.0f, 50.0f });
+		player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+		player->SetDepth(-0.5f);
+		player->SetObjectType(ObjectType::Player);
+		player->AddInitComponent(new RigidBody());
+		player->AddInitComponent(new Collision(box_));
+		player->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
+		Objectmanager_.SetPlayer(player);
 
-		Objectmanager_.AddObject(enemy);
+		Objectmanager_.AddObject(player);
 	}
 
 	ImGui::SameLine();
 
-	ImGui::Button("Enemy2");
+	ImGui::Button("Camera");
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -337,114 +338,17 @@ void Imgui_System::ObjectCreator(bool object_creator)
 
 	if (ImGui::IsItemDeactivated())
 	{
-		Object* enemy1 = new Object();
-		enemy1->SetTranslation({ Input::GetMousePos() });
-		enemy1->SetScale({ 50 });
-		enemy1->SetMesh(mesh::CreateBox());
-		enemy1->AddComponent(new RigidBody());
-		enemy1->AddComponent(new Collision());
-		//enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
-		//enemy1->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
-		enemy1->AddComponent(new Animation("asset/images/Enemies/2_Left.png", "fffff" , 4, 0.2f, true));
-		//enemy1->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
+		Object* player_camera = new Object();
+		player_camera->SetScale({ 300.0f, 175.0f });
+		player_camera->SetDepth(-0.2f);
+		player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+		player_camera->SetObjectType(ObjectType::None);
+		player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
+		player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
+		player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation()));
+		Objectmanager_.SetCaptureObject(player_camera);
 
-		Objectmanager_.AddObject(enemy1);
-	}
-
-	ImGui::SameLine();
-
-	ImGui::Button("Enemy3");
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
-
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* enemy2 = new Object();
-		enemy2->SetTranslation({ Input::GetMousePos() });
-		enemy2->SetScale({ 50 });
-		enemy2->SetMesh(mesh::CreateBox());
-		enemy2->AddComponent(new RigidBody());
-		enemy2->AddComponent(new Collision());
-		//enemy2->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
-		//enemy2->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
-		enemy2->AddComponent(new Animation("asset/images/Enemies/scol.png", "asdf", 6, 0.2f, true));
-		//enemy2->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/1_Right.png", "left", 5, 0.2f, true);
-
-		Objectmanager_.AddObject(enemy2);
-	}
-
-	ImGui::Separator();
-	ImGui::Text("Room2");
-
-	ImGui::Button("enemy1");
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
-
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* enemy = new Object();
-		enemy->SetTranslation({ Input::GetMousePos() });
-		enemy->SetScale({ 50 });
-		enemy->SetMesh(mesh::CreateBox());
-		enemy->AddComponent(new RigidBody());
-		enemy->AddComponent(new Collision());
-		//enemy->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
-		//enemy->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
-		enemy->AddComponent(new Animation("asset/images/Enemies/slime.png", "fsdf", 6, 0.2f, true));
-		//enemy->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);
-
-		Objectmanager_.AddObject(enemy);
-	}
-
-	ImGui::SameLine();
-
-	ImGui::Button("enemy2");
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
-
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* enemy1 = new Object();
-		enemy1->SetTranslation({ Input::GetMousePos() });
-		enemy1->SetScale({ 50 });
-		enemy1->SetMesh(mesh::CreateBox());
-		enemy1->AddComponent(new RigidBody());
-		enemy1->AddComponent(new Collision());
-		//enemy1->AddComponent(new Status(ObjectType::Enemy, 5, 1, 1.5));
-		//enemy1->AddComponent(new Enemy(MoveType::straight, GetPlayerPointer()));
-		enemy1->AddComponent(new Animation("asset/images/Enemies/3_Left.png", "right", 4, 0.2f, true));
-		//enemy1->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Enemies/3_Right.png", "left", 4, 0.2f, true);
-
-		Objectmanager_.AddObject(enemy1);
-	}
-
-	ImGui::Spacing();
-	
-	ImGui::Text("Boss");
-	ImGui::Separator();
-
-	ImGui::Button("Boss");
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
-
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* obj = new Object;
-		obj->SetScale({ 100.f,100.f });
-		obj->SetTranslation({ Input::GetMousePos() });
-		obj->SetDepth(0);
-		obj->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
-		obj->AddComponent(new Animation("asset/images/Enemies/boss.png", "boss", 5, 0.05f));
-
-		Objectmanager_.AddObject(obj);
+		Objectmanager_.AddObject(player_camera);
 	}
 }
 
