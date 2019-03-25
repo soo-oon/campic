@@ -222,23 +222,18 @@ void Graphics::Tile_Draw()
 	{	
 		for (auto it = Tile_Map_.GetGraphicsTiles().begin(); it != Tile_Map_.GetGraphicsTiles().end(); ++it)
 		{
-			if (auto temp = it->second->GetComponentByTemplate<Collision>();
-				temp != nullptr)
-			{
-				DrawCollisionBox(it->second, temp);
-			}
-
-			if(auto temp_sprite = it->second->GetComponentByTemplate<Sprite>(); 
+			if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>();
 				temp_sprite != nullptr)
 			{
 				DrawSprite(it->second, temp_sprite);
 			}
-			else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); 
+			else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>();
 				temp_animation != nullptr)
 			{
 				DrawAnimation(it->second, temp_animation);
 			}
 		}
+
     }
 }
 

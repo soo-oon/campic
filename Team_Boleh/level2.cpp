@@ -30,6 +30,7 @@ Creation date: 2018/12/14
 void level2::Initialize()
 {
 	//LoadLevel();
+
     temp = new Object();
     temp->SetTranslation({ -400,0 });
     temp->SetScale({ 50.0f, 50.0f });
@@ -54,6 +55,16 @@ void level2::Initialize()
 	Object* camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level2"));
+	
+
+	Object* cannon = new Object();
+	cannon->SetTranslation({ 0,0 });
+	cannon->SetScale({ 150,150 });
+	cannon->SetObjectType(ObjectType::Item_Static);
+	cannon->SetMesh(mesh::CreateBox());
+	cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
+	cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
+	cannon->AddComponent(new Projectile(3.0f, 10.0f, Projectile_Type::Cannon));
 
  //   //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -90,12 +101,13 @@ void level2::Initialize()
 	//background->SetObjectType(ObjectType::Background);
  //   background->AddComponent(new Sprite("asset/images/background1.png"));*/
  //   
+
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(player_camera);
-	////obj.push_back(wall);
-	////obj.push_back(background);
- //       obj.push_back(cannon);
+	obj.push_back(cannon);
+
+	//obj.push_back(background);
 
 	for(auto i : obj)
 	{
