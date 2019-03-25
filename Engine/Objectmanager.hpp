@@ -16,6 +16,7 @@ Creation date: 2018/12/14
 #pragma once
 #include "Object.hpp"
 #include <map>
+#include "Object.hpp"
 #include <string>
 #include <memory>
 
