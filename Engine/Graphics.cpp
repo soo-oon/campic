@@ -219,7 +219,7 @@ void Graphics::HUD_Draw()
 void Graphics::Tile_Draw()
 {
 	if(!Tile_Map_.GetGraphicsTiles().empty())
-	{
+	{	
 		for (auto it = Tile_Map_.GetGraphicsTiles().begin(); it != Tile_Map_.GetGraphicsTiles().end(); ++it)
 		{
 			if (auto temp = it->second->GetComponentByTemplate<Collision>();
