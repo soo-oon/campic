@@ -105,6 +105,7 @@ public:
 	bool IsActive() { return isactive; }
 
 	void SetFlip(bool condition) { current_animation.sprites->SetFlip(condition); }
+	bool IsFiip() { return current_animation.sprites->IsFlip(); }
 
 	void Imgui_Animation();
 

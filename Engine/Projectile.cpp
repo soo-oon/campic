@@ -71,10 +71,6 @@ bool Projectile::Initialize(Object* Ob)
 		{
 			std::cout << "Should Set Parent Object" << std::endl;
 		}
-		else
-		{
-			object->SetParent(&m_parent->GetTransform());
-		}
 	}
 
 	return true;
@@ -86,28 +82,15 @@ void Projectile::Update(float dt)
 
 	SetFilpAnimation();
 
-	if (m_dt >= m_firetime)
+	if(m_type == Projectile_Type::Cannon)
 	{
-		object->GetComponentByTemplate<Animation>()->ChangeAnimation("cannon_fire", "cannon_standing");
-		SpawnProjectile();
-		m_dt = 0.0f;
+		CannonUpdate(dt);
+	}
+	else
+	{
+		WeaponUpdate(dt);
 	}
 
-
-	for (auto bullet = projectile.begin(); bullet != projectile.end();)
-	{
-		bullet->get()->Update(dt);
-
-		if (bullet->get()->IsDead())
-		{
-			bullet = projectile.erase(bullet);
-		}
-		else
-		{
-			++bullet;
-		}
-
-	}
 }
 
 void Projectile::Delete()
@@ -150,7 +133,7 @@ void Projectile::SetProjectileDirection(RigidBody* rigidbody)
 	{
 	case Projectile_Type::Cannon:
 		{
-		auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 
 			if(normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
 			{
@@ -165,6 +148,18 @@ void Projectile::SetProjectileDirection(RigidBody* rigidbody)
 		break;
 
 	case Projectile_Type::Weapon:
+		{
+			auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+
+			if(!player_->GetComponentByTemplate<Animation>()->IsFiip())
+			{
+				rigidbody->SetVelocity({ 1000, 0 });
+			}
+			else
+			{
+				rigidbody->SetVelocity({ -1000, 0 });
+			}
+		}
 		break;
 
 	default:
@@ -176,13 +171,78 @@ void Projectile::SetFilpAnimation()
 {
 	auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 
-	if (normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
+	if (object->GetComponentByTemplate<Animation>() != nullptr)
 	{
-		object->GetComponentByTemplate<Animation>()->SetFlip(false);
+		if (normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
+		{
+			object->GetComponentByTemplate<Animation>()->SetFlip(false);
 
+		}
+		else
+		{
+			object->GetComponentByTemplate<Animation>()->SetFlip(true);
+		}
+	}
+}
+
+void Projectile::CannonUpdate(float dt)
+{
+	if (m_dt >= m_firetime)
+	{
+		object->GetComponentByTemplate<Animation>()->ChangeAnimation("cannon_fire", "cannon_standing");
+		SpawnProjectile();
+		m_dt = 0.0f;
+	}
+
+
+	for (auto bullet = projectile.begin(); bullet != projectile.end();)
+	{
+		bullet->get()->Update(dt);
+
+		if (bullet->get()->IsDead())
+		{
+			bullet = projectile.erase(bullet);
+		}
+		else
+		{
+			++bullet;
+		}
+
+	}
+}
+
+void Projectile::WeaponUpdate(float dt)
+{
+	vector2 player_pos = StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation();
+
+	if(object->GetTransform().GetParent() == nullptr)
+	{
+		if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		{
+			object->SetTranslation(player_pos);
+			object->SetParent(&m_parent->GetTransform());
+		}
 	}
 	else
 	{
-		object->GetComponentByTemplate<Animation>()->SetFlip(true);
+		if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		{
+			SpawnProjectile();
+		}
+	}
+
+	for (auto bullet = projectile.begin(); bullet != projectile.end();)
+	{
+		bullet->get()->Update(dt);
+
+		if (bullet->get()->IsDead())
+		{
+			bullet = projectile.erase(bullet);
+		}
+		else
+		{
+			++bullet;
+		}
+
 	}
 }
