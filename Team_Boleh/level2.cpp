@@ -30,7 +30,8 @@ Creation date: 2018/12/14
 void level2::Initialize()
 {
 	//LoadLevel();
-    temp = new Object();
+
+    Object* temp = new Object();
     temp->SetTranslation({ -400,0 });
     temp->SetScale({ 50.0f, 50.0f });
     temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
@@ -63,6 +64,15 @@ void level2::Initialize()
 	cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
 	cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
 	cannon->AddComponent(new Projectile(3.0f, 10.0f, Projectile_Type::Cannon));
+
+	Object* weapon = new Object();
+	weapon->SetTranslation({ 0 , -100 });
+	weapon->SetScale({ 100, 50 });
+	weapon->SetObjectType(ObjectType::Item_Static);
+	weapon->SetMesh(mesh::CreateBox());
+	weapon->AddComponent(new Sprite("asset/images/weapon.png"));
+	weapon->AddComponent(new Collision(box_));
+	weapon->AddComponent(new Projectile(0.0f, 3.0f, Projectile_Type::Weapon, temp));
 
  //   //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -104,6 +114,7 @@ void level2::Initialize()
 	obj.push_back(camera);
 	obj.push_back(player_camera);
 	obj.push_back(cannon);
+	obj.push_back(weapon);
 
 	//obj.push_back(background);
 

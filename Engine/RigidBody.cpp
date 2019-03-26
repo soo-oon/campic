@@ -39,7 +39,9 @@ bool RigidBody::Initialize(Object* Ob)
 void RigidBody::Update(float dt)
 {
     if (isPlayer)
+    {
         MovePlayer();
+    
     if(m_velocity.x > 100)
         m_velocity.x = 100;
 	if (m_velocity.x < -100)
@@ -48,6 +50,7 @@ void RigidBody::Update(float dt)
         m_velocity.y = 150;
     if (m_velocity.y < -100)
         m_velocity.y = -100;
+	}
         // for stop reaction
 	m_previous_position = object->GetTransform().GetTranslation();
 
@@ -85,6 +88,29 @@ void RigidBody::Update(float dt)
         else
             m_next_position = { (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
                 (object->GetTransform().GetTranslation().y) };
+/*
+    if (isMoving) {
+        if (!object->GetComponentByTemplate<Collision>()->GetIsGround() && !object->GetComponentByTemplate<Collision>()->GetIsCapobj())
+        {
+            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                (object->GetTransform().GetTranslation().y + (m_velocity* dt).y) });
+        }
+        else
+        {
+            object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                (object->GetTransform().GetTranslation().y) });
+            isJumping = false;
+        }
+    }
+    if (!object->GetComponentByTemplate<Collision>()->GetIsGround())
+        m_next_position = { (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+                (object->GetTransform().GetTranslation().y + (m_velocity* dt).y) };
+    else
+        m_next_position = { (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+            (object->GetTransform().GetTranslation().y) };
+    if (isPlayer)
+        MovePlayer();
+        */
 }
 
 void RigidBody::Delete()

@@ -21,6 +21,9 @@ private:
 	void SpawnProjectile();
 	void SetProjectileDirection(RigidBody* rigidbody);
 	void SetFilpAnimation();
+	void CannonUpdate(float dt);
+	void WeaponUpdate(float dt);
+
 	//int check = 0;
 
 private:
