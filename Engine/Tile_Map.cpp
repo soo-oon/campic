@@ -36,6 +36,15 @@ void Tile_Map::Update(float dt)
 	}
 }
 
+void Tile_Map::RemoveTiles()
+{
+	graphics_tiles.clear();
+	physical_tiles.clear();
+
+	std::cout << graphics_tiles.size() << std::endl;
+	std::cout << physical_tiles.size() << std::endl;
+}
+
 void Tile_Map::Make_Tile(std::string image, Tile_Type type)
 {
 	int tile_x = static_cast<int>(Input::GetMousePos().x + TEMP_WIDTH / 2);
@@ -106,6 +115,7 @@ void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, 
 	tile->SetTranslation({ position });
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	tile->SetObjectType(ObjectType::Tile);
 	tile->AddInitComponent(new Sprite(image));
 
 	if (type == Tile_Type::Physical)
@@ -124,6 +134,7 @@ void Tile_Map::Ani_Tile(std::string& image, int x, int y, vector2 position, Tile
 	tile_name += std::to_string(++m_number);
 	tile->SetTranslation({ position });
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
+	tile->SetObjectType(ObjectType::Tile);
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->AddInitComponent(new Animation(image, tile_name, 3, 0.1f, true));
 

@@ -36,19 +36,14 @@ public:
 	void Editor(bool show_window);
 	void ObjectCreator(bool object_creator);
 	void ObjectEditor(bool object_editor);
-	void SoundEditor(bool sound_editor);
 
 	void TileEditor(bool tile_editor);
 	GLuint ImageHelper(std::string path);
 
-	bool GetKeyCallBack() { return imgui_key_call_back; }
-
 	// Helper
 	void SpriteHelper();
-	void SoundHelper();
 
 private:
-	bool imgui_key_call_back = false;
 	GLFWwindow* window = nullptr;
 	
 	bool show_window = false;

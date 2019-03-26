@@ -40,6 +40,7 @@ public:
 	void Quit();
 
 	void AddStage(std::string ID, State* state);
+	void BackToMenu();
 	void ChangeStage();
 	void Restart();
 	void Pause();

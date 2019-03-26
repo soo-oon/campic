@@ -31,6 +31,18 @@ void State::ChangeLevel(std::string ID)
 	change_level = ID;
 }
 
+void State::BackToMenu()
+{
+	if (player_obj != nullptr)
+		player_obj = nullptr;
+
+	if (capture_obj != nullptr)
+		capture_obj = nullptr;
+
+	back_to_menu = true;
+	change_level = "LevelSelector";
+}
+
 void State::LoadLevel()
 {
 	JSON_.LoadLevel(level_indicator + "/", level_indicator);
@@ -69,4 +81,5 @@ void State::UnLoad()
 		capture_obj = nullptr;
 
 	Objectmanager_.RemoveObject();
+	Tile_Map_.RemoveTiles();
 }

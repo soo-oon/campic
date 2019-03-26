@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include "vector2.hpp"
+#include "Object.hpp"
 
 class Input
 {
@@ -63,4 +64,7 @@ public:
     static bool IsMouseDoubleClicked(int button);
     static bool IsMouseReleased(int button);
 	static double MouseWheelScroll();
+
+	static Object* ClickObject();
+	static bool MouseIntersectObject(Object* object);
 };

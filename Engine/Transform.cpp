@@ -45,12 +45,12 @@ void Transform::Imgui_Transform()
 {
 	if (ImGui::TreeNode("Transform"))
 	{
-		//ImGui::SliderFloat("Translation.x ", &translation.x, -500, 500);
-		//ImGui::SliderFloat("Translation.y", &translation.y, -500, 500);
-		ImGui::SliderFloat("Scale.x", &scale.x, 0, 1000);
-		ImGui::SliderFloat("Scale.y", &scale.y, 0, 1000);
-		ImGui::SliderFloat("Rotation", &rotation, 0, 370);
-		ImGui::SliderFloat("Depth", &depth, 0, 1);
+		ImGui::InputFloat("Translation.x ", &translation.x, -500, 500);
+		ImGui::InputFloat("Translation.y", &translation.y, -500, 500);
+		ImGui::InputFloat("Scale.x", &scale.x, 0, 1280);
+		ImGui::InputFloat("Scale.y", &scale.y, 0, 1280);
+		ImGui::InputFloat("Rotation", &rotation, 0, 370);
+		ImGui::InputFloat("Depth", &depth, -1, 1);
 
 		ImGui::TreePop();
 	}

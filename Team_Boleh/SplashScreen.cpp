@@ -26,18 +26,13 @@ void SplashScreen::Initialize()
 	logo->SetScale({ 500, 150 });
 	logo->SetMesh(mesh::CreateBox());
 	logo->AddComponent(new Sprite("asset/images/DigiPen_.png"));
-	//logo.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/DigiPen_.png");
-
-	int w, h;
-	glfwGetWindowSize(Application_.GetWindow(), &w, &h);
 
 	background = new Object();
 	background->SetTranslation({ 0,0 });
-    background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
+    background->SetScale(Application_.GetScreenSize());
 	background->SetMesh(mesh::CreateBox());
 	background->SetDepth(0.9f);
 	background->AddComponent(new Sprite("asset/images/UI/Menu_background.png"));
-	//background.GetComponentByTemplate<Sprite>()->Texture_Load("asset/images/UI/Menu_background.png");
 
 	Objectmanager_.AddObject(logo);
 	Objectmanager_.AddObject(background);
@@ -55,7 +50,7 @@ void SplashScreen::Update(float dt)
 			 logo->GetTransform().GetScale().y + 55 * dt });
 		}
 		else if(time_count > 3.0f)
-			ChangeLevel("remake");
+			ChangeLevel("MainMenu");
 	}
 	else
 	{
@@ -76,7 +71,7 @@ void SplashScreen::Update(float dt)
 	}
 
 	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
-		ChangeLevel("remake");
+		ChangeLevel("MainMenu");
 }
 
 

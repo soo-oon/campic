@@ -2,11 +2,13 @@
 
 void Level3::Initialize()
 {
-	//LoadLevel();
+
 }
 
 void Level3::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_0))
+		BackToMenu();
 }
 
 void Level3::ShutDown()

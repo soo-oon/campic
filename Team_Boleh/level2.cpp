@@ -29,13 +29,7 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	//LoadLevel();
-
-	Object* camera = new Object();
-	camera->SetObjectType(ObjectType::Camera);
-	camera->AddComponent(new Camera("Level2"));
-
-	Objectmanager_.AddObject(camera);
+	LoadLevel();
 }
 
 void level2::Update(float dt)
@@ -44,9 +38,6 @@ void level2::Update(float dt)
 	{
 		ChangeLevel("Level2");
 	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_I))
-		Tile_Map_.Delete_Tile();
 }
 
 void level2::ShutDown()

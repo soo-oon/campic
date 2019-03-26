@@ -213,3 +213,34 @@ double Input::MouseWheelScroll()
 {
 	return y_offset_;
 }
+
+Object* Input::ClickObject()
+{
+	for(auto& obj : Objectmanager_.GetObjectMap())
+	{
+		if (GetMousePos().x < obj->GetTransform().GetTranslation().x + obj->GetTransform().GetScale().x &&
+			GetMousePos().x > obj->GetTransform().GetTranslation().x - obj->GetTransform().GetScale().x &&
+			GetMousePos().y < obj->GetTransform().GetTranslation().y + obj->GetTransform().GetScale().y &&
+			GetMousePos().y > obj->GetTransform().GetTranslation().y - obj->GetTransform().GetScale().y)
+		{
+			if(obj.get()->GetTransform().GetDepth() < 0.f)
+				return obj.get();
+		}
+	}
+
+	return nullptr;
+}
+
+bool Input::MouseIntersectObject(Object* object)
+{
+	vector2 min_obj = { object->GetTransform().GetTranslation().x - object->GetTransform().GetScale().x,
+		object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y };
+	vector2 max_obj = { object->GetTransform().GetTranslation().x + object->GetTransform().GetScale().x,
+		object->GetTransform().GetTranslation().y + object->GetTransform().GetScale().y };
+	vector2 mouse = GetMousePos();
+
+	if (mouse.x <= max_obj.x || mouse.x >= min_obj.x || mouse.y <= max_obj.y || mouse.y >= min_obj.y)
+		return true;
+
+	return false;
+}

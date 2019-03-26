@@ -108,6 +108,9 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="UI.cpp">
+      <Filter>Component\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.hpp" />
@@ -208,6 +211,9 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.hpp" />
+    <ClInclude Include="UI.hpp">
+      <Filter>Component\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -305,6 +311,9 @@
     </Filter>
     <Filter Include="Physics">
       <UniqueIdentifier>{b72e6b94-c552-46b4-8314-63aba8d177bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\UI">
+      <UniqueIdentifier>{c2e7ce5e-6d61-4c5d-89ee-579f4dd95d4e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

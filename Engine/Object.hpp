@@ -36,6 +36,8 @@ enum class ObjectType {
     Projectile,
 	Font,
 	Capture_Obj,
+	Tile,
+	Button,
     None,
 }; 
 

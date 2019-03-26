@@ -140,11 +140,11 @@ void Graphics::Draw()
 					}
 				}
 
-				if (auto temp = obj->GetComponentByTemplate<Collision>(); 
+				/*if (auto temp = obj->GetComponentByTemplate<Collision>(); 
 					temp != nullptr)
 				{
 					DrawCollisionBox(obj.get(), temp);
-				}
+				}*/
 
 				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
 				{
@@ -240,11 +240,11 @@ void Graphics::Tile_Draw()
 	{
 		for (auto it = Tile_Map_.GetPhysicalTiles().begin(); it != Tile_Map_.GetPhysicalTiles().end(); ++it)
 		{
-			if (auto temp = it->second->GetComponentByTemplate<Collision>();
+		/*	if (auto temp = it->second->GetComponentByTemplate<Collision>();
 				temp != nullptr)
 			{
 				DrawCollisionBox(it->second, temp);
-			}	
+			}	*/
 
 			if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>();
 				temp_sprite != nullptr)

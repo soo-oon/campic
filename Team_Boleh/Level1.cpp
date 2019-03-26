@@ -1,20 +1,12 @@
 #include "Level1.hpp"
 #include "Input.hpp"
-#include "Animation.hpp"
-#include <iostream>
-#include "Particle_Generator.hpp"
-#include "Camera.hpp"
 #include "Font.hpp"
-#include "Sound.hpp"
 #include "Application.hpp"
 #include "Tile_Map.hpp"
-#include "Capture.hpp"
-#include "Projectile.hpp"
-#include "Player.hpp"
 
 void Level1::Initialize()
 {
-	LoadLevel();
+	//LoadLevel();
 }
 
 void Level1::Update(float dt)
