@@ -146,39 +146,43 @@ void CollReaction(Object* object, Object* di_object)
 
 void StopReaction_dev(Object* object, Object* static_object)
 {
-    if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x >
-        object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
-    {
-        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
-        {
-            object->GetTransform().SetTranslation(
-                { static_object->GetTransform().GetTranslation().x - static_object->GetTransform().GetScale().x/2
-                    - object->GetTransform().GetScale().x/2 -1.f,
-                object->GetTransform().GetTranslation().y });
-        }
-        else {
-            object->GetTransform().SetTranslation(
-                { object->GetTransform().GetTranslation().x ,
-                static_object->GetTransform().GetTranslation().y + static_object->GetTransform().GetScale().y / 2
-                + object->GetTransform().GetScale().y / 2 + 1.f });
-            object->GetComponentByTemplate<Collision>()->SetIsGround(true);
-        }
-    }
-    else if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x <
-        object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
-    {
-        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y >= 0)
-            object->GetTransform().SetTranslation(
-                { object->GetTransform().GetTranslation().x ,
-                static_object->GetTransform().GetTranslation().y - static_object->GetTransform().GetScale().y /2
-                - object->GetTransform().GetScale().y /2 - 1.f});
-        else
-            object->GetTransform().SetTranslation(
-                { static_object->GetTransform().GetTranslation().x + static_object->GetTransform().GetScale().x/2
-                    + object->GetTransform().GetScale().x/2 + 1.f,
-                object->GetTransform().GetTranslation().y  });
+    object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0 ,object->GetComponentByTemplate<RigidBody>()->GetVelocity().y});
+        object->GetTransform().SetTranslation({
+                object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().x,
+                object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().y });
+    //if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x >
+    //    object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
+    //{
+    //    if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+    //    {
+    //        object->GetTransform().SetTranslation(
+    //            { static_object->GetTransform().GetTranslation().x - static_object->GetTransform().GetScale().x/2
+    //                - object->GetTransform().GetScale().x/2 -1.f,
+    //            object->GetTransform().GetTranslation().y });
+    //    }
+    //    else {
+    //        object->GetTransform().SetTranslation(
+    //            { object->GetTransform().GetTranslation().x ,
+    //            static_object->GetTransform().GetTranslation().y + static_object->GetTransform().GetScale().y / 2
+    //            + object->GetTransform().GetScale().y / 2 + 1.f });
+    //        object->GetComponentByTemplate<Collision>()->SetIsGround(true);
+    //    }
+    //}
+    //else if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x <
+    //    object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y)
+    //{
+    //    if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y >= 0)
+    //        object->GetTransform().SetTranslation(
+    //            { object->GetTransform().GetTranslation().x ,
+    //            static_object->GetTransform().GetTranslation().y - static_object->GetTransform().GetScale().y /2
+    //            - object->GetTransform().GetScale().y /2 - 1.f});
+    //    else
+    //        object->GetTransform().SetTranslation(
+    //            { static_object->GetTransform().GetTranslation().x + static_object->GetTransform().GetScale().x/2
+    //                + object->GetTransform().GetScale().x/2 + 1.f,
+    //            object->GetTransform().GetTranslation().y  });
 
-    }
+    //}
        
 }
 
