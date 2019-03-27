@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "StateManager.hpp"
 #include "Level1.hpp"
 #include "level2.hpp"
+#include "Level3.hpp"
 #include "SplashScreen.hpp"
 #include "MainMenu.hpp"
 #include "Level3.hpp"

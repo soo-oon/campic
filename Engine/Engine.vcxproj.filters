@@ -108,6 +108,8 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="MovingObject.cpp">
+      <Filter>Component\GameComponent</Filter>
     <ClCompile Include="UI.cpp">
       <Filter>Component\UI</Filter>
     </ClCompile>
@@ -211,6 +213,8 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.hpp" />
+    <ClInclude Include="MovingObject.hpp">
+      <Filter>Component\GameComponent</Filter>
     <ClInclude Include="UI.hpp">
       <Filter>Component\UI</Filter>
     </ClInclude>
@@ -312,6 +316,8 @@
     <Filter Include="Physics">
       <UniqueIdentifier>{b72e6b94-c552-46b4-8314-63aba8d177bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\GameComponent">
+      <UniqueIdentifier>{1008d68d-332f-4509-ad58-973b7a402cb4}</UniqueIdentifier>
     <Filter Include="Component\UI">
       <UniqueIdentifier>{c2e7ce5e-6d61-4c5d-89ee-579f4dd95d4e}</UniqueIdentifier>
     </Filter>
