@@ -11,10 +11,28 @@
 #include "Capture.hpp"
 #include "Projectile.hpp"
 #include "Player.hpp"
+#include "MovingObject.hpp"
 
 void Level1::Initialize()
 {
 	LoadLevel();
+
+	RoundObject = new Object();
+	RoundObject->SetScale({ 125.0f, 50.0f });
+	RoundObject->SetTranslation({ -136, -152 });
+	RoundObject->AddInitComponent(new RigidBody());
+	RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+	RoundObject->AddComponent(new MovingObject(5.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ROUND, 0.0f));
+	RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	RoundObject->AddInitComponent(new Collision());
+	//UpDownPlatform->SetObjectType(ObjectType::Item_Dynamic);
+	RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
+	container.push_back(RoundObject);
+
+	for (auto& i : container)
+	{
+		Objectmanager_.AddObject(i);
+	}
 }
 
 void Level1::Update(float dt)
