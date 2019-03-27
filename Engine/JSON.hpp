@@ -63,7 +63,7 @@ public:
 	Value ComponentParticle(Object* obj);
 	Value ComponentSound(Object* obj);
 	Value ComponentFont(Object* obj);
-
+	
 	Document& GetObjectDocument() { return ObjectDocument; }
 	Document& GetTileDocument() { return TileDocument; }
 

@@ -5,6 +5,8 @@
 #include "Particle_Generator.hpp"
 #include "Font.hpp"
 #include "Capture.hpp"
+#include "Projectile.hpp"
+#include "UI.hpp"
 
 JSON JSON_;
 
@@ -41,7 +43,10 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objSoundTree(kArrayType);
 	Value objFontTree(kArrayType);
 	Value objCaptureTree(kArrayType);
+	Value objProjectileTree(kArrayType);
+	Value objPlatformTree(kArrayType);
 	Value capture;
+	Value objUi;
 	
 	objTree.SetObject();
 	objTransformTree.SetObject();
@@ -55,8 +60,10 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objSoundTree.SetObject();
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
+	objProjectileTree.SetObject();
+	objPlatformTree.SetObject();
 	capture.SetObject();
-
+	objUi.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
 	objStatusTree = ComponentStatus(obj);
@@ -94,6 +101,16 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 
 		objCaptureTree.AddMember("pos", capture, ObjectDocument.GetAllocator());
 	}
+
+	if(obj->GetComponentByTemplate<Projectile>() != nullptr)
+	{
+	
+	}
+
+	//if(obj->GetComponentByTemplate<>())
+
+	if (obj->GetComponentByTemplate<UI>() != nullptr)
+		objUi.AddMember("id", obj->GetComponentByTemplate<UI>()->GetId(), ObjectDocument.GetAllocator());
 
 	objTree.AddMember("Type", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());

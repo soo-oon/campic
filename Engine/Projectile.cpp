@@ -215,19 +215,23 @@ void Projectile::WeaponUpdate(float dt)
 {
 	vector2 player_pos = StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation();
 
-	if(object->GetTransform().GetParent() == nullptr)
+	if (m_parent != nullptr)
 	{
-		if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		std::cout << "Should Need the m_parent" << std::endl;
+		if (object->GetTransform().GetParent() == nullptr)
 		{
-			object->SetTranslation(player_pos);
-			object->SetParent(&m_parent->GetTransform());
+			if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+			{
+				object->SetTranslation(player_pos);
+				object->SetParent(&m_parent->GetTransform());
+			}
 		}
-	}
-	else
-	{
-		if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		else
 		{
-			SpawnProjectile();
+			if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+			{
+				SpawnProjectile();
+			}
 		}
 	}
 

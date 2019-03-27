@@ -17,6 +17,13 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
+public:
+	float GetFireTime() { return m_firetime; }
+	float GetLifeTime() { return m_lifetime; }
+	Projectile_Type GetType() { return m_type; }
+	Object* GetParent() { return m_parent; }
+
+
 private:
 	void SpawnProjectile();
 	void SetProjectileDirection(RigidBody* rigidbody);
