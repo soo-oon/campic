@@ -256,8 +256,8 @@ void Physics::Update(float dt)
                             {
                                 if(IntersectionCheckAABB(projectile_list[j], projectile_list[k]))
                                 {
-                                    projectile_list[k]->IsDead();
-                                    projectile_list[j]->IsDead();
+                                    projectile_list[k]->SetIsDead(true);
+                                    projectile_list[j]->SetIsDead(true);
                                 }
                             }
                         }
@@ -271,8 +271,8 @@ void Physics::Update(float dt)
                             {
                                 if (IntersectionCheckAABB(statics, projectile_list[j]))
                                 {
-                                    statics->IsDead();
-                                    projectile_list[j]->IsDead();
+                                    statics->SetIsDead(true);
+                                    projectile_list[j]->SetIsDead(true);
                                 }
                             }
                         }
