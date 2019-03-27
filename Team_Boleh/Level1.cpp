@@ -43,5 +43,6 @@ void Level1::Update(float dt)
 
 void Level1::ShutDown()
 {
+	container.clear();
 	UnLoad();
 }

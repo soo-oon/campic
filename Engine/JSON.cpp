@@ -7,6 +7,7 @@
 #include "Capture.hpp"
 #include "Projectile.hpp"
 #include "UI.hpp"
+#include "MovingObject.hpp"
 
 JSON JSON_;
 
@@ -44,7 +45,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objFontTree(kArrayType);
 	Value objCaptureTree(kArrayType);
 	Value objProjectileTree(kArrayType);
-	Value objPlatformTree(kArrayType);
+	Value objMovingObjectTree(kArrayType);
 	Value capture;
 	Value objUi;
 	
@@ -61,7 +62,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
 	objProjectileTree.SetObject();
-	objPlatformTree.SetObject();
+	objMovingObjectTree.SetObject();
 	capture.SetObject();
 	objUi.SetObject();
 
@@ -102,15 +103,14 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 		objCaptureTree.AddMember("pos", capture, ObjectDocument.GetAllocator());
 	}
 
-	if(obj->GetComponentByTemplate<Projectile>() != nullptr)
-	{
-	
-	}
+	if (obj->GetComponentByTemplate<Projectile>() != nullptr)
+		objProjectileTree = ComponentProjectile(obj);
 
-	//if(obj->GetComponentByTemplate<>())
+	if (obj->GetComponentByTemplate<MovingObject>() != nullptr)
+		objMovingObjectTree = ComponentMovingObj(obj);
 
 	if (obj->GetComponentByTemplate<UI>() != nullptr)
-		objUi.AddMember("id", obj->GetComponentByTemplate<UI>()->GetId(), ObjectDocument.GetAllocator());
+		objUi.SetString(obj->GetComponentByTemplate<UI>()->GetId().c_str(), ObjectDocument.GetAllocator());
 
 	objTree.AddMember("Type", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
@@ -122,6 +122,10 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("ID", objUi, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
@@ -437,6 +441,62 @@ Value JSON::ComponentFont(Object * obj)
 	return container;
 }
 
+Value JSON::ComponentMovingObj(Object* obj)
+{
+	Value container(kArrayType);
+	Value m_dt, m_InitPosition, m_GoalPosition, m_Distance, m_Velocity, m_MoveTime, m_WhichWay, m_MoveType;
+
+	auto info = obj->GetComponentByTemplate<MovingObject>();
+
+	m_dt.AddMember("dt", info->GetDt(), ObjectDocument.GetAllocator());
+	m_InitPosition.AddMember("x", info->GetInitPosition().x, ObjectDocument.GetAllocator());
+	m_InitPosition.AddMember("y", info->GetInitPosition().y, ObjectDocument.GetAllocator());
+	m_GoalPosition.AddMember("x", info->GetGoalPosition().x, ObjectDocument.GetAllocator());
+	m_GoalPosition.AddMember("y", info->GetGoalPosition().y, ObjectDocument.GetAllocator());
+	m_Distance.AddMember("distance", info->GetDistance(), ObjectDocument.GetAllocator());
+	m_Velocity.AddMember("velocity", info->GetVelocity(), ObjectDocument.GetAllocator());
+	m_MoveTime.AddMember("move_time", info->GetMoveTime(), ObjectDocument.GetAllocator());
+	m_WhichWay.AddMember("direction", static_cast<int>(info->GetDirection()), ObjectDocument.GetAllocator());
+	m_MoveType.AddMember("type", static_cast<int>(info->GetMoveType()), ObjectDocument.GetAllocator());
+
+	container.AddMember("dt", m_dt, ObjectDocument.GetAllocator());
+	container.AddMember("init_pos", m_InitPosition, ObjectDocument.GetAllocator());
+	container.AddMember("goal_pos", m_GoalPosition, ObjectDocument.GetAllocator());
+	container.AddMember("distance", m_Distance, ObjectDocument.GetAllocator());
+	container.AddMember("velocity", m_Velocity, ObjectDocument.GetAllocator());
+	container.AddMember("move_time", m_MoveTime, ObjectDocument.GetAllocator());
+	container.AddMember("direction", m_WhichWay, ObjectDocument.GetAllocator());
+	container.AddMember("type", m_MoveType, ObjectDocument.GetAllocator());
+
+	return container;
+}
+
+Value JSON::ComponentProjectile(Object * obj)
+{
+	Value container(kArrayType);
+	Value fire_time, life_time, type, dt;
+
+	container.SetObject();
+	fire_time.SetObject();
+	life_time.SetObject();
+	type.SetObject();
+	dt.SetObject();
+
+	auto info = obj->GetComponentByTemplate<Projectile>();
+
+	fire_time.AddMember("fire_time", info->GetFireTime(), ObjectDocument.GetAllocator());
+	life_time.AddMember("life_time", info->GetLifeTime(), ObjectDocument.GetAllocator());
+	type.AddMember("type", static_cast<int>(info->GetType()), ObjectDocument.GetAllocator());
+	dt.AddMember("dt", info->GetDt(), ObjectDocument.GetAllocator());
+
+	container.AddMember("fire_time", fire_time, ObjectDocument.GetAllocator());
+	container.AddMember("life_time", life_time, ObjectDocument.GetAllocator());
+	container.AddMember("type", type, ObjectDocument.GetAllocator());
+	container.AddMember("dt", dt, ObjectDocument.GetAllocator());
+
+	return container;
+}
+
 void JSON::SaveObjectsToJson(const std::string& file, const std::string& path)
 {
 	std::string filename(file_path);
@@ -704,6 +764,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		Value& obj_array = temp.value;
 
 		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
+		Value ui, projectile, movingobj;
 		
 		Object* obj = new Object();
 
@@ -718,6 +779,9 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		font.SetObject();
 		capture.SetObject();
 		camera.SetObject();
+		ui.SetObject();
+		projectile.SetObject();
+		movingobj.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -730,6 +794,9 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		font = obj_array.FindMember("Font")->value;
 		capture = obj_array.FindMember("Capture")->value;
 		camera = obj_array.FindMember("Camera")->value;
+		//ui = obj_array.FindMember("UI")->value;
+		//projectile = obj_array.FindMember("projectile")->value;
+		//movingobj = obj_array.FindMember("movingobj")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -896,6 +963,12 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->AddComponent(new Camera(level));
 		}
+
+		////////////////////////////////////////////UI
+		/*if(ui.FindMember("id"))
+		{
+			
+		}*/
 
 		
 		Objectmanager_.AddObject(obj);

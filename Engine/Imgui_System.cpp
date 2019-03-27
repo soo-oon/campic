@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "Tile_Map.hpp"
 #include "Physics.hpp"
 #include "Capture.hpp"
+#include "Projectile.hpp"
 //#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
@@ -306,6 +307,48 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(player_camera);
 
 		Objectmanager_.SetCaptureObject(player_camera);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::Button("Cannon");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* cannon = new Object();
+		cannon->SetTranslation(Input::GetMousePos());
+		cannon->SetScale({ 150,150 });
+		cannon->SetObjectType(ObjectType::Item_Static);
+		cannon->SetMesh(mesh::CreateBox());
+		cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
+		cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
+		cannon->AddComponent(new Projectile(3.0f, 10.0f, Projectile_Type::Cannon)); 
+		Objectmanager_.AddObject(cannon);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::Button("Weapon");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* weapon = new Object();
+		weapon->SetTranslation(Input::GetMousePos());
+		weapon->SetScale({ 100, 50 });
+		weapon->SetObjectType(ObjectType::Item_Static);
+		weapon->SetMesh(mesh::CreateBox());
+		weapon->AddComponent(new Sprite("asset/images/weapon.png"));
+		weapon->AddComponent(new Collision(box_));
+		weapon->AddComponent(new Projectile(0.0f, 3.0f, Projectile_Type::Weapon));
+		Objectmanager_.AddObject(weapon);
 	}
 }
 

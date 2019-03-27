@@ -21,13 +21,17 @@ public:
 	float GetFireTime() { return m_firetime; }
 	float GetLifeTime() { return m_lifetime; }
 	Projectile_Type GetType() { return m_type; }
+	float GetDt() { return m_dt; }
 	Object* GetParent() { return m_parent; }
-
 
 private:
 	void SpawnProjectile();
 	void SetProjectileDirection(RigidBody* rigidbody);
 	void SetFilpAnimation();
+	void SetFireTime(float time) { m_firetime = time; }
+	void SetLifeTime(float time) { m_lifetime = time; }
+	void SetProjectileType(Projectile_Type type) { m_type = type; }
+	void SetDt(float time) { m_dt = time; }
 	void CannonUpdate(float dt);
 	void WeaponUpdate(float dt);
 
