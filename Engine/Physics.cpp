@@ -256,14 +256,25 @@ void Physics::Update(float dt)
                             {
                                 if(IntersectionCheckAABB(projectile_list[j], projectile_list[k]))
                                 {
-                                    DeleteReaction(projectile_list[j]);
-                                    DeleteReaction(projectile_list[k]);
+                                    projectile_list[k]->IsDead();
+                                    projectile_list[j]->IsDead();
                                 }
                             }
                         }
                         if (IntersectionCheckAABB(collision_list[i], projectile_list[j]))
                         {
                             StopReaction(collision_list[i], projectile_list[j], false);
+                        }
+                        if (static_list.size() > 0)
+                        {
+                            for (auto statics : static_list)
+                            {
+                                if (IntersectionCheckAABB(statics, projectile_list[j]))
+                                {
+                                    statics->IsDead();
+                                    projectile_list[j]->IsDead();
+                                }
+                            }
                         }
                     }
                 //for(auto static_object : static_list)
