@@ -18,14 +18,47 @@ void Level3::Initialize()
 	LoadLevel();
 
 	OneWayObject = new Object();
-	OneWayObject->SetScale({ 125.0f, 50.0f });
+	OneWayObject->SetScale({ 50.0f, 50.0f });
 	OneWayObject->SetTranslation({ -136, -152 });
 	OneWayObject->AddInitComponent(new RigidBody());
 	OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-	OneWayObject->AddComponent(new MovingObject(2.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ONEWAY, 2.0f));
+	OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ONEWAY, 2.0f));
 	OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	OneWayObject->AddInitComponent(new Collision());
-	OneWayObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
+	OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+	container.push_back(OneWayObject);
+
+	OneWayObject = new Object();
+	OneWayObject->SetScale({ 50.0f, 50.0f });
+	OneWayObject->SetTranslation({ 136, -200 });
+	OneWayObject->AddInitComponent(new RigidBody());
+	OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+	OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ONEWAY, 3.0f));
+	OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	OneWayObject->AddInitComponent(new Collision());
+	OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+	container.push_back(OneWayObject);
+
+	OneWayObject = new Object();
+	OneWayObject->SetScale({ 50.0f, 50.0f });
+	OneWayObject->SetTranslation({ -150, 140 });
+	OneWayObject->AddInitComponent(new RigidBody());
+	OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+	OneWayObject->AddComponent(new MovingObject(7.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ONEWAY, 5.0f));
+	OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	OneWayObject->AddInitComponent(new Collision());
+	OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+	container.push_back(OneWayObject);
+
+	OneWayObject = new Object();
+	OneWayObject->SetScale({ 50.0f, 50.0f });
+	OneWayObject->SetTranslation({ 150, 140 });
+	OneWayObject->AddInitComponent(new RigidBody());
+	OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+	OneWayObject->AddComponent(new MovingObject(2.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ONEWAY, 0.0f));
+	OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+	OneWayObject->AddInitComponent(new Collision());
+	OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
 	container.push_back(OneWayObject);
 
 	for (auto& i : container)
