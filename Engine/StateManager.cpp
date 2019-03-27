@@ -62,20 +62,16 @@ void StateManager::ChangeStage()
 
 	m_currentState->LoadLevel(save);
 
-	//m_currentState->Initialize();
 	Physics_.ResetPreviousSize();
 }
 
 void StateManager::BackToMenu()
 {
 	std::string next_level = m_currentState->GetNextLevel();
-	//std::string save = m_currentState->GetLevelIndicator();
 
 	m_currentState->ShutDown();
 	m_currentState->ResetBackToMenu();
 	m_currentState = states.find(next_level)->second.get();
-
-	//m_currentState->LoadLevel(save);
 
 	m_currentState->Initialize();
 	Physics_.ResetPreviousSize();
