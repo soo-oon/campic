@@ -67,7 +67,7 @@ void RigidBody::Update(float dt)
 	// integrate position
 	if (magnitude(m_velocity) < 0.001f)
 		m_velocity = 0;	
-        // integrate position
+        // integrate position                   
             if (!object->GetComponentByTemplate<Collision>()->GetIsGround() && !object->GetComponentByTemplate<Collision>()->GetIsCapobj())
             {
                 object->GetTransform().SetTranslation({ (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
