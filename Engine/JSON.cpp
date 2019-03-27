@@ -568,7 +568,7 @@ void JSON::SaveLevelTiles(int grid, Object * tiles, Tile_Type type, const std::s
 
 void JSON::LoadLevel(const std::string& file, const std::string& path)
 {
-	LoadObjectFromJson(file, path);
+	//LoadObjectFromJson(file, path);
 	LoadTilesFromJson(Tile_Type::Graphical, file);
 	LoadTilesFromJson(Tile_Type::Physical, file);
 }
@@ -722,6 +722,9 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->SetIsDead(isDead);
 			obj->SetObjectType(static_cast<ObjectType>(obj_type));
+
+			if (obj->GetObjectType() == ObjectType::Player)
+				StateManager_.GetCurrentState()->SetPlayerPosition(obj->GetTransform().GetTranslation());
 		}
 
 	    //////////////////////////////////////// Transform
@@ -856,7 +859,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		//////////////////////////////////////////Capture
 		if(capture.HasMember("pos"))
 		{
-			vector2 reset_pos;
+			vector2 reset_pos;// = StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation();
 			reset_pos.x = capture.FindMember("pos")->value.FindMember("x")->value.GetFloat();
 			reset_pos.y = capture.FindMember("pos")->value.FindMember("y")->value.GetFloat();
 
