@@ -3,6 +3,7 @@
 #include "Graphics.hpp"
 #include <iostream>
 #include "State.hpp"
+#include "Projectile.hpp"
 
 bool Capture::Initialize(Object* Ob)
 {
@@ -39,7 +40,8 @@ void Capture::Capturing()
 
 	for(auto& obj : Objectmanager_.GetObjectMap())
 	{
-		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player)
+		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player
+			 || obj->GetObjectType() == ObjectType::Projectile)
 			&& obj.get() != object)
 		{
 			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
@@ -66,15 +68,23 @@ void Capture::Capturing()
 					temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
 					temp->SetObjectType(ObjectType::Capture_Obj);
 
+					if(obj->GetObjectType() == ObjectType::Projectile)
+					{
+						obj->SetIsDead(true);
+					}
+
 					if (auto temp_animation = temp->GetComponentByTemplate<Animation>();
 						temp_animation != nullptr)
 					{
 						temp_animation->SetIsActive(false);
 					}
 
-					player_->SetTranslation(reset_pos);
-                    player_->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
-                    player_->GetComponentByTemplate<Collision>()->SetIsGround(false);
+					if (obj->GetObjectType() == ObjectType::Player)
+					{
+						player_->SetTranslation(reset_pos);
+						player_->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
+						player_->GetComponentByTemplate<Collision>()->SetIsGround(false);
+					}
 					Objectmanager_.AddObject(temp);
 					break;
 				}

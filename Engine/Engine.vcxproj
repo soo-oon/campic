@@ -199,6 +199,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Tile_Map.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Tile_Map.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UI.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Math_Library\Math_Library.vcxproj">

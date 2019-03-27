@@ -20,8 +20,9 @@ Creation date: 2018/12/14
 #include "level2.hpp"
 #include "Level3.hpp"
 #include "SplashScreen.hpp"
-#include "JSON.hpp"
 #include "MainMenu.hpp"
+#include "Level3.hpp"
+#include "LevelSelector.hpp"
 
 int main()
 {
@@ -29,11 +30,12 @@ int main()
 
     engine.Initialize();
 
-    //StateManager_.AddStage("Splash_Screen", new SplashScreen());
+	//StateManager_.AddStage("MainMenu", new MainMenu());
+	StateManager_.AddStage("LevelSelector", new LevelSelector());
 	//StateManager_.AddStage("Level1", new Level1());
     //StateManager_.AddStage("Level2", new level2());
 	StateManager_.AddStage("Level3", new Level3());
-	//StateManager_.AddStage("MainMenu", new MainMenu());
+
 
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
     StateManager_->AddStage("StartMenu", new StartMenu());

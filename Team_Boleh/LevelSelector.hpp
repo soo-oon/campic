@@ -17,4 +17,14 @@ private:
 	std::string current_level = "LevelSelector";
 
 	const std::string file_path = "asset/JsonFiles/Levels/";
+
+	std::vector<Object*> container;
+
+	Object* background = nullptr;
+	Object* level1 = nullptr;
+	Object* level2 = nullptr;
+	Object* level3 = nullptr;
+
+	Object* player_camera = nullptr;
+	Object* select_level = nullptr;
 };

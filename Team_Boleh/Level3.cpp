@@ -36,13 +36,8 @@ void Level3::Initialize()
 
 void Level3::Update(float dt)
 {
-	if (Input::IsKeyTriggered(GLFW_KEY_R))
-	{
-		ChangeLevel("Level3");
-	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_I))
-		Tile_Map_.Delete_Tile();
+	if (Input::IsKeyTriggered(GLFW_KEY_0))
+		BackToMenu();
 }
 
 void Level3::ShutDown()

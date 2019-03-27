@@ -22,6 +22,7 @@ class Tile_Map
 public:
     bool Initialize();
     void Update(float dt);
+	void RemoveTiles();
 
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }

@@ -39,7 +39,7 @@ bool Imgui_System::Initialize()
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	//glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+	
 	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
 	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
 	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
@@ -106,33 +106,21 @@ void Imgui_System::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
 	{
 		show_window = !show_window;
-		if (!show_window)
-			imgui_key_call_back = false;
 	}
 
 	if (show_window)
 	{
+		glfwSetCharCallback(window, ImGui_ImplGlfw_CharCallback);
+
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
-			{
-				if (Input::GetMousePos().x < obj->get()->GetTransform().GetTranslation().x + obj->get()->GetTransform().GetScale().x &&
-					Input::GetMousePos().x > obj->get()->GetTransform().GetTranslation().x - obj->get()->GetTransform().GetScale().x &&
-					Input::GetMousePos().y < obj->get()->GetTransform().GetTranslation().y + obj->get()->GetTransform().GetScale().y &&
-					Input::GetMousePos().y > obj->get()->GetTransform().GetTranslation().y - obj->get()->GetTransform().GetScale().y
-					)
-				{
-					selectObj = obj->get();
-					imgui_key_call_back = true;
-				}
-			}
+			selectObj = Input::ClickObject();
 		}
 
 		if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
 		{
 			if (selectObj)
 				selectObj->SetTranslation(Input::GetMousePos());
-			//imgui_key_call_back = false;
 		}
 
 		if (is_normal_tile)

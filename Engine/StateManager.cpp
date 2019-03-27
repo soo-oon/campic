@@ -54,12 +54,24 @@ void StateManager::AddStage(std::string ID, State* state)
 void StateManager::ChangeStage()
 {
 	std::string next_level = m_currentState->GetNextLevel();
+	std::string save = m_currentState->GetLevelIndicator();
 
 	m_currentState->ShutDown();
 	m_currentState->ResetLevelChange();
 	m_currentState = states.find(next_level)->second.get();
 
-	//m_currentState->LoadLevel();
+	m_currentState->LoadLevel(save);
+
+	Physics_.ResetPreviousSize();
+}
+
+void StateManager::BackToMenu()
+{
+	std::string next_level = m_currentState->GetNextLevel();
+
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find(next_level)->second.get();
 
 	m_currentState->Initialize();
 	Physics_.ResetPreviousSize();
@@ -85,15 +97,24 @@ void StateManager::Update(float dt)
 	if (m_currentState->IsLevelChange())
 		ChangeStage();
 
+	if (m_currentState->IsBackToMenu())
+		BackToMenu();
+		
 	if (Input::IsKeyTriggered(GLFW_KEY_F1))
 		m_currentState->SaveLevel();
 
 	if (Input::IsKeyTriggered(GLFW_KEY_I))
 		Tile_Map_.Delete_Tile();
 
-	if(Input::IsKeyTriggered(GLFW_KEY_R))
+	int count = 0;
+
+	std::string level = "level";
+
+	level += std::to_string(count);
+
+	if(Input::IsKeyTriggered(GLFW_KEY_T))
 	{
-		
+		m_currentState->GetNextLevel();
 	}
 }
 

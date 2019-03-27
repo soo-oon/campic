@@ -20,18 +20,17 @@ void HUD_Level::Initialize()
 	h_cheese->SetMesh(mesh::CreateBox(1, Colors::Yellow));
 	h_cheese->SetObjectType(ObjectType::Background);
 	h_cheese->SetInvisible();
-	//h_cheese->GetMesh().Invisible();
-	//h_cheese->GetMesh().SetAlphaZero();
+	h_cheese->GetMesh().Invisible();
+	h_cheese->GetMesh().SetAlphaZero();
 
-	//HUD_.Add_HUD_Object(h_cheese);
-	//Objectmanager_.AddObject(h_cheese);
+	HUD_.Add_HUD_Object(h_cheese);
 
 	HUD_.Toggle_HUD_Active();
 }
 
 void HUD_Level::Update(float dt)
 {
-	/*if(StateManager_.GetCurrentState()->GetCaptureObjectPointer() != nullptr)
+	if(StateManager_.GetCurrentState()->GetCaptureObjectPointer() != nullptr)
 	{
 		if(auto cheese = StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>();
 			cheese != nullptr)
@@ -52,7 +51,7 @@ void HUD_Level::Update(float dt)
 			}
 		}
 	}
-*/
+
 	if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 	{
 		if (g_Option->GetMesh().IsVisible())

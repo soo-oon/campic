@@ -34,10 +34,13 @@ public:
 
 
 	virtual bool IsLevelChange() { return level_change; }
+	virtual bool IsBackToMenu() { return back_to_menu; }
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual void ChangeLevel(std::string ID);
+	virtual void BackToMenu();
 
 	void ResetLevelChange() { level_change = false; }
+	void ResetBackToMenu() { back_to_menu = false; }
 	void SaveLevel();
 	void LoadLevel();
 	void LoadLevel(const std::string& current_level);
@@ -46,10 +49,12 @@ public:
 
 	void SetPlayerObjectPointer(Object* obj) { player_obj = obj; }
 	void SetCaptureObjectPointer(Object* obj) { capture_obj = obj; }
+	void SetLevelChange(bool change) { level_change = change; }
 
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
 	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
+	std::string GetLevelIndicator() { return level_indicator; }
 
 	Object* GetPlayerObjectPointer() { return player_obj; }
 	Object* GetCaptureObjectPointer() { return capture_obj; }
@@ -66,4 +71,5 @@ private:
 
 	bool iscamera = false;
 	bool level_change = false;
+	bool back_to_menu = false;
 };
