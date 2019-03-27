@@ -27,6 +27,7 @@ void Tile_Map::Update(float dt)
         Initialize();
         init = true;
     }
+
 	for(auto it = graphics_tiles.begin(); it != graphics_tiles.end(); ++it)
 	{
 		for(auto component : it->second->GetComponent())

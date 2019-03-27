@@ -60,7 +60,11 @@ public:
     void SetIsDoorClose();
     void SetIsGround(bool ground) { isGround = ground; }
     void SetIsCapobj(bool cap) { isCapobj = cap; }
-    void SetIsStopped(bool cap) { isStopped = cap; }
+    void SetIsStopped(bool s) { isStopped = s; }
+    void SetIsLeft(bool l) { isLeft = l; }
+    void SetIsLeftTile(bool lt) { isLeftTile = lt; }
+    void SetIsRight(bool r) { isRight = r; }
+    void SetIsRightTile(bool rt) { isRightTile = rt; }
     void SetCollisionScale(vector2 size_);
     void SetJumpingitutionType(RestitutionType restitution);
 
@@ -70,6 +74,10 @@ public:
     bool GetIsGround() { return isGround; }
     bool GetIsCapobj() { return isCapobj; }
     bool GetIsStopped() { return isStopped; }
+    bool GetIsLeft() { return isLeft; }
+    bool GetIsLeftTile() { return isLeftTile; }
+    bool GetIsRight() { return isRight; }
+    bool GetIsRightTile() { return isRightTile; }
     CollisionType& GetCollisionType();
     std::vector<vector2> GetCollisionCalculateTRS();
     Mesh& GetCollsionMesh();
@@ -90,6 +98,10 @@ private:
     bool isGet = false;
     bool isGround = false;
     bool isCapobj = false;
+    bool isLeftTile = false;
+    bool isRightTile = false;
     bool isStopped = false;
+    bool isLeft = false;
+    bool isRight = false;
     bool isdoor = false;
 };

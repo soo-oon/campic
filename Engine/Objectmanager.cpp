@@ -21,6 +21,7 @@ Creation date: 2018/12/14
 #include <iostream>
 #include "Physics.hpp"
 #include "Capture.hpp"
+#include "Engine.hpp"
 
 Objectmanager Objectmanager_;
 
@@ -43,7 +44,7 @@ void Objectmanager::Update(float dt)
 {
 	auto size = objects_.size();
 
-	for (auto object = objects_.begin(); object != objects_.end();  ++object)
+	for (auto object = objects_.begin(); object != objects_.end();)
 	{
 		for (auto components : object->get()->GetComponent())
 		{
@@ -55,6 +56,16 @@ void Objectmanager::Update(float dt)
 
 		SetPlayer(object->get());
 		SetCaptureObject(object->get());
+
+		if(object->get()->IsDead())
+		{
+			object = objects_.erase(object);
+			//objects_.erase(object);
+		}
+		else
+		{
+			++object;
+		}
 	}
 }
 

@@ -44,7 +44,9 @@ public:
         // This is intersection check which is AABB version for thin 
         bool IntersectionCheckAABB(Object* object1, Object* object2);
         bool IntersectionCheckAABBPositionBase(Object* object1, Object* object2);
-        bool IntersectionCheckAABBPosition(Object* object1, Object* object2);
+        bool IntersectionCheckAABBPositionLeft(Object* object1, Object* object2);
+        bool IntersectionCheckAABBPositionRight(Object* object1, Object* object2);
+        bool IntersectionCheckNextPosition(Object* object1, Object* object2);
         
 	void ResetPreviousSize() { previous_size = 0; }
 
@@ -71,7 +73,7 @@ public:
         float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
         float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
         float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
-            if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+        if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
         {
             if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
             {
@@ -87,6 +89,12 @@ public:
                     tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +TILE_SIZE/2 }));
                 if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
                     tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
             }
             else
             {
@@ -108,6 +116,12 @@ public:
         {
             if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
             {
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
                 if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }) != nullptr)
                     tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }));
                 if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }) != nullptr)
@@ -123,6 +137,12 @@ public:
             }
             else
             {
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
                 if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }) != nullptr)
                     tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }));
                 if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }) != nullptr)

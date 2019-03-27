@@ -36,7 +36,14 @@ bool Collision::Initialize(Object* Ob)
 
 void Collision::Update(float dt)
 {
-	collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+	if (object->GetTransform().GetParent() == nullptr)
+	{
+		collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+	}
+	else
+	{
+		collision_transform.SetTranslation(object->GetTransform().GetParent()->GetTranslation());
+	}
 
 	if (restitution_ != RestitutionType::exit_)
 		isdoor = false;

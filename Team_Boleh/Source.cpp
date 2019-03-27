@@ -29,7 +29,6 @@ int main()
 
     engine.Initialize();
 
-    //StateManager_.AddStage("Splash_Screen", new SplashScreen());	
 	//StateManager_.AddStage("MainMenu", new MainMenu());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
 	//StateManager_.AddStage("Level1", new Level1());
