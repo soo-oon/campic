@@ -29,7 +29,7 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	//LoadLevel();
+	LoadLevel();
 
     Object* temp = new Object();
     temp->SetTranslation({ -400,0 });
@@ -57,22 +57,25 @@ void level2::Initialize()
 	
 
 	Object* cannon = new Object();
-	cannon->SetTranslation({ 0,0 });
+	cannon->SetTranslation({ 480,-170 });
 	cannon->SetScale({ 150,150 });
 	cannon->SetObjectType(ObjectType::Item_Static);
 	cannon->SetMesh(mesh::CreateBox());
 	cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
 	cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
 	cannon->AddComponent(new Projectile(3.0f, 10.0f, Projectile_Type::Cannon));
+	cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 500, 0 });
 
 	Object* weapon = new Object();
-	weapon->SetTranslation({ 0 , -100 });
+	weapon->SetTranslation({ 30 , -235 });
 	weapon->SetScale({ 100, 50 });
-	weapon->SetObjectType(ObjectType::Item_Static);
+	weapon->SetObjectType(ObjectType::Item_Dynamic);
 	weapon->SetMesh(mesh::CreateBox());
 	weapon->AddComponent(new Sprite("asset/images/weapon.png"));
 	weapon->AddComponent(new Collision(box_));
-	weapon->AddComponent(new Projectile(3.0f, 3.0f, Projectile_Type::Weapon, temp));
+	weapon->AddComponent(new Projectile(1.0f, 3.0f, Projectile_Type::Weapon));
+	weapon->GetComponentByTemplate<Projectile>()->SetFireDir({ 1000, 0 });
+
 
  //   //temp->AddComponent(new Enemy(MoveType::straight));
 
@@ -126,6 +129,8 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
+	std::cout << Input::GetMousePos().x << ", " << Input::GetMousePos().y << std::endl;
+
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
 		ChangeLevel("Level2");

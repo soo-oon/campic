@@ -1,1 +1,362 @@
-{}
+{
+    "Object": {
+        "Type": {
+            "type": 7,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -960.6983032226563,
+                "y": -2695.62109375
+            },
+            "scale": {
+                "x": 30.0,
+                "y": 30.0
+            },
+            "rotation": 0.0,
+            "depth": 0.20000000298023225
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/cannon_bullet.png"
+        },
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 7,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -658.8562622070313,
+                "y": -947.7131958007813
+            },
+            "scale": {
+                "x": 30.0,
+                "y": 30.0
+            },
+            "rotation": 0.0,
+            "depth": 0.20000000298023225
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/cannon_bullet.png"
+        },
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 7,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -358.5805969238281,
+                "y": -28.720474243164064
+            },
+            "scale": {
+                "x": 30.0,
+                "y": 30.0
+            },
+            "rotation": 0.0,
+            "depth": 0.20000000298023225
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/cannon_bullet.png"
+        },
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 7,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -58.39316177368164,
+                "y": 72.14066314697266
+            },
+            "scale": {
+                "x": 30.0,
+                "y": 30.0
+            },
+            "rotation": 0.0,
+            "depth": 0.20000000298023225
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/cannon_bullet.png"
+        },
+        "Animation": {},
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 5,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {
+            "zoom": 1.0,
+            "center": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "up": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "right": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "level": "Level2"
+        }
+    },
+    "Object": {
+        "Type": {
+            "type": 3,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 150.0,
+                "y": 150.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "cannon_standing",
+                        "path": "asset/images/cannon.png"
+                    },
+                    "info": {
+                        "image_frames": 5,
+                        "update_frames": 0.4000000059604645,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "cannon_fire",
+                        "path": "asset/images/cannon_fire.png"
+                    },
+                    "info": {
+                        "image_frames": 6,
+                        "update_frames": 0.10000000149011612,
+                        "is_repeats": false
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 3,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": -100.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/weapon.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 12,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -186.0,
+                "y": 412.0
+            },
+            "scale": {
+                "x": 300.0,
+                "y": 175.0
+            },
+            "rotation": 0.0,
+            "depth": -0.20000000298023225
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "basic_camera",
+                        "path": "asset/images/camera_frame.png"
+                    },
+                    "info": {
+                        "image_frames": 2,
+                        "update_frames": 0.5,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "cheese",
+                        "path": "asset/images/cheese.png"
+                    },
+                    "info": {
+                        "image_frames": 2,
+                        "update_frames": 0.5,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {
+            "pos": {
+                "x": -400.0,
+                "y": 0.0
+            }
+        },
+        "Camera": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 0,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -400.0,
+                "y": -13010.103515625
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "player",
+                        "path": "asset/images/Enemies/1_Right.png"
+                    },
+                    "info": {
+                        "image_frames": 5,
+                        "update_frames": 0.20000000298023225,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {}
+    }
+}

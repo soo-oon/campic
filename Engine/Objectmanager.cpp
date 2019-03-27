@@ -104,29 +104,17 @@ void Objectmanager::AddObject(std::shared_ptr<Object> obj)
 
 void Objectmanager::SetCaptureObject(Object* obj)
 {
-	if (StateManager_.GetCurrentState()->GetCaptureObjectPointer() == nullptr)
+	if (obj->GetComponentByTemplate<Capture>() != nullptr)
 	{
-		for (auto& obj : objects_)
-		{
-			if (obj->GetComponentByTemplate<Capture>() != nullptr)
-			{
-				StateManager_.GetCurrentState()->SetCaptureObjectPointer(obj.get());
-			}
-		}
+		StateManager_.GetCurrentState()->SetCaptureObjectPointer(obj);
 	}
 }
 
 void Objectmanager::SetPlayer(Object* obj)
 {
-	if (StateManager_.GetCurrentState()->GetPlayerObjectPointer() == nullptr)
+	if (obj->GetObjectType() == ObjectType::Player)
 	{
-		for (auto& obj : objects_)
-		{
-			if (obj->GetObjectType() == ObjectType::Player)
-			{
-				StateManager_.GetCurrentState()->SetPlayerObjectPointer(obj.get());
-			}
-		}
+		StateManager_.GetCurrentState()->SetPlayerObjectPointer(obj);
 	}
 }
 

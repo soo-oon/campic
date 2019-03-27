@@ -138,12 +138,12 @@ void Projectile::SetProjectileDirection(RigidBody* rigidbody)
 
 			if(normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
 			{
-				rigidbody->SetVelocity({ 100, 150 });
+				rigidbody->SetVelocity({ fire_dir });
 
 			}
 			else
 			{
-				rigidbody->SetVelocity({ -100, 150 });
+				rigidbody->SetVelocity({ -fire_dir.x, fire_dir.y });
 			}
 		}
 		break;
@@ -154,11 +154,11 @@ void Projectile::SetProjectileDirection(RigidBody* rigidbody)
 
 			if(!player_->GetComponentByTemplate<Animation>()->IsFiip())
 			{
-				rigidbody->SetVelocity({ 1000, 0 });
+				rigidbody->SetVelocity({ fire_dir });
 			}
 			else
 			{
-				rigidbody->SetVelocity({ -1000, 0 });
+				rigidbody->SetVelocity({ -fire_dir.x, fire_dir.y });
 			}
 		}
 		break;
@@ -170,18 +170,21 @@ void Projectile::SetProjectileDirection(RigidBody* rigidbody)
 
 void Projectile::SetFilpAnimation()
 {
-	auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
-
-	if (object->GetComponentByTemplate<Animation>() != nullptr)
+	if (auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+		player_ != nullptr)
 	{
-		if (normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
-		{
-			object->GetComponentByTemplate<Animation>()->SetFlip(false);
 
-		}
-		else
+		if (object->GetComponentByTemplate<Animation>() != nullptr)
 		{
-			object->GetComponentByTemplate<Animation>()->SetFlip(true);
+			if (normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
+			{
+				object->GetComponentByTemplate<Animation>()->SetFlip(false);
+
+			}
+			else
+			{
+				object->GetComponentByTemplate<Animation>()->SetFlip(true);
+			}
 		}
 	}
 }
@@ -214,13 +217,20 @@ void Projectile::CannonUpdate(float dt)
 
 void Projectile::WeaponUpdate(float dt)
 {
-	vector2 player_pos = StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation();
+	if(m_parent == nullptr)
+	{
+		m_parent = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+	}
+	else
+	{
+		int a = 5;
+	}
 
 	if(object->GetTransform().GetParent() == nullptr)
 	{
 		if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
 		{
-			object->SetTranslation(player_pos);
+			object->SetTranslation(m_parent->GetTransform().GetTranslation());
 			object->SetParent(&m_parent->GetTransform());
 		}
 	}
@@ -238,6 +248,11 @@ void Projectile::WeaponUpdate(float dt)
 
 	for (auto bullet = projectile.begin(); bullet != projectile.end();)
 	{
+		if(bullet->get()->GetParent() == nullptr)
+		{
+			bullet->get()->SetParent(m_parent);
+		}
+
 		bullet->get()->Update(dt);
 
 		if (bullet->get()->IsDead())

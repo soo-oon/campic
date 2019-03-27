@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Bullet.hpp"
+#include "State.hpp"
 
 void Bullet::Initialize(Object* Ob)
 {
@@ -19,6 +20,11 @@ void Bullet::Initialize(Object* Ob)
 
 void Bullet::Update(float dt)
 {
+	if(m_parent == nullptr)
+	{
+		//m_parent = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+	}
+
 	m_lifetime -= dt;
 
 	if(m_lifetime <= 0.0f)
@@ -42,7 +48,7 @@ void Bullet::MakeBullet()
 	{
 		m_object = new Object();
 		m_object->SetTranslation(base_obj->GetTransform().GetTranslation());
-		m_object->SetScale({ 30, 30 });
+		m_object->SetScale({ 70, 70 });
 		m_object->SetDepth(0.2f);
 		m_object->SetMesh(mesh::CreateBox());
 		m_object->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
