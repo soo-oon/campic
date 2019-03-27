@@ -9,8 +9,8 @@
 class Projectile : public Component
 {
 public:
-	Projectile(float firetime = 5.0f, float lifetime = 3.0f, Projectile_Type type = Projectile_Type::Cannon, Object* parent = nullptr)
-	: m_firetime(firetime), m_lifetime(lifetime), m_type(type), m_parent(parent)
+	Projectile(float firetime = 5.0f, float lifetime = 3.0f, Projectile_Type type = Projectile_Type::Cannon)
+	: m_firetime(firetime), m_lifetime(lifetime), m_type(type)
 	{};
 
 	bool Initialize(Object* Ob) override;
@@ -23,6 +23,8 @@ public:
 	Projectile_Type GetType() { return m_type; }
 	float GetDt() { return m_dt; }
 	Object* GetParent() { return m_parent; }
+	void SetFireDir(vector2 dir) { fire_dir = dir; }
+	vector2 GetFireDir() { return fire_dir; }
 
 private:
 	void SpawnProjectile();
@@ -43,7 +45,9 @@ private:
 	float m_firetime;
 	float m_lifetime;
 	Projectile_Type m_type;
-	Object* m_parent;
+	Object* m_parent = nullptr;
+
+	vector2 fire_dir{};
 
 	float m_dt = 0.0f;
 

@@ -20,6 +20,9 @@ public:
 
 	bool IsDead();
 
+	Object* GetParent() { return m_parent; }
+	void SetParent(Object* obj) { m_parent = obj; }
+
 	Object* GetBullet() { return m_object; }
 
 private:

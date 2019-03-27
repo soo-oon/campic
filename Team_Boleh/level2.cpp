@@ -29,7 +29,7 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	//LoadLevel();
+	LoadLevel();
 
     Object* temp = new Object();
     temp->SetTranslation({ -400,0 });
@@ -57,58 +57,25 @@ void level2::Initialize()
 	
 
 	Object* cannon = new Object();
-	cannon->SetTranslation({ 0,0 });
+	cannon->SetTranslation({ 480,-170 });
 	cannon->SetScale({ 150,150 });
 	cannon->SetObjectType(ObjectType::Item_Static);
 	cannon->SetMesh(mesh::CreateBox());
+	cannon->AddComponent(new Collision(box_));
 	cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
 	cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
-	cannon->AddComponent(new Projectile(3.0f, 10.0f, Projectile_Type::Cannon));
+	cannon->AddComponent(new Projectile(4.0f, 10.0f, Projectile_Type::Cannon));
+	cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 350, 0 });
 
 	Object* weapon = new Object();
-	weapon->SetTranslation({ 0 , -100 });
+	weapon->SetTranslation({ 30 , -235 });
 	weapon->SetScale({ 100, 50 });
-	weapon->SetObjectType(ObjectType::Item_Static);
+	weapon->SetObjectType(ObjectType::Item_Dynamic);
 	weapon->SetMesh(mesh::CreateBox());
 	weapon->AddComponent(new Sprite("asset/images/weapon.png"));
 	weapon->AddComponent(new Collision(box_));
-	weapon->AddComponent(new Projectile(0.0f, 3.0f, Projectile_Type::Weapon, temp));
-
- //   //temp->AddComponent(new Enemy(MoveType::straight));
-
-
- //   Object* cannon = new Object();
- //   cannon->SetTranslation({ 100,0 });
- //   cannon->SetScale({ 50.0f, 50.0f });
- //   cannon->SetMesh(mesh::CreateBox(1, { 0,0,255, 255 }));
- //   cannon->SetDepth(0.0f);
- //   cannon->AddComponent(new RigidBody());
- //   cannon->AddComponent(new Collision(box_));
- //   cannon->SetObjectType(ObjectType::Item_Static);
- //   cannon->AddComponent(new Projectile(Projectile_Type::Cannon));
-
- //   /*wall = new Object();
- //   wall->SetTranslation({ 100,-300 });
- //   wall->SetScale({ 50.0f, 20.0f });
- //   wall->SetMesh(mesh::CreateBox(1, { 255,255,0, 255 }));
- //   wall->SetDepth(0.0f);
- //   wall->SetObjectType(ObjectType::Wall);
- //   wall->AddComponent(new Collision(box_));
-	//Object* camera = new Object();
-	//camera->AddComponent(new Camera(this));
-
-
- //   int w, h;
- //   glfwGetWindowSize(Application_.GetWindow(), &w, &h);
-
- //   Object * background = new Object();
- //   background->SetTranslation({ 0,0 });
- //   background->SetScale(vector2(static_cast<float>(w), static_cast<float>(h)));
- //   background->SetMesh(mesh::CreateBox(1,{100,100,255}));
- //   background->SetDepth(0.9f);
-	//background->SetObjectType(ObjectType::Background);
- //   background->AddComponent(new Sprite("asset/images/background1.png"));*/
- //   
+	weapon->AddComponent(new Projectile(1.0f, 3.0f, Projectile_Type::Weapon));
+	weapon->GetComponentByTemplate<Projectile>()->SetFireDir({ 1000, 0 });
 
 	obj.push_back(temp);
 	obj.push_back(camera);
@@ -116,7 +83,6 @@ void level2::Initialize()
 	obj.push_back(cannon);
 	obj.push_back(weapon);
 
-	//obj.push_back(background);
 
 	for(auto i : obj)
 	{
@@ -126,6 +92,8 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
+	std::cout << Input::GetMousePos().x << ", " << Input::GetMousePos().y << std::endl;
+
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
 		ChangeLevel("Level2");

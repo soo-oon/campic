@@ -155,33 +155,36 @@ void Physics::Update(float dt)
                     collision_list[i]->GetComponentByTemplate<Collision>()->SetIsLeftTile(false);
                     collision_list[i]->GetComponentByTemplate<Collision>()->SetIsRightTile(false);
                 }
+                //if(obj.velo.x != 0)
+                // if(obj velo.x > 0 )
+                // if(check between next position and capture obj)
+                // true => velo.x = 0;
                 if (capture_list.size() > 0) {
                     for (auto capture : capture_list) {
-                        //if (IntersectionCheckAABB(collision_list[i], capture))
-                        //{
-                        //    StopReaction_dev(collision_list[i], capture);
-                        //    break;
-                        //}
-                        if (capture->GetTransform().GetTranslation().y < collision_list[i]->GetTransform().GetTranslation().y)
+                        if (collision_list[i]->GetTransform().GetTranslation().x - collision_list[i]->GetTransform().GetScale().x / 2 - capture->GetTransform().GetScale().x/2
+                            < capture->GetTransform().GetTranslation().x && capture->GetTransform().GetTranslation().x
+                            < collision_list[i]->GetTransform().GetTranslation().x + collision_list[i]->GetTransform().GetScale().x / 2 + capture->GetTransform().GetScale().x/2
+                            && collision_list[i]->GetTransform().GetTranslation().y - collision_list[i]->GetTransform().GetScale().y / 2 - capture->GetTransform().GetScale().y
+                            < capture->GetTransform().GetTranslation().y && capture->GetTransform().GetTranslation().y
+                            < collision_list[i]->GetTransform().GetTranslation().y + collision_list[i]->GetTransform().GetScale().y / 2 + capture->GetTransform().GetScale().y)
+                            //if (IntersectionCheckAABB(collision_list[i], capture))
+                            //{
+                            //    StopReaction_dev(collision_list[i], capture);
+                            //    break;
+                            //}
                         {
-                            if (IntersectionCheckNextPosition(collision_list[i], capture))
+                            if (capture->GetTransform().GetTranslation().y <= collision_list[i]->GetTransform().GetTranslation().y - collision_list[i]->GetTransform().GetScale().y/2)
                             {
-                                if (!collision_list[i]->GetComponentByTemplate<Collision>()->GetIsCapobj())
+                                if (IntersectionCheckNextPosition(collision_list[i], capture))
                                 {
-                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(true);
-                                    break;
+                                        collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(true);
+                                        break;
                                 }
+                                else
+                                    collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
                             }
-                            else
-                                collision_list[i]->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
                         }
                     }
-                }
-                        //if(obj.velo.x != 0)
-                        // if(obj velo.x > 0 )
-                        // if(check between next position and capture obj)
-                        // true => velo.x = 0;
-                if (capture_list.size() > 0) {
                     for (auto capture : capture_list) {
                             if(collision_list[i]->GetComponentByTemplate<RigidBody>()->GetVelocity().x !=0)
                             {
@@ -253,14 +256,25 @@ void Physics::Update(float dt)
                             {
                                 if(IntersectionCheckAABB(projectile_list[j], projectile_list[k]))
                                 {
-                                    DeleteReaction(projectile_list[j]);
-                                    DeleteReaction(projectile_list[k]);
+                                    projectile_list[k]->SetIsDead(true);
+                                    projectile_list[j]->SetIsDead(true);
                                 }
                             }
                         }
                         if (IntersectionCheckAABB(collision_list[i], projectile_list[j]))
                         {
                             StopReaction(collision_list[i], projectile_list[j], false);
+                        }
+                        if (static_list.size() > 0)
+                        {
+                            for (auto statics : static_list)
+                            {
+                                if (IntersectionCheckAABB(statics, projectile_list[j]))
+                                {
+                                    statics->SetIsDead(true);
+                                    projectile_list[j]->SetIsDead(true);
+                                }
+                            }
                         }
                     }
                 //for(auto static_object : static_list)
@@ -544,7 +558,7 @@ bool Physics::IntersectionCheckAABBPositionRight(Object* object1, Object* object
 {
     //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
     vector2 min_obj, max_obj, min_pos, max_pos;
-    min_obj = { object1->GetTransform().GetTranslation().x - object1->GetTransform().GetScale().x / 2,
+    min_obj = { object1->GetTransform().GetTranslation().x + object1->GetTransform().GetScale().x / 2,
        object1->GetTransform().GetTranslation().y - object1->GetTransform().GetScale().y / 2 };
     max_obj = { object1->GetTransform().GetTranslation().x +3+ object1->GetTransform().GetScale().x / 2,
        object1->GetTransform().GetTranslation().y + object1->GetTransform().GetScale().y / 2 };
@@ -566,7 +580,7 @@ bool Physics::IntersectionCheckAABBPositionRight(Object* object1, Object* object
 bool Physics::IntersectionCheckNextPosition(Object* object1, Object* object2)
 {
     vector2 min_obj, max_obj, min_pos, max_pos;
-    min_obj = { object1->GetComponentByTemplate<RigidBody>()->GetNextPosition().x - object1->GetTransform().GetScale().x / 2,
+    min_obj = { object1->GetComponentByTemplate<RigidBody>()->GetNextPosition().x- object1->GetTransform().GetScale().x / 2,
        object1->GetComponentByTemplate<RigidBody>()->GetNextPosition().y - object1->GetTransform().GetScale().y / 2 };
     max_obj = { object1->GetComponentByTemplate<RigidBody>()->GetNextPosition().x + object1->GetTransform().GetScale().x / 2,
        object1->GetComponentByTemplate<RigidBody>()->GetNextPosition().y + object1->GetTransform().GetScale().y / 2 };

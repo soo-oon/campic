@@ -140,11 +140,11 @@ void Graphics::Draw()
 					}
 				}
 
-				/*if (auto temp = obj->GetComponentByTemplate<Collision>(); 
+				if (auto temp = obj->GetComponentByTemplate<Collision>(); 
 					temp != nullptr)
 				{
 					DrawCollisionBox(obj.get(), temp);
-				}*/
+				}
 
 				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
 				{

@@ -16,7 +16,6 @@
 
 void Level3::Initialize()
 {
-	LoadLevel();
 }
 
 void Level3::Update(float dt)

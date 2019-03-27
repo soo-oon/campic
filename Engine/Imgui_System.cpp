@@ -20,7 +20,11 @@ Creation date: 2018/12/14
 #include "Tile_Map.hpp"
 #include "Physics.hpp"
 #include "Capture.hpp"
+<<<<<<< HEAD
 #include "Projectile.hpp"
+=======
+#include "MovingObject.hpp"
+>>>>>>> master
 //#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
@@ -309,6 +313,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.SetCaptureObject(player_camera);
 	}
 
+<<<<<<< HEAD
 	ImGui::SameLine();
 
 	ImGui::Button("Cannon");
@@ -333,6 +338,22 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	ImGui::SameLine();
 
 	ImGui::Button("Weapon");
+		Object* RoundObject = new Object();
+		RoundObject->SetScale({ 125.0f, 50.0f });
+		RoundObject->SetTranslation({ 136, -152 });
+		RoundObject->AddInitComponent(new RigidBody());
+		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		RoundObject->AddComponent(new MovingObject(8.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ROUND, 0.0f));
+		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		RoundObject->AddInitComponent(new Collision());
+		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
+
+		Objectmanager_.AddObject(RoundObject);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::Button("Round-Left");
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -340,6 +361,50 @@ void Imgui_System::ObjectCreator(bool object_creator)
 
 	if (ImGui::IsItemDeactivated())
 	{
+		Object* RoundObject = new Object();
+		RoundObject->SetScale({ 125.0f, 50.0f });
+		RoundObject->SetTranslation({ 0, 152 });
+		RoundObject->AddInitComponent(new RigidBody());
+		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		RoundObject->AddComponent(new MovingObject(2.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ROUND, 0.0f));
+		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		RoundObject->AddInitComponent(new Collision());
+		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
+
+		Objectmanager_.AddObject(RoundObject);
+	}
+	ImGui::SameLine();
+	ImGui::Button("Round-Right");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* RoundObject = new Object();
+		RoundObject->SetScale({ -125.0f, 50.0f });
+		RoundObject->SetTranslation({ 0, 152 });
+		RoundObject->AddInitComponent(new RigidBody());
+		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		RoundObject->AddComponent(new MovingObject(2.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ROUND, 0.0f));
+		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		RoundObject->AddInitComponent(new Collision());
+		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
+
+		Objectmanager_.AddObject(RoundObject);
+	}
+
+	ImGui::Button("OneWay-Down");
+>>>>>>> master
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+<<<<<<< HEAD
 		Object* weapon = new Object();
 		weapon->SetTranslation(Input::GetMousePos());
 		weapon->SetScale({ 100, 50 });
@@ -349,6 +414,81 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		weapon->AddComponent(new Collision(box_));
 		weapon->AddComponent(new Projectile(0.0f, 3.0f, Projectile_Type::Weapon));
 		Objectmanager_.AddObject(weapon);
+=======
+		Object* OneWayObject = new Object();
+		OneWayObject->SetScale({ 50.0f, 50.0f });
+		OneWayObject->SetTranslation({ -150, 140 });
+		OneWayObject->AddInitComponent(new RigidBody());
+		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		OneWayObject->AddComponent(new MovingObject(7.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ONEWAY, 5.0f));
+		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		OneWayObject->AddInitComponent(new Collision());
+		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+
+		Objectmanager_.AddObject(OneWayObject);
+	}
+	ImGui::SameLine();
+	ImGui::Button("OneWay-Up");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* OneWayObject = new Object();
+		OneWayObject->SetScale({ 50.0f, 50.0f });
+		OneWayObject->SetTranslation({ 150, 140 });
+		OneWayObject->AddInitComponent(new RigidBody());
+		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		OneWayObject->AddComponent(new MovingObject(2.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ONEWAY, 0.0f));
+		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		OneWayObject->AddInitComponent(new Collision());
+		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+
+		Objectmanager_.AddObject(OneWayObject);
+	}
+	ImGui::SameLine();
+	ImGui::Button("OneWay-Left");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* OneWayObject = new Object();
+		OneWayObject->SetScale({ 50.0f, 50.0f });
+		OneWayObject->SetTranslation({ 136, -200 });
+		OneWayObject->AddInitComponent(new RigidBody());
+		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ONEWAY, 3.0f));
+		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		OneWayObject->AddInitComponent(new Collision());
+		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+
+		Objectmanager_.AddObject(OneWayObject);
+	}
+	ImGui::SameLine();
+	ImGui::Button("OneWay-Right");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* OneWayObject = new Object();
+		OneWayObject->SetScale({ 50.0f, 50.0f });
+		OneWayObject->SetTranslation({ -136, -152 });
+		OneWayObject->AddInitComponent(new RigidBody());
+		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ONEWAY, 2.0f));
+		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		OneWayObject->AddInitComponent(new Collision());
+		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+
+		Objectmanager_.AddObject(OneWayObject);
 	}
 }
 
