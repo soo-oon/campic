@@ -67,6 +67,7 @@ bool Projectile::Initialize(Object* Ob)
 
 	if(m_type == Projectile_Type::Weapon)
 	{
+		m_dt = m_firetime;
 		if (m_parent == nullptr)
 		{
 			std::cout << "Should Set Parent Object" << std::endl;
@@ -225,9 +226,13 @@ void Projectile::WeaponUpdate(float dt)
 	}
 	else
 	{
-		if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		if (m_dt >= m_firetime)
 		{
-			SpawnProjectile();
+			if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+			{
+				SpawnProjectile();
+				m_dt = 0.0f;
+			}
 		}
 	}
 

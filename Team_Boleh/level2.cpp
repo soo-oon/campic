@@ -72,7 +72,7 @@ void level2::Initialize()
 	weapon->SetMesh(mesh::CreateBox());
 	weapon->AddComponent(new Sprite("asset/images/weapon.png"));
 	weapon->AddComponent(new Collision(box_));
-	weapon->AddComponent(new Projectile(0.0f, 3.0f, Projectile_Type::Weapon, temp));
+	weapon->AddComponent(new Projectile(3.0f, 3.0f, Projectile_Type::Weapon, temp));
 
  //   //temp->AddComponent(new Enemy(MoveType::straight));
 
