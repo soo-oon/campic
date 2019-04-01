@@ -60,6 +60,7 @@ public:
 	Object* GetCaptureObjectPointer() { return capture_obj; }
 
 	State_Information information_ = State_Information::None;
+	vector2 camera_center{};
 
 	std::string level_indicator;
 
