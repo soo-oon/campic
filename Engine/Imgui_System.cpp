@@ -304,7 +304,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		player_camera->SetObjectType(ObjectType::None);
 		player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
 		player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
-		player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetPlayerObjectPointer()->GetTransform().GetTranslation()));
+		player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
+
 		Objectmanager_.AddObject(player_camera);
 
 		Objectmanager_.SetCaptureObject(player_camera);

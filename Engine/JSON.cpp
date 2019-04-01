@@ -820,7 +820,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			obj->SetObjectType(static_cast<ObjectType>(obj_type));
 
 			if (obj->GetObjectType() == ObjectType::Player)
-				StateManager_.GetCurrentState()->SetPlayerPosition(obj->GetTransform().GetTranslation());
+				StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
 		}
 
 	    //////////////////////////////////////// Transform
