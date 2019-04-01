@@ -1,613 +1,5 @@
 {
     "Tile": {
-        "grid": 1868907,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 40.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676916,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536108,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 88.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868899,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -344.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1651312,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -184.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1792096,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 344.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536116,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536115,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868909,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 136.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536114,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 376.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536113,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753715,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536112,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868896,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536111,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1548916,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -568.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536110,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 184.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536109,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 136.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536107,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": 40.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676914,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": 376.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536106,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -8.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1856096,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 584.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1766496,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 248.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536105,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -56.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868911,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536104,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -104.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536103,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -152.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868905,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -56.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536102,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -200.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740896,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868906,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -8.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536101,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -248.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
         "grid": 1536100,
         "tile_type": 1,
         "scale": {
@@ -620,45 +12,26 @@
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1651296,
+        "grid": 1587300,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
             "y": 48.0
         },
         "pos": {
-            "x": -184.0,
-            "y": -488.0
+            "x": -424.0,
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1843296,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 536.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -677,242 +50,14 @@
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1830496,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 488.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1664096,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -136.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536098,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -392.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536097,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1536096,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -616.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753697,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868901,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -248.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715315,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1548896,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -568.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1561696,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -520.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715312,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1651297,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -184.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1574496,
+        "grid": 1574500,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -920,1234 +65,18 @@
         },
         "pos": {
             "x": -472.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1651311,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -184.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728116,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1638497,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -232.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1587296,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -424.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753696,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1664111,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -136.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1600096,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -376.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676911,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868908,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 88.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1612896,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -328.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868902,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -200.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1625696,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -280.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1804896,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 392.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1638496,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -232.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676896,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1689696,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702496,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1651313,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -184.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715296,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868910,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 184.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753716,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728096,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1779296,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 296.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1817696,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 440.0,
-            "y": -488.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868897,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753714,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": 376.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868898,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -392.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868900,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
             "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1868903,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -152.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868904,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": -104.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868912,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868913,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868914,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 376.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868915,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728112,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1868916,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 632.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1856097,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 584.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1843297,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 536.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1830497,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 488.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1817697,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 440.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1651315,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -184.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1804897,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 392.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1792097,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 344.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676915,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1779297,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 296.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740897,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1766497,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 248.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1830516,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 488.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728097,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715297,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1689711,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702497,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702511,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1689697,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676897,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1664097,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -136.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1625697,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -280.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1612897,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -328.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1600097,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -376.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702514,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": 376.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1587297,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -424.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1574497,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -472.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1856116,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 584.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1561697,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -520.0,
-            "y": -440.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1548897,
+        "grid": 1548899,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2155,18 +84,37 @@
         },
         "pos": {
             "x": -568.0,
-            "y": -440.0
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1561716,
+        "grid": 1548900,
+        "tile_type": 1,
+        "scale": {
+            "x": 48.0,
+            "y": 48.0
+        },
+        "pos": {
+            "x": -568.0,
+            "y": -296.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1561700,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2174,75 +122,18 @@
         },
         "pos": {
             "x": -520.0,
-            "y": 472.0
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1676913,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1574516,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -472.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1587316,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -424.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1600116,
+        "grid": 1600100,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2250,18 +141,37 @@
         },
         "pos": {
             "x": -376.0,
-            "y": 472.0
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1612916,
+        "grid": 1561699,
+        "tile_type": 1,
+        "scale": {
+            "x": 48.0,
+            "y": 48.0
+        },
+        "pos": {
+            "x": -520.0,
+            "y": -344.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1612900,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2269,18 +179,18 @@
         },
         "pos": {
             "x": -328.0,
-            "y": 472.0
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1625716,
+        "grid": 1625700,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2288,18 +198,18 @@
         },
         "pos": {
             "x": -280.0,
-            "y": 472.0
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1638516,
+        "grid": 1638499,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2307,18 +217,37 @@
         },
         "pos": {
             "x": -232.0,
-            "y": 472.0
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1651316,
+        "grid": 1638500,
+        "tile_type": 1,
+        "scale": {
+            "x": 48.0,
+            "y": 48.0
+        },
+        "pos": {
+            "x": -232.0,
+            "y": -296.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1651300,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2326,18 +255,18 @@
         },
         "pos": {
             "x": -184.0,
-            "y": 472.0
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1664116,
+        "grid": 1664100,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2345,227 +274,18 @@
         },
         "pos": {
             "x": -136.0,
-            "y": 472.0
+            "y": -296.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1689716,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702516,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715316,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740916,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1766516,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 248.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1779316,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 296.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1792116,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 344.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1804916,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 392.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1817716,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 440.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1843316,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 536.0,
-            "y": 472.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702513,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1664115,
+        "grid": 1664099,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2573,113 +293,18 @@
         },
         "pos": {
             "x": -136.0,
-            "y": 424.0
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1689715,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1664113,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -136.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702515,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728115,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740915,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": 424.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1651314,
+        "grid": 1651299,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
@@ -2687,391 +312,106 @@
         },
         "pos": {
             "x": -184.0,
-            "y": 376.0
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1689714,
+        "grid": 1625699,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
             "y": 48.0
         },
         "pos": {
-            "x": -40.0,
-            "y": 376.0
+            "x": -280.0,
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1715314,
+        "grid": 1612899,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
             "y": 48.0
         },
         "pos": {
-            "x": 56.0,
-            "y": 376.0
+            "x": -328.0,
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1728114,
+        "grid": 1600099,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
             "y": 48.0
         },
         "pos": {
-            "x": 104.0,
-            "y": 376.0
+            "x": -376.0,
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1740914,
+        "grid": 1587299,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
             "y": 48.0
         },
         "pos": {
-            "x": 152.0,
-            "y": 376.0
+            "x": -424.0,
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1664114,
+        "grid": 1574499,
         "tile_type": 1,
         "scale": {
             "x": 48.0,
             "y": 48.0
         },
         "pos": {
-            "x": -136.0,
-            "y": 376.0
+            "x": -472.0,
+            "y": -344.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1689713,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715313,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728113,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740913,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753713,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": 328.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753712,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740912,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1702512,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 8.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1689712,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -40.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1676912,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -88.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1664112,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": -136.0,
-            "y": 280.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1715311,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 56.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1728111,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 104.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1740911,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 152.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1753711,
-        "tile_type": 1,
-        "scale": {
-            "x": 48.0,
-            "y": 48.0
-        },
-        "pos": {
-            "x": 200.0,
-            "y": 232.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/wall_mid.png"
+            "image_path": "asset/images/Tiles/Non_Ani/wall_left.png"
         },
         "animation": {},
         "IsAnimated": false,

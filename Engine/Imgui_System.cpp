@@ -20,11 +20,8 @@ Creation date: 2018/12/14
 #include "Tile_Map.hpp"
 #include "Physics.hpp"
 #include "Capture.hpp"
-<<<<<<< HEAD
-#include "Projectile.hpp"
-=======
 #include "MovingObject.hpp"
->>>>>>> master
+#include "Projectile.hpp"
 //#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
@@ -44,7 +41,7 @@ bool Imgui_System::Initialize()
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	
+
 	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
 	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
 	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
@@ -55,7 +52,7 @@ bool Imgui_System::Initialize()
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.FontDefault = NULL;
 	io.ConfigFlags = ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos; 
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
 	//Image list in project directory
@@ -95,7 +92,7 @@ bool Imgui_System::Initialize()
 		ani_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
-	for(auto& temp : enemyList)
+	for (auto& temp : enemyList)
 	{
 		auto texture = ImageHelper(temp);
 		enemy_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
@@ -132,7 +129,7 @@ void Imgui_System::Update(float dt)
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				if(graphics_tile)
+				if (graphics_tile)
 					Tile_Map_.Make_Tile(tile_path, Tile_Type::Graphical);
 				else
 					Tile_Map_.Make_Tile(tile_path, Tile_Type::Physical);
@@ -142,7 +139,7 @@ void Imgui_System::Update(float dt)
 		{
 			if (Input::IsKeyPressed(GLFW_KEY_G))
 			{
-				if(graphics_tile)
+				if (graphics_tile)
 					Tile_Map_.Make_Ani_Tile(tile_path, Tile_Type::Graphical);
 				else
 					Tile_Map_.Make_Ani_Tile(tile_path, Tile_Type::Physical);
@@ -220,12 +217,12 @@ void Imgui_System::Editor(bool show_window)
 
 	for (int i = 0; i < 50; i++)
 	{
-		if(tile_editor)
+		if (tile_editor)
 		{
 			if (i == 5)
 				break;
 		}
-		if(object_editor)
+		if (object_editor)
 		{
 			if (i == 30)
 				break;
@@ -238,9 +235,9 @@ void Imgui_System::Editor(bool show_window)
 		ImGui::Spacing();
 	}
 
-	if(ImGui::Button("Save Objects"))
+	if (ImGui::Button("Save Objects"))
 	{
-		for(auto& obj : Objectmanager_.GetObjectMap())
+		for (auto& obj : Objectmanager_.GetObjectMap())
 		{
 			//JSON_.ObjectsToDocument(obj.get());
 		}
@@ -313,10 +310,11 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.SetCaptureObject(player_camera);
 	}
 
-<<<<<<< HEAD
-	ImGui::SameLine();
+	ImGui::Separator();
+	ImGui::Text("Archetype");
 
 	ImGui::Button("Cannon");
+
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -329,18 +327,74 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		cannon->SetScale({ 150,150 });
 		cannon->SetObjectType(ObjectType::Item_Static);
 		cannon->SetMesh(mesh::CreateBox());
+		cannon->AddComponent(new Collision(box_));
 		cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
 		cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
-		cannon->AddComponent(new Projectile(3.0f, 10.0f, Projectile_Type::Cannon)); 
+		cannon->AddComponent(new Projectile(4.0f, 10.0f, Projectile_Type::Cannon));
+		cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 350, 0 });
+
 		Objectmanager_.AddObject(cannon);
+	}
+	ImGui::SameLine();
+
+	ImGui::Button("Weapon");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* weapon = new Object();
+		weapon->SetTranslation(Input::GetMousePos());
+		weapon->SetScale({ 100, 50 });
+		weapon->SetObjectType(ObjectType::Item_Dynamic);
+		weapon->SetMesh(mesh::CreateBox());
+		weapon->AddComponent(new Sprite("asset/images/weapon.png"));
+		weapon->AddComponent(new Collision(box_));
+		weapon->AddComponent(new Projectile(1.0f, 3.0f, Projectile_Type::Weapon));
+		weapon->GetComponentByTemplate<Projectile>()->SetFireDir({ 1000, 0 });
+
+		Objectmanager_.AddObject(weapon);
+	}
+
+	ImGui::Separator();
+	ImGui::Text("Moving Platform");
+
+	ImGui::Button("Round-Down");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* RoundObject = new Object();
+		RoundObject->SetScale({ 125.0f, 50.0f });
+		RoundObject->SetTranslation(Input::GetMousePos());
+		RoundObject->AddInitComponent(new RigidBody());
+		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+		RoundObject->AddComponent(new MovingObject(5.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ROUND, 0.0f));
+		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
+		RoundObject->AddInitComponent(new Collision());
+		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
+
+		Objectmanager_.AddObject(RoundObject);
 	}
 
 	ImGui::SameLine();
 
-	ImGui::Button("Weapon");
+	ImGui::Button("Round-Up");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
 		Object* RoundObject = new Object();
 		RoundObject->SetScale({ 125.0f, 50.0f });
-		RoundObject->SetTranslation({ 136, -152 });
+		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
 		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		RoundObject->AddComponent(new MovingObject(8.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ROUND, 0.0f));
@@ -363,7 +417,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* RoundObject = new Object();
 		RoundObject->SetScale({ 125.0f, 50.0f });
-		RoundObject->SetTranslation({ 0, 152 });
+		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
 		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		RoundObject->AddComponent(new MovingObject(2.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ROUND, 0.0f));
@@ -384,7 +438,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* RoundObject = new Object();
 		RoundObject->SetScale({ -125.0f, 50.0f });
-		RoundObject->SetTranslation({ 0, 152 });
+		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
 		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		RoundObject->AddComponent(new MovingObject(2.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ROUND, 0.0f));
@@ -396,7 +450,6 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	}
 
 	ImGui::Button("OneWay-Down");
->>>>>>> master
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -404,20 +457,9 @@ void Imgui_System::ObjectCreator(bool object_creator)
 
 	if (ImGui::IsItemDeactivated())
 	{
-<<<<<<< HEAD
-		Object* weapon = new Object();
-		weapon->SetTranslation(Input::GetMousePos());
-		weapon->SetScale({ 100, 50 });
-		weapon->SetObjectType(ObjectType::Item_Static);
-		weapon->SetMesh(mesh::CreateBox());
-		weapon->AddComponent(new Sprite("asset/images/weapon.png"));
-		weapon->AddComponent(new Collision(box_));
-		weapon->AddComponent(new Projectile(0.0f, 3.0f, Projectile_Type::Weapon));
-		Objectmanager_.AddObject(weapon);
-=======
 		Object* OneWayObject = new Object();
 		OneWayObject->SetScale({ 50.0f, 50.0f });
-		OneWayObject->SetTranslation({ -150, 140 });
+		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
 		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		OneWayObject->AddComponent(new MovingObject(7.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ONEWAY, 5.0f));
@@ -438,7 +480,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* OneWayObject = new Object();
 		OneWayObject->SetScale({ 50.0f, 50.0f });
-		OneWayObject->SetTranslation({ 150, 140 });
+		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
 		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		OneWayObject->AddComponent(new MovingObject(2.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ONEWAY, 0.0f));
@@ -459,7 +501,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* OneWayObject = new Object();
 		OneWayObject->SetScale({ 50.0f, 50.0f });
-		OneWayObject->SetTranslation({ 136, -200 });
+		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
 		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ONEWAY, 3.0f));
@@ -480,7 +522,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* OneWayObject = new Object();
 		OneWayObject->SetScale({ 50.0f, 50.0f });
-		OneWayObject->SetTranslation({ -136, -152 });
+		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
 		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 		OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ONEWAY, 2.0f));
@@ -502,7 +544,7 @@ void Imgui_System::ObjectEditor(bool object_editor)
 
 	selectObj->GetTransform().Imgui_Transform();
 
-	if(selectObj->GetComponentByTemplate<Animation>() != nullptr)
+	if (selectObj->GetComponentByTemplate<Animation>() != nullptr)
 		selectObj->GetComponentByTemplate<Animation>()->Imgui_Animation();
 
 	SpriteHelper();
@@ -511,7 +553,7 @@ void Imgui_System::ObjectEditor(bool object_editor)
 	{
 		for (auto object = Objectmanager_.GetObjectMap().begin(); object != Objectmanager_.GetObjectMap().end();)
 		{
-			if(object->get() == selectObj)
+			if (object->get() == selectObj)
 			{
 				object = Objectmanager_.GetObjectMap().erase(object);
 				selectObj = nullptr;
@@ -586,7 +628,7 @@ void Imgui_System::TileEditor(bool tile_editor)
 
 	for (auto& temp : non_ani_tileList_buttons)
 	{
-		if(ImGui::ImageButton(temp.second, ImVec2(16, 16)))
+		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
 			//non_ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
@@ -638,7 +680,7 @@ GLuint Imgui_System::ImageHelper(std::string path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, my_image_width, my_image_height,
-			0, GL_RGBA, GL_UNSIGNED_BYTE, my_image_data);
+		0, GL_RGBA, GL_UNSIGNED_BYTE, my_image_data);
 
 	return my_opengl_texture;
 }

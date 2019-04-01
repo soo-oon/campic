@@ -46,6 +46,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objCaptureTree(kArrayType);
 	Value objProjectileTree(kArrayType);
 	Value objMovingObjectTree(kArrayType);
+	Value objUItree;
 	Value capture;
 	Value objUi;
 	
@@ -64,6 +65,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objProjectileTree.SetObject();
 	objMovingObjectTree.SetObject();
 	capture.SetObject();
+	objUItree.SetObject();
 	objUi.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
@@ -110,7 +112,10 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 		objMovingObjectTree = ComponentMovingObj(obj);
 
 	if (obj->GetComponentByTemplate<UI>() != nullptr)
+	{
 		objUi.SetString(obj->GetComponentByTemplate<UI>()->GetId().c_str(), ObjectDocument.GetAllocator());
+		objUItree.AddMember("id", objUi, ObjectDocument.GetAllocator());
+	}
 
 	objTree.AddMember("Type", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
@@ -446,9 +451,19 @@ Value JSON::ComponentMovingObj(Object* obj)
 	Value container(kArrayType);
 	Value m_dt, m_InitPosition, m_GoalPosition, m_Distance, m_Velocity, m_MoveTime, m_WhichWay, m_MoveType;
 
+	container.SetObject();
+	m_dt.SetObject();
+	m_InitPosition.SetObject();
+	m_GoalPosition.SetObject();
+	m_Distance.SetObject();
+	m_Velocity.SetObject();
+	m_MoveTime.SetObject();
+	m_WhichWay.SetObject(); 
+	m_MoveType.SetObject();
+
 	auto info = obj->GetComponentByTemplate<MovingObject>();
 
-	m_dt.AddMember("dt", info->GetDt(), ObjectDocument.GetAllocator());
+	m_dt.SetFloat(info->GetDt());
 	m_InitPosition.AddMember("x", info->GetInitPosition().x, ObjectDocument.GetAllocator());
 	m_InitPosition.AddMember("y", info->GetInitPosition().y, ObjectDocument.GetAllocator());
 	m_GoalPosition.AddMember("x", info->GetGoalPosition().x, ObjectDocument.GetAllocator());
@@ -474,25 +489,22 @@ Value JSON::ComponentMovingObj(Object* obj)
 Value JSON::ComponentProjectile(Object * obj)
 {
 	Value container(kArrayType);
-	Value fire_time, life_time, type, dt;
+	Value fire_time, life_time, type;
 
 	container.SetObject();
 	fire_time.SetObject();
 	life_time.SetObject();
 	type.SetObject();
-	dt.SetObject();
 
 	auto info = obj->GetComponentByTemplate<Projectile>();
 
 	fire_time.AddMember("fire_time", info->GetFireTime(), ObjectDocument.GetAllocator());
 	life_time.AddMember("life_time", info->GetLifeTime(), ObjectDocument.GetAllocator());
 	type.AddMember("type", static_cast<int>(info->GetType()), ObjectDocument.GetAllocator());
-	dt.AddMember("dt", info->GetDt(), ObjectDocument.GetAllocator());
 
 	container.AddMember("fire_time", fire_time, ObjectDocument.GetAllocator());
 	container.AddMember("life_time", life_time, ObjectDocument.GetAllocator());
 	container.AddMember("type", type, ObjectDocument.GetAllocator());
-	container.AddMember("dt", dt, ObjectDocument.GetAllocator());
 
 	return container;
 }
@@ -645,7 +657,7 @@ void JSON::SaveLevelTiles(int grid, Object * tiles, Tile_Type type, const std::s
 
 void JSON::LoadLevel(const std::string& file, const std::string& path)
 {
-	//LoadObjectFromJson(file, path);
+	LoadObjectFromJson(file, path);
 	LoadTilesFromJson(Tile_Type::Graphical, file);
 	LoadTilesFromJson(Tile_Type::Physical, file);
 }
@@ -794,9 +806,9 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		font = obj_array.FindMember("Font")->value;
 		capture = obj_array.FindMember("Capture")->value;
 		camera = obj_array.FindMember("Camera")->value;
-		//ui = obj_array.FindMember("UI")->value;
-		//projectile = obj_array.FindMember("projectile")->value;
-		//movingobj = obj_array.FindMember("movingobj")->value;
+		ui = obj_array.FindMember("ID")->value;
+		projectile = obj_array.FindMember("Projectile")->value;
+		movingobj = obj_array.FindMember("Moving")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -968,11 +980,41 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		}
 
 		////////////////////////////////////////////UI
-		/*if(ui.FindMember("id"))
+		if(ui.HasMember("id"))
 		{
-			
-		}*/
+			obj->AddComponent(new UI(ui.FindMember("id")->value.GetString()));
+		}
 
+		////////////////////////////////////////////Projectile
+
+		if(projectile.HasMember("fire_time"))
+		{
+			float firetime = projectile.FindMember("fire_time")->value.FindMember("fire_time")->value.GetFloat();
+			float life_time = projectile.FindMember("life_time")->value.FindMember("life_time")->value.GetFloat();
+			Projectile_Type type = static_cast<Projectile_Type>(projectile.FindMember("type")->value.FindMember("type")->value.GetInt());
+
+			obj->AddComponent(new Projectile(firetime, life_time, type));
+		}
+
+		////////////////////////////////////////////Moving
+
+		if(movingobj.HasMember("dt"))
+		{
+			float dt = movingobj.FindMember("dt")->value.GetFloat();
+			vector2 init_pos, goal_pos;
+			init_pos.x = movingobj.FindMember("init_pos")->value.FindMember("x")->value.GetFloat();
+			init_pos.y = movingobj.FindMember("init_pos")->value.FindMember("y")->value.GetFloat();
+			goal_pos.x = movingobj.FindMember("goal_pos")->value.FindMember("x")->value.GetFloat();
+			goal_pos.y = movingobj.FindMember("goal_pos")->value.FindMember("y")->value.GetFloat();
+
+			float distance = movingobj.FindMember("distance")->value.FindMember("distance")->value.GetFloat();
+			float velocity = movingobj.FindMember("velocity")->value.FindMember("velocity")->value.GetFloat();
+			float move_time = movingobj.FindMember("move_time")->value.FindMember("move_time")->value.GetFloat();
+			Direction direction = static_cast<Direction>(movingobj.FindMember("direction")->value.FindMember("direction")->value.GetInt());
+			MovementType type = static_cast<MovementType>(movingobj.FindMember("type")->value.FindMember("type")->value.GetInt());
+
+			obj->AddComponent(new MovingObject(distance, init_pos,velocity,direction,type,move_time));
+		}
 		
 		Objectmanager_.AddObject(obj);
 	}

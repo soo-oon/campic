@@ -3,69 +3,12 @@
 #include <iostream>
 #include "State.hpp"
 
-/*
-bool Projectile::Initialize(Object * Ob)
-{
-    object = Ob;
-     missile = new Object;
-    missile->SetTranslation({ object->GetTransform().GetTranslation() });
-    missile->SetScale({ 50.0f, 50.0f });
-    missile->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    missile->SetDepth(0.0f);
-    missile->AddComponent(new RigidBody());
-    missile->AddComponent(new Collision(box_));
-    missile->SetObjectType(ObjectType::Projectile);
-    missile->GetComponentByTemplate<RigidBody>()->SetVelocity({ 150,150 });
-
-     arrow = new Object;
-    arrow->SetTranslation({ object->GetTransform().GetTranslation() });
-    arrow->SetScale({ 50.0f, 50.0f });
-    arrow->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    arrow->SetDepth(0.0f);
-    arrow->AddComponent(new RigidBody());
-    arrow->AddComponent(new Collision(box_));
-    arrow->SetObjectType(ObjectType::Projectile);
-    arrow->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-50 });
-
-    return true;
-}
-
-void Projectile::Update(float dt)
-{
-    if (Input::IsKeyTriggered(GLFW_KEY_6))
-    {
-        if (Projectile_Type::Arrow == m_projectile)
-            ArrowUpdate();
-        else
-             CannonUpdate();
-        --m_shot_count;
-    }
-}
-
-void Projectile::Delete()
-{
-}
-
-void Projectile::CannonUpdate()
-{
-    Object* temp = new Object(*missile);
-    Objectmanager_.AddObject(temp);
-    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 150,150 });
-}
-
-void Projectile::ArrowUpdate()
-{
-    Object* temp = new Object(*arrow);
-    Objectmanager_.AddObject(temp);
-    temp->GetComponentByTemplate<RigidBody>()->SetVelocity({ 0,-150 });
-}
-*/
 bool Projectile::Initialize(Object* Ob)
 {
 	if (object == nullptr)
 		object = Ob;
 
-	if(m_type == Projectile_Type::Weapon)
+	if (m_type == Projectile_Type::Weapon)
 	{
 		m_dt = m_firetime;
 		if (m_parent == nullptr)
@@ -83,7 +26,7 @@ void Projectile::Update(float dt)
 
 	SetFilpAnimation();
 
-	if(m_type == Projectile_Type::Cannon)
+	if (m_type == Projectile_Type::Cannon)
 	{
 		CannonUpdate(dt);
 	}
@@ -110,7 +53,7 @@ void Projectile::SpawnProjectile()
 		Objectmanager_.AddObject(projectile.at(projectile.size() - 1)->GetBullet());
 		SetProjectileDirection(projectile.at(projectile.size() - 1)->GetBullet()->GetComponentByTemplate<RigidBody>());
 	}
-		break;
+	break;
 
 	case Projectile_Type::Weapon:
 	{
@@ -120,7 +63,7 @@ void Projectile::SpawnProjectile()
 		Objectmanager_.AddObject(projectile.at(projectile.size() - 1)->GetBullet());
 		SetProjectileDirection(projectile.at(projectile.size() - 1)->GetBullet()->GetComponentByTemplate<RigidBody>());
 	}
-		break;
+	break;
 
 	default:
 		break;
@@ -130,38 +73,38 @@ void Projectile::SpawnProjectile()
 
 void Projectile::SetProjectileDirection(RigidBody* rigidbody)
 {
-	switch(m_type)
+	switch (m_type)
 	{
 	case Projectile_Type::Cannon:
+	{
+		auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+
+		if (normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
 		{
-			auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			rigidbody->SetVelocity({ fire_dir });
 
-			if(normalize(player_->GetTransform().GetTranslation() - object->GetTransform().GetTranslation()).x >= 0)
-			{
-				rigidbody->SetVelocity({ fire_dir });
-
-			}
-			else
-			{
-				rigidbody->SetVelocity({ -fire_dir.x, fire_dir.y });
-			}
 		}
-		break;
+		else
+		{
+			rigidbody->SetVelocity({ -fire_dir.x, fire_dir.y });
+		}
+	}
+	break;
 
 	case Projectile_Type::Weapon:
-		{
-			auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+	{
+		auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 
-			if(!player_->GetComponentByTemplate<Animation>()->IsFiip())
-			{
-				rigidbody->SetVelocity({ fire_dir });
-			}
-			else
-			{
-				rigidbody->SetVelocity({ -fire_dir.x, fire_dir.y });
-			}
+		if (!player_->GetComponentByTemplate<Animation>()->IsFiip())
+		{
+			rigidbody->SetVelocity({ fire_dir });
 		}
-		break;
+		else
+		{
+			rigidbody->SetVelocity({ -fire_dir.x, fire_dir.y });
+		}
+	}
+	break;
 
 	default:
 		break;
@@ -217,7 +160,7 @@ void Projectile::CannonUpdate(float dt)
 
 void Projectile::WeaponUpdate(float dt)
 {
-	if(m_parent == nullptr)
+	if (m_parent == nullptr)
 	{
 		m_parent = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 	}
@@ -226,18 +169,10 @@ void Projectile::WeaponUpdate(float dt)
 		int a = 5;
 	}
 
-	if (m_parent != nullptr)
+	if (object->GetTransform().GetParent() == nullptr)
 	{
-		std::cout << "Should Need the m_parent" << std::endl;
-		if (object->GetTransform().GetParent() == nullptr)
+		if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
 		{
-			if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
-			{
-				object->SetTranslation(player_pos);
-				object->SetParent(&m_parent->GetTransform());
-			}
-		}
-		else
 			object->SetTranslation(m_parent->GetTransform().GetTranslation());
 			object->SetParent(&m_parent->GetTransform());
 		}
@@ -256,7 +191,7 @@ void Projectile::WeaponUpdate(float dt)
 
 	for (auto bullet = projectile.begin(); bullet != projectile.end();)
 	{
-		if(bullet->get()->GetParent() == nullptr)
+		if (bullet->get()->GetParent() == nullptr)
 		{
 			bullet->get()->SetParent(m_parent);
 		}
