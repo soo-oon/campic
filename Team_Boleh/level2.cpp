@@ -32,7 +32,7 @@ void level2::Initialize()
 	LoadLevel();
 
     Object* temp = new Object();
-    temp->SetTranslation({ -400,0 });
+    temp->SetTranslation({ -600,-230 });
     temp->SetScale({ 50.0f, 50.0f });
     temp->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
     temp->SetDepth(-0.5f);
@@ -57,7 +57,7 @@ void level2::Initialize()
 	
 
 	Object* cannon = new Object();
-	cannon->SetTranslation({ 480,-170 });
+	cannon->SetTranslation({ 480,-150 });
 	cannon->SetScale({ 150,150 });
 	cannon->SetObjectType(ObjectType::Item_Static);
 	cannon->SetMesh(mesh::CreateBox());
@@ -92,7 +92,9 @@ void level2::Initialize()
 
 void level2::Update(float dt)
 {	
-	std::cout << Input::GetMousePos().x << ", " << Input::GetMousePos().y << std::endl;
+
+	obj[1]->GetComponentByTemplate<Camera>()->SetCenter(obj[0]->GetTransform().GetTranslation());
+	camera_center = obj[1]->GetComponentByTemplate<Camera>()->GetCenter();
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{

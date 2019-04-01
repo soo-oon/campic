@@ -42,14 +42,14 @@ void RigidBody::Update(float dt)
     {
         MovePlayer();
     
-    if(m_velocity.x > 100)
-        m_velocity.x = 100;
-	if (m_velocity.x < -100)
-		m_velocity.x = -100;
-    if (m_velocity.y > 150)
-        m_velocity.y = 150;
-    if (m_velocity.y < -100)
-        m_velocity.y = -100;
+    if(m_velocity.x > 200)
+        m_velocity.x = 200;
+	if (m_velocity.x < -200)
+		m_velocity.x = -200;
+    if (m_velocity.y > 200)
+        m_velocity.y = 200;
+    if (m_velocity.y < -200)
+        m_velocity.y = -200;
 	}
         // for stop reaction
 	m_previous_position = object->GetTransform().GetTranslation();
@@ -125,7 +125,7 @@ void RigidBody::MovePlayer()
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
             object->GetComponentByTemplate<Animation>()->SetFlip(false);
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, 
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 200, 
                 object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
             key_press_d = true;
         }
@@ -143,7 +143,7 @@ void RigidBody::MovePlayer()
                 object->GetComponentByTemplate<Collision>()->SetIsGround(false);
                 object->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
                 object->GetComponentByTemplate<RigidBody>()->SetVelocity(
-                    { object->GetComponentByTemplate<RigidBody>()->GetVelocity().x,150 });
+                    { object->GetComponentByTemplate<RigidBody>()->GetVelocity().x,200 });
                 object->GetComponentByTemplate<RigidBody>()->SetJumping(true);
             }
         }
@@ -161,7 +161,7 @@ void RigidBody::MovePlayer()
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
             object->GetComponentByTemplate<Animation>()->SetFlip(true);
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100,
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -200,
                 object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
             key_press_a = true;
         }
@@ -184,14 +184,14 @@ void RigidBody::MovePlayer()
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
             object->GetComponentByTemplate<Animation>()->SetFlip(false);
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 100, 
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ 200, 
                 object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
             key_press_d = true;
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
             object->GetComponentByTemplate<Animation>()->SetFlip(true);
-            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -100,
+            object->GetComponentByTemplate<RigidBody>()->SetVelocity({ -200,
                 object->GetComponentByTemplate<RigidBody>()->GetVelocity().y });
             key_press_a = true;
         }
@@ -202,7 +202,7 @@ void RigidBody::MovePlayer()
                 object->GetComponentByTemplate<Collision>()->SetIsGround(false);
                 object->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
                 object->GetComponentByTemplate<RigidBody>()->SetVelocity(
-                    { object->GetComponentByTemplate<RigidBody>()->GetVelocity().x,150 });
+                    { object->GetComponentByTemplate<RigidBody>()->GetVelocity().x,200 });
                 object->GetComponentByTemplate<RigidBody>()->SetJumping(true);
             }
         }
