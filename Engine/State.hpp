@@ -61,11 +61,12 @@ public:
 
 	State_Information information_ = State_Information::None;
 
+	std::string level_indicator;
+
 private:
 	Object* player_obj = nullptr;
 	Object* capture_obj = nullptr;
 
-	std::string level_indicator;
 	std::string change_level;
 	vector2 player_pos;
 

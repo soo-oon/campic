@@ -1,10 +1,10 @@
 #pragma once
 #include "State.hpp"
 
-class Level3 : public State
+class Level : public State
 {
 public:
-	Level3()
+	Level()
 	{
 		information_ = State_Information::Game;
 	}
@@ -12,7 +12,5 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 private:
-	std::vector<Object*> container;
-	Object* player_camera = nullptr;
-	Object* OneWayObject = nullptr;
+
 };

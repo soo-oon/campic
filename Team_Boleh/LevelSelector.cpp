@@ -40,7 +40,7 @@ void LevelSelector::Update(float dt)
 		if(select_level)
 		{
 			SetLevelIndicator(select_level->GetComponentByTemplate<UI>()->GetId());
-			ChangeLevel("Level3");
+			ChangeLevel(level_indicator);
 		}
 	}
 }
