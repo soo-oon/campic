@@ -79,6 +79,7 @@ private:
 	bool graphics_tile = false;
 
 	Object* selectObj = nullptr;
+	Object* player_ = nullptr;
 };
 
 extern Imgui_System IMGUI_;

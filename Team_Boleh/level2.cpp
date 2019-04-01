@@ -29,7 +29,7 @@ Creation date: 2018/12/14
 
 void level2::Initialize()
 {
-	LoadLevel();
+	//LoadLevel();
 
     Object* temp = new Object();
     temp->SetTranslation({ -600,-230 });
@@ -40,7 +40,7 @@ void level2::Initialize()
     temp->AddInitComponent(new RigidBody());
     temp->AddInitComponent(new Collision(box_));
     temp->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
-    SetPlayerPosition(temp->GetTransform().GetTranslation());
+    SetStartPosition(temp->GetTransform().GetTranslation());
 
 	player_camera = new Object();
 	player_camera->SetScale({ 300.0f, 175.0f });
@@ -49,7 +49,7 @@ void level2::Initialize()
 	player_camera->SetObjectType(ObjectType::None);
 	player_camera->AddComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
 	player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
-	player_camera->AddComponent(new Capture(GetPlayerPosition()));
+	player_camera->AddComponent(new Capture(GetStartPosition()));
 
 	Object* camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
@@ -77,11 +77,29 @@ void level2::Initialize()
 	weapon->AddComponent(new Projectile(1.0f, 3.0f, Projectile_Type::Weapon));
 	weapon->GetComponentByTemplate<Projectile>()->SetFireDir({ 1000, 0 });
 
+	Object* test1 = new Object();
+	test1->SetTranslation({ 0, 400 });
+	test1->SetScale({ 50, 50 });
+	test1->SetObjectType(ObjectType::None);
+	test1->SetMesh(mesh::CreateBox(1, Colors::Blue));
+	test1->AddComponent(new RigidBody());
+	test1->AddComponent(new Collision());
+
+	Object* test2 = new Object();
+	test2->SetTranslation({ 100, 400 });
+	test2->SetScale({ 50, 50 });
+	test2->SetObjectType(ObjectType::None);
+	test2->SetMesh(mesh::CreateBox(1, Colors::Red));
+	test2->AddComponent(new RigidBody());
+	test2->AddComponent(new Collision());
+
 	obj.push_back(temp);
 	obj.push_back(camera);
 	obj.push_back(player_camera);
 	obj.push_back(cannon);
 	obj.push_back(weapon);
+	obj.push_back(test1);
+	obj.push_back(test2);
 
 
 	for(auto i : obj)
@@ -93,8 +111,8 @@ void level2::Initialize()
 void level2::Update(float dt)
 {	
 
-	obj[1]->GetComponentByTemplate<Camera>()->SetCenter(obj[0]->GetTransform().GetTranslation());
-	camera_center = obj[1]->GetComponentByTemplate<Camera>()->GetCenter();
+	//obj[1]->GetComponentByTemplate<Camera>()->SetCenter(obj[0]->GetTransform().GetTranslation());
+	//camera_center = obj[1]->GetComponentByTemplate<Camera>()->GetCenter();
 
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 	{
