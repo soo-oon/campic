@@ -29,6 +29,8 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
+	h_cheese->SetTranslation(StateManager_.GetCurrentState()->camera_center);
+
 	if(StateManager_.GetCurrentState()->GetCaptureObjectPointer() != nullptr)
 	{
 		if(auto cheese = StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>();

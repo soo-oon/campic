@@ -129,6 +129,21 @@ void Projectile::SetFilpAnimation()
 				object->GetComponentByTemplate<Animation>()->SetFlip(true);
 			}
 		}
+		else
+		{
+			if (object->GetTransform().GetParent() != nullptr)
+			{
+				if (!player_->GetComponentByTemplate<Animation>()->IsFiip())
+				{
+					object->GetComponentByTemplate<Sprite>()->SetFlip(false);
+
+				}
+				else
+				{
+					object->GetComponentByTemplate<Sprite>()->SetFlip(true);
+				}
+			}
+		}
 	}
 }
 
