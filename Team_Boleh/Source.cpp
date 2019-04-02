@@ -28,7 +28,7 @@ int main()
     engine.Initialize();
 
 	//StateManager_.AddStage("MainMenu", new MainMenu());
-	StateManager_.AddStage("LevelSelector", new LevelSelector());
+	//StateManager_.AddStage("LevelSelector", new LevelSelector());
 	StateManager_.AddStage("Level3", new Level());
 
 
