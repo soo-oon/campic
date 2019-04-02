@@ -18,10 +18,9 @@ public:
 	bool IsCheese() { return cheese; }
 	void SetCheese(bool condition) { cheese = condition; }
 
-	std::vector<Object*>& GetCaptureObject() { return capture_object; }
 private:
 	void Capturing();
-	//void CreateCaptureObject();
+	void CreateCaptureObject();
 
 	bool cheese = false;
 	vector2 reset_pos;

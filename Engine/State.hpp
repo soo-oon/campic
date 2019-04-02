@@ -52,6 +52,10 @@ public:
 
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
+	void SetStartPosition(vector2 pos) { start_pos = pos; }
+	vector2 GetStartPosition() { return start_pos; }
+	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
+	std::string GetLevelIndicator() { return level_indicator; }
 
 	Object* GetPlayerObjectPointer() { return player_obj; }
 	Object* GetCaptureObjectPointer() { return capture_obj; }
@@ -69,8 +73,9 @@ private:
 	Object* player_obj = nullptr;
 	Object* capture_obj = nullptr;
 
-	
 	vector2 player_pos;
+	std::string change_level;
+	vector2 start_pos;
 
 	bool iscamera = false;
 	bool level_change = false;
