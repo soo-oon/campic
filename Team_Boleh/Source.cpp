@@ -29,7 +29,7 @@ int main()
 
 	//StateManager_.AddStage("MainMenu", new MainMenu());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
-	StateManager_.AddStage("Level3", new Level());
+	StateManager_.AddStage("Level", new Level());
 
 
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());

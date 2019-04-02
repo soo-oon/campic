@@ -13,18 +13,16 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 
+	void LoadLevelLockJson();
+
 private:
 	std::string current_level = "LevelSelector";
-
 	const std::string file_path = "asset/JsonFiles/Levels/";
 
-	std::vector<Object*> container;
+	//const std::string lock_path = 
 
-	Object* background = nullptr;
-	Object* level1 = nullptr;
-	Object* level2 = nullptr;
-	Object* level3 = nullptr;
-
-	Object* player_camera = nullptr;
-	Object* select_level = nullptr;
+	Object* m_SelectLevel = nullptr;
+private:
+	std::vector<Object*> m_Container;
+	std::map<int, bool> m_LevelLock;
 };

@@ -25,6 +25,11 @@ void JSON::Update(float /*dt*/)
 
 void JSON::Quit()
 {
+	/*ObjectDocument.Clear();
+	TileDocument.;
+
+	ObjectBuffer.Clear();
+	TileBuffer.Clear();*/
 }
 
 void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)

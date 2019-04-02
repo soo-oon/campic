@@ -32,7 +32,6 @@ public:
 	void SetCamera() { iscamera = true; }
 	bool IsCamera() { return iscamera; }
 
-
 	virtual bool IsLevelChange() { return level_change; }
 	virtual bool IsBackToMenu() { return back_to_menu; }
 	virtual std::string GetNextLevel() { return change_level; }
@@ -53,8 +52,6 @@ public:
 
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
-	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
-	std::string GetLevelIndicator() { return level_indicator; }
 
 	Object* GetPlayerObjectPointer() { return player_obj; }
 	Object* GetCaptureObjectPointer() { return capture_obj; }
@@ -62,13 +59,17 @@ public:
 	State_Information information_ = State_Information::None;
 	vector2 camera_center{};
 
-	std::string level_indicator;
+public:
+	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
+	std::string GetLevelIndicator() { return level_indicator; }
 
+	std::string level_indicator;
+	std::string change_level;
 private:
 	Object* player_obj = nullptr;
 	Object* capture_obj = nullptr;
 
-	std::string change_level;
+	
 	vector2 player_pos;
 
 	bool iscamera = false;

@@ -53,7 +53,9 @@ void StateManager::AddStage(std::string ID, State* state)
 
 void StateManager::ChangeStage()
 {
-	std::string next_level = m_currentState->GetNextLevel();
+	//std::string next_level = m_currentState->GetNextLevel();
+
+	std::string next_level = "Level";
 	std::string save = m_currentState->GetLevelIndicator();
 
 	m_currentState->ShutDown();
@@ -69,13 +71,12 @@ void StateManager::ChangeStage()
 
 void StateManager::BackToMenu()
 {
-	std::string next_level = m_currentState->GetNextLevel();
-
 	m_currentState->ShutDown();
 	m_currentState->ResetBackToMenu();
-	m_currentState = states.find(next_level)->second.get();
+	m_currentState = states.find("LevelSelector")->second.get();
 
 	m_currentState->Initialize();
+
 	Physics_.ResetPreviousSize();
 }
 

@@ -1,1 +1,111 @@
-{}
+{
+    "Object": {
+        "Type": {
+            "type": 12,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -361.0,
+                "y": -11.0
+            },
+            "scale": {
+                "x": 300.0,
+                "y": 175.0
+            },
+            "rotation": 0.0,
+            "depth": -0.20000000298023225
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "basic_camera",
+                        "path": "asset/images/camera_frame.png"
+                    },
+                    "info": {
+                        "image_frames": 2,
+                        "update_frames": 0.5,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "cheese",
+                        "path": "asset/images/cheese.png"
+                    },
+                    "info": {
+                        "image_frames": 2,
+                        "update_frames": 0.5,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {
+            "pos": {
+                "x": -556.0,
+                "y": -294.6440124511719
+            }
+        },
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 0,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -556.0,
+                "y": -294.6440124511719
+            },
+            "scale": {
+                "x": 50.0,
+                "y": 50.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "player",
+                        "path": "asset/images/Enemies/1_Right.png"
+                    },
+                    "info": {
+                        "image_frames": 5,
+                        "update_frames": 0.20000000298023225,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": true,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    }
+}
