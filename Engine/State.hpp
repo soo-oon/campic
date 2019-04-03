@@ -64,9 +64,6 @@ public:
 	vector2 camera_center{};
 
 public:
-	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
-	std::string GetLevelIndicator() { return level_indicator; }
-
 	std::string level_indicator;
 	std::string change_level;
 private:
@@ -74,7 +71,6 @@ private:
 	Object* capture_obj = nullptr;
 
 	vector2 player_pos;
-	std::string change_level;
 	vector2 start_pos;
 
 	bool iscamera = false;

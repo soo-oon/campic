@@ -13,7 +13,7 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 
-	void LoadLevelLockJson();
+	void CreateLevelButton(vector2 pos, vector2 scale, const char* level_text, /*std::string& font,*/ int numlevel);
 
 private:
 	std::string current_level = "LevelSelector";
