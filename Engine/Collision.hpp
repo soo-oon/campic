@@ -29,12 +29,12 @@ enum RestitutionType
     size
 };
 
-enum class CollisionState
+enum class Filter
 {
-    damaged,
-    collided,
+    Jump,
+    Speed,
+    None
 };
-
 class Collision : public Component
 {
 public:
@@ -67,6 +67,7 @@ public:
     void SetIsRightTile(bool rt) { isRightTile = rt; }
     void SetCollisionScale(vector2 size_);
     void SetJumpingitutionType(RestitutionType restitution);
+    void SetFilter(Filter filter) { m_filter = filter; }
 
 public:
     bool GetisGet() { return isGet; }
@@ -78,6 +79,7 @@ public:
     bool GetIsLeftTile() { return isLeftTile; }
     bool GetIsRight() { return isRight; }
     bool GetIsRightTile() { return isRightTile; }
+    Filter GetFilter() { return m_filter; }
     CollisionType& GetCollisionType();
     std::vector<vector2> GetCollisionCalculateTRS();
     Mesh& GetCollsionMesh();
@@ -92,6 +94,7 @@ private:
     RestitutionType restitution_ = none;
     Transform collision_transform{};
     CollisionType type = box_;
+    Filter m_filter = Filter::None;
     std::vector<vector2> collision_TRS;
     Mesh collision_mesh{};
     float height = 0, width = 0;
