@@ -23,7 +23,22 @@ void Capture::Update(float dt)
 		cheese = true;
 		Capturing();
 		CreateCaptureObject();
-	}
+	}        
+    if (Input::IsKeyTriggered(GLFW_KEY_6))
+        {
+            m_c_filter = Filter::Jump;
+            object->GetMesh().ChangeColor({ 0,0,255,255 });
+        }
+        if (Input::IsKeyTriggered(GLFW_KEY_7))
+        {
+            m_c_filter = Filter::None;
+            object->GetMesh().ChangeColor({ 255,255,255,255 });
+        }
+        if (Input::IsKeyTriggered(GLFW_KEY_8))
+        {
+            m_c_filter = Filter::Speed;
+            object->GetMesh().ChangeColor({ 0,255,0,255 });
+        }
 
 }
 
@@ -69,7 +84,17 @@ void Capture::Capturing()
 						temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 						temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 						temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
-						temp->SetObjectType(ObjectType::Capture_Obj);
+                                                if (m_c_filter == Filter::Jump)
+                                                {
+                                                    temp->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
+                                                    temp->GetMesh().ChangeColor({ 0,0,255,255 });
+                                                }
+                                                if (m_c_filter == Filter::Speed)
+                                                {
+                                                    temp->GetComponentByTemplate<Collision>()->SetFilter(Filter::Speed);
+                                                    temp->GetMesh().ChangeColor({ 0,255,0,255 });
+                                                }
+					    temp->SetObjectType(ObjectType::Capture_Obj);
 
 						if (obj->GetObjectType() == ObjectType::Projectile)
 						{
