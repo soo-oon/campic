@@ -1,38 +1,38 @@
 {
     "Level": {
-        "Number:": 1,
+        "ID:": "Level1",
         "Clear": true
     },
     "Level": {
-        "Number:": 2,
+        "ID:": "Level2",
         "Clear": false
     },
     "Level": {
-        "Number:": 3,
+        "ID:": "Level3",
         "Clear": false
     },
     "Level": {
-        "Number:": 4,
+        "ID:": "Level4",
         "Clear": false
     },
     "Level": {
-        "Number:": 5,
+        "ID:": "Level5",
         "Clear": false
     },
     "Level": {
-        "Number:": 6,
+        "ID:": "Level6",
         "Clear": false
     },
     "Level": {
-        "Number:": 7,
+        "ID:": "Level7",
         "Clear": false
     },
     "Level": {
-        "Number:": 8,
-        "Clear": false
+        "ID:": "Level8",
+        "Clear": true
     },
     "Level": {
-        "Number:": 9,
+        "ID:": "Level9",
         "Clear": false
     }
 }

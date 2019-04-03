@@ -1,5 +1,6 @@
 #pragma once
 #include "State.hpp"
+#include "LevelJson.hpp"
 
 class LevelSelector : public State
 {
@@ -13,7 +14,7 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 
-	void CreateLevelButton(vector2 pos, vector2 scale, const char* level_text, /*std::string& font,*/ int numlevel);
+	void CreateLevelButton(vector2 pos, vector2 scale, std::string level_text, /*std::string& font,*/ std::string level_id);
 
 private:
 	std::string current_level = "LevelSelector";
@@ -23,6 +24,5 @@ private:
 
 	Object* m_SelectLevel = nullptr;
 private:
-	std::vector<Object*> m_Container;
-	std::map<int, bool> m_LevelLock;
+	std::map<std::string, bool> m_LevelLock;
 };

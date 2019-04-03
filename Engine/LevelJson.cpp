@@ -50,8 +50,9 @@ Document LevelJson::OpenLevelLockInformation() const
 	return LevelLockDoc;
 }
 
-std::map<int, bool> LevelJson::LoadLevelLock()
+std::map<std::string, bool> LevelJson::LoadLevelLock()
 {
+	m_LevelLock.clear();
 	LevelDocument = OpenLevelLockInformation();
 
 	for (auto& temp : LevelDocument.GetObject())
@@ -62,13 +63,13 @@ std::map<int, bool> LevelJson::LoadLevelLock()
 		level.SetObject();
 		clear.SetObject();
 
-		level = lock_array.FindMember("Number:")->value;
+		level = lock_array.FindMember("ID:")->value;
 		clear = lock_array.FindMember("Clear")->value;
 
-		int number = level.GetInt();
+		std::string id = level.GetString();
 		bool status = clear.GetBool();
 
-		m_LevelLock.insert(std::pair(number, status));
+		m_LevelLock.insert(std::pair(id, status));
 	}
 
 	return m_LevelLock;
@@ -85,13 +86,15 @@ void LevelJson::CreateLevelLockDocument()
 
 	for(int i = 1; i < 10; ++i)
 	{
-		level.SetInt(i);
+		std::string lev = "Level" + std::to_string(i);
+
+		level.SetString(lev.c_str(), LevelDocument.GetAllocator());
 		if (i == 1)
 			clear.SetBool(true);
 		else
 			clear.SetBool(false);
 
-		array.AddMember("Number:", level, LevelDocument.GetAllocator());
+		array.AddMember("ID:", level, LevelDocument.GetAllocator());
 		array.AddMember("Clear", clear, LevelDocument.GetAllocator());
 
 		LevelDocument.AddMember("Level", array, LevelDocument.GetAllocator());

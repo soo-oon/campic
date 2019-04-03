@@ -22,6 +22,7 @@ Creation date: 2018/12/14
 #include "Capture.hpp"
 #include "MovingObject.hpp"
 #include "Projectile.hpp"
+#include "UI.hpp"
 //#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
@@ -309,6 +310,28 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(player_camera);
 
 		Objectmanager_.SetCaptureObject(player_camera);
+	}
+
+	ImGui::SameLine();
+
+	ImGui::Button("Door");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* door = new Object();
+		door->SetTranslation(Input::GetMousePos());
+		door->SetScale({ 100, 100 });
+		door->SetDepth(-0.5f);
+		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+		door->SetObjectType(ObjectType::Door);
+		door->AddComponent(new Sprite("asset/images/door.png"));
+		door->AddComponent(new UI(StateManager_.GetCurrentState()->GetLevelIndicator()));
+
+		Objectmanager_.AddObject(door);
 	}
 
 	ImGui::Separator();

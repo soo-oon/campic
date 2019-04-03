@@ -21,10 +21,10 @@ public:
 public:
 	void WriteLevelLockInformation();
 	Document OpenLevelLockInformation() const;
-	std::map<int, bool> LoadLevelLock();
+	std::map<std::string, bool> LoadLevelLock();
 	void CreateLevelLockDocument();
 
-	std::map<int, bool> GetLevelLock() { return m_LevelLock; }
+	std::map<std::string, bool> GetLevelLock() { return m_LevelLock; }
 
 private:
 	Document LevelDocument{};
@@ -33,7 +33,7 @@ private:
 private:
 	std::string m_LevelLock_Path = "asset/JsonFiles/";
 
-	std::map<int, bool> m_LevelLock;
+	std::map<std::string, bool> m_LevelLock;
 };
 
 extern LevelJson LevelJson_;
