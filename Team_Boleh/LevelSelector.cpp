@@ -14,18 +14,6 @@ void LevelSelector::Initialize()
 		CreateLevelButton(vector2(-350+(120*i), base_y), vector2(100, 100), text + std::to_string(i), text+std::to_string(i));
 		text = "Level";
 	}
-
-	Object* door = new Object();
-	door->SetTranslation({ 400,400 });
-	door->SetScale({ 100, 100 });
-	door->SetDepth(-0.5f);
-	door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	door->SetObjectType(ObjectType::Door);
-	door->AddComponent(new Sprite("asset/images/door.png"));
-	door->AddComponent(new UI("Level2"));
-
-	Objectmanager_.AddObject(door);
-
 }
 
 void LevelSelector::Update(float dt)

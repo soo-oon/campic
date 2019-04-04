@@ -45,7 +45,6 @@ public:
 	void LoadLevel(const std::string& current_level);
 	void UnLoad();
 
-
 	void SetPlayerObjectPointer(Object* obj) { player_obj = obj; }
 	void SetCaptureObjectPointer(Object* obj) { capture_obj = obj; }
 	void SetLevelChange(bool change) { level_change = change; }

@@ -19,7 +19,7 @@ public:
 	void TriggerLevelLock(std::string level_id, bool isclear = true);
 
 	bool GetIsLock() { return IsLock; }
-	std::string GetId() const { return id; }
+	std::string GetId() { return id; }
 
 private:
 	std::string id;

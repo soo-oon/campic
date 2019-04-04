@@ -84,7 +84,7 @@ void LevelJson::CreateLevelLockDocument()
 	level.SetObject();
 	clear.SetObject();
 
-	for(int i = 1; i < 10; ++i)
+	for(int i = 1; i < 20; ++i)
 	{
 		std::string lev = "Level" + std::to_string(i);
 

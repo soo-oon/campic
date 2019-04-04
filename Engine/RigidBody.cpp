@@ -129,7 +129,7 @@ void RigidBody::MovePlayer()
     {
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
-            object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            //object->GetComponentByTemplate<Animation>()->SetFlip(false);
             o_rigidbody->SetVelocity({
                 m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -138,7 +138,7 @@ void RigidBody::MovePlayer()
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
-            object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            //object->GetComponentByTemplate<Animation>()->SetFlip(true);
             o_rigidbody->SetVelocity({
                 0,
                 o_rigidbody->GetVelocity().y
@@ -164,7 +164,7 @@ void RigidBody::MovePlayer()
     {
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
-            object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            //object->GetComponentByTemplate<Animation>()->SetFlip(false);
             o_rigidbody->SetVelocity({
                 0,
                 o_rigidbody->GetVelocity().y
@@ -173,7 +173,7 @@ void RigidBody::MovePlayer()
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
-            object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            //object->GetComponentByTemplate<Animation>()->SetFlip(true);
             o_rigidbody->SetVelocity({
                 -m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -199,7 +199,7 @@ void RigidBody::MovePlayer()
     {
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
-            object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            //object->GetComponentByTemplate<Animation>()->SetFlip(false);
             o_rigidbody->SetVelocity({
                 m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -208,7 +208,7 @@ void RigidBody::MovePlayer()
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
-            object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            //object->GetComponentByTemplate<Animation>()->SetFlip(true);
             o_rigidbody->SetVelocity({
                 -m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
