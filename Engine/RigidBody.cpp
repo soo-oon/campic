@@ -84,26 +84,26 @@ void RigidBody::Update(float dt)
                                                                         GetIsCapobj())
     {
         object->GetTransform().SetTranslation({
-            (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
-            (object->GetTransform().GetTranslation().y + (m_velocity * dt).y)
+            (object->GetTransform().GetTranslation().x + (m_velocity * m_slowmode * dt).x),
+            (object->GetTransform().GetTranslation().y + (m_velocity * m_slowmode * dt).y)
         });
     }
     else
     {
         object->GetTransform().SetTranslation({
-            (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+            (object->GetTransform().GetTranslation().x + (m_velocity * m_slowmode * dt).x),
             (object->GetTransform().GetTranslation().y)
         });
         isJumping = false;
     }
     if (!object->GetComponentByTemplate<Collision>()->GetIsGround())
         m_next_position = {
-            (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
-            (object->GetTransform().GetTranslation().y + (m_velocity * dt).y)
+            (object->GetTransform().GetTranslation().x + (m_velocity * m_slowmode * dt).x),
+            (object->GetTransform().GetTranslation().y + (m_velocity * m_slowmode * dt).y)
         };
     else
         m_next_position = {
-            (object->GetTransform().GetTranslation().x + (m_velocity * dt).x),
+            (object->GetTransform().GetTranslation().x + (m_velocity * m_slowmode * dt).x),
             (object->GetTransform().GetTranslation().y)
         };
     if (isYLimited)
