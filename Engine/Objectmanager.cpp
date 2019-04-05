@@ -44,6 +44,8 @@ void Objectmanager::Update(float dt)
 {
 	auto size = objects_.size();
 
+	std::cout << size << std::endl;
+
 	for (auto object = objects_.begin(); object != objects_.end();)
 	{
 		for (auto components : object->get()->GetComponent())
@@ -60,7 +62,6 @@ void Objectmanager::Update(float dt)
 		if(object->get()->IsDead())
 		{
 			object = objects_.erase(object);
-			//objects_.erase(object);
 		}
 		else
 		{

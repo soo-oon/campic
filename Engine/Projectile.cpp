@@ -179,10 +179,6 @@ void Projectile::WeaponUpdate(float dt)
 	{
 		m_parent = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 	}
-	else
-	{
-		int a = 5;
-	}
 
 	if (object->GetTransform().GetParent() == nullptr)
 	{
