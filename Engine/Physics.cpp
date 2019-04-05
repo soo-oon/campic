@@ -110,7 +110,7 @@ void Physics::Update(float dt)
                         {
                             if (IntersectionCheckAABB(collision_list[i], tile))
                             {
-                                StopReaction(collision_list[i], tile, true);
+                                StopReaction(collision_list[i], tile, false);
                             }
                         }
                         if (p_rigidbody->GetVelocity().x != 0)
@@ -153,18 +153,14 @@ void Physics::Update(float dt)
                 {
                     for (auto capture : capture_list)
                     {
-                        if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture
-                                                                                            ->GetTransform().GetScale().
-                                                                                            x / 2
-                            < capture->GetTransform().GetTranslation().x && capture->GetTransform().GetTranslation().x
-                            < p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + capture
-                                                                                              ->GetTransform().
-                                                                                              GetScale().x / 2
-                            && p_transform.GetTranslation().y - p_transform.GetScale().y / 2 - capture
-                                                                                               ->GetTransform().
-                                                                                               GetScale().y
-                            < capture->GetTransform().GetTranslation().y && capture->GetTransform().GetTranslation().y
-                            /*< p_transform.GetTranslation().y + p_transform.GetScale().y / 2 + capture
+                        if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture->GetTransform().GetScale().x / 2
+                            <= capture->GetTransform().GetTranslation().x 
+                            && capture->GetTransform().GetTranslation().x
+                            <= p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + capture->GetTransform().GetScale().x / 2
+                            && p_transform.GetTranslation().y - p_transform.GetScale().y / 2 - capture->GetTransform().GetScale().y
+                            <= capture->GetTransform().GetTranslation().y 
+                            /*&& capture->GetTransform().GetTranslation().y
+                            < p_transform.GetTranslation().y + p_transform.GetScale().y / 2 + capture
                                                                                               ->GetTransform().
                                                                                               GetScale().y*/)
                         {
@@ -187,11 +183,15 @@ void Physics::Update(float dt)
                                     p_rigidbody->SetYLimited(false);
                                 p_collision->SetIsCapobj(false);
                             }
-                            if (capture->GetTransform().GetTranslation().y - capture->GetTransform().GetScale().y / 2
-                                + p_rigidbody->GetVelocity().y * dt
-                                <= p_transform.GetTranslation().y + p_transform.GetScale().y / 2)
+                            if(p_rigidbody->GetVelocity().y > 0)
                             {
-                                p_rigidbody->SetVelocity(0);
+                                if (p_rigidbody->GetVelocity().y > 0)
+                                {
+                                    if (IntersectionCheckAABB(collision_list[i], capture))
+                                    {
+                                        StopReaction(collision_list[i], capture, false);
+                                    }
+                                }
                             }
                         }
                     }
