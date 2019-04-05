@@ -175,6 +175,8 @@ void Physics::Update(float dt)
                                 }
                                 if (capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Speed)
                                     p_rigidbody->SetXLimited(false);
+                                if (capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
+                                    p_rigidbody->SetYLimited(false);
                                 p_collision->SetIsCapobj(false);
                             }
                         }
