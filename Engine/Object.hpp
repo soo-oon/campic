@@ -38,6 +38,7 @@ enum class ObjectType {
 	Capture_Obj,
 	Tile,
 	Button,
+	Polaroid,
     None,
 }; 
 

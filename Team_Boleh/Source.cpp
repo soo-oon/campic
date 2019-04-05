@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "MainMenu.hpp"
 #include "Level.hpp"
 #include "LevelSelector.hpp"
+#include "Test_Level.hpp"
 
 int main()
 {
@@ -27,13 +28,25 @@ int main()
 
     engine.Initialize();
 
+	//StateManager_.AddStage("MainMenu", new MainMenu());
+	//StateManager_.AddStage("LevelSelector", new LevelSelector());
+	//StateManager_.AddStage("Level3", new Level());
+	//StateManager_.AddStage("LevelSelector", new LevelSelector());
+	//StateManager_.AddStage("Level1", new Level1());
+    StateManager_.AddStage("Test_Level", new Test_Level());
+
+
+    /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
+    StateManager_->AddStage("StartMenu", new StartMenu());
+    StateManager_->AddStage("level1",new level1());
+    StateManager_->AddStage("level2", new level2());
+    StateManager_->AddStage("MapEditorTest", new MapEditorTest());
+    StateManager_->AddStage("Demonstrate", new Demonstrate());*/
+
 	StateManager_.AddStage("MainMenu", new MainMenu());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
 	StateManager_.AddStage("Level", new Level());
 
-
-    //StateManager_->AddStage("Splash_Screen", new SplashScreen());
-    //StateManager_->AddStage("StartMenu", new StartMenu());
 
 	engine.Update();
   

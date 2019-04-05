@@ -18,10 +18,21 @@ void Capture::Update(float dt)
 
 	object->SetTranslation(mouse_pos);
 
+	for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
+	{
+		polaroid_object[i]->Update();
+
+		/*if(polaroid_object[i]->IsDead())
+		{
+			polaroid_object.erase(polaroid_object.begin() + i);
+		}*/
+	}
+
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		cheese = true;
 		Capturing();
+		CreatePolaroidObject();
 		CreateCaptureObject();
 	}
         if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_MIDDLE))
@@ -56,13 +67,24 @@ void Capture::Delete()
 {
 }
 
+void Capture::Polaroid::Update()
+{
+	/*obj->GetMesh().Decrease_Alpha(5);
+
+	if (obj->GetMesh().GetColor(0).Alpha <= 5)
+	{
+		obj->GetMesh().SetAlphaZero();
+		obj->SetObjectDead();
+		isdead = true;
+	}*/
+}
+
 void Capture::SlowMode(float fric)
 {
     vector2 object_pos = object->GetTransform().GetTranslation();
     vector2 object_size = object->GetTransform().GetScale() / 2;
     vector2 min_pos = { object_pos.x - object_size.x, object_pos.y - object_size.y };
     vector2 max_pos = { object_pos.x + object_size.x, object_pos.y + object_size.y };
-
 
     for (auto& obj : Objectmanager_.GetObjectMap())
     {
@@ -100,7 +122,6 @@ void Capture::Capturing()
 	vector2 min_pos = { object_pos.x - object_size.x, object_pos.y - object_size.y};
 	vector2 max_pos = { object_pos.x + object_size.x, object_pos.y + object_size.y };
         
-
 	for(auto& obj : Objectmanager_.GetObjectMap())
 	{
 		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player
@@ -116,7 +137,6 @@ void Capture::Capturing()
 			{
 				vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
 				vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };
-
 
 				vector2 reset_min = { reset_pos.x - player_->GetTransform().GetScale().x / 2, reset_pos.y - player_->GetTransform().GetScale().x / 2 };
 				vector2 reset_max = { reset_pos.x + player_->GetTransform().GetScale().x / 2, reset_pos.y + player_->GetTransform().GetScale().x / 2 };
@@ -162,6 +182,7 @@ void Capture::Capturing()
 						}
 						
 						capture_object.push_back(temp);
+						iscreate = true;
 					}
 				}
 			}
@@ -171,9 +192,35 @@ void Capture::Capturing()
 
 void Capture::CreateCaptureObject()
 {
-	for(auto obj : capture_object)
+	if (!capture_object.empty())
 	{
-		Objectmanager_.AddObject(obj);
+		for (auto obj : capture_object)
+		{
+			Objectmanager_.AddObject(obj);
+		}
 	}
+
+	if(!polaroid_object.empty())
+	{
+		for(auto obj : polaroid_object)
+		{
+			Objectmanager_.AddObject(obj->GetObject());
+		}
+	}
+
 	capture_object.clear();
+	polaroid_object.clear();
+}
+
+void Capture::CreatePolaroidObject()
+{
+	if (iscreate)
+	{
+		for(auto obj : capture_object)
+		{
+			Polaroid* temp = new Polaroid(obj);
+			polaroid_object.push_back(temp);
+		}
+		iscreate = false;
+	}
 }

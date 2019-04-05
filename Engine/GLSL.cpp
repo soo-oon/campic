@@ -82,7 +82,7 @@ void main()
     vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
     vec4 new_color = color * texel;
 
-	if(new_color.a < 0.1)
+	if(new_color.a <= 0.1)
 			discard;
 
     output_color = new_color;
@@ -125,7 +125,7 @@ void main()
 		vec4 texel = texture(texture_to_sample, _texture_coordinate);
 		vec4 result_color = color * texel;
 
-		if(result_color.a < 0.1)
+		if(result_color.a <= 0.1)
 			discard;
 
 		output_color = result_color;
@@ -168,7 +168,7 @@ void main()
 		vec4 text_color = texture(text, interpolated_texture_coordinate);
 		vec4 sampled = vec4(1.0, 1.0, 1.0, text_color.r);
 
-		if(sampled.a < 0.1)
+		if(sampled.a <= 0.1)
 			discard;
 
 		output_color = color * sampled;
