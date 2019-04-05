@@ -28,24 +28,24 @@ void MainMenu::Initialize()
 
 
 	Object* Option = new Object();
-	Option->SetTranslation({ 120, -100 });
-	Option->SetScale({ 150,100 });
+	Option->SetTranslation({ 150, -100 });
+	Option->SetScale({ 170,170 });
 	Option->SetDepth(-0.1f);
 	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Option->SetObjectType(ObjectType::Button);
 	//Option->AddComponent(new UI("LevelSelector"));
-	Option->AddComponent(new Sprite("asset/images/UI/Option_Text.png"));
+	Option->AddComponent(new Sprite("asset/images/UI/Setting.png"));
 
 	Objectmanager_.AddObject(Option);
 
 	Object* Credit = new Object();
 	Credit->SetTranslation({ -120, -350 });
-	Credit->SetScale({ 150,100 });
+	Credit->SetScale({ 150,150 });
 	Credit->SetDepth(-0.1f);
 	Credit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Credit->SetObjectType(ObjectType::Button);
 	//Credit->AddComponent(new UI("LevelSelector"));
-	Credit->AddComponent(new Sprite("asset/images/UI/Credit_Text.png"));
+	Credit->AddComponent(new Sprite("asset/images/UI/Credit.png"));
 
 	Objectmanager_.AddObject(Credit);
 
