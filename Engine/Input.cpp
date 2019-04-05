@@ -49,6 +49,18 @@ void Input::Triggerd_Reset()
 	y_offset_ = 0;
 }
 
+void Input::Pressed_Reset()
+{
+    mouse_released = false;
+    key_released = false;
+
+    mouse_doubleclick.reset();
+    mouse_released.reset();
+
+    x_offset_ = 0;
+    y_offset_ = 0;
+}
+
 void Input::Initialize(int width, int height)
 {
     key_pressed.reset();

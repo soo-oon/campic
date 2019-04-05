@@ -38,6 +38,7 @@ public:
     void SetViewingDirection(vector2 direction) { m_viewing_direction = direction; }
     void SetNextPosition(vector2 position) { m_next_position = position; }
     void SetGravity(float gravity_) { m_gravity = gravity_; }
+    void SetSlowMode(float slow) { m_slowmode = slow; }
     void SetJumping(bool rest) { isJumping = rest; }
     void SetMoving(bool move) { isMoving = move; }
     void SetVelocityLimit(vector2 velo) { m_velocity_limit = velo; }
@@ -52,6 +53,7 @@ public:
     vector2 GetViewingDirection() { return m_viewing_direction; }
     vector2 GetNextPosition() { return m_next_position; }
     float GetGravity() { return m_gravity; }
+    float GetSlowMode() { return m_slowmode; }
     bool GetJumping() { return isJumping; }
     bool GetMoving() { return isMoving; }
     bool GetYLimited() { return isYLimited; }
@@ -69,6 +71,7 @@ private:
     float m_friction = 0.99f;
     float m_gravity = 10.f;
     float m_inverse_mass = 1;
+    float m_slowmode = 1.f;
 
 
 
