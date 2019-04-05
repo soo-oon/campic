@@ -106,6 +106,13 @@ void Physics::Update(float dt)
                 {
                     for (auto tile : tile_list)
                     {
+                        if(p_rigidbody->GetVelocity().y > 0)
+                        {
+                            if (IntersectionCheckAABB(collision_list[i], tile))
+                            {
+                                StopReaction(collision_list[i], tile, true);
+                            }
+                        }
                         if (p_rigidbody->GetVelocity().x != 0)
                         {
                             if (IntersectionCheckNextPosition(collision_list[i], tile))
@@ -161,7 +168,8 @@ void Physics::Update(float dt)
                                                                                               ->GetTransform().
                                                                                               GetScale().y*/)
                         {
-                            if (capture->GetTransform().GetTranslation().y + capture->GetTransform().GetScale().y/2 + p_rigidbody->GetVelocity().y * dt
+                            if (capture->GetTransform().GetTranslation().y + capture->GetTransform().GetScale().y/2
+                                + p_rigidbody->GetVelocity().y * dt
                                 <= p_transform.GetTranslation().y - p_transform.GetScale().y / 2)
                             {
                                 if (IntersectionCheckNextPosition(collision_list[i], capture))
@@ -178,6 +186,12 @@ void Physics::Update(float dt)
                                 if (capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
                                     p_rigidbody->SetYLimited(false);
                                 p_collision->SetIsCapobj(false);
+                            }
+                            if (capture->GetTransform().GetTranslation().y - capture->GetTransform().GetScale().y / 2
+                                + p_rigidbody->GetVelocity().y * dt
+                                <= p_transform.GetTranslation().y + p_transform.GetScale().y / 2)
+                            {
+                                p_rigidbody->SetVelocity(0);
                             }
                         }
                     }
