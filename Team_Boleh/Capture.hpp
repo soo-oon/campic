@@ -4,6 +4,7 @@
 #include "vector2.hpp"
 #include "RandomFunction.hpp"
 #include "Object.hpp"
+#include "Collision.hpp"
 
 class Capture : public Component
 {
@@ -16,6 +17,10 @@ public:
 
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
+	void SetFilter(Filter filter) { m_c_filter = filter; }
+
+	Filter GetFilter() { return m_c_filter; }
+	void SlowMode(float fric);
 
 	bool IsCheese() { return cheese; }
 	void SetCheese(bool condition) { cheese = condition; }
@@ -48,6 +53,7 @@ private:
 	void Capturing();
 	void CreateCaptureObject();
 	void CreatePolaroidObject();
+    Filter m_c_filter = Filter::None;
 
 	bool iscreate = false;
 	bool cheese = false;

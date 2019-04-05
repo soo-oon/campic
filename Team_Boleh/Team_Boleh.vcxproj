@@ -174,7 +174,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelSelector.cpp" />
     <ClCompile Include="MainMenu.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SplashScreen.cpp">
@@ -195,7 +195,7 @@
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="LevelSelector.hpp" />
     <ClInclude Include="MainMenu.hpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="SplashScreen.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

@@ -3,31 +3,16 @@
 
 void LevelSelector::Initialize()
 {
-	//LoadLevel(current_level);
+	m_LevelLock = LevelJson_.LoadLevelLock();
 
-	background = new Object();
-	background->SetTranslation({ 0 });
-	background->SetScale(Application_.GetScreenSize()); 
-	background->SetDepth(0.5f);
-	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	background->SetObjectType(ObjectType::Background);
-	background->AddComponent(new Sprite("asset/images/UI/background.png"));
+	std::string text = "Level";
 
-	level2 = new Object();
-	level2->SetTranslation({ -200,0 });
-	level2->SetScale({ 522, 150 });
-	level2->SetDepth(-0.1f);
-	level2->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	level2->SetObjectType(ObjectType::Button);
-	level2->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
-	level2->AddComponent(new UI("Level3"));
-	
-	container.push_back(background);
-	container.push_back(level2);
+	float base_y = 0.f;
 
-	for (auto& i : container)
+	for(int i = 1; i <= 5; ++i)
 	{
-		Objectmanager_.AddObject(i);
+		CreateLevelButton(vector2(-350+(120*i), base_y), vector2(100, 100), text + std::to_string(i), text+std::to_string(i));
+		text = "Level";
 	}
 }
 
@@ -35,18 +20,53 @@ void LevelSelector::Update(float dt)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		select_level = Input::ClickObject();
+		m_SelectLevel = Input::ClickObject();
 
-		if(select_level)
+		if (m_SelectLevel)
 		{
-			SetLevelIndicator(select_level->GetComponentByTemplate<UI>()->GetId());
-			ChangeLevel(level_indicator);
+			if (m_SelectLevel->GetObjectType() == ObjectType::Door)
+			{
+				m_SelectLevel->GetComponentByTemplate<UI>()->TriggerLevelLock(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
+				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
+				ChangeLevel(level_indicator);
+			}
+			else
+			{
+				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
+				ChangeLevel(level_indicator);
+			}
 		}
+	}
+
+	if (Input::IsKeyTriggered(GLFW_KEY_F10))
+	{
+		LevelJson_.CreateLevelLockDocument();
 	}
 }
 
 void LevelSelector::ShutDown()
 {
-	container.clear();
+	m_LevelLock.clear();
 	UnLoad();
+}
+
+void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text /*,std::string & font*/,std::string level_id)
+{
+	Object* button = new Object();
+	button->SetTranslation(pos);
+	button->SetScale(scale);
+	button->SetDepth(-0.1f);
+	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	button->SetObjectType(ObjectType::Button);
+	button->AddComponent(new UI(level_text));
+
+	auto check = m_LevelLock.find(level_id)->second;
+
+	if (check)
+	{
+		button->AddComponent(new Sprite("asset/images/UI/LevelBox.png"));
+	}
+	button->AddComponent(new Sprite("asset/images/UI/LevelLock.png"));
+
+	Objectmanager_.AddObject(button);
 }

@@ -1,4 +1,4 @@
-/* Start Header -------------------------------------------------------------
+	/* Start Header -------------------------------------------------------------
 --
 Copyright (C) 2018 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -22,6 +22,7 @@ Creation date: 2018/12/14
 #include "Capture.hpp"
 #include "MovingObject.hpp"
 #include "Projectile.hpp"
+#include "UI.hpp"
 //#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
@@ -40,7 +41,6 @@ bool Imgui_System::Initialize()
 
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
-
 
 	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
 	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
@@ -281,7 +281,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		player->SetObjectType(ObjectType::Player);
 		player->AddInitComponent(new RigidBody());
 		player->AddInitComponent(new Collision(box_));
-		player->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
+		player->AddInitComponent(new Sprite("asset/images/Player_Static.png"));
+		//player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 5, 0.2f, true));
 		Objectmanager_.AddObject(player);
 
 		Objectmanager_.SetPlayer(player);
@@ -307,8 +308,31 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
 
 		Objectmanager_.AddObject(player_camera);
-
 		Objectmanager_.SetCaptureObject(player_camera);
+	}
+
+	ImGui::Text("Type target Level");
+	static char buffer[100] = "";
+	ImGui::InputText("", buffer, IM_ARRAYSIZE(buffer));
+
+	ImGui::Button("Door");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* door = new Object();
+		door->SetTranslation(Input::GetMousePos());
+		door->SetScale({ 100, 100 });
+		door->SetDepth(-0.5f);
+		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+		door->SetObjectType(ObjectType::Door);
+		door->AddComponent(new Sprite("asset/images/door.png"));
+		door->AddComponent(new UI(buffer));
+
+		Objectmanager_.AddObject(door);
 	}
 
 	ImGui::Separator();

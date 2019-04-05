@@ -41,6 +41,7 @@ private:
 
 public:
     static void Triggerd_Reset();
+    static void Pressed_Reset();
 
     static void Initialize(int width = 0, int height = 0);
     static void Reset(void);

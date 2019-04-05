@@ -21,7 +21,7 @@ struct Character
 class Font : public Component
 {
 public:
-	Font(std::string text_ = "Empty", std::string path_ = "asset/font/default.ttf", Color color = {0,0,0,255})
+	Font(std::string text_ = "Empty", std::string path_ = "asset/font/TeamBoleh.ttf", Color color = {0,0,0,255})
 	: text(text_), path(path_), m_color(color)
 	{}
 

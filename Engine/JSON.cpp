@@ -25,6 +25,11 @@ void JSON::Update(float /*dt*/)
 
 void JSON::Quit()
 {
+	/*ObjectDocument.Clear();
+	TileDocument.;
+
+	ObjectBuffer.Clear();
+	TileBuffer.Clear();*/
 }
 
 void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)
@@ -113,6 +118,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 
 	if (obj->GetComponentByTemplate<UI>() != nullptr)
 	{
+		std::string check = obj->GetComponentByTemplate<UI>()->GetId().c_str();
 		objUi.SetString(obj->GetComponentByTemplate<UI>()->GetId().c_str(), ObjectDocument.GetAllocator());
 		objUItree.AddMember("id", objUi, ObjectDocument.GetAllocator());
 	}
@@ -130,7 +136,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
-	objTree.AddMember("ID", objUi, ObjectDocument.GetAllocator());
+	objTree.AddMember("ID", objUItree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());

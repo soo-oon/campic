@@ -25,6 +25,7 @@ Creation date: 2018/12/14
 #include "HUD.hpp"
 #include "HUD_Level.hpp"
 #include "Tile_Map.hpp"
+#include "LevelJson.hpp"
 
 bool Engine::IsQuit;
 
@@ -77,6 +78,7 @@ void Engine::System_Initialize()
 	Physics_.Initialize();
  	HUD_.Initialize(new HUD_Level());
 	JSON_.Initialize();
+	LevelJson_.Initialize();
 
 	//TODO make new HUD structure 
 	
@@ -110,6 +112,7 @@ void Engine::System_Quit()
 	AudioManager_.Quit();
 	Physics_.Quit();
 	JSON_.Quit();
+	LevelJson_.Quit();
 
 	//HUD_.Quit();
 }

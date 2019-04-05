@@ -14,13 +14,6 @@ public:
 	void ShutDown() override;
 
 private:
-	std::vector<Object*> container;
-
-	bool click = false;
-
-	Object* player_camera = nullptr;
-	Object* start_button = nullptr;
-	Object* option_button = nullptr;
-	Object* quit_button = nullptr;
+	Object* m_Select = nullptr;
 };
 
