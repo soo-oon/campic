@@ -31,20 +31,19 @@ public:
     bool Initialize();
     void Update(float dt);
     void Quit();
-	void AddObject(Object* obj);
-	void AddObject(std::shared_ptr<Object> obj);
+    void AddObject(Object* obj);
+    void AddObject(std::shared_ptr<Object> obj);
 
 
-	void RemoveObject();
+    void RemoveObject();
 
-	std::vector<std::shared_ptr<Object>>& GetObjectMap() { return objects_; }
-	//std::vector<std::shared_ptr<Object>>& GetCaptureObject() { return capture_obj; }
-	void SetCaptureObject(Object* obj);
-	void SetPlayer(Object* obj);
+    std::vector<std::shared_ptr<Object>>& GetObjectMap() { return objects_; }
+    void SetCaptureObject(Object* obj);
+    void SetPlayer(Object* obj);
 
 private:
 	std::vector<std::shared_ptr<Object>> objects_;
-	//std::vector<std::shared_ptr<Object>> capture_obj;
+	int tick = 0;
 };
 
 extern Objectmanager Objectmanager_;

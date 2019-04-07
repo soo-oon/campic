@@ -39,6 +39,7 @@ enum class ObjectType {
 	Tile,
 	Button,
 	Polaroid,
+    Capture_Camera,
     None,
 }; 
 
@@ -62,8 +63,15 @@ public:
     void SetDepth(const float& depth);
 	void SetParent(const Transform* transform_);
 	void SetIsDead(bool condition);
+	void SetZoomDifferCondition(bool condition);
+	void SetContainAreaCondition(bool condition);
+	void SetSlowModeCondition(bool condition);
 
 	bool Isvisible();
+	bool IsDifferZoomSize() { return is_differ_zoom_size; }
+	bool IsContainArea() { return is_contain_area; }
+	bool IsSlowMode() { return is_slowmode; }
+
 	void SetVisible();
 	void SetInvisible();
 
@@ -80,7 +88,11 @@ public:
     COMPONENT* GetComponentByTemplate() const;
 
 private:
+	bool is_slowmode = false;
+	bool is_contain_area = false;
 	bool isdead = false;
+	bool is_differ_zoom_size = false;
+
     Mesh m_mesh{};
     Transform m_transform{};
     std::vector<Component*> m_component;

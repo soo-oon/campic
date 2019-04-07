@@ -33,11 +33,6 @@ public:
     Object* GetSpecificTile(vector2 position);
     void SetReset(bool reset) { init = reset; }
 
-    bool CheckTile(vector2 position)
-    {
-
-    }
-
     void InsertGraphicalTiles(int grid_, Object* tiles);
     void InsertPhysicalTiles(int grid_, Object* tiles);
 

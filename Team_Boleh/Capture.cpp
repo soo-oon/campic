@@ -7,89 +7,130 @@
 
 bool Capture::Initialize(Object* Ob)
 {
-	if(object == nullptr)
-		object = Ob;
-	return true;
+    if (object == nullptr)
+    {
+        object = Ob;
+
+        vector2 size = object->GetTransform().GetScale();
+        zoomobject = new Object();
+        zoomobject->SetMesh(mesh::CreateBox());
+        zoomobject->SetTranslation({ object->GetTransform().GetTranslation().x + size.x/1.8f, object->GetTransform().GetTranslation().y});
+        zoomobject->SetDepth(object->GetTransform().GetDepth()+0.1f);
+        zoomobject->SetScale({ 30, size.y });
+        zoomobject->SetObjectType(ObjectType::Capture_Camera);
+        zoomobject->AddComponent(new Sprite("asset/images/zoom.png"));
+
+        zoombutton = new Object();
+        zoombutton->SetMesh(mesh::CreateBox());
+        zoombutton->SetDepth(object->GetTransform().GetDepth());
+        zoombutton->SetScale({ 30, 30 });
+        zoombutton->SetObjectType(ObjectType::Capture_Camera);
+        zoombutton->AddComponent(new Sprite("asset/images/zoom_button.png"));
+
+        zoomobject->SetParent(&object->GetTransform());
+        Objectmanager_.AddObject(zoomobject);
+        Objectmanager_.AddObject(zoombutton);
+
+    }
+
+    zoom_min_value = 1.0f;
+    zoom_max_value = 2.5f;
+
+    return true;
 }
 
 void Capture::Update(float dt)
 {
-	vector2 mouse_pos = Input::GetMousePos();
+    CameraZoom();
+    ZoomObjectUpdate(dt);
 
-	object->SetTranslation(mouse_pos);
+    if (player == nullptr)
+    {
+        player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+    }
 
-	for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
-	{
-		polaroid_object[i]->Update();
+    vector2 mouse_pos = Input::GetMousePos();
 
-		/*if(polaroid_object[i]->IsDead())
-		{
-			polaroid_object.erase(polaroid_object.begin() + i);
-		}*/
-	}
+    object->SetTranslation(mouse_pos);
 
-	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		cheese = true;
-		Capturing();
-		CreatePolaroidObject();
-		CreateCaptureObject();
-	}
-        if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_MIDDLE))
+    /*for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
+    {
+            polaroid_object[i]->Update();
+
+            if(polaroid_object[i]->IsDead())
+            {
+                    polaroid_object.erase(polaroid_object.begin() + i);
+            }
+    }*/
+
+    if (IsCaptureArea())
+    {
+        CameraZoomInOut();
+        SlowMode();
+
+        if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
-            std::cout << "press oin" << std::endl;
-            SlowMode(0.5);
+            cheese = true;
+            Capturing();
+            CreatePolaroidObject();
+            CreateCaptureObject();
         }
-        if (Input::IsMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
-        {
-            std::cout << "press off" << std::endl;
-            SlowMode(1);
-        }
+    }
+    else
+    {
+        SetOrigianlSize();
+    }
+
     if (Input::IsKeyTriggered(GLFW_KEY_6))
-        {
-            m_c_filter = Filter::Jump;
-            object->GetMesh().ChangeColor({ 0,0,255,255 });
-        }
-        if (Input::IsKeyTriggered(GLFW_KEY_7))
-        {
-            m_c_filter = Filter::None;
-            object->GetMesh().ChangeColor({ 255,255,255,255 });
-        }
-        if (Input::IsKeyTriggered(GLFW_KEY_8))
-        {
-            m_c_filter = Filter::Speed;
-            object->GetMesh().ChangeColor({ 0,255,0,255 });
-        }
-
+    {
+        m_c_filter = Filter::Jump;
+        object->GetMesh().ChangeColor({0, 0, 255, 255});
+    }
+    if (Input::IsKeyTriggered(GLFW_KEY_7))
+    {
+        m_c_filter = Filter::None;
+        object->GetMesh().ChangeColor({255, 255, 255, 255});
+    }
+    if (Input::IsKeyTriggered(GLFW_KEY_8))
+    {
+        m_c_filter = Filter::Speed;
+        object->GetMesh().ChangeColor({0, 255, 0, 255});
+    }
 }
 
 void Capture::Delete()
 {
 }
 
+void Capture::SetZoomMinMax(float max, float min)
+{
+    zoom_max_value = max;
+    zoom_min_value = min;
+}
+
 void Capture::Polaroid::Update()
 {
-	/*obj->GetMesh().Decrease_Alpha(5);
+    /*obj->GetMesh().Decrease_Alpha(5);
 
-	if (obj->GetMesh().GetColor(0).Alpha <= 5)
-	{
-		obj->GetMesh().SetAlphaZero();
-		obj->SetObjectDead();
-		isdead = true;
-	}*/
+    if (obj->GetMesh().GetColor(0).Alpha <= 5)
+    {
+            obj->GetMesh().SetAlphaZero();
+            obj->SetObjectDead();
+            isdead = true;
+    }*/
 }
 
 void Capture::SlowMode(float fric)
 {
     vector2 object_pos = object->GetTransform().GetTranslation();
     vector2 object_size = object->GetTransform().GetScale() / 2;
-    vector2 min_pos = { object_pos.x - object_size.x, object_pos.y - object_size.y };
-    vector2 max_pos = { object_pos.x + object_size.x, object_pos.y + object_size.y };
+    vector2 min_pos = {object_pos.x - object_size.x, object_pos.y - object_size.y};
+    vector2 max_pos = {object_pos.x + object_size.x, object_pos.y + object_size.y};
 
     for (auto& obj : Objectmanager_.GetObjectMap())
     {
         if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player
-            || obj->GetObjectType() == ObjectType::Projectile)
+                || obj->GetObjectType() == ObjectType::Projectile)
             && obj.get() != object)
         {
             vector2 save_obj_pos = obj->GetTransform().GetTranslation();
@@ -97,8 +138,8 @@ void Capture::SlowMode(float fric)
             vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale() / 2;
             auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 
-            vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
-            vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };
+            vector2 min_obj = {save_obj_pos.x - scale.x, save_obj_pos.y - scale.y};
+            vector2 max_obj = {save_obj_pos.x + scale.x, save_obj_pos.y + scale.y};
 
             if (auto physics = obj.get()->GetComponentByTemplate<RigidBody>(); physics != nullptr)
             {
@@ -110,117 +151,325 @@ void Capture::SlowMode(float fric)
                 else
                     physics->SetSlowMode(1);
             }
-            
         }
     }
 }
 
+bool Capture::IsCaptureArea()
+{
+    bool result = false;
+    capture_area_contian_object.clear();
+    not_area_contian_object.clear();
+
+    vector2 object_pos = object->GetTransform().GetTranslation();
+    vector2 object_size = object->GetTransform().GetScale() / 2;
+    vector2 min_pos = {object_pos.x - object_size.x, object_pos.y - object_size.y};
+    vector2 max_pos = {object_pos.x + object_size.x, object_pos.y + object_size.y};
+
+    for (auto& obj : Objectmanager_.GetObjectMap())
+    {
+        if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player ||
+            obj->GetObjectType() == ObjectType::Projectile) && obj.get() != object)
+        {
+            vector2 save_obj_pos = obj->GetTransform().GetTranslation();
+            vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale() / 2;
+
+            if (player != nullptr)
+            {
+                vector2 min_obj = {save_obj_pos.x - scale.x, save_obj_pos.y - scale.y};
+                vector2 max_obj = {save_obj_pos.x + scale.x, save_obj_pos.y + scale.y};
+                if ((min_obj.x >= min_pos.x) && (max_obj.x <= max_pos.x) &&
+                    (min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
+                {
+                    if (obj->GetObjectType() != ObjectType::Player)
+                    {
+                        capture_area_contian_object.push_back(obj.get());
+
+                        obj->SetContainAreaCondition(true);
+
+                        if (!obj->IsDifferZoomSize())
+                            original_scale.push_back(std::make_pair<vector2, Object*>(obj->GetTransform().GetScale(),
+                                                                                      obj.get()));
+
+                        result = true;
+                    }
+                    else
+                    {
+                        vector2 reset_min = {
+                            reset_pos.x - player->GetTransform().GetScale().x / 2,
+                            reset_pos.y - player->GetTransform().GetScale().x / 2
+                        };
+                        vector2 reset_max = {
+                            reset_pos.x + player->GetTransform().GetScale().x / 2,
+                            reset_pos.y + player->GetTransform().GetScale().x / 2
+                        };
+
+                        if ((min_obj.x >= reset_max.x) || (max_obj.x <= reset_min.x) ||
+                            (min_obj.y >= reset_max.y) || (max_obj.y <= reset_min.y))
+                        {
+                            capture_area_contian_object.push_back(obj.get());
+
+                            obj->SetContainAreaCondition(true);
+
+                            if (!obj->IsDifferZoomSize())
+                                original_scale.push_back(std::make_pair<vector2, Object*>(
+                                    obj->GetTransform().GetScale(),
+                                    obj.get()));
+
+                            result = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (obj->IsContainArea())
+                        SetOrigianlSize();
+
+                    obj->SetContainAreaCondition(false);
+                }
+            }
+        }
+        if (result)
+            return true;
+    }
+    return false;
+}
+
 void Capture::Capturing()
 {
-	vector2 object_pos = object->GetTransform().GetTranslation();
-	vector2 object_size = object->GetTransform().GetScale()/2;
-	vector2 min_pos = { object_pos.x - object_size.x, object_pos.y - object_size.y};
-	vector2 max_pos = { object_pos.x + object_size.x, object_pos.y + object_size.y };
-        
-	for(auto& obj : Objectmanager_.GetObjectMap())
-	{
-		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player
-			 || obj->GetObjectType() == ObjectType::Projectile)
-			&& obj.get() != object)
-		{
-			vector2 save_obj_pos = obj->GetTransform().GetTranslation();
-			
-			vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()/2;
-			auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+    for (auto obj : capture_area_contian_object)
+    {
+        Object* temp = new Object(*obj);
+        temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+        temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+        temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
 
-			if (player_ != nullptr)
-			{
-				vector2 min_obj = { save_obj_pos.x - scale.x, save_obj_pos.y - scale.y };
-				vector2 max_obj = { save_obj_pos.x + scale.x, save_obj_pos.y + scale.y };
+        if (m_c_filter == Filter::Jump)
+        {
+            temp->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
+            temp->GetMesh().ChangeColor({0, 0, 255, 255});
+        }
+        if (m_c_filter == Filter::Speed)
+        {
+            temp->GetComponentByTemplate<Collision>()->SetFilter(Filter::Speed);
+            temp->GetMesh().ChangeColor({0, 255, 0, 255});
+        }
 
-				vector2 reset_min = { reset_pos.x - player_->GetTransform().GetScale().x / 2, reset_pos.y - player_->GetTransform().GetScale().x / 2 };
-				vector2 reset_max = { reset_pos.x + player_->GetTransform().GetScale().x / 2, reset_pos.y + player_->GetTransform().GetScale().x / 2 };
+        temp->SetObjectType(ObjectType::Capture_Obj);
 
-				if ((min_obj.x >= reset_max.x) || (max_obj.x <= reset_min.x) ||
-					(min_obj.y >= reset_max.y) || (max_obj.y <= reset_min.y))
-				{
-					if ((min_obj.x >= min_pos.x) && (max_obj.x <= max_pos.x) &&
-						(min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
-					{
-						Object* temp = new Object(*obj.get());
-						temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-						temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-						temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
-                                                if (m_c_filter == Filter::Jump)
-                                                {
-                                                    temp->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
-                                                    temp->GetMesh().ChangeColor({ 0,0,255,255 });
-                                                }
-                                                if (m_c_filter == Filter::Speed)
-                                                {
-                                                    temp->GetComponentByTemplate<Collision>()->SetFilter(Filter::Speed);
-                                                    temp->GetMesh().ChangeColor({ 0,255,0,255 });
-                                                }
-					    temp->SetObjectType(ObjectType::Capture_Obj);
+        if (obj->GetObjectType() == ObjectType::Projectile)
+        {
+            obj->SetIsDead(true);
+        }
 
-						if (obj->GetObjectType() == ObjectType::Projectile)
-						{
-							obj->SetIsDead(true);
-						}
+        if (auto temp_animation = temp->GetComponentByTemplate<Animation>();
+            temp_animation != nullptr)
+        {
+            temp_animation->SetIsActive(false);
+        }
 
-						if (auto temp_animation = temp->GetComponentByTemplate<Animation>();
-							temp_animation != nullptr)
-						{
-							temp_animation->SetIsActive(false);
-						}
+        if (auto temp_collision = temp->GetComponentByTemplate<Collision>();
+            temp_collision != nullptr)
+        {
+            temp_collision->SetIsGround(false);
+        }
 
-						if (obj->GetObjectType() == ObjectType::Player)
-						{
-							player_->SetTranslation(reset_pos);
-							player_->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
-							player_->GetComponentByTemplate<Collision>()->SetIsGround(false);
-						}
-						
-						capture_object.push_back(temp);
-						iscreate = true;
-					}
-				}
-			}
-		}
-	}
+        if (obj->GetObjectType() == ObjectType::Player)
+        {
+            player->SetTranslation(reset_pos);
+            player->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
+            player->GetComponentByTemplate<Collision>()->SetIsGround(false);
+        }
+
+        temporary_obj_storage.push_back(temp);
+        iscreate = true;
+    }
+
 }
 
 void Capture::CreateCaptureObject()
 {
-	if (!capture_object.empty())
-	{
-		for (auto obj : capture_object)
-		{
-			Objectmanager_.AddObject(obj);
-		}
-	}
+    if (!temporary_obj_storage.empty())
+    {
+        for (auto obj : temporary_obj_storage)
+        {
+            Objectmanager_.AddObject(obj);
+        }
+    }
 
-	if(!polaroid_object.empty())
-	{
-		for(auto obj : polaroid_object)
-		{
-			Objectmanager_.AddObject(obj->GetObject());
-		}
-	}
+    if (!polaroid_object.empty())
+    {
+        for (auto obj : polaroid_object)
+        {
+            Objectmanager_.AddObject(obj->GetObject());
+        }
+    }
 
-	capture_object.clear();
-	polaroid_object.clear();
+    temporary_obj_storage.clear();
+    polaroid_object.clear();
 }
 
 void Capture::CreatePolaroidObject()
 {
-	if (iscreate)
-	{
-		for(auto obj : capture_object)
-		{
-			Polaroid* temp = new Polaroid(obj);
-			polaroid_object.push_back(temp);
-		}
-		iscreate = false;
-	}
+    if (iscreate)
+    {
+        for (auto obj : temporary_obj_storage)
+        {
+            Polaroid* temp = new Polaroid(obj);
+            polaroid_object.push_back(temp);
+        }
+        iscreate = false;
+    }
+}
+
+void Capture::CameraZoom()
+{
+    float zoom_ = static_cast<float>(Input::MouseWheelScroll());
+
+    temp_zoom = zoom;
+
+    if (zoom_ != 0)
+    {
+        if (zoom_ > 0)
+        {
+            if (zoom < zoom_max_value)
+            {
+                zoom += 0.05f;
+            }
+
+            if (zoom > zoom_max_value)
+                zoom = zoom_max_value;
+        }
+        else if (zoom_ < 0)
+        {
+            if (zoom > zoom_min_value)
+            {
+                zoom -= 0.05f;
+            }
+
+            if (zoom < zoom_min_value)
+                zoom = zoom_min_value;
+        }
+    }
+
+    if (temp_zoom != zoom)
+    {
+        is_runtime_change = true;
+    }
+    else
+    {
+        is_runtime_change = false;
+    }
+}
+
+void Capture::CameraZoomInOut()
+{
+    for (auto obj : capture_area_contian_object)
+    {
+        if (!obj->IsDifferZoomSize())
+        {
+            auto scale = obj->GetTransform().GetScale();
+            obj->SetScale(scale * zoom);
+
+            if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+                temp_collision != nullptr)
+            {
+                if (temp_collision->GetIsGround())
+                {
+                    vector2 translation = obj->GetTransform().GetTranslation();
+                    vector2 offset = (obj->GetTransform().GetScale() - temp_collision
+                                                                       ->GetCollisionTransform().GetScale()) / 2.0f;
+
+                    obj->GetTransform().SetTranslation({translation.x, translation.y + offset.y});
+                }
+                temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+            }
+
+            obj->SetZoomDifferCondition(true);
+        }
+        else
+        {
+            if (is_runtime_change)
+            {
+                for (auto size : original_scale)
+                {
+                    if (obj == size.second)
+                    {
+                        auto scale = size.first;
+                        obj->SetScale(scale * zoom);
+
+                        if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+                            temp_collision != nullptr)
+                        {
+                            if (temp_collision->GetIsGround())
+                            {
+                                vector2 translation = obj->GetTransform().GetTranslation();
+                                vector2 offset = (obj->GetTransform().GetScale() - temp_collision
+                                                                                   ->GetCollisionTransform().GetScale())/ 2.0f;
+
+                                obj->GetTransform().SetTranslation({translation.x, translation.y + offset.y});
+                            }
+                            temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                        }
+                        obj->SetZoomDifferCondition(true);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void Capture::SetOrigianlSize()
+{
+    for (auto obj : original_scale)
+    {
+        obj.second->SetScale(obj.first);
+
+        if (auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
+            temp_collision != nullptr)
+        {
+            if (temp_collision->GetIsGround())
+            {
+                vector2 translation = obj.second->GetTransform().GetTranslation();
+                vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
+                                                                          ->GetCollisionTransform().GetScale()) / 2.0f;
+
+                obj.second->GetTransform().SetTranslation({translation.x, translation.y + offset.y});
+            }
+            temp_collision->ChangeCollisionBoxScale(obj.second->GetTransform().GetScale());
+        }
+
+        obj.second->SetZoomDifferCondition(false);
+    }
+}
+
+void Capture::ZoomObjectUpdate(float dt)
+{
+    float y_pos = object->GetTransform().GetScale().y - 60;
+    float t = (zoom - zoom_min_value) / (zoom_max_value - zoom_min_value);
+
+    t *= y_pos;
+
+    vector2 base_translation = object->GetTransform().GetTranslation();
+    vector2 base_scale = object->GetTransform().GetScale()/2.0f;
+
+    zoombutton->SetTranslation({ base_translation.x + base_scale.x + 17, base_translation.y - base_scale.y + 30 + t});
+}
+
+void Capture::SlowMode()
+{
+    if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
+    {
+        for (auto obj : capture_area_contian_object)
+        {
+            obj->SetSlowModeCondition(true);
+        }
+    }
+    if (Input::IsMouseReleased(GLFW_MOUSE_BUTTON_RIGHT))
+    {
+        for (auto obj : capture_area_contian_object)
+        {
+            obj->SetSlowModeCondition(false);
+        }
+    }
 }

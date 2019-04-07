@@ -24,6 +24,7 @@ public:
 
 	bool IsCheese() { return cheese; }
 	void SetCheese(bool condition) { cheese = condition; }
+	void SetZoomMinMax(float max, float min = 1.0f);
 
 private:
 	class Polaroid
@@ -50,15 +51,36 @@ private:
 		Object* obj = nullptr;
 		bool isdead = false;
 	};
+
+	bool IsCaptureArea();
 	void Capturing();
 	void CreateCaptureObject();
 	void CreatePolaroidObject();
+	void CameraZoom();
+	void CameraZoomInOut();
+	void SetOrigianlSize();
+        void ZoomObjectUpdate(float dt);
+
+	void SlowMode();
+
     Filter m_c_filter = Filter::None;
 
 	bool iscreate = false;
 	bool cheese = false;
+	bool is_runtime_change = false;
+
+	float temp_zoom = 1.0f;
 	float zoom = 1.0f;
 	vector2 reset_pos;
-	std::vector<Object*> capture_object;
+	float zoom_max_value = 0.0f;
+	float zoom_min_value = 0.0f;
+
+        Object* zoombutton = nullptr;
+        Object* zoomobject = nullptr;
+	Object* player = nullptr;
+	std::vector<std::pair<vector2, Object*>> original_scale;
+	std::vector<Object*> capture_area_contian_object;
+	std::vector<Object*> not_area_contian_object;
+	std::vector<Object*> temporary_obj_storage;
 	std::vector<Polaroid*> polaroid_object;
 };

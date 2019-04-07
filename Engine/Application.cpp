@@ -129,6 +129,8 @@ void Application::Update(float dt)
 		title = "Engine ver 0.1 ";
 	}
 
+
+
 	Input::Triggerd_Reset();
         Input::Pressed_Reset();
 	//glfwSwapBuffers(window);
@@ -164,6 +166,9 @@ void Application::FullScreen()
 		glfwGetWindowSize(window, &w, &h);
 		real_screenSize.x = (float)w;
 		real_screenSize.y = (float)h;
+		glfwSwapInterval(1);
+
+                Input::Initialize(static_cast<int>(real_screenSize.x), static_cast<int>(real_screenSize.y));
     }
     else
     {
@@ -176,6 +181,9 @@ void Application::FullScreen()
 		glfwGetWindowSize(window, &w, &h);
 		real_screenSize.x = (float)w;
 		real_screenSize.y = (float)h;
+		glfwSwapInterval(1);
+                Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
+
     }
 }
 
