@@ -88,10 +88,15 @@ void Tile_Map::Delete_Tile()
 	int tile_x = static_cast<int>(Input::GetMousePos().x) + TEMP_WIDTH / 2;
 	int tile_y = static_cast<int>(Input::GetMousePos().y) + TEMP_HEIGHT / 2;
 
+        int a = Input::GetMousePos().x;
+        int aa = Input::GetMousePos().y;
+
+        int aaaa = tile_x / TILE_SIZE;
+        int aaaaa = tile_y / TILE_SIZE;
     if (tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
     {
         graphics_tiles.erase((tile_x / TILE_SIZE *TEMP_WIDTH + tile_y / TILE_SIZE));
-		physical_tiles.erase((tile_x / TILE_SIZE * TEMP_WIDTH + tile_y / TILE_SIZE));
+	physical_tiles.erase((tile_x / TILE_SIZE * TEMP_WIDTH + tile_y / TILE_SIZE));
         tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = false;
     }
 }

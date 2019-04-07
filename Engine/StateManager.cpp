@@ -106,8 +106,8 @@ void StateManager::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_F1))
 		m_currentState->SaveLevel();
 
-	if (Input::IsKeyTriggered(GLFW_KEY_I))
-		Tile_Map_.Delete_Tile();
+	//if (Input::IsKeyTriggered(GLFW_KEY_I))
+	//	Tile_Map_.Delete_Tile();
 
 	int count = 0;
 

@@ -106,6 +106,13 @@ void Physics::Update(float dt)
                 {
                     for (auto tile : tile_list)
                     {
+                        if(p_rigidbody->GetVelocity().y > 0)
+                        {
+                            if (IntersectionCheckAABB(collision_list[i], tile))
+                            {
+                                StopReaction(collision_list[i], tile, false);
+                            }
+                        }
                         if (p_rigidbody->GetVelocity().x != 0)
                         {
                             if (IntersectionCheckNextPosition(collision_list[i], tile))
@@ -146,22 +153,19 @@ void Physics::Update(float dt)
                 {
                     for (auto capture : capture_list)
                     {
-                        if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture
-                                                                                            ->GetTransform().GetScale().
-                                                                                            x / 2
-                            < capture->GetTransform().GetTranslation().x && capture->GetTransform().GetTranslation().x
-                            < p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + capture
-                                                                                              ->GetTransform().
-                                                                                              GetScale().x / 2
-                            && p_transform.GetTranslation().y - p_transform.GetScale().y / 2 - capture
-                                                                                               ->GetTransform().
-                                                                                               GetScale().y
-                            < capture->GetTransform().GetTranslation().y && capture->GetTransform().GetTranslation().y
-                            /*< p_transform.GetTranslation().y + p_transform.GetScale().y / 2 + capture
+                        if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture->GetTransform().GetScale().x / 2
+                            <= capture->GetTransform().GetTranslation().x 
+                            && capture->GetTransform().GetTranslation().x
+                            <= p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + capture->GetTransform().GetScale().x / 2
+                            && p_transform.GetTranslation().y - p_transform.GetScale().y / 2 - capture->GetTransform().GetScale().y
+                            <= capture->GetTransform().GetTranslation().y 
+                            /*&& capture->GetTransform().GetTranslation().y
+                            < p_transform.GetTranslation().y + p_transform.GetScale().y / 2 + capture
                                                                                               ->GetTransform().
                                                                                               GetScale().y*/)
                         {
-                            if (capture->GetTransform().GetTranslation().y + capture->GetTransform().GetScale().y/2 + p_rigidbody->GetVelocity().y * dt
+                            if (capture->GetTransform().GetTranslation().y + capture->GetTransform().GetScale().y/2
+                                + p_rigidbody->GetVelocity().y * dt
                                 <= p_transform.GetTranslation().y - p_transform.GetScale().y / 2)
                             {
                                 if (IntersectionCheckNextPosition(collision_list[i], capture))
@@ -178,6 +182,16 @@ void Physics::Update(float dt)
                                 if (capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
                                     p_rigidbody->SetYLimited(false);
                                 p_collision->SetIsCapobj(false);
+                            }
+                            if(p_rigidbody->GetVelocity().y > 0)
+                            {
+                                if (p_rigidbody->GetVelocity().y > 0)
+                                {
+                                    if (IntersectionCheckAABB(collision_list[i], capture))
+                                    {
+                                        StopReaction(collision_list[i], capture, false);
+                                    }
+                                }
                             }
                         }
                     }
