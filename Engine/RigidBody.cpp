@@ -48,8 +48,7 @@ void RigidBody::Update(float dt)
     }
     if (isPlayer)
     {
-        MovePlayer();
-
+		MovePlayer();
         if (m_velocity.x > m_velocity_limit.x)
             m_velocity.x = m_velocity_limit.x;
         if (m_velocity.x < -m_velocity_limit.x)

@@ -20,7 +20,6 @@ public:
 	void SetFilter(Filter filter) { m_c_filter = filter; }
 
 	Filter GetFilter() { return m_c_filter; }
-	void SlowMode(float fric);
 
 	bool IsCheese() { return cheese; }
 	void SetCheese(bool condition) { cheese = condition; }

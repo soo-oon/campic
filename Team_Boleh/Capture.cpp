@@ -120,41 +120,6 @@ void Capture::Polaroid::Update()
     }*/
 }
 
-void Capture::SlowMode(float fric)
-{
-    vector2 object_pos = object->GetTransform().GetTranslation();
-    vector2 object_size = object->GetTransform().GetScale() / 2;
-    vector2 min_pos = {object_pos.x - object_size.x, object_pos.y - object_size.y};
-    vector2 max_pos = {object_pos.x + object_size.x, object_pos.y + object_size.y};
-
-    for (auto& obj : Objectmanager_.GetObjectMap())
-    {
-        if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player
-                || obj->GetObjectType() == ObjectType::Projectile)
-            && obj.get() != object)
-        {
-            vector2 save_obj_pos = obj->GetTransform().GetTranslation();
-
-            vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale() / 2;
-            auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
-
-            vector2 min_obj = {save_obj_pos.x - scale.x, save_obj_pos.y - scale.y};
-            vector2 max_obj = {save_obj_pos.x + scale.x, save_obj_pos.y + scale.y};
-
-            if (auto physics = obj.get()->GetComponentByTemplate<RigidBody>(); physics != nullptr)
-            {
-                if ((min_obj.x >= min_pos.x) && (max_obj.x <= max_pos.x) &&
-                    (min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
-                {
-                    physics->SetSlowMode(fric);
-                }
-                else
-                    physics->SetSlowMode(1);
-            }
-        }
-    }
-}
-
 bool Capture::IsCaptureArea()
 {
     bool result = false;
@@ -279,6 +244,7 @@ void Capture::Capturing()
             player->SetTranslation(reset_pos);
             player->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
             player->GetComponentByTemplate<Collision>()->SetIsGround(false);
+			player->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
         }
 
         temporary_obj_storage.push_back(temp);
@@ -374,7 +340,7 @@ void Capture::CameraZoomInOut()
             if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
                 temp_collision != nullptr)
             {
-                if (temp_collision->GetIsGround())
+                if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
                 {
                     vector2 translation = obj->GetTransform().GetTranslation();
                     vector2 offset = (obj->GetTransform().GetScale() - temp_collision
@@ -401,7 +367,7 @@ void Capture::CameraZoomInOut()
                         if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
                             temp_collision != nullptr)
                         {
-                            if (temp_collision->GetIsGround())
+                            if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
                             {
                                 vector2 translation = obj->GetTransform().GetTranslation();
                                 vector2 offset = (obj->GetTransform().GetScale() - temp_collision
@@ -428,7 +394,7 @@ void Capture::SetOrigianlSize()
         if (auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
             temp_collision != nullptr)
         {
-            if (temp_collision->GetIsGround())
+            if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
             {
                 vector2 translation = obj.second->GetTransform().GetTranslation();
                 vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
