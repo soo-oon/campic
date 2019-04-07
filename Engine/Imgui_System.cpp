@@ -124,6 +124,8 @@ void Imgui_System::Update(float dt)
 			if (selectObj)
 				selectObj->SetTranslation(Input::GetMousePos());
 		}
+            if(Input::IsKeyPressed(GLFW_KEY_I))
+                Tile_Map_.Delete_Tile();
 
 		if (is_normal_tile)
 		{
