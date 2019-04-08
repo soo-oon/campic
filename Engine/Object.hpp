@@ -40,6 +40,7 @@ enum class ObjectType {
 	Button,
 	Polaroid,
     Capture_Camera,
+    Start_Pos,
     None,
 }; 
 
