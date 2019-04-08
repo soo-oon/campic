@@ -78,6 +78,10 @@ private:
 	bool is_normal_tile = true;
 	bool graphics_tile = false;
 
+        bool player_existed = false;
+        bool start_existed = false;
+        bool capture_existed = false;
+
 	Object* selectObj = nullptr;
 	Object* player_ = nullptr;
 };

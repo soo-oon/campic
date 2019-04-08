@@ -29,6 +29,8 @@ void JSON::Quit()
 
 void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)
 {
+    if (obj->GetObjectType() == ObjectType::Capture_Camera)
+        return;
 	//Trees for object info
 	Value objTree(kArrayType);
 
@@ -133,7 +135,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("ID", objUItree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
-	
+
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
 	ObjectDocument.Parse(ObjectBuffer.GetString());
@@ -241,7 +243,6 @@ Value JSON::ComponentStatus(Object * obj)
 
 	objTypeTree.AddMember("type", type, ObjectDocument.GetAllocator());
 	objTypeTree.AddMember("isDead", isDead, ObjectDocument.GetAllocator());
-
 	return objTypeTree;
 }
 
@@ -771,6 +772,7 @@ void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
                     Tile_Map_.SetReset(false);
                 }
 	}
+        TileDocument.SetObject();
 }
 
 void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
@@ -825,8 +827,8 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			obj->SetIsDead(isDead);
 			obj->SetObjectType(static_cast<ObjectType>(obj_type));
 
-			if (obj->GetObjectType() == ObjectType::Player)
-				StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
+			//if (obj->GetObjectType() == ObjectType::Player)
+			//	StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
 		}
 
 	    //////////////////////////////////////// Transform
