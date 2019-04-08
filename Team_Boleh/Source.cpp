@@ -28,14 +28,6 @@ int main()
 
     engine.Initialize();
 
-	//StateManager_.AddStage("MainMenu", new MainMenu());
-	//StateManager_.AddStage("LevelSelector", new LevelSelector());
-	//StateManager_.AddStage("Level3", new Level());
-	//StateManager_.AddStage("LevelSelector", new LevelSelector());
-	//StateManager_.AddStage("Level1", new Level1());
-    StateManager_.AddStage("Test_Level", new Test_Level());
-
-
     /*StateManager_->AddStage("Splash_Screen", new SplashScreen());
     StateManager_->AddStage("StartMenu", new StartMenu());
     StateManager_->AddStage("level1",new level1());
@@ -46,6 +38,7 @@ int main()
 	StateManager_.AddStage("MainMenu", new MainMenu());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
 	StateManager_.AddStage("Level", new Level());
+	//StateManager_.AddStage("Test_Level", new Test_Level());
 
 
 	engine.Update();

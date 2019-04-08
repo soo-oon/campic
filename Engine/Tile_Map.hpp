@@ -24,6 +24,8 @@ public:
     void Update(float dt);
 	void RemoveTiles();
 
+public:
+
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }
     void Make_Tile(std::string image, Tile_Type type);

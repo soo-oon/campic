@@ -142,6 +142,7 @@ void Application::Key_Poll_Event()
     {
         fullScreenMode = !fullScreenMode;
         FullScreen();
+		glfwSwapInterval(1);
     }
 }
 

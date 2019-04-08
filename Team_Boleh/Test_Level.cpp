@@ -36,7 +36,7 @@ void Test_Level::Initialize()
 	cannon->SetMesh(mesh::CreateBox());
 	cannon->AddComponent(new Collision(box_));
 	cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
-	cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
+	cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1f, false);
 	cannon->AddComponent(new Projectile(4.0f, 10.0f, Projectile_Type::Cannon));
 	cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 350, 0 });
 

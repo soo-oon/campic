@@ -102,9 +102,6 @@ void StateManager::Update(float dt)
 
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
-		
-	if (Input::IsKeyTriggered(GLFW_KEY_F1))
-		m_currentState->SaveLevel();
 
 	if (Input::IsKeyTriggered(GLFW_KEY_I))
 		Tile_Map_.Delete_Tile();

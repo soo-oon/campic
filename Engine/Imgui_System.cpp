@@ -33,8 +33,6 @@ bool Imgui_System::Initialize()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
-	//ImGui::GetCurrentWindow()->WindowBorderSize
-
 	const char* glsl_version = "#version 300 es";
 
 	window = glfwGetCurrentContext();
@@ -124,6 +122,9 @@ void Imgui_System::Update(float dt)
 			if (selectObj)
 				selectObj->SetTranslation(Input::GetMousePos());
 		}
+
+		if (Input::IsKeyPressed(GLFW_KEY_I))
+			Tile_Map_.Delete_Tile();
 
 		if (is_normal_tile)
 		{
@@ -235,13 +236,9 @@ void Imgui_System::Editor(bool show_window)
 		ImGui::Spacing();
 	}
 
-	if (ImGui::Button("Save Objects"))
+	if (ImGui::Button("Save Level"))
 	{
-		for (auto& obj : Objectmanager_.GetObjectMap())
-		{
-			//JSON_.ObjectsToDocument(obj.get());
-		}
-		JSON_.GetObjectDocument().SetObject();
+		StateManager_.GetCurrentState()->SaveLevel();
 	}
 
 	ImGui::SameLine();
@@ -251,6 +248,7 @@ void Imgui_System::Editor(bool show_window)
 	{
 		StateManager_.GetCurrentState()->UnLoad();
 		Tile_Map_.GetGraphicsTiles().clear();
+		Tile_Map_.GetPhysicalTiles().clear();
 		Physics_.ResetPreviousSize();
 	}
 
@@ -354,7 +352,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		cannon->SetMesh(mesh::CreateBox());
 		cannon->AddComponent(new Collision(box_));
 		cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
-		cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1, false);
+		cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1f, false);
 		cannon->AddComponent(new Projectile(4.0f, 10.0f, Projectile_Type::Cannon));
 		cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 350, 0 });
 

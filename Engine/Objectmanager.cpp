@@ -44,8 +44,6 @@ void Objectmanager::Update(float dt)
 {
 	auto size = objects_.size();
 
-	std::cout << size << std::endl;
-
 	for (auto object = objects_.begin(); object != objects_.end();)
 	{
 		for (auto components : object->get()->GetComponent())

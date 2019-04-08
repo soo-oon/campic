@@ -37,12 +37,10 @@ void Capture::Update(float dt)
 	}
         if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_MIDDLE))
         {
-            std::cout << "press oin" << std::endl;
             SlowMode(0.5);
         }
         if (Input::IsMouseReleased(GLFW_MOUSE_BUTTON_MIDDLE))
         {
-            std::cout << "press off" << std::endl;
             SlowMode(1);
         }
     if (Input::IsKeyTriggered(GLFW_KEY_6))
