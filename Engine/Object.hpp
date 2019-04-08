@@ -66,11 +66,13 @@ public:
 	void SetZoomDifferCondition(bool condition);
 	void SetContainAreaCondition(bool condition);
 	void SetSlowModeCondition(bool condition);
+	void SetIsOutSideCondition(bool condition);
 
 	bool Isvisible();
 	bool IsDifferZoomSize() { return is_differ_zoom_size; }
 	bool IsContainArea() { return is_contain_area; }
 	bool IsSlowMode() { return is_slowmode; }
+	bool IsOutSide() { return is_outsise_capture; }
 
 	void SetVisible();
 	void SetInvisible();
@@ -92,6 +94,7 @@ private:
 	bool is_contain_area = false;
 	bool isdead = false;
 	bool is_differ_zoom_size = false;
+	bool is_outsise_capture = true;
 
     Mesh m_mesh{};
     Transform m_transform{};

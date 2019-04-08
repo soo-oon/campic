@@ -65,9 +65,6 @@ void Capture::Update(float dt)
 
     if (IsCaptureArea())
     {
-        CameraZoomInOut();
-        SlowMode();
-
         if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
             cheese = true;
@@ -76,10 +73,9 @@ void Capture::Update(float dt)
             CreateCaptureObject();
         }
     }
-    else
-    {
-        SetOrigianlSize();
-    }
+	CameraZoomInOut();
+	SetOrigianlSize();
+	SlowMode();
 
     if (Input::IsKeyTriggered(GLFW_KEY_6))
     {
@@ -137,20 +133,18 @@ bool Capture::IsCaptureArea()
             obj->GetObjectType() == ObjectType::Projectile) && obj.get() != object)
         {
             vector2 save_obj_pos = obj->GetTransform().GetTranslation();
-            vector2 scale = obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale() / 2;
 
             if (player != nullptr)
             {
-                vector2 min_obj = {save_obj_pos.x - scale.x, save_obj_pos.y - scale.y};
-                vector2 max_obj = {save_obj_pos.x + scale.x, save_obj_pos.y + scale.y};
-                if ((min_obj.x >= min_pos.x) && (max_obj.x <= max_pos.x) &&
-                    (min_obj.y >= min_pos.y) && (max_obj.y <= max_pos.y))
+                if ((save_obj_pos.x >= min_pos.x) && (save_obj_pos.x <= max_pos.x) &&
+                    (save_obj_pos.y >= min_pos.y) && (save_obj_pos.y <= max_pos.y))
                 {
                     if (obj->GetObjectType() != ObjectType::Player)
                     {
                         capture_area_contian_object.push_back(obj.get());
 
                         obj->SetContainAreaCondition(true);
+						obj->SetIsOutSideCondition(false);
 
                         if (!obj->IsDifferZoomSize())
                             original_scale.push_back(std::make_pair<vector2, Object*>(obj->GetTransform().GetScale(),
@@ -169,12 +163,13 @@ bool Capture::IsCaptureArea()
                             reset_pos.y + player->GetTransform().GetScale().x / 2
                         };
 
-                        if ((min_obj.x >= reset_max.x) || (max_obj.x <= reset_min.x) ||
-                            (min_obj.y >= reset_max.y) || (max_obj.y <= reset_min.y))
+                        if ((save_obj_pos.x >= reset_max.x) || (save_obj_pos.x <= reset_min.x) ||
+                            (save_obj_pos.y >= reset_max.y) || (save_obj_pos.y <= reset_min.y))
                         {
                             capture_area_contian_object.push_back(obj.get());
 
                             obj->SetContainAreaCondition(true);
+							obj->SetIsOutSideCondition(false);
 
                             if (!obj->IsDifferZoomSize())
                                 original_scale.push_back(std::make_pair<vector2, Object*>(
@@ -185,17 +180,25 @@ bool Capture::IsCaptureArea()
                         }
                     }
                 }
-                else
+                else if((min_pos.x >= save_obj_pos.x) || (min_pos.y >= save_obj_pos.y) ||
+					(max_pos.x <= save_obj_pos.x) || (max_pos.y <= save_obj_pos.y))
                 {
                     if (obj->IsContainArea())
                         SetOrigianlSize();
+
+					obj->SetSlowModeCondition(false);
+
+					obj->SetIsOutSideCondition(true);
 
                     obj->SetContainAreaCondition(false);
                 }
             }
         }
-        if (result)
-            return true;
+		if (result)
+		{
+			return true;
+		}
+
     }
     return false;
 }
@@ -330,58 +333,52 @@ void Capture::CameraZoom()
 
 void Capture::CameraZoomInOut()
 {
-    for (auto obj : capture_area_contian_object)
+    for (auto obj : Objectmanager_.GetObjectMap())
     {
-        if (!obj->IsDifferZoomSize())
-        {
-            auto scale = obj->GetTransform().GetScale();
-            obj->SetScale(scale * zoom);
+		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player ||
+			obj->GetObjectType() == ObjectType::Projectile) && obj.get() != object)
+		{
+			if (!obj->IsOutSide())
+			{
+				if (!obj->IsDifferZoomSize())
+				{
+					vector2 scale = obj->GetTransform().GetScale();
+					obj->SetScale(scale * zoom);
 
-            if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
-                temp_collision != nullptr)
-            {
-                if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
-                {
-                    vector2 translation = obj->GetTransform().GetTranslation();
-                    vector2 offset = (obj->GetTransform().GetScale() - temp_collision
-                                                                       ->GetCollisionTransform().GetScale()) / 2.0f;
+					if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+						temp_collision != nullptr)
+					{
 
-                    obj->GetTransform().SetTranslation({translation.x, translation.y + offset.y});
-                }
-                temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
-            }
+						CollisionChangeZoomInOut(obj.get(), temp_collision);
+						temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+					}
 
-            obj->SetZoomDifferCondition(true);
-        }
-        else
-        {
-            if (is_runtime_change)
-            {
-                for (auto size : original_scale)
-                {
-                    if (obj == size.second)
-                    {
-                        auto scale = size.first;
-                        obj->SetScale(scale * zoom);
+					obj->SetZoomDifferCondition(true);
+				}
+				else
+				{
+					if (is_runtime_change)
+					{
+						for (auto size : original_scale)
+						{
+							if (obj.get() == size.second)
+							{
+								vector2 scale = size.first;
+								obj->SetScale(scale * zoom);
 
-                        if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
-                            temp_collision != nullptr)
-                        {
-                            if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
-                            {
-                                vector2 translation = obj->GetTransform().GetTranslation();
-                                vector2 offset = (obj->GetTransform().GetScale() - temp_collision
-                                                                                   ->GetCollisionTransform().GetScale())/ 2.0f;
-
-                                obj->GetTransform().SetTranslation({translation.x, translation.y + offset.y});
-                            }
-                            temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
-                        }
-                        obj->SetZoomDifferCondition(true);
-                    }
-                }
-            }
-        }
+								if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+									temp_collision != nullptr)
+								{
+									CollisionChangeZoomInOut(obj.get(), temp_collision);
+									temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+								}
+								obj->SetZoomDifferCondition(true);
+							}
+						}
+					}
+				}
+			}
+		}
     }
 }
 
@@ -389,23 +386,26 @@ void Capture::SetOrigianlSize()
 {
     for (auto obj : original_scale)
     {
-        obj.second->SetScale(obj.first);
+		if(obj.second->IsOutSide())
+		{
+			obj.second->SetScale(obj.first);
 
-        if (auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
-            temp_collision != nullptr)
-        {
-            if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
-            {
-                vector2 translation = obj.second->GetTransform().GetTranslation();
-                vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
-                                                                          ->GetCollisionTransform().GetScale()) / 2.0f;
+			if (auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
+				temp_collision != nullptr)
+			{
+				if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
+				{
+					vector2 translation = obj.second->GetTransform().GetTranslation();
+					vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
+						->GetCollisionTransform().GetScale()) / 2.0f;
 
-                obj.second->GetTransform().SetTranslation({translation.x, translation.y + offset.y});
-            }
-            temp_collision->ChangeCollisionBoxScale(obj.second->GetTransform().GetScale());
-        }
+					obj.second->GetTransform().SetTranslation({ translation.x, translation.y + offset.y });
+				}
+				temp_collision->ChangeCollisionBoxScale(obj.second->GetTransform().GetScale());
+			}
 
-        obj.second->SetZoomDifferCondition(false);
+			obj.second->SetZoomDifferCondition(false);
+		}
     }
 }
 
@@ -422,20 +422,49 @@ void Capture::ZoomObjectUpdate(float dt)
     zoombutton->SetTranslation({ base_translation.x + base_scale.x + 17, base_translation.y - base_scale.y + 30 + t});
 }
 
+void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)
+{
+	if(collision->GetIsGround() || collision->GetIsCapobj())
+	{
+		vector2 translation = obj->GetTransform().GetTranslation();
+		vector2 offset = (obj->GetTransform().GetScale() - collision->GetCollisionTransform().GetScale()) / 2.0f;
+
+		obj->GetTransform().SetTranslation({ translation.x, translation.y + offset.y });
+	}
+
+	if(collision->GetIsLeft() || collision->GetIsLeftTile())
+	{
+		vector2 translation = obj->GetTransform().GetTranslation();
+		vector2 offset = (obj->GetTransform().GetScale() - collision->GetCollisionTransform().GetScale()) / 2.0f;
+
+		obj->GetTransform().SetTranslation({ translation.x + offset.x, translation.y });
+	}
+
+	if (collision->GetIsRight() || collision->GetIsRightTile())
+	{
+		vector2 translation = obj->GetTransform().GetTranslation();
+		vector2 offset = (obj->GetTransform().GetScale() - collision->GetCollisionTransform().GetScale()) / 2.0f;
+
+		obj->GetTransform().SetTranslation({ translation.x - offset.x, translation.y });
+	}
+}
+
 void Capture::SlowMode()
 {
-    if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
-    {
-        for (auto obj : capture_area_contian_object)
-        {
-            obj->SetSlowModeCondition(true);
-        }
-    }
-    if (Input::IsMouseReleased(GLFW_MOUSE_BUTTON_RIGHT))
-    {
-        for (auto obj : capture_area_contian_object)
-        {
-            obj->SetSlowModeCondition(false);
-        }
-    }
+
+	for (auto obj : capture_area_contian_object)
+	{
+		if(!obj->IsOutSide())
+		{
+			if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
+			{
+				obj->SetSlowModeCondition(true);
+			}
+			if (Input::IsMouseReleased(GLFW_MOUSE_BUTTON_RIGHT))
+			{
+
+				obj->SetSlowModeCondition(false);
+			}
+		}
+	}
 }

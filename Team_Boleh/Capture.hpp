@@ -58,7 +58,8 @@ private:
 	void CameraZoom();
 	void CameraZoomInOut();
 	void SetOrigianlSize();
-        void ZoomObjectUpdate(float dt);
+    void ZoomObjectUpdate(float dt);
+	void CollisionChangeZoomInOut(Object* obj, Collision* collision);
 
 	void SlowMode();
 
@@ -67,6 +68,7 @@ private:
 	bool iscreate = false;
 	bool cheese = false;
 	bool is_runtime_change = false;
+	bool isoutside = false;
 
 	float temp_zoom = 1.0f;
 	float zoom = 1.0f;
@@ -74,8 +76,8 @@ private:
 	float zoom_max_value = 0.0f;
 	float zoom_min_value = 0.0f;
 
-        Object* zoombutton = nullptr;
-        Object* zoomobject = nullptr;
+	Object* zoombutton = nullptr;
+	Object* zoomobject = nullptr;
 	Object* player = nullptr;
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;

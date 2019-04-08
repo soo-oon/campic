@@ -37,7 +37,7 @@ struct vector2
     vector2 operator-(float a) const;
     vector2& operator-=(float a);
 
-    vector2 operator+(vector2& v) const;
+    vector2 operator+(vector2 v) const;
     vector2& operator+=(vector2 v);
 
     vector2 operator-() const;

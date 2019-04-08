@@ -62,6 +62,8 @@ bool Application::Initialize()
     /* window make 
     4 parameter : full screen mode -> if want to use glfwGetPrimaryMonitor(),
      5 patameter : share resources*/
+
+	//TODO get fullscreen is true or false and adjust the size when make window
     window = glfwCreateWindow(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), "Engine ver 0.1 ",
                               nullptr, nullptr);
 
