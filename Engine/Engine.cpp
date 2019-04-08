@@ -90,11 +90,10 @@ void Engine::System_Update()
 	StateManager_.Update(dt);
 	Graphics_.Update(dt);
 	Objectmanager_.Update(dt);
-        Tile_Map_.Update(dt);
-        Physics_.Update(dt);
+    Tile_Map_.Update(dt);
+    Physics_.Update(dt);
 	IMGUI_.Update(dt);
 	AudioManager_.Update(dt);
-	JSON_.Update(dt);
 	HUD_.Update(dt);
 
 	// Should Fix All of Update ways (Should Fix Physics class structure)
@@ -111,8 +110,6 @@ void Engine::System_Quit()
 	//IMGUI_.Quit();
 	AudioManager_.Quit();
 	Physics_.Quit();
-	JSON_.Quit();
-	LevelJson_.Quit();
 
 	//HUD_.Quit();
 }

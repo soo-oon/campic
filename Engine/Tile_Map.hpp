@@ -24,7 +24,8 @@ public:
     void Update(float dt);
 	void RemoveTiles();
 
-        void MakeGridTure(float pos_x, float pos_y) { tile_grid[static_cast<int>(pos_x + TEMP_WIDTH / 2 ) / TILE_SIZE +1 ][static_cast<int>(pos_y + TEMP_HEIGHT / 2) / TILE_SIZE +1] = true; }
+    void MakeGridTure(float pos_x, float pos_y) { tile_grid[static_cast<int>(pos_x + TEMP_WIDTH / 2 ) / TILE_SIZE +1 ][static_cast<int>(pos_y + TEMP_HEIGHT / 2) / TILE_SIZE +1] = true; }
+public:
 
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }
