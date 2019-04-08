@@ -253,6 +253,7 @@ void Imgui_System::Editor(bool show_window)
 	{
 		StateManager_.GetCurrentState()->UnLoad();
 		Tile_Map_.GetGraphicsTiles().clear();
+            Tile_Map_.MakeGridFalse();
 		Physics_.ResetPreviousSize();
 	}
 

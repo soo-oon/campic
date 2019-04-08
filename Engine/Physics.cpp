@@ -185,13 +185,10 @@ void Physics::Update(float dt)
                             }
                             if(p_rigidbody->GetVelocity().y > 0)
                             {
-                                if (p_rigidbody->GetVelocity().y > 0)
-                                {
                                     if (IntersectionCheckAABB(collision_list[i], capture))
                                     {
                                         StopReaction(collision_list[i], capture, false);
                                     }
-                                }
                             }
                         }
                     }

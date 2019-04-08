@@ -767,13 +767,14 @@ void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
                 {
                     Tile_Map_.MakeGridTure(position.x, position.y);
                     Tile_Map_.InsertPhysicalTiles(grid_, obj);
+                    Tile_Map_.SetReset(false);
                 }
-        else
-        {
-                    Tile_Map_.MakeGridTure(position.x, position.y);
-            Tile_Map_.InsertGraphicalTiles(grid_, obj);
-            Tile_Map_.SetReset(false);
-        }
+                else
+                {
+                            Tile_Map_.MakeGridTure(position.x, position.y);
+                    Tile_Map_.InsertGraphicalTiles(grid_, obj);
+                    Tile_Map_.SetReset(false);
+                }
 	}
 }
 
@@ -1025,9 +1026,14 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->AddComponent(new MovingObject(distance, init_pos,velocity,direction,type,move_time));
 		}
-		
-		Objectmanager_.AddObject(obj);
+               
+	        if (obj->GetObjectType() == ObjectType::Start_Pos)
+                {
+                    StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
+                }
+	        else
+	        {
+                    Objectmanager_.AddObject(obj);
+	        }
 	}
-
-
 }
