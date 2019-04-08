@@ -119,6 +119,11 @@ void Object::SetSlowModeCondition(bool condition)
 	is_slowmode = condition;
 }
 
+void Object::SetIsOutSideCondition(bool condition)
+{
+	is_outsise_capture = condition;
+}
+
 bool Object::Isvisible()
 {
 	return m_mesh.IsVisible();

@@ -68,6 +68,7 @@ public:
     void SetCollisionScale(vector2 size_);
     void SetJumpingitutionType(RestitutionType restitution);
     void SetFilter(Filter filter) { m_filter = filter; }
+	void SetIsCollideItem(bool condition) { isItem = condition; }
 
 public:
     bool GetisGet() { return isGet; }
@@ -79,6 +80,8 @@ public:
     bool GetIsLeftTile() { return isLeftTile; }
     bool GetIsRight() { return isRight; }
     bool GetIsRightTile() { return isRightTile; }
+	bool GetIsCollideItem() {return isItem;}
+
     Filter GetFilter() { return m_filter; }
     CollisionType& GetCollisionType();
     std::vector<vector2> GetCollisionCalculateTRS();
@@ -107,4 +110,5 @@ private:
     bool isLeft = false;
     bool isRight = false;
     bool isdoor = false;
+	bool isItem = false;
 };
