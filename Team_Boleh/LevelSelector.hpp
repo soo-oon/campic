@@ -7,7 +7,7 @@ class LevelSelector : public State
 public:
 	LevelSelector()
 	{
-		information_ = State_Information::Game;
+		information_ = State_Information::Menu;
 	}
 
 	void Initialize() override;
@@ -19,8 +19,6 @@ public:
 private:
 	std::string current_level = "LevelSelector";
 	const std::string file_path = "asset/JsonFiles/Levels/";
-
-	//const std::string lock_path = 
 
 	Object* m_SelectLevel = nullptr;
 private:

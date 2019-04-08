@@ -7,12 +7,12 @@
 
 void HUD_Level::Initialize()
 {
-	g_Option = new Object();
-	g_Option->SetScale({ 500, 500 });
-	g_Option->SetDepth(-0.5f);
-	g_Option->SetMesh(mesh::CreateBox(1, { 255,0,0,255 }));
-	g_Option->SetObjectType(ObjectType::None);
-	g_Option->GetMesh().Invisible();
+	h_option = new Object();
+	h_option->SetScale({ 500, 500 });
+	h_option->SetDepth(-0.5f);
+	h_option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	h_option->SetObjectType(ObjectType::None);
+	h_option->GetMesh().Invisible();
 
 	h_cheese = new Object();
 	h_cheese->SetScale(Application_.GetScreenSize());
@@ -23,6 +23,7 @@ void HUD_Level::Initialize()
 	h_cheese->GetMesh().Invisible();
 
 	HUD_.Add_HUD_Object(h_cheese);
+	HUD_.Add_HUD_Object(h_option);
 
 	HUD_.Toggle_HUD_Active();
 }
@@ -63,10 +64,10 @@ void HUD_Level::Update(float dt)
 
 	if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 	{
-		if (g_Option->GetMesh().IsVisible())
-			g_Option->GetMesh().Invisible();
+		if (h_option->GetMesh().IsVisible())
+			h_option->GetMesh().Invisible();
 		else
-			g_Option->GetMesh().Visible();
+			h_option->GetMesh().Visible();
 	}
 }
 

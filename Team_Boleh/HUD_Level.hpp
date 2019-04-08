@@ -16,6 +16,6 @@ public:
 	void ShutDown() override;
 
 private:
-	Object* g_Option = nullptr;
+	Object* h_option = nullptr;
 	Object* h_cheese = nullptr;
 };

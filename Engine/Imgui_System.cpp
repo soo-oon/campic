@@ -14,7 +14,6 @@ Creation date: 2018/12/14
 
 #include "Imgui_System.hpp"
 #include <iostream>
-#include "Graphics.hpp"
 #include "stb_image.h"
 #include <imgui_internal.h>
 #include "Tile_Map.hpp"
@@ -23,7 +22,6 @@ Creation date: 2018/12/14
 #include "MovingObject.hpp"
 #include "Projectile.hpp"
 #include "UI.hpp"
-//#include "Objectmanager.hpp"
 
 Imgui_System IMGUI_;
 
@@ -106,6 +104,7 @@ void Imgui_System::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_TAB))
 	{
 		show_window = !show_window;
+		selectObj = nullptr;
 	}
 
 	if (show_window)
@@ -114,7 +113,8 @@ void Imgui_System::Update(float dt)
 
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			selectObj = Input::ClickObject();
+			if(!selectObj)
+				selectObj = Input::ClickObject();
 		}
 
 		if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
@@ -122,8 +122,6 @@ void Imgui_System::Update(float dt)
 			if (selectObj)
 				selectObj->SetTranslation(Input::GetMousePos());
 		}
-            if(Input::IsKeyPressed(GLFW_KEY_I))
-                Tile_Map_.Delete_Tile();
 
 		if (Input::IsKeyPressed(GLFW_KEY_I))
 			Tile_Map_.Delete_Tile();
@@ -655,7 +653,6 @@ void Imgui_System::TileEditor(bool tile_editor)
 	{
 		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{
-			//non_ani_tile_selected = ImGui::IsItemClicked(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT));
 			tile_path = temp.first;
 			is_normal_tile = true;
 		}

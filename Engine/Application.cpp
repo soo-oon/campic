@@ -215,13 +215,11 @@ namespace
                      , int action, int mods)
     {
 		Input::SetKeyPressed(key, action);
-		ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
     }
 
 	void DropCallBack(GLFWwindow* window, int count, const char** paths)
 	{
 		std::string path(paths[0]);
-		//Imgui_System::soundlist.push_back(path);
 	}
 
     void MousePositionCallback(GLFWwindow* window, double x_pos, double y_pos)
@@ -231,13 +229,11 @@ namespace
 
     void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
     {
-       	ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
 		Input::SetMousePressed(button, action);
     }
 
 	void MouseWheelScroll(GLFWwindow* window, double x_offset, double y_offset)
     {
 		Input::SetMouseWheelScroll(x_offset, y_offset);
-		ImGui_ImplGlfw_ScrollCallback(window, x_offset, y_offset);
     }
 }
