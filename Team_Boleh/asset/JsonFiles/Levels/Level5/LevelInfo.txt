@@ -1,0 +1,11 @@
+Player Information:
+	- Normal Size
+	- Located Left
+	- No Camera
+
+Clear Condition:
+	- Player need to step on the switch to activate cannon
+	- Player need to activate cannon to break the door
+
+Objective:
+	- Teach players switch can activate certain object

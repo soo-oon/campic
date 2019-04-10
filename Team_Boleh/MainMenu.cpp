@@ -22,7 +22,7 @@ void MainMenu::Initialize()
 	Start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Start->SetObjectType(ObjectType::Button);
 	Start->AddComponent(new UI("LevelSelector"));
-	Start->AddComponent(new Sprite("asset/images/UI/Start_Text.png"));
+	Start->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
 
 	Objectmanager_.AddObject(Start);
 
@@ -34,7 +34,7 @@ void MainMenu::Initialize()
 	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Option->SetObjectType(ObjectType::Button);
 	//Option->AddComponent(new UI("LevelSelector"));
-	Option->AddComponent(new Sprite("asset/images/UI/Setting.png"));
+	Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
 
 	Objectmanager_.AddObject(Option);
 
@@ -45,7 +45,7 @@ void MainMenu::Initialize()
 	Credit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Credit->SetObjectType(ObjectType::Button);
 	//Credit->AddComponent(new UI("LevelSelector"));
-	Credit->AddComponent(new Sprite("asset/images/UI/Credit.png"));
+	Credit->AddComponent(new Sprite("asset/images/UI/CreditButton.png"));
 
 	Objectmanager_.AddObject(Credit);
 
@@ -57,7 +57,7 @@ void MainMenu::Initialize()
 	Quit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Quit->SetObjectType(ObjectType::Button);
 	Quit->AddComponent(new UI("Quit"));
-	Quit->AddComponent(new Sprite("asset/images/UI/Quit_Text.png"));
+	Quit->AddComponent(new Sprite("asset/images/UI/QuitButton.png"));
 
 	Objectmanager_.AddObject(Quit);
 }

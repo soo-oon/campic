@@ -1,0 +1,16 @@
+Player Information:
+	- Normal Size
+	- Located Left
+	- No Camera
+
+Clear Condition:
+	- Player need to jump over the pit - if fell into the pit, still able to climb up
+
+Objective:
+	- Teach players basic control of movement
+	- Left side is blocked therefore only way to move is to the right
+	- Teach players how to jump and how much they can jump
+	- Right side is also blocked, and before the wall, there is portal to the next level
+	  Because it is the only object to interact with, player have no other option than
+	  to make contact with the portal
+

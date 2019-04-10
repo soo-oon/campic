@@ -1,0 +1,13 @@
+Player Information:
+	- Normal Size
+	- Located Left
+
+Clear Condition:
+	- Player need to evade falling obstacles
+	
+	Option1- Use physical movement to avoid falling obstacles
+	Option2- Capture falling obstacles with Camera to stop their movements
+
+Objective:
+	- Teach players capturing obstacles is possible
+	- If player choose to evade not capture the obstacles, still teach players the capability of character's movement

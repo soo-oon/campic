@@ -16,8 +16,6 @@ void HUD_Level::Initialize()
 	h_option_window->AddComponent(new Sprite("asset/images/Tiles/Non_Ani/Ground001.png"));
 	h_option_window->GetMesh().Invisible();
 
-
-
 	h_cheese = new Object();
 	h_cheese->SetScale(Application_.GetScreenSize());
 	h_cheese->SetDepth(-0.5f);
@@ -27,7 +25,7 @@ void HUD_Level::Initialize()
 	h_cheese->GetMesh().Invisible();
 
 	HUD_.Add_HUD_Object(h_cheese);
-	HUD_.Add_HUD_Object(h_option_window);
+	//HUD_.Add_HUD_Object(h_option_window);
 
 	HUD_.Toggle_HUD_Active();
 }

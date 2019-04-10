@@ -1,0 +1,13 @@
+Player Information:
+	- Normal Size
+	- Located Left
+
+Clear Condition:
+	- Top platform requires switch to open
+	- Player need to press switch on the wall on the left bottom with cannon ball shooting at it
+	  (Capture & Slow Shoot)
+	- Use player itself to go back up
+
+Objective:
+	- Teach players switch can activate certain object
+	- Teach players certain switch need other condition to function properly
