@@ -61,7 +61,7 @@ void State::SaveLevel()
 		JSON_.SaveLevelObject(i.get(),level_indicator + "/", level_indicator);
 	}
 	JSON_.GetObjectDocument().SetObject();
-	for(auto& i : Tile_Map_.GetGraphicsTiles())
+	/*for(auto& i : Tile_Map_.GetGraphicsTiles())
 	{
 		JSON_.TilesToDocument(i.first, i.second, Tile_Type::Graphical, level_indicator + "/");
 	}
@@ -70,7 +70,7 @@ void State::SaveLevel()
 	{
 		JSON_.TilesToDocument(i.first,i.second, Tile_Type::Physical, level_indicator+"/");
 	}
-	JSON_.GetTileDocument().SetObject();
+	JSON_.GetTileDocument().SetObject();*/
 }
 
 void State::UnLoad()

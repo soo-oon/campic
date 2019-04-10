@@ -12,5 +12,6 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 private:
+	Object* m_door = nullptr;
 
 };
