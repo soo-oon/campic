@@ -62,6 +62,10 @@ public:
 	State_Information information_ = State_Information::None;
 	vector2 camera_center{};
 
+
+        void CreateCaptureCamera();
+        void CreatePlayer();
+
 public:
 	std::string level_indicator;
 	std::string change_level;

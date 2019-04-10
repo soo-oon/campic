@@ -29,7 +29,8 @@ void JSON::Quit()
 
 void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)
 {
-    if (obj->GetObjectType() == ObjectType::Capture_Camera)
+    if(obj->GetObjectType() == ObjectType::Capture_Camera ||obj->GetObjectType() == ObjectType::Player 
+        || obj->GetObjectType() == ObjectType::Capture_Obj || obj->GetObjectType() == ObjectType::Polaroid)
         return;
 	//Trees for object info
 	Value objTree(kArrayType);
@@ -519,7 +520,7 @@ Value JSON::ComponentProjectile(Object * obj)
 void JSON::SaveObjectsToJson(const std::string& file, const std::string& path)
 {
 	std::string filename(file_path);
-	filename.append(file);
+        filename.append(file);
 	filename.append(path);
 	filename.append(".json");
 
@@ -552,6 +553,8 @@ Document JSON::LoadObjectDocumentFromJson(const std::string& file, const std::st
 	fclose(fp);
 
 	return object_lists;
+
+
 }
 
 void JSON::TilesToDocument(int grid_, Object * obj, Tile_Type type, const std::string& path)
@@ -1028,7 +1031,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->AddComponent(new MovingObject(distance, init_pos,velocity,direction,type,move_time));
 		}
-               
+
 	        if (obj->GetObjectType() == ObjectType::Start_Pos)
                 {
                     StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
@@ -1037,6 +1040,8 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 	        {
                     Objectmanager_.AddObject(obj);
 	        }
+                if (obj->GetObjectType() == ObjectType::Player)
+                    Objectmanager_.SetPlayer(obj);
 	}
 	ObjectDocument.SetObject();
 }
