@@ -55,8 +55,8 @@ void RigidBody::Update(float dt)
             m_velocity.x = -m_velocity_limit.x;
         //if (m_velocity.y > m_velocity_limit.y)
         //    m_velocity.y = m_velocity_limit.y;
-        if (m_velocity.y < -m_velocity_limit.y)
-            m_velocity.y = -m_velocity_limit.y;
+        if (m_velocity.y < -400)
+            m_velocity.y = -400;
     }
     // for stop reaction
     m_previous_position = object->GetTransform().GetTranslation();
@@ -75,8 +75,8 @@ void RigidBody::Update(float dt)
     m_velocity.y -= m_gravity;
 
     // integrate position
-    if (magnitude(m_velocity) < 0.001f)
-        m_velocity = 0;
+    //if (magnitude(m_velocity) < 0.001f)
+    //    m_velocity = 0;
     // integrate position                   
     if (!object->GetComponentByTemplate<Collision>()->GetIsGround() && !object
                                                                         ->GetComponentByTemplate<Collision>()->
@@ -146,12 +146,14 @@ void RigidBody::MovePlayer()
         }
         if (o_rigidbody->GetJumping() == false)
         {
-            if (Input::IsKeyTriggered(GLFW_KEY_W))
+            if (Input::IsKeyPressed(GLFW_KEY_W))
             {
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
+                o_collision->SetIsLeftTile(true);
                 o_rigidbody->SetVelocity(
-                    {o_rigidbody->GetVelocity().x,
+                    {
+                o_rigidbody->GetVelocity().x,
                     m_velocity_limit.y});
                 o_rigidbody->SetJumping(true);
                 isYLimited = false;
@@ -181,13 +183,13 @@ void RigidBody::MovePlayer()
         }
         if (o_rigidbody->GetJumping() == false)
         {
-            if (Input::IsKeyTriggered(GLFW_KEY_W))
+            if (Input::IsKeyPressed(GLFW_KEY_W))
             {
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 o_collision->SetIsRightTile(true);
                 o_rigidbody->SetVelocity(
-                    {0, m_velocity_limit .y});
+                    { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
                 isYLimited = false;
             }
@@ -216,12 +218,12 @@ void RigidBody::MovePlayer()
         }
         if (o_rigidbody->GetJumping() == false)
         {
-            if (Input::IsKeyTriggered(GLFW_KEY_W))
+            if (Input::IsKeyPressed(GLFW_KEY_W))
             {
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 o_rigidbody->SetVelocity(
-                    {o_rigidbody->GetVelocity().x, m_velocity_limit .y});
+                    { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
                 isYLimited = false;
             }
@@ -234,6 +236,6 @@ void RigidBody::MovePlayer()
     if (!key_press_a && !key_press_d)
     {
         o_rigidbody->SetVelocity(
-            o_rigidbody->GetVelocity() * m_friction);
+            { o_rigidbody->GetVelocity().x * m_friction, o_rigidbody->GetVelocity().y });
     }
 }

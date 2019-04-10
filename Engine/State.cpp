@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include "Objectmanager.hpp"
 #include <iostream>
+#include "Capture.hpp"
 
 void State::ChangeLevel(std::string ID)
 {
@@ -82,4 +83,36 @@ void State::UnLoad()
 
 	Objectmanager_.RemoveObject();
 	Tile_Map_.RemoveTiles();
+}
+
+void State::CreateCaptureCamera()
+{
+    Object* player_camera = new Object();
+    player_camera->SetScale({ 300.0f, 175.0f });
+    player_camera->SetDepth(-0.2f);
+    player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    player_camera->SetObjectType(ObjectType::Capture_Camera);
+    player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
+    player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
+    player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
+
+    Objectmanager_.AddObject(player_camera);
+    Objectmanager_.SetCaptureObject(player_camera);
+}
+
+void State::CreatePlayer()
+{
+    Object* player = new Object();
+    player->SetTranslation(Input::GetMousePos());
+    player->SetScale({ 50.0f, 50.0f });
+    player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+    player->SetDepth(-0.5f);
+    player->SetObjectType(ObjectType::Player);
+    player->AddInitComponent(new RigidBody());
+    player->AddInitComponent(new Collision(box_));
+    player->AddInitComponent(new Sprite("asset/images/Player_Static.png"));
+    //player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 5, 0.2f, true));
+    Objectmanager_.AddObject(player);
+
+    Objectmanager_.SetPlayer(player);
 }
