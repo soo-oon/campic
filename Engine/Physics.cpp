@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include "Application.hpp"
 #include "Graphics.hpp"
+#include "UI.hpp"
 
 Physics Physics_;
 
@@ -69,6 +70,11 @@ void Physics::Update(float dt)
                     else if (obj->get()->GetObjectType() == ObjectType::Capture_Obj)
                     {
                         capture_list.push_back(obj->get());
+                        ++obj;
+                    }
+                    else if (obj->get()->GetObjectType() == ObjectType::Door)
+                    {
+                        door = obj->get();
                         ++obj;
                     }
                     else
@@ -275,6 +281,15 @@ void Physics::Update(float dt)
                                 projectile_list[j]->SetIsDead(true);
                             }
                         }
+                    }
+                }
+                if (door)
+                {
+                    if (IntersectionCheckAABB(collision_list[i], door))
+                    {
+                        door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
+                        StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
+                        StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
                     }
                 }
             }
