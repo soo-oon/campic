@@ -42,10 +42,9 @@ void StateManager::AddStage(std::string ID, State* state)
 		}
 		else
 		{
-			//TODO Chnage this
+			//TODO Chnage this                    
 			m_currentState = first_level.get();
 		}
-
 		m_currentState->SetLevelIndicator(ID);
 		m_currentState->Initialize();
 	}
@@ -64,6 +63,9 @@ void StateManager::ChangeStage()
 
 	m_currentState->LoadLevel(save);
 
+        m_currentState->CreateCaptureCamera();
+        m_currentState->CreatePlayer();
+
 	//m_currentState->Initialize();
 
 	Physics_.ResetPreviousSize();
@@ -76,6 +78,8 @@ void StateManager::BackToMenu()
 	m_currentState = states.find("LevelSelector")->second.get();
 
 	m_currentState->Initialize();
+
+        m_currentState->CreateCaptureCamera();
 
 	Physics_.ResetPreviousSize();
 }
@@ -97,9 +101,12 @@ void StateManager::Update(float dt)
 		m_currentState->Update(dt);
 	}
 
-	if (m_currentState->IsLevelChange())
-		ChangeStage();
-
+        if (m_currentState->IsLevelChange())
+        {
+            ChangeStage();
+            if (m_currentState->GetPlayerObjectPointer())
+                m_currentState->GetPlayerObjectPointer()->GetTransform().SetTranslation(m_currentState->GetStartPosition());
+        }
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
 
@@ -116,6 +123,7 @@ void StateManager::Update(float dt)
 	{
 		m_currentState->GetNextLevel();
 	}
+
 }
 
 void StateManager::Quit()
