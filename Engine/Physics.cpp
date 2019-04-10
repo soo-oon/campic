@@ -185,13 +185,10 @@ void Physics::Update(float dt)
                             }
                             if(p_rigidbody->GetVelocity().y > 0)
                             {
-                                if (p_rigidbody->GetVelocity().y > 0)
-                                {
                                     if (IntersectionCheckAABB(collision_list[i], capture))
                                     {
                                         StopReaction(collision_list[i], capture, false);
                                     }
-                                }
                             }
                         }
                     }
@@ -232,6 +229,24 @@ void Physics::Update(float dt)
                     }
                 }
 
+				if (!dynamic_list.empty()) {
+					for (auto dynamic_obj : dynamic_list)
+					{
+						if (auto collision = dynamic_obj->GetComponentByTemplate<Collision>();
+							collision != nullptr)
+						{
+							if (IntersectionCheckAABB(collision_list[i], dynamic_obj))
+							{
+								collision->SetIsCollideItem(true);
+							}
+							else
+							{
+								collision->SetIsCollideItem(false);
+							}
+						}
+
+					}
+				}
 
                 for (int j = 0; j < projectile_list.size(); j++)
                 {

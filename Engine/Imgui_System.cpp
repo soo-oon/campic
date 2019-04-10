@@ -249,6 +249,7 @@ void Imgui_System::Editor(bool show_window)
 		StateManager_.GetCurrentState()->UnLoad();
 		Tile_Map_.GetGraphicsTiles().clear();
 		Tile_Map_.GetPhysicalTiles().clear();
+            Tile_Map_.MakeGridFalse();
 		Physics_.ResetPreviousSize();
 	}
 
@@ -264,50 +265,78 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	ImGui::Separator();
 
 	ImGui::Button("Player");
+        if (!player_existed)
+        {
+            if (ImGui::IsItemActive())
+            {
+                ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+            }
+            if (ImGui::IsItemDeactivated())
+            {
+                Object* player = new Object();
+                player->SetTranslation(Input::GetMousePos());
+                player->SetScale({ 75.0f, 75.0f });
+                player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+                player->SetDepth(-0.5f);
+                player->SetObjectType(ObjectType::Player);
+                player->AddInitComponent(new RigidBody());
+                player->AddInitComponent(new Collision(box_));
+                player->AddInitComponent(new Sprite("asset/images/Player_Static.png"));
+                //player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 5, 0.2f, true));
+                Objectmanager_.AddObject(player);
 
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* player = new Object();
-		player->SetTranslation(Input::GetMousePos());
-		player->SetScale({ 50.0f, 50.0f });
-		player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-		player->SetDepth(-0.5f);
-		player->SetObjectType(ObjectType::Player);
-		player->AddInitComponent(new RigidBody());
-		player->AddInitComponent(new Collision(box_));
-		player->AddInitComponent(new Sprite("asset/images/Player_Static.png"));
-		//player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 5, 0.2f, true));
-		Objectmanager_.AddObject(player);
-
-		Objectmanager_.SetPlayer(player);
-	}
+                Objectmanager_.SetPlayer(player);
+                player_existed = true;
+            }
+        }
+        ImGui::SameLine();
+        ImGui::Button("Start Pos");
+        if (!start_existed)
+        {
+            if (ImGui::IsItemActive())
+            {
+                ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+            }
+            if (ImGui::IsItemDeactivated())
+            {
+                Object* s_pos = new Object();
+                s_pos->SetTranslation(Input::GetMousePos());
+                s_pos->SetScale({ 50.0f, 50.0f });
+                s_pos->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+                s_pos->SetDepth(-0.5f);
+                s_pos->SetObjectType(ObjectType::Start_Pos);
+                
+                Objectmanager_.AddObject(s_pos);
+                start_existed = true;
+            }
+        }
 
 	ImGui::SameLine();
 
 	ImGui::Button("Capture Camera");
-	if (ImGui::IsItemActive())
-	{
-		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
-	}
+        if (!capture_existed)
+        {
+            if (ImGui::IsItemActive())
+            {
+                ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+            }
 
-	if (ImGui::IsItemDeactivated())
-	{
-		Object* player_camera = new Object();
-		player_camera->SetScale({ 300.0f, 175.0f });
-		player_camera->SetDepth(-0.2f);
-		player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-		player_camera->SetObjectType(ObjectType::None);
-		player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
-		player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
-		player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
+            if (ImGui::IsItemDeactivated())
+            {
+                Object* player_camera = new Object();
+                player_camera->SetScale({ 300.0f, 175.0f });
+                player_camera->SetDepth(-0.2f);
+                player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+                player_camera->SetObjectType(ObjectType::None);
+                player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
+                player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
+                player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
 
-		Objectmanager_.AddObject(player_camera);
-		Objectmanager_.SetCaptureObject(player_camera);
-	}
+                Objectmanager_.AddObject(player_camera);
+                Objectmanager_.SetCaptureObject(player_camera);
+                capture_existed = true;
+            }
+        }
 
 	ImGui::Text("Type target Level");
 	static char buffer[100] = "";

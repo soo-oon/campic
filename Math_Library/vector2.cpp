@@ -55,7 +55,7 @@ vector2& vector2::operator-=(float a)
     return *this;
 }
 
-vector2 vector2::operator+(vector2& v) const
+vector2 vector2::operator+(vector2 v) const
 {
     vector2 result = *this;
     result += v;
