@@ -37,6 +37,7 @@ private:
 			obj->SetTranslation(obj_->GetTransform().GetTranslation());
 			obj->SetScale({ 150, 170 });
 			obj->SetRotation(angle);
+			obj->SetDepth(0.9f);
 			obj->SetObjectType(ObjectType::Polaroid);
 			obj->SetMesh(mesh::CreateBox(1, {255,255,255,75}));
 			obj->AddComponent(new Sprite("asset/images/polaroid.png"));
