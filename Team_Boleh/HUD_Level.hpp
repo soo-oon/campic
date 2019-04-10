@@ -1,7 +1,6 @@
 #pragma once
 
 #include "State.hpp"
-#include "Application.hpp"
 
 class HUD_Level : public State
 {
@@ -15,7 +14,10 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 
+	void CreateHudButton(vector2 pos, vector2 scale /*,std::string & font*/, std::string id);
+
+
 private:
-	Object* h_option = nullptr;
+	Object* h_option_window = nullptr;
 	Object* h_cheese = nullptr;
 };

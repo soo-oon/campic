@@ -67,5 +67,5 @@ public:
 	static double MouseWheelScroll();
 
 	static Object* ClickObject();
-	static bool MouseIntersectObject(Object* object);
+	static Object* ClickHudObject(float depth);
 };

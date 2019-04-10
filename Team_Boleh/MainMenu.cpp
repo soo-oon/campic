@@ -66,7 +66,7 @@ void MainMenu::Update(float dt)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		m_Select = Input::ClickObject();
+		m_Select = Input::ClickHudObject(-0.1f);
 
 		if (m_Select)
 		{

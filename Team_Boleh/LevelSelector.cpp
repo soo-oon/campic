@@ -20,17 +20,17 @@ void LevelSelector::Update(float dt)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		m_SelectLevel = Input::ClickObject();
+		m_SelectLevel = Input::ClickHudObject(-0.1f);
 
 		if (m_SelectLevel)
 		{
-			if (m_SelectLevel->GetObjectType() == ObjectType::Door)
-			{
-				m_SelectLevel->GetComponentByTemplate<UI>()->TriggerLevelLock(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
-				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
-				ChangeLevel(level_indicator);
-			}
-			else
+			//if (m_SelectLevel->GetObjectType() == ObjectType::Door)
+			//{
+			//	m_SelectLevel->GetComponentByTemplate<UI>()->TriggerLevelLock(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
+			//	SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
+			//	ChangeLevel(level_indicator);
+			//}
+			//else
 			{
 				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
 				ChangeLevel(level_indicator);
