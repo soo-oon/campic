@@ -641,7 +641,7 @@ void Imgui_System::SpriteHelper()
 
 		if (ImGui::BeginCombo("Select texture", current_item.c_str()))
 		{
-			for (int n = 0; n < imageList.size(); n++)
+			for (size_t n = 0; n < imageList.size(); n++)
 			{
 				bool is_selected = (current_item.c_str() == imageList[n].c_str());
 				if (ImGui::Selectable(imageList[n].c_str(), is_selected))

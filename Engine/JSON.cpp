@@ -220,7 +220,12 @@ Value JSON::ComponentTransform(Object * obj)
 
 	rotation.SetFloat(obj->GetTransform().GetRotation());
 
-	depth.SetFloat(obj->GetTransform().GetDepth());
+	if (obj->GetObjectType() == ObjectType::Background)
+		depth.SetFloat(0.1f);
+	else if (obj->GetObjectType() == ObjectType::Button)
+		depth.SetFloat(-0.1f);
+	else
+		depth.SetFloat(-0.5f);
 
 	objTransformTree.AddMember("position", pos, ObjectDocument.GetAllocator());
 	objTransformTree.AddMember("scale", scale, ObjectDocument.GetAllocator());
@@ -747,7 +752,7 @@ void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
 
 			obj->AddInitComponent(new Animation(ani_path.at(0), id.at(0), image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
 
-			for (int i = 1; i < id.size(); i++)
+			for (size_t i = 1; i < id.size(); i++)
 			{
 				obj->GetComponentByTemplate<Animation>()->AddAnimaition(ani_path.at(i), id.at(i), image_frame.at(i),
 					update_frame.at(i), is_repeat.at(i));
@@ -886,7 +891,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->AddComponent(new Animation(ani_path.at(0), id.at(0),image_frame.at(0), update_frame.at(0), is_repeat.at(0)));
 
-			for(int i = 1; i < id.size(); i++)
+			for(size_t i = 1; i < id.size(); i++)
 			{
 				obj->GetComponentByTemplate<Animation>()->AddAnimaition(ani_path.at(i), id.at(i), image_frame.at(i),
 					update_frame.at(i), is_repeat.at(i));
@@ -945,7 +950,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->AddComponent(new Sound(sound_path[0]));
 
-			for (int i = 1; i < sound_path.size(); i++)
+			for (size_t i = 1; i < sound_path.size(); i++)
 			{
 				obj->GetComponentByTemplate<Sound>()->AddSound(sound_path[i]);
 			}
@@ -1038,5 +1043,5 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
                 if (obj->GetObjectType() == ObjectType::Player)
                     Objectmanager_.SetPlayer(obj);
 	}
-        ObjectDocument.SetObject();
+	ObjectDocument.SetObject();
 }
