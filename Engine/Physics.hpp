@@ -47,6 +47,7 @@ public:
         bool IntersectionCheckAABBPositionLeft(Object* object1, Object* object2);
         bool IntersectionCheckAABBPositionRight(Object* object1, Object* object2);
         bool IntersectionCheckNextPosition(Object* object1, Object* object2);
+        bool IntersectionCheckAABBUpperCase(Object* object1, Object* object2);
         
 	void ResetPreviousSize() { previous_size = 0; }
 

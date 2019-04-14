@@ -315,6 +315,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		door->SetScale({ 100, 100 });
 		door->SetDepth(-0.5f);
 		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+                door->AddInitComponent(new Collision(box_));
 		door->SetObjectType(ObjectType::Door);
 		door->AddInitComponent(new Animation("asset/images/Portal.png", "portal", 9, 0.01f));
 		door->AddComponent(new UI(buffer));

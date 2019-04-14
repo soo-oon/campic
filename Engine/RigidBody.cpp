@@ -72,7 +72,6 @@ void RigidBody::Update(float dt)
 
     //m_friction always activated
     //m_velocity *= m_friction;
-    m_velocity.y -= m_gravity;
 
     // integrate position
     //if (magnitude(m_velocity) < 0.001f)
@@ -82,6 +81,7 @@ void RigidBody::Update(float dt)
                                                                         ->GetComponentByTemplate<Collision>()->
                                                                         GetIsCapobj())
     {
+        m_velocity.y -= m_gravity;
         object->GetTransform().SetTranslation({
             (object->GetTransform().GetTranslation().x + (m_velocity * m_slowmode * dt).x),
             (object->GetTransform().GetTranslation().y + (m_velocity * m_slowmode * dt).y)
