@@ -92,7 +92,8 @@ void Physics::Update(float dt)
             {
                 auto p_collision = collision_list[i]->GetComponentByTemplate<Collision>();
                 auto p_rigidbody = collision_list[i]->GetComponentByTemplate<RigidBody>();
-                auto p_transform = collision_list[i]->GetTransform();
+                //auto p_transform = collision_list[i]->GetTransform();
+                auto p_transform = collision_list[i]->GetComponentByTemplate<Collision>()->GetCollisionTransform();
                 tile_list.clear();
                 ground_list.clear();
                 TileCheck(collision_list[i]);
@@ -536,21 +537,21 @@ bool Physics::IntersectionCheckAABBUpperCase(Object* object1, Object* object2)
 {
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
-        object1->GetTransform().GetTranslation().x - object1->GetTransform().GetScale().x / 2 + 3,
-        object1->GetTransform().GetTranslation().y + object1->GetTransform().GetScale().y / 2 - 10
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 + 3,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 - 10
     };
     max_obj = {
-        object1->GetTransform().GetTranslation().x + object1->GetTransform().GetScale().x / 2 - 3,
-        object1->GetTransform().GetTranslation().y + 3 + object1->GetTransform().GetScale().y / 2
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 - 3,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + 3 + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
 
     min_pos = {
-        object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y - object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
     max_pos = {
-        object2->GetTransform().GetTranslation().x + object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y + object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
 
     if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||
@@ -594,21 +595,21 @@ bool Physics::IntersectionCheckAABBPositionLeft(Object* object1, Object* object2
     //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
-        object1->GetTransform().GetTranslation().x - 3 - object1->GetTransform().GetScale().x / 2,
-        object1->GetTransform().GetTranslation().y - object1->GetTransform().GetScale().y / 2 + 3
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - 3 - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 + 3
     };
     max_obj = {
-        object1->GetTransform().GetTranslation().x - object1->GetTransform().GetScale().x / 2,
-        object1->GetTransform().GetTranslation().y + object1->GetTransform().GetScale().y / 2 - 3
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 - 3
     };
 
     min_pos = {
-        object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y - object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
     max_pos = {
-        object2->GetTransform().GetTranslation().x + object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y + object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
 
     if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||
@@ -621,24 +622,24 @@ bool Physics::IntersectionCheckAABBPositionLeft(Object* object1, Object* object2
 
 bool Physics::IntersectionCheckAABBPositionRight(Object* object1, Object* object2)
 {
-    //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
+    //vector2 min_obj1 = {object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()}
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
-        object1->GetTransform().GetTranslation().x + object1->GetTransform().GetScale().x / 2,
-        object1->GetTransform().GetTranslation().y - object1->GetTransform().GetScale().y / 2 + 3
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 + 3
     };
     max_obj = {
-        object1->GetTransform().GetTranslation().x + 3 + object1->GetTransform().GetScale().x / 2,
-        object1->GetTransform().GetTranslation().y + object1->GetTransform().GetScale().y / 2 - 3
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + 3 + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 - 3
     };
 
     min_pos = {
-        object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y - object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
     max_pos = {
-        object2->GetTransform().GetTranslation().x + object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y + object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
 
     if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||
@@ -653,21 +654,21 @@ bool Physics::IntersectionCheckNextPosition(Object* object1, Object* object2)
 {
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
-        object1->GetTransform().GetTranslation().x - object1->GetTransform().GetScale().x / 2,
-        object1->GetTransform().GetTranslation().y - 5 - object1->GetTransform().GetScale().y / 2
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - 5 - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
     max_obj = {
-        object1->GetTransform().GetTranslation().x + object1->GetTransform().GetScale().x / 2,
-        object1->GetTransform().GetTranslation().y - object1->GetTransform().GetScale().y / 2
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
 
     min_pos = {
-        object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y - object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
     max_pos = {
-        object2->GetTransform().GetTranslation().x + object2->GetTransform().GetScale().x / 2,
-        object2->GetTransform().GetTranslation().y + object2->GetTransform().GetScale().y / 2
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
+        object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
 
     if ((min_obj.x >= max_pos.x) || (max_obj.x <= min_pos.x) ||

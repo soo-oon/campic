@@ -49,6 +49,10 @@ void Capture::Update(float dt)
         player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
     }
 
+    if (Input::IsKeyTriggered(GLFW_KEY_KP_3))
+        isCollisionSizeBig = true;
+    if (Input::IsKeyTriggered(GLFW_KEY_KP_6))
+        isCollisionSizeBig = false;
     vector2 mouse_pos = Input::GetMousePos();
 
     object->SetTranslation(mouse_pos);
@@ -350,6 +354,7 @@ void Capture::CameraZoomInOut()
 					{
 
 						CollisionChangeZoomInOut(obj.get(), temp_collision);
+                                            if(isCollisionSizeBig)
 						temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
 					}
 
@@ -370,6 +375,7 @@ void Capture::CameraZoomInOut()
 									temp_collision != nullptr)
 								{
 									CollisionChangeZoomInOut(obj.get(), temp_collision);
+                                                                        if (isCollisionSizeBig)
 									temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
 								}
 								obj->SetZoomDifferCondition(true);
@@ -429,7 +435,10 @@ void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)
 		vector2 translation = obj->GetTransform().GetTranslation();
 		vector2 offset = (obj->GetTransform().GetScale() - collision->GetCollisionTransform().GetScale()) / 2.0f;
 
-		obj->GetTransform().SetTranslation({ translation.x, translation.y + offset.y });
+                if(isCollisionSizeBig)
+                    obj->GetTransform().SetTranslation({ translation.x, translation.y + offset.y });
+                else
+                    collision->GetCollisionTransform().SetTranslation({ translation.x, translation.y + offset.y });
 	}
 
 	if(collision->GetIsLeft() || collision->GetIsLeftTile())
@@ -437,7 +446,10 @@ void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)
 		vector2 translation = obj->GetTransform().GetTranslation();
 		vector2 offset = (obj->GetTransform().GetScale() - collision->GetCollisionTransform().GetScale()) / 2.0f;
 
-		obj->GetTransform().SetTranslation({ translation.x + offset.x, translation.y });
+                if (isCollisionSizeBig)
+                    obj->GetTransform().SetTranslation({ translation.x + offset.x, translation.y });
+                else
+                collision->GetCollisionTransform().SetTranslation({ translation.x + offset.x, translation.y });
 	}
 
 	if (collision->GetIsRight() || collision->GetIsRightTile())
@@ -445,7 +457,10 @@ void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)
 		vector2 translation = obj->GetTransform().GetTranslation();
 		vector2 offset = (obj->GetTransform().GetScale() - collision->GetCollisionTransform().GetScale()) / 2.0f;
 
-		obj->GetTransform().SetTranslation({ translation.x - offset.x, translation.y });
+                if (isCollisionSizeBig)
+                    obj->GetTransform().SetTranslation({ translation.x - offset.x, translation.y });
+                else
+                collision->GetCollisionTransform().SetTranslation({ translation.x - offset.x, translation.y });
 	}
 }
 
