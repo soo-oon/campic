@@ -91,7 +91,7 @@ void State::CreateCaptureCamera()
     player_camera->SetScale({ 300.0f, 175.0f });
     player_camera->SetDepth(-0.2f);
     player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    player_camera->SetObjectType(ObjectType::Capture_Camera);
+    player_camera->SetObjectType(ObjectType::Capture_Camera_main);
     player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
     player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
     player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));

@@ -6,7 +6,7 @@
 class UI : public Component
 {
 public:
-	UI(std::string id_);
+	UI(std::string id_, bool IsLock_ = true);
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;

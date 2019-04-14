@@ -1,13 +1,13 @@
 {
     "Object": {
         "Type": {
-            "type": 14,
+            "type": 15,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -567.0,
-                "y": -53.0
+                "x": -575.0,
+                "y": -166.0
             },
             "scale": {
                 "x": 75.0,
@@ -28,6 +28,56 @@
         "Projectile": {},
         "Moving": {},
         "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 552.0,
+                "y": 108.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "portal",
+                        "path": "asset/images/Portal.png"
+                    },
+                    "info": {
+                        "image_frames": 9,
+                        "update_frames": 0.009999999776482582,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {
+            "id": "Level2"
+        },
         "Camera": null
     }
 }

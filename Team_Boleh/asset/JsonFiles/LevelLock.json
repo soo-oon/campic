@@ -5,19 +5,19 @@
     },
     "Level": {
         "ID:": "Level2",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level3",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level4",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level5",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level6",

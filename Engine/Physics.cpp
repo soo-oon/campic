@@ -39,6 +39,7 @@ void Physics::Update(float dt)
             projectile_list.clear();
             static_list.clear();
             dynamic_list.clear();
+			door = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
                 if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr)

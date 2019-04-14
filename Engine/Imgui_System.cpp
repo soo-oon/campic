@@ -249,11 +249,21 @@ void Imgui_System::Editor(bool show_window)
 		StateManager_.GetCurrentState()->UnLoad();
 		Tile_Map_.GetGraphicsTiles().clear();
 		Tile_Map_.GetPhysicalTiles().clear();
-                player_existed = false;
-                start_existed = false;
-                capture_existed = false;
-            Tile_Map_.MakeGridFalse();
+        player_existed = false;
+        start_existed = false;
+        capture_existed = false;
+        Tile_Map_.MakeGridFalse();
 		Physics_.ResetPreviousSize();
+	}
+
+	if (ImGui::Button("Clear Graphic Tiles"))
+	{
+		Tile_Map_.ClearGraphicTiles();
+	}
+
+	if (ImGui::Button("Clear Physical Tiles"))
+	{
+		Tile_Map_.ClearPhysicalTiles();
 	}
 
 	ImGui::End();
@@ -288,6 +298,14 @@ void Imgui_System::ObjectCreator(bool object_creator)
 			s_pos->SetDepth(-0.5f);
 			s_pos->SetObjectType(ObjectType::Start_Pos);
 
+			
+
+			Object* temp = Objectmanager_.GetCaptureCamera();
+			temp->GetComponentByTemplate<Capture>()->SetResetPosition(s_pos->GetTransform().GetTranslation());
+
+			Object* temp_p = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			temp_p->SetTranslation(s_pos->GetTransform().GetTranslation());
+
 			Objectmanager_.AddObject(s_pos);
 		}
 	}
@@ -316,6 +334,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		door->SetDepth(-0.5f);
 		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		door->SetObjectType(ObjectType::Door);
+		door->AddInitComponent(new Collision(box_));
 		door->AddInitComponent(new Animation("asset/images/Portal.png", "portal", 9, 0.01f));
 		door->AddComponent(new UI(buffer));
 

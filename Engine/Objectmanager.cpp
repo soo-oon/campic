@@ -138,6 +138,18 @@ void Objectmanager::SetPlayer(Object* obj)
     }
 }
 
+Object* Objectmanager::GetCaptureCamera()
+{
+	for(auto& obj : objects_)
+	{
+		if(obj->GetObjectType() == ObjectType::Capture_Camera_main)
+		{
+			return obj.get();
+		}
+	}
+	return nullptr;
+}
+
 void Objectmanager::RemoveObject()
 {
     //std::cout << "Before: " << objects_.size() << std::endl;

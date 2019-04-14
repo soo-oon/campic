@@ -24,13 +24,7 @@ void LevelSelector::Update(float dt)
 
 		if (m_SelectLevel)
 		{
-			//if (m_SelectLevel->GetObjectType() == ObjectType::Door)
-			//{
-			//	m_SelectLevel->GetComponentByTemplate<UI>()->TriggerLevelLock(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
-			//	SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
-			//	ChangeLevel(level_indicator);
-			//}
-			//else
+			if(m_SelectLevel->GetComponentByTemplate<UI>()->GetIsLock())
 			{
 				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
 				ChangeLevel(level_indicator);
@@ -58,11 +52,11 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	button->SetDepth(-0.1f);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
-	button->AddComponent(new UI(level_text));
 
-	auto check = m_LevelLock.find(level_id)->second;
+	auto is_lock = m_LevelLock.find(level_id)->second;
+	button->AddComponent(new UI(level_text, is_lock));
 
-	if (check)
+	if (is_lock)
 	{
 		button->AddComponent(new Sprite("asset/images/UI/LevelBox.png"));
 	}
