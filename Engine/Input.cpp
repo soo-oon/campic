@@ -235,7 +235,7 @@ Object* Input::ClickObject()
 			GetMousePos().y < obj->GetTransform().GetTranslation().y + obj->GetTransform().GetScale().y &&
 			GetMousePos().y > obj->GetTransform().GetTranslation().y - obj->GetTransform().GetScale().y)
 		{
-			if (obj.get()->GetTransform().GetDepth() < 0)
+			if (obj.get()->GetTransform().GetDepth() < -0.2f)
 			{
 				return obj.get();
 			}

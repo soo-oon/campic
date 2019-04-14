@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include <map>
 #include "Player.hpp"
 #include "Physics.hpp"
+#include <fstream>
 
 StateManager StateManager_;
 
@@ -62,6 +63,8 @@ void StateManager::ChangeStage()
 	m_currentState = states.find(next_level)->second.get();
 
 	m_currentState->LoadLevel(save);
+	m_currentState->SetLevelIndicator(save);
+	SetCurrentLevelCaptureLimit();
     m_currentState->CreateCaptureCamera();
     
 	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
@@ -97,6 +100,24 @@ void StateManager::Pause()
 	m_pause = true;
 }
 
+void StateManager::SetCurrentLevelCaptureLimit()
+{
+	std::string file_path = "asset/JsonFiles/Levels/";
+	file_path.append(GetCurrentState()->GetLevelIndicator()+"/");
+	file_path.append("capture_limit.txt");
+	std::string num_limit;
+
+	std::ifstream myfile(file_path.data());
+
+	if(myfile.is_open())
+	{
+		std::getline(myfile, num_limit);
+		GetCurrentState()->SetCaptureLimit(stoi(num_limit));
+
+		myfile.close();
+	}
+}
+
 void StateManager::Update(float dt)
 {
      if (m_currentState->IsLevelChange())
@@ -114,20 +135,10 @@ void StateManager::Update(float dt)
 		m_currentState->Update(dt);
 	}
 
-	//if (Input::IsKeyTriggered(GLFW_KEY_I))
-	//	Tile_Map_.Delete_Tile();
-
-	int count = 0;
-
-	std::string level = "level";
-
-	level += std::to_string(count);
-
 	if(Input::IsKeyTriggered(GLFW_KEY_T))
 	{
 		m_currentState->GetNextLevel();
 	}
-
 }
 
 void StateManager::Quit()

@@ -1,13 +1,103 @@
 {
     "Object": {
         "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -113.0,
+                "y": -372.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5000000074505806
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "zone",
+                        "path": "asset/images/PhotoZone.png"
+                    },
+                    "info": {
+                        "image_frames": 4,
+                        "update_frames": 0.05000000074505806,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 123.0,
+                "y": -357.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5000000074505806
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "zone",
+                        "path": "asset/images/PhotoZone.png"
+                    },
+                    "info": {
+                        "image_frames": 4,
+                        "update_frames": 0.05000000074505806,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
             "type": 15,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -598.0,
-                "y": -32.0
+                "x": -864.0,
+                "y": -79.0
             },
             "scale": {
                 "x": 75.0,
@@ -37,8 +127,8 @@
         },
         "Transform": {
             "position": {
-                "x": 567.0,
-                "y": 124.0
+                "x": 812.0,
+                "y": -165.0
             },
             "scale": {
                 "x": 100.0,

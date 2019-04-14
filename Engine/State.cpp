@@ -89,7 +89,7 @@ void State::CreateCaptureCamera()
 {
     Object* player_camera = new Object();
     player_camera->SetScale({ 300.0f, 175.0f });
-    player_camera->SetDepth(-0.2f);
+    player_camera->SetDepth(-0.6f);
     player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     player_camera->SetObjectType(ObjectType::Capture_Camera_main);
     player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
@@ -106,7 +106,7 @@ void State::CreatePlayer()
     player->SetTranslation(Input::GetMousePos());
     player->SetScale({ 80.0f, 80.f });
     player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-    player->SetDepth(-0.5f);
+    player->SetDepth(-0.6f);
     player->SetObjectType(ObjectType::Player);
 	player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 8, 0.05f, true));
     player->AddInitComponent(new RigidBody());

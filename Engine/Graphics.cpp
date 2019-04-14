@@ -51,7 +51,6 @@ bool Graphics::Initialize()
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
-
     bool shapes_shaderIsReady = Solidshader.Compile(GLSL::shapes_vertex, GLSL::shapes_fragment);
     bool shaderIsReady = Spriteshader.Compile(GLSL::vertex, GLSL::fragment);
     bool particle_shaderIsReady = Particleshader.Compile(GLSL::particle_vertex, GLSL::particle_fragment);

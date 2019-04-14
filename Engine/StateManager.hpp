@@ -45,6 +45,7 @@ public:
 	void Restart();
 	void Pause();
 
+	void SetCurrentLevelCaptureLimit();
 	State* GetCurrentState() { return m_currentState; }
 	std::unordered_map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
 

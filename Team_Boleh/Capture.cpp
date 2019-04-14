@@ -30,7 +30,6 @@ bool Capture::Initialize(Object* Ob)
         zoomobject->SetParent(&object->GetTransform());
         Objectmanager_.AddObject(zoomobject);
         Objectmanager_.AddObject(zoombutton);
-
     }
 
     zoom_min_value = 1.0f;
@@ -65,13 +64,17 @@ void Capture::Update(float dt)
 
     if (IsCaptureArea())
     {
-        if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-        {
-            cheese = true;
-            Capturing();
-            CreatePolaroidObject();
-            CreateCaptureObject();
-        }
+		if (StateManager_.GetCurrentState()->GetCaptureLimit() > 0)
+		{
+			if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+			{
+				--StateManager_.GetCurrentState()->GetCaptureLimit();
+				cheese = true;
+				Capturing();
+				CreatePolaroidObject();
+				CreateCaptureObject();
+			}
+		}
     }
 	CameraZoomInOut();
 	SetOrigianlSize();

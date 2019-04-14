@@ -117,6 +117,11 @@ void Imgui_System::Update(float dt)
 				selectObj = Input::ClickObject();
 		}
 
+		if (Input::IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			selectObj = nullptr;
+		}
+
 		if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_RIGHT))
 		{
 			if (selectObj)
@@ -356,7 +361,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Object* zone = new Object();
 		zone->SetTranslation(Input::GetMousePos());
 		zone->SetScale({ 100, 100 });
-		zone->SetDepth(-0.05f);
+		zone->SetDepth(-0.5f);
 		zone->SetMesh(mesh::CreateBox(1, { 255,255,255,150 }));
 		zone->SetObjectType(ObjectType::Door);
 		zone->AddInitComponent(new Animation("asset/images/PhotoZone.png","zone",4, 0.05f));
@@ -605,16 +610,12 @@ void Imgui_System::ObjectEditor(bool object_editor)
 
 	if (ImGui::Button("Delete"))
 	{
-		for (auto object = Objectmanager_.GetObjectMap().begin(); object != Objectmanager_.GetObjectMap().end();)
+		for (auto object = Objectmanager_.GetObjectMap().begin(); object != Objectmanager_.GetObjectMap().end();++object)
 		{
 			if (object->get() == selectObj)
 			{
 				object = Objectmanager_.GetObjectMap().erase(object);
 				selectObj = nullptr;
-			}
-			else
-			{
-				object++;
 			}
 		}
 	}
