@@ -1,13 +1,148 @@
 {
     "Object": {
         "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -355.0,
+                "y": -260.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.05000000074505806
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "zone",
+                        "path": "asset/images/PhotoZone.png"
+                    },
+                    "info": {
+                        "image_frames": 4,
+                        "update_frames": 0.05000000074505806,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 131.0,
+                "y": -65.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.05000000074505806
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "zone",
+                        "path": "asset/images/PhotoZone.png"
+                    },
+                    "info": {
+                        "image_frames": 4,
+                        "update_frames": 0.05000000074505806,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 534.0,
+                "y": 130.0
+            },
+            "scale": {
+                "x": 100.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.05000000074505806
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "zone",
+                        "path": "asset/images/PhotoZone.png"
+                    },
+                    "info": {
+                        "image_frames": 4,
+                        "update_frames": 0.05000000074505806,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
             "type": 15,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -792.0,
-                "y": -166.0
+                "x": -765.0,
+                "y": -137.0
             },
             "scale": {
                 "x": 75.0,
@@ -38,7 +173,7 @@
         "Transform": {
             "position": {
                 "x": 727.0,
-                "y": 324.0
+                "y": 308.0
             },
             "scale": {
                 "x": 100.0,

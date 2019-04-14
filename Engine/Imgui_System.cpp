@@ -266,6 +266,11 @@ void Imgui_System::Editor(bool show_window)
 		Tile_Map_.ClearPhysicalTiles();
 	}
 
+	if(ImGui::Button("Clear Objects"))
+	{
+		Objectmanager_.GetObjectMap().clear();
+	}
+
 	ImGui::End();
 }
 
@@ -331,13 +336,32 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		door->SetScale({ 100, 100 });
 		door->SetDepth(-0.5f);
 		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-                door->AddInitComponent(new Collision(box_));
 		door->SetObjectType(ObjectType::Door);
 		door->AddInitComponent(new Collision(box_));
 		door->AddInitComponent(new Animation("asset/images/Portal.png", "portal", 9, 0.01f));
 		door->AddComponent(new UI(buffer));
 
 		Objectmanager_.AddObject(door);
+	}
+
+	ImGui::SameLine();
+	ImGui::Button("Photo Zone");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* zone = new Object();
+		zone->SetTranslation(Input::GetMousePos());
+		zone->SetScale({ 100, 100 });
+		zone->SetDepth(-0.05f);
+		zone->SetMesh(mesh::CreateBox(1, { 255,255,255,150 }));
+		zone->SetObjectType(ObjectType::Door);
+		zone->AddInitComponent(new Animation("asset/images/PhotoZone.png","zone",4, 0.05f));
+
+		Objectmanager_.AddObject(zone);
 	}
 
 	ImGui::Separator();

@@ -154,14 +154,14 @@
         }
     },
     "Tile": {
-        "grid": 844849,
+        "grid": 793649,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -16.0,
+            "x": -400.0,
             "y": -368.0
         },
         "sprite": {
@@ -198,14 +198,14 @@
         }
     },
     "Tile": {
-        "grid": 793649,
+        "grid": 844849,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -400.0,
+            "x": -16.0,
             "y": -368.0
         },
         "sprite": {
@@ -242,15 +242,15 @@
         }
     },
     "Tile": {
-        "grid": 729652,
+        "grid": 819249,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -880.0,
-            "y": -80.0
+            "x": -208.0,
+            "y": -368.0
         },
         "sprite": {
             "is_flip": false,
@@ -286,15 +286,15 @@
         }
     },
     "Tile": {
-        "grid": 819249,
+        "grid": 729652,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -208.0,
-            "y": -368.0
+            "x": -880.0,
+            "y": -80.0
         },
         "sprite": {
             "is_flip": false,
@@ -330,15 +330,15 @@
         }
     },
     "Tile": {
-        "grid": 934458,
+        "grid": 857649,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 656.0,
-            "y": 496.0
+            "x": 80.0,
+            "y": -368.0
         },
         "sprite": {
             "is_flip": false,
@@ -374,15 +374,15 @@
         }
     },
     "Tile": {
-        "grid": 857649,
+        "grid": 934458,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 80.0,
-            "y": -368.0
+            "x": 656.0,
+            "y": 496.0
         },
         "sprite": {
             "is_flip": false,
@@ -462,28 +462,6 @@
         }
     },
     "Tile": {
-        "grid": 729651,
-        "tile_type": 0,
-        "scale": {
-            "x": 96.0,
-            "y": 96.0
-        },
-        "pos": {
-            "x": -880.0,
-            "y": -176.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/Ground001.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 908849,
         "tile_type": 0,
         "scale": {
@@ -506,14 +484,14 @@
         }
     },
     "Tile": {
-        "grid": 819251,
+        "grid": 729651,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -208.0,
+            "x": -880.0,
             "y": -176.0
         },
         "sprite": {
@@ -550,15 +528,15 @@
         }
     },
     "Tile": {
-        "grid": 729656,
+        "grid": 819251,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -880.0,
-            "y": 304.0
+            "x": -208.0,
+            "y": -176.0
         },
         "sprite": {
             "is_flip": false,
@@ -581,6 +559,28 @@
         "pos": {
             "x": 656.0,
             "y": -368.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/Ground001.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 729656,
+        "tile_type": 0,
+        "scale": {
+            "x": 96.0,
+            "y": 96.0
+        },
+        "pos": {
+            "x": -880.0,
+            "y": 304.0
         },
         "sprite": {
             "is_flip": false,
@@ -638,15 +638,15 @@
         }
     },
     "Tile": {
-        "grid": 729650,
+        "grid": 844851,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -880.0,
-            "y": -272.0
+            "x": -16.0,
+            "y": -176.0
         },
         "sprite": {
             "is_flip": false,
@@ -682,15 +682,15 @@
         }
     },
     "Tile": {
-        "grid": 844851,
+        "grid": 729650,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -16.0,
-            "y": -176.0
+            "x": -880.0,
+            "y": -272.0
         },
         "sprite": {
             "is_flip": false,
@@ -726,15 +726,15 @@
         }
     },
     "Tile": {
-        "grid": 960050,
+        "grid": 908853,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 848.0,
-            "y": -272.0
+            "x": 464.0,
+            "y": 16.0
         },
         "sprite": {
             "is_flip": false,
@@ -748,15 +748,15 @@
         }
     },
     "Tile": {
-        "grid": 908853,
+        "grid": 960050,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 464.0,
-            "y": 16.0
+            "x": 848.0,
+            "y": -272.0
         },
         "sprite": {
             "is_flip": false,
@@ -814,15 +814,15 @@
         }
     },
     "Tile": {
-        "grid": 729653,
+        "grid": 960056,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -880.0,
-            "y": 16.0
+            "x": 848.0,
+            "y": 304.0
         },
         "sprite": {
             "is_flip": false,
@@ -836,15 +836,15 @@
         }
     },
     "Tile": {
-        "grid": 960056,
+        "grid": 729653,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 848.0,
-            "y": 304.0
+            "x": -880.0,
+            "y": 16.0
         },
         "sprite": {
             "is_flip": false,
@@ -946,28 +946,6 @@
         }
     },
     "Tile": {
-        "grid": 729654,
-        "tile_type": 0,
-        "scale": {
-            "x": 96.0,
-            "y": 96.0
-        },
-        "pos": {
-            "x": -880.0,
-            "y": 112.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Non_Ani/Ground001.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 755258,
         "tile_type": 0,
         "scale": {
@@ -990,15 +968,15 @@
         }
     },
     "Tile": {
-        "grid": 908858,
+        "grid": 729654,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 464.0,
-            "y": 496.0
+            "x": -880.0,
+            "y": 112.0
         },
         "sprite": {
             "is_flip": false,
@@ -1020,6 +998,28 @@
         },
         "pos": {
             "x": -592.0,
+            "y": 496.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Non_Ani/Ground001.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 908858,
+        "tile_type": 0,
+        "scale": {
+            "x": 96.0,
+            "y": 96.0
+        },
+        "pos": {
+            "x": 464.0,
             "y": 496.0
         },
         "sprite": {
@@ -1078,14 +1078,14 @@
         }
     },
     "Tile": {
-        "grid": 947258,
+        "grid": 806458,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": 752.0,
+            "x": -304.0,
             "y": 496.0
         },
         "sprite": {
@@ -1100,14 +1100,14 @@
         }
     },
     "Tile": {
-        "grid": 806458,
+        "grid": 947258,
         "tile_type": 0,
         "scale": {
             "x": 96.0,
             "y": 96.0
         },
         "pos": {
-            "x": -304.0,
+            "x": 752.0,
             "y": 496.0
         },
         "sprite": {
