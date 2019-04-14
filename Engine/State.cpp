@@ -61,7 +61,7 @@ void State::SaveLevel()
 		JSON_.SaveLevelObject(i.get(),level_indicator + "/", level_indicator);
 	}
 	JSON_.GetObjectDocument().SetObject();
-	/*for(auto& i : Tile_Map_.GetGraphicsTiles())
+	for(auto& i : Tile_Map_.GetGraphicsTiles())
 	{
 		JSON_.TilesToDocument(i.first, i.second, Tile_Type::Graphical, level_indicator + "/");
 	}
@@ -70,7 +70,7 @@ void State::SaveLevel()
 	{
 		JSON_.TilesToDocument(i.first,i.second, Tile_Type::Physical, level_indicator+"/");
 	}
-	JSON_.GetTileDocument().SetObject();*/
+	JSON_.GetTileDocument().SetObject();
 }
 
 void State::UnLoad()
@@ -104,15 +104,16 @@ void State::CreatePlayer()
 {
     Object* player = new Object();
     player->SetTranslation(Input::GetMousePos());
-    player->SetScale({ 50.0f, 50.0f });
+    player->SetScale({ 80.0f, 80.f });
     player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
     player->SetDepth(-0.5f);
     player->SetObjectType(ObjectType::Player);
+	player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 8, 0.05f, true));
     player->AddInitComponent(new RigidBody());
     player->AddInitComponent(new Collision(box_));
-    player->AddInitComponent(new Sprite("asset/images/Player_Static.png"));
-    //player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 5, 0.2f, true));
-    Objectmanager_.AddObject(player);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Capture.png", "capture", 4, 0.01f, false);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Jump.png", "jump", 12, 0.01f, false);
 
+    Objectmanager_.AddObject(player);
     Objectmanager_.SetPlayer(player);
 }

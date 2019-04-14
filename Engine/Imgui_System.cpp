@@ -298,13 +298,11 @@ void Imgui_System::ObjectCreator(bool object_creator)
 			s_pos->SetDepth(-0.5f);
 			s_pos->SetObjectType(ObjectType::Start_Pos);
 
-			
+			//Object* temp = Objectmanager_.GetCaptureCamera();
+			//temp->GetComponentByTemplate<Capture>()->SetResetPosition(s_pos->GetTransform().GetTranslation());
 
-			Object* temp = Objectmanager_.GetCaptureCamera();
-			temp->GetComponentByTemplate<Capture>()->SetResetPosition(s_pos->GetTransform().GetTranslation());
-
-			Object* temp_p = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
-			temp_p->SetTranslation(s_pos->GetTransform().GetTranslation());
+			//Object* temp_p = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			//temp_p->SetTranslation(s_pos->GetTransform().GetTranslation());
 
 			Objectmanager_.AddObject(s_pos);
 		}

@@ -62,9 +62,12 @@ void StateManager::ChangeStage()
 	m_currentState = states.find(next_level)->second.get();
 
 	m_currentState->LoadLevel(save);
-
-        m_currentState->CreateCaptureCamera();
-        m_currentState->CreatePlayer();
+    m_currentState->CreateCaptureCamera();
+    
+	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
+	{
+		m_currentState->CreatePlayer();
+	}
 
 	//m_currentState->Initialize();
 
@@ -96,19 +99,20 @@ void StateManager::Pause()
 
 void StateManager::Update(float dt)
 {
+     if (m_currentState->IsLevelChange())
+     {
+         ChangeStage();
+         if (m_currentState->GetPlayerObjectPointer())
+             m_currentState->GetPlayerObjectPointer()->GetTransform().SetTranslation(m_currentState->GetStartPosition());
+     }
+
+	if (m_currentState->IsBackToMenu())
+		BackToMenu();
+
 	if (m_pause == false)
 	{
 		m_currentState->Update(dt);
 	}
-
-        if (m_currentState->IsLevelChange())
-        {
-            ChangeStage();
-            if (m_currentState->GetPlayerObjectPointer())
-                m_currentState->GetPlayerObjectPointer()->GetTransform().SetTranslation(m_currentState->GetStartPosition());
-        }
-	if (m_currentState->IsBackToMenu())
-		BackToMenu();
 
 	//if (Input::IsKeyTriggered(GLFW_KEY_I))
 	//	Tile_Map_.Delete_Tile();

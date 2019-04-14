@@ -123,12 +123,14 @@ void RigidBody::MovePlayer()
 {
     auto o_collision = object->GetComponentByTemplate<Collision>();
     auto o_rigidbody = object->GetComponentByTemplate<RigidBody>();
+	auto o_animation = object->GetComponentByTemplate<Animation>();
+
     if (!o_collision->GetIsRight() && o_collision->GetIsLeft() || 
         (!o_collision->GetIsRightTile() &&  o_collision->GetIsLeftTile()))
     {
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
-            //object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            object->GetComponentByTemplate<Animation>()->SetFlip(false);
             o_rigidbody->SetVelocity({
                 m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -137,7 +139,7 @@ void RigidBody::MovePlayer()
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
-            //object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            object->GetComponentByTemplate<Animation>()->SetFlip(true);
             o_rigidbody->SetVelocity({
                 0,
                 o_rigidbody->GetVelocity().y
@@ -151,10 +153,7 @@ void RigidBody::MovePlayer()
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 o_collision->SetIsLeftTile(true);
-                o_rigidbody->SetVelocity(
-                    {
-                o_rigidbody->GetVelocity().x,
-                    m_velocity_limit.y});
+                o_rigidbody->SetVelocity({o_rigidbody->GetVelocity().x,m_velocity_limit.y});
                 o_rigidbody->SetJumping(true);
                 isYLimited = false;
             }
@@ -165,7 +164,7 @@ void RigidBody::MovePlayer()
     {
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
-            //object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            object->GetComponentByTemplate<Animation>()->SetFlip(false);
             o_rigidbody->SetVelocity({
                 0,
                 o_rigidbody->GetVelocity().y
@@ -174,7 +173,7 @@ void RigidBody::MovePlayer()
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
-            //object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            object->GetComponentByTemplate<Animation>()->SetFlip(true);
             o_rigidbody->SetVelocity({
                 -m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -200,7 +199,7 @@ void RigidBody::MovePlayer()
     {
         if (Input::IsKeyPressed(GLFW_KEY_D))
         {
-            //object->GetComponentByTemplate<Animation>()->SetFlip(false);
+            object->GetComponentByTemplate<Animation>()->SetFlip(false);
             o_rigidbody->SetVelocity({
                 m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -209,7 +208,7 @@ void RigidBody::MovePlayer()
         }
         if (Input::IsKeyPressed(GLFW_KEY_A))
         {
-            //object->GetComponentByTemplate<Animation>()->SetFlip(true);
+            object->GetComponentByTemplate<Animation>()->SetFlip(true);
             o_rigidbody->SetVelocity({
                 -m_velocity_limit.x,
                 o_rigidbody->GetVelocity().y
@@ -238,4 +237,24 @@ void RigidBody::MovePlayer()
         o_rigidbody->SetVelocity(
             { o_rigidbody->GetVelocity().x * m_friction, o_rigidbody->GetVelocity().y });
     }
+
+	if (Input::IsKeyTriggered(GLFW_KEY_A))
+	{
+		o_animation->SetFlip(true);
+	}
+
+	if (Input::IsKeyTriggered(GLFW_KEY_D))
+	{
+		o_animation->SetFlip(false);
+	}
+
+	//if (Input::IsKeyTriggered(GLFW_KEY_W))
+	//{
+	//	o_animation->ChangeAnimation("jump");
+	//}
+
+	//if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	//{
+	//	o_animation->ChangeAnimation("capture");
+	//}
 }

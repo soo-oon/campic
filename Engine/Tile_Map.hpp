@@ -6,7 +6,7 @@
 #include <vector>
 #include "Application.hpp"
 
-const int TILE_SIZE = 48;
+const int TILE_SIZE = 96;
 const int TEMP_WIDTH = 12800;
 const int TEMP_HEIGHT = 10240;
 

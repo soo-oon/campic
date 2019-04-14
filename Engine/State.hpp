@@ -55,6 +55,7 @@ public:
 	vector2 GetStartPosition() { return start_pos; }
 	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
 	std::string GetLevelIndicator() { return level_indicator; }
+	State_Information GetCurrentStateInfo() { return information_; }
 
 	Object* GetPlayerObjectPointer() { return player_obj; }
 	Object* GetCaptureObjectPointer() { return capture_obj; }
