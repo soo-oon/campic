@@ -29,7 +29,8 @@ void JSON::Quit()
 
 void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::string& path)
 {
-    if(obj->GetObjectType() == ObjectType::Capture_Camera ||obj->GetObjectType() == ObjectType::Player 
+    if(obj->GetObjectType() == ObjectType::Capture_Camera ||obj->GetObjectType() == ObjectType::Player
+		|| obj->GetObjectType() == ObjectType::Capture_Camera_main
         || obj->GetObjectType() == ObjectType::Capture_Obj || obj->GetObjectType() == ObjectType::Polaroid)
         return;
 	//Trees for object info

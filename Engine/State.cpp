@@ -91,7 +91,7 @@ void State::CreateCaptureCamera()
     player_camera->SetScale({ 300.0f, 175.0f });
     player_camera->SetDepth(-0.2f);
     player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-    player_camera->SetObjectType(ObjectType::Capture_Camera);
+    player_camera->SetObjectType(ObjectType::Capture_Camera_main);
     player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
     player_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
     player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
@@ -104,15 +104,16 @@ void State::CreatePlayer()
 {
     Object* player = new Object();
     player->SetTranslation(Input::GetMousePos());
-    player->SetScale({ 50.0f, 50.0f });
+    player->SetScale({ 80.0f, 80.f });
     player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
     player->SetDepth(-0.5f);
     player->SetObjectType(ObjectType::Player);
+	player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 8, 0.05f, true));
     player->AddInitComponent(new RigidBody());
     player->AddInitComponent(new Collision(box_));
-    player->AddInitComponent(new Sprite("asset/images/Player_Static.png"));
-    //player->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 5, 0.2f, true));
-    Objectmanager_.AddObject(player);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Capture.png", "capture", 4, 0.01f, false);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Jump.png", "jump", 12, 0.01f, false);
 
+    Objectmanager_.AddObject(player);
     Objectmanager_.SetPlayer(player);
 }

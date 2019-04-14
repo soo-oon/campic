@@ -40,6 +40,7 @@ public:
     std::vector<std::shared_ptr<Object>>& GetObjectMap() { return objects_; }
     void SetCaptureObject(Object* obj);
     void SetPlayer(Object* obj);
+	Object* GetCaptureCamera();
 
 private:
 	std::vector<std::shared_ptr<Object>> objects_;

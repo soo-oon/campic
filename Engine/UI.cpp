@@ -1,6 +1,6 @@
 #include "UI.hpp"
 
-UI::UI(std::string id_) : id(id_)
+UI::UI(std::string id_,bool IsLock_) : id(id_), IsLock(IsLock_)
 {
 }
 

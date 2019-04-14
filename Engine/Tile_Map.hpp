@@ -6,7 +6,7 @@
 #include <vector>
 #include "Application.hpp"
 
-const int TILE_SIZE = 48;
+const int TILE_SIZE = 96;
 const int TEMP_WIDTH = 12800;
 const int TEMP_HEIGHT = 10240;
 
@@ -48,6 +48,9 @@ public:
 
     void InsertGraphicalTiles(int grid_, Object* tiles);
     void InsertPhysicalTiles(int grid_, Object* tiles);
+
+	void ClearGraphicTiles() { graphics_tiles.clear(); }
+	void ClearPhysicalTiles() { physical_tiles.clear(); }
 
 private:
     void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);

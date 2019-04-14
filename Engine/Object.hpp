@@ -39,6 +39,7 @@ enum class ObjectType {
 	Tile,
 	Button,
 	Polaroid,
+	Capture_Camera_main,
     Capture_Camera,
     Start_Pos,
     None,
