@@ -71,6 +71,8 @@ private:
 	bool is_runtime_change = false;
 	bool isoutside = false;
 
+        bool isCollisionSizeBig = false;
+
 	float temp_zoom = 1.0f;
 	float zoom = 1.0f;
 	vector2 reset_pos;

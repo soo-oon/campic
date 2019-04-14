@@ -87,8 +87,10 @@ void StopReaction(Object* object, Object* object_,bool ground)
         object->GetComponentByTemplate<Collision>()->SetIsGround(ground);
         object->GetComponentByTemplate<RigidBody>()->SetJumping(!ground);
         object->GetTransform().SetTranslation({
-                object->GetTransform().GetTranslation().x,
-            object_->GetTransform().GetTranslation().y + object_->GetTransform().GetScale().y / 2 + object->GetTransform().GetScale().y / 2 + 1
+                object->GetComponentByTemplate < Collision > ()->GetCollisionTransform().GetTranslation().x,
+            object_->GetComponentByTemplate < Collision >()->GetCollisionTransform().GetTranslation().y 
+            + object_->GetComponentByTemplate < Collision >()->GetCollisionTransform().GetScale().y / 2 
+            + object->GetComponentByTemplate < Collision >()->GetCollisionTransform().GetScale().y / 2 + 1
             });
                 //object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().x,
                 //object->GetComponentByTemplate<RigidBody>()->GetPreviousPosition().y });
