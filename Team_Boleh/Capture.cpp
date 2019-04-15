@@ -54,7 +54,7 @@ void Capture::Update(float dt)
     if (Input::IsKeyTriggered(GLFW_KEY_KP_6))
         isCollisionSizeBig = false;
 
-	//Capture_Camera_Move();
+	Capture_Camera_Move();
 
     /*for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
     {
@@ -111,6 +111,7 @@ void Capture::Capture_Camera_Move()
 
 	if(prev_mouse_pos != current_mouse_pos)
 	{
+		save_temp = object->GetTransform().GetTranslation();
 		object->SetTranslation(current_mouse_pos);
 		prev_mouse_pos = current_mouse_pos;
 	}
@@ -119,6 +120,7 @@ void Capture::Capture_Camera_Move()
 		if(auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 			player_ != nullptr)
 		{
+			object->SetTranslation(save_temp + player_->GetComponentByTemplate<Player>()->GetMouseOffset());
 		}
 	}
 

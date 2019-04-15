@@ -85,6 +85,7 @@ private:
 	Object* zoomobject = nullptr;
 	Object* player = nullptr;
 	vector2 prev_mouse_pos;
+	vector2 save_temp;
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
 	std::vector<Object*> not_area_contian_object;

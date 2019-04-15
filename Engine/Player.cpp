@@ -65,5 +65,7 @@ void Player::MouseTest()
 	else
 	{
 		offset = object->GetTransform().GetTranslation() - save_pos;
+
+		//std::cout << offset.x << ", " << offset.y << std::endl;
 	}
 }
