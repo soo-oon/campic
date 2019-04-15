@@ -103,11 +103,11 @@ void Graphics::Update(float dt)
         Iscamera = false;
     }
 
-    int w, h;
-
-    glfwGetWindowSize(Application_.GetWindow(), &w, &h);
-    displaysize.x = static_cast<float>(w);
-    displaysize.y = static_cast<float>(h);
+    //int w, h;
+	//glfwGetWindowSize(Application_.GetWindow(), &w, &h);
+	//const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    displaysize.x = static_cast<float>(Application_.GetScreenSize().x);
+    displaysize.y = static_cast<float>(Application_.GetScreenSize().y);
 
     glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 
@@ -139,33 +139,36 @@ void Graphics::Draw()
 					}
 				}
 
-				if (auto temp = obj->GetComponentByTemplate<Collision>(); 
-					temp != nullptr)
+				if (IsDraw(obj.get()))
 				{
-					DrawCollisionBox(obj.get(), temp);
-				}
+					if (auto temp = obj->GetComponentByTemplate<Collision>();
+						temp != nullptr)
+					{
+						DrawCollisionBox(obj.get(), temp);
+					}
 
-				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
-				{
-					DrawSprite(obj.get(), temp_sprite);
-				}
-				else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
-				{
-					DrawAnimation(obj.get(), temp_animation);
-				}
-				else if (obj->GetMesh().GetPointCount())
-				{
-					DrawSolidShape(obj.get());
-				}
+					if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+					{
+						DrawSprite(obj.get(), temp_sprite);
+					}
+					else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+					{
+						DrawAnimation(obj.get(), temp_animation);
+					}
+					else if (obj->GetMesh().GetPointCount())
+					{
+						DrawSolidShape(obj.get());
+					}
 
-				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
-				{
-					DrawParticle(temp);
-				}
+					if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+					{
+						DrawParticle(temp);
+					}
 
-				if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
-				{
-					DrawFont(obj.get(), temp);
+					if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+					{
+						DrawFont(obj.get(), temp);
+					}
 				}
 
 			}
@@ -181,35 +184,37 @@ void Graphics::HUD_Draw()
 		{
 			if (obj->GetMesh().IsVisible())
 			{
-				if (auto temp = obj->GetComponentByTemplate<Collision>();
-					temp != nullptr)
+				if (IsDraw(obj.get()))
 				{
-					DrawCollisionBox(obj.get(), temp);
-				}
+					if (auto temp = obj->GetComponentByTemplate<Collision>();
+						temp != nullptr)
+					{
+						DrawCollisionBox(obj.get(), temp);
+					}
 
-				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
-				{
-					DrawSprite(obj.get(), temp_sprite);
-				}
-				else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
-				{
-					DrawAnimation(obj.get(), temp_animation);
-				}
-				else if (obj->GetMesh().GetPointCount())
-				{
-					DrawSolidShape(obj.get());
-				}
+					if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+					{
+						DrawSprite(obj.get(), temp_sprite);
+					}
+					else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+					{
+						DrawAnimation(obj.get(), temp_animation);
+					}
+					else if (obj->GetMesh().GetPointCount())
+					{
+						DrawSolidShape(obj.get());
+					}
 
-				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
-				{
-					DrawParticle(temp);
-				}
+					if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+					{
+						DrawParticle(temp);
+					}
 
-				if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
-				{
-					DrawFont(obj.get(), temp);
+					if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+					{
+						DrawFont(obj.get(), temp);
+					}
 				}
-
 			}
 		}
 	}
@@ -221,15 +226,18 @@ void Graphics::Tile_Draw()
 	{	
 		for (auto it = Tile_Map_.GetGraphicsTiles().begin(); it != Tile_Map_.GetGraphicsTiles().end(); ++it)
 		{
-			if(auto temp_sprite = it->second->GetComponentByTemplate<Sprite>(); 
-				temp_sprite != nullptr)
+			if (IsDraw(it->second))
 			{
-				DrawSprite(it->second, temp_sprite);
-			}
-			else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>(); 
-				temp_animation != nullptr)
-			{
-				DrawAnimation(it->second, temp_animation);
+				if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>();
+					temp_sprite != nullptr)
+				{
+					DrawSprite(it->second, temp_sprite);
+				}
+				else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>();
+					temp_animation != nullptr)
+				{
+					DrawAnimation(it->second, temp_animation);
+				}
 			}
 		}
     }
@@ -244,16 +252,18 @@ void Graphics::Tile_Draw()
 			{
 				DrawCollisionBox(it->second, temp);
 			}	*/
-
-			if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>();
-				temp_sprite != nullptr)
+			if (IsDraw(it->second))
 			{
-				DrawSprite(it->second, temp_sprite);
-			}
-			else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>();
-				temp_animation != nullptr)
-			{
-				DrawAnimation(it->second, temp_animation);
+				if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>();
+					temp_sprite != nullptr)
+				{
+					DrawSprite(it->second, temp_sprite);
+				}
+				else if (auto temp_animation = it->second->GetComponentByTemplate<Animation>();
+					temp_animation != nullptr)
+				{
+					DrawAnimation(it->second, temp_animation);
+				}
 			}
 		}
 	}
@@ -263,6 +273,28 @@ void Graphics::Tile_Draw()
 void Graphics::EndDraw()
 {
     glFinish();
+}
+
+bool Graphics::IsDraw(Object* obj)
+{
+	float cameraRadius = 0.5f * sqrt(displaysize.x * displaysize.x +
+		displaysize.y * displaysize.y);
+
+	if (temp_camera != nullptr)
+	{
+		if (obj->GetTransform().GetTranslation().x > temp_camera->GetCenter().x - cameraRadius &&
+			obj->GetTransform().GetTranslation().x < temp_camera->GetCenter().x + cameraRadius &&
+			obj->GetTransform().GetTranslation().y > temp_camera->GetCenter().y - cameraRadius &&
+			obj->GetTransform().GetTranslation().y < temp_camera->GetCenter().y + cameraRadius)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Graphics::Quit()

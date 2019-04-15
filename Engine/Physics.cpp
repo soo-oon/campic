@@ -129,13 +129,16 @@ void Physics::Update(float dt)
                 {
                     for (auto tile : tile_list)
                     {
-                        if(p_rigidbody->GetVelocity().y > 0)
+                        if (IntersectionCheckAABBUpperCase(collision_list[i], tile))
                         {
-                            if (IntersectionCheckAABBUpperCase(collision_list[i], tile))
+                            if(p_rigidbody->GetVelocity().y > 0)
                             {
                                 p_rigidbody->SetVelocity({ p_rigidbody->GetVelocity().x ,0 });
                             }
+                            p_collision->SetIsCelling(true);
+                            break;
                         }
+                        p_collision->SetIsCelling(false);
                         //if (p_rigidbody->GetVelocity().x != 0)
                         //{
                         //    if (IntersectionCheckNextPosition(collision_list[i], tile))
@@ -193,13 +196,15 @@ void Physics::Update(float dt)
                             )
                         {
                             p_collision->SetIsCapobj(false);
+                            p_collision->SetIsCelling(false);
+                            if (IntersectionCheckAABBUpperCase(collision_list[i], capture))
+                            {
                             if (p_rigidbody->GetVelocity().y > 0)
                             {
-                                // You should only Upside check you know?
-                                if (IntersectionCheckAABBUpperCase(collision_list[i], capture))
-                                {
                                     p_rigidbody->SetVelocity({ p_rigidbody->GetVelocity().x ,0 });
                                 }
+                            p_collision->SetIsCelling(true);
+                            break;
                             }
                             if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture->GetTransform().GetScale().x /2
                                 <= capture->GetTransform().GetTranslation().x - 3
@@ -562,7 +567,7 @@ bool Physics::IntersectionCheckAABBUpperCase(Object* object1, Object* object2)
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
         object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 + 3,
-        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2 - 10
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y //+ object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
     };
     max_obj = {
         object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 - 3,

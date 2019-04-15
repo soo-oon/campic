@@ -25,22 +25,47 @@ bool Player::Initialize(Object * Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
-		//object->SetTranslation({ 0,0 });
-		//object->SetScale({ 50.0f, 50.0f });
-		//object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-		//object->SetDepth(-0.5f);
-  //              object->AddInitComponent(new RigidBody());
-		//object->AddInitComponent(new Collision(box_));
-		//object->AddInitComponent(new Animation("asset/images/Enemies/1_Right.png", "player", 5, 0.2f, true));
-		//object->SetObjectType(ObjectType::Player);
+		object->SetScale({ 80.0f, 80.f });
+		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+		object->SetDepth(-0.6f);
+		object->SetObjectType(ObjectType::Player);
+		object->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 8, 0.05f, true));
+		object->AddInitComponent(new RigidBody());
+		object->AddInitComponent(new Collision(box_));
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Capture.png", "capture", 4, 0.01f, false);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Jump.png", "jump", 12, 0.01f, false);
 	}
 	return true;
 }
 
 void Player::Update(float dt)
 {
+	if(auto camera = Graphics_.GetCurrentCamera();
+		camera != nullptr)
+	{
+		camera->SetCenter(object->GetTransform().GetTranslation());
+	}
+	MouseTest();
 }
 
 void Player::Delete()
 {
+}
+
+void Player::MouseTest()
+{
+	vector2 current_mouse_pos = Input::GetMousePos();
+
+	if (prev_mouse_pos != current_mouse_pos)
+	{
+		offset = {};
+		save_pos = object->GetTransform().GetTranslation();
+		prev_mouse_pos = current_mouse_pos;
+	}
+	else
+	{
+		offset = object->GetTransform().GetTranslation() - save_pos;
+
+		//std::cout << offset.x << ", " << offset.y << std::endl;
+	}
 }

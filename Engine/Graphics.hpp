@@ -40,11 +40,14 @@ public:
 	void Update(float dt);
 	void Quit();
 
+	Camera* GetCurrentCamera() { return temp_camera; }
 	void BeginDraw();
 	void Draw();
 	void HUD_Draw();
     void Tile_Draw();
 	void EndDraw();
+	bool IsDraw(Object* obj);
+
 
 	void SetNDC();
 
@@ -97,26 +100,6 @@ private:
 	void DrawParticle(Particle_Generator* particles);
 
 	void DrawFont(Object* obj, Font* font);
-
-	/*
-	void Draw(const Transform& transform, const std::vector<solidshape>& vertexes,
-		PointListType draw_type, Color color);
-
-	void Draw(const Transform& transform, const std::vector<collsionbox>& vertexes,
-		PointListType draw_type, Color color);
-
-	void Draw(const Transform& transform, const std::vector<texture>& vertexes,
-		PointListType draw_type, Color color, Sprite* sprite);
-
-	void Draw(const Transform& transform, const std::vector<animaition>& vertexes,
-		PointListType draw_type, Color color, Sprite* sprite);
-
-	void Draw(const Transform& transform, const std::vector<particle>& vertexes,
-		PointListType draw_type, Color color, Sprite* sprite);
-
-	void Draw(const Transform& transform, const std::vector<font>& vertexes,
-		PointListType draw_type, Color color, Font* font, int index);
-	*/
 
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();

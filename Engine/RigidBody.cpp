@@ -108,7 +108,7 @@ void RigidBody::Update(float dt)
     if (isYLimited)
         m_velocity_limit.y = 800;
     else
-        m_velocity_limit.y = 300;
+        m_velocity_limit.y = 400;
     if (isXLimited)
         m_velocity_limit.x = 500;
     else
@@ -124,6 +124,7 @@ void RigidBody::MovePlayer()
     auto o_collision = object->GetComponentByTemplate<Collision>();
     auto o_rigidbody = object->GetComponentByTemplate<RigidBody>();
 	auto o_animation = object->GetComponentByTemplate<Animation>();
+	auto playe_c = object->GetComponentByTemplate<Player>();
 
     if (!o_collision->GetIsRight() && o_collision->GetIsLeft() || 
         (!o_collision->GetIsRightTile() &&  o_collision->GetIsLeftTile()))
@@ -228,15 +229,25 @@ void RigidBody::MovePlayer()
             }
         }
     }
-    if (Input::IsKeyReleased(GLFW_KEY_A))
-        key_press_a = false;
-    if (Input::IsKeyReleased(GLFW_KEY_D))
-        key_press_d = false;
+	if (Input::IsKeyReleased(GLFW_KEY_A))
+	{
+		key_press_a = false;
+	}
+	if (Input::IsKeyReleased(GLFW_KEY_D))
+	{
+		key_press_d = false;
+	}
     if (!key_press_a && !key_press_d)
     {
         o_rigidbody->SetVelocity(
             { o_rigidbody->GetVelocity().x * m_friction, o_rigidbody->GetVelocity().y });
+		playe_c->SetIsMove(false);
     }
+
+	if(key_press_a || key_press_d)
+	{
+		playe_c->SetIsMove(true);
+	}
 
 	if (Input::IsKeyTriggered(GLFW_KEY_A))
 	{

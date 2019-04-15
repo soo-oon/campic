@@ -4,6 +4,7 @@
 #include <iostream>
 #include "State.hpp"
 #include "Projectile.hpp"
+#include "Player.hpp"
 
 bool Capture::Initialize(Object* Ob)
 {
@@ -52,9 +53,8 @@ void Capture::Update(float dt)
         isCollisionSizeBig = true;
     if (Input::IsKeyTriggered(GLFW_KEY_KP_6))
         isCollisionSizeBig = false;
-    vector2 mouse_pos = Input::GetMousePos();
 
-    object->SetTranslation(mouse_pos);
+	Capture_Camera_Move();
 
     /*for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
     {
@@ -103,6 +103,27 @@ void Capture::Update(float dt)
 
 void Capture::Delete()
 {
+}
+
+void Capture::Capture_Camera_Move()
+{
+	vector2 current_mouse_pos = Input::GetMousePos();
+
+	if(prev_mouse_pos != current_mouse_pos)
+	{
+		save_temp = object->GetTransform().GetTranslation();
+		object->SetTranslation(current_mouse_pos);
+		prev_mouse_pos = current_mouse_pos;
+	}
+	else
+	{
+		if(auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			player_ != nullptr)
+		{
+			object->SetTranslation(save_temp + player_->GetComponentByTemplate<Player>()->GetMouseOffset());
+		}
+	}
+
 }
 
 void Capture::SetZoomMinMax(float max, float min)
@@ -345,48 +366,68 @@ void Capture::CameraZoomInOut()
 		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player ||
 			obj->GetObjectType() == ObjectType::Projectile) && obj.get() != object)
 		{
-			if (!obj->IsOutSide())
-			{
-				if (!obj->IsDifferZoomSize())
-				{
-					vector2 scale = obj->GetTransform().GetScale();
-					obj->SetScale(scale * zoom);
+                    if (!obj->IsOutSide())
+                    {
+                        if (!obj->IsDifferZoomSize())
+                        {
 
-					if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
-						temp_collision != nullptr)
-					{
+                            if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+                                temp_collision != nullptr)
+                            {
+                                CollisionChangeZoomInOut(obj.get(), temp_collision);
+                                if (isCollisionSizeBig)
+                                    temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                            }
+                            vector2 scale = obj->GetTransform().GetScale();
+                            if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
+                            {
+                                if (const_zoom < zoom)
+                                    obj->SetScale(scale * const_zoom);
+                                else
+                                    obj->SetScale(scale * zoom);
+                            }
+                            else
+                                obj->SetScale(scale * zoom);
 
-						CollisionChangeZoomInOut(obj.get(), temp_collision);
-                                            if(isCollisionSizeBig)
-						temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
-					}
+                            obj->SetZoomDifferCondition(true);
+                        }
+                        else
+                        {
+                            if (is_runtime_change)
+                            {
+                                for (auto size : original_scale)
+                                {
+                                    if (obj.get() == size.second)
+                                    {
 
-					obj->SetZoomDifferCondition(true);
-				}
-				else
-				{
-					if (is_runtime_change)
-					{
-						for (auto size : original_scale)
-						{
-							if (obj.get() == size.second)
-							{
-								vector2 scale = size.first;
-								obj->SetScale(scale * zoom);
+                                        if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+                                            temp_collision != nullptr)
+                                        {
+                                            CollisionChangeZoomInOut(obj.get(), temp_collision);
+                                            if (isCollisionSizeBig)
+                                                temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                                        }
+                                        vector2 scale = size.first;
+                                        if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
+                                        {
+                                            if (const_zoom < zoom)
+                                                obj->SetScale(scale * const_zoom);
+                                            else
+                                                obj->SetScale(scale * zoom);
+                                        }
+                                        else
+                                            obj->SetScale(scale * zoom);
 
-								if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
-									temp_collision != nullptr)
-								{
-									CollisionChangeZoomInOut(obj.get(), temp_collision);
-                                                                        if (isCollisionSizeBig)
-									temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
-								}
-								obj->SetZoomDifferCondition(true);
-							}
-						}
-					}
-				}
-			}
+                                        obj->SetZoomDifferCondition(true);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        zoom = 1.f;
+                        const_zoom = 0.f;
+                    }
 		}
     }
 }
@@ -465,6 +506,12 @@ void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)
                 else
                 collision->GetCollisionTransform().SetTranslation({ translation.x - offset.x, translation.y });
 	}
+        
+        if(collision->GetIsCelling())
+        {
+            if(const_zoom == 0.f)
+                const_zoom = zoom;
+        }
 }
 
 void Capture::SlowMode()

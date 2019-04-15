@@ -26,11 +26,18 @@ public:
 	bool Initialize(Object* Ob);
 	void Update(float dt);
 	void Delete();
-	void MovePlayer();
+
+	void SetIsMove(bool condition) { ismove = condition; }
+	bool IsMove() { return ismove; }
+
+	vector2 GetMouseOffset() { return offset; }
 	//void PlayerMove(vector2 mouse_position);
 
 private:
-
-
+	bool ismove = false;
+	void MouseTest();
 	vector2 direction;
+	vector2 prev_mouse_pos;
+	vector2 offset{};
+	vector2 save_pos{};
 };
