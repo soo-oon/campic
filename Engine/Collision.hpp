@@ -65,6 +65,7 @@ public:
     void SetIsLeftTile(bool lt) { isLeftTile = lt; }
     void SetIsRight(bool r) { isRight = r; }
     void SetIsRightTile(bool rt) { isRightTile = rt; }
+    void SetIsCelling(bool cell) { isCelling = cell; }
     void SetCollisionScale(vector2 size_);
     void SetJumpingitutionType(RestitutionType restitution);
     void SetFilter(Filter filter) { m_filter = filter; }
@@ -80,6 +81,7 @@ public:
     bool GetIsLeftTile() { return isLeftTile; }
     bool GetIsRight() { return isRight; }
     bool GetIsRightTile() { return isRightTile; }
+    bool GetIsCelling() { return isCelling; }
 	bool GetIsCollideItem() {return isItem;}
 
     Filter GetFilter() { return m_filter; }
@@ -109,6 +111,7 @@ private:
     bool isStopped = false;
     bool isLeft = false;
     bool isRight = false;
+    bool isCelling = false;
     bool isdoor = false;
 	bool isItem = false;
 };
