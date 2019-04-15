@@ -4,6 +4,7 @@
 #include <iostream>
 #include "State.hpp"
 #include "Projectile.hpp"
+#include "Player.hpp"
 
 bool Capture::Initialize(Object* Ob)
 {
@@ -52,9 +53,8 @@ void Capture::Update(float dt)
         isCollisionSizeBig = true;
     if (Input::IsKeyTriggered(GLFW_KEY_KP_6))
         isCollisionSizeBig = false;
-    vector2 mouse_pos = Input::GetMousePos();
 
-    object->SetTranslation(mouse_pos);
+	//Capture_Camera_Move();
 
     /*for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
     {
@@ -103,6 +103,25 @@ void Capture::Update(float dt)
 
 void Capture::Delete()
 {
+}
+
+void Capture::Capture_Camera_Move()
+{
+	vector2 current_mouse_pos = Input::GetMousePos();
+
+	if(prev_mouse_pos != current_mouse_pos)
+	{
+		object->SetTranslation(current_mouse_pos);
+		prev_mouse_pos = current_mouse_pos;
+	}
+	else
+	{
+		if(auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			player_ != nullptr)
+		{
+		}
+	}
+
 }
 
 void Capture::SetZoomMinMax(float max, float min)

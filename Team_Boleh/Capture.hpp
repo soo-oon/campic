@@ -15,6 +15,8 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
+	void Capture_Camera_Move();
+
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
 	void SetFilter(Filter filter) { m_c_filter = filter; }
@@ -82,6 +84,7 @@ private:
 	Object* zoombutton = nullptr;
 	Object* zoomobject = nullptr;
 	Object* player = nullptr;
+	vector2 prev_mouse_pos;
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
 	std::vector<Object*> not_area_contian_object;

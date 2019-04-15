@@ -44,6 +44,9 @@ public:
     void SetVelocityLimit(vector2 velo) { m_velocity_limit = velo; }
     void SetYLimited(bool limit) { isYLimited = limit; }
     void SetXLimited(bool limit) { isXLimited = limit; }
+	void SetKeyAPress(bool condition) { key_press_a = condition; }
+	void SetKeyDPress(bool condition) { key_press_d = condition; }
+
 
 public:
     vector2 GetVelocityLimit() { return m_velocity_limit; }
@@ -54,10 +57,13 @@ public:
     vector2 GetNextPosition() { return m_next_position; }
     float GetGravity() { return m_gravity; }
     float GetSlowMode() { return m_slowmode; }
+	float GetFriction() { return m_friction; }
     bool GetJumping() { return isJumping; }
     bool GetMoving() { return isMoving; }
     bool GetYLimited() { return isYLimited; }
     bool GetXLimited() { return isXLimited; }
+	bool GetKeyAPress() { return key_press_a; }
+	bool GetKeyDPress() { return key_press_d; }
 
 private:
     vector2 m_previous_position;
@@ -72,8 +78,6 @@ private:
     float m_gravity = 10.f;
     float m_inverse_mass = 1;
     float m_slowmode = 1.f;
-
-
 
     bool isYLimited = false;
     bool isXLimited = false;

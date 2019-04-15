@@ -5,6 +5,11 @@
 
 void Level::Initialize()
 {
+	Object* camera = new Object();
+	camera->SetObjectType(ObjectType::Camera);
+	camera->AddComponent(new Camera("Level"));
+
+	Objectmanager_.AddObject(camera);
 }
 
 void Level::Update(float dt)

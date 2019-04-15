@@ -104,7 +104,8 @@ void State::CreatePlayer()
 {
     Object* player = new Object();
     player->SetTranslation(Input::GetMousePos());
-    player->SetScale({ 80.0f, 80.f });
+	player->AddInitComponent(new Player());
+    /*player->SetScale({ 80.0f, 80.f });
     player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
     player->SetDepth(-0.6f);
     player->SetObjectType(ObjectType::Player);
@@ -112,7 +113,7 @@ void State::CreatePlayer()
     player->AddInitComponent(new RigidBody());
     player->AddInitComponent(new Collision(box_));
 	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Capture.png", "capture", 4, 0.01f, false);
-	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Jump.png", "jump", 12, 0.01f, false);
+	player->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Jump.png", "jump", 12, 0.01f, false);*/
 
     Objectmanager_.AddObject(player);
     Objectmanager_.SetPlayer(player);
