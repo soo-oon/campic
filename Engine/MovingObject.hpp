@@ -1,3 +1,15 @@
+/* Start Header ---------------------------------------------------------------
+Copyright (C) 2018 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name     : MovingObject.hpp
+Language      : C++
+Platform      : Visual Studio 2017
+Project       : CAM_PIC
+Primary       : HyunSung Kim
+Secondary     :
+Creation date : 2019/04/13
+- End Header ----------------------------------------------------------------*/
 #pragma once
 #include <iostream>
 #include "Component.hpp"
@@ -39,20 +51,20 @@ public:
 public:
 	vector2   GetInitPosition() const { return m_InitPosition; }
 	vector2   GetGoalPosition() const { return m_GoalPosition; }
-	float     GetDistance() const     { return m_Distance;     }
-	Direction GetDirection() const    { return m_WhichWay;     }
-	MovementType GetMoveType() const  { return m_MoveType;     }
-	float     GetVelocity() const     { return m_Velocity;     }
-	float     GetDt() const { return m_dt; }
-	float     GetMoveTime() const { return m_MoveTime; }
+	float     GetDistance()     const { return m_Distance;     }
+	Direction GetDirection()    const { return m_WhichWay;     }
+	MovementType GetMoveType()  const { return m_MoveType;     }
+	float     GetVelocity()     const { return m_Velocity;     }
+	float     GetDt()           const { return m_dt;           }
+	float     GetMoveTime()     const { return m_MoveTime;     }
 	void SetInitPosition(vector2 InitPosition) { m_InitPosition = InitPosition; }
 	void SetGoalPosition(vector2 GoalPosition) { m_GoalPosition = GoalPosition; }
-	void SetDistance(float Distance)           { m_Distance = Distance;         }
-	void SetDirection(Direction WhichWay)      { m_WhichWay = WhichWay;         }
-	void SetVelocity(float Velocity)		   { m_Velocity = Velocity;         }
-	void SetDt(float dt) { m_dt = dt; }
-	void SetMoveTime(float time) { m_MoveTime = time; }
-	void SetMovementType(MovementType type) { m_MoveType = type; }
+	void SetDistance(float Distance)           {     m_Distance = Distance;     }
+	void SetDirection(Direction WhichWay)      {     m_WhichWay = WhichWay;     }
+	void SetVelocity(float Velocity)		   {     m_Velocity = Velocity;     }
+	void SetDt(float dt)                       {           m_dt = dt;           }
+	void SetMoveTime(float time)               {     m_MoveTime = time;         }
+	void SetMovementType(MovementType type)    {     m_MoveType = type;         }
 public:
 	void SetRoundBoundary(Direction WhichWay);
 private:
