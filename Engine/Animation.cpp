@@ -98,6 +98,11 @@ void Animation::Imgui_Animation()
 		ImGui::InputFloat("update_frame", &current_animation.update_frames, 0.f, 1.f);
 		ImGui::InputInt("image frame", &current_animation.image_frames, 0, 20);
 
+	/*	if (ImGui::Button("Flip"))
+		{
+			SetFlip(!flip);
+		}*/
+
 		ImGui::TreePop();
 	}
 

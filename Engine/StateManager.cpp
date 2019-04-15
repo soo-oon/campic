@@ -72,7 +72,7 @@ void StateManager::ChangeStage()
 		m_currentState->CreatePlayer();
 	}
 
-	//m_currentState->Initialize();
+	m_currentState->Initialize();
 
 	Physics_.ResetPreviousSize();
 }

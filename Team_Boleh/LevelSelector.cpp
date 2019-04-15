@@ -7,11 +7,16 @@ void LevelSelector::Initialize()
 
 	std::string text = "Level";
 
-	float base_y = 0.f;
+	float base_y = 50.f;
 
-	for(int i = 1; i <= 5; ++i)
+	for(int i = 1,j=1; i <= 10; ++i,++j)
 	{
-		CreateLevelButton(vector2(-350.f+(120.f*i), base_y), vector2(100, 100), text + std::to_string(i), text+std::to_string(i));
+		if(i == 6)
+		{
+			base_y -= 150;
+			j = 1;
+		}
+		CreateLevelButton(vector2(-350.f+(120.f*j), base_y), vector2(100, 100), text + std::to_string(i), text+std::to_string(i));
 		text = "Level";
 	}
 }

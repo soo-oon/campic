@@ -14,7 +14,7 @@
                 "y": 100.0
             },
             "rotation": 0.0,
-            "depth": -0.5000000074505806
+            "depth": -0.5
         },
         "Sprite": {},
         "Animation": {
@@ -59,7 +59,7 @@
                 "y": 100.0
             },
             "rotation": 0.0,
-            "depth": -0.5000000074505806
+            "depth": -0.5
         },
         "Sprite": {},
         "Animation": {
@@ -91,44 +91,13 @@
     },
     "Object": {
         "Type": {
-            "type": 15,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 33.0,
-                "y": -7.0
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
             "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 30.0,
-                "y": 204.0
+                "x": 40.0,
+                "y": 208.0
             },
             "scale": {
                 "x": 100.0,
@@ -168,6 +137,37 @@
         "ID": {
             "id": "Level6"
         },
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 15,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 34.0,
+                "y": 3.0
+            },
+            "scale": {
+                "x": 75.0,
+                "y": 75.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
         "Camera": null
     }
 }

@@ -42,6 +42,7 @@ enum class ObjectType {
 	Capture_Camera_main,
     Capture_Camera,
     Start_Pos,
+	Reset_Pos,
     None,
 }; 
 

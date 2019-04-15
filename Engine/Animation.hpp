@@ -122,4 +122,5 @@ private:
 	bool isactive = true;
 	bool is_done = false;
     float frame_time = 0;
+	bool flip = false;
 };

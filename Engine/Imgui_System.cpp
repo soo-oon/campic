@@ -308,13 +308,31 @@ void Imgui_System::ObjectCreator(bool object_creator)
 			s_pos->SetDepth(-0.5f);
 			s_pos->SetObjectType(ObjectType::Start_Pos);
 
-			//Object* temp = Objectmanager_.GetCaptureCamera();
-			//temp->GetComponentByTemplate<Capture>()->SetResetPosition(s_pos->GetTransform().GetTranslation());
-
-			//Object* temp_p = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
-			//temp_p->SetTranslation(s_pos->GetTransform().GetTranslation());
-
 			Objectmanager_.AddObject(s_pos);
+		}
+	}
+
+	ImGui::SameLine();
+
+	ImGui::Button("Reset Pos");
+	if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+	if (ImGui::IsItemDeactivated())
+	{
+		if (!start_existed)
+		{
+			Object* r_pos = new Object();
+			r_pos->SetTranslation(Input::GetMousePos());
+			r_pos->SetScale({ 75.0f, 75.0f });
+			r_pos->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+			r_pos->SetDepth(-0.5f);
+			r_pos->SetObjectType(ObjectType::Reset_Pos);
+			r_pos->AddComponent(new Collision(box_));
+			r_pos->AddComponent(new Animation("asset/images/Cameraman.Png", "cameraman", 3, 0.01f));
+
+			Objectmanager_.AddObject(r_pos);
 		}
 	}
 

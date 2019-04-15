@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "Application.hpp"
 #include "Graphics.hpp"
 #include "UI.hpp"
+#include "Capture.hpp"
 
 Physics Physics_;
 
@@ -39,6 +40,7 @@ void Physics::Update(float dt)
             projectile_list.clear();
             static_list.clear();
             dynamic_list.clear();
+			checkpoint_list.clear();
             door = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
@@ -76,6 +78,11 @@ void Physics::Update(float dt)
                     else if (obj->get()->GetObjectType() == ObjectType::Door)
                     {
                         door = obj->get();
+                        ++obj;
+                    }
+                    else if (obj->get()->GetObjectType() == ObjectType::Reset_Pos)
+                    {
+						checkpoint_list.push_back(obj->get());
                         ++obj;
                     }
                     else
@@ -309,6 +316,23 @@ void Physics::Update(float dt)
                         StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
                     }
                 }
+				if(!checkpoint_list.empty())
+				{
+					for (auto check : checkpoint_list)
+					{
+						if (IntersectionCheckAABB(collision_list[i], check))
+						{
+							check->SetIsDead(true);
+							for(auto player : Objectmanager_.GetObjectMap())
+							{
+								if(player.get()->GetObjectType() == ObjectType::Capture_Camera_main)
+								{
+									player.get()->GetComponentByTemplate<Capture>()->SetResetPosition(check->GetTransform().GetTranslation());
+								}
+							}
+						}
+					}
+				}
             }
         }
     }

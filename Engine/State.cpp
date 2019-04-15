@@ -17,7 +17,6 @@ Creation date: 2018/12/14
 #include "JSON.hpp"
 #include "Player.hpp"
 #include "Objectmanager.hpp"
-#include <iostream>
 #include "Capture.hpp"
 
 void State::ChangeLevel(std::string ID)
@@ -88,8 +87,8 @@ void State::UnLoad()
 void State::CreateCaptureCamera()
 {
     Object* player_camera = new Object();
-    player_camera->SetScale({ 300.0f, 175.0f });
-    player_camera->SetDepth(-0.6f);
+    player_camera->SetScale({300,150});
+    player_camera->SetDepth(-0.17f);
     player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     player_camera->SetObjectType(ObjectType::Capture_Camera_main);
     player_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
@@ -103,7 +102,7 @@ void State::CreateCaptureCamera()
 void State::CreatePlayer()
 {
     Object* player = new Object();
-    player->SetTranslation(Input::GetMousePos());
+    player->SetTranslation(GetStartPosition());
     player->SetScale({ 80.0f, 80.f });
     player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
     player->SetDepth(-0.6f);

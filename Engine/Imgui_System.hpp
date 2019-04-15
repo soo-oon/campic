@@ -82,6 +82,8 @@ private:
         bool start_existed = false;
         bool capture_existed = false;
 
+		bool set_flip = false;
+
 	Object* selectObj = nullptr;
 	Object* player_ = nullptr;
 };
