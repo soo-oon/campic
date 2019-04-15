@@ -108,7 +108,7 @@ void RigidBody::Update(float dt)
     if (isYLimited)
         m_velocity_limit.y = 800;
     else
-        m_velocity_limit.y = 300;
+        m_velocity_limit.y = 400;
     if (isXLimited)
         m_velocity_limit.x = 500;
     else

@@ -75,6 +75,7 @@ private:
 
 	float temp_zoom = 1.0f;
 	float zoom = 1.0f;
+        float const_zoom = 0.f;
 	vector2 reset_pos;
 	float zoom_max_value = 0.0f;
 	float zoom_min_value = 0.0f;
