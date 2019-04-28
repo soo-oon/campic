@@ -15,13 +15,9 @@ Creation date: 2018/12/14
 
 #include "Objectmanager.hpp"
 #include <algorithm>
-#include <cassert>
-#include "Camera.hpp"
 #include "Player.hpp"
-#include <iostream>
 #include "Physics.hpp"
 #include "Capture.hpp"
-#include "Engine.hpp"
 
 Objectmanager Objectmanager_;
 

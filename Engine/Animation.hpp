@@ -22,7 +22,6 @@ Creation date: 2018/12/14
 #include "vector2.hpp"
 #include "imgui.h"
 #include <algorithm>
-#include <memory>
 
 class Object;
 

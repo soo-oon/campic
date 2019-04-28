@@ -14,7 +14,6 @@ void MainMenu::Initialize()
 
 	Objectmanager_.AddObject(background);
 
-
 	Object* Start = new Object();
 	Start->SetTranslation({-120, -100});
 	Start->SetScale({ 150,100 });
@@ -25,7 +24,6 @@ void MainMenu::Initialize()
 	Start->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
 
 	Objectmanager_.AddObject(Start);
-
 
 	Object* Option = new Object();
 	Option->SetTranslation({ 150, -100 });
@@ -48,7 +46,6 @@ void MainMenu::Initialize()
 	Credit->AddComponent(new Sprite("asset/images/UI/CreditButton.png"));
 
 	Objectmanager_.AddObject(Credit);
-
 
 	Object* Quit = new Object();
 	Quit->SetTranslation({ 120, -350 });

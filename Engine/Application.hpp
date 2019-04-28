@@ -46,7 +46,6 @@ private:
 	int fpsFrames = 0;
 
     GLFWmonitor* monitor = nullptr;
-    //const GLFWvidmode* mode = nullptr;
 
     GLFWwindow* window = nullptr;
     bool fullScreenMode = false;

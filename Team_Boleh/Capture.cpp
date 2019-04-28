@@ -20,6 +20,9 @@ bool Capture::Initialize(Object* Ob)
         zoomobject->SetScale({ 30, size.y });
         zoomobject->SetObjectType(ObjectType::Capture_Camera);
         zoomobject->AddComponent(new Sprite("asset/images/zoom.png"));
+		zoomobject->AddInitComponent(new Sound("asset/sounds/Camera_Capture.wav"));
+		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_In.wav");
+		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_Out.wav");
 
         zoombutton = new Object();
         zoombutton->SetMesh(mesh::CreateBox());
@@ -77,6 +80,7 @@ void Capture::Update(float dt)
 				Capturing();
 				CreatePolaroidObject();
 				CreateCaptureObject();
+				zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Camera_Capture.wav");
 			}
 		}
     }
@@ -331,6 +335,7 @@ void Capture::CameraZoom()
         {
             if (zoom < zoom_max_value)
             {
+				zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
                 zoom += 0.05f;
             }
 
@@ -341,6 +346,7 @@ void Capture::CameraZoom()
         {
             if (zoom > zoom_min_value)
             {
+				zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_Out.wav");
                 zoom -= 0.05f;
             }
 

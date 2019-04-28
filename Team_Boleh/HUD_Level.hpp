@@ -15,8 +15,6 @@ public:
 	void ShutDown() override;
 
 	void CreateHudButton(vector2 pos, vector2 scale /*,std::string & font*/, std::string id);
-
-
 private:
 	Object* h_option_window = nullptr;
 	Object* h_cheese = nullptr;
