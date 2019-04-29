@@ -5,7 +5,7 @@
 
 void Level::Initialize()
 {
-	Object* camera = new Object();
+	camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level"));
 
@@ -14,6 +14,33 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
+
+    if(camera->GetObjectType() != ObjectType::Camera)
+    {
+        for(auto i : Objectmanager_.GetObjectMap())
+        {
+            if (i.get()->GetObjectType() == ObjectType::Camera)
+            {
+                camera = i.get();
+            }
+        }
+    }
+    if(Input::IsKeyTriggered(GLFW_KEY_UP))
+    {
+        camera->GetComponentByTemplate<Camera>()->MoveUp(2.f);
+    }
+    if (Input::IsKeyTriggered(GLFW_KEY_DOWN))
+    {
+        camera->GetComponentByTemplate<Camera>()->MoveUp(-2.f);
+    }
+    if (Input::IsKeyTriggered(GLFW_KEY_LEFT))
+    {
+        camera->GetComponentByTemplate<Camera>()->MoveRight(-2.f);
+    }
+    if (Input::IsKeyTriggered(GLFW_KEY_RIGHT))
+    {
+        camera->GetComponentByTemplate<Camera>()->MoveRight(2.f);
+    }
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 		BackToMenu();
 

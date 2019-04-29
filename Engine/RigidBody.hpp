@@ -74,7 +74,7 @@ private:
     vector2 m_next_position;
     vector2 m_velocity_limit = {200,300};
 
-    float m_friction = 0.95f;
+    float m_friction = 0.9f;
     float m_gravity = 10.f;
     float m_inverse_mass = 1;
     float m_slowmode = 1.f;

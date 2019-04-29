@@ -22,6 +22,7 @@ Creation date: 2018/12/14
 #include "MovingObject.hpp"
 #include "Projectile.hpp"
 #include "UI.hpp"
+#include "Level.hpp"
 
 Imgui_System IMGUI_;
 
@@ -259,6 +260,10 @@ void Imgui_System::Editor(bool show_window)
         capture_existed = false;
         Tile_Map_.MakeGridFalse();
 		Physics_.ResetPreviousSize();
+                Object* camera = new Object;
+                camera->SetObjectType(ObjectType::Camera);
+                camera->AddComponent(new Camera("Level"));
+                Objectmanager_.AddObject(camera);
 	}
 
 	if (ImGui::Button("Clear Graphic Tiles"))
@@ -274,6 +279,10 @@ void Imgui_System::Editor(bool show_window)
 	if(ImGui::Button("Clear Objects"))
 	{
 		Objectmanager_.GetObjectMap().clear();
+                Object* camera = new Object;
+                camera->SetObjectType(ObjectType::Camera);
+                camera->AddComponent(new Camera("Level"));
+                Objectmanager_.AddObject(camera);
 	}
 
 	ImGui::End();
