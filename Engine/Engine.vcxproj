@@ -200,6 +200,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Tile_Map.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +260,7 @@
     <ClInclude Include="Tile_Map.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="Trigger.h" />
     <ClInclude Include="UI.hpp" />
   </ItemGroup>
   <ItemGroup>
