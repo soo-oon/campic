@@ -327,6 +327,8 @@ void Capture::CameraZoom()
 {
     float zoom_ = static_cast<float>(Input::MouseWheelScroll());
 
+	std::cout << zoom_ << std::endl;
+
     temp_zoom = zoom;
 
     if (zoom_ != 0)

@@ -4,6 +4,9 @@
 
 void MainMenu::Initialize()
 {
+	AudioManager_.LoadSong("asset/sounds/MainMenu_BGM.mp3");
+	AudioManager_.PlaySong("asset/sounds/MainMenu_BGM.mp3");
+
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
 	background->SetScale({ 1000,940 });
