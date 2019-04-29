@@ -43,6 +43,7 @@ public:
     bool Texture_Load();
 
 	void SetFlip(bool is_flip) { flip = is_flip; }
+	void SetPath(std::string path_) { path = path_; }
 
     void Bind(unsigned int slot = 0) const;
     void ScreenShot(const std::string& file_path) const;

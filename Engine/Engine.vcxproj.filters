@@ -42,6 +42,7 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="LevelJson.cpp" />
     <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="BitmapFont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -82,5 +83,6 @@
     <ClInclude Include="UI.hpp" />
     <ClInclude Include="LevelJson.hpp" />
     <ClInclude Include="Trigger.h" />
+    <ClInclude Include="BitmapFont.hpp" />
   </ItemGroup>
 </Project>

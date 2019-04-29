@@ -447,8 +447,8 @@ Value JSON::ComponentFont(Object * obj)
 
 	auto font_info = obj->GetComponentByTemplate<Font>();
 
-	text.SetString(font_info->GetText().c_str(), ObjectDocument.GetAllocator());
-	paths.SetString(font_info->GetPath().c_str(), ObjectDocument.GetAllocator());
+	//text.SetString(font_info->GetText().c_str(), ObjectDocument.GetAllocator());
+	//paths.SetString(font_info->GetPath().c_str(), ObjectDocument.GetAllocator());
 
 	container.AddMember("text", text, ObjectDocument.GetAllocator());
 	container.AddMember("path", paths, ObjectDocument.GetAllocator());
@@ -979,7 +979,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			{
 				font_path = font.FindMember("path")->value.GetString();
 			}
-			obj->AddComponent(new Font(font_text, font_path));
+			//obj->AddComponent(new Font(font_text, font_path));
 		}
 
 		//////////////////////////////////////////Capture
