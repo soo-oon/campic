@@ -115,6 +115,7 @@ void Tile_Map::Normal_Tile(std::string& image, int x , int y, vector2 position, 
 	Object* tile = new Object();
 	tile->SetTranslation({ position });
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
+	tile->SetDepth(GAME_OBJECT);
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 	tile->SetObjectType(ObjectType::Tile);
 	tile->AddInitComponent(new Sprite(image));
@@ -134,6 +135,7 @@ void Tile_Map::Ani_Tile(std::string& image, int x, int y, vector2 position, Tile
 	std::string tile_name = "tile";
 	tile_name += std::to_string(++m_number);
 	tile->SetTranslation({ position });
+	tile->SetDepth(GAME_OBJECT);
 	tile->SetScale({ static_cast<float>(TILE_SIZE) });
 	tile->SetObjectType(ObjectType::Tile);
 	tile->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));

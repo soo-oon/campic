@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include "Component.hpp"
 #include <vector>
 #include "Object.hpp"
+#include "ObjectDepth.hpp"
 
 struct vector2;
 

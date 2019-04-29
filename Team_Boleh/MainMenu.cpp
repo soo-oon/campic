@@ -7,7 +7,7 @@ void MainMenu::Initialize()
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
 	background->SetScale({ 1000,940 });
-	background->SetDepth(0.2f);
+	background->SetDepth(BACKGROUND);
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
 	background->AddComponent(new Sprite("asset/images/UI/MainPage.png"));
@@ -17,7 +17,7 @@ void MainMenu::Initialize()
 	Object* Start = new Object();
 	Start->SetTranslation({-120, -100});
 	Start->SetScale({ 150,100 });
-	Start->SetDepth(-0.1f);
+	Start->SetDepth(HUD_OBJECT);
 	Start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Start->SetObjectType(ObjectType::Button);
 	Start->AddComponent(new UI("LevelSelector"));
@@ -28,7 +28,7 @@ void MainMenu::Initialize()
 	Object* Option = new Object();
 	Option->SetTranslation({ 150, -100 });
 	Option->SetScale({ 170,170 });
-	Option->SetDepth(-0.1f);
+	Option->SetDepth(HUD_OBJECT);
 	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Option->SetObjectType(ObjectType::Button);
 	//Option->AddComponent(new UI("LevelSelector"));
@@ -39,7 +39,7 @@ void MainMenu::Initialize()
 	Object* Credit = new Object();
 	Credit->SetTranslation({ -120, -350 });
 	Credit->SetScale({ 150,150 });
-	Credit->SetDepth(-0.1f);
+	Credit->SetDepth(HUD_OBJECT);
 	Credit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Credit->SetObjectType(ObjectType::Button);
 	//Credit->AddComponent(new UI("LevelSelector"));
@@ -50,7 +50,7 @@ void MainMenu::Initialize()
 	Object* Quit = new Object();
 	Quit->SetTranslation({ 120, -350 });
 	Quit->SetScale({ 150,100 });
-	Quit->SetDepth(-0.1f);
+	Quit->SetDepth(HUD_OBJECT);
 	Quit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Quit->SetObjectType(ObjectType::Button);
 	Quit->AddComponent(new UI("Quit"));
@@ -63,7 +63,7 @@ void MainMenu::Update(float dt)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		m_Select = Input::ClickHudObject(-0.1f);
+		m_Select = Input::ClickObject(ObjectDepth::HUD_OBJECT);
 
 		if (m_Select)
 		{

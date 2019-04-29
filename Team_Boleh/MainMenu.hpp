@@ -1,5 +1,6 @@
 #pragma once
 #include "State.hpp"
+#include "ObjectDepth.hpp"
 
 class MainMenu : public State
 {

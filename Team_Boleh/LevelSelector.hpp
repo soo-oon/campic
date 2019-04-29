@@ -1,6 +1,7 @@
 #pragma once
 #include "State.hpp"
 #include "LevelJson.hpp"
+#include "ObjectDepth.hpp"
 
 class LevelSelector : public State
 {

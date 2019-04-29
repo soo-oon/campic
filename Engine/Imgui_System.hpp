@@ -21,6 +21,7 @@ Creation date: 2018/12/14
 #include "Animation.hpp"
 #include "Collision.hpp"
 #include "AudioManager.hpp"
+#include "ObjectDepth.hpp"
 #include <filesystem>
 #include <string>
 #include <unordered_map>

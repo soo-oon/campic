@@ -25,7 +25,7 @@ void LevelSelector::Update(float dt)
 {
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
-		m_SelectLevel = Input::ClickHudObject(-0.1f);
+		m_SelectLevel = Input::ClickObject(ObjectDepth::HUD_OBJECT);
 
 		if (m_SelectLevel)
 		{
@@ -54,7 +54,7 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	Object* button = new Object();
 	button->SetTranslation(pos);
 	button->SetScale(scale);
-	button->SetDepth(-0.1f);
+	button->SetDepth(HUD_OBJECT);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
 

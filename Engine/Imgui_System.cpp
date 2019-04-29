@@ -114,7 +114,7 @@ void Imgui_System::Update(float dt)
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
 			if(!selectObj)
-				selectObj = Input::ClickObject();
+				selectObj = Input::ImGuiObjectClicker();
 		}
 
 		if (Input::IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_LEFT))
@@ -305,7 +305,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 			s_pos->SetTranslation(Input::GetMousePos());
 			s_pos->SetScale({ 75.0f, 75.0f });
 			s_pos->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
-			s_pos->SetDepth(-0.5f);
+			s_pos->SetDepth(GAME_OBJECT);
 			s_pos->SetObjectType(ObjectType::Start_Pos);
 
 			Objectmanager_.AddObject(s_pos);
@@ -327,7 +327,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 			r_pos->SetTranslation(Input::GetMousePos());
 			r_pos->SetScale({ 75.0f, 75.0f });
 			r_pos->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-			r_pos->SetDepth(-0.5f);
+			r_pos->SetDepth(GAME_OBJECT);
 			r_pos->SetObjectType(ObjectType::Reset_Pos);
 			r_pos->AddComponent(new Collision(box_));
 			r_pos->AddComponent(new Animation("asset/images/Cameraman.Png", "cameraman", 3, 0.01f));
@@ -357,7 +357,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Object* door = new Object();
 		door->SetTranslation(Input::GetMousePos());
 		door->SetScale({ 100, 100 });
-		door->SetDepth(-0.5f);
+		door->SetDepth(GAME_OBJECT);
 		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		door->SetObjectType(ObjectType::Door);
 		door->AddInitComponent(new Collision(box_));
@@ -379,7 +379,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Object* zone = new Object();
 		zone->SetTranslation(Input::GetMousePos());
 		zone->SetScale({ 100, 100 });
-		zone->SetDepth(-0.5f);
+		zone->SetDepth(GAME_OBJECT);
 		zone->SetMesh(mesh::CreateBox(1, { 255,255,255,150 }));
 		zone->SetObjectType(ObjectType::Door);
 		zone->AddInitComponent(new Animation("asset/images/PhotoZone.png","zone",4, 0.05f));
@@ -402,6 +402,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Object* cannon = new Object();
 		cannon->SetTranslation(Input::GetMousePos());
 		cannon->SetScale({ 150,150 });
+		cannon->SetDepth(GAME_OBJECT);
 		cannon->SetObjectType(ObjectType::Item_Static);
 		cannon->SetMesh(mesh::CreateBox());
 		cannon->AddComponent(new Collision(box_));
@@ -426,6 +427,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		weapon->SetTranslation(Input::GetMousePos());
 		weapon->SetScale({ 100, 50 });
 		weapon->SetObjectType(ObjectType::Item_Dynamic);
+		weapon->SetDepth(GAME_OBJECT);
 		weapon->SetMesh(mesh::CreateBox());
 		weapon->AddComponent(new Sprite("asset/images/weapon.png"));
 		weapon->AddComponent(new Collision(box_));

@@ -226,7 +226,7 @@ double Input::MouseWheelScroll()
 	return y_offset_;
 }
 
-Object* Input::ClickObject()
+Object* Input::ImGuiObjectClicker()
 {
 	for (auto& obj : Objectmanager_.GetObjectMap())
 	{
@@ -235,7 +235,7 @@ Object* Input::ClickObject()
 			GetMousePos().y < obj->GetTransform().GetTranslation().y + obj->GetTransform().GetScale().y &&
 			GetMousePos().y > obj->GetTransform().GetTranslation().y - obj->GetTransform().GetScale().y)
 		{
-			if (obj.get()->GetTransform().GetDepth() < -0.2f)
+			if (obj.get()->GetTransform().GetDepth() > -0.85f)
 			{
 				return obj.get();
 			}
@@ -244,7 +244,7 @@ Object* Input::ClickObject()
 	return nullptr;
 }
 
-Object* Input::ClickHudObject(float depth)
+Object* Input::ClickObject(ObjectDepth type)
 {
 	for (auto& obj : Objectmanager_.GetObjectMap())
 	{
@@ -253,9 +253,44 @@ Object* Input::ClickHudObject(float depth)
 			GetMousePos().y < obj->GetTransform().GetTranslation().y + obj->GetTransform().GetScale().y &&
 			GetMousePos().y > obj->GetTransform().GetTranslation().y - obj->GetTransform().GetScale().y)
 		{
-			if (obj.get()->GetTransform().GetDepth() == depth)
+			switch(type)
 			{
+			case ObjectDepth::CAPTURE_OBJECT :
+			{
+				if (obj->GetTransform().GetDepth() == -0.9f)
 					return obj.get();
+				break;
+			}
+
+			case ObjectDepth::POLAROID:
+			{
+				if (obj->GetTransform().GetDepth() == 0.9f)
+					return obj.get();
+				break;
+			}
+
+			case ObjectDepth::GAME_OBJECT:
+			{
+				if (obj->GetTransform().GetDepth() == -0.5f)
+					return obj.get();
+				break;
+			}
+
+			case ObjectDepth::HUD_OBJECT:
+			{
+				if (obj->GetTransform().GetDepth() == -0.2f)
+					return obj.get();
+				break;
+			}
+
+			case ObjectDepth::BACKGROUND:
+			{
+				if (obj->GetTransform().GetDepth() == -0.1f)
+					return obj.get();
+				break;
+			}
+			default:
+				break;
 			}
 		}
 	}

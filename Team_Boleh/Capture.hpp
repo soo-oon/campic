@@ -5,6 +5,7 @@
 #include "RandomFunction.hpp"
 #include "Object.hpp"
 #include "Collision.hpp"
+#include "ObjectDepth.hpp"
 
 class Capture : public Component
 {
@@ -39,7 +40,7 @@ private:
 			obj->SetTranslation(obj_->GetTransform().GetTranslation());
 			obj->SetScale({ 150, 170 });
 			obj->SetRotation(angle);
-			obj->SetDepth(0.9f);
+			obj->SetDepth(POLAROID);
 			obj->SetObjectType(ObjectType::Polaroid);
 			obj->SetMesh(mesh::CreateBox(1, {255,255,255,75}));
 			obj->AddComponent(new Sprite("asset/images/polaroid.png"));

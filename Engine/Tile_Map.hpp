@@ -3,6 +3,7 @@
 #include <string>
 #include "Input.hpp"
 #include "Graphics.hpp"
+#include "ObjectDepth.hpp"
 #include <vector>
 #include "Application.hpp"
 

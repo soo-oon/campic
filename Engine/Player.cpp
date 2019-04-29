@@ -27,7 +27,7 @@ bool Player::Initialize(Object * Ob)
 		object = Ob;
 		object->SetScale({ 80.0f, 80.f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-		object->SetDepth(-0.6f);
+		object->SetDepth(GAME_OBJECT);
 		object->SetObjectType(ObjectType::Player);
 		object->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 8, 0.05f, true));
 		object->AddInitComponent(new RigidBody());

@@ -18,6 +18,9 @@ Creation date: 2018/12/14
 #include <GLFW/glfw3.h>
 #include "vector2.hpp"
 #include "Object.hpp"
+#include "ObjectDepth.hpp"
+
+enum class ObjectDepth;
 
 class Input
 {
@@ -66,6 +69,6 @@ public:
     static bool IsMouseReleased(int button);
 	static double MouseWheelScroll();
 
-	static Object* ClickObject();
-	static Object* ClickHudObject(float depth);
+	static Object* ImGuiObjectClicker();
+	static Object* ClickObject(ObjectDepth type);
 };
