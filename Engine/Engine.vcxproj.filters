@@ -41,6 +41,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="LevelJson.cpp" />
+    <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.hpp" />
@@ -80,5 +81,6 @@
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UI.hpp" />
     <ClInclude Include="LevelJson.hpp" />
+    <ClInclude Include="Trigger.h" />
   </ItemGroup>
 </Project>

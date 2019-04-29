@@ -8,6 +8,7 @@
 #include "Projectile.hpp"
 #include "UI.hpp"
 #include "MovingObject.hpp"
+#include "Trigger.h"
 
 JSON JSON_;
 
@@ -516,6 +517,18 @@ Value JSON::ComponentProjectile(Object * obj)
 	container.AddMember("type", type, ObjectDocument.GetAllocator());
 
 	return container;
+}
+Value JSON::ComponentTrigger(Object * obj)
+{
+    Value container(kArrayType);
+    Value connected_object;
+
+    container.SetObject();
+    connected_object.SetObject();
+
+    auto info = obj->GetComponentByTemplate<Trigger>();
+
+    return container;
 }
 
 void JSON::SaveObjectsToJson(const std::string& file, const std::string& path)
@@ -1037,9 +1050,11 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
                 {
                     StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
                 }
-	        else
-	        {
-                    Objectmanager_.AddObject(obj);
+	        else{
+                    if (obj->GetObjectType() != ObjectType::Trigger_Obj)
+                    {
+                        Objectmanager_.AddObject(obj);
+                    }
 	        }
                 if (obj->GetObjectType() == ObjectType::Player)
                     Objectmanager_.SetPlayer(obj);
