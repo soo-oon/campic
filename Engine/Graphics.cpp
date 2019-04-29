@@ -25,6 +25,8 @@ Creation date: 2018/12/14
 #include "HUD.hpp"
 #include "Mesh.hpp"
 #include "Tile_Map.hpp"
+#include "BitmapFont.hpp"
+//#include ""
 
 Graphics Graphics_;
 
@@ -103,9 +105,6 @@ void Graphics::Update(float dt)
         Iscamera = false;
     }
 
-    //int w, h;
-	//glfwGetWindowSize(Application_.GetWindow(), &w, &h);
-	//const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     displaysize.x = static_cast<float>(Application_.GetScreenSize().x);
     displaysize.y = static_cast<float>(Application_.GetScreenSize().y);
 
@@ -579,13 +578,19 @@ void Graphics::DrawParticle(Particle_Generator* particles_)
 
 void Graphics::DrawFont(Object* obj, Font* font_)
 {
-	int index = 0;
-	for (auto temp_mesh : font_->GetFontMeshes())
+	for (auto pair : font_->GetFontMesh())
 	{
+		int page_number = pair.first;
+		auto& mesh = pair.second;
+
+		check = font_->GetFont()->GetTexture(page_number);
+
 		fontes.clear();
-		for (std::size_t i = 0; i < temp_mesh.GetPointCount(); ++i)
+		fontes.reserve(mesh.GetPointCount());
+
+		for (std::size_t i = 0; i < mesh.GetPointCount(); ++i)
 		{
-			fontes.push_back({ temp_mesh.GetPoint(i), temp_mesh.GetTextureCoordinate(i) });
+			fontes.push_back({ mesh.GetPoint(i), mesh.GetTextureCoordinate(i) });
 		}
 
 		affine2d to_ndc;
@@ -602,24 +607,23 @@ void Graphics::DrawFont(Object* obj, Font* font_)
 		}
 
 		const int texture_slot = 0;
-
-		font_->BindTexture(index);
+		if (lastBoundTexture != check->GetTextureHandler())
+		{
+			check->Bind(texture_slot);
+			lastBoundTexture = check->GetTextureHandler();
+		}
 
 		Fontshader.SendUniformVariable("transform", to_ndc);
 		Fontshader.SendUniformVariable("depth", obj->GetTransform().GetDepth());
-		Fontshader.SendUniformVariable("color", temp_mesh.GetColor(0));
-		Fontshader.SendUniformVariable("text", texture_slot);
+		Fontshader.SendUniformVariable("color", mesh.GetColor(0));
+		Fontshader.SendUniformVariable("texture_to_sample", texture_slot);
 
 		glBindVertexArray(vertexAttributes[(int)GraphicsType::font]);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer[(int)GraphicsType::font]);
 
-		glBufferData(GL_ARRAY_BUFFER, fontes.size() * sizeof(font), (const void*)& fontes[0], GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, fontes.size() * sizeof(font), (const void*)&fontes[0], GL_DYNAMIC_DRAW);
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		glDrawArrays(ToGLPrimitiveMode(temp_mesh.GetPointListType()), 0, (GLsizei)fontes.size());
-
-		index++;
+		glDrawArrays(ToGLPrimitiveMode(mesh.GetPointListType()), 0, (GLsizei)fontes.size());
 	}
 }
 

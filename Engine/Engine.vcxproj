@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi;$(SolutionDir)external\freetype\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>false</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi;$(SolutionDir)external\freetype\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>false</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
@@ -108,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi;$(SolutionDir)external\freetype\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -128,7 +128,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi;$(SolutionDir)external\freetype\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glew\include;$(SolutionDir)external\glfw\include;$(SolutionDir)Math_Library;$(SolutionDir)external\gl3w\include;$(SolutionDir)external\FMOD\inc;$(SolutionDir)external\rapidjson;$(SolutionDir)Team_Boleh;$(SolutionDir)external\IMGUI;$(SolutionDir)external\stbi</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -144,6 +144,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="BitmapFont.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -206,6 +207,7 @@
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioManager.hpp" />
+    <ClInclude Include="BitmapFont.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Collision.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

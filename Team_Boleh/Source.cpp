@@ -35,10 +35,10 @@ int main()
     StateManager_->AddStage("MapEditorTest", new MapEditorTest());
     StateManager_->AddStage("Demonstrate", new Demonstrate());*/
 
-	StateManager_.AddStage("MainMenu", new MainMenu());
-	StateManager_.AddStage("LevelSelector", new LevelSelector());
-	StateManager_.AddStage("Level", new Level());
-	//StateManager_.AddStage("Test_Level", new Test_Level());
+	//StateManager_.AddStage("MainMenu", new MainMenu());
+	//StateManager_.AddStage("LevelSelector", new LevelSelector());
+	//StateManager_.AddStage("Level", new Level());
+	StateManager_.AddStage("Test_Level", new Test_Level());
 
 
 	engine.Update();

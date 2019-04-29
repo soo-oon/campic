@@ -1,20 +1,49 @@
-#include <iostream>
+/******************************************************************************/
+/*!
+\file   Text.cpp
+\author Choi Jin Hyun
+\par    email: jinhyun175@gmail.com
+\par    DigiPen login: jinhyun.choi
+\par    Course: CS230
+\par    Assignment #7
+\date   6/16/2018
+*/
+/******************************************************************************/
+#include "BitmapFont.hpp"
 #include "Font.hpp"
 #include "Object.hpp"
 
-bool Font::Initialize(Object * Ob)
+namespace
 {
-	if (object == nullptr)
+	void AddCharQuadToMesh(Mesh& mesh, BitmapFont::Character character, vector2 image_dimensions,
+		vector2 current_position, float line_height);
+}
+
+Font::Font(const std::wstring& fnt_filepath, std::wstring text_string)
+{
+	font = new BitmapFont(fnt_filepath);
+	needNewMeshes = true;
+
+	string = text_string;
+}
+
+Font::Font(std::wstring text_string,  BitmapFont& text_font)
+	: string(std::move(text_string)), font(&text_font)
+{}
+
+bool Font::Initialize(Object* Ob)
+{
+	if(object == nullptr)
 	{
 		object = Ob;
 	}
-	LoadFontData();
-	MakeFontMesh();
+
 	return true;
 }
 
 void Font::Update(float dt)
 {
+	BuildNewMeshesIfNeeded();
 }
 
 void Font::Delete()
@@ -22,111 +51,148 @@ void Font::Delete()
 }
 
 
-void Font::LoadFontData()
+std::wstring Font::GetString() const
 {
-	FT_Library ft;
-	if (FT_Init_FreeType(&ft))
-		std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+	return string;
+}
 
-	FT_Face face;
-	if (FT_New_Face(ft, path.c_str(), 0, &face))
-		std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-
-	FT_Set_Pixel_Sizes(face, 0, 48);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-	for (GLubyte c = 0; c < 128; ++c)
+void Font::SetString(const std::wstring& text_string)
+{
+	if (string != text_string)
 	{
-		if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+		string = text_string;
+		needNewMeshes = true;
+	}
+}
+
+ BitmapFont* Font::GetFont() 
+{
+	return font;
+}
+
+void Font::SetFont( BitmapFont& text_font)
+{
+	if (font != &text_font)
+	{
+		font = &text_font;
+		needNewMeshes = true;
+	}
+}
+
+Color Font::GetFillColor() const
+{
+	return fillColor;
+}
+
+void Font::SetFillColor(Color fill_color)
+{
+	fillColor = fill_color;
+	for (auto& pair : meshes)
+	{
+		auto& mesh = pair.second;
+		mesh.ClearColors();
+		mesh.AddColor(fill_color);
+	}
+}
+
+void Font::BuildNewMeshesIfNeeded() const
+{
+	if (!needNewMeshes)
+		return;
+
+	for (auto& pair : meshes)
+	{
+		auto& mesh = pair.second;
+		mesh.Clear();
+	}
+
+	float start_x = 0;
+	float start_y = 0;
+
+
+	for (unsigned i = 0; i < string.size(); ++i)
+	{
+		wchar_t temp_char = string[i];
+
+		if (temp_char == ' ')
 		{
-			std::cout << "ERROR::FREETYPE: Failed to load Glyph" << std::endl;
-			continue;
+			start_x += font->GetCharacter(temp_char).xadvance;
 		}
 
-		GLuint texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		if (temp_char == '\n')
+		{
+			start_x = 0;
+			start_y += font->GetInformation().lineHeight;
+		}
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		if (temp_char == '\t')
+		{
+			start_x += font->GetCharacter(L' ').xadvance * 4;
+		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, static_cast<GLsizei>(face->glyph->bitmap.width), static_cast<GLsizei>(face->glyph->bitmap.rows),
-			0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
+		vector2 image_dimensions = { (float)font->GetInformation().imageWidth, (float)font->GetInformation().imageHeight };
+		vector2 current_position = { start_x, start_y };
 
-		Character character = {
-			texture, vector2(static_cast<float>(face->glyph->bitmap.width), static_cast<float>(face->glyph->bitmap.rows)),
-			vector2(static_cast<float>(face->glyph->bitmap_left), static_cast<float>(face->glyph->bitmap_top)), static_cast<GLuint>(face->glyph->advance.x) };
+		if (temp_char != ' ' && temp_char != '\n' && temp_char != '\t')
+		{
+			AddCharQuadToMesh(meshes[font->GetCharacter(temp_char).page], font->GetCharacter(temp_char), image_dimensions,
+				current_position, font->GetInformation().lineHeight);
 
-		characters.insert(std::make_pair(c, character));
+			start_x += (float)font->GetCharacter(temp_char).xadvance;
+		}
 	}
 
-	FT_Done_Face(face);
-	FT_Done_FreeType(ft);
-}
-
-void Font::MakeFontMesh()
-{
-	auto obj_position = object->GetTransform().GetTranslation();
-	font_mesh.clear();
-	for (auto c : text)
+	for (auto& pair : meshes)
 	{
-		Mesh temp;
-
-		Character ch = characters[c];
-
-		GLfloat xpos = obj_position.x + ch.bearing.x;
-		GLfloat ypos = obj_position.y - (ch.size.y - ch.bearing.y);
-
-		GLfloat w = ch.size.x;
-		GLfloat h = ch.size.y;
-
-		temp.AddPoint({ xpos, ypos + h });
-		temp.AddTextureCoordinate({ 0, 0 });
-
-		temp.AddPoint({ xpos, ypos });
-		temp.AddTextureCoordinate({ 0, 1 });
-
-		temp.AddPoint({ xpos + w, ypos });
-		temp.AddTextureCoordinate({ 1,1 });
-
-		temp.AddPoint({ xpos, ypos + h });
-		temp.AddTextureCoordinate({ 0, 0 });
-
-		temp.AddPoint({ xpos + w, ypos });
-		temp.AddTextureCoordinate({ 1, 1 });
-
-		temp.AddPoint({ xpos + w, ypos + h });
-		temp.AddTextureCoordinate({ 1, 0 });
-
-		temp.SetPointListType(PointListType::Triangles);
-
-		temp.AddColor(m_color);
-
-		font_mesh.push_back(temp);
-
-		obj_position.x += (ch.advance >> 6);
+		auto& mesh = pair.second;
+		mesh.ClearColors();
+		mesh.AddColor(fillColor);
+		mesh.SetPointListType(PointListType::Triangles);
 	}
+
+	needNewMeshes = false;
 }
 
-void Font::SetText(std::string text_)
+namespace
 {
-	text = text_;
-	MakeFontMesh();
-}
+	void AddCharQuadToMesh(Mesh& mesh, BitmapFont::Character character, vector2 image_dimensions,
+		vector2 current_position, float line_height)
+	{
+		vector2 left_top, right_top, left_bottom, right_bottom;
+		vector2 left_top_uv, right_top_uv, left_bottom_uv, right_bottom_uv;
 
-void Font::SetPath(std::string path_)
-{
-	path = path_;
-	LoadFontData();
+		float left = current_position.x + character.xoffset;
+		float right = left + character.width;
 
-}
+		float bottom = ((character.yoffset + character.height)*-1 + line_height) - current_position.y;
+		float top = bottom + character.height;
 
-void Font::BindTexture(int index)
-{
-	glActiveTexture(GL_TEXTURE0);
-	auto temp = characters[text.at(index)];
-	glBindTexture(GL_TEXTURE_2D, temp.textureID);
+		left_top = { left, top };
+		left_top_uv = { character.x / image_dimensions.x, character.y / image_dimensions.y };
+
+		right_top = { right, top };
+		right_top_uv = { (character.x + character.width) / image_dimensions.x , character.y / image_dimensions.y };
+
+		left_bottom = { left, bottom };
+		left_bottom_uv = { character.x / image_dimensions.x, (character.y + character.height) / image_dimensions.y };
+
+		right_bottom = { right, bottom };
+		right_bottom_uv = { (character.x + character.width) / image_dimensions.x , (character.y + character.height) / image_dimensions.y };
+
+		// Triangle 1
+		mesh.AddPoint(left_top);
+		mesh.AddTextureCoordinate(left_top_uv);
+		mesh.AddPoint(left_bottom);
+		mesh.AddTextureCoordinate(left_bottom_uv);
+		mesh.AddPoint(right_top);
+		mesh.AddTextureCoordinate(right_top_uv);
+
+		// Triangle 2
+		mesh.AddPoint(right_top);
+		mesh.AddTextureCoordinate(right_top_uv);
+		mesh.AddPoint(left_bottom);
+		mesh.AddTextureCoordinate(left_bottom_uv);
+		mesh.AddPoint(right_bottom);
+		mesh.AddTextureCoordinate(right_bottom_uv);
+	}
 }
