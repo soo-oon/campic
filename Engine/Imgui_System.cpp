@@ -396,6 +396,15 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(zone);
 	}
 
+        ImGui::Text("Type target Level");
+        static int buf[10];
+        ImGui::InputInt("", buf, IM_ARRAYSIZE(buffer));
+
+        ImGui::SameLine();
+        if (ImGui::Button("Reset"))
+        {
+            memset(buf, 0, 100);
+        }
 	ImGui::Separator();
 	ImGui::Text("Archetype");
 
