@@ -40,11 +40,15 @@ bool Player::Initialize(Object * Ob)
 
 void Player::Update(float dt)
 {
-	if(auto camera = Graphics_.GetCurrentCamera();
-		camera != nullptr)
-	{
-		camera->SetCenter(object->GetTransform().GetTranslation());
-	}
+#ifdef _DEBUG
+#else 
+    if (auto camera = Graphics_.GetCurrentCamera();
+        camera != nullptr)
+    {
+        camera->SetCenter(object->GetTransform().GetTranslation());
+    }
+
+#endif
 	MouseTest();
 }
 

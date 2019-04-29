@@ -183,12 +183,12 @@ bool Capture::IsCaptureArea()
                     else
                     {
                         vector2 reset_min = {
-                            reset_pos.x - player->GetTransform().GetScale().x / 2,
-                            reset_pos.y - player->GetTransform().GetScale().x / 2
+                            reset_pos.x - player->GetTransform().GetScale().x / 1.15f,
+                            reset_pos.y - player->GetTransform().GetScale().x / 1.15f
                         };
                         vector2 reset_max = {
-                            reset_pos.x + player->GetTransform().GetScale().x / 2,
-                            reset_pos.y + player->GetTransform().GetScale().x / 2
+                            reset_pos.x + player->GetTransform().GetScale().x / 1.15f,
+                            reset_pos.y + player->GetTransform().GetScale().x / 1.15f
                         };
 
                         if ((save_obj_pos.x >= reset_max.x) || (save_obj_pos.x <= reset_min.x) ||
