@@ -396,15 +396,42 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(zone);
 	}
 
-        ImGui::Text("Type target Level");
-        static int buf[10];
-        ImGui::InputInt("", buf, IM_ARRAYSIZE(buffer));
+	ImGui::Separator();
 
-        ImGui::SameLine();
-        if (ImGui::Button("Reset"))
-        {
-            memset(buf, 0, 100);
-        }
+    ImGui::Text("Trigger Pos");
+	static vector2 pos;
+	ImGui::InputFloat("x", &pos.x, -1000.f, 2000.0f);
+	ImGui::InputFloat("y", &pos.y, -1000.f, 2000.0f);
+
+	const char* trigger_type[] = { "Door", "Font", "None" };
+	static int item_current = 0;
+	ImGui::Combo("Select Trigger Type", &item_current, trigger_type, IM_ARRAYSIZE(trigger_type));
+
+	//여기다가 저 vector pos 값 오브젝트에넣고 item current 값을 static_cast<니 트리거 타입>으로 형변환해서 박으셈 
+	//밑에는 알아서 바꾸고
+	/*if (ImGui::IsItemActive())
+	{
+		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+	}
+
+	if (ImGui::IsItemDeactivated())
+	{
+		Object* cannon = new Object();
+		cannon->SetTranslation(Input::GetMousePos());
+		cannon->SetScale({ 150,150 });
+		cannon->SetDepth(GAME_OBJECT);
+		cannon->SetObjectType(ObjectType::Item_Static);
+		cannon->SetMesh(mesh::CreateBox());
+		cannon->AddComponent(new Collision(box_));
+		cannon->AddComponent(new Animation("asset/images/cannon.png", "cannon_standing", 5, 0.4f, true));
+		cannon->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cannon_fire.png", "cannon_fire", 6, 0.1f, false);
+		cannon->AddComponent(new Projectile(4.0f, 10.0f, Projectile_Type::Cannon));
+		cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 350, 0 });
+
+		Objectmanager_.AddObject(cannon);
+	}*/
+
+
 	ImGui::Separator();
 	ImGui::Text("Archetype");
 
