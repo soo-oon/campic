@@ -21,6 +21,7 @@ Creation date: 2018/12/14
 #include "Graphics.hpp"
 #include "UI.hpp"
 #include "Capture.hpp"
+#include "Trigger.h"
 
 Physics Physics_;
 
@@ -40,7 +41,8 @@ void Physics::Update(float dt)
             projectile_list.clear();
             static_list.clear();
             dynamic_list.clear();
-			checkpoint_list.clear();
+	    checkpoint_list.clear();
+            trigger_list.clear();
             door = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
@@ -82,7 +84,12 @@ void Physics::Update(float dt)
                     }
                     else if (obj->get()->GetObjectType() == ObjectType::Reset_Pos)
                     {
-						checkpoint_list.push_back(obj->get());
+		        checkpoint_list.push_back(obj->get());
+                        ++obj;
+                    }
+                    else if (obj->get()->GetObjectType() == ObjectType::Trigger)
+                    {
+                        trigger_list.push_back(obj->get());
                         ++obj;
                     }
                     else
@@ -321,23 +328,41 @@ void Physics::Update(float dt)
                         StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
                     }
                 }
-				if(!checkpoint_list.empty())
-				{
-					for (auto check : checkpoint_list)
-					{
-						if (IntersectionCheckAABB(collision_list[i], check))
-						{
-							check->SetIsDead(true);
-							for(auto player : Objectmanager_.GetObjectMap())
-							{
-								if(player.get()->GetObjectType() == ObjectType::Capture_Camera_main)
-								{
-									player.get()->GetComponentByTemplate<Capture>()->SetResetPosition(check->GetTransform().GetTranslation());
-								}
-							}
-						}
-					}
-				}
+		if(!checkpoint_list.empty())
+		{
+		        for (auto check : checkpoint_list)
+		        {
+			        if (IntersectionCheckAABB(collision_list[i], check))
+			        {
+				        check->SetIsDead(true);
+				        for(auto player : Objectmanager_.GetObjectMap())
+				        {
+					        if(player.get()->GetObjectType() == ObjectType::Capture_Camera_main)
+					        {
+						        player.get()->GetComponentByTemplate<Capture>()->SetResetPosition(check->GetTransform().GetTranslation());
+					        }
+				        }
+			        }
+		        }
+		}
+		if(!trigger_list.empty())
+		{
+		        for (auto trigger : trigger_list)
+		        {
+                            //trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
+                                if (IntersectionCheckAABBCenterPosition( trigger, collision_list[i]))
+                                {
+                                    if (trigger->GetComponentByTemplate<Trigger>()->GetIsTriggerd() == false)
+                                    {
+                                    trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(true);
+                                    }
+                                    else
+                                    {
+                                        trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
+                                    }
+                            }
+		        }
+		}
             }
         }
     }
@@ -557,6 +582,22 @@ bool Physics::IntersectionCheckAABB(Object* object1, Object* object2)
     if (owner[1].y >= object[2].y && owner[1].y >= object[1].y)
         return false;
     if (owner[2].y <= object[2].y && owner[2].y <= object[1].y)
+        return false;
+
+    return true;
+}
+
+bool Physics::IntersectionCheckAABBCenterPosition(Object * object1, Object * object2)
+{
+    std::vector<vector2> owner = object1->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
+    vector2 object = object2->GetTransform().GetTranslation();
+    if (owner[0].x >= object.x )
+        return false;
+    if (owner[1].x <= object.x )
+        return false;
+    if (owner[1].y >= object.y )
+        return false;
+    if (owner[2].y <= object.y )
         return false;
 
     return true;
