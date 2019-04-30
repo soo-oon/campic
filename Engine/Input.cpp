@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include <iostream>
 #include <chrono>
 #include "Graphics.hpp"
+#include "HUD.hpp"
 
 bool Input::mouse_trigger;
 bool Input::key_trigger;
@@ -283,6 +284,13 @@ Object* Input::ClickObject(ObjectDepth type)
 				break;
 			}
 
+			case ObjectDepth::HUD_BUTTON:
+			{
+				if (obj->GetTransform().GetDepth() == -0.65f)
+					return obj.get();
+				break;
+			}
+
 			case ObjectDepth::BACKGROUND:
 			{
 				if (obj->GetTransform().GetDepth() == -0.1f)
@@ -292,6 +300,22 @@ Object* Input::ClickObject(ObjectDepth type)
 			default:
 				break;
 			}
+		}
+	}
+	return nullptr;
+}
+
+Object* Input::ClickHUDButton()
+{
+	for (auto& obj : HUD_.Get_HUD_Object_Manager())
+	{
+		if (GetMousePos().x < obj->GetTransform().GetTranslation().x + obj->GetTransform().GetScale().x &&
+			GetMousePos().x > obj->GetTransform().GetTranslation().x - obj->GetTransform().GetScale().x &&
+			GetMousePos().y < obj->GetTransform().GetTranslation().y + obj->GetTransform().GetScale().y &&
+			GetMousePos().y > obj->GetTransform().GetTranslation().y - obj->GetTransform().GetScale().y)
+		{
+			if (obj->GetTransform().GetDepth() == -0.65f)
+				return obj.get();
 		}
 	}
 	return nullptr;

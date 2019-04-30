@@ -6,10 +6,9 @@ void LevelSelector::Initialize()
 	m_LevelLock = LevelJson_.LoadLevelLock();
 
 	std::string text = "Level";
-
 	float base_y = 50.f;
 
-	for(int i = 1,j=1; i <= 10; ++i,++j)
+	for(int i = 1,j=1; i <= 5; ++i,++j)
 	{
 		if(i == 6)
 		{
@@ -49,7 +48,7 @@ void LevelSelector::ShutDown()
 	UnLoad();
 }
 
-void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text /*,std::string & font*/,std::string level_id)
+void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text ,std::string numLevel)
 {
 	Object* button = new Object();
 	button->SetTranslation(pos);
@@ -58,14 +57,25 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
 
-	auto is_lock = m_LevelLock.find(level_id)->second;
-	button->AddComponent(new UI(level_text, is_lock));
+	auto isLocked = m_LevelLock.find(numLevel)->second;
+	button->AddComponent(new UI(level_text, isLocked));
 
-	if (is_lock)
+	std::string path = "asset/images/UI/";
+	path.append(numLevel);
+	path.append(".png");
+
+	button->AddComponent(new Sprite(path));
+	if (!isLocked)
 	{
-		button->AddComponent(new Sprite("asset/images/UI/LevelBox.png"));
-	}
-	button->AddComponent(new Sprite("asset/images/UI/LevelLock.png"));
+		Object* lock = new Object();
+		lock->SetTranslation(pos);
+		lock->SetScale(scale-10.f);
+		lock->SetDepth(HUD_OBJECT - 0.02f);
+		lock->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+		lock->SetObjectType(ObjectType::Button);
+		lock->AddComponent(new Sprite("asset/images/UI/Lock.png"));
 
+		Objectmanager_.AddObject(lock);
+	}
 	Objectmanager_.AddObject(button);
 }

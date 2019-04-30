@@ -71,4 +71,5 @@ public:
 
 	static Object* ImGuiObjectClicker();
 	static Object* ClickObject(ObjectDepth type);
+	static Object* ClickHUDButton();
 };

@@ -84,5 +84,6 @@
     <ClInclude Include="LevelJson.hpp" />
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="BitmapFont.hpp" />
+    <ClInclude Include="ObjectDepth.hpp" />
   </ItemGroup>
 </Project>
