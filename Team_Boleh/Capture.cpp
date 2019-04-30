@@ -305,7 +305,6 @@ void Capture::CreateCaptureObject()
             Objectmanager_.AddObject(obj->GetObject());
         }
     }
-
     temporary_obj_storage.clear();
     polaroid_object.clear();
 }

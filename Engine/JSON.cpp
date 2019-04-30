@@ -51,7 +51,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objFontTree(kArrayType);
 	Value objCaptureTree(kArrayType);
 	Value objProjectileTree(kArrayType);
-	//Value objTriggerTree(kArrayType);
+	Value objTriggerTree(kArrayType);
 	Value objMovingObjectTree(kArrayType);
 	Value objUItree;
 	Value capture;
@@ -70,7 +70,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
 	objProjectileTree.SetObject();
-	//objTriggerTree.SetObject();
+	objTriggerTree.SetObject();
 	objMovingObjectTree.SetObject();
 	capture.SetObject();
 	objUItree.SetObject();
@@ -115,8 +115,9 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 
 	if (obj->GetComponentByTemplate<Projectile>() != nullptr)
 		objProjectileTree = ComponentProjectile(obj);
-        //if(obj->GetComponentByTemplate<Trigger>() != nullptr)
-        //        objTriggerTree = ComponentTrigger(obj);
+
+    if(obj->GetComponentByTemplate<Trigger>() != nullptr)
+        objTriggerTree = ComponentTrigger(obj);
 
 	if (obj->GetComponentByTemplate<MovingObject>() != nullptr)
 		objMovingObjectTree = ComponentMovingObj(obj);
@@ -140,7 +141,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
-	//objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("ID", objUItree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
@@ -535,19 +536,18 @@ Value JSON::ComponentTrigger(Object * obj)
     text.SetObject();
     istrigger.SetObject();
 
-
     auto info = obj->GetComponentByTemplate<Trigger>();
+
     translation.AddMember("x", info->GetObjectTranslation().x, ObjectDocument.GetAllocator());
     translation.AddMember("y", info->GetObjectTranslation().y, ObjectDocument.GetAllocator());
-    type.AddMember("type", static_cast<int>(info->GetTriggerStyle()), ObjectDocument.GetAllocator());
+    type.SetInt(static_cast<int>(info->GetTriggerStyle()));
     text.SetString(info->GetText().c_str(), ObjectDocument.GetAllocator());
-    istrigger.AddMember("trigger", info->GetIsTriggerd(), ObjectDocument.GetAllocator());
+    istrigger.SetBool(info->GetIsTriggerd());
 
     container.AddMember("translation", translation, ObjectDocument.GetAllocator());
     container.AddMember("type", type, ObjectDocument.GetAllocator());
     container.AddMember("text", text, ObjectDocument.GetAllocator());
     container.AddMember("trigger", istrigger, ObjectDocument.GetAllocator());
-
 
     return container;
 }
@@ -555,7 +555,7 @@ Value JSON::ComponentTrigger(Object * obj)
 void JSON::SaveObjectsToJson(const std::string& file, const std::string& path)
 {
 	std::string filename(file_path);
-        filename.append(file);
+    filename.append(file);
 	filename.append(path);
 	filename.append(".json");
 
@@ -845,7 +845,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui.SetObject();
 		projectile.SetObject();
 		movingobj.SetObject();
-                trigger.SetObject();
+        trigger.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -861,7 +861,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
-                trigger = obj_array.FindMember("Trigger")->value;
+        trigger = obj_array.FindMember("Trigger")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -871,9 +871,6 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 
 			obj->SetIsDead(isDead);
 			obj->SetObjectType(static_cast<ObjectType>(obj_type));
-
-			//if (obj->GetObjectType() == ObjectType::Player)
-			//	StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
 		}
 
 	    //////////////////////////////////////// Transform
@@ -897,7 +894,6 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		////////////////////////////////////////////////// Sprite
 		bool is_flip = false;
 		std::string path;
-
 
 		if (sprite.HasMember("image_path"))
 		{
@@ -975,16 +971,16 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			obj->AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
 					color_duration, start, random, particle_size, emit_size,  particle_path, isActive));
 		}
-                ////////////////////////////////////////////////////Trigger
-                if (trigger.HasMember("translation"))
-                {
-                    start.x = trigger.FindMember("translation")->value.FindMember("x")->value.GetFloat();
-                    start.y = trigger.FindMember("translation")->value.FindMember("y")->value.GetFloat();
-                    auto t_style = static_cast<TriggerStyle>(trigger.FindMember("type")->value.GetInt());
-                    auto isTrigger = trigger.FindMember("trigger")->value.GetBool();
-                    path = trigger.FindMember("text")->value.GetString();
-                    obj->AddComponent(new Trigger(start, t_style, path, isTrigger));
-                }
+        ////////////////////////////////////////////////////Trigger
+        if (trigger.HasMember("translation"))
+        {
+            start.x = trigger.FindMember("translation")->value.FindMember("x")->value.GetFloat();
+            start.y = trigger.FindMember("translation")->value.FindMember("y")->value.GetFloat();
+            auto t_style = static_cast<TriggerStyle>(trigger.FindMember("type")->value.GetInt());
+            auto isTrigger = trigger.FindMember("trigger")->value.GetBool();
+            path = trigger.FindMember("text")->value.GetString();
+            obj->AddComponent(new Trigger(start, t_style, path, isTrigger));
+        }
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))
 		{
