@@ -16,6 +16,8 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
+
+    std::cout << Input::GetMousePos().x << ", " << Input::GetMousePos().y << std::endl;
     if(camera->GetObjectType() != ObjectType::Camera)
     {
         for(auto i : Objectmanager_.GetObjectMap())
