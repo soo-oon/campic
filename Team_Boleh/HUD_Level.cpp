@@ -6,8 +6,20 @@
 
 void HUD_Level::Initialize()
 {
-	Object* h_capture_limit = new Object();
+	h_capture_limit = new Object();
+	h_capture_limit->SetTranslation(vector2(screen_size.x/2 -200, screen_size.y / 2 - 100));
+	h_capture_limit->SetScale(vector2{ screen_size.x / 10,  });
+	h_capture_limit->SetDepth(-0.5f);
+	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	h_capture_limit->SetObjectType(ObjectType::None);
+	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimit.png"));
 
+	h_capture_number = new Object();
+	h_capture_number->SetTranslation(vector2(0,0));
+	h_capture_number->SetScale({ 2.5 });
+	h_capture_number->SetDepth(-0.6f);
+	h_capture_number->AddInitComponent(new Font(L"asset/font/sansation.fnt", L"0"));
+	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 
 	h_option_window = new Object();
 	h_option_window->SetScale({ screen_size.x-200, screen_size.y-200 });
@@ -34,7 +46,9 @@ void HUD_Level::Initialize()
 	h_fullscreen_button->AddComponent(new UI("fullscreen"));
 	h_fullscreen_button->GetMesh().Invisible();
 
+	HUD_.Add_HUD_Object(h_capture_number);
 	HUD_.Add_HUD_Object(h_fullscreen_button);
+	HUD_.Add_HUD_Object(h_capture_limit);
 	HUD_.Add_HUD_Object(h_cheese);
 	HUD_.Add_HUD_Object(h_option_window);
 
@@ -82,6 +96,12 @@ void HUD_Level::Update(float dt)
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Game)
 	{
+		int num = StateManager_.GetCurrentState()->GetCaptureLimit();
+		std::string num_string = std::to_string(num);
+		std::wstring temp = L"";
+		temp.assign(num_string.begin(), num_string.end());
+		h_capture_number->GetComponentByTemplate<Font>()->SetString(temp);
+
 		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
 			IsOptionWindowOpen = !IsOptionWindowOpen;
