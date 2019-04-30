@@ -381,7 +381,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
         ImGui::SameLine();
         if (ImGui::Button("Reset"))
         {
-            memset(buffer, 0, 100);
+            memset(buf_text, 0, 100);
         }
 
 	const char* trigger_type[] = { "CheckPoint","Door", "Font", "None" };

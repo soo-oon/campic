@@ -14,8 +14,9 @@ enum class TriggerStyle
 class Trigger : public Component
 {
 public:
-    Trigger(vector2 translation, TriggerStyle trigger_style, std::string string = " ") : o_translation(translation), m_trigger_style(trigger_style)
+    Trigger(vector2 translation, TriggerStyle trigger_style, std::string string = " ", bool istriggered = false) : o_translation(translation), m_trigger_style(trigger_style)
     {
+        isTriggered = istriggered;
         text = string;
     }
 
@@ -49,7 +50,7 @@ private:
     std::string text;
     vector2 o_translation; //object_translation
     TriggerStyle m_trigger_style;
+    bool isTriggered;
     Object* m_connected_object = nullptr;
-    bool isTriggered = false;
 };
 

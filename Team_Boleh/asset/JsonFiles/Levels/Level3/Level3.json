@@ -41,6 +41,7 @@
             "level": "Level"
         },
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -89,6 +90,7 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {
             "id": "Level4"
@@ -122,6 +124,7 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
