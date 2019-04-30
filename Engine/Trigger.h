@@ -5,16 +5,19 @@
 
 enum class TriggerStyle
 {
+    CheckPoint,
     Door,
     Font,
-    CheckPoint,
     None
 };
 
 class Trigger : public Component
 {
 public:
-    Trigger(vector2 translation, TriggerStyle trigger_style) : o_translation(translation), m_trigger_style(trigger_style){}
+    Trigger(vector2 translation, TriggerStyle trigger_style, std::string string = " ") : o_translation(translation), m_trigger_style(trigger_style)
+    {
+        text = string;
+    }
 
     bool Initialize(Object* Ob);
     void Update(float dt);
@@ -28,7 +31,9 @@ public:
     void SetTriggerStyle(TriggerStyle trigger) { m_trigger_style = trigger; }
     void SetObjectTranslation(vector2 obj) { o_translation = obj;}
     void SetConnectedObject(Object* obj) { m_connected_object = obj;}
+    void SetText(std::string obj) { text = obj;}
 
+    std::string GetText() { return text; }
     bool GetIsTriggerd() { return isTriggered; }
     Object* GetConnectedObject() { return m_connected_object; }
     TriggerStyle GetTriggerStyle() { return m_trigger_style; }
@@ -40,6 +45,8 @@ private:
     //If you want to make Trigger_Obj, you can use translation
     void MakeConnectedDoor();
     void CheckPoint();
+    void Text();
+    std::string text;
     vector2 o_translation; //object_translation
     TriggerStyle m_trigger_style;
     Object* m_connected_object = nullptr;

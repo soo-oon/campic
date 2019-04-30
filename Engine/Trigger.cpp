@@ -2,6 +2,7 @@
 #include "ObjectDepth.hpp"
 #include "State.hpp"
 #include "Capture.hpp"
+#include "Font.hpp"
 
 bool Trigger::Initialize(Object * Ob)
 {
@@ -53,6 +54,7 @@ void Trigger::ConnectObjectAction()
             MakeConnectedDoor();
             break;
         case TriggerStyle::Font:
+            Text();
             break;
         case TriggerStyle::CheckPoint:
             CheckPoint();
@@ -98,5 +100,22 @@ void Trigger::CheckPoint()
             }
         }
         object->SetIsDead(true);
+    }
+}
+
+void Trigger::Text()
+{
+    if (!m_connected_object)
+    {
+        m_connected_object = new Object;
+
+        m_connected_object->SetTranslation(o_translation);
+        m_connected_object->SetScale({ 2.5 });
+        m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
+        std::wstring w_text = L"";
+        w_text.assign(text.begin(), text.end());
+        m_connected_object->AddInitComponent(new Font(L"asset/font/sansation.fnt", w_text));
+        m_connected_object->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+        Objectmanager_.AddObject(m_connected_object);
     }
 }

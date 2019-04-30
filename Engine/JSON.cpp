@@ -526,20 +526,23 @@ Value JSON::ComponentProjectile(Object * obj)
 Value JSON::ComponentTrigger(Object * obj)
 {
     Value container(kArrayType);
-    Value translation, type;
+    Value translation, text, type;
 
     container.SetObject();
     translation.SetObject();
     type.SetObject();
+    text.SetObject();
 
 
     auto info = obj->GetComponentByTemplate<Trigger>();
     translation.AddMember("x", info->GetObjectTranslation().x, ObjectDocument.GetAllocator());
     translation.AddMember("y", info->GetObjectTranslation().y, ObjectDocument.GetAllocator());
     type.AddMember("type", static_cast<int>(info->GetTriggerStyle()), ObjectDocument.GetAllocator());
+    text.SetString(info->GetText().c_str(), ObjectDocument.GetAllocator());
 
     container.AddMember("translation", translation, ObjectDocument.GetAllocator());
     container.AddMember("type", type, ObjectDocument.GetAllocator());
+    container.AddMember("text", text, ObjectDocument.GetAllocator());
 
 
     return container;
@@ -820,7 +823,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		Value& obj_array = temp.value;
 
 		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
-		Value ui, projectile, movingobj, Trigger;
+		Value ui, projectile, movingobj, trigger;
 		
 		Object* obj = new Object();
 
@@ -838,7 +841,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui.SetObject();
 		projectile.SetObject();
 		movingobj.SetObject();
-                //Trigger.SetObject();
+                trigger.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -854,7 +857,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
-                //Trigger = obj_array.FindMember("Trigger")->value;
+                //trigger = obj_array.FindMember("Trigger")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -890,6 +893,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		////////////////////////////////////////////////// Sprite
 		bool is_flip = false;
 		std::string path;
+
 
 		if (sprite.HasMember("image_path"))
 		{
@@ -967,7 +971,14 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			obj->AddComponent(new Particle_Generator(emit_rate, life_time, size_variance,
 					color_duration, start, random, particle_size, emit_size,  particle_path, isActive));
 		}
-
+                if (trigger.HasMember("translation"))
+                {
+                    start.x = trigger.FindMember("translation")->value.FindMember("x")->value.GetFloat();
+                    start.y = trigger.FindMember("translation")->value.FindMember("y")->value.GetFloat();
+                    auto t_style = static_cast<TriggerStyle>(trigger.FindMember("type")->value.GetInt());
+                    path = trigger.FindMember("text")->value.GetString();
+                    obj->AddComponent(new Trigger(start, t_style, path));
+                }
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))
 		{
