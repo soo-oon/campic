@@ -5,6 +5,8 @@
 
 void Level::Initialize()
 {
+	AudioManager_.PlaySong("asset/sounds/Game_BGM.mp3");
+
 	camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level"));
