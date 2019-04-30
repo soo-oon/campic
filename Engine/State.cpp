@@ -102,7 +102,7 @@ void State::CreateCaptureCamera()
 void State::CreatePlayer()
 {
     Object* player = new Object();
-    player->SetTranslation(Input::GetMousePos());
+    player->SetTranslation(start_pos);
 	player->AddInitComponent(new Player());
     /*player->SetScale({ 80.0f, 80.f });
     player->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));

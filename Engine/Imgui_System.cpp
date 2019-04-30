@@ -57,26 +57,16 @@ bool Imgui_System::Initialize()
 	{
 		imageList.push_back(p.path().filename().string());
 	}
-	//Enemy Image List
-	for (auto& p : std::filesystem::directory_iterator("asset/images/Enemies"))
-	{
-		enemyList.push_back(enemy_dir + p.path().filename().string());
-	}
 	//Sound list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
 	{
 		soundList.push_back(p.path().filename().string());
 	}
 	//Tile list in project directory
-	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Non_Ani"))
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles"))
 	{
 		non_ani_tileList.push_back(non_ani_tile_dir + p.path().filename().string());
 	}
-	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Ani"))
-	{
-		ani_tileList.push_back(ani_tile_dir + p.path().filename().string());
-	}
-
 	// Add texture into imgui
 	for (auto& temp : non_ani_tileList)
 	{
@@ -431,7 +421,6 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(cannon);
 	}*/
 
-
 	ImGui::Separator();
 	ImGui::Text("Archetype");
 
@@ -497,8 +486,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		RoundObject->SetScale({ 125.0f, 50.0f });
 		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
-		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		RoundObject->AddComponent(new MovingObject(5.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ROUND, 0.0f));
+		RoundObject->SetObjectType(ObjectType::Item_Dynamic);
+		RoundObject->AddComponent(new MovingObject(100.0f, RoundObject->GetTransform().GetTranslation(), 300.0f, Direction::DOWN, MovementType::ROUND, 0.0f));
 		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		RoundObject->AddInitComponent(new Collision());
 		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
@@ -520,8 +509,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		RoundObject->SetScale({ 125.0f, 50.0f });
 		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
-		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		RoundObject->AddComponent(new MovingObject(8.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ROUND, 0.0f));
+		RoundObject->SetObjectType(ObjectType::Item_Dynamic);
+		RoundObject->AddComponent(new MovingObject(100.0f, RoundObject->GetTransform().GetTranslation(), 300.0f, Direction::UP, MovementType::ROUND, 0.0f));
 		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		RoundObject->AddInitComponent(new Collision());
 		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
@@ -543,8 +532,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		RoundObject->SetScale({ 125.0f, 50.0f });
 		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
-		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		RoundObject->AddComponent(new MovingObject(2.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ROUND, 0.0f));
+		RoundObject->SetObjectType(ObjectType::Item_Dynamic);
+		RoundObject->AddComponent(new MovingObject(100.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ROUND, 0.0f));
 		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		RoundObject->AddInitComponent(new Collision());
 		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
@@ -564,8 +553,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		RoundObject->SetScale({ -125.0f, 50.0f });
 		RoundObject->SetTranslation(Input::GetMousePos());
 		RoundObject->AddInitComponent(new RigidBody());
-		RoundObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		RoundObject->AddComponent(new MovingObject(2.0f, RoundObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ROUND, 0.0f));
+		RoundObject->SetObjectType(ObjectType::Item_Dynamic);
+		RoundObject->AddComponent(new MovingObject(100.0f, RoundObject->GetTransform().GetTranslation(), 300.0f, Direction::RIGHT, MovementType::ROUND, 0.0f));
 		RoundObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		RoundObject->AddInitComponent(new Collision());
 		RoundObject->AddInitComponent(new Sprite("asset/images/UI/StartButton.png"));
@@ -585,8 +574,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		OneWayObject->SetScale({ 50.0f, 50.0f });
 		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
-		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		OneWayObject->AddComponent(new MovingObject(7.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::DOWN, MovementType::ONEWAY, 5.0f));
+		OneWayObject->SetObjectType(ObjectType::Item_Dynamic);
+		OneWayObject->AddComponent(new MovingObject(100.0f, OneWayObject->GetTransform().GetTranslation(), 300.0f, Direction::DOWN, MovementType::ONEWAY, 5.0f));
 		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		OneWayObject->AddInitComponent(new Collision());
 		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
@@ -606,8 +595,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		OneWayObject->SetScale({ 50.0f, 50.0f });
 		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
-		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		OneWayObject->AddComponent(new MovingObject(2.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::UP, MovementType::ONEWAY, 0.0f));
+		OneWayObject->SetObjectType(ObjectType::Item_Dynamic);
+		OneWayObject->AddComponent(new MovingObject(100.0f, OneWayObject->GetTransform().GetTranslation(), 300.0f, Direction::UP, MovementType::ONEWAY, 0.0f));
 		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		OneWayObject->AddInitComponent(new Collision());
 		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
@@ -627,8 +616,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		OneWayObject->SetScale({ 50.0f, 50.0f });
 		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
-		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::LEFT, MovementType::ONEWAY, 3.0f));
+		OneWayObject->SetObjectType(ObjectType::Item_Dynamic);
+		OneWayObject->AddComponent(new MovingObject(100.0f, OneWayObject->GetTransform().GetTranslation(), 300.0f, Direction::LEFT, MovementType::ONEWAY, 3.0f));
 		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		OneWayObject->AddInitComponent(new Collision());
 		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
@@ -648,8 +637,8 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		OneWayObject->SetScale({ 50.0f, 50.0f });
 		OneWayObject->SetTranslation(Input::GetMousePos());
 		OneWayObject->AddInitComponent(new RigidBody());
-		OneWayObject->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		OneWayObject->AddComponent(new MovingObject(1.0f, OneWayObject->GetTransform().GetTranslation(), 100.0f, Direction::RIGHT, MovementType::ONEWAY, 2.0f));
+		OneWayObject->SetObjectType(ObjectType::Item_Dynamic);
+		OneWayObject->AddComponent(new MovingObject(100.0f, OneWayObject->GetTransform().GetTranslation(), 300.0f, Direction::RIGHT, MovementType::ONEWAY, 2.0f));
 		OneWayObject->SetMesh(mesh::CreateBox(1, { 255, 255, 255, 255 }));
 		OneWayObject->AddInitComponent(new Collision());
 		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
