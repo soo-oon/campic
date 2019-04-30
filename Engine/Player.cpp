@@ -48,8 +48,8 @@ void Player::Update(float dt)
         camera->SetCenter(object->GetTransform().GetTranslation());
     }
 
-#endif
 	MouseTest();
+#endif
 }
 
 void Player::Delete()
