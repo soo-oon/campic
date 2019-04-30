@@ -528,19 +528,23 @@ Value JSON::ComponentProjectile(Object * obj)
 Value JSON::ComponentTrigger(Object * obj)
 {
     Value container(kArrayType);
-    Value translation, text, type, istrigger;
+    Value translation, text, type, istrigger, i_frame, u_frame;
 
     container.SetObject();
     translation.SetObject();
     type.SetObject();
     text.SetObject();
     istrigger.SetObject();
+    i_frame.SetObject();
+    u_frame.SetObject();
 
     auto info = obj->GetComponentByTemplate<Trigger>();
 
     translation.AddMember("x", info->GetObjectTranslation().x, ObjectDocument.GetAllocator());
     translation.AddMember("y", info->GetObjectTranslation().y, ObjectDocument.GetAllocator());
     type.SetInt(static_cast<int>(info->GetTriggerStyle()));
+    i_frame.SetFloat(info->GetImageFrame());
+    u_frame.SetFloat(info->GetUpdateFrame());
     text.SetString(info->GetText().c_str(), ObjectDocument.GetAllocator());
     istrigger.SetBool(info->GetIsTriggerd());
 
@@ -548,6 +552,8 @@ Value JSON::ComponentTrigger(Object * obj)
     container.AddMember("type", type, ObjectDocument.GetAllocator());
     container.AddMember("text", text, ObjectDocument.GetAllocator());
     container.AddMember("trigger", istrigger, ObjectDocument.GetAllocator());
+    container.AddMember("u_frame", u_frame, ObjectDocument.GetAllocator());
+    container.AddMember("i_frame", i_frame, ObjectDocument.GetAllocator());
 
     return container;
 }
@@ -972,15 +978,18 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 					color_duration, start, random, particle_size, emit_size,  particle_path, isActive));
 		}
         ////////////////////////////////////////////////////Trigger
-        /*if (trigger.HasMember("translation"))
+        if (trigger.HasMember("translation"))
         {
             start.x = trigger.FindMember("translation")->value.FindMember("x")->value.GetFloat();
             start.y = trigger.FindMember("translation")->value.FindMember("y")->value.GetFloat();
             auto t_style = static_cast<TriggerStyle>(trigger.FindMember("type")->value.GetInt());
             auto isTrigger = trigger.FindMember("trigger")->value.GetBool();
+            auto i_frame = trigger.FindMember("i_frame")->value.GetFloat();
+            auto u_frame = trigger.FindMember("u_frame")->value.GetFloat();
             path = trigger.FindMember("text")->value.GetString();
-            obj->AddComponent(new Trigger(start, t_style, path, isTrigger));
-        }*/
+
+            obj->AddComponent(new Trigger(start, t_style, path, isTrigger, i_frame,u_frame));
+        }
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))
 		{

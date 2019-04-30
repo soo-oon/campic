@@ -374,6 +374,13 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	ImGui::InputFloat("x", &pos.x, -1000.f, 2000.0f);
 	ImGui::InputFloat("y", &pos.y, -1000.f, 2000.0f);
 
+        ImGui::Text("Image Frame");
+        static float i_frame;
+        ImGui::InputFloat("i_frame", &i_frame, -1000.f, 2000.0f);
+        ImGui::Text("Update Frame");
+        static float u_frame;
+        ImGui::InputFloat("u_frame", &u_frame, -1000.f, 2000.0f);
+
         ImGui::Text("Text");
         static char buf_text[100] = "";
         ImGui::InputText(" ", buf_text, IM_ARRAYSIZE(buf_text));
@@ -384,7 +391,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
             memset(buf_text, 0, 100);
         }
 
-	const char* trigger_type[] = { "CheckPoint","Door", "Font", "None" };
+	const char* trigger_type[] = { "CheckPoint","Door", "Font", "Graphic", "None" };
 	static int item_current = 0;
 	ImGui::Combo("Select Trigger Type", &item_current, trigger_type, IM_ARRAYSIZE(trigger_type));
     ImGui::Button("Trigger");
@@ -398,11 +405,11 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Object* trigger = new Object();
                 trigger->SetTranslation(Input::GetMousePos());
                 trigger->SetScale({ 10,100 });
-                trigger->SetDepth(GAME_OBJECT);
+                trigger->SetDepth(GAME_OBJECT +0.01f);
                 trigger->SetObjectType(ObjectType::Trigger);
                 trigger->SetMesh(mesh::CreateBox());
                 trigger->AddInitComponent(new Collision(box_));
-                trigger->AddInitComponent(new Trigger(pos, static_cast<TriggerStyle>(item_current), buf_text));
+                trigger->AddInitComponent(new Trigger(pos, static_cast<TriggerStyle>(item_current), buf_text,false, i_frame, u_frame));
 
 		Objectmanager_.AddObject(trigger);
 	}

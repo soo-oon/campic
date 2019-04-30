@@ -8,16 +8,20 @@ enum class TriggerStyle
     CheckPoint,
     Door,
     Font,
+    Graphic,
     None
 };
 
 class Trigger : public Component
 {
 public:
-    Trigger(vector2 translation, TriggerStyle trigger_style, std::string string = " ", bool istriggered = false) : o_translation(translation), m_trigger_style(trigger_style)
+    Trigger(vector2 translation, TriggerStyle trigger_style, std::string string = " ", bool istriggered = false,
+        float image_frame_ = 0 , float update_frame_ = 0) : o_translation(translation), m_trigger_style(trigger_style)
     {
         isTriggered = istriggered;
         text = string;
+        image_frame = image_frame_;
+        update_frame = update_frame_;
     }
 
     bool Initialize(Object* Ob);
@@ -33,7 +37,11 @@ public:
     void SetObjectTranslation(vector2 obj) { o_translation = obj;}
     void SetConnectedObject(Object* obj) { m_connected_object = obj;}
     void SetText(std::string obj) { text = obj;}
+    void SetImageFrame(float obj) { image_frame = obj;}
+    void SetUpdateUrame(float obj) { update_frame = obj;}
 
+    float GetImageFrame() { return image_frame; }
+    float GetUpdateFrame() { return update_frame; }
     std::string GetText() { return text; }
     bool GetIsTriggerd() { return isTriggered; }
     Object* GetConnectedObject() { return m_connected_object; }
@@ -46,10 +54,12 @@ private:
     //If you want to make Trigger_Obj, you can use translation
     void MakeConnectedDoor();
     void CheckPoint();
+    void GraphicPrint();
     void Text();
     std::string text;
     vector2 o_translation; //object_translation
     TriggerStyle m_trigger_style;
+    float image_frame, update_frame;
     bool isTriggered;
     Object* m_connected_object = nullptr;
 };
