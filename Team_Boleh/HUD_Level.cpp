@@ -46,11 +46,11 @@ void HUD_Level::Initialize()
 	h_fullscreen_button->AddComponent(new UI("fullscreen"));
 	h_fullscreen_button->GetMesh().Invisible();
 
-	HUD_.Add_HUD_Object(h_capture_number);
-	HUD_.Add_HUD_Object(h_fullscreen_button);
-	HUD_.Add_HUD_Object(h_capture_limit);
+	//HUD_.Add_HUD_Object(h_capture_number);
+	//HUD_.Add_HUD_Object(h_fullscreen_button);
+	//HUD_.Add_HUD_Object(h_capture_limit);
 	HUD_.Add_HUD_Object(h_cheese);
-	HUD_.Add_HUD_Object(h_option_window);
+	//HUD_.Add_HUD_Object(h_option_window);
 
 	HUD_.Toggle_HUD_Active();
 }
@@ -96,11 +96,11 @@ void HUD_Level::Update(float dt)
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Game)
 	{
-		int num = StateManager_.GetCurrentState()->GetCaptureLimit();
+		/*int num = StateManager_.GetCurrentState()->GetCaptureLimit();
 		std::string num_string = std::to_string(num);
 		std::wstring temp = L"";
 		temp.assign(num_string.begin(), num_string.end());
-		h_capture_number->GetComponentByTemplate<Font>()->SetString(temp);
+		h_capture_number->GetComponentByTemplate<Font>()->SetString(temp);*/
 
 		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
