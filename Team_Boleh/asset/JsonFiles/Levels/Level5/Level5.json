@@ -27,8 +27,8 @@
         "Camera": {
             "zoom": 1.0,
             "center": {
-                "x": -116.0,
-                "y": -454.0
+                "x": -276.0,
+                "y": 36.0
             },
             "up": {
                 "x": 0.0,
@@ -47,13 +47,13 @@
     },
     "Object": {
         "Type": {
-            "type": 15,
+            "type": 16,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -537.0,
-                "y": 325.0
+                "x": -531.0,
+                "y": 324.0
             },
             "scale": {
                 "x": 75.0,
@@ -83,8 +83,8 @@
         },
         "Transform": {
             "position": {
-                "x": 207.0,
-                "y": 336.0
+                "x": 209.0,
+                "y": 333.0
             },
             "scale": {
                 "x": 100.0,
@@ -124,51 +124,6 @@
         "ID": {
             "id": "Level6"
         },
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -102.0,
-                "y": -750.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "zone",
-                        "path": "asset/images/PhotoZone.png"
-                    },
-                    "info": {
-                        "image_frames": 4,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Moving": {},
-        "ID": {},
         "Camera": null
     }
 }

@@ -27,8 +27,8 @@
         "Camera": {
             "zoom": 1.0,
             "center": {
-                "x": 18.0,
-                "y": 116.0
+                "x": 12.0,
+                "y": 204.0
             },
             "up": {
                 "x": 0.0,
@@ -47,44 +47,13 @@
     },
     "Object": {
         "Type": {
-            "type": 15,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -716.0,
-                "y": 26.0
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
             "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 447.0,
-                "y": 214.0
+                "x": 446.0,
+                "y": 215.0
             },
             "scale": {
                 "x": 100.0,
@@ -124,6 +93,37 @@
         "ID": {
             "id": "Level3"
         },
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 16,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -234.0,
+                "y": 25.0
+            },
+            "scale": {
+                "x": 75.0,
+                "y": 75.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
         "Camera": null
     }
 }

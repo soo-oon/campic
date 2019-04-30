@@ -54,26 +54,16 @@ private:
 	bool tile_editor = false;
 
 	std::vector<std::string> imageList;
-	std::vector<std::string> enemyList;
-	std::vector<std::string> soundList;
-	std::vector<std::string> ani_tileList;
 	std::vector<std::string> non_ani_tileList;
 
-	std::unordered_map<std::string,ImTextureID> ani_tileList_buttons;
 	std::unordered_map<std::string, ImTextureID> non_ani_tileList_buttons;
-	std::unordered_map<std::string, ImTextureID> enemy_buttons;
 
 	std::string image_path;
-	std::string sound_path;
 	std::string tile_path;
 
 	std::string image_dir = "asset/images/";
-	std::string enemy_dir = "asset/images/Enemies/";
-	std::string sound_dir = "asset/sounds/";
-	std::string ani_tile_dir = "asset/images/Tiles/Ani/";
-	std::string non_ani_tile_dir = "asset/images/Tiles/Non_Ani/";
+	std::string non_ani_tile_dir = "asset/images/Tiles/";
 
-	ImGuiID ani_tile_selected = false;
 	ImGuiID non_ani_tile_selected = false;
 
 	bool is_normal_tile = true;
