@@ -28,20 +28,21 @@ void Level::Update(float dt)
     }
     if(Input::IsKeyPressed(GLFW_KEY_UP))
     {
-        camera->GetComponentByTemplate<Camera>()->MoveUp(2.f);
+        camera->GetComponentByTemplate<Camera>()->MoveUp(6.f);
     }
     if (Input::IsKeyPressed(GLFW_KEY_DOWN))
     {
-        camera->GetComponentByTemplate<Camera>()->MoveUp(-2.f);
+        camera->GetComponentByTemplate<Camera>()->MoveUp(-6.f);
     }
     if (Input::IsKeyPressed(GLFW_KEY_LEFT))
     {
-        camera->GetComponentByTemplate<Camera>()->MoveRight(-2.f);
+        camera->GetComponentByTemplate<Camera>()->MoveRight(-6.f);
     }
     if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
     {
         camera->GetComponentByTemplate<Camera>()->MoveRight(6.f);
     }
+
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 		BackToMenu();
 
