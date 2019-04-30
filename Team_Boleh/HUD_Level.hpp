@@ -18,4 +18,5 @@ public:
 private:
 	Object* h_option_window = nullptr;
 	Object* h_cheese = nullptr;
+	vector2 screen_size = Application_.GetScreenSize();
 };

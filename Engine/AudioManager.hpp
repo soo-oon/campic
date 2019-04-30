@@ -69,6 +69,8 @@ private:
 	std::string nextSongPath;   
 	
 	FadeState fade;
+
+	const float fadeTime = 0.1f;
 };
 
 inline float ChangeSemitone(float frequency, float variation)

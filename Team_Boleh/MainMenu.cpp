@@ -4,7 +4,6 @@
 
 void MainMenu::Initialize()
 {
-	AudioManager_.LoadSong("asset/sounds/MainMenu_BGM.mp3");
 	AudioManager_.PlaySong("asset/sounds/MainMenu_BGM.mp3");
 
 	Object* background = new Object();
@@ -45,7 +44,7 @@ void MainMenu::Initialize()
 	Credit->SetDepth(HUD_OBJECT);
 	Credit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Credit->SetObjectType(ObjectType::Button);
-	//Credit->AddComponent(new UI("LevelSelector"));
+	Credit->AddComponent(new UI("LevelSelector"));
 	Credit->AddComponent(new Sprite("asset/images/UI/CreditButton.png"));
 
 	Objectmanager_.AddObject(Credit);

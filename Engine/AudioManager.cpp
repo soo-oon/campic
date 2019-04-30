@@ -38,7 +38,8 @@ bool AudioManager::Initialize()
 	modes[CATEGORY_SFX] = FMOD_DEFAULT;  
 	modes[CATEGORY_SONG] = FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL;
 
-	LoadSong("asset/sounds/enchant.mp3");
+	LoadSong("asset/sounds/MainMenu_BGM.mp3");
+	LoadSong("asset/sounds/Game_BGM.mp3");
 
 	std::cout << "AudioManager Initialization Successful" << std::endl;
 
@@ -56,7 +57,7 @@ void AudioManager::Update(float dt)
 	//If no song is playing, and there is a song set up to play next, start playing it: 
 
 	// in seconds  
-	const float fadeTime = 1.0f; 
+	
 	
 	if(currentSong != NULL && fade == FADE_IN)
 	{
