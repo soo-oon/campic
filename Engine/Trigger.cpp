@@ -29,7 +29,7 @@ void Trigger::Update(float dt)
             m_connected_object->SetMesh(mesh::CreateBox(1, { 255,255,0, 255 }));
             m_connected_object->SetDepth(GAME_OBJECT);
             m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
-            m_connected_object->AddInitComponent(new Animation("asset/images/SavePoint.png", "sPoint", 17, 0.075f, true));
+            m_connected_object->AddInitComponent(new Animation("asset/images/UI/SavePoint.png", "sPoint", 19, 0.075f, false));
             m_connected_object->GetComponentByTemplate<Animation>()->SetIsActive(false);
             //m_connected_object->AddComponent(new Collision());
             Objectmanager_.AddObject(m_connected_object);
@@ -87,6 +87,11 @@ void Trigger::CheckPoint()
     player_->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
     m_connected_object->GetComponentByTemplate<Animation>()->SetIsActive(true);
     m_connected_object->SetDepth(GAME_OBJECT - 0.1f);
+
+	if (m_connected_object->GetComponentByTemplate<Animation>()->IsDone())
+		m_connected_object->GetComponentByTemplate<Animation>()->ResetAnimaition();
+
+
     if(m_connected_object->GetComponentByTemplate<Animation>()->IsDone())
     {
         isTriggered = false;

@@ -17,6 +17,11 @@ public:
 	void CreateHudButton(vector2 pos, vector2 scale /*,std::string & font*/, std::string id);
 private:
 	Object* h_option_window = nullptr;
+	Object* h_fullscreen_button = nullptr;
+
 	Object* h_cheese = nullptr;
+	Object* h_select = nullptr;
 	vector2 screen_size = Application_.GetScreenSize();
+
+	bool IsOptionWindowOpen = false;
 };
