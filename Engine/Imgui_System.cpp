@@ -394,7 +394,17 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	ImGui::InputFloat("x", &pos.x, -1000.f, 2000.0f);
 	ImGui::InputFloat("y", &pos.y, -1000.f, 2000.0f);
 
-	const char* trigger_type[] = { "Door", "Font","CheckPoint", "None" };
+        ImGui::Text("Text");
+        static char buf_text[100] = "";
+        ImGui::InputText(" ", buf_text, IM_ARRAYSIZE(buf_text));
+
+        ImGui::SameLine();
+        if (ImGui::Button("Reset"))
+        {
+            memset(buffer, 0, 100);
+        }
+
+	const char* trigger_type[] = { "CheckPoint","Door", "Font", "None" };
 	static int item_current = 0;
 	ImGui::Combo("Select Trigger Type", &item_current, trigger_type, IM_ARRAYSIZE(trigger_type));
 
@@ -415,7 +425,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
                 trigger->SetObjectType(ObjectType::Trigger);
                 trigger->SetMesh(mesh::CreateBox());
                 trigger->AddInitComponent(new Collision(box_));
-                trigger->AddInitComponent(new Trigger(pos, static_cast<TriggerStyle>(item_current)));
+                trigger->AddInitComponent(new Trigger(pos, static_cast<TriggerStyle>(item_current), buf_text));
 
 		Objectmanager_.AddObject(trigger);
 	}
