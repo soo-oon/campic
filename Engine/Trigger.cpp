@@ -56,6 +56,8 @@ void Trigger::ConnectObjectAction()
         case TriggerStyle::Font:
             Text();
             break;
+        case TriggerStyle::Graphic:
+            break;
         case TriggerStyle::CheckPoint:
             CheckPoint();
             break;
@@ -105,6 +107,22 @@ void Trigger::CheckPoint()
             }
         }
         object->SetIsDead(true);
+    }
+}
+
+void Trigger::GraphicPrint()
+{
+    if (!m_connected_object)
+    {
+        m_connected_object = new Object;
+
+        m_connected_object->SetTranslation(o_translation);
+        m_connected_object->SetScale({ 2.5 });
+        m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
+        std::string path = "asset/images/UI/";
+        m_connected_object->AddInitComponent(new Animation(path + text, "text", image_frame,update_frame , true));
+        m_connected_object->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+        Objectmanager_.AddObject(m_connected_object);
     }
 }
 
