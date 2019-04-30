@@ -36,14 +36,14 @@ void StateManager::AddStage(std::string ID, State* state)
 
 	if (m_currentState == nullptr)
 	{
-		if(auto& first_level = states.find(ID)->second; 
+		if(auto& first_level = states.find(ID)->second;
 			first_level->information_ == State_Information::Splash)
 		{
 			m_currentState = first_level.get();
 		}
 		else
 		{
-			//TODO Chnage this                    
+			//TODO Chnage this
 			m_currentState = first_level.get();
 		}
 		m_currentState->SetLevelIndicator(ID);
@@ -63,6 +63,7 @@ void StateManager::ChangeStage()
 	m_currentState->LoadLevel(save);
 	m_currentState->SetLevelIndicator(save);
 	SetCurrentLevelCaptureLimit();
+
     m_currentState->CreateCaptureCamera();
     
 	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
@@ -76,14 +77,14 @@ void StateManager::ChangeStage()
 }
 
 void StateManager::BackToMenu()
-{
+{	
 	m_currentState->ShutDown();
 	m_currentState->ResetBackToMenu();
 	m_currentState = states.find("LevelSelector")->second.get();
 
 	m_currentState->Initialize();
 
-        m_currentState->CreateCaptureCamera();
+    m_currentState->CreateCaptureCamera();
 
 	Physics_.ResetPreviousSize();
 }
