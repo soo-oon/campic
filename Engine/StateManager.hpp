@@ -46,7 +46,11 @@ public:
 	void Pause();
 
 	void SetCurrentLevelCaptureLimit();
+	void TogglePause() { m_pause = !m_pause; }
 	State* GetCurrentState() { return m_currentState; }
+
+	bool IsPause() { return m_pause; }
+
 	std::unordered_map <std::string, std::unique_ptr<State>>& GetStateMap() { return states; }
 
 private:

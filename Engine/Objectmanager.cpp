@@ -38,45 +38,48 @@ bool Objectmanager::Initialize()
 
 void Objectmanager::Update(float dt)
 {
-    auto size = objects_.size();
+	if (!StateManager_.IsPause())
+	{
+		auto size = objects_.size();
 
-    for (auto object = objects_.begin(); object != objects_.end();)
-    {
-        if (object->get()->IsSlowMode())
-        {
-            if (tick % 2 == 0)
-            {
-                tick++;
-                return;
-            }
-        }
+		for (auto object = objects_.begin(); object != objects_.end();)
+		{
+			if (object->get()->IsSlowMode())
+			{
+				if (tick % 2 == 0)
+				{
+					tick++;
+					return;
+				}
+			}
 
-        for (auto components : object->get()->GetComponent())
-        {
-            components->Update(dt);
-        }
+			for (auto components : object->get()->GetComponent())
+			{
+				components->Update(dt);
+			}
 
-        if (size != objects_.size())
-            break;
+			if (size != objects_.size())
+				break;
 
-        SetPlayer(object->get());
-        SetCaptureObject(object->get());
+			SetPlayer(object->get());
+			SetCaptureObject(object->get());
 
-        if (object->get()->IsDead())
-        {
-            object = objects_.erase(object);
-        }
-        else
-        {
-            ++object;
-        }
-    }
-    ++tick;
+			if (object->get()->IsDead())
+			{
+				object = objects_.erase(object);
+			}
+			else
+			{
+				++object;
+			}
+		}
+		++tick;
 
-    if(tick >= 100)
-    {
-        tick = 0;
-    }
+		if (tick >= 100)
+		{
+			tick = 0;
+		}
+	}
 }
 
 void Objectmanager::Quit()

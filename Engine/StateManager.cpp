@@ -53,8 +53,6 @@ void StateManager::AddStage(std::string ID, State* state)
 
 void StateManager::ChangeStage()
 {
-	//std::string next_level = m_currentState->GetNextLevel();
-
 	std::string next_level = "Level";
 	std::string save = m_currentState->GetLevelIndicator();
 
@@ -120,6 +118,9 @@ void StateManager::SetCurrentLevelCaptureLimit()
 
 void StateManager::Update(float dt)
 {
+	if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+		TogglePause();
+
      if (m_currentState->IsLevelChange())
      {
          ChangeStage();

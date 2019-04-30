@@ -15,6 +15,11 @@ void Level::Initialize()
 void Level::Update(float dt)
 {
 
+	if (StateManager_.IsPause())
+		std::cout << "Pause" << std::endl;
+	else
+		std::cout << "Not Pause" << std::endl;
+
     if(camera->GetObjectType() != ObjectType::Camera)
     {
         for(auto i : Objectmanager_.GetObjectMap())
