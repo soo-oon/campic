@@ -41,6 +41,7 @@
             "level": "Level"
         },
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -86,6 +87,7 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -131,13 +133,14 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
     },
     "Object": {
         "Type": {
-            "type": 15,
+            "type": 16,
             "isDead": false
         },
         "Transform": {
@@ -162,6 +165,7 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -210,6 +214,7 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
+        "Trigger": {},
         "Moving": {},
         "ID": {
             "id": "Level5"

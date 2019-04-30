@@ -123,4 +123,5 @@ void Trigger::Text()
         m_connected_object->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
         Objectmanager_.AddObject(m_connected_object);
     }
+    object->SetIsDead(true);
 }
