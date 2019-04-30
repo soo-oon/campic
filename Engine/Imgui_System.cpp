@@ -53,37 +53,17 @@ bool Imgui_System::Initialize()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-	//Image list in project directory
-	for (auto& p : std::filesystem::directory_iterator("asset/images"))
-	{
-		imageList.push_back(p.path().filename().string());
-	}
-	//Sound list in project directory
-	for (auto& p : std::filesystem::directory_iterator("asset/sounds"))
-	{
-		soundList.push_back(p.path().filename().string());
-	}
 	//Tile list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles"))
 	{
 		non_ani_tileList.push_back(non_ani_tile_dir + p.path().filename().string());
 	}
+
 	// Add texture into imgui
 	for (auto& temp : non_ani_tileList)
 	{
 		auto texture = ImageHelper(temp);
 		non_ani_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
-	}
-	for (auto& temp : ani_tileList)
-	{
-		auto texture = ImageHelper(temp);
-		ani_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
-	}
-
-	for (auto& temp : enemyList)
-	{
-		auto texture = ImageHelper(temp);
-		enemy_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
 	std::cout << "IMGUI Initialization Successful" << std::endl;
@@ -407,10 +387,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	const char* trigger_type[] = { "CheckPoint","Door", "Font", "None" };
 	static int item_current = 0;
 	ImGui::Combo("Select Trigger Type", &item_current, trigger_type, IM_ARRAYSIZE(trigger_type));
-
-	//여기다가 저 vector pos 값 오브젝트에넣고 item current 값을 static_cast<니 트리거 타입>으로 형변환해서 박으셈 
-	//밑에는 알아서 바꾸고
-        ImGui::Button("Trigger");
+    ImGui::Button("Trigger");
 	if (ImGui::IsItemActive())
 	{
 		ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
@@ -757,25 +734,6 @@ void Imgui_System::TileEditor(bool tile_editor)
 		else
 			i = 0;
 		i++;
-	}
-
-	ImGui::Spacing();
-	ImGui::Separator();
-	ImGui::Text("Animated Tiles");
-
-	for (auto& temp : ani_tileList_buttons)
-	{
-		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
-		{
-			tile_path = temp.first;
-			is_normal_tile = false;
-		}
-
-		if (j != 8)
-			ImGui::SameLine();
-		else
-			j = 0;
-		j++;
 	}
 }
 

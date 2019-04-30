@@ -27,8 +27,8 @@
         "Camera": {
             "zoom": 1.0,
             "center": {
-                "x": -48.0,
-                "y": 36.0
+                "x": -210.0,
+                "y": 0.0
             },
             "up": {
                 "x": 0.0,
@@ -41,7 +41,6 @@
             "level": "Level"
         },
         "Projectile": {},
-        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -53,8 +52,8 @@
         },
         "Transform": {
             "position": {
-                "x": 150.0,
-                "y": 271.0
+                "x": -462.0,
+                "y": 210.0
             },
             "scale": {
                 "x": 100.0,
@@ -87,53 +86,6 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -450.0,
-                "y": -210.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "zone",
-                        "path": "asset/images/PhotoZone.png"
-                    },
-                    "info": {
-                        "image_frames": 4,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -145,8 +97,8 @@
         },
         "Transform": {
             "position": {
-                "x": -530.0,
-                "y": 264.0
+                "x": -713.0,
+                "y": 204.0
             },
             "scale": {
                 "x": 75.0,
@@ -165,7 +117,6 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
-        "Trigger": {},
         "Moving": {},
         "ID": {},
         "Camera": null
@@ -177,8 +128,8 @@
         },
         "Transform": {
             "position": {
-                "x": 269.0,
-                "y": -208.0
+                "x": 265.0,
+                "y": 213.0
             },
             "scale": {
                 "x": 100.0,
@@ -214,7 +165,6 @@
         "Capture": {},
         "Camera": {},
         "Projectile": {},
-        "Trigger": {},
         "Moving": {},
         "ID": {
             "id": "Level5"
