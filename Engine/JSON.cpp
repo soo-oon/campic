@@ -50,6 +50,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objFontTree(kArrayType);
 	Value objCaptureTree(kArrayType);
 	Value objProjectileTree(kArrayType);
+	//Value objTriggerTree(kArrayType);
 	Value objMovingObjectTree(kArrayType);
 	Value objUItree;
 	Value capture;
@@ -68,6 +69,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
 	objProjectileTree.SetObject();
+	//objTriggerTree.SetObject();
 	objMovingObjectTree.SetObject();
 	capture.SetObject();
 	objUItree.SetObject();
@@ -112,6 +114,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 
 	if (obj->GetComponentByTemplate<Projectile>() != nullptr)
 		objProjectileTree = ComponentProjectile(obj);
+        //if(obj->GetComponentByTemplate<Trigger>() != nullptr)
+        //        objTriggerTree = ComponentTrigger(obj);
 
 	if (obj->GetComponentByTemplate<MovingObject>() != nullptr)
 		objMovingObjectTree = ComponentMovingObj(obj);
@@ -135,6 +139,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
+	//objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("ID", objUItree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
@@ -521,12 +526,21 @@ Value JSON::ComponentProjectile(Object * obj)
 Value JSON::ComponentTrigger(Object * obj)
 {
     Value container(kArrayType);
-    Value connected_object;
+    Value translation, type;
 
     container.SetObject();
-    connected_object.SetObject();
+    translation.SetObject();
+    type.SetObject();
+
 
     auto info = obj->GetComponentByTemplate<Trigger>();
+    translation.AddMember("x", info->GetObjectTranslation().x, ObjectDocument.GetAllocator());
+    translation.AddMember("y", info->GetObjectTranslation().y, ObjectDocument.GetAllocator());
+    type.AddMember("type", static_cast<int>(info->GetTriggerStyle()), ObjectDocument.GetAllocator());
+
+    container.AddMember("translation", translation, ObjectDocument.GetAllocator());
+    container.AddMember("type", type, ObjectDocument.GetAllocator());
+
 
     return container;
 }
@@ -806,7 +820,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		Value& obj_array = temp.value;
 
 		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
-		Value ui, projectile, movingobj;
+		Value ui, projectile, movingobj, Trigger;
 		
 		Object* obj = new Object();
 
@@ -824,6 +838,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui.SetObject();
 		projectile.SetObject();
 		movingobj.SetObject();
+                //Trigger.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -839,6 +854,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
+                //Trigger = obj_array.FindMember("Trigger")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))

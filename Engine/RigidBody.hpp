@@ -46,6 +46,7 @@ public:
     void SetXLimited(bool limit) { isXLimited = limit; }
 	void SetKeyAPress(bool condition) { key_press_a = condition; }
 	void SetKeyDPress(bool condition) { key_press_d = condition; }
+	void SetIsStopped(bool condition) { isStopped = condition; }
 
 
 public:
@@ -57,6 +58,7 @@ public:
     vector2 GetNextPosition() { return m_next_position; }
     float GetGravity() { return m_gravity; }
     float GetSlowMode() { return m_slowmode; }
+    float GetIsStopped() { return isStopped; }
 	float GetFriction() { return m_friction; }
     bool GetJumping() { return isJumping; }
     bool GetMoving() { return isMoving; }
@@ -85,6 +87,7 @@ private:
     bool key_press_d = false;
     bool isMoving = true;
     bool isPlayer = false;
+    bool isStopped = false;
     bool isJumping = false;
     bool collision_switch = false;
 

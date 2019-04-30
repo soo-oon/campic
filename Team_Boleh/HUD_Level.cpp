@@ -43,6 +43,8 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
+	h_cheese->SetScale(Application_.GetScreenSize());
+
 	if (auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 		player != nullptr)
 	{

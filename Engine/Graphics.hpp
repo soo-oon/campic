@@ -52,7 +52,6 @@ public:
 	void SetNDC();
 
 	vector2 GetDisplaySize() { return displaysize; }
-
 	static vector2 camera_center;
 private:
 	struct solidshape
