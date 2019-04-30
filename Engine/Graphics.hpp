@@ -130,6 +130,8 @@ private:
 	std::vector<collsionbox> collsionboxes{};
 	std::vector<particle> particles{};
 	std::vector<font> fontes{};
+
+	Sprite* check = nullptr;
 };
 
 extern Graphics Graphics_;

@@ -235,7 +235,7 @@ Object* Input::ImGuiObjectClicker()
 			GetMousePos().y < obj->GetTransform().GetTranslation().y + obj->GetTransform().GetScale().y &&
 			GetMousePos().y > obj->GetTransform().GetTranslation().y - obj->GetTransform().GetScale().y)
 		{
-			if (obj.get()->GetTransform().GetDepth() > -0.85f)
+			if (obj.get()->GetObjectType() != ObjectType::Capture_Camera_main)
 			{
 				return obj.get();
 			}

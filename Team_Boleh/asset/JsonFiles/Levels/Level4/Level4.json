@@ -1,13 +1,59 @@
 {
     "Object": {
         "Type": {
+            "type": 5,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {
+            "zoom": 1.0,
+            "center": {
+                "x": -48.0,
+                "y": 36.0
+            },
+            "up": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "right": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "level": "Level"
+        },
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
             "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -141.0,
-                "y": -371.0
+                "x": 150.0,
+                "y": 271.0
             },
             "scale": {
                 "x": 100.0,
@@ -51,103 +97,8 @@
         },
         "Transform": {
             "position": {
-                "x": 213.0,
-                "y": -373.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "zone",
-                        "path": "asset/images/PhotoZone.png"
-                    },
-                    "info": {
-                        "image_frames": 4,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 847.0,
-                "y": -176.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "portal",
-                        "path": "asset/images/Portal.png"
-                    },
-                    "info": {
-                        "image_frames": 9,
-                        "update_frames": 0.009999999776482582,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Moving": {},
-        "ID": {
-            "id": "Level5"
-        },
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 30.0,
-                "y": -373.0
+                "x": -450.0,
+                "y": -210.0
             },
             "scale": {
                 "x": 100.0,
@@ -191,8 +142,8 @@
         },
         "Transform": {
             "position": {
-                "x": -877.0,
-                "y": 491.0
+                "x": -530.0,
+                "y": 264.0
             },
             "scale": {
                 "x": 75.0,
@@ -217,17 +168,17 @@
     },
     "Object": {
         "Type": {
-            "type": 16,
+            "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -344.0,
-                "y": -186.0
+                "x": 269.0,
+                "y": -208.0
             },
             "scale": {
-                "x": 75.0,
-                "y": 75.0
+                "x": 100.0,
+                "y": 100.0
             },
             "rotation": 0.0,
             "depth": -0.5
@@ -237,11 +188,11 @@
             "maps": {
                 "map": {
                     "path": {
-                        "id": "cameraman",
-                        "path": "asset/images/Cameraman.Png"
+                        "id": "portal",
+                        "path": "asset/images/Portal.png"
                     },
                     "info": {
-                        "image_frames": 3,
+                        "image_frames": 9,
                         "update_frames": 0.009999999776482582,
                         "is_repeats": true
                     }
@@ -260,7 +211,9 @@
         "Camera": {},
         "Projectile": {},
         "Moving": {},
-        "ID": {},
+        "ID": {
+            "id": "Level5"
+        },
         "Camera": null
     }
 }

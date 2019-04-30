@@ -1,37 +1,69 @@
 {
     "Object": {
         "Type": {
-            "type": 2,
+            "type": 5,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -251.0,
-                "y": 3.0
+                "x": 0.0,
+                "y": 0.0
             },
             "scale": {
-                "x": 100.0,
-                "y": 100.0
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": 0.0
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {
+            "zoom": 1.0,
+            "center": {
+                "x": -116.0,
+                "y": -454.0
+            },
+            "up": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "right": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "level": "Level"
+        },
+        "Projectile": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 15,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -537.0,
+                "y": 325.0
+            },
+            "scale": {
+                "x": 75.0,
+                "y": 75.0
             },
             "rotation": 0.0,
             "depth": -0.5
         },
         "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "zone",
-                        "path": "asset/images/PhotoZone.png"
-                    },
-                    "info": {
-                        "image_frames": 4,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
+        "Animation": {},
         "RigidBody": false,
         "Collision": {},
         "Particle": {},
@@ -51,53 +83,8 @@
         },
         "Transform": {
             "position": {
-                "x": 306.0,
-                "y": 3.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "zone",
-                        "path": "asset/images/PhotoZone.png"
-                    },
-                    "info": {
-                        "image_frames": 4,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 40.0,
-                "y": 208.0
+                "x": 207.0,
+                "y": 336.0
             },
             "scale": {
                 "x": 100.0,
@@ -141,23 +128,37 @@
     },
     "Object": {
         "Type": {
-            "type": 15,
+            "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 34.0,
-                "y": 3.0
+                "x": -102.0,
+                "y": -750.0
             },
             "scale": {
-                "x": 75.0,
-                "y": 75.0
+                "x": 100.0,
+                "y": 100.0
             },
             "rotation": 0.0,
             "depth": -0.5
         },
         "Sprite": {},
-        "Animation": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "zone",
+                        "path": "asset/images/PhotoZone.png"
+                    },
+                    "info": {
+                        "image_frames": 4,
+                        "update_frames": 0.05000000074505806,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
         "RigidBody": false,
         "Collision": {},
         "Particle": {},

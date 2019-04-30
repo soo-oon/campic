@@ -27,8 +27,8 @@
         "Camera": {
             "zoom": 1.0,
             "center": {
-                "x": -1361.0,
-                "y": 489.0
+                "x": 18.0,
+                "y": 116.0
             },
             "up": {
                 "x": 0.0,
@@ -47,63 +47,32 @@
     },
     "Object": {
         "Type": {
-            "type": 17,
+            "type": 15,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -1232.9962158203126,
-                "y": 421.0
+                "x": -716.0,
+                "y": 26.0
             },
             "scale": {
-                "x": 125.0,
-                "y": 50.0
+                "x": 75.0,
+                "y": 75.0
             },
             "rotation": 0.0,
-            "depth": 0.0
+            "depth": -0.5
         },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/UI/StartButton.png"
-        },
+        "Sprite": {},
         "Animation": {},
-        "RigidBody": true,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
+        "RigidBody": false,
+        "Collision": {},
         "Particle": {},
         "Sound": {},
         "Font": {},
         "Capture": {},
         "Camera": {},
         "Projectile": {},
-        "Moving": {
-            "dt": 0.0,
-            "init_pos": {
-                "x": -1060.0,
-                "y": 421.0
-            },
-            "goal_pos": {
-                "x": -1060.0,
-                "y": 421.0
-            },
-            "distance": {
-                "distance": 192.0
-            },
-            "velocity": {
-                "velocity": 100.0
-            },
-            "move_time": {
-                "move_time": 0.0
-            },
-            "direction": {
-                "direction": 4
-            },
-            "type": {
-                "type": 2
-            }
-        },
+        "Moving": {},
         "ID": {},
         "Camera": null
     },
@@ -114,8 +83,8 @@
         },
         "Transform": {
             "position": {
-                "x": -309.0,
-                "y": 502.0
+                "x": 447.0,
+                "y": 214.0
             },
             "scale": {
                 "x": 100.0,

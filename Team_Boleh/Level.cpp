@@ -5,6 +5,8 @@
 
 void Level::Initialize()
 {
+	AudioManager_.PlaySong("asset/sounds/Game_BGM.mp3");
+
 	camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level"));
@@ -14,7 +16,6 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
-
     if(camera->GetObjectType() != ObjectType::Camera)
     {
         for(auto i : Objectmanager_.GetObjectMap())
@@ -39,7 +40,7 @@ void Level::Update(float dt)
     }
     if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
     {
-        camera->GetComponentByTemplate<Camera>()->MoveRight(2.f);
+        camera->GetComponentByTemplate<Camera>()->MoveRight(6.f);
     }
 	if (Input::IsKeyTriggered(GLFW_KEY_F2))
 		BackToMenu();

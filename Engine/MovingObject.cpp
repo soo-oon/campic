@@ -17,6 +17,7 @@ bool MovingObject::Initialize(Object* Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
+		object->GetComponentByTemplate<RigidBody>()->SetGravity(0);
 	}
 	return true;
 }
@@ -39,7 +40,7 @@ MovingObject::MovingObject(float Distance, vector2 InitPosition, float Velocity,
 {
 	m_InitPosition = InitPosition;
 	m_GoalPosition = m_InitPosition;
-	m_Distance     = Distance * TILE_SIZE;
+	m_Distance     = Distance ;
 	m_WhichWay	   = WhichWay;
 	m_Velocity     = Velocity;
 	m_MoveType     = MoveType;

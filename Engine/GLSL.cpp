@@ -159,19 +159,18 @@ void main()
 	in vec2 interpolated_texture_coordinate;
 	out vec4 output_color;
 
-	uniform sampler2D text;
 	uniform vec4 color;
-
+	uniform sampler2D texture_to_sample;
 
 	void main()
 	{
-		vec4 text_color = texture(text, interpolated_texture_coordinate);
-		vec4 sampled = vec4(1.0, 1.0, 1.0, text_color.r);
+		vec4 texel = texture(texture_to_sample, interpolated_texture_coordinate);
+	    vec4 new_color = color * texel;
 
-		if(sampled.a <= 0.1)
-			discard;
+		if(new_color.a <= 0.1)
+				discard;
 
-		output_color = color * sampled;
+		output_color = new_color;
 	}
 	)";
 }
