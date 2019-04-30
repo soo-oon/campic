@@ -95,6 +95,8 @@ public:
 	void AddAnimaition(const std::string path, const std::string ID, 
 	int image_frame_, float update_frame_, bool repeat = true);
 
+	void ResetAnimaition();
+
     void Delete() override;
 
 	void ChangeAnimation(std::string ID, std::string original_ID = std::string{});

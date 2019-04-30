@@ -36,24 +36,35 @@ void Animation::Update(float dt)
 		if (frame_time > current_animation.update_frames)
 		{
 			frame_time = 0;
-
-			if (current_animation.previous_current_coordinate.y < 1)
+			if (!is_done)
 			{
-				current_animation.previous_current_coordinate.x += current_animation.frame_per_seconds;
-				current_animation.previous_current_coordinate.y += current_animation.frame_per_seconds;
-			}
-			else
-			{
-				is_done = true;
-
-				if (current_animation.is_repeats)
+				if (current_animation.previous_current_coordinate.y < 1)
 				{
-					current_animation.previous_current_coordinate.x = 0;
-					current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
+					current_animation.previous_current_coordinate.x += current_animation.frame_per_seconds;
+					current_animation.previous_current_coordinate.y += current_animation.frame_per_seconds;
+
+					if(current_animation.previous_current_coordinate.y >= 1)
+					{
+						current_animation.previous_current_coordinate.x = 1.0f - current_animation.frame_per_seconds;
+						current_animation.previous_current_coordinate.y = 1.0f;
+					}
+
 				}
 				else
 				{
-					current_animation = previous_animation;
+					if (current_animation.is_repeats)
+					{
+						if (is_done)
+							is_done = false;
+						current_animation.previous_current_coordinate.x = 0;
+						current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
+					}
+					else
+					{
+						is_done = true;
+						//current_animation.previous_current_coordinate.x = 0;
+						//current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
+					}
 				}
 			}
 		}
@@ -65,6 +76,12 @@ void Animation::AddAnimaition(const std::string path, const std::string ID,
 {
     animations.insert(std::make_pair(ID, 
         Animation_Information(path, ID, image_frame_, update_frame_, repeat)));
+}
+
+void Animation::ResetAnimaition()
+{
+	current_animation.previous_current_coordinate.x = 1.0f - current_animation.frame_per_seconds;
+	current_animation.previous_current_coordinate.y = 1.0f;
 }
 
 void Animation::Delete()
