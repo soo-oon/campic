@@ -398,7 +398,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Object* trigger = new Object();
                 trigger->SetTranslation(Input::GetMousePos());
                 trigger->SetScale({ 10,100 });
-                trigger->SetDepth(GAME_OBJECT);
+                trigger->SetDepth(GAME_OBJECT +0.01f);
                 trigger->SetObjectType(ObjectType::Trigger);
                 trigger->SetMesh(mesh::CreateBox());
                 trigger->AddInitComponent(new Collision(box_));
