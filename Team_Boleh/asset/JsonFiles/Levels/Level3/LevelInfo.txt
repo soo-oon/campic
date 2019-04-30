@@ -3,11 +3,12 @@ Player Information:
 	- Located Left
 
 Clear Condition:
-	- Player need to evade falling obstacles
+	- Player need to jump over the pit - if fell into the pit, cannot climb back up
 	
-	Option1- Use physical movement to avoid falling obstacles
-	Option2- Capture falling obstacles with Camera to stop their movements
+	Option1- Use Round-Trip Platform moving left and right to cross the pit (Moving only left-half side)
+	Option2- Capture player itself to make platform to cross the pit
 
 Objective:
-	- Teach players capturing obstacles is possible
-	- If player choose to evade not capture the obstacles, still teach players the capability of character's movement
+	- It is physically impossible to jump over the pit without camera feature. Therefore must use it at least once.
+	- Teach players basic feature of camera (can change dynamic object to static)
+	- Number of film decreases corresponding to the number of capture - Tells capture has limit
