@@ -246,6 +246,7 @@
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MovingObject.hpp" />
     <ClInclude Include="Object.hpp" />
+    <ClInclude Include="ObjectDepth.hpp" />
     <ClInclude Include="Objectmanager.hpp" />
     <ClInclude Include="Particle.hpp" />
     <ClInclude Include="Particle_Generator.hpp" />

@@ -144,7 +144,6 @@ void Application::Key_Poll_Event()
 {
     if (Input::IsKeyTriggered(GLFW_KEY_F))
     {
-        fullScreenMode = !fullScreenMode;
         FullScreen();
 		glfwSwapInterval(1);
     }
@@ -158,6 +157,8 @@ void Application::Quit()
 
 void Application::FullScreen()
 {
+	fullScreenMode = !fullScreenMode;
+
     if (fullScreenMode)
     {
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());

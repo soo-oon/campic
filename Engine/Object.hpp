@@ -38,6 +38,7 @@ enum class ObjectType {
     Capture_Obj,
     Tile,
     Button,
+	HUD_Button,
     Polaroid,
     Capture_Camera_main,
     Capture_Camera,
