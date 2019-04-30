@@ -169,7 +169,6 @@ void Graphics::Draw()
 						DrawFont(obj.get(), temp);
 					}
 				}
-
 			}
         }
     }

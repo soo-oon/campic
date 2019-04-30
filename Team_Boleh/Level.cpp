@@ -12,6 +12,7 @@ void Level::Initialize()
 	camera->AddComponent(new Camera("Level"));
 
 	Objectmanager_.AddObject(camera);
+	
 }
 
 void Level::Update(float dt)

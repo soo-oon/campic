@@ -14,8 +14,6 @@ void MainMenu::Initialize()
 	background->SetObjectType(ObjectType::Button);
 	background->AddComponent(new Sprite("asset/images/UI/MainPage.png"));
 
-	Objectmanager_.AddObject(background);
-
 	Object* Start = new Object();
 	Start->SetTranslation({-120, -100});
 	Start->SetScale({ 150,100 });
@@ -24,9 +22,7 @@ void MainMenu::Initialize()
 	Start->SetObjectType(ObjectType::Button);
 	Start->AddComponent(new UI("LevelSelector"));
 	Start->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
-
-	Objectmanager_.AddObject(Start);
-
+	
 	Object* Option = new Object();
 	Option->SetTranslation({ 150, -100 });
 	Option->SetScale({ 170,170 });
@@ -35,8 +31,6 @@ void MainMenu::Initialize()
 	Option->SetObjectType(ObjectType::Button);
 	//Option->AddComponent(new UI("LevelSelector"));
 	Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
-
-	Objectmanager_.AddObject(Option);
 
 	Object* Credit = new Object();
 	Credit->SetTranslation({ -120, -350 });
@@ -47,8 +41,6 @@ void MainMenu::Initialize()
 	Credit->AddComponent(new UI("LevelSelector"));
 	Credit->AddComponent(new Sprite("asset/images/UI/CreditButton.png"));
 
-	Objectmanager_.AddObject(Credit);
-
 	Object* Quit = new Object();
 	Quit->SetTranslation({ 120, -350 });
 	Quit->SetScale({ 150,100 });
@@ -58,7 +50,11 @@ void MainMenu::Initialize()
 	Quit->AddComponent(new UI("Quit"));
 	Quit->AddComponent(new Sprite("asset/images/UI/QuitButton.png"));
 
+	Objectmanager_.AddObject(Start);
+	Objectmanager_.AddObject(Option);
+	Objectmanager_.AddObject(Credit);
 	Objectmanager_.AddObject(Quit);
+	Objectmanager_.AddObject(background);
 }
 
 void MainMenu::Update(float dt)

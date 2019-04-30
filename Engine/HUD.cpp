@@ -40,6 +40,14 @@ void HUD::Update(float dt)
 	else if(isHUDActive && m_HUD_State != nullptr)
 	{
 		m_HUD_State->Update(dt);
+
+		for(auto obj = HUD_Object_Manager.begin(); obj != HUD_Object_Manager.end(); ++obj)
+		{
+			for (auto components : obj->get()->GetComponent())
+			{
+				components->Update(dt);
+			}
+		}
 	}
 }
 

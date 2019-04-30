@@ -23,8 +23,8 @@ Font::Font(const std::wstring& fnt_filepath, std::wstring text_string)
 {
 	font = new BitmapFont(fnt_filepath);
 	needNewMeshes = true;
-
 	string = text_string;
+	BuildNewMeshesIfNeeded();
 }
 
 Font::Font(std::wstring text_string,  BitmapFont& text_font)

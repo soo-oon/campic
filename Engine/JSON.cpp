@@ -861,7 +861,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
-        trigger = obj_array.FindMember("Trigger")->value;
+        //trigger = obj_array.FindMember("Trigger")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -972,7 +972,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 					color_duration, start, random, particle_size, emit_size,  particle_path, isActive));
 		}
         ////////////////////////////////////////////////////Trigger
-        if (trigger.HasMember("translation"))
+        /*if (trigger.HasMember("translation"))
         {
             start.x = trigger.FindMember("translation")->value.FindMember("x")->value.GetFloat();
             start.y = trigger.FindMember("translation")->value.FindMember("y")->value.GetFloat();
@@ -980,7 +980,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
             auto isTrigger = trigger.FindMember("trigger")->value.GetBool();
             path = trigger.FindMember("text")->value.GetString();
             obj->AddComponent(new Trigger(start, t_style, path, isTrigger));
-        }
+        }*/
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))
 		{
