@@ -43,6 +43,7 @@ public:
 	bool IntersectionCheck(Object object1, Object object2);
         // This is intersection check which is AABB version for thin 
         bool IntersectionCheckAABB(Object* object1, Object* object2);
+        bool IntersectionCheckAABBCenterPosition(Object* object1, Object* object2);
         bool IntersectionCheckAABBPositionBase(Object* object1, Object* object2);
         bool IntersectionCheckAABBPositionLeft(Object* object1, Object* object2);
         bool IntersectionCheckAABBPositionRight(Object* object1, Object* object2);
@@ -179,6 +180,7 @@ private:
     std::vector<Object*> capture_list;
     std::vector<Object*> dynamic_list;
 	std::vector<Object*> checkpoint_list;
+	std::vector<Object*> trigger_list;
     Object* door;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
