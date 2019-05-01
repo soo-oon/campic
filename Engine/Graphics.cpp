@@ -178,7 +178,7 @@ void Graphics::Draw()
 
 void Graphics::HUD_Draw()
 {
-	if (!HUD_.Get_HUD_Object_Manager().empty())
+	if (!HUD_.Get_HUD_Object_Manager().empty() && HUD_.isHUDActive)
 	{
 		for (auto& obj : HUD_.Get_HUD_Object_Manager())
 		{

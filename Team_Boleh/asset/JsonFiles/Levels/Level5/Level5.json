@@ -1,100 +1,6 @@
 {
     "Object": {
         "Type": {
-            "type": 5,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {
-            "zoom": 1.0,
-            "center": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "up": {
-                "x": 0.0,
-                "y": 1.0
-            },
-            "right": {
-                "x": 1.0,
-                "y": 0.0
-            },
-            "level": "Level"
-        },
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 5,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0
-            },
-            "rotation": 0.0,
-            "depth": 0.0
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {
-            "zoom": 1.0,
-            "center": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "up": {
-                "x": 0.0,
-                "y": 1.0
-            },
-            "right": {
-                "x": 1.0,
-                "y": 0.0
-            },
-            "level": "Level"
-        },
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
             "type": 2,
             "isDead": false
         },
@@ -140,7 +46,7 @@
         "Trigger": {},
         "Moving": {},
         "ID": {
-            "id": "Level6"
+            "id": "LevelSelector"
         },
         "Camera": null
     },

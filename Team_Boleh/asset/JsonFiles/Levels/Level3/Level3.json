@@ -14,7 +14,7 @@
                 "y": 100.0
             },
             "rotation": 0.0,
-            "depth": -0.49000000953674319
+            "depth": -0.15
         },
         "Sprite": {},
         "Animation": {},
@@ -59,7 +59,7 @@
                 "y": 100.0
             },
             "rotation": 0.0,
-            "depth": -0.49000000953674319
+            "depth": -0.15
         },
         "Sprite": {},
         "Animation": {},

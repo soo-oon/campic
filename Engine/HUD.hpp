@@ -28,13 +28,13 @@ public:
 	void Add_HUD_Object(Object* obj);
 
 	State* Get_HUD_State() { return m_HUD_State; }
-	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
+	//void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
+	bool isHUDActive = false;
 
 private:
 	void SetPlayer(Object* obj);
 	void HUD_Activing_Search();
 
-	bool isHUDActive = false;
 	State* m_HUD_State = nullptr;
 
 	std::vector<std::shared_ptr<Object>> HUD_Object_Manager;

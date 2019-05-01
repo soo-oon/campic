@@ -3,6 +3,7 @@
 #include "Capture.hpp"
 #include "UI.hpp"
 #include "ObjectDepth.hpp"
+#include <iostream>
 
 void HUD_Level::Initialize()
 {
@@ -56,11 +57,14 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_cheese);
 	HUD_.Add_HUD_Object(h_option_window);
 
-	HUD_.Toggle_HUD_Active();
+	//HUD_.Toggle_HUD_Active();
+	HUD_.isHUDActive = true;
 }
 
 void HUD_Level::Update(float dt)
 {
+	std::cout << HUD_.isHUDActive << std::endl;
+
 	if (auto camera = Graphics_.GetCurrentCamera();
 		camera != nullptr)
 	{
@@ -108,6 +112,8 @@ void HUD_Level::Update(float dt)
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Game)
 	{
+		if(!HUD_.isHUDActive)
+			HUD_.isHUDActive = true;
 		int num = StateManager_.GetCurrentState()->GetCaptureLimit();
 		std::string num_string = std::to_string(num);
 		std::wstring temp = L"";
@@ -146,6 +152,10 @@ void HUD_Level::Update(float dt)
 				}
 			}
 		}*/
+	}
+	else
+	{
+		HUD_.isHUDActive = false;
 	}
 }
 

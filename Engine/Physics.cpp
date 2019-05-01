@@ -41,7 +41,7 @@ void Physics::Update(float dt)
             projectile_list.clear();
             static_list.clear();
             dynamic_list.clear();
-	    checkpoint_list.clear();
+			checkpoint_list.clear();
             trigger_list.clear();
             door = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
@@ -323,9 +323,16 @@ void Physics::Update(float dt)
                 {
                     if (IntersectionCheckAABB(collision_list[i], door))
                     {
-                        door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
-                        StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
-                        StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
+						if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
+						{
+							StateManager_.GetCurrentState()->BackToMenu();
+						}
+						else
+						{
+							door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
+							StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
+							StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
+						}
                     }
                 }
 		if(!checkpoint_list.empty())
@@ -350,17 +357,17 @@ void Physics::Update(float dt)
 		        for (auto trigger : trigger_list)
 		        {
                             //trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
-                                if (IntersectionCheckAABBCenterPosition( trigger, collision_list[i]))
-                                {
-                                    if (trigger->GetComponentByTemplate<Trigger>()->GetIsTriggerd() == false)
-                                    {
-                                    trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(true);
-                                    }
-                                    else
-                                    {
-                                        trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
-                                    }
-                            }
+						if (IntersectionCheckAABBCenterPosition(trigger, collision_list[i]))
+						{
+								if (trigger->GetComponentByTemplate<Trigger>()->GetIsTriggerd() == false)
+								{
+									trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(true);
+								}
+								else
+								{
+									trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
+								}
+						}
 		        }
 		}
             }

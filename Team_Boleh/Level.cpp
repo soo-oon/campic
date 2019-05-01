@@ -11,14 +11,26 @@ void Level::Initialize()
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level"));
 
+	background = new Object();
+	background->SetMesh(mesh::CreateBox());
+	background->SetObjectType(ObjectType::Background);
+	background->AddComponent(new Animation("asset/images/UI/BackgroundSunSet.png", "BackGround", 16, 0.15f, true));
+	background->SetDepth(0.98f);
+	background->SetScale((Application_.GetScreenSize().x + 100, Application_.GetScreenSize().y+100));
+
 	Objectmanager_.AddObject(camera);
-	
+	Objectmanager_.AddObject(background);
 }
 
 void Level::Update(float dt)
 {
+	background->SetScale(Application_.GetScreenSize() + 100);
 
-    std::cout << Input::GetMousePos().x << ", " << Input::GetMousePos().y << std::endl;
+	if (camera != nullptr)
+	{
+		background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
+	}
+
     if(camera->GetObjectType() != ObjectType::Camera)
     {
         for(auto i : Objectmanager_.GetObjectMap())

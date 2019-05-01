@@ -13,6 +13,7 @@ public:
 	void ShutDown() override;
 private:
 	Object* m_door = nullptr;
-        Object* camera = nullptr;
+    Object* camera = nullptr;
+	Object* background = nullptr;
 
 };

@@ -24,7 +24,7 @@ bool HUD::Initialize(State* HUD_State)
 
 	if (m_HUD_State != nullptr)
 	{
-		HUD_Activing_Search();
+		//HUD_Activing_Search();
 		m_HUD_State->Initialize();
 	}
 
@@ -33,11 +33,11 @@ bool HUD::Initialize(State* HUD_State)
 
 void HUD::Update(float dt)
 {
-	if(!isHUDActive)
+	/*if(!isHUDActive)
 	{
 		HUD_Activing_Search();
-	}
-	else if(isHUDActive && m_HUD_State != nullptr)
+	}*/
+	if(m_HUD_State != nullptr)
 	{
 		m_HUD_State->Update(dt);
 
@@ -76,19 +76,19 @@ void HUD::SetPlayer(Object* obj)
 
 void HUD::HUD_Activing_Search()
 {
-	if (!Objectmanager_.GetObjectMap().empty())
-	{
-		//for (auto& object : Objectmanager_.GetObjectMap())
-		//{
-		//	if (auto status = object->GetComponentByTemplate<Status>(); status != nullptr)
-		//	{
-		//		if (status->GetObjectType() == ObjectType::Player)
-		//		{
-		//			isHUDActive = true;
-		//			return;
-		//		}
-		//	}
-		//}
-	}
-	isHUDActive = false;
+	//if (!Objectmanager_.GetObjectMap().empty())
+	//{
+	//	//for (auto& object : Objectmanager_.GetObjectMap())
+	//	//{
+	//	//	if (auto status = object->GetComponentByTemplate<Status>(); status != nullptr)
+	//	//	{
+	//	//		if (status->GetObjectType() == ObjectType::Player)
+	//	//		{
+	//	//			isHUDActive = true;
+	//	//			return;
+	//	//		}
+	//	//	}
+	//	//}
+	//}
+	//isHUDActive = false;
 }

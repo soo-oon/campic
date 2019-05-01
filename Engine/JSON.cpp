@@ -61,7 +61,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTransformTree.SetObject();
 	objStatusTree.SetObject();
 	objAnimationTree.SetObject();
-	objCameraTree.SetObject();
+	//objCameraTree.SetObject();
 	objSpriteTree.SetObject();
 	objRigidBodyTree.SetObject();
 	objCollisionTree.SetObject();
@@ -82,8 +82,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
 
-	if(obj->GetComponentByTemplate<Camera>() != nullptr)
-		objCameraTree = ComponentCamera(obj);
+	//if(obj->GetComponentByTemplate<Camera>() != nullptr)
+	//	objCameraTree = ComponentCamera(obj);
 	
 	if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		objSpriteTree = ComponentSprite(obj);
@@ -139,12 +139,11 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
-	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("ID", objUItree, ObjectDocument.GetAllocator());
-	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+	//objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -454,8 +453,8 @@ Value JSON::ComponentFont(Object * obj)
 
 	auto font_info = obj->GetComponentByTemplate<Font>();
 
-	//text.SetString(font_info->GetText().c_str(), ObjectDocument.GetAllocator());
-	//paths.SetString(font_info->GetPath().c_str(), ObjectDocument.GetAllocator());
+	//text.SetString(font_info->GetString.c_str(), ObjectDocument.GetAllocator());
+	//paths.SetString(font_info->GetFont().c_str(), ObjectDocument.GetAllocator());
 
 	container.AddMember("text", text, ObjectDocument.GetAllocator());
 	container.AddMember("path", paths, ObjectDocument.GetAllocator());
@@ -867,7 +866,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
-        //trigger = obj_array.FindMember("Trigger")->value;
+        trigger = obj_array.FindMember("Trigger")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -988,7 +987,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
             auto u_frame = trigger.FindMember("u_frame")->value.GetFloat();
             path = trigger.FindMember("text")->value.GetString();
 
-            obj->AddComponent(new Trigger(start, t_style, path, isTrigger, i_frame,u_frame));
+            obj->AddComponent(new Trigger(start, t_style, path, false, i_frame,u_frame));
         }
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))
