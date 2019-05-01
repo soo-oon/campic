@@ -1,27 +1,5 @@
 {
     "Tile": {
-        "grid": 1190494,
-        "tile_type": 0,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -790.0,
-            "y": 550.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_DR_C.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 1395285,
         "tile_type": 0,
         "scale": {
@@ -57,6 +35,28 @@
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Tile_D.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 1190494,
+        "tile_type": 0,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -790.0,
+            "y": 550.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Tile_DR_C.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -154,28 +154,6 @@
         }
     },
     "Tile": {
-        "grid": 1228894,
-        "tile_type": 0,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -610.0,
-            "y": 550.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_D.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 1344082,
         "tile_type": 0,
         "scale": {
@@ -198,14 +176,14 @@
         }
     },
     "Tile": {
-        "grid": 1254494,
+        "grid": 1228894,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -490.0,
+            "x": -610.0,
             "y": 550.0
         },
         "sprite": {
@@ -242,19 +220,41 @@
         }
     },
     "Tile": {
-        "grid": 1267294,
+        "grid": 1254494,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -430.0,
+            "x": -490.0,
             "y": 550.0
         },
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Tile_D.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 1190487,
+        "tile_type": 0,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -790.0,
+            "y": 130.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Tile_UR.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -286,19 +286,19 @@
         }
     },
     "Tile": {
-        "grid": 1190487,
+        "grid": 1267294,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -790.0,
-            "y": 130.0
+            "x": -430.0,
+            "y": 550.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_UR.png"
+            "image_path": "asset/images/Tiles/Tile_D.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -352,28 +352,6 @@
         }
     },
     "Tile": {
-        "grid": 1292894,
-        "tile_type": 0,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -310.0,
-            "y": 550.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_D.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 1472091,
         "tile_type": 0,
         "scale": {
@@ -396,14 +374,14 @@
         }
     },
     "Tile": {
-        "grid": 1305694,
+        "grid": 1292894,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -250.0,
+            "x": -310.0,
             "y": 550.0
         },
         "sprite": {
@@ -440,14 +418,14 @@
         }
     },
     "Tile": {
-        "grid": 1318494,
+        "grid": 1305694,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -190.0,
+            "x": -250.0,
             "y": 550.0
         },
         "sprite": {
@@ -462,14 +440,14 @@
         }
     },
     "Tile": {
-        "grid": 1331294,
+        "grid": 1318494,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -130.0,
+            "x": -190.0,
             "y": 550.0
         },
         "sprite": {
@@ -506,14 +484,14 @@
         }
     },
     "Tile": {
-        "grid": 1344094,
+        "grid": 1331294,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -70.0,
+            "x": -130.0,
             "y": 550.0
         },
         "sprite": {
@@ -528,14 +506,14 @@
         }
     },
     "Tile": {
-        "grid": 1356894,
+        "grid": 1344094,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -10.0,
+            "x": -70.0,
             "y": 550.0
         },
         "sprite": {
@@ -572,14 +550,14 @@
         }
     },
     "Tile": {
-        "grid": 1369694,
+        "grid": 1356894,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": 50.0,
+            "x": -10.0,
             "y": 550.0
         },
         "sprite": {
@@ -616,19 +594,19 @@
         }
     },
     "Tile": {
-        "grid": 1292882,
+        "grid": 1369694,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -310.0,
-            "y": -170.0
+            "x": 50.0,
+            "y": 550.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_T.png"
+            "image_path": "asset/images/Tiles/Tile_D.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -651,6 +629,28 @@
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Tile_D.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 1292882,
+        "tile_type": 0,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -310.0,
+            "y": -170.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Tile_T.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -770,28 +770,6 @@
         }
     },
     "Tile": {
-        "grid": 1190490,
-        "tile_type": 0,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -790.0,
-            "y": 310.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_R.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 1472090,
         "tile_type": 0,
         "scale": {
@@ -814,19 +792,19 @@
         }
     },
     "Tile": {
-        "grid": 1305682,
+        "grid": 1190490,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -250.0,
-            "y": -170.0
+            "x": -790.0,
+            "y": 310.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_T.png"
+            "image_path": "asset/images/Tiles/Tile_R.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -858,19 +836,19 @@
         }
     },
     "Tile": {
-        "grid": 1190488,
+        "grid": 1305682,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -790.0,
-            "y": 190.0
+            "x": -250.0,
+            "y": -170.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_R.png"
+            "image_path": "asset/images/Tiles/Tile_T.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -924,19 +902,19 @@
         }
     },
     "Tile": {
-        "grid": 1216087,
+        "grid": 1190488,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -670.0,
-            "y": 130.0
+            "x": -790.0,
+            "y": 190.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_T.png"
+            "image_path": "asset/images/Tiles/Tile_R.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -954,6 +932,28 @@
         },
         "pos": {
             "x": 410.0,
+            "y": 130.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Tile_T.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 1216087,
+        "tile_type": 0,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -670.0,
             "y": 130.0
         },
         "sprite": {
@@ -990,28 +990,6 @@
         }
     },
     "Tile": {
-        "grid": 1241687,
-        "tile_type": 0,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -550.0,
-            "y": 130.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_T.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 1395284,
         "tile_type": 0,
         "scale": {
@@ -1025,6 +1003,28 @@
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Tile_L.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 1241687,
+        "tile_type": 0,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -550.0,
+            "y": 130.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Tile_T.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -1100,28 +1100,6 @@
         }
     },
     "Tile": {
-        "grid": 1382482,
-        "tile_type": 0,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": 110.0,
-            "y": -170.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_T.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {
-            "id": 0,
-            "enum": "box"
-        }
-    },
-    "Tile": {
         "grid": 1280084,
         "tile_type": 0,
         "scale": {
@@ -1144,14 +1122,14 @@
         }
     },
     "Tile": {
-        "grid": 1369682,
+        "grid": 1382482,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": 50.0,
+            "x": 110.0,
             "y": -170.0
         },
         "sprite": {
@@ -1188,19 +1166,19 @@
         }
     },
     "Tile": {
-        "grid": 1395286,
+        "grid": 1369682,
         "tile_type": 0,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": 170.0,
-            "y": 70.0
+            "x": 50.0,
+            "y": -170.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Tile_L.png"
+            "image_path": "asset/images/Tiles/Tile_T.png"
         },
         "animation": {},
         "IsAnimated": false,
@@ -1219,6 +1197,28 @@
         "pos": {
             "x": 530.0,
             "y": 490.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Tile_L.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {
+            "id": 0,
+            "enum": "box"
+        }
+    },
+    "Tile": {
+        "grid": 1395286,
+        "tile_type": 0,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": 170.0,
+            "y": 70.0
         },
         "sprite": {
             "is_flip": false,

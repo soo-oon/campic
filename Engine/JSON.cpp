@@ -33,7 +33,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
     if(obj->GetObjectType() == ObjectType::Capture_Camera ||obj->GetObjectType() == ObjectType::Player
 		|| obj->GetObjectType() == ObjectType::Capture_Camera_main
         || obj->GetObjectType() == ObjectType::Capture_Obj || obj->GetObjectType() == ObjectType::Polaroid 
-        || obj->GetObjectType() == ObjectType::Trigger_Obj )
+        || obj->GetObjectType() == ObjectType::Trigger_Obj  || obj->GetObjectType() == ObjectType::Camera)
         return;
 	//Trees for object info
 	Value objTree(kArrayType);
@@ -987,7 +987,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
             auto i_frame = trigger.FindMember("i_frame")->value.GetFloat();
             auto u_frame = trigger.FindMember("u_frame")->value.GetFloat();
             path = trigger.FindMember("text")->value.GetString();
-            obj->AddComponent(new Trigger(start, t_style, path, isTrigger, i_frame,u_frame));
+            obj->AddComponent(new Trigger(start, t_style, path, false, i_frame,u_frame));
         }
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))
