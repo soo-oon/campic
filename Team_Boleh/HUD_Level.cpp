@@ -13,6 +13,8 @@ void HUD_Level::Initialize()
 	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_capture_limit->SetObjectType(ObjectType::None);
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimit.png"));
+	h_capture_limit->SetInvisible();
+	h_capture_limit->GetMesh().Invisible();
 
 	h_capture_number = new Object();
 	h_capture_number->SetTranslation(vector2(screen_size.x/2 -130 , 340));
@@ -20,6 +22,8 @@ void HUD_Level::Initialize()
 	h_capture_number->SetDepth(-0.6f);
 	h_capture_number->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
 	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+	h_capture_number->SetInvisible();
+	h_capture_number->GetMesh().Invisible();
 
 	h_option_window = new Object();
 	h_option_window->SetScale({ screen_size.x-200, screen_size.y-200 });
@@ -102,7 +106,10 @@ void HUD_Level::Update(float dt)
 		temp.assign(num_string.begin(), num_string.end());
 		h_capture_number->GetComponentByTemplate<Font>()->SetString(temp);
 
-		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+		h_capture_limit->SetVisible();
+		h_capture_number->SetVisible();
+
+		/*if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
 			IsOptionWindowOpen = !IsOptionWindowOpen;
 			if (h_option_window->GetMesh().IsVisible())
@@ -116,9 +123,9 @@ void HUD_Level::Update(float dt)
 				h_fullscreen_button->GetMesh().Visible();
 				StateManager_.Pause();
 			}
-		}
+		}*/
 
-		if (IsOptionWindowOpen)
+		/*if (IsOptionWindowOpen)
 		{
 			if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 			{
@@ -130,7 +137,7 @@ void HUD_Level::Update(float dt)
 					Application_.FullScreen();
 				}
 			}
-		}
+		}*/
 	}
 }
 
