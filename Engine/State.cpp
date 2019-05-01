@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include "Objectmanager.hpp"
 #include "Capture.hpp"
+#include <iostream>
 
 void State::ChangeLevel(std::string ID)
 {
@@ -87,6 +88,7 @@ void State::UnLoad()
 void State::CreateCaptureCamera()
 {
     Object* player_camera = new Object();
+	player_camera->SetTranslation(start_pos);
     player_camera->SetScale({300,150});
     player_camera->SetDepth(-0.17f);
     player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));

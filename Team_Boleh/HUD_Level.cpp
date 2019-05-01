@@ -61,6 +61,14 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
+	if (auto camera = Graphics_.GetCurrentCamera();
+		camera != nullptr)
+	{
+		h_capture_limit->SetTranslation(camera->GetCenter() + vector2(screen_size.x / 2 - 200, screen_size.y / 2 - 100));
+		h_capture_number->SetTranslation(camera->GetCenter() + vector2(screen_size.x / 2 - 130, 340));
+	}
+
+
 	h_cheese->SetScale(Application_.GetScreenSize());
 
 	if (auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
