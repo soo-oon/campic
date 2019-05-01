@@ -57,6 +57,7 @@ void Trigger::ConnectObjectAction()
             Text();
             break;
         case TriggerStyle::Graphic:
+			GraphicPrint();
             break;
         case TriggerStyle::CheckPoint:
             CheckPoint();
@@ -117,11 +118,13 @@ void Trigger::GraphicPrint()
         m_connected_object = new Object;
 
         m_connected_object->SetTranslation(o_translation);
-        m_connected_object->SetScale({ 2.5 });
+        m_connected_object->SetScale({ 75});
+		m_connected_object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
+		m_connected_object->SetDepth(GAME_OBJECT);
         m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
         std::string path = "asset/images/UI/";
-        m_connected_object->AddInitComponent(new Animation(path + text, "text", image_frame,update_frame , true));
-        m_connected_object->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+        m_connected_object->AddInitComponent(new Animation(path + text+".png", text, image_frame,update_frame , true));
+       
         Objectmanager_.AddObject(m_connected_object);
     }
 }

@@ -27,7 +27,7 @@
         "Camera": {
             "zoom": 1.0,
             "center": {
-                "x": -210.0,
+                "x": 0.0,
                 "y": 0.0
             },
             "up": {
@@ -48,66 +48,20 @@
     },
     "Object": {
         "Type": {
-            "type": 2,
+            "type": 5,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -462.0,
-                "y": 210.0
+                "x": 0.0,
+                "y": 0.0
             },
             "scale": {
-                "x": 100.0,
-                "y": 100.0
+                "x": 1.0,
+                "y": 1.0
             },
             "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "zone",
-                        "path": "asset/images/PhotoZone.png"
-                    },
-                    "info": {
-                        "image_frames": 4,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 16,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -713.0,
-                "y": 204.0
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
+            "depth": 0.0
         },
         "Sprite": {},
         "Animation": {},
@@ -117,9 +71,69 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Camera": {},
+        "Camera": {
+            "zoom": 1.0,
+            "center": {
+                "x": -198.0,
+                "y": 0.0
+            },
+            "up": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "right": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "level": "Level"
+        },
         "Projectile": {},
         "Trigger": {},
+        "Moving": {},
+        "ID": {},
+        "Camera": null
+    },
+    "Object": {
+        "Type": {
+            "type": 19,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -395.0,
+                "y": 207.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.49000000953674319
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Camera": {},
+        "Projectile": {},
+        "Trigger": {
+            "translation": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "type": 0,
+            "text": "",
+            "trigger": false,
+            "u_frame": 0.0,
+            "i_frame": 0.0
+        },
         "Moving": {},
         "ID": {},
         "Camera": null
