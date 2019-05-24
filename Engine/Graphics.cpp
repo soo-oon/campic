@@ -101,7 +101,7 @@ void Graphics::Update(float dt)
     }
     else
     {
-        temp_camera = nullptr;
+		game_level_camera = nullptr;
         Iscamera = false;
     }
 
@@ -110,13 +110,13 @@ void Graphics::Update(float dt)
 
     glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
 
-    if (temp_camera == nullptr)
+    if (game_level_camera == nullptr)
     {
         camera_center = 0;
     }
     else
     {
-        camera_center = temp_camera->GetCenter();
+        camera_center = game_level_camera->GetCenter();
     }
 
     SetNDC();
@@ -134,7 +134,7 @@ void Graphics::Draw()
 				{
 					if (auto temp = obj->GetComponentByTemplate<Camera>(); temp != nullptr)
 					{
-						temp_camera = temp;
+						game_level_camera = temp;
 					}
 				}
 
@@ -189,30 +189,30 @@ void Graphics::HUD_Draw()
 					if (auto temp = obj->GetComponentByTemplate<Collision>();
 						temp != nullptr)
 					{
-						DrawCollisionBox(obj.get(), temp);
+						DrawCollisionBox(obj.get(), temp, true);
 					}
 
 					if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
 					{
-						DrawSprite(obj.get(), temp_sprite);
+						DrawSprite(obj.get(), temp_sprite, true);
 					}
 					else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
 					{
-						DrawAnimation(obj.get(), temp_animation);
+						DrawAnimation(obj.get(), temp_animation, true);
 					}
 					else if (obj->GetMesh().GetPointCount())
 					{
-						DrawSolidShape(obj.get());
+						DrawSolidShape(obj.get(), true);
 					}
 
 					if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
 					{
-						DrawParticle(temp);
+						DrawParticle(temp, true);
 					}
 
 					if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
 					{
-						DrawFont(obj.get(), temp);
+						DrawFont(obj.get(), temp, true);
 					}
 				}
 			}
@@ -247,11 +247,6 @@ void Graphics::Tile_Draw()
 	{
 		for (auto it = Tile_Map_.GetPhysicalTiles().begin(); it != Tile_Map_.GetPhysicalTiles().end(); ++it)
 		{
-		/*	if (auto temp = it->second->GetComponentByTemplate<Collision>();
-				temp != nullptr)
-			{
-				DrawCollisionBox(it->second, temp);
-			}	*/
 			if (IsDraw(it->second))
 			{
 				if (auto temp_sprite = it->second->GetComponentByTemplate<Sprite>();
@@ -280,12 +275,12 @@ bool Graphics::IsDraw(Object* obj)
 	float cameraRadius = 0.5f * sqrt(displaysize.x * displaysize.x +
 		displaysize.y * displaysize.y);
 
-	if (temp_camera != nullptr)
+	if (game_level_camera != nullptr)
 	{
-		if (obj->GetTransform().GetTranslation().x > temp_camera->GetCenter().x - cameraRadius &&
-			obj->GetTransform().GetTranslation().x < temp_camera->GetCenter().x + cameraRadius &&
-			obj->GetTransform().GetTranslation().y > temp_camera->GetCenter().y - cameraRadius &&
-			obj->GetTransform().GetTranslation().y < temp_camera->GetCenter().y + cameraRadius)
+		if (obj->GetTransform().GetTranslation().x > game_level_camera->GetCenter().x - cameraRadius &&
+			obj->GetTransform().GetTranslation().x < game_level_camera->GetCenter().x + cameraRadius &&
+			obj->GetTransform().GetTranslation().y > game_level_camera->GetCenter().y - cameraRadius &&
+			obj->GetTransform().GetTranslation().y < game_level_camera->GetCenter().y + cameraRadius)
 		{
 			return true;
 		}
@@ -314,11 +309,11 @@ void Graphics::BeginDraw()
 
 void Graphics::SetNDC()
 {
-    if (temp_camera != nullptr)
+    if (game_level_camera != nullptr)
     {
         affine2d temp = {
-            (2.0f / displaysize.x) * temp_camera->GetZoomValue(), 0.0f, 0.0f,
-            0.0f, (2.0f / displaysize.y) * temp_camera->GetZoomValue(), 0.0f,
+            (2.0f / displaysize.x) * game_level_camera->GetZoomValue(), 0.0f, 0.0f,
+            0.0f, (2.0f / displaysize.y) * game_level_camera->GetZoomValue(), 0.0f,
             0.0f, 0.0f, 1.0f
         };
 
@@ -336,15 +331,49 @@ void Graphics::SetNDC()
     }
 }
 
-affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform) const
+void Graphics::SetHUD_NDC()	
+{
+	if(auto hud_camera = HUD_.Get_HUD_Camera();
+		hud_camera != nullptr)
+	{
+		affine2d temp = {
+		   (2.0f / displaysize.x) * hud_camera->GetZoomValue(), 0.0f, 0.0f,
+		   0.0f, (2.0f / displaysize.y) * hud_camera->GetZoomValue(), 0.0f,
+		   0.0f, 0.0f, 1.0f
+		};
+
+		hud_projection = temp;
+	}
+	else
+	{
+		affine2d temp = {
+			(2.0f / displaysize.x), 0.0f, 0.0f,
+			0.0f, (2.0f / displaysize.y), 0.0f,
+			0.0f, 0.0f, 1.0f
+		};
+
+		hud_projection = temp;
+	}
+}
+
+affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform, bool is_hud) const
 {
 	affine2d complex_matrix = transform.GetModelToWorld();
 
-	complex_matrix = projection * temp_camera->WorldToCamera() * complex_matrix;
+	if (!is_hud)
+	{
+		complex_matrix = projection * game_level_camera->WorldToCamera() * complex_matrix;
+	}
+	else
+	{
+		if (auto hud_camera = HUD_.Get_HUD_Camera();
+			hud_camera != nullptr)
+			complex_matrix = hud_projection * hud_camera->WorldToCamera() * complex_matrix;
+	}
     return complex_matrix;
 }
 
-void Graphics::DrawSolidShape(Object* obj)
+void Graphics::DrawSolidShape(Object* obj, bool is_hud)
 {
 	shapes.clear();
 	shapes.reserve(obj->GetMesh().GetPointCount());
@@ -357,13 +386,16 @@ void Graphics::DrawSolidShape(Object* obj)
 
 	Shader::UseShader(Solidshader);
 
-	if (temp_camera != nullptr)
+	if (game_level_camera != nullptr)
 	{
-		to_ndc = CalculateModelToNDCTransform(obj->GetTransform());
+		to_ndc = CalculateModelToNDCTransform(obj->GetTransform(), is_hud);
 	}
 	else
 	{
-		to_ndc = projection * obj->GetTransform().GetModelToWorld();
+		if (!is_hud)
+			to_ndc = projection * obj->GetTransform().GetModelToWorld();
+		else
+			to_ndc = hud_projection * obj->GetTransform().GetModelToWorld();;
 	}
 
 	Solidshader.SendUniformVariable("transform", to_ndc);
@@ -382,7 +414,7 @@ void Graphics::DrawSolidShape(Object* obj)
 	glDrawArrays(ToGLPrimitiveMode(obj->GetMesh().GetPointListType()), 0, (GLsizei)(shapes.size()));
 }
 
-void Graphics::DrawSprite(Object* obj, Sprite* sprite_)
+void Graphics::DrawSprite(Object* obj, Sprite* sprite_, bool is_hud)
 {
 	sprite.clear();
 	sprite.reserve(obj->GetMesh().GetTexturePointsCount());
@@ -397,13 +429,16 @@ void Graphics::DrawSprite(Object* obj, Sprite* sprite_)
 
 	Shader::UseShader(Spriteshader);
 
-	if (temp_camera != nullptr)
+	if (game_level_camera != nullptr)
 	{
-		to_ndc = CalculateModelToNDCTransform(obj->GetTransform());
+		to_ndc = CalculateModelToNDCTransform(obj->GetTransform(), is_hud);
 	}
 	else
 	{
-		to_ndc = projection * obj->GetTransform().GetModelToWorld();
+		if(!is_hud)
+			to_ndc = projection * obj->GetTransform().GetModelToWorld();
+		else
+			to_ndc = hud_projection * obj->GetTransform().GetModelToWorld();;
 	}
 
 	const int texture_slot = 0;
@@ -429,7 +464,7 @@ void Graphics::DrawSprite(Object* obj, Sprite* sprite_)
 	glDrawArrays(ToGLPrimitiveMode(obj->GetMesh().GetPointListType()), 0, (GLsizei)sprite.size());
 }
 
-void Graphics::DrawCollisionBox(Object* obj, Collision* collision)
+void Graphics::DrawCollisionBox(Object* obj, Collision* collision, bool is_hud)
 {
 	if (collision->GetCollsionMesh().IsVisible())
 	{
@@ -446,13 +481,16 @@ void Graphics::DrawCollisionBox(Object* obj, Collision* collision)
 
 		Shader::UseShader(Solidshader);
 
-		if (temp_camera != nullptr)
+		if (game_level_camera != nullptr)
 		{
-			to_ndc = CalculateModelToNDCTransform(collision->GetCollisionTransform());
+			to_ndc = CalculateModelToNDCTransform(collision->GetCollisionTransform(), is_hud);
 		}
 		else
 		{
-			to_ndc = projection * collision->GetCollisionTransform().GetModelToWorld();
+			if (!is_hud)
+				to_ndc = projection * collision->GetCollisionTransform().GetModelToWorld();
+			else
+				to_ndc = hud_projection * collision->GetCollisionTransform().GetModelToWorld();
 		}
 
 		Solidshader.SendUniformVariable("transform", to_ndc);
@@ -473,7 +511,7 @@ void Graphics::DrawCollisionBox(Object* obj, Collision* collision)
 	}
 }
 
-void Graphics::DrawAnimation(Object* obj, Animation* animation_)
+void Graphics::DrawAnimation(Object* obj, Animation* animation_, bool is_hud)
 {
 	animation.clear();
 	animation.reserve(obj->GetMesh().GetAnimationPointsCount());
@@ -488,13 +526,16 @@ void Graphics::DrawAnimation(Object* obj, Animation* animation_)
 
 	Shader::UseShader(Spriteshader);
 
-	if (temp_camera != nullptr)
+	if (game_level_camera != nullptr)
 	{
-		to_ndc = CalculateModelToNDCTransform(obj->GetTransform());
+		to_ndc = CalculateModelToNDCTransform(obj->GetTransform(), is_hud);
 	}
 	else
 	{
-		to_ndc = projection * obj->GetTransform().GetModelToWorld();
+		if (!is_hud)
+			to_ndc = projection * obj->GetTransform().GetModelToWorld();
+		else
+			to_ndc = hud_projection * obj->GetTransform().GetModelToWorld();;
 	}
 
 	const int texture_slot = 0;
@@ -519,7 +560,9 @@ void Graphics::DrawAnimation(Object* obj, Animation* animation_)
 	glDrawArrays(ToGLPrimitiveMode(obj->GetMesh().GetPointListType()), 0, (GLsizei)animation.size());
 }
 
-void Graphics::DrawParticle(Particle_Generator* particles_)
+
+// TODO Fix the Particle System
+void Graphics::DrawParticle(Particle_Generator* particles_, bool is_hud)
 {
 	if (particles_->IsActive())
 	{
@@ -541,7 +584,7 @@ void Graphics::DrawParticle(Particle_Generator* particles_)
 
 				Shader::UseShader(Particleshader);
 
-				if (temp_camera != nullptr)
+				if (game_level_camera != nullptr)
 				{
 					to_ndc = CalculateModelToNDCTransform(p->GetParticleObject()->GetTransform());
 				}
@@ -577,14 +620,14 @@ void Graphics::DrawParticle(Particle_Generator* particles_)
 	}
 }
 
-void Graphics::DrawFont(Object* obj, Font* font_)
+void Graphics::DrawFont(Object* obj, Font* font_, bool is_hud)
 {
 	for (auto pair : font_->GetFontMesh())
 	{
 		int page_number = pair.first;
 		auto& mesh = pair.second;
 
-		check = font_->GetFont()->GetTexture(page_number);
+		Sprite* sprite = font_->GetFont()->GetTexture(page_number);
 
 		fontes.clear();
 		fontes.reserve(mesh.GetPointCount());
@@ -598,20 +641,23 @@ void Graphics::DrawFont(Object* obj, Font* font_)
 
 		Shader::UseShader(Fontshader);
 
-		if (temp_camera != nullptr)
+		if (game_level_camera != nullptr)
 		{
-			to_ndc = CalculateModelToNDCTransform(obj->GetTransform());
+			to_ndc = CalculateModelToNDCTransform(obj->GetTransform(), is_hud);
 		}
 		else
 		{
-			to_ndc = projection * obj->GetTransform().GetModelToWorld();
+			if (!is_hud)
+				to_ndc = projection * obj->GetTransform().GetModelToWorld();
+			else
+				to_ndc = hud_projection * obj->GetTransform().GetModelToWorld();;
 		}
 
 		const int texture_slot = 0;
-		if (lastBoundTexture != check->GetTextureHandler())
+		if (lastBoundTexture != sprite->GetTextureHandler())
 		{
-			check->Bind(texture_slot);
-			lastBoundTexture = check->GetTextureHandler();
+			sprite->Bind(texture_slot);
+			lastBoundTexture = sprite->GetTextureHandler();
 		}
 
 		Fontshader.SendUniformVariable("transform", to_ndc);

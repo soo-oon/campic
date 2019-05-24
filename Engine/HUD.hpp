@@ -16,6 +16,7 @@ Creation date: 2018/12/14
 #include "State.hpp"
 #include "Object.hpp"
 #include <memory>
+#include "Camera.hpp"
 
 class HUD
 {
@@ -28,6 +29,7 @@ public:
 	void Add_HUD_Object(Object* obj);
 
 	State* Get_HUD_State() { return m_HUD_State; }
+	Camera* Get_HUD_Camera() { return hud_camera; }
 	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
 
 private:
@@ -36,6 +38,7 @@ private:
 
 	bool isHUDActive = false;
 	State* m_HUD_State = nullptr;
+	Camera* hud_camera = nullptr;
 
 	std::vector<std::shared_ptr<Object>> HUD_Object_Manager;
 

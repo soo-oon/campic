@@ -40,7 +40,7 @@ public:
 	void Update(float dt);
 	void Quit();
 
-	Camera* GetCurrentCamera() { return temp_camera; }
+	Camera* GetCurrentCamera() { return game_level_camera; }
 	void BeginDraw();
 	void Draw();
 	void HUD_Draw();
@@ -48,8 +48,8 @@ public:
 	void EndDraw();
 	bool IsDraw(Object* obj);
 
-
 	void SetNDC();
+	void SetHUD_NDC();
 
 	vector2 GetDisplaySize() { return displaysize; }
 	static vector2 camera_center;
@@ -84,21 +84,21 @@ private:
 	};
 
 
-	affine2d CalculateModelToNDCTransform(const Transform& transform) const;
+	affine2d CalculateModelToNDCTransform(const Transform& transform, bool is_hud = false) const;
 
 	//void DrawParticle(Object* obj);
 
-	void DrawSolidShape(Object* obj);
+	void DrawSolidShape(Object* obj , bool is_hud = false);
 
-	void DrawSprite(Object* obj, Sprite* sprite_);
+	void DrawSprite(Object* obj, Sprite* sprite_, bool is_hud = false);
 
-	void DrawCollisionBox(Object* obj, Collision* collision);
+	void DrawCollisionBox(Object* obj, Collision* collision, bool is_hud=false);
 
-	void DrawAnimation(Object* obj, Animation* animation_);
+	void DrawAnimation(Object* obj, Animation* animation_, bool is_hud=false);
 
-	void DrawParticle(Particle_Generator* particles);
+	void DrawParticle(Particle_Generator* particles, bool is_hud = false);
 
-	void DrawFont(Object* obj, Font* font);
+	void DrawFont(Object* obj, Font* font, bool is_hud=false);
 
 	void DescribSolidVertexPosition();
 	void DescribVertexPosition();
@@ -107,12 +107,13 @@ private:
 
 private:
 	bool Iscamera = false;
-	Camera* temp_camera = nullptr;
+	Camera* game_level_camera = nullptr;
 
 	static const int NumberOfVertexTypes = (int)GraphicsType::count;
 	vector2 displaysize{};
 
 	affine2d projection = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
+	affine2d hud_projection = { 1, 0, 0, 0, 1, 0, 0,0,1 };
 	unsigned int lastBoundTexture = 0;
 
 	Shader Solidshader{};
@@ -129,8 +130,6 @@ private:
 	std::vector<collsionbox> collsionboxes{};
 	std::vector<particle> particles{};
 	std::vector<font> fontes{};
-
-	Sprite* check = nullptr;
 };
 
 extern Graphics Graphics_;
