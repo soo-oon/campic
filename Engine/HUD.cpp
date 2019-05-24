@@ -24,7 +24,8 @@ bool HUD::Initialize(State* HUD_State)
 
 	if (m_HUD_State != nullptr)
 	{
-		//HUD_Activing_Search();
+		HUD_Activing_Search();
+		hud_camera = new Camera();
 		m_HUD_State->Initialize();
 	}
 
@@ -76,19 +77,12 @@ void HUD::SetPlayer(Object* obj)
 
 void HUD::HUD_Activing_Search()
 {
-	//if (!Objectmanager_.GetObjectMap().empty())
-	//{
-	//	//for (auto& object : Objectmanager_.GetObjectMap())
-	//	//{
-	//	//	if (auto status = object->GetComponentByTemplate<Status>(); status != nullptr)
-	//	//	{
-	//	//		if (status->GetObjectType() == ObjectType::Player)
-	//	//		{
-	//	//			isHUDActive = true;
-	//	//			return;
-	//	//		}
-	//	//	}
-	//	//}
-	//}
-	//isHUDActive = false;
+	if (auto current_state = StateManager_.GetCurrentState();
+		current_state != nullptr)
+	{
+		if(current_state->GetCurrentStateInfo() == State_Information::Game)
+			isHUDActive = true;
+	}
+
+	isHUDActive = false;
 }

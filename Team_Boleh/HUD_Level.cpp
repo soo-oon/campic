@@ -58,20 +58,16 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_option_window);
 
 	//HUD_.Toggle_HUD_Active();
-	HUD_.isHUDActive = true;
 }
 
 void HUD_Level::Update(float dt)
 {
-	std::cout << HUD_.isHUDActive << std::endl;
-
-	if (auto camera = Graphics_.GetCurrentCamera();
+	/*if (auto camera = Graphics_.GetCurrentCamera();
 		camera != nullptr)
 	{
 		h_capture_limit->SetTranslation(camera->GetCenter() + vector2(screen_size.x / 2 - 200, screen_size.y / 2 - 100));
 		h_capture_number->SetTranslation(camera->GetCenter() + vector2(screen_size.x / 2 - 130, 340));
-	}
-
+	}*/
 
 	h_cheese->SetScale(Application_.GetScreenSize());
 
