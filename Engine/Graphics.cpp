@@ -120,6 +120,7 @@ void Graphics::Update(float dt)
     }
 
     SetNDC();
+	SetHUD_NDC();
 }
 
 void Graphics::Draw()

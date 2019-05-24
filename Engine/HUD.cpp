@@ -34,10 +34,10 @@ bool HUD::Initialize(State* HUD_State)
 
 void HUD::Update(float dt)
 {
-	/*if(!isHUDActive)
+	if(!isHUDActive)
 	{
 		HUD_Activing_Search();
-	}*/
+	}
 	if(m_HUD_State != nullptr)
 	{
 		m_HUD_State->Update(dt);
