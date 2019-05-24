@@ -16,6 +16,7 @@ void HUD_Level::Initialize()
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimit.png"));
 	h_capture_limit->SetInvisible();
 	h_capture_limit->GetMesh().Invisible();
+	container.push_back(h_capture_limit);
 
 	h_capture_number = new Object();
 	h_capture_number->SetTranslation(vector2(screen_size.x/2 -130 , 340));
@@ -25,13 +26,7 @@ void HUD_Level::Initialize()
 	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 	h_capture_number->SetInvisible();
 	h_capture_number->GetMesh().Invisible();
-
-	h_option_window = new Object();
-	h_option_window->SetScale({ screen_size.x-200, screen_size.y-200 });
-	h_option_window->SetDepth(-0.6f);
-	h_option_window->SetMesh(mesh::CreateBox(1, { 0,0,0,255 }));
-	h_option_window->SetObjectType(ObjectType::None);
-	h_option_window->GetMesh().Invisible();
+	container.push_back(h_capture_number);
 
 	h_cheese = new Object();
 	h_cheese->SetScale(Application_.GetScreenSize());
@@ -40,31 +35,52 @@ void HUD_Level::Initialize()
 	h_cheese->SetObjectType(ObjectType::Background);
 	h_cheese->SetInvisible();
 	h_cheese->GetMesh().Invisible();
+	container.push_back(h_cheese);
 
-	h_fullscreen_button = new Object();
-	h_fullscreen_button->SetTranslation(vector2(screen_size.x-1200, screen_size.y-1000));
-	h_fullscreen_button->SetScale(screen_size/10);
-	h_fullscreen_button->SetDepth(HUD_BUTTON);
-	h_fullscreen_button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	h_fullscreen_button->SetObjectType(ObjectType::HUD_Button);
-	h_fullscreen_button->AddComponent(new Sprite("asset/images/UI/EmptyBox.png"));
-	h_fullscreen_button->AddComponent(new UI("fullscreen"));
-	h_fullscreen_button->GetMesh().Invisible();
+	////////////OPTION WINDOW
+	h_option_window = new Object();
+	h_option_window->SetScale({ screen_size.x - 200, screen_size.y - 200 });
+	h_option_window->SetDepth(-0.6f);
+	h_option_window->SetMesh(mesh::CreateBox(1, { 0,0,0,255 }));
+	h_option_window->SetObjectType(ObjectType::None);
+	h_option_window->GetMesh().Invisible();
 
-	HUD_.Add_HUD_Object(h_capture_number);
-	HUD_.Add_HUD_Object(h_fullscreen_button);
-	HUD_.Add_HUD_Object(h_capture_limit);
-	HUD_.Add_HUD_Object(h_cheese);
-	HUD_.Add_HUD_Object(h_option_window);
+	h_fullscreen_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 1000), screen_size / 10,
+		HUD_BUTTON, "asset/images/UI/EmptyBox.png", "fullscreen");
 
-	//HUD_.Toggle_HUD_Active();
+	h_bgm_scroll_bar = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 800), screen_size / 3,
+		-0.62f,"asset/images/UI/Icon_AdjustBar.png");
+
+	h_bgm_scroll_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 800), screen_size / 25,
+		HUD_BUTTON,"asset/images/UI/Icon_AdjustBall.png", "scrollbutton");
+
+	h_sfx_scroll_bar = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 700), screen_size / 3,
+		-0.62f,"asset/images/UI/Icon_AdjustBar.png");
+
+	h_sfx_scroll_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 700), screen_size / 25,
+		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "scrollbutton");
+
+	h_mute_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 900), screen_size / 10,
+		HUD_BUTTON,"asset/images/UI/EmptyBox.png", "Mute");
+
+	container.push_back(h_option_window);
+	container.push_back(h_fullscreen_button);
+	container.push_back(h_bgm_scroll_button);
+	container.push_back(h_bgm_scroll_bar);
+	container.push_back(h_sfx_scroll_button);
+	container.push_back(h_sfx_scroll_bar);
+	container.push_back(h_mute_button);
+
+	for(auto& i : container)
+	{
+		HUD_.Add_HUD_Object(i);
+	}
+
 	HUD_.isHUDActive = true;
 }
 
 void HUD_Level::Update(float dt)
 {
-	std::cout << HUD_.isHUDActive << std::endl;
-
 	if (auto camera = Graphics_.GetCurrentCamera();
 		camera != nullptr)
 	{
@@ -123,35 +139,54 @@ void HUD_Level::Update(float dt)
 		h_capture_limit->SetVisible();
 		h_capture_number->SetVisible();
 
-		/*if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
 			IsOptionWindowOpen = !IsOptionWindowOpen;
 			if (h_option_window->GetMesh().IsVisible())
 			{
 				h_option_window->GetMesh().Invisible();
 				h_fullscreen_button->GetMesh().Invisible();
+				h_bgm_scroll_bar->GetMesh().Invisible();
+				h_sfx_scroll_bar->GetMesh().Invisible();
+				h_bgm_scroll_button->GetMesh().Invisible();
+				h_sfx_scroll_button->GetMesh().Invisible();
+				h_mute_button->GetMesh().Invisible();
 			}
 			else
 			{
 				h_option_window->GetMesh().Visible();
 				h_fullscreen_button->GetMesh().Visible();
+				h_bgm_scroll_bar->GetMesh().Visible();
+				h_sfx_scroll_bar->GetMesh().Visible();
+				h_bgm_scroll_button->GetMesh().Visible();
+				h_sfx_scroll_button->GetMesh().Visible();
+				h_mute_button->GetMesh().Visible();
 				StateManager_.Pause();
 			}
-		}*/
+		}
 
-		/*if (IsOptionWindowOpen)
+		if (IsOptionWindowOpen)
 		{
 			if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 			{
 				h_select = Input::ClickHUDButton();
 
-				if (h_select->GetComponentByTemplate<UI>() != nullptr &&
-					h_select->GetComponentByTemplate<UI>()->GetId() == "fullscreen")
+				if (h_select->GetComponentByTemplate<UI>() != nullptr)
 				{
-					Application_.FullScreen();
+					if (h_select->GetComponentByTemplate<UI>()->GetId() == "fullscreen")
+					{
+						Application_.FullScreen();
+					}
+
+			/*		if (h_select->GetComponentByTemplate<UI>()->GetId() == "scrollbutton")
+					{
+						float save_x = Input::GetMousePos().x;
+						float save_y = h_select->GetTransform().GetTranslation().y;
+						h_select->SetTranslation({ save_x, save_y });
+					}*/
 				}
 			}
-		}*/
+		}
 	}
 	else
 	{
@@ -161,19 +196,21 @@ void HUD_Level::Update(float dt)
 
 void HUD_Level::ShutDown()
 {
+	container.clear();
 }
 
-void HUD_Level::CreateHudButton(vector2 pos, vector2 scale, std::string id)
+Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id)
 {
 	Object* button = new Object();
 
 	button->SetTranslation(pos);
 	button->SetScale(scale);
-	button->SetDepth(-0.65f);
+	button->SetDepth(depth);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::HUD_Button);
-	button->AddComponent(new Sprite("asset/images/UI/EmptyBox.png"));
+	button->AddComponent(new Sprite(path));
 	button->AddComponent(new UI(id));
+	button->GetMesh().Invisible();
 
-	HUD_.Add_HUD_Object(button);
+	return button;
 }

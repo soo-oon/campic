@@ -49,6 +49,14 @@ public:
 	void SetSFXsVolume(float volume); 
 	void SetSongsVolume(float volume);
 
+	bool IsSFXPlaying();
+	bool IsBGMPlaying();
+	bool IsMasterPlaying();
+
+	FMOD::ChannelGroup* GetBGMChannel() { return groups[CATEGORY_SONG]; }
+	FMOD::ChannelGroup* GetSFXChannel() { return groups[CATEGORY_SFX]; } 
+	FMOD::ChannelGroup* GetMasterChannel() { return master; } 
+
 	enum Category { CATEGORY_SFX, CATEGORY_SONG, CATEGORY_COUNT };
 	enum FadeState { FADE_NONE, FADE_IN, FADE_OUT };
 

@@ -27,6 +27,8 @@ Physics Physics_;
 
 bool Physics::Initialize()
 {
+	AudioManager_.LoadSFX("asset/sounds/curtain.mp3");
+
     return true;
 }
 
@@ -362,6 +364,13 @@ void Physics::Update(float dt)
 								if (trigger->GetComponentByTemplate<Trigger>()->GetIsTriggerd() == false)
 								{
 									trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(true);
+									if(trigger->GetComponentByTemplate<Trigger>()->GetTriggerStyle() == TriggerStyle::CheckPoint)
+									{
+										AudioManager_.PlaySFX("asset/sounds/curtain.mp3", 0.1f);
+
+										if (AudioManager_.GetSFXChannel() == nullptr)
+											AudioManager_.PlaySFX("asset/sounds/Camera_Capture.wav", 0.1f);
+									}
 								}
 								else
 								{

@@ -53,6 +53,7 @@ void HUD::Update(float dt)
 
 void HUD::Quit()
 {
+	m_HUD_State->ShutDown();
 }
 
 void HUD::Add_HUD_Object(Object* obj)
