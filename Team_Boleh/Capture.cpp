@@ -127,7 +127,6 @@ void Capture::Capture_Camera_Move()
 			object->SetTranslation(save_temp + player_->GetComponentByTemplate<Player>()->GetMouseOffset());
 		}
 	}
-
 }
 
 void Capture::SetZoomMinMax(float max, float min)
@@ -336,7 +335,9 @@ void Capture::CameraZoom()
         {
             if (zoom < zoom_max_value)
             {
-				zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+				if(!AudioManager_.IsSFXPlaying())
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+
                 zoom += 0.05f;
             }
 
@@ -347,7 +348,9 @@ void Capture::CameraZoom()
         {
             if (zoom > zoom_min_value)
             {
-				zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_Out.wav");
+				if (!AudioManager_.IsSFXPlaying())
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_Out.wav");
+
                 zoom -= 0.05f;
             }
 

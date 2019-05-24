@@ -166,7 +166,7 @@ void AudioManager::PlaySong(const std::string & path)
 		nextSongPath = path;    
 		return;
 	} 
-	
+
 	// Find the song in the corresponding sound map  
 	SoundMap::iterator sound = sounds[CATEGORY_SONG].find(path); 
 	if (sound == sounds[CATEGORY_SONG].end()) 
@@ -183,6 +183,7 @@ void AudioManager::PlaySong(const std::string & path)
 
 void AudioManager::ChnageSFX(const std::string & path)
 {
+
 }
 
 void AudioManager::ChnageSong(const std::string& path)
@@ -215,6 +216,33 @@ void AudioManager::SetSFXsVolume(float volume)
 void AudioManager::SetSongsVolume(float volume)
 {
 	groups[CATEGORY_SONG]->setVolume(volume);
+}
+
+bool AudioManager::IsSFXPlaying()
+{
+	bool isPlaying;
+
+	groups[CATEGORY_SFX]->isPlaying(&isPlaying);
+
+	return isPlaying;
+}
+
+bool AudioManager::IsBGMPlaying()
+{
+	bool isPlaying;
+
+	groups[CATEGORY_SONG]->isPlaying(&isPlaying);
+
+	return isPlaying;
+}
+
+bool AudioManager::IsMasterPlaying()
+{
+	bool isPlaying;
+
+	master->isPlaying(&isPlaying);
+
+	return isPlaying;
 }
 
 void AudioManager::Load(Category type, const std::string & path)
