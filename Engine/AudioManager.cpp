@@ -57,6 +57,18 @@ void AudioManager::Update(float dt)
 	//If no song is playing, and there is a song set up to play next, start playing it: 
 
 	// in seconds  
+
+	if(timer)
+	{
+		time += dt;
+
+		if(time > 1)
+		{
+			PlaySFX("asset/sounds/Camera_Capture.wav", 0.8f);
+			timer = false;
+			time = 0.f;
+		}
+	}
 	
 	
 	if(currentSong != NULL && fade == FADE_IN)
@@ -99,7 +111,7 @@ void AudioManager::Update(float dt)
 	{
 		PlaySong(nextSongPath);   
 		nextSongPath.clear();
-	}  
+	} 
 	
 	system->update();
 }
@@ -143,15 +155,16 @@ void AudioManager::PlaySFX(const std::string& path, float volume)
 	//float pitch = RandomBetween(minPitch, maxPitch);
 	
 	// Play the sound effect with these initial values  
-	FMOD::Channel* channel;  
-	system->playSound(sound->second, NULL, true, &channel); 
+	FMOD::Channel* channel = nullptr;
 	channel->setChannelGroup(groups[CATEGORY_SFX]); 
-	channel->setVolume(volume);  
-	
+	channel->setVolume(volume);
+
+	system->playSound(sound->second, NULL, true, &channel);
 	float frequency;  
 	channel->getFrequency(&frequency); 
 	channel->setFrequency(frequency);
 	channel->setPaused(false);
+
 }
 
 void AudioManager::PlaySong(const std::string & path)
@@ -176,7 +189,7 @@ void AudioManager::PlaySong(const std::string & path)
 	currentSongPath = path;  
 	system->playSound(sound->second, NULL, false, &currentSong);
 	currentSong->setChannelGroup(groups[CATEGORY_SONG]);  
-	currentSong->setVolume(0.4f);  
+	currentSong->setVolume(0.5f);  
 	currentSong->setPaused(false);  
 	fade = FADE_IN; 
 }
@@ -243,6 +256,11 @@ bool AudioManager::IsMasterPlaying()
 	master->isPlaying(&isPlaying);
 
 	return isPlaying;
+}
+
+void AudioManager::SetTimer(bool timer_)
+{
+	timer = timer_;
 }
 
 void AudioManager::Load(Category type, const std::string & path)

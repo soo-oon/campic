@@ -135,10 +135,10 @@ void StateManager::Update(float dt)
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
 
-	if (m_pause == false)
-	{
+	//if (m_pause == false)
+	//{
 		m_currentState->Update(dt);
-	}
+	//}
 
 	if(Input::IsKeyTriggered(GLFW_KEY_T))
 	{

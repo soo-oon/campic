@@ -85,5 +85,6 @@
     <ClInclude Include="Trigger.h" />
     <ClInclude Include="BitmapFont.hpp" />
     <ClInclude Include="ObjectDepth.hpp" />
+    <ClInclude Include="MenuPage.hpp" />
   </ItemGroup>
 </Project>
