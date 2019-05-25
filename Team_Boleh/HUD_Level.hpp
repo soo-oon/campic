@@ -25,5 +25,8 @@ private:
 	Object* h_select = nullptr;
 	vector2 screen_size = Application_.GetScreenSize();
 
+	Object* capture_camera = nullptr;
+
+	bool is_game_state = false;
 	bool IsOptionWindowOpen = false;
 };

@@ -22,6 +22,7 @@ private:
 	const std::string file_path = "asset/JsonFiles/Levels/";
 
 	Object* m_SelectLevel = nullptr;
+	Object* mouse_icon = nullptr;
 private:
 	std::map<std::string, bool> m_LevelLock;
 };

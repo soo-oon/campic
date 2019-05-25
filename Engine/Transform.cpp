@@ -18,6 +18,8 @@ Creation date: 2018/12/14
 
 affine2d Transform::GetModelToWorld() const
 {
+
+	// child
     affine2d temp = build_translation(translation.x, translation.y)
         * rotation_affine(rotation)
         * nonuniform_scale_affine(scale.x, scale.y);
@@ -37,7 +39,6 @@ affine2d Transform::GetModelToWorld() const
             temp = temp_affine2d;
             temp_parent_transform = temp_parent_transform->parent;
         }
-        return temp;
     }
     return temp;
 }

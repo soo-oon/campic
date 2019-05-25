@@ -73,6 +73,7 @@ public:
 	void SetContainAreaCondition(bool condition);
 	void SetSlowModeCondition(bool condition);
 	void SetIsOutSideCondition(bool condition);
+	//void UpdateChildPositionUpdate();
 
 	bool Isvisible();
 	bool IsDifferZoomSize() { return is_differ_zoom_size; }
@@ -82,6 +83,8 @@ public:
 
 	void SetVisible();
 	void SetInvisible();
+
+	void SetSpecificPosition(float position, bool is_xpos = false);
 
 public:
 	bool IsDead() { return isdead; }

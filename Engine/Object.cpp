@@ -99,6 +99,17 @@ void Object::SetParent(const Transform* transform_)
 	m_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
 }
 
+//void Object::UpdateChildPositionUpdate()
+//{
+//	auto temp = m_transform.GetWorldToModel();
+//	affine2d rotate_ = rotation_affine(-m_transform.GetRotation());
+//
+//	temp *= rotate_;
+//
+//	m_transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
+//	m_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
+//}
+
 void Object::SetIsDead(bool condition)
 {
 	isdead = condition;
@@ -124,6 +135,7 @@ void Object::SetIsOutSideCondition(bool condition)
 	is_outsise_capture = condition;
 }
 
+
 bool Object::Isvisible()
 {
 	return m_mesh.IsVisible();
@@ -137,6 +149,21 @@ void Object::SetVisible()
 void Object::SetInvisible()
 {
 	m_mesh.Invisible();
+}
+
+void Object::SetSpecificPosition(float position, bool is_xpos)
+{
+	vector2 temp = m_transform.GetTranslation();
+	if (is_xpos)
+	{
+		temp.x = position;
+		m_transform.SetTranslation(temp);
+	}
+	else
+	{
+		temp.y = position;
+		m_transform.SetTranslation(temp);
+	}
 }
 
 Mesh& Object::GetMesh()

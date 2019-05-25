@@ -17,6 +17,10 @@ public:
 	void Delete() override;
 
 	void Capture_Camera_Move();
+	bool IsCaputreObjectVisible() { return isvisible; }
+	void SetVisibleCaptureObj();
+	void SetInvisibleCaptureObj();
+
 
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
@@ -73,6 +77,7 @@ private:
 	bool cheese = false;
 	bool is_runtime_change = false;
 	bool isoutside = false;
+	bool isvisible = false;
 
         bool isCollisionSizeBig = false;
 
@@ -87,7 +92,8 @@ private:
 	Object* zoomobject = nullptr;
 	Object* player = nullptr;
 	vector2 prev_mouse_pos;
-	vector2 save_temp;
+	float save_temp;
+
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
 	std::vector<Object*> not_area_contian_object;

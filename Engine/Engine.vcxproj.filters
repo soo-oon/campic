@@ -1,14 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Font.cpp" />
     <ClCompile Include="GLSL.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -22,39 +18,68 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MovingObject.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Objectmanager.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Particle_Generator.cpp" />
     <ClCompile Include="Physics.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="Reaction.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Tile_Map.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="LevelJson.cpp" />
-    <ClCompile Include="Trigger.cpp" />
-    <ClCompile Include="BitmapFont.cpp" />
+    <ClCompile Include="Animation.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapFont.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingObject.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle_Generator.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Reaction.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioManager.hpp" />
-    <ClInclude Include="Camera.hpp" />
-    <ClInclude Include="Collision.hpp" />
     <ClInclude Include="Color.hpp" />
-    <ClInclude Include="Component.hpp" />
     <ClInclude Include="DepthValue.hpp" />
     <ClInclude Include="Engine.hpp" />
-    <ClInclude Include="Font.hpp" />
     <ClInclude Include="GLSL.hpp" />
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="HUD.hpp" />
@@ -62,19 +87,10 @@
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="JSON.hpp" />
     <ClInclude Include="Mesh.hpp" />
-    <ClInclude Include="MovingObject.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Objectmanager.hpp" />
-    <ClInclude Include="Particle.hpp" />
-    <ClInclude Include="Particle_Generator.hpp" />
     <ClInclude Include="Physics.hpp" />
-    <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Projectile.hpp" />
-    <ClInclude Include="Reaction.hpp" />
-    <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="Shader.hpp" />
-    <ClInclude Include="Sound.hpp" />
-    <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateManager.hpp" />
     <ClInclude Include="Tile_Map.hpp" />
@@ -82,8 +98,65 @@
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="UI.hpp" />
     <ClInclude Include="LevelJson.hpp" />
-    <ClInclude Include="Trigger.h" />
-    <ClInclude Include="BitmapFont.hpp" />
     <ClInclude Include="ObjectDepth.hpp" />
+    <ClInclude Include="Animation.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapFont.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingObject.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle_Generator.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Reaction.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Component">
+      <UniqueIdentifier>{9656cc58-ebca-40c6-8ad3-f9d3e89d6797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\hpp">
+      <UniqueIdentifier>{15a61d2a-c959-44a0-84d7-2a80976f860e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\cpp">
+      <UniqueIdentifier>{cdc96c6d-5e40-4570-ad54-9deddcdd5b27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

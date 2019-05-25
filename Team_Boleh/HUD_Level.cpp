@@ -57,6 +57,19 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_cheese);
 	HUD_.Add_HUD_Object(h_option_window);
 
+	capture_camera = new Object();
+	capture_camera->SetTranslation({0,0});
+	capture_camera->SetScale({ 300,150 });
+	capture_camera->SetDepth(-0.3f);
+	capture_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	capture_camera->SetObjectType(ObjectType::Capture_Camera_main);
+	capture_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
+	capture_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
+	capture_camera->AddInitComponent(new Capture({}));
+	capture_camera->GetComponentByTemplate<Capture>()->SetInvisibleCaptureObj();
+
+	HUD_.Add_HUD_Object(capture_camera);
+
 	//HUD_.Toggle_HUD_Active();
 }
 
@@ -68,6 +81,23 @@ void HUD_Level::Update(float dt)
 		h_capture_limit->SetTranslation(camera->GetCenter() + vector2(screen_size.x / 2 - 200, screen_size.y / 2 - 100));
 		h_capture_number->SetTranslation(camera->GetCenter() + vector2(screen_size.x / 2 - 130, 340));
 	}*/
+
+//	std::cout << capture_camera->GetComponent().size() << std::endl;
+
+	if (!is_game_state)
+	{
+		if (HUD_.Get_Current_Game_State() != nullptr)
+		{
+			is_game_state = true;
+			capture_camera->GetComponentByTemplate<Capture>()->SetResetPosition(HUD_.Get_Current_Game_State()->GetStartPosition());
+			Objectmanager_.SetCaptureObject(capture_camera);
+		}
+	}
+	else
+	{
+		if (!capture_camera->GetComponentByTemplate<Capture>()->IsCaputreObjectVisible())
+			capture_camera->GetComponentByTemplate<Capture>()->SetVisibleCaptureObj();
+	}
 
 	h_cheese->SetScale(Application_.GetScreenSize());
 

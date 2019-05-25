@@ -4,6 +4,7 @@
 #include <iostream>
 #include "State.hpp"
 #include "Projectile.hpp"
+#include "HUD.hpp"
 #include "Player.hpp"
 
 bool Capture::Initialize(Object* Ob)
@@ -16,7 +17,7 @@ bool Capture::Initialize(Object* Ob)
         zoomobject = new Object();
         zoomobject->SetMesh(mesh::CreateBox());
         zoomobject->SetTranslation({ object->GetTransform().GetTranslation().x + size.x/1.8f, object->GetTransform().GetTranslation().y});
-        zoomobject->SetDepth(object->GetTransform().GetDepth()+0.1f);
+        zoomobject->SetDepth(object->GetTransform().GetDepth());
         zoomobject->SetScale({ 30, size.y });
         zoomobject->SetObjectType(ObjectType::Capture_Camera);
         zoomobject->AddComponent(new Sprite("asset/images/zoom.png"));
@@ -25,15 +26,21 @@ bool Capture::Initialize(Object* Ob)
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_Out.wav");
 
         zoombutton = new Object();
+		zoombutton->SetTranslation({ object->GetTransform().GetTranslation().x + size.x / 1.8f , 
+			object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y/2});
         zoombutton->SetMesh(mesh::CreateBox());
-        zoombutton->SetDepth(object->GetTransform().GetDepth());
+        zoombutton->SetDepth(object->GetTransform().GetDepth() - 0.1f);
         zoombutton->SetScale({ 30, 30 });
         zoombutton->SetObjectType(ObjectType::Capture_Camera);
         zoombutton->AddComponent(new Sprite("asset/images/zoom_button.png"));
 
+		save_temp = object->GetTransform().GetTranslation().y - zoomobject->GetTransform().GetScale().y / 2;
+
         zoomobject->SetParent(&object->GetTransform());
-        Objectmanager_.AddObject(zoomobject);
-        Objectmanager_.AddObject(zoombutton);
+		zoombutton->SetParent(&object->GetTransform());
+
+        HUD_.Add_HUD_Object(zoomobject);
+		HUD_.Add_HUD_Object(zoombutton);
     }
 
     zoom_min_value = 1.0f;
@@ -58,16 +65,6 @@ void Capture::Update(float dt)
         isCollisionSizeBig = false;
 
 	Capture_Camera_Move();
-
-    /*for(int i =0; i<static_cast<int>(polaroid_object.size()); ++i)
-    {
-            polaroid_object[i]->Update();
-
-            if(polaroid_object[i]->IsDead())
-            {
-                    polaroid_object.erase(polaroid_object.begin() + i);
-            }
-    }*/
 
     if (IsCaptureArea())
     {
@@ -113,39 +110,29 @@ void Capture::Capture_Camera_Move()
 {
 	vector2 current_mouse_pos = Input::GetMousePos();
 
-	if(prev_mouse_pos != current_mouse_pos)
-	{
-		save_temp = object->GetTransform().GetTranslation();
-		object->SetTranslation(current_mouse_pos);
-		prev_mouse_pos = current_mouse_pos;
-	}
-	else
-	{
-		if(auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
-			player_ != nullptr)
-		{
-			object->SetTranslation(save_temp + player_->GetComponentByTemplate<Player>()->GetMouseOffset());
-		}
-	}
+	object->SetTranslation(current_mouse_pos);
+}
 
+void Capture::SetVisibleCaptureObj()
+{
+	object->GetMesh().Visible();
+	zoomobject->GetMesh().Visible();
+	zoombutton->GetMesh().Visible();
+	isvisible = true;
+}
+
+void Capture::SetInvisibleCaptureObj()
+{
+	object->GetMesh().Invisible();
+	zoomobject->GetMesh().Invisible();
+	zoombutton->GetMesh().Invisible();
+	isvisible = false;
 }
 
 void Capture::SetZoomMinMax(float max, float min)
 {
     zoom_max_value = max;
     zoom_min_value = min;
-}
-
-void Capture::Polaroid::Update()
-{
-    /*obj->GetMesh().Decrease_Alpha(5);
-
-    if (obj->GetMesh().GetColor(0).Alpha <= 5)
-    {
-            obj->GetMesh().SetAlphaZero();
-            obj->SetObjectDead();
-            isdead = true;
-    }*/
 }
 
 bool Capture::IsCaptureArea()
@@ -326,8 +313,6 @@ void Capture::CameraZoom()
 {
     float zoom_ = static_cast<float>(Input::MouseWheelScroll());
 
-	std::cout << zoom_ << std::endl;
-
     temp_zoom = zoom;
 
     if (zoom_ != 0)
@@ -373,68 +358,64 @@ void Capture::CameraZoomInOut()
 		if ((obj->GetObjectType() == ObjectType::None || obj->GetObjectType() == ObjectType::Player ||
 			obj->GetObjectType() == ObjectType::Projectile) && obj.get() != object)
 		{
-                    if (!obj->IsOutSide())
-                    {
-                        if (!obj->IsDifferZoomSize())
-                        {
+            if (!obj->IsOutSide())
+            {
+                if (!obj->IsDifferZoomSize())
+                {
 
-                            if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
-                                temp_collision != nullptr)
+                    if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+                        temp_collision != nullptr)
+                    {
+                        CollisionChangeZoomInOut(obj.get(), temp_collision);
+                        if (isCollisionSizeBig)
+                            temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                    }
+                    vector2 scale = obj->GetTransform().GetScale();
+                    if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
+                    {
+                        if (const_zoom < zoom)
+                            obj->SetScale(scale * const_zoom);
+                        else
+                            obj->SetScale(scale * zoom);
+                    }
+                    else
+                        obj->SetScale(scale * zoom);
+
+                    obj->SetZoomDifferCondition(true);
+                }
+                else
+                {
+                    if (is_runtime_change)
+                    {
+                        for (auto size : original_scale)
+                        {
+                            if (obj.get() == size.second)
                             {
-                                CollisionChangeZoomInOut(obj.get(), temp_collision);
-                                if (isCollisionSizeBig)
-                                    temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
-                            }
-                            vector2 scale = obj->GetTransform().GetScale();
-                            if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
-                            {
-                                if (const_zoom < zoom)
-                                    obj->SetScale(scale * const_zoom);
+
+                                if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
+                                    temp_collision != nullptr)
+                                {
+                                    CollisionChangeZoomInOut(obj.get(), temp_collision);
+                                    if (isCollisionSizeBig)
+                                        temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                                }
+                                vector2 scale = size.first;
+                                if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
+                                {
+                                    if (const_zoom < zoom)
+                                        obj->SetScale(scale * const_zoom);
+                                    else
+                                        obj->SetScale(scale * zoom);
+                                }
                                 else
                                     obj->SetScale(scale * zoom);
-                            }
-                            else
-                                obj->SetScale(scale * zoom);
 
-                            obj->SetZoomDifferCondition(true);
-                        }
-                        else
-                        {
-                            if (is_runtime_change)
-                            {
-                                for (auto size : original_scale)
-                                {
-                                    if (obj.get() == size.second)
-                                    {
-
-                                        if (auto temp_collision = obj->GetComponentByTemplate<Collision>();
-                                            temp_collision != nullptr)
-                                        {
-                                            CollisionChangeZoomInOut(obj.get(), temp_collision);
-                                            if (isCollisionSizeBig)
-                                                temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
-                                        }
-                                        vector2 scale = size.first;
-                                        if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
-                                        {
-                                            if (const_zoom < zoom)
-                                                obj->SetScale(scale * const_zoom);
-                                            else
-                                                obj->SetScale(scale * zoom);
-                                        }
-                                        else
-                                            obj->SetScale(scale * zoom);
-
-                                        obj->SetZoomDifferCondition(true);
-                                    }
-                                }
+                                obj->SetZoomDifferCondition(true);
                             }
                         }
                     }
-                    else {
-                        zoom = 1.f;
-                        const_zoom = 0.f;
-                    }
+                }
+            }
 		}
     }
 }
@@ -468,15 +449,15 @@ void Capture::SetOrigianlSize()
 
 void Capture::ZoomObjectUpdate(float dt)
 {
-    float y_pos = object->GetTransform().GetScale().y - 60;
+
     float t = (zoom - zoom_min_value) / (zoom_max_value - zoom_min_value);
+	float adding_pos = (object->GetTransform().GetTranslation().y + object->GetTransform().GetScale().y / 2) - (object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y / 2);
 
-    t *= y_pos;
+	adding_pos *= t;
 
-    vector2 base_translation = object->GetTransform().GetTranslation();
-    vector2 base_scale = object->GetTransform().GetScale()/2.0f;
+	std::cout << adding_pos + save_temp << std::endl;
 
-    zoombutton->SetTranslation({ base_translation.x + base_scale.x + 17, base_translation.y - base_scale.y + 30 + t});
+	zoombutton->SetSpecificPosition((adding_pos +save_temp) / object->GetTransform().GetScale().y);
 }
 
 void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)

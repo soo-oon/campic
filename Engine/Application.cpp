@@ -91,6 +91,7 @@ bool Application::Initialize()
 	glfwSetScrollCallback(window, MouseWheelScroll);
 	glfwSetDropCallback(window, DropCallBack);
 	glfwSetWindowCloseCallback(window, Window_Exit);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
 

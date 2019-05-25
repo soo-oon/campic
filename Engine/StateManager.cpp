@@ -64,7 +64,7 @@ void StateManager::ChangeStage()
 	m_currentState->SetLevelIndicator(save);
 	SetCurrentLevelCaptureLimit();
 
-    m_currentState->CreateCaptureCamera();
+    //m_currentState->CreateCaptureCamera();
     
 	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
 	{
@@ -84,7 +84,7 @@ void StateManager::BackToMenu()
 
 	m_currentState->Initialize();
 
-    m_currentState->CreateCaptureCamera();
+    //m_currentState->CreateCaptureCamera();
 
 	Physics_.ResetPreviousSize();
 }

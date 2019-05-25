@@ -29,6 +29,7 @@ public:
 	void Add_HUD_Object(Object* obj);
 
 	State* Get_HUD_State() { return m_HUD_State; }
+	State* Get_Current_Game_State() { return m_current_game_state; }
 	//void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
 	bool isHUDActive = false;
 	Camera* Get_HUD_Camera() { return hud_camera; }
@@ -39,6 +40,7 @@ private:
 	void HUD_Activing_Search();
 
 	State* m_HUD_State = nullptr;
+	State* m_current_game_state = nullptr;
 	Camera* hud_camera = nullptr;
 
 	std::vector<std::shared_ptr<Object>> HUD_Object_Manager;

@@ -53,7 +53,11 @@ public:
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
 	void SetStartPosition(vector2 pos) { start_pos = pos; }
-	vector2 GetStartPosition() { return start_pos; }
+	vector2 GetStartPosition()
+	{
+		int a = 5;
+		return start_pos;
+	}
 	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
 	std::string GetLevelIndicator() { return level_indicator; }
 	State_Information GetCurrentStateInfo() { return information_; }

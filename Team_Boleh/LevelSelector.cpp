@@ -1,9 +1,17 @@
 #include "LevelSelector.hpp"
 #include "UI.hpp"
+#include "DepthValue.hpp"
 
 void LevelSelector::Initialize()
 {
 	m_LevelLock = LevelJson_.LoadLevelLock();
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(depth::NearDepth);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/MouseCursor.png"));
 
 	std::string text = "Level";
 	float base_y = 50.f;
@@ -18,10 +26,13 @@ void LevelSelector::Initialize()
 		CreateLevelButton(vector2(-350.f+(120.f*j), base_y), vector2(100, 100), text + std::to_string(i), text+std::to_string(i));
 		text = "Level";
 	}
+	Objectmanager_.AddObject(mouse_icon);
 }
 
 void LevelSelector::Update(float dt)
 {
+	mouse_icon->SetTranslation(Input::GetMousePos());
+
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		m_SelectLevel = Input::ClickObject(ObjectDepth::HUD_OBJECT);

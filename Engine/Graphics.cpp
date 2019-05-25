@@ -26,7 +26,6 @@ Creation date: 2018/12/14
 #include "Mesh.hpp"
 #include "Tile_Map.hpp"
 #include "BitmapFont.hpp"
-//#include ""
 
 Graphics Graphics_;
 
@@ -185,36 +184,33 @@ void Graphics::HUD_Draw()
 		{
 			if (obj->GetMesh().IsVisible())
 			{
-				if (IsDraw(obj.get()))
+				if (auto temp = obj->GetComponentByTemplate<Collision>();
+					temp != nullptr)
 				{
-					if (auto temp = obj->GetComponentByTemplate<Collision>();
-						temp != nullptr)
-					{
-						DrawCollisionBox(obj.get(), temp, true);
-					}
+					DrawCollisionBox(obj.get(), temp, true);
+				}
 
-					if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
-					{
-						DrawSprite(obj.get(), temp_sprite, true);
-					}
-					else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
-					{
-						DrawAnimation(obj.get(), temp_animation, true);
-					}
-					else if (obj->GetMesh().GetPointCount())
-					{
-						DrawSolidShape(obj.get(), true);
-					}
+				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+				{
+					DrawSprite(obj.get(), temp_sprite, true);
+				}
+				else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+				{
+					DrawAnimation(obj.get(), temp_animation, true);
+				}
+				else if (obj->GetMesh().GetPointCount())
+				{
+					DrawSolidShape(obj.get(), true);
+				}
 
-					if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
-					{
-						DrawParticle(temp, true);
-					}
+				if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+				{
+					DrawParticle(temp, true);
+				}
 
-					if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
-					{
-						DrawFont(obj.get(), temp, true);
-					}
+				if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+				{
+					DrawFont(obj.get(), temp, true);
 				}
 			}
 		}
@@ -360,6 +356,10 @@ void Graphics::SetHUD_NDC()
 affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform, bool is_hud) const
 {
 	affine2d complex_matrix = transform.GetModelToWorld();
+
+
+		//complex_matrix = transform.GetModelToWorld();
+
 
 	if (!is_hud)
 	{

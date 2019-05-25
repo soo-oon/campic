@@ -80,8 +80,11 @@ void HUD::HUD_Activing_Search()
 	if (auto current_state = StateManager_.GetCurrentState();
 		current_state != nullptr)
 	{
-		if(current_state->GetCurrentStateInfo() == State_Information::Game)
+		if (current_state->GetCurrentStateInfo() == State_Information::Game)
+		{
 			isHUDActive = true;
+			m_current_game_state = current_state;
+		}
 	}
 
 	isHUDActive = false;

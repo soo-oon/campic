@@ -1,10 +1,19 @@
 #include "MainMenu.hpp"
 #include "UI.hpp"
 #include "Engine.hpp"
+#include "DepthValue.hpp"
 
 void MainMenu::Initialize()
 {
 	AudioManager_.PlaySong("asset/sounds/MainMenu_BGM.mp3");
+
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(depth::NearDepth);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/MouseCursor.png"));
 
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
@@ -50,6 +59,7 @@ void MainMenu::Initialize()
 	Quit->AddComponent(new UI("Quit"));
 	Quit->AddComponent(new Sprite("asset/images/UI/QuitButton.png"));
 
+	Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(Start);
 	Objectmanager_.AddObject(Option);
 	Objectmanager_.AddObject(Credit);
@@ -59,6 +69,8 @@ void MainMenu::Initialize()
 
 void MainMenu::Update(float dt)
 {
+	mouse_icon->SetTranslation(Input::GetMousePos());
+
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		m_Select = Input::ClickObject(ObjectDepth::HUD_OBJECT);
