@@ -59,18 +59,16 @@ void Player::Delete()
 
 void Player::MouseTest()
 {
-	//vector2 current_mouse_pos = Input::GetMousePos();
+	vector2 current_mouse_pos = Input::GetMousePos();
 
-	//if (prev_mouse_pos != current_mouse_pos)
-	//{
-	//	offset = {};
-	//	save_pos = object->GetTransform().GetTranslation();
-	//	prev_mouse_pos = current_mouse_pos;
-	//}
-	//else
-	//{
-	//	offset = object->GetTransform().GetTranslation() - save_pos;
-
-	//	//std::cout << offset.x << ", " << offset.y << std::endl;
-	//}
+	if (prev_mouse_pos != current_mouse_pos)
+	{
+		offset = {};
+		save_pos = object->GetTransform().GetTranslation();
+		prev_mouse_pos = current_mouse_pos;
+	}
+	else
+	{
+		offset = object->GetTransform().GetTranslation() - save_pos;
+	}
 }

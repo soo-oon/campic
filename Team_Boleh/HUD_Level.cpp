@@ -59,17 +59,7 @@ void HUD_Level::Initialize()
 	h_fullscreen_button->AddComponent(new Sprite("asset/images/UI/EmptyBox.png"));
 	h_fullscreen_button->AddComponent(new UI("fullscreen"));
 	h_fullscreen_button->GetMesh().Invisible();
-	
-	capture_camera = new Object();
-	capture_camera->SetTranslation({0,0});
-	capture_camera->SetScale({ 300,150 });
-	capture_camera->SetDepth(-0.3f);
-	capture_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	capture_camera->SetObjectType(ObjectType::Capture_Camera_main);
-	capture_camera->AddInitComponent(new Animation("asset/images/camera_frame.png", "basic_camera", 2, 0.5, true));
-	capture_camera->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/cheese.png", "cheese", 2, 0.5, true);
-	capture_camera->AddInitComponent(new Capture({}));
-	capture_camera->GetComponentByTemplate<Capture>()->SetInvisibleCaptureObj();
+
 
 	h_restart_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 800.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "restart");
@@ -103,17 +93,18 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_capture_limit);
 	HUD_.Add_HUD_Object(h_cheese);
 	HUD_.Add_HUD_Object(h_option_window);
-	HUD_.Add_HUD_Object(capture_camera);
 }
 
 void HUD_Level::Update(float dt)
 {
+	//capture_camera->SetTranslation(Input::GetMousePos());
+
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		std::cout << "(" << Input::GetMousePos().x << "," << Input::GetMousePos().y << ")" << std::endl;
 	}
 
-	if (!is_game_state)
+	/*if (!is_game_state)
 	{
 		if (HUD_.Get_Current_Game_State() != nullptr)
 		{
@@ -126,7 +117,7 @@ void HUD_Level::Update(float dt)
 	{
 		if (!capture_camera->GetComponentByTemplate<Capture>()->IsCaputreObjectVisible())
 			capture_camera->GetComponentByTemplate<Capture>()->SetVisibleCaptureObj();
-	}
+	}*/
 
 	h_cheese->SetScale(Application_.GetScreenSize());
 

@@ -196,3 +196,10 @@ float Angle_Between_Vector(vector2 v1, vector2 v2)
 
     return To_Degree(a);
 }
+
+std::ostream& operator<<(std::ostream& os, vector2 vector)
+{
+	os << vector.x << ", " << vector.y << std::endl;
+
+	return os;
+}

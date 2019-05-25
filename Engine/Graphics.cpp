@@ -357,10 +357,6 @@ affine2d Graphics::CalculateModelToNDCTransform(const Transform& transform, bool
 {
 	affine2d complex_matrix = transform.GetModelToWorld();
 
-
-		//complex_matrix = transform.GetModelToWorld();
-
-
 	if (!is_hud)
 	{
 		complex_matrix = projection * game_level_camera->WorldToCamera() * complex_matrix;

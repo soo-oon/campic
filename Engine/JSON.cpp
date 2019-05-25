@@ -61,7 +61,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTransformTree.SetObject();
 	objStatusTree.SetObject();
 	objAnimationTree.SetObject();
-	//objCameraTree.SetObject();
+	objCameraTree.SetObject();
 	objSpriteTree.SetObject();
 	objRigidBodyTree.SetObject();
 	objCollisionTree.SetObject();
@@ -82,8 +82,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	if(obj->GetComponentByTemplate<Animation>() != nullptr)
 		objAnimationTree = ComponentAnimation(obj);
 
-	//if(obj->GetComponentByTemplate<Camera>() != nullptr)
-	//	objCameraTree = ComponentCamera(obj);
+	if(obj->GetComponentByTemplate<Camera>() != nullptr)
+		objCameraTree = ComponentCamera(obj);
 	
 	if(obj->GetComponentByTemplate<Sprite>() != nullptr)
 		objSpriteTree = ComponentSprite(obj);
@@ -138,7 +138,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Particle", objParticleTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
-	//objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
@@ -861,7 +861,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		particle = obj_array.FindMember("Particle")->value;
 		sound = obj_array.FindMember("Sound")->value;
 		font = obj_array.FindMember("Font")->value;
-		//capture = obj_array.FindMember("Capture")->value;
+		capture = obj_array.FindMember("Capture")->value;
 		camera = obj_array.FindMember("Camera")->value;
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;

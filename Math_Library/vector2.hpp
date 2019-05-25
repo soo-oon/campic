@@ -14,6 +14,7 @@ Creation date: 2018/12/14
 */
 
 #pragma once
+#include <ostream>
 
 struct vector2
 {
@@ -53,6 +54,7 @@ struct vector2
     bool operator==(const vector2 v) const;
     bool operator!=(const vector2 v) const;
 
+	friend std::ostream& operator<<(std::ostream& os, vector2 vector);
 
     float x = 0;
     float y = 0;

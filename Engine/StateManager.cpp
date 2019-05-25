@@ -43,7 +43,6 @@ void StateManager::AddStage(std::string ID, State* state)
 		}
 		else
 		{
-			//TODO Chnage this
 			m_currentState = first_level.get();
 		}
 		m_currentState->SetLevelIndicator(ID);
@@ -64,7 +63,7 @@ void StateManager::ChangeStage()
 	m_currentState->SetLevelIndicator(save);
 	SetCurrentLevelCaptureLimit();
 
-    //m_currentState->CreateCaptureCamera();
+    m_currentState->CreateCaptureCamera();
     
 	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
 	{

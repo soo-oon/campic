@@ -99,17 +99,6 @@ void Object::SetParent(const Transform* transform_)
 	m_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
 }
 
-//void Object::UpdateChildPositionUpdate()
-//{
-//	auto temp = m_transform.GetWorldToModel();
-//	affine2d rotate_ = rotation_affine(-m_transform.GetRotation());
-//
-//	temp *= rotate_;
-//
-//	m_transform.SetTranslation({ temp.affine[0][2], temp.affine[1][2] });
-//	m_transform.SetScale({ temp.affine[0][0], temp.affine[1][1] });
-//}
-
 void Object::SetIsDead(bool condition)
 {
 	isdead = condition;

@@ -16,11 +16,11 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
-	void Capture_Camera_Move();
 	bool IsCaputreObjectVisible() { return isvisible; }
 	void SetVisibleCaptureObj();
 	void SetInvisibleCaptureObj();
 
+	void CaptureObjectMove();
 
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
@@ -92,7 +92,7 @@ private:
 	Object* zoomobject = nullptr;
 	Object* player = nullptr;
 	vector2 prev_mouse_pos;
-	float save_temp;
+	float save_temp=0.0f;
 
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
