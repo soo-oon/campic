@@ -119,8 +119,11 @@ void StateManager::SetCurrentLevelCaptureLimit()
 
 void StateManager::Update(float dt)
 {
-	if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
-		TogglePause();
+	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
+	{
+		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+			TogglePause();
+	}
 
      if (m_currentState->IsLevelChange())
      {
@@ -132,10 +135,10 @@ void StateManager::Update(float dt)
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
 
-	if (m_pause == false)
-	{
+	//if (m_pause == false)
+	//{
 		m_currentState->Update(dt);
-	}
+	//}
 
 	if(Input::IsKeyTriggered(GLFW_KEY_T))
 	{

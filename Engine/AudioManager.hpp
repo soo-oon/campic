@@ -49,6 +49,16 @@ public:
 	void SetSFXsVolume(float volume); 
 	void SetSongsVolume(float volume);
 
+	bool IsSFXPlaying();
+	bool IsBGMPlaying();
+	bool IsMasterPlaying();
+
+	void SetTimer(bool timer_);
+
+	FMOD::ChannelGroup* GetBGMChannel() { return groups[CATEGORY_SONG]; }
+	FMOD::ChannelGroup* GetSFXChannel() { return groups[CATEGORY_SFX]; } 
+	FMOD::ChannelGroup* GetMasterChannel() { return master; } 
+
 	enum Category { CATEGORY_SFX, CATEGORY_SONG, CATEGORY_COUNT };
 	enum FadeState { FADE_NONE, FADE_IN, FADE_OUT };
 
@@ -71,6 +81,8 @@ private:
 	FadeState fade;
 
 	const float fadeTime = 0.1f;
+	bool timer = false;
+	float time = 0.f;
 };
 
 inline float ChangeSemitone(float frequency, float variation)

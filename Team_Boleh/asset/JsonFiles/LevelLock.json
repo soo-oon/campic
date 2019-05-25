@@ -13,11 +13,11 @@
     },
     "Level": {
         "ID:": "Level4",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level5",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level6",

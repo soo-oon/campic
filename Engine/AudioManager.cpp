@@ -57,6 +57,18 @@ void AudioManager::Update(float dt)
 	//If no song is playing, and there is a song set up to play next, start playing it: 
 
 	// in seconds  
+
+	if(timer)
+	{
+		time += dt;
+
+		if(time > 1)
+		{
+			PlaySFX("asset/sounds/Camera_Capture.wav", 0.8f);
+			timer = false;
+			time = 0.f;
+		}
+	}
 	
 	
 	if(currentSong != NULL && fade == FADE_IN)
@@ -99,7 +111,7 @@ void AudioManager::Update(float dt)
 	{
 		PlaySong(nextSongPath);   
 		nextSongPath.clear();
-	}  
+	} 
 	
 	system->update();
 }
@@ -143,15 +155,16 @@ void AudioManager::PlaySFX(const std::string& path, float volume)
 	//float pitch = RandomBetween(minPitch, maxPitch);
 	
 	// Play the sound effect with these initial values  
-	FMOD::Channel* channel;  
-	system->playSound(sound->second, NULL, true, &channel); 
+	FMOD::Channel* channel = nullptr;
 	channel->setChannelGroup(groups[CATEGORY_SFX]); 
-	channel->setVolume(volume);  
-	
+	channel->setVolume(volume);
+
+	system->playSound(sound->second, NULL, true, &channel);
 	float frequency;  
 	channel->getFrequency(&frequency); 
 	channel->setFrequency(frequency);
 	channel->setPaused(false);
+
 }
 
 void AudioManager::PlaySong(const std::string & path)
@@ -166,7 +179,7 @@ void AudioManager::PlaySong(const std::string & path)
 		nextSongPath = path;    
 		return;
 	} 
-	
+
 	// Find the song in the corresponding sound map  
 	SoundMap::iterator sound = sounds[CATEGORY_SONG].find(path); 
 	if (sound == sounds[CATEGORY_SONG].end()) 
@@ -176,13 +189,14 @@ void AudioManager::PlaySong(const std::string & path)
 	currentSongPath = path;  
 	system->playSound(sound->second, NULL, false, &currentSong);
 	currentSong->setChannelGroup(groups[CATEGORY_SONG]);  
-	currentSong->setVolume(0.4f);  
+	currentSong->setVolume(0.5f);  
 	currentSong->setPaused(false);  
 	fade = FADE_IN; 
 }
 
 void AudioManager::ChnageSFX(const std::string & path)
 {
+
 }
 
 void AudioManager::ChnageSong(const std::string& path)
@@ -215,6 +229,38 @@ void AudioManager::SetSFXsVolume(float volume)
 void AudioManager::SetSongsVolume(float volume)
 {
 	groups[CATEGORY_SONG]->setVolume(volume);
+}
+
+bool AudioManager::IsSFXPlaying()
+{
+	bool isPlaying;
+
+	groups[CATEGORY_SFX]->isPlaying(&isPlaying);
+
+	return isPlaying;
+}
+
+bool AudioManager::IsBGMPlaying()
+{
+	bool isPlaying;
+
+	groups[CATEGORY_SONG]->isPlaying(&isPlaying);
+
+	return isPlaying;
+}
+
+bool AudioManager::IsMasterPlaying()
+{
+	bool isPlaying;
+
+	master->isPlaying(&isPlaying);
+
+	return isPlaying;
+}
+
+void AudioManager::SetTimer(bool timer_)
+{
+	timer = timer_;
 }
 
 void AudioManager::Load(Category type, const std::string & path)

@@ -63,7 +63,7 @@ void Trigger::ConnectObjectAction()
             Text();
             break;
         case TriggerStyle::Graphic:
-			GraphicPrint();
+	    GraphicPrint();
             break;
         case TriggerStyle::CheckPoint:
             CheckPoint();

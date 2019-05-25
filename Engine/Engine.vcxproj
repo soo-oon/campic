@@ -243,6 +243,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="LevelJson.hpp" />
+    <ClInclude Include="MenuPage.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MovingObject.hpp" />
     <ClInclude Include="Object.hpp" />
