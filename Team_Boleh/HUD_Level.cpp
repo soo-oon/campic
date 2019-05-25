@@ -3,13 +3,14 @@
 #include "Capture.hpp"
 #include "UI.hpp"
 #include "ObjectDepth.hpp"
+#include "Engine.hpp"
 #include <iostream>
 
 void HUD_Level::Initialize()
 {
 	h_capture_limit = new Object();
-	h_capture_limit->SetTranslation(vector2(screen_size.x/2 -200, screen_size.y / 2 - 100));
-	h_capture_limit->SetScale(vector2{ screen_size.x / 10, screen_size.y/10 });
+	h_capture_limit->SetTranslation(vector2(screen_size.x/2.f -200.f, screen_size.y / 2.f - 100.f));
+	h_capture_limit->SetScale(vector2{ screen_size.x /10.f, screen_size.y/10.f });
 	h_capture_limit->SetDepth(-0.5f);
 	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_capture_limit->SetObjectType(ObjectType::None);
@@ -19,9 +20,9 @@ void HUD_Level::Initialize()
 	container.push_back(h_capture_limit);
 
 	h_capture_number = new Object();
-	h_capture_number->SetTranslation(vector2(screen_size.x/2 -130 , 340));
+	h_capture_number->SetTranslation(vector2(screen_size.x/2.f -130.f , 340.f));
 	h_capture_number->SetScale({ 2.8 });
-	h_capture_number->SetDepth(-0.6f);
+	h_capture_number->SetDepth(-0.5f);
 	h_capture_number->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
 	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 	h_capture_number->SetInvisible();
@@ -39,37 +40,38 @@ void HUD_Level::Initialize()
 
 	////////////OPTION WINDOW
 	h_option_window = new Object();
-	h_option_window->SetScale({ screen_size.x - 200, screen_size.y - 200 });
+	h_option_window->SetScale({ screen_size.x, screen_size.y});
 	h_option_window->SetDepth(-0.6f);
-	h_option_window->SetMesh(mesh::CreateBox(1, { 0,0,0,255 }));
+	h_option_window->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_option_window->SetObjectType(ObjectType::None);
+	h_option_window->AddComponent(new Sprite("asset/images/OptionPage.png"));
 	h_option_window->GetMesh().Invisible();
 
-	h_fullscreen_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 1000), screen_size / 10,
-		HUD_BUTTON, "asset/images/UI/EmptyBox.png", "fullscreen");
+	h_volume_scroll_button = CreateHudButton(vector2(screen_size.x - 1300.f, screen_size.y - 890.f), screen_size / 25.f,
+		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "volume_button");
 
-	h_bgm_scroll_bar = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 800), screen_size / 3,
-		-0.62f,"asset/images/UI/Icon_AdjustBar.png");
+	h_restart_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 800.f), screen_size / 10.f,
+		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "restart");
 
-	h_bgm_scroll_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 800), screen_size / 25,
-		HUD_BUTTON,"asset/images/UI/Icon_AdjustBall.png", "scrollbutton");
+	h_mute_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1000.f), screen_size / 10.f,
+		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "Mute");
 
-	h_sfx_scroll_bar = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 700), screen_size / 3,
-		-0.62f,"asset/images/UI/Icon_AdjustBar.png");
+	h_fullscreen_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1100.f), screen_size / 10.f,
+		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "fullscreen");
 
-	h_sfx_scroll_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 700), screen_size / 25,
-		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "scrollbutton");
+	h_backtomenu_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1200.f), screen_size / 10.f,
+		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "backtomenu");
 
-	h_mute_button = CreateHudButton(vector2(screen_size.x - 1000, screen_size.y - 900), screen_size / 10,
-		HUD_BUTTON,"asset/images/UI/EmptyBox.png", "Mute");
+	h_quit_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1300.f), screen_size / 10.f,
+		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
 
 	container.push_back(h_option_window);
 	container.push_back(h_fullscreen_button);
-	container.push_back(h_bgm_scroll_button);
-	container.push_back(h_bgm_scroll_bar);
-	container.push_back(h_sfx_scroll_button);
-	container.push_back(h_sfx_scroll_bar);
+	container.push_back(h_volume_scroll_button);
 	container.push_back(h_mute_button);
+	container.push_back(h_restart_button);
+	container.push_back(h_backtomenu_button);
+	container.push_back(h_quit_button);
 
 	for(auto& i : container)
 	{
@@ -79,6 +81,11 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
+	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		std::cout << "(" << Input::GetMousePos().x << "," << Input::GetMousePos().y << ")" << std::endl;
+	}
+
 	h_cheese->SetScale(Application_.GetScreenSize());
 
 	if (auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
@@ -96,9 +103,9 @@ void HUD_Level::Update(float dt)
 				if (!h_cheese->Isvisible())
 					h_cheese->SetVisible();
 
-				h_cheese->GetMesh().Decrease_Alpha(10);
+				h_cheese->GetMesh().Decrease_Alpha(10.f);
 
-				if (h_cheese->GetMesh().GetColor(0).Alpha <= 15)
+				if (h_cheese->GetMesh().GetColor(0).Alpha <= 15.f)
 				{
 					h_cheese->GetMesh().SetAlphaFill();
 					h_cheese->SetInvisible();
@@ -132,50 +139,131 @@ void HUD_Level::Update(float dt)
 		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
 			IsOptionWindowOpen = !IsOptionWindowOpen;
-			if (h_option_window->GetMesh().IsVisible())
-			{
-				h_option_window->GetMesh().Invisible();
-				h_fullscreen_button->GetMesh().Invisible();
-				h_bgm_scroll_bar->GetMesh().Invisible();
-				h_sfx_scroll_bar->GetMesh().Invisible();
-				h_bgm_scroll_button->GetMesh().Invisible();
-				h_sfx_scroll_button->GetMesh().Invisible();
-				h_mute_button->GetMesh().Invisible();
-			}
-			else
-			{
-				h_option_window->GetMesh().Visible();
-				h_fullscreen_button->GetMesh().Visible();
-				h_bgm_scroll_bar->GetMesh().Visible();
-				h_sfx_scroll_bar->GetMesh().Visible();
-				h_bgm_scroll_button->GetMesh().Visible();
-				h_sfx_scroll_button->GetMesh().Visible();
-				h_mute_button->GetMesh().Visible();
-				StateManager_.Pause();
-			}
 		}
 
 		if (IsOptionWindowOpen)
 		{
-			if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-			{
-				h_select = Input::ClickHUDButton();
+			StateManager_.Pause();
 
-				if (h_select->GetComponentByTemplate<UI>() != nullptr)
+			h_option_window->GetMesh().Visible();
+			h_fullscreen_button->GetMesh().Visible();
+			h_volume_scroll_button->GetMesh().Visible();
+			h_restart_button->GetMesh().Visible();
+			h_quit_button->GetMesh().Visible();
+			h_backtomenu_button->GetMesh().Visible();
+			h_mute_button->GetMesh().Visible();
+
+			float volume = 0.f;
+			h_select = Input::ClickHUDButton();
+
+			if (h_select != nullptr)
+			{
+				if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 				{
-					if (h_select->GetComponentByTemplate<UI>()->GetId() == "fullscreen")
+					if (h_select->GetComponentByTemplate<UI>() != nullptr)
 					{
-						Application_.FullScreen();
+						if (h_select->GetComponentByTemplate<UI>()->GetId() == "fullscreen")
+						{
+							fullscreen = !fullscreen;
+							Application_.FullScreen();
+							if (fullscreen)
+							{
+								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
+							}
+							else
+							{
+								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
+							}
+							h_select = nullptr;
+						}
 					}
 
-			/*		if (h_select->GetComponentByTemplate<UI>()->GetId() == "scrollbutton")
+					if (h_select->GetComponentByTemplate<UI>() != nullptr)
 					{
-						float save_x = Input::GetMousePos().x;
-						float save_y = h_select->GetTransform().GetTranslation().y;
-						h_select->SetTranslation({ save_x, save_y });
-					}*/
+						if (h_select->GetComponentByTemplate<UI>()->GetId() == "Mute")
+						{
+							mute = !mute;
+							AudioManager_.GetMasterChannel()->setMute(mute);
+							if(mute)
+							{
+								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
+								h_select = nullptr;
+							}
+							else
+							{
+								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
+								h_select = nullptr;
+							}
+						}
+					}
+
+					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					{
+						if (h_select->GetComponentByTemplate<UI>()->GetId() == "restart")
+						{
+							IsOptionWindowOpen = !IsOptionWindowOpen;
+							StateManager_.TogglePause();
+							UnLoad();
+							StateManager_.ChangeStage();
+							h_select = nullptr;
+						}
+					}
+
+					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					{
+						if (h_select->GetComponentByTemplate<UI>()->GetId() == "backtomenu")
+						{
+							IsOptionWindowOpen = !IsOptionWindowOpen;
+							StateManager_.TogglePause();
+							StateManager_.BackToMenu();
+							h_select = nullptr;
+						}
+					}
+
+					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					{
+						if (h_select->GetComponentByTemplate<UI>()->GetId() == "quit")
+						{
+							Engine::IsQuit = true;
+						}
+					}
+				}
+
+				if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
+				{
+					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					{
+						if (h_select->GetComponentByTemplate<UI>()->GetId() == "volume_button")
+						{
+							float save_x = Input::GetMousePos().x;
+							static float save_y = h_select->GetTransform().GetTranslation().y;
+
+							volume = (100.f / (320.f - -240.f)*save_x) - ((100 * -240.f) / (320.f - -240.f));
+
+							if (volume < 0.f)
+								volume = 0.f;
+							else if (volume > 100.f)
+								volume = 100.f;
+
+							if (save_x > -220.f && save_x < 165.f)
+							{
+								h_select->SetTranslation({ save_x, save_y });
+							}
+							AudioManager_.SetMasterVolume(volume / 100.f);
+						}
+					}
 				}
 			}
+		}
+		else
+		{
+			h_option_window->GetMesh().Invisible();
+			h_fullscreen_button->GetMesh().Invisible();
+			h_volume_scroll_button->GetMesh().Invisible();
+			h_restart_button->GetMesh().Invisible();
+			h_quit_button->GetMesh().Invisible();
+			h_backtomenu_button->GetMesh().Invisible();
+			h_mute_button->GetMesh().Invisible();
 		}
 	}
 	else

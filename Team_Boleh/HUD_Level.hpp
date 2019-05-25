@@ -19,12 +19,10 @@ private:
 	//OPTION
 	Object* h_option_window = nullptr;
 	Object* h_fullscreen_button = nullptr;
-	Object* h_bgm_scroll_bar = nullptr;
-	Object* h_sfx_scroll_bar = nullptr;
-	Object* h_bgm_scroll_button = nullptr;
-	Object* h_sfx_scroll_button = nullptr;
+	Object* h_volume_scroll_button = nullptr;
 	Object* h_mute_button = nullptr;
 	Object* h_restart_button = nullptr;
+	Object* h_backtomenu_button = nullptr;
 	Object* h_quit_button = nullptr;
 
 	Object* h_capture_limit = nullptr;
@@ -38,4 +36,6 @@ private:
 	std::vector<Object*> container;
 
 	bool IsOptionWindowOpen = false;
+	bool mute = false;
+	bool fullscreen = false;
 };

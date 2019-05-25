@@ -366,16 +366,18 @@ void Physics::Update(float dt)
 									trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(true);
 									if(trigger->GetComponentByTemplate<Trigger>()->GetTriggerStyle() == TriggerStyle::CheckPoint)
 									{
-										AudioManager_.PlaySFX("asset/sounds/curtain.mp3", 0.1f);
-
-										if (AudioManager_.GetSFXChannel() == nullptr)
-											AudioManager_.PlaySFX("asset/sounds/Camera_Capture.wav", 0.1f);
+										if (!AudioManager_.IsSFXPlaying())
+										{	
+											AudioManager_.SetTimer(true);
+											AudioManager_.PlaySFX("asset/sounds/curtain.mp3", 0.8f);
+										}
+										
 									}
 								}
-								else
-								{
-									trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
-								}
+								//else
+								//{
+								//	trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
+								//}
 						}
 		        }
 		}

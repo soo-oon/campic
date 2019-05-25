@@ -3,25 +3,58 @@
 
 void LevelSelector::Initialize()
 {
+	m_Menu1 = new MenuPage();
+	m_Menu2 = new MenuPage();
+
 	m_LevelLock = LevelJson_.LoadLevelLock();
 
-	std::string text = "Level";
-	float base_y = 50.f;
+	CreateMenuPage();
 
-	for(int i = 1,j=1; i <= 5; ++i,++j)
+	for(auto& i : m_Menu1->GetButtons())
 	{
-		if(i == 6)
-		{
-			base_y -= 150;
-			j = 1;
-		}
-		CreateLevelButton(vector2(-350.f+(120.f*j), base_y), vector2(100, 100), text + std::to_string(i), text+std::to_string(i));
-		text = "Level";
+		Objectmanager_.AddObject(i);
+	}
+	for (auto& i : m_Menu2->GetButtons())
+	{
+		Objectmanager_.AddObject(i);
 	}
 }
 
 void LevelSelector::Update(float dt)
 {
+	if(selectPage)
+	{
+		for (auto& i : m_Menu1->GetButtons())
+		{
+			i->GetMesh().Visible();
+		}
+		for (auto& i : m_Menu2->GetButtons())
+		{
+			i->GetMesh().Invisible();
+		}
+	}
+	else
+	{
+		for (auto& i : m_Menu2->GetButtons())
+		{
+			i->GetMesh().Visible();
+		}
+		for (auto& i : m_Menu1->GetButtons())
+		{
+			i->GetMesh().Invisible();
+		}
+	}
+
+
+	if(Input::IsKeyTriggered(GLFW_KEY_LEFT))
+	{
+		selectPage = !selectPage;
+	}
+	if (Input::IsKeyTriggered(GLFW_KEY_RIGHT))
+	{
+		selectPage = !selectPage;
+	}
+
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		m_SelectLevel = Input::ClickObject(ObjectDepth::HUD_OBJECT);
@@ -48,7 +81,7 @@ void LevelSelector::ShutDown()
 	UnLoad();
 }
 
-void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text ,std::string numLevel)
+void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text ,std::string numLevel, MenuPage* menu)
 {
 	Object* button = new Object();
 	button->SetTranslation(pos);
@@ -75,7 +108,38 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 		lock->SetObjectType(ObjectType::Button);
 		lock->AddComponent(new Sprite("asset/images/UI/Lock.png"));
 
-		Objectmanager_.AddObject(lock);
+		menu->InsertButtons(lock);
 	}
-	Objectmanager_.AddObject(button);
+	menu->InsertButtons(button);
 }
+
+void LevelSelector::CreateMenuPage()
+{
+	std::string text = "Level";
+	float base_y = 50.f;
+
+	for (int i = 1, j = 1; i < 10; ++i, ++j)
+	{
+		if (i == 6)
+		{
+			base_y -= 150;
+			j = 1;
+		}
+		CreateLevelButton(vector2(-400.f + (120.f*j), base_y), vector2(100, 100), text + std::to_string(i), text + std::to_string(i), m_Menu1);
+		text = "Level";
+	}
+
+	base_y = 50.f;
+	for (int i = 1, j = 1; i < 10; ++i, ++j)
+	{
+		if (i == 6)
+		{
+			base_y -= 150;
+			j = 1;
+		}
+		CreateLevelButton(vector2(-400.f + (120.f*j), base_y), vector2(100, 100), text + std::to_string(i+10), text + std::to_string(i+10), m_Menu2);
+		text = "Level";
+	}
+}
+
+
