@@ -21,6 +21,9 @@ Creation date: 2018/12/14
 
 struct vector2;
 
+const vector2 player_scale = { 60.f,70.f };
+
+
 class Player : public Component
 {
 public:
