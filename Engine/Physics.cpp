@@ -194,14 +194,14 @@ void Physics::Update(float dt)
                             p_rigidbody->SetXLimited(false);
                         if (capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
                             p_rigidbody->SetYLimited(false);
-                        if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - 2.f*capture->GetTransform().GetScale().x 
-                            <= capture->GetTransform().GetTranslation().x 
-                            && capture->GetTransform().GetTranslation().x
-                            <= p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + 2.f*capture->GetTransform().GetScale().x 
-                            && p_transform.GetTranslation().y - p_transform.GetScale().y / 2 - capture->GetTransform().GetScale().y 
-                            <= capture->GetTransform().GetTranslation().y 
-                            && capture->GetTransform().GetTranslation().y 
-                            < p_transform.GetTranslation().y  + capture->GetTransform().GetScale().y + p_transform.GetScale().y / 2
+                        if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - 2.f*capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x
+                            <= capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x
+                            && capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x
+                            <= p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + 2.f*capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x
+                            && p_transform.GetTranslation().y - p_transform.GetScale().y / 2 - capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y
+                            <= capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
+                            && capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
+                            < p_transform.GetTranslation().y  + capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y + p_transform.GetScale().y / 2
                             )
                         {
                             p_collision->SetIsCapobj(false);
@@ -215,13 +215,13 @@ void Physics::Update(float dt)
                             p_collision->SetIsCelling(true);
                             break;
                             }
-                            if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture->GetTransform().GetScale().x /2
-                                <= capture->GetTransform().GetTranslation().x - 3
-                                && capture->GetTransform().GetTranslation().x + 3
-                                <= p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + capture->GetTransform().GetScale().x /2 
-                                && capture->GetTransform().GetTranslation().y + capture->GetTransform().GetScale().y/2
+                            if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x /2
+                                <= capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - 3
+                                && capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + 3
+                                <= p_transform.GetTranslation().x + p_transform.GetScale().x / 2 + capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x /2
+                                && capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y + capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y/2
                                 >= p_transform.GetTranslation().y - p_transform.GetScale().y / 2 + p_rigidbody->GetVelocity().y * dt
-                                && capture->GetTransform().GetTranslation().y 
+                                && capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
                                 <= p_transform.GetTranslation().y - p_transform.GetScale().y / 2 )
                             {
                                 //StopReaction(collision_list[i], capture, false);

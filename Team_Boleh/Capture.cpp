@@ -240,6 +240,7 @@ void Capture::Capturing()
     {
         Object* temp = new Object(*obj);
         temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+        temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
         temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
         temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
 
@@ -277,6 +278,7 @@ void Capture::Capturing()
         {
             player->SetTranslation(reset_pos);
             player->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(reset_pos);
+            player->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(player_scale);
             player->GetComponentByTemplate<Collision>()->SetIsGround(false);
 			player->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
         }
@@ -386,7 +388,7 @@ void Capture::CameraZoomInOut()
                             {
                                 CollisionChangeZoomInOut(obj.get(), temp_collision);
                                 if (isCollisionSizeBig)
-                                    temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                                    temp_collision->ChangeCollisionBoxScale(obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
                             }
                             vector2 scale = obj->GetTransform().GetScale();
                             if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
@@ -415,7 +417,7 @@ void Capture::CameraZoomInOut()
                                         {
                                             CollisionChangeZoomInOut(obj.get(), temp_collision);
                                             if (isCollisionSizeBig)
-                                                temp_collision->ChangeCollisionBoxScale(obj->GetTransform().GetScale());
+                                                temp_collision->ChangeCollisionBoxScale(obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
                                         }
                                         vector2 scale = size.first;
                                         if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
@@ -459,9 +461,9 @@ void Capture::SetOrigianlSize()
 					vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
 						->GetCollisionTransform().GetScale()) / 2.0f;
 
-					obj.second->GetTransform().SetTranslation({ translation.x, translation.y + offset.y });
+					//obj.second->GetTransform().SetTranslation({ translation.x, translation.y + offset.y });
 				}
-				temp_collision->ChangeCollisionBoxScale(obj.second->GetTransform().GetScale());
+				temp_collision->ChangeCollisionBoxScale(obj.second->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
 			}
 
 			obj.second->SetZoomDifferCondition(false);

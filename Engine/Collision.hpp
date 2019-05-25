@@ -38,8 +38,9 @@ enum class Filter
 class Collision : public Component
 {
 public:
-    Collision(CollisionType type_ = box_) : type(type_)
+    Collision(CollisionType type_ = box_, vector2 size = {1.f} ) : type(type_)
     {
+        collision_transform.SetScale(size);
     }
 
     bool Initialize(Object* Ob) override;
