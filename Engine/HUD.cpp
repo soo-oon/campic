@@ -20,11 +20,12 @@ HUD HUD_;
 
 bool HUD::Initialize(State* HUD_State)
 {
+	//m_HUD_State = nullptr;
 	m_HUD_State = HUD_State;
 
 	if (m_HUD_State != nullptr)
 	{
-		HUD_Activing_Search();
+		//HUD_Activing_Search();
 		hud_camera = new Camera();
 		m_HUD_State->Initialize();
 	}
@@ -36,12 +37,10 @@ void HUD::Update(float dt)
 {
 	if(!isHUDActive)
 	{
-		HUD_Activing_Search();
+		//HUD_Activing_Search();
 	}
 	if(m_HUD_State != nullptr)
 	{
-		m_HUD_State->Update(dt);
-
 		for(auto obj = HUD_Object_Manager.begin(); obj != HUD_Object_Manager.end(); ++obj)
 		{
 			for (auto components : obj->get()->GetComponent())
@@ -49,12 +48,15 @@ void HUD::Update(float dt)
 				components->Update(dt);
 			}
 		}
+		//m_HUD_State->Update(dt);
+
 	}
 }
 
 void HUD::Quit()
 {
 	m_HUD_State->ShutDown();
+	HUD_Object_Manager.clear();
 }
 
 void HUD::Add_HUD_Object(Object* obj)

@@ -53,13 +53,13 @@ void Engine::Update()
 		Graphics_.Tile_Draw();
 		Graphics_.HUD_Draw();
 		Graphics_.EndDraw();
+#ifdef _DEBUG
 		IMGUI_.Draw();
+#endif
 
         //if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             //IsQuit = true;
     }
-
-    Quit();
 }
 
 void Engine::Quit()
@@ -73,7 +73,9 @@ void Engine::System_Initialize()
 	StateManager_.Initialize();
 	Graphics_.Initialize();
 	Objectmanager_.Initialize();
+#ifdef _DEBUG
 	IMGUI_.Initialize();
+#endif
 	AudioManager_.Initialize();
 	Physics_.Initialize();
  	HUD_.Initialize(new HUD_Level());
@@ -92,7 +94,9 @@ void Engine::System_Update()
 	Objectmanager_.Update(dt);
     Tile_Map_.Update(dt);
     Physics_.Update(dt);
+#ifdef _DEBUG
 	IMGUI_.Update(dt);
+#endif
 	AudioManager_.Update(dt);
 	HUD_.Update(dt);
 
@@ -107,9 +111,11 @@ void Engine::System_Quit()
 	StateManager_.Quit();
 	Graphics_.Quit();
 	Objectmanager_.Quit();
+#ifdef _DEBUG
 	//IMGUI_.Quit();
+#endif
 	AudioManager_.Quit();
 	Physics_.Quit();
 
-	//HUD_.Quit();
+	HUD_.Quit();
 }

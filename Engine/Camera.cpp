@@ -28,7 +28,9 @@ bool Camera::Initialize(Object* Ob)
 	if (object == nullptr)
 	{
 		object = Ob;
-		StateManager_.GetStateMap().find(curr_level)->second->SetCamera();
+		if(!curr_level.empty())
+			StateManager_.GetStateMap().find(curr_level)->second->SetCamera();
+
 	}
 	return true;
 }

@@ -17,7 +17,7 @@ void HUD_Level::Initialize()
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimit.png"));
 	h_capture_limit->SetInvisible();
 	h_capture_limit->GetMesh().Invisible();
-	container.push_back(h_capture_limit);
+	HUD_.Add_HUD_Object(h_capture_limit);
 
 	h_capture_number = new Object();
 	h_capture_number->SetTranslation(vector2(screen_size.x/2.f -130.f , 340.f));
@@ -27,7 +27,7 @@ void HUD_Level::Initialize()
 	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 	h_capture_number->SetInvisible();
 	h_capture_number->GetMesh().Invisible();
-	container.push_back(h_capture_number);
+	HUD_.Add_HUD_Object(h_capture_number);
 
 	h_cheese = new Object();
 	h_cheese->SetScale(Application_.GetScreenSize());
@@ -36,7 +36,7 @@ void HUD_Level::Initialize()
 	h_cheese->SetObjectType(ObjectType::Background);
 	h_cheese->SetInvisible();
 	h_cheese->GetMesh().Invisible();
-	container.push_back(h_cheese);
+	HUD_.Add_HUD_Object(h_cheese);
 
 	////////////OPTION WINDOW
 	h_option_window = new Object();
@@ -46,78 +46,39 @@ void HUD_Level::Initialize()
 	h_option_window->SetObjectType(ObjectType::None);
 	h_option_window->AddComponent(new Sprite("asset/images/Page/OptionPage.png"));
 	h_option_window->GetMesh().Invisible();
+	HUD_.Add_HUD_Object(h_option_window);
 
 	h_volume_scroll_button = CreateHudButton(vector2(screen_size.x - 1300.f, screen_size.y - 890.f), screen_size / 25.f,
 		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "volume_button");
-
-	h_fullscreen_button = new Object();
-	h_fullscreen_button->SetTranslation(vector2(screen_size.x-1200, screen_size.y-1000));
-	h_fullscreen_button->SetScale(screen_size/10);
-	h_fullscreen_button->SetDepth(HUD_BUTTON);
-	h_fullscreen_button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	h_fullscreen_button->SetObjectType(ObjectType::HUD_Button);
-	h_fullscreen_button->AddComponent(new Sprite("asset/images/UI/EmptyBox.png"));
-	h_fullscreen_button->AddComponent(new UI("fullscreen"));
-	h_fullscreen_button->GetMesh().Invisible();
-
+	HUD_.Add_HUD_Object(h_volume_scroll_button);
 
 	h_restart_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 800.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "restart");
+	HUD_.Add_HUD_Object(h_restart_button);
 
 	h_mute_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1000.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "Mute");
+	HUD_.Add_HUD_Object(h_mute_button);
 
 	h_fullscreen_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1100.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "fullscreen");
+	HUD_.Add_HUD_Object(h_fullscreen_button);
 
 	h_backtomenu_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1200.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "backtomenu");
+	HUD_.Add_HUD_Object(h_backtomenu_button);
 
 	h_quit_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1300.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
-
-	container.push_back(h_option_window);
-	container.push_back(h_fullscreen_button);
-	container.push_back(h_volume_scroll_button);
-	container.push_back(h_mute_button);
-	container.push_back(h_restart_button);
-	container.push_back(h_backtomenu_button);
-	container.push_back(h_quit_button);
-
-	for(auto& i : container)
-	{
-		HUD_.Add_HUD_Object(i);
-	}
-	HUD_.Add_HUD_Object(h_capture_number);
-	HUD_.Add_HUD_Object(h_fullscreen_button);
-	HUD_.Add_HUD_Object(h_capture_limit);
-	HUD_.Add_HUD_Object(h_cheese);
-	HUD_.Add_HUD_Object(h_option_window);
+	HUD_.Add_HUD_Object(h_quit_button);
 }
 
 void HUD_Level::Update(float dt)
 {
-	//capture_camera->SetTranslation(Input::GetMousePos());
-
 	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		std::cout << "(" << Input::GetMousePos().x << "," << Input::GetMousePos().y << ")" << std::endl;
 	}
-
-	/*if (!is_game_state)
-	{
-		if (HUD_.Get_Current_Game_State() != nullptr)
-		{
-			is_game_state = true;
-			capture_camera->GetComponentByTemplate<Capture>()->SetResetPosition(HUD_.Get_Current_Game_State()->GetStartPosition());
-			Objectmanager_.SetCaptureObject(capture_camera);
-		}
-	}
-	else
-	{
-		if (!capture_camera->GetComponentByTemplate<Capture>()->IsCaputreObjectVisible())
-			capture_camera->GetComponentByTemplate<Capture>()->SetVisibleCaptureObj();
-	}*/
 
 	h_cheese->SetScale(Application_.GetScreenSize());
 
@@ -307,7 +268,6 @@ void HUD_Level::Update(float dt)
 
 void HUD_Level::ShutDown()
 {
-	container.clear();
 }
 
 Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id)

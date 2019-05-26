@@ -43,7 +43,6 @@ bool Imgui_System::Initialize()
 	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
 	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
 	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
-
 	ImGui::StyleColorsDark();
 
 	//Imgui configs

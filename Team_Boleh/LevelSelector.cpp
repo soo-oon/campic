@@ -95,7 +95,6 @@ void LevelSelector::Update(float dt)
 
 void LevelSelector::ShutDown()
 {
-	m_LevelLock.clear();
 	UnLoad();
 }
 

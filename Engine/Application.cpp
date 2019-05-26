@@ -83,7 +83,6 @@ bool Application::Initialize()
     }
 
     glfwMakeContextCurrent(window);
-
 	glfwSetWindowSizeCallback(window, window_resized);
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetCursorPosCallback(window, MousePositionCallback);
@@ -136,7 +135,10 @@ void Application::Update(float dt)
 
 	Input::Triggerd_Reset();
         Input::Pressed_Reset();
-	//glfwSwapBuffers(window);
+#ifdef _DEBUG
+#else
+	glfwSwapBuffers(window);
+#endif
 
     PollEvent();
 }
