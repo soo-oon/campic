@@ -129,7 +129,7 @@ void Trigger::GraphicPrint()
 		m_connected_object->SetDepth(GAME_OBJECT);
         m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
         std::string path = "asset/images/UI/";
-        m_connected_object->AddInitComponent(new Animation(path + text+".png", text, image_frame,update_frame , true));
+        m_connected_object->AddInitComponent(new Animation(path + text+".png", text, static_cast<int>(image_frame), update_frame , true));
        
         Objectmanager_.AddObject(m_connected_object);
     }

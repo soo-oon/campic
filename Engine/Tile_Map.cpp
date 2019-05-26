@@ -41,9 +41,6 @@ void Tile_Map::RemoveTiles()
 {
 	graphics_tiles.clear();
 	physical_tiles.clear();
-
-	std::cout << graphics_tiles.size() << std::endl;
-	std::cout << physical_tiles.size() << std::endl;
 }
 
 void Tile_Map::Make_Tile(std::string image, Tile_Type type)
@@ -57,7 +54,6 @@ void Tile_Map::Make_Tile(std::string image, Tile_Type type)
     {
         tile_position = { (float)((2 * (floor)(tile_x / TILE_SIZE) + 1)* TILE_SIZE / 2) - TEMP_WIDTH / 2
             , (float)((2 * (floor)(tile_y / TILE_SIZE) + 1)*TILE_SIZE) / 2 - TEMP_HEIGHT / 2 };
-        std::cout << tile_position.x << ", " << tile_position.y << std::endl;
        
     	Normal_Tile(image, tile_x, tile_y, tile_position, type);
         

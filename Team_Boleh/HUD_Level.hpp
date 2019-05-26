@@ -33,8 +33,6 @@ private:
 	vector2 screen_size = Application_.GetScreenSize();
 	vector2 scrollbar = vector2(screen_size.x - 1000, screen_size.y - 800);
 
-	std::vector<Object*> container;
-
 	Object* capture_camera = nullptr;
 
 	bool is_game_state = false;

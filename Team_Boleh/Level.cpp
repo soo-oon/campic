@@ -16,15 +16,15 @@ void Level::Initialize()
 	background->SetObjectType(ObjectType::Background);
 	background->AddComponent(new Animation("asset/images/Page/BackgroundAfernoon.png", "BackGround", 16, 0.15f, true));
 	background->SetDepth(0.98f);
-	background->SetScale((Application_.GetScreenSize().x + 100, Application_.GetScreenSize().y+100));
-
+	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height)});
+	
 	Objectmanager_.AddObject(camera);
 	Objectmanager_.AddObject(background);
 }
 
 void Level::Update(float dt)
 {
-	background->SetScale(Application_.GetScreenSize() + 100);
+	//background->SetScale(Application_.GetScreenSize() + 100);
 
 	//if (camera != nullptr)
 	//{

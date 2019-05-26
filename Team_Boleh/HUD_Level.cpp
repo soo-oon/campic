@@ -9,7 +9,7 @@
 void HUD_Level::Initialize()
 {
 	h_capture_limit = new Object();
-	h_capture_limit->SetTranslation(vector2(screen_size.x/2.f -200.f, screen_size.y / 2.f - 100.f));
+	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -250.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
 	h_capture_limit->SetScale(vector2{ screen_size.x /10.f, screen_size.y/10.f });
 	h_capture_limit->SetDepth(-0.5f);
 	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -20,8 +20,8 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_capture_limit);
 
 	h_capture_number = new Object();
-	h_capture_number->SetTranslation(vector2(screen_size.x/2.f -130.f , 340.f));
-	h_capture_number->SetScale({ 2.8 });
+	h_capture_number->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 - 170.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -110.f});
+	h_capture_number->SetScale({ 2.8f });
 	h_capture_number->SetDepth(-0.5f);
 	h_capture_number->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
 	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
@@ -30,7 +30,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_capture_number);
 
 	h_cheese = new Object();
-	h_cheese->SetScale(Application_.GetScreenSize());
+	h_cheese->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
 	h_cheese->SetDepth(-0.5f);
 	h_cheese->SetMesh(mesh::CreateBox(1, Colors::Yellow));
 	h_cheese->SetObjectType(ObjectType::Background);
@@ -71,34 +71,10 @@ void HUD_Level::Initialize()
 	h_quit_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1300.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
 	HUD_.Add_HUD_Object(h_quit_button);
-
-	HUD_.Add_HUD_Object(h_capture_number);
-	HUD_.Add_HUD_Object(h_capture_limit);
-	HUD_.Add_HUD_Object(h_cheese);
-	HUD_.Add_HUD_Object(h_option_window);
 }
 
 void HUD_Level::Update(float dt)
 {
-	//capture_camera->SetTranslation(Input::GetMousePos());
-
-	/*if (!is_game_state)
-	{
-		if (HUD_.Get_Current_Game_State() != nullptr)
-		{
-			is_game_state = true;
-			capture_camera->GetComponentByTemplate<Capture>()->SetResetPosition(HUD_.Get_Current_Game_State()->GetStartPosition());
-			Objectmanager_.SetCaptureObject(capture_camera);
-		}
-	}
-	else
-	{
-		if (!capture_camera->GetComponentByTemplate<Capture>()->IsCaputreObjectVisible())
-			capture_camera->GetComponentByTemplate<Capture>()->SetVisibleCaptureObj();
-	}*/
-
-	h_cheese->SetScale(Application_.GetScreenSize());
-
 	if (auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 		player != nullptr)
 	{
@@ -279,10 +255,7 @@ void HUD_Level::Update(float dt)
 
 void HUD_Level::ShutDown()
 {
-<<<<<<< HEAD
-=======
 	UnLoad();
->>>>>>> tw
 }
 
 Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id)

@@ -1,6 +1,7 @@
 #include "LevelSelector.hpp"
 #include "UI.hpp"
 #include "DepthValue.hpp"
+#include <iostream>
 
 void LevelSelector::Initialize()
 {
@@ -25,6 +26,26 @@ void LevelSelector::Initialize()
 	background->AddComponent(new Sprite("asset/images/Page/LevelSelect.png"));
 
 	CreateMenuPage();
+
+	Object* previous = new Object();
+	previous->SetTranslation({ -300, -293 });
+	previous->SetScale({ 128,128 });
+	previous->SetDepth(HUD_BUTTON);
+	previous->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	previous->SetObjectType(ObjectType::Button);
+	previous->AddComponent(new Sprite("asset/images/UI/PrevButton.png"));
+	previous->AddComponent(new UI("previous"));
+	Objectmanager_.AddObject(previous);
+
+	Object* next = new Object();
+	next->SetTranslation({ 200, -293 });
+	next->SetScale({ 128,128 });
+	next->SetDepth(HUD_BUTTON);
+	next->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	next->SetObjectType(ObjectType::Button);
+	next->AddComponent(new Sprite("asset/images/UI/NextButton.png"));
+	next->AddComponent(new UI("next"));
+	Objectmanager_.AddObject(next);
 
 	for(auto& i : m_Menu1->GetButtons())
 	{
@@ -83,6 +104,17 @@ void LevelSelector::Update(float dt)
 				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
 				ChangeLevel(level_indicator);
 			}
+		}
+
+		m_selectPage = Input::ClickObject(ObjectDepth::HUD_BUTTON);
+
+		if (m_selectPage)
+		{
+			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "previous")
+				selectPage = !selectPage;
+
+			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "next")
+				selectPage = !selectPage;
 		}
 	}
 
