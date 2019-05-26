@@ -86,8 +86,6 @@ private:
 
 	affine2d CalculateModelToNDCTransform(const Transform& transform, bool is_hud = false) const;
 
-	//void DrawParticle(Object* obj);
-
 	void DrawSolidShape(Object* obj , bool is_hud = false);
 
 	void DrawSprite(Object* obj, Sprite* sprite_, bool is_hud = false);
@@ -111,6 +109,7 @@ private:
 
 	static const int NumberOfVertexTypes = (int)GraphicsType::count;
 	vector2 displaysize{};
+	vector2 display_max_size{};
 
 	affine2d projection = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
 	affine2d hud_projection = { 1, 0, 0, 0, 1, 0, 0,0,1 };

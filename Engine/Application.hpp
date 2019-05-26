@@ -33,6 +33,7 @@ public:
     void Update(float dt);
     void Quit();
 
+	const GLFWvidmode* GetGLFWvidmode() { return mode; }
 	GLFWwindow* GetWindow() { return window; }
 	vector2 GetScreenSize() { return real_screenSize; }
 
@@ -45,6 +46,7 @@ private:
 	float fpsEllapsedTime = 0;
 	int fpsFrames = 0;
 
+	const GLFWvidmode* mode = nullptr;
     GLFWmonitor* monitor = nullptr;
 
     GLFWwindow* window = nullptr;

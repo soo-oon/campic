@@ -81,6 +81,9 @@ bool Graphics::Initialize()
 		return false;
 	}
 
+	display_max_size = { static_cast<float>(Application_.GetGLFWvidmode()->width), 
+		static_cast<float>(Application_.GetGLFWvidmode()->height) };
+
     glGenVertexArrays(NumberOfVertexTypes, vertexAttributes);
     glGenBuffers(NumberOfVertexTypes, vertexBuffer);
 
@@ -309,8 +312,8 @@ void Graphics::SetNDC()
     if (game_level_camera != nullptr)
     {
         affine2d temp = {
-            (2.0f / displaysize.x) * game_level_camera->GetZoomValue(), 0.0f, 0.0f,
-            0.0f, (2.0f / displaysize.y) * game_level_camera->GetZoomValue(), 0.0f,
+            (2.0f / display_max_size.x) * game_level_camera->GetZoomValue(), 0.0f, 0.0f,
+            0.0f, (2.0f / display_max_size.y) * game_level_camera->GetZoomValue(), 0.0f,
             0.0f, 0.0f, 1.0f
         };
 
@@ -319,8 +322,8 @@ void Graphics::SetNDC()
     else
     {
         affine2d temp = {
-            (2.0f / displaysize.x), 0.0f, 0.0f,
-            0.0f, (2.0f / displaysize.y), 0.0f,
+            (2.0f / display_max_size.x), 0.0f, 0.0f,
+            0.0f, (2.0f / display_max_size.y), 0.0f,
             0.0f, 0.0f, 1.0f
         };
 
@@ -334,8 +337,8 @@ void Graphics::SetHUD_NDC()
 		hud_camera != nullptr)
 	{
 		affine2d temp = {
-		   (2.0f / displaysize.x) * hud_camera->GetZoomValue(), 0.0f, 0.0f,
-		   0.0f, (2.0f / displaysize.y) * hud_camera->GetZoomValue(), 0.0f,
+		   (2.0f / display_max_size.x) * hud_camera->GetZoomValue(), 0.0f, 0.0f,
+		   0.0f, (2.0f / display_max_size.y) * hud_camera->GetZoomValue(), 0.0f,
 		   0.0f, 0.0f, 1.0f
 		};
 
@@ -344,8 +347,8 @@ void Graphics::SetHUD_NDC()
 	else
 	{
 		affine2d temp = {
-			(2.0f / displaysize.x), 0.0f, 0.0f,
-			0.0f, (2.0f / displaysize.y), 0.0f,
+			(2.0f / display_max_size.x), 0.0f, 0.0f,
+			0.0f, (2.0f / display_max_size.y), 0.0f,
 			0.0f, 0.0f, 1.0f
 		};
 

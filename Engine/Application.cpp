@@ -68,7 +68,7 @@ bool Application::Initialize()
                               nullptr, nullptr);
 
 	//mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     glfwSetWindowMonitor(window, nullptr, (mode->width / 2) - static_cast<int>(screenSize.x / 2),
                          (mode->height / 2) - static_cast<int>(screenSize.y / 2),
                          static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
@@ -91,7 +91,7 @@ bool Application::Initialize()
 	glfwSetScrollCallback(window, MouseWheelScroll);
 	glfwSetDropCallback(window, DropCallBack);
 	glfwSetWindowCloseCallback(window, Window_Exit);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
     Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
 

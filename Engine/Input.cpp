@@ -145,8 +145,13 @@ bool Input::IsKeyAnyReleased()
 
 void Input::SetMousePos(double x_pos, double y_pos)
 {
-    mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos)) + Graphics::camera_center.x;
-    mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) + Graphics::camera_center.y;
+	vector2 viewport_size = { (float)Application_.GetGLFWvidmode()->width, (float)Application_.GetGLFWvidmode()->height };
+
+	float ratio_x = viewport_size.x / windowSize.x;
+	float ratio_y = viewport_size.y / windowSize.y;
+
+    mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos)) * ratio_x + Graphics::camera_center.x;
+    mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) * ratio_y + Graphics::camera_center.y;
 }
 
 vector2 Input::GetMousePos()
