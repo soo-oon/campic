@@ -40,9 +40,6 @@ bool Imgui_System::Initialize()
 	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
-	//glfwSetKeyCallback(window, ImGui_ImplGlfw_KeyCallback);
-	//glfwSetMouseButtonCallback(window, ImGui_ImplGlfw_MouseButtonCallback);
-	//glfwSetScrollCallback(window, ImGui_ImplGlfw_ScrollCallback);
 	ImGui::StyleColorsDark();
 
 	//Imgui configs
@@ -50,7 +47,6 @@ bool Imgui_System::Initialize()
 	io.FontDefault = NULL;
 	io.ConfigFlags = ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableSetMousePos;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
 	//Tile list in project directory
 	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Day"))
@@ -254,10 +250,6 @@ void Imgui_System::Editor(bool show_window)
         capture_existed = false;
         Tile_Map_.MakeGridFalse();
 		Physics_.ResetPreviousSize();
-      /*  Object* camera = new Object;
-        camera->SetObjectType(ObjectType::Camera);
-        camera->AddComponent(new Camera("Level"));
-        Objectmanager_.AddObject(camera);*/
 	}
 
 	if (ImGui::Button("Clear Graphic Tiles"))
@@ -359,12 +351,12 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	{
 		Object* door = new Object();
 		door->SetTranslation(Input::GetMousePos());
-		door->SetScale({ 100, 100 });
+		door->SetScale({ 256, 130 });
 		door->SetDepth(GAME_OBJECT);
 		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		door->SetObjectType(ObjectType::Door);
 		door->AddInitComponent(new Collision(box_));
-		door->AddInitComponent(new Animation("asset/images/Objects/Portal.png", "portal", 9, 0.01f));
+		door->AddInitComponent(new Sprite("asset/images/Objects/BusStop.png"));
 		door->AddComponent(new UI(buffer));
 
 		Objectmanager_.AddObject(door);

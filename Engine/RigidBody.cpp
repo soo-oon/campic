@@ -157,6 +157,7 @@ void RigidBody::MovePlayer()
                 o_collision->SetIsLeftTile(true);
                 o_rigidbody->SetVelocity({o_rigidbody->GetVelocity().x,m_velocity_limit.y});
                 o_rigidbody->SetJumping(true);
+				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
                 isYLimited = false;
             }
         }
@@ -192,6 +193,7 @@ void RigidBody::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
+				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
                 isYLimited = false;
             }
         }
@@ -226,6 +228,7 @@ void RigidBody::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
+				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
                 isYLimited = false;
             }
         }

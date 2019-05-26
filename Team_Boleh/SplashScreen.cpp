@@ -27,15 +27,7 @@ void SplashScreen::Initialize()
 	logo->SetMesh(mesh::CreateBox());
 	logo->AddComponent(new Sprite("asset/images/Splash/DigiPen_.png"));
 
-	background = new Object();
-	background->SetTranslation({ 0,0 });
-    background->SetScale(Application_.GetScreenSize());
-	background->SetMesh(mesh::CreateBox());
-	background->SetDepth(0.9f);
-	//background->AddComponent(new Sprite("asset/images/UI/Menu_background.png"));
-
 	Objectmanager_.AddObject(logo);
-	Objectmanager_.AddObject(background);
 }
 
 void SplashScreen::Update(float dt)
@@ -44,13 +36,13 @@ void SplashScreen::Update(float dt)
 
 	if(ischange)
 	{
-		if (time_count < 2.0f)
+		if (time_count < 3.0f)
 		{
 			logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
 			 logo->GetTransform().GetScale().y + 55 * dt });
 		}
-		else if(time_count > 3.0f)
-			ChangeLevel("MainMenu");
+		else if(time_count > 5.0f)
+			StateManager_.BackToMainMenu();
 	}
 	else
 	{
@@ -70,8 +62,8 @@ void SplashScreen::Update(float dt)
 		}
 	}
 
-	if(Input::IsKeyTriggered(GLFW_KEY_SPACE))
-		ChangeLevel("MainMenu");
+	if (Input::IsKeyTriggered(GLFW_KEY_SPACE))
+		StateManager_.BackToMainMenu();
 }
 
 

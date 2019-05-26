@@ -41,6 +41,7 @@ public:
 
 	void AddStage(std::string ID, State* state);
 	void BackToMenu();
+	void BackToMainMenu();
 	void ChangeStage();
 	void Restart();
 	void Pause();

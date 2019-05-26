@@ -88,6 +88,17 @@ void StateManager::BackToMenu()
 	Physics_.ResetPreviousSize();
 }
 
+void StateManager::BackToMainMenu()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("MainMenu")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
 void StateManager::Restart()
 {
 	m_restart = true;

@@ -4,7 +4,6 @@
 #include "UI.hpp"
 #include "ObjectDepth.hpp"
 #include "Engine.hpp"
-#include <iostream>
 
 void HUD_Level::Initialize()
 {
@@ -112,7 +111,7 @@ void HUD_Level::Update(float dt)
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Game)
 	{
-		if(!HUD_.isHUDActive)
+		if (!HUD_.isHUDActive)
 			HUD_.isHUDActive = true;
 		int num = StateManager_.GetCurrentState()->GetCaptureLimit();
 		std::string num_string = std::to_string(num);
@@ -122,6 +121,12 @@ void HUD_Level::Update(float dt)
 
 		h_capture_limit->SetVisible();
 		h_capture_number->SetVisible();
+	}
+
+	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash)
+	{
+		if(!HUD_.isHUDActive)
+			HUD_.isHUDActive = true;
 
 		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
@@ -197,7 +202,7 @@ void HUD_Level::Update(float dt)
 						{
 							IsOptionWindowOpen = !IsOptionWindowOpen;
 							StateManager_.TogglePause();
-							StateManager_.BackToMenu();
+							StateManager_.BackToMainMenu();
 						}
 					}
 

@@ -15,6 +15,8 @@ public:
 	void ShutDown() override;
 
 	Object* CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id = "");
+
+	inline static bool IsOptionWindowOpen = false;
 private:
 	//OPTION
 	Object* h_option_window = nullptr;
@@ -36,7 +38,6 @@ private:
 	Object* capture_camera = nullptr;
 
 	bool is_game_state = false;
-	bool IsOptionWindowOpen = false;
 	bool mute = false;
 	bool fullscreen = false;
 };

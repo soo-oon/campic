@@ -3,6 +3,7 @@
 #include "Engine.hpp"
 #include "DepthValue.hpp"
 #include <iostream>
+#include "HUD_Level.hpp"
 
 void MainMenu::Initialize()
 {
@@ -39,7 +40,7 @@ void MainMenu::Initialize()
 	Option->SetDepth(HUD_OBJECT);
 	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Option->SetObjectType(ObjectType::Button);
-	//Option->AddComponent(new UI("LevelSelector"));
+	Option->AddComponent(new UI("Option"));
 	Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
 
 	Object* Credit = new Object();
@@ -80,6 +81,9 @@ void MainMenu::Update(float dt)
 		{
 			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
 				BackToMenu();
+
+			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Option")
+				HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
 
 			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Quit")
 				Engine::IsQuit = true;
