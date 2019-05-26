@@ -83,8 +83,6 @@ void StateManager::BackToMenu()
 
 	m_currentState->Initialize();
 
-    //m_currentState->CreateCaptureCamera();
-
 	Physics_.ResetPreviousSize();
 }
 
@@ -134,10 +132,7 @@ void StateManager::Update(float dt)
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
 
-	//if (m_pause == false)
-	//{
-		m_currentState->Update(dt);
-	//}
+	m_currentState->Update(dt);
 
 	if(Input::IsKeyTriggered(GLFW_KEY_T))
 	{
@@ -147,5 +142,5 @@ void StateManager::Update(float dt)
 
 void StateManager::Quit()
 {
-	//states.clear();
+	states.clear();
 }

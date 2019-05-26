@@ -30,7 +30,7 @@ public:
 
 	bool IsCheese() { return cheese; }
 	void SetCheese(bool condition) { cheese = condition; }
-	void SetZoomMinMax(float max, float min = 1.0f);
+	void SetZoomMaxMin(float max, float min = 0.0f);
 
 private:
 	class Polaroid
@@ -83,8 +83,12 @@ private:
 
 	float temp_zoom = 1.0f;
 	float zoom = 1.0f;
-        float const_zoom = 0.f;
+	float const_zoom = 0.f;
 	vector2 reset_pos;
+
+	vector2 temp_local_bar_pos;
+	vector2 temp_local_bar_scale;
+
 	float zoom_max_value = 0.0f;
 	float zoom_min_value = 0.0f;
 
