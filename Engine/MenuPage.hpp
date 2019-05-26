@@ -6,7 +6,7 @@ class MenuPage
 {
 public:
 	MenuPage() = default;
-	~MenuPage() = default;
+	~MenuPage() { buttons.clear(); }
 
 	std::vector<Object*>& GetButtons() { return buttons; }
 

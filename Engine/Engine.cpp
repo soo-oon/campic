@@ -58,8 +58,6 @@ void Engine::Update()
         //if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
             //IsQuit = true;
     }
-
-    Quit();
 }
 
 void Engine::Quit()
@@ -107,9 +105,8 @@ void Engine::System_Quit()
 	StateManager_.Quit();
 	Graphics_.Quit();
 	Objectmanager_.Quit();
-	//IMGUI_.Quit();
 	AudioManager_.Quit();
 	Physics_.Quit();
-
-	//HUD_.Quit();
+	HUD_.Quit();
+	IMGUI_.Quit();
 }

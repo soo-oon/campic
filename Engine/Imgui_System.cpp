@@ -54,16 +54,34 @@ bool Imgui_System::Initialize()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
 	//Tile list in project directory
-	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles"))
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Day"))
 	{
-		non_ani_tileList.push_back(non_ani_tile_dir + p.path().filename().string());
+		Day_tileList.push_back(Day_tile_dir + p.path().filename().string());
+	}
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Night"))
+	{
+		Night_tileList.push_back(Night_tile_dir + p.path().filename().string());
+	}
+	for (auto& p : std::filesystem::directory_iterator("asset/images/Tiles/Sunset"))
+	{
+		Sunset_tileList.push_back(Sunset_tile_dir + p.path().filename().string());
 	}
 
 	// Add texture into imgui
-	for (auto& temp : non_ani_tileList)
+	for (auto& temp : Day_tileList)
 	{
 		auto texture = ImageHelper(temp);
-		non_ani_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
+		Day_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
+	}
+	for (auto& temp : Night_tileList)
+	{
+		auto texture = ImageHelper(temp);
+		Night_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
+	}
+	for (auto& temp : Sunset_tileList)
+	{
+		auto texture = ImageHelper(temp);
+		Sunset_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
 
 	std::cout << "IMGUI Initialization Successful" << std::endl;
@@ -128,6 +146,13 @@ void Imgui_System::Update(float dt)
 
 void Imgui_System::Quit()
 {
+	imageList.clear();
+	Day_tileList.clear();
+	Night_tileList.clear();
+	Sunset_tileList.clear();
+	Day_tileList_buttons.clear();
+	Night_tileList_buttons.clear();
+	Sunset_tileList_buttons.clear();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
@@ -139,7 +164,6 @@ void Imgui_System::Draw()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	//ImGui::ShowDemoWindow(&show_window);
 	Editor(show_window);
 
 	ImGui::Render();
@@ -231,10 +255,10 @@ void Imgui_System::Editor(bool show_window)
         capture_existed = false;
         Tile_Map_.MakeGridFalse();
 		Physics_.ResetPreviousSize();
-                Object* camera = new Object;
-                camera->SetObjectType(ObjectType::Camera);
-                camera->AddComponent(new Camera("Level"));
-                Objectmanager_.AddObject(camera);
+      /*  Object* camera = new Object;
+        camera->SetObjectType(ObjectType::Camera);
+        camera->AddComponent(new Camera("Level"));
+        Objectmanager_.AddObject(camera);*/
 	}
 
 	if (ImGui::Button("Clear Graphic Tiles"))
@@ -341,7 +365,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		door->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 		door->SetObjectType(ObjectType::Door);
 		door->AddInitComponent(new Collision(box_));
-		door->AddInitComponent(new Animation("asset/images/Portal.png", "portal", 9, 0.01f));
+		door->AddInitComponent(new Animation("asset/images/Objects/Portal.png", "portal", 9, 0.01f));
 		door->AddComponent(new UI(buffer));
 
 		Objectmanager_.AddObject(door);
@@ -362,7 +386,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		zone->SetDepth(GAME_OBJECT);
 		zone->SetMesh(mesh::CreateBox(1, { 255,255,255,150 }));
 		zone->SetObjectType(ObjectType::Door);
-		zone->AddInitComponent(new Animation("asset/images/PhotoZone.png","zone",4, 0.05f));
+		zone->AddInitComponent(new Animation("asset/images/Objects/SavePoint.png","zone",4, 0.05f));
 
 		Objectmanager_.AddObject(zone);
 	}
@@ -403,13 +427,13 @@ void Imgui_System::ObjectCreator(bool object_creator)
 	if (ImGui::IsItemDeactivated())
 	{
 		Object* trigger = new Object();
-                trigger->SetTranslation(Input::GetMousePos());
-                trigger->SetScale({ 10,100 });
-                trigger->SetDepth(GAME_OBJECT +0.01f);
-                trigger->SetObjectType(ObjectType::Trigger);
-                trigger->SetMesh(mesh::CreateBox());
-                trigger->AddInitComponent(new Collision(box_));
-                trigger->AddInitComponent(new Trigger(pos, static_cast<TriggerStyle>(item_current), buf_text,false, i_frame, u_frame));
+        trigger->SetTranslation(Input::GetMousePos());
+        trigger->SetScale({ 10,100 });
+        trigger->SetDepth(GAME_OBJECT +0.01f);
+        trigger->SetObjectType(ObjectType::Trigger);
+        trigger->SetMesh(mesh::CreateBox());
+        trigger->AddInitComponent(new Collision(box_));
+        trigger->AddInitComponent(new Trigger(pos, static_cast<TriggerStyle>(item_current), buf_text,false, i_frame, u_frame));
 
 		Objectmanager_.AddObject(trigger);
 	}
@@ -725,10 +749,53 @@ void Imgui_System::TileEditor(bool tile_editor)
 	int i = 1;
 	int j = 1;
 
-	ImGui::Text("Non-Animated Tiles");
+	ImGui::Text("Day Tiles");
 	ImGui::Separator();
 
-	for (auto& temp : non_ani_tileList_buttons)
+	for (auto& temp : Day_tileList_buttons)
+	{
+		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
+		{
+			tile_path = temp.first;
+			is_normal_tile = true;
+		}
+
+		if (i != 8)
+			ImGui::SameLine();
+		else
+			i = 0;
+		i++;
+	}
+
+	ImGui::NewLine();
+
+	i = 1; j = 1;
+
+	ImGui::Text("Sunset Tiles");
+	ImGui::Separator();
+
+	for (auto& temp : Sunset_tileList_buttons)
+	{
+		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
+		{
+			tile_path = temp.first;
+			is_normal_tile = true;
+		}
+
+		if (i != 8)
+			ImGui::SameLine();
+		else
+			i = 0;
+		i++;
+	}
+
+	ImGui::NewLine();
+	i = 1; j = 1;
+
+	ImGui::Text("Night Tiles");
+	ImGui::Separator();
+
+	for (auto& temp : Night_tileList_buttons)
 	{
 		if (ImGui::ImageButton(temp.second, ImVec2(16, 16)))
 		{

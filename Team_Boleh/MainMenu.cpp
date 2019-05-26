@@ -14,7 +14,7 @@ void MainMenu::Initialize()
 	mouse_icon->SetDepth(depth::NearDepth);
 	mouse_icon->SetObjectType(ObjectType::None);
 	mouse_icon->SetMesh(mesh::CreateBox());
-	mouse_icon->AddComponent(new Sprite("asset/images/MouseCursor.png"));
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
 
 	Object* background = new Object();
 	background->SetTranslation({ -100, 0 });
@@ -84,11 +84,6 @@ void MainMenu::Update(float dt)
 			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Quit")
 				Engine::IsQuit = true;
 		}
-	}
-
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
-	{
-		std::cout << "(" << Input::GetMousePos().x << "," << Input::GetMousePos().y << ")" << std::endl;
 	}
 }
 

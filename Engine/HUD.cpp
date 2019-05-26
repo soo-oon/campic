@@ -54,6 +54,7 @@ void HUD::Update(float dt)
 
 void HUD::Quit()
 {
+	HUD_Object_Manager.clear();
 	m_HUD_State->ShutDown();
 }
 

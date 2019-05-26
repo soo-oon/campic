@@ -35,7 +35,7 @@ void Trigger::Update(float dt)
             m_connected_object->SetMesh(mesh::CreateBox(1, { 255,255,0, 255 }));
             m_connected_object->SetDepth(GAME_OBJECT);
             m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
-            m_connected_object->AddInitComponent(new Animation("asset/images/UI/SavePoint.png", "sPoint", 19, 0.075f, false));
+            m_connected_object->AddInitComponent(new Animation("asset/images/Objects/SavePoint.png", "sPoint", 19, 0.075f, false));
             m_connected_object->GetComponentByTemplate<Animation>()->SetIsActive(false);
             //m_connected_object->AddComponent(new Collision());
             Objectmanager_.AddObject(m_connected_object);
