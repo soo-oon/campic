@@ -9,20 +9,18 @@
 
 bool Capture::Initialize(Object* Ob)
 {
-	if (object == nullptr)
-	{
-		object = Ob;
+    if (object == nullptr)
+    {
+        object = Ob;
 
-		vector2 size = object->GetTransform().GetScale();
-		zoomobject = new Object();
-		zoomobject->SetMesh(mesh::CreateBox());
-		zoomobject->SetTranslation({
-			object->GetTransform().GetTranslation().x + size.x / 1.8f, object->GetTransform().GetTranslation().y
-		});
-		zoomobject->SetDepth(object->GetTransform().GetDepth());
-		zoomobject->SetScale({30, size.y});
-		zoomobject->SetObjectType(ObjectType::Capture_Camera);
-		zoomobject->AddComponent(new Sprite("asset/images/zoom.png"));
+        vector2 size = object->GetTransform().GetScale();
+        zoomobject = new Object();
+        zoomobject->SetMesh(mesh::CreateBox());
+        zoomobject->SetTranslation({ object->GetTransform().GetTranslation().x + size.x/1.8f, object->GetTransform().GetTranslation().y});
+        zoomobject->SetDepth(object->GetTransform().GetDepth());
+        zoomobject->SetScale({ 30, size.y });
+        zoomobject->SetObjectType(ObjectType::Capture_Camera);
+        zoomobject->AddComponent(new Sprite("asset/images/Objects/zoom.png"));
 		zoomobject->AddInitComponent(new Sound("asset/sounds/Camera_Capture.wav"));
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_In.wav");
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_Out.wav");
@@ -34,11 +32,9 @@ bool Capture::Initialize(Object* Ob)
 		});
 		zoombutton->SetMesh(mesh::CreateBox());
 		zoombutton->SetDepth(object->GetTransform().GetDepth() - 0.1f);
-		zoombutton->SetScale({30, 30});
-		zoombutton->SetObjectType(ObjectType::Capture_Camera);
-		zoombutton->AddComponent(new Sprite("asset/images/zoom_button.png"));
-
-		save_temp = object->GetTransform().GetTranslation().y - zoomobject->GetTransform().GetScale().y / 2;
+        zoombutton->SetScale({ 30, 30 });
+        zoombutton->SetObjectType(ObjectType::Capture_Camera);
+        zoombutton->AddComponent(new Sprite("asset/images/Objects/zoom_button.png"));
 
 		zoomobject->SetParent(&object->GetTransform());
 		zoombutton->SetParent(&object->GetTransform());

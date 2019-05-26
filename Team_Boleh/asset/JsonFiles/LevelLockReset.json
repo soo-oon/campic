@@ -74,5 +74,9 @@
     "Level": {
         "ID:": "Level19",
         "Clear": false
+    },
+      "Level": {
+        "ID:": "Level20",
+        "Clear": false
     }
 }

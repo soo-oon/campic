@@ -47,7 +47,7 @@ private:
 			obj->SetDepth(POLAROID);
 			obj->SetObjectType(ObjectType::Polaroid);
 			obj->SetMesh(mesh::CreateBox(1, { 255,255,255,200 }));
-			obj->AddComponent(new Sprite("asset/images/polaroid.png"));
+			obj->AddComponent(new Sprite("asset/images/Objects/polaroid.png"));
 		}
 
 		void Update();
