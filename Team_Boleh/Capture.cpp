@@ -16,25 +16,26 @@ bool Capture::Initialize(Object* Ob)
         vector2 size = object->GetTransform().GetScale();
         zoomobject = new Object();
         zoomobject->SetMesh(mesh::CreateBox());
-        zoomobject->SetTranslation({ object->GetTransform().GetTranslation().x + size.x/1.8f, object->GetTransform().GetTranslation().y});
+        zoomobject->SetTranslation({ object->GetTransform().GetTranslation().x, object->GetTransform().GetTranslation().y - size.y/2 + 20});
         zoomobject->SetDepth(object->GetTransform().GetDepth());
-        zoomobject->SetScale({ 30, size.y });
+        zoomobject->SetScale({ 260, 30 });
         zoomobject->SetObjectType(ObjectType::Capture_Camera);
-        zoomobject->AddComponent(new Sprite("asset/images/Objects/zoom.png"));
+        zoomobject->AddComponent(new Sprite("asset/images/Objects/ZoomLevel.png"));
 		zoomobject->AddInitComponent(new Sound("asset/sounds/Camera_Capture.wav"));
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_In.wav");
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_Out.wav");
+		temp_local_bar_pos = zoomobject->GetTransform().GetTranslation();
+		temp_local_bar_scale = zoomobject->GetTransform().GetScale();
 
 		zoombutton = new Object();
-		zoombutton->SetTranslation({
-			object->GetTransform().GetTranslation().x + size.x / 1.8f,
-			object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y / 2
-		});
+		zoombutton->SetTranslation({object->GetTransform().GetTranslation().x+2.5f, object->GetTransform().GetTranslation().y - size.y/2 + 35});
 		zoombutton->SetMesh(mesh::CreateBox());
 		zoombutton->SetDepth(object->GetTransform().GetDepth() - 0.1f);
-        zoombutton->SetScale({ 30, 30 });
+        zoombutton->SetScale({ 25, 30 });
         zoombutton->SetObjectType(ObjectType::Capture_Camera);
-        zoombutton->AddComponent(new Sprite("asset/images/Objects/zoom_button.png"));
+        zoombutton->AddComponent(new Sprite("asset/images/Objects/ZoomDial.png"));
+
+		save_temp = zoombutton->GetTransform().GetTranslation().x;
 
 		zoomobject->SetParent(&object->GetTransform());
 		zoombutton->SetParent(&object->GetTransform());
@@ -43,7 +44,8 @@ bool Capture::Initialize(Object* Ob)
 		Objectmanager_.AddObject(zoombutton);
 	}
 
-	zoom_min_value = 1.0f;
+	const_zoom = zoom;
+	zoom_min_value = 0.0f;
 	zoom_max_value = 2.5f;
 
 	return true;
@@ -51,6 +53,9 @@ bool Capture::Initialize(Object* Ob)
 
 void Capture::Update(float dt)
 {
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_MIDDLE))
+		zoom = 1.0f;
+
 	CameraZoom();
 	ZoomObjectUpdate(dt);
 	CaptureObjectMove();
@@ -146,7 +151,7 @@ void Capture::CaptureObjectMove()
 	}
 }
 
-void Capture::SetZoomMinMax(float max, float min)
+void Capture::SetZoomMaxMin(float max, float min)
 {
 	zoom_max_value = max;
 	zoom_min_value = min;
@@ -333,34 +338,72 @@ void Capture::CameraZoom()
 
 	temp_zoom = zoom;
 
-	if (zoom_ != 0)
+	std::cout << zoom << std::endl;
+
+	if(zoom_ != 0)
 	{
-		if (zoom_ > 0)
+		if(zoom == 1.0f && zoom_ > 0)
 		{
-			if (zoom < zoom_max_value)
+			zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+			float temp = zoom_max_value - const_zoom;
+			float t = temp / 3.0f;
+			zoom += t;
+
+		}
+		else if(zoom == 1.0f && zoom_ < 0)
+		{
+			zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+			float temp = 1.0f - zoom_min_value;
+			float t = temp / 3.0f;
+			zoom -= t;
+		}
+		else
+		{
+			if (zoom_ > 0)
 			{
-				if (!AudioManager_.IsSFXPlaying())
+				if (zoom > 1.0f)
+				{
 					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					float temp = zoom_max_value - const_zoom;
+					float t = temp / 3.0f;
+					zoom += t;
+				}
+				else
+				{
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					float temp = 1.0f - zoom_min_value;
+					float t = temp / 3.0f;
+					zoom += t;
+				}
 
-				zoom += 0.05f;
+				if (zoom > zoom_max_value)
+				{
+					zoom = zoom_max_value;
+				}
 			}
-
-			if (zoom > zoom_max_value)
-				zoom = zoom_max_value;
-		}
-		else if (zoom_ < 0)
-		{
-			if (zoom > zoom_min_value)
+			else if(zoom_ < 0)
 			{
-				if (!AudioManager_.IsSFXPlaying())
-					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_Out.wav");
+				if (zoom > 1.0f)
+				{
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					float temp = zoom_max_value - const_zoom;
+					float t = temp / 3.0f;
+					zoom -= t;
+				}
+				else
+				{
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					float temp = 1.0f - zoom_min_value;
+					float t = temp / 3.0f;
+					zoom -= t;
+				}
 
-				zoom -= 0.05f;
+				if (zoom < zoom_min_value)
+				{
+					zoom = zoom_min_value;
+				}
 			}
-
-			if (zoom < zoom_min_value)
-				zoom = zoom_min_value;
-		}
+		}	
 	}
 
 	if (temp_zoom != zoom)
@@ -501,13 +544,27 @@ void Capture::SetOrigianlSize()
 
 void Capture::ZoomObjectUpdate(float dt)
 {
-	float t = (zoom - zoom_min_value) / (zoom_max_value - zoom_min_value);
-	float adding_pos = (object->GetTransform().GetTranslation().y + object->GetTransform().GetScale().y / 2) - (
-		object->GetTransform().GetTranslation().y - object->GetTransform().GetScale().y / 2);
+	float t = 0.0f;
+	float half_scale = temp_local_bar_scale.x/2.0f;
+	float temp_scale = 0.0f;
 
-	adding_pos *= t;
+	if(zoom > 1.0f)
+	{
+		t = (zoom - 1.0f) / (zoom_max_value - 1.0f);
+		temp_scale = half_scale * t;
+		zoombutton->SetSpecificPosition((2.5f +temp_scale) / object->GetTransform().GetScale().x, true);
+	}
+	else if(zoom < 1.0f)
+	{
+		t = (zoom - zoom_min_value) / (1.0f - zoom_min_value);
+		temp_scale = half_scale * t;
+		zoombutton->SetSpecificPosition((2.5f -(half_scale - temp_scale)) / object->GetTransform().GetScale().x, true);
 
-	zoombutton->SetSpecificPosition((adding_pos + save_temp) / object->GetTransform().GetScale().y);
+	}
+	else if(zoom == 1.0f)
+	{
+		zoombutton->SetSpecificPosition(2.5f / object->GetTransform().GetScale().x, true);
+	}
 }
 
 void Capture::CollisionChangeZoomInOut(Object* obj, Collision* collision)
