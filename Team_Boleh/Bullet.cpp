@@ -54,7 +54,7 @@ void Bullet::MakeBullet()
 			m_object->SetScale({ 70, 70 });
 			m_object->SetDepth(0.2f);
 			m_object->SetMesh(mesh::CreateBox());
-			m_object->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+			m_object->AddInitComponent(new Sprite("asset/images/Objects/cannon_bullet.png"));
 			m_object->AddInitComponent(new RigidBody());
 			m_object->AddInitComponent(new Collision(box_));
 			m_object->SetObjectType(ObjectType::Projectile);
@@ -87,7 +87,7 @@ void Bullet::MakeBullet()
 			m_object->SetScale({ 30, 30 });
 			m_object->SetDepth(0.2f);
 			m_object->SetMesh(mesh::CreateBox());
-			m_object->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
+			m_object->AddInitComponent(new Sprite("asset/images/Objects/cannon_bullet.png"));
 			m_object->AddInitComponent(new RigidBody());
 			m_object->AddInitComponent(new Collision(box_));
 			m_object->SetObjectType(ObjectType::Projectile);

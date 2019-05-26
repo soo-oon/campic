@@ -1,22 +1,23 @@
 #include "MainMenu.hpp"
 #include "UI.hpp"
 #include "Engine.hpp"
+#include <iostream>
 
 void MainMenu::Initialize()
 {
 	AudioManager_.PlaySong("asset/sounds/MainMenu_BGM.mp3");
 
 	Object* background = new Object();
-	background->SetTranslation({ 0, 0 });
-	background->SetScale({ 1000,940 });
+	background->SetTranslation({ -100, 0 });
+	background->SetScale({ 1250,630 });
 	background->SetDepth(BACKGROUND);
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
-	background->AddComponent(new Sprite("asset/images/UI/MainPage.png"));
+	background->AddComponent(new Sprite("asset/images/Page/TitlePage.png"));
 
 	Object* Start = new Object();
-	Start->SetTranslation({-120, -100});
-	Start->SetScale({ 150,100 });
+	Start->SetTranslation({450, 120});
+	Start->SetScale({ 150,150 });
 	Start->SetDepth(HUD_OBJECT);
 	Start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Start->SetObjectType(ObjectType::Button);
@@ -24,8 +25,8 @@ void MainMenu::Initialize()
 	Start->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
 	
 	Object* Option = new Object();
-	Option->SetTranslation({ 150, -100 });
-	Option->SetScale({ 170,170 });
+	Option->SetTranslation({ 650, 120 });
+	Option->SetScale({ 150,150 });
 	Option->SetDepth(HUD_OBJECT);
 	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Option->SetObjectType(ObjectType::Button);
@@ -33,7 +34,7 @@ void MainMenu::Initialize()
 	Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
 
 	Object* Credit = new Object();
-	Credit->SetTranslation({ -120, -350 });
+	Credit->SetTranslation({ 450, -110 });
 	Credit->SetScale({ 150,150 });
 	Credit->SetDepth(HUD_OBJECT);
 	Credit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -42,8 +43,8 @@ void MainMenu::Initialize()
 	Credit->AddComponent(new Sprite("asset/images/UI/CreditButton.png"));
 
 	Object* Quit = new Object();
-	Quit->SetTranslation({ 120, -350 });
-	Quit->SetScale({ 150,100 });
+	Quit->SetTranslation({ 650, -110 });
+	Quit->SetScale({ 150,150 });
 	Quit->SetDepth(HUD_OBJECT);
 	Quit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Quit->SetObjectType(ObjectType::Button);
@@ -71,6 +72,11 @@ void MainMenu::Update(float dt)
 			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Quit")
 				Engine::IsQuit = true;
 		}
+	}
+
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	{
+		std::cout << "(" << Input::GetMousePos().x << "," << Input::GetMousePos().y << ")" << std::endl;
 	}
 }
 

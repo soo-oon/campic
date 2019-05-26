@@ -25,14 +25,14 @@ void SplashScreen::Initialize()
 	logo->SetTranslation({ 0,0 });
 	logo->SetScale({ 500, 150 });
 	logo->SetMesh(mesh::CreateBox());
-	logo->AddComponent(new Sprite("asset/images/DigiPen_.png"));
+	logo->AddComponent(new Sprite("asset/images/Splash/DigiPen_.png"));
 
 	background = new Object();
 	background->SetTranslation({ 0,0 });
     background->SetScale(Application_.GetScreenSize());
 	background->SetMesh(mesh::CreateBox());
 	background->SetDepth(0.9f);
-	background->AddComponent(new Sprite("asset/images/UI/Menu_background.png"));
+	//background->AddComponent(new Sprite("asset/images/UI/Menu_background.png"));
 
 	Objectmanager_.AddObject(logo);
 	Objectmanager_.AddObject(background);
@@ -65,7 +65,7 @@ void SplashScreen::Update(float dt)
 		{
 			time_count = 0;
 			ischange = true;
-			logo->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/fmod.png");
+			logo->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Splash/fmod.png");
 			logo->SetScale({ 300, 150 });
 		}
 	}

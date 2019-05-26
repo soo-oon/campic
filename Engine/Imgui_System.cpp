@@ -414,7 +414,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		Objectmanager_.AddObject(trigger);
 	}
 
-	ImGui::Separator();
+	/*ImGui::Separator();
 	ImGui::Text("Archetype");
 
 	ImGui::Button("Cannon");
@@ -637,7 +637,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		OneWayObject->AddInitComponent(new Sprite("asset/images/cannon_bullet.png"));
 
 		Objectmanager_.AddObject(OneWayObject);
-	}
+	}*/
 }
 
 void Imgui_System::ObjectEditor(bool object_editor)

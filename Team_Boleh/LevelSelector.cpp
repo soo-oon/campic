@@ -8,6 +8,14 @@ void LevelSelector::Initialize()
 
 	m_LevelLock = LevelJson_.LoadLevelLock();
 
+	Object* background = new Object();
+	background->SetTranslation({ -0, 0 });
+	background->SetScale({ 1200,900 });
+	background->SetDepth(BACKGROUND);
+	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	background->SetObjectType(ObjectType::Background);
+	background->AddComponent(new Sprite("asset/images/Page/LevelSelect.png"));
+
 	CreateMenuPage();
 
 	for(auto& i : m_Menu1->GetButtons())
@@ -18,6 +26,7 @@ void LevelSelector::Initialize()
 	{
 		Objectmanager_.AddObject(i);
 	}
+	Objectmanager_.AddObject(background);
 }
 
 void LevelSelector::Update(float dt)
@@ -116,28 +125,28 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 void LevelSelector::CreateMenuPage()
 {
 	std::string text = "Level";
-	float base_y = 50.f;
+	float base_y = 70.f;
 
-	for (int i = 1, j = 1; i < 10; ++i, ++j)
+	for (int i = 1, j = 1; i <= 10; ++i, ++j)
 	{
 		if (i == 6)
 		{
-			base_y -= 150;
+			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-400.f + (120.f*j), base_y), vector2(100, 100), text + std::to_string(i), text + std::to_string(i), m_Menu1);
+		CreateLevelButton(vector2(-600.f + (185.f*j), base_y), vector2(150, 150), text + std::to_string(i), text + std::to_string(i), m_Menu1);
 		text = "Level";
 	}
 
-	base_y = 50.f;
-	for (int i = 1, j = 1; i < 10; ++i, ++j)
+	base_y = 70.f;
+	for (int i = 1, j = 1; i <= 10; ++i, ++j)
 	{
 		if (i == 6)
 		{
-			base_y -= 150;
+			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-400.f + (120.f*j), base_y), vector2(100, 100), text + std::to_string(i+10), text + std::to_string(i+10), m_Menu2);
+		CreateLevelButton(vector2(-600.f + (185.f*j), base_y), vector2(150, 150), text + std::to_string(i+10), text + std::to_string(i+10), m_Menu2);
 		text = "Level";
 	}
 }

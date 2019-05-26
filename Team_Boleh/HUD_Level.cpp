@@ -44,7 +44,7 @@ void HUD_Level::Initialize()
 	h_option_window->SetDepth(-0.6f);
 	h_option_window->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_option_window->SetObjectType(ObjectType::None);
-	h_option_window->AddComponent(new Sprite("asset/images/OptionPage.png"));
+	h_option_window->AddComponent(new Sprite("asset/images/Page/OptionPage.png"));
 	h_option_window->GetMesh().Invisible();
 
 	h_volume_scroll_button = CreateHudButton(vector2(screen_size.x - 1300.f, screen_size.y - 890.f), screen_size / 25.f,

@@ -19,7 +19,7 @@ bool Capture::Initialize(Object* Ob)
         zoomobject->SetDepth(object->GetTransform().GetDepth()+0.1f);
         zoomobject->SetScale({ 30, size.y });
         zoomobject->SetObjectType(ObjectType::Capture_Camera);
-        zoomobject->AddComponent(new Sprite("asset/images/zoom.png"));
+        zoomobject->AddComponent(new Sprite("asset/images/Objects/zoom.png"));
 		zoomobject->AddInitComponent(new Sound("asset/sounds/Camera_Capture.wav"));
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_In.wav");
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_Out.wav");
@@ -29,7 +29,7 @@ bool Capture::Initialize(Object* Ob)
         zoombutton->SetDepth(object->GetTransform().GetDepth());
         zoombutton->SetScale({ 30, 30 });
         zoombutton->SetObjectType(ObjectType::Capture_Camera);
-        zoombutton->AddComponent(new Sprite("asset/images/zoom_button.png"));
+        zoombutton->AddComponent(new Sprite("asset/images/Objects/zoom_button.png"));
 
         zoomobject->SetParent(&object->GetTransform());
         Objectmanager_.AddObject(zoomobject);
