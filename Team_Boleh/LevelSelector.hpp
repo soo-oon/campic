@@ -16,8 +16,7 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 
-	void CreateLevelButton(vector2 pos, vector2 scale, std::string level_text, /*std::string& font,*/ std::string level_id
-	,MenuPage* menu);
+	void CreateLevelButton(vector2 pos, vector2 scale, std::string level_text, std::string level_id	,MenuPage* menu);
 	void CreateMenuPage();
 
 private:

@@ -181,7 +181,7 @@ private:
     std::vector<Object*> dynamic_list;
 	std::vector<Object*> checkpoint_list;
 	std::vector<Object*> trigger_list;
-    Object* door;
+    Object* door = nullptr;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
 };

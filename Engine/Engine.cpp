@@ -112,10 +112,9 @@ void Engine::System_Quit()
 	Graphics_.Quit();
 	Objectmanager_.Quit();
 #ifdef _DEBUG
-	//IMGUI_.Quit();
+	IMGUI_.Quit();
 #endif
 	AudioManager_.Quit();
 	Physics_.Quit();
-
 	HUD_.Quit();
 }

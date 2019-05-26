@@ -54,15 +54,21 @@ private:
 	bool tile_editor = false;
 
 	std::vector<std::string> imageList;
-	std::vector<std::string> non_ani_tileList;
+	std::vector<std::string> Day_tileList;
+	std::vector<std::string> Night_tileList;
+	std::vector<std::string> Sunset_tileList;
 
-	std::unordered_map<std::string, ImTextureID> non_ani_tileList_buttons;
+	std::unordered_map<std::string, ImTextureID> Day_tileList_buttons;
+	std::unordered_map<std::string, ImTextureID> Night_tileList_buttons;
+	std::unordered_map<std::string, ImTextureID> Sunset_tileList_buttons;
 
 	std::string image_path;
 	std::string tile_path;
 
 	std::string image_dir = "asset/images/";
-	std::string non_ani_tile_dir = "asset/images/Tiles/";
+	std::string Day_tile_dir = "asset/images/Tiles/Day/";
+	std::string Night_tile_dir = "asset/images/Tiles/Night/";
+	std::string Sunset_tile_dir = "asset/images/Tiles/Sunset/";
 
 	ImGuiID non_ani_tile_selected = false;
 

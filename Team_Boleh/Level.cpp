@@ -14,7 +14,7 @@ void Level::Initialize()
 	background = new Object();
 	background->SetMesh(mesh::CreateBox());
 	background->SetObjectType(ObjectType::Background);
-	background->AddComponent(new Animation("asset/images/UI/BackgroundSunSet.png", "BackGround", 16, 0.15f, true));
+	background->AddComponent(new Animation("asset/images/Page/BackgroundAfernoon.png", "BackGround", 16, 0.15f, true));
 	background->SetDepth(0.98f);
 	background->SetScale((Application_.GetScreenSize().x + 100, Application_.GetScreenSize().y+100));
 
@@ -26,10 +26,10 @@ void Level::Update(float dt)
 {
 	background->SetScale(Application_.GetScreenSize() + 100);
 
-	if (camera != nullptr)
-	{
-		background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
-	}
+	//if (camera != nullptr)
+	//{
+	//	background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
+	//}
 
     if(camera->GetObjectType() != ObjectType::Camera)
     {

@@ -29,12 +29,12 @@ bool Player::Initialize(Object * Ob)
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
 		object->SetDepth(GAME_OBJECT);
 		object->SetObjectType(ObjectType::Player);
-		object->AddInitComponent(new Animation("asset/images/Player_Animation.png", "player", 8, 0.05f, true));
+		object->AddInitComponent(new Animation("asset/images/Player/PlayerDynamic.png", "player", 7, 0.05f, true));
 		object->AddInitComponent(new RigidBody());
 		object->AddInitComponent(new Collision(box_));
-                object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(player_scale);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Capture.png", "capture", 4, 0.01f, false);
-		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player_Jump.png", "jump", 12, 0.01f, false);
+        object->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(player_scale);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerShutter.png", "capture", 10, 0.01f, false);
+		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerJump.png", "jump", 1, 0.01f, false);
 	}
 	return true;
 }

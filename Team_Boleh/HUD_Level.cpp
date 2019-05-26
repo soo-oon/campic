@@ -71,14 +71,31 @@ void HUD_Level::Initialize()
 	h_quit_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1300.f), screen_size / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
 	HUD_.Add_HUD_Object(h_quit_button);
+
+	HUD_.Add_HUD_Object(h_capture_number);
+	HUD_.Add_HUD_Object(h_capture_limit);
+	HUD_.Add_HUD_Object(h_cheese);
+	HUD_.Add_HUD_Object(h_option_window);
 }
 
 void HUD_Level::Update(float dt)
 {
-	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_RIGHT))
+	//capture_camera->SetTranslation(Input::GetMousePos());
+
+	/*if (!is_game_state)
 	{
-		std::cout << "(" << Input::GetMousePos().x << "," << Input::GetMousePos().y << ")" << std::endl;
+		if (HUD_.Get_Current_Game_State() != nullptr)
+		{
+			is_game_state = true;
+			capture_camera->GetComponentByTemplate<Capture>()->SetResetPosition(HUD_.Get_Current_Game_State()->GetStartPosition());
+			Objectmanager_.SetCaptureObject(capture_camera);
+		}
 	}
+	else
+	{
+		if (!capture_camera->GetComponentByTemplate<Capture>()->IsCaputreObjectVisible())
+			capture_camera->GetComponentByTemplate<Capture>()->SetVisibleCaptureObj();
+	}*/
 
 	h_cheese->SetScale(Application_.GetScreenSize());
 
@@ -168,7 +185,6 @@ void HUD_Level::Update(float dt)
 							{
 								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
 							}
-							h_select = nullptr;
 						}
 					}
 
@@ -181,12 +197,10 @@ void HUD_Level::Update(float dt)
 							if(mute)
 							{
 								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
-								h_select = nullptr;
 							}
 							else
 							{
 								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
-								h_select = nullptr;
 							}
 						}
 					}
@@ -197,9 +211,7 @@ void HUD_Level::Update(float dt)
 						{
 							IsOptionWindowOpen = !IsOptionWindowOpen;
 							StateManager_.TogglePause();
-							UnLoad();
 							StateManager_.ChangeStage();
-							h_select = nullptr;
 						}
 					}
 
@@ -210,7 +222,6 @@ void HUD_Level::Update(float dt)
 							IsOptionWindowOpen = !IsOptionWindowOpen;
 							StateManager_.TogglePause();
 							StateManager_.BackToMenu();
-							h_select = nullptr;
 						}
 					}
 
@@ -268,6 +279,10 @@ void HUD_Level::Update(float dt)
 
 void HUD_Level::ShutDown()
 {
+<<<<<<< HEAD
+=======
+	UnLoad();
+>>>>>>> tw
 }
 
 Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id)

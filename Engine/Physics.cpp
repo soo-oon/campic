@@ -389,7 +389,15 @@ void Physics::Update(float dt)
 
 void Physics::Quit()
 {
-    //temp_obj = nullptr;
+	//collision_list.clear();
+	//tile_list.clear();
+	//ground_list.clear();
+	//static_list.clear();
+	//projectile_list.clear();
+	//capture_list.clear();
+	//dynamic_list.clear();
+	//checkpoint_list.clear();
+	//trigger_list.clear();
 }
 
 void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)

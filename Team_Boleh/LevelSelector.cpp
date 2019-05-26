@@ -14,7 +14,7 @@ void LevelSelector::Initialize()
 	mouse_icon->SetDepth(depth::NearDepth);
 	mouse_icon->SetObjectType(ObjectType::None);
 	mouse_icon->SetMesh(mesh::CreateBox());
-	mouse_icon->AddComponent(new Sprite("asset/images/MouseCursor.png"));
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
 
 	Object* background = new Object();
 	background->SetTranslation({ -0, 0 });
@@ -64,7 +64,6 @@ void LevelSelector::Update(float dt)
 		}
 	}
 
-
 	if(Input::IsKeyTriggered(GLFW_KEY_LEFT))
 	{
 		selectPage = !selectPage;
@@ -95,10 +94,14 @@ void LevelSelector::Update(float dt)
 
 void LevelSelector::ShutDown()
 {
+	m_Menu1->GetButtons().clear();
+	m_Menu2->GetButtons().clear();
+	delete m_Menu1;
+	delete m_Menu2;
 	UnLoad();
 }
 
-void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text ,std::string numLevel, MenuPage* menu)
+void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text,  std::string level_id, MenuPage* menu)
 {
 	Object* button = new Object();
 	button->SetTranslation(pos);
@@ -107,11 +110,11 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
 
-	auto isLocked = m_LevelLock.find(numLevel)->second;
+	auto isLocked = m_LevelLock.find(level_id)->second;
 	button->AddComponent(new UI(level_text, isLocked));
 
 	std::string path = "asset/images/UI/";
-	path.append(numLevel);
+	path.append(level_id);
 	path.append(".png");
 
 	button->AddComponent(new Sprite(path));

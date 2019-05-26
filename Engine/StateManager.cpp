@@ -147,5 +147,5 @@ void StateManager::Update(float dt)
 
 void StateManager::Quit()
 {
-	states.clear();
+	//states.clear();
 }
