@@ -1,0 +1,14 @@
+Player Information:
+	- Normal Size
+	- Located Left
+
+Clear Condition:
+	- Player need to jump over the pit - if fell into the pit, cannot climb back up
+	
+	Option1- Use Round-Trip Platform moving left and right to cross the pit (Moving only left-half side)
+	Option2- Capture player itself to make platform to cross the pit
+
+Objective:
+	- It is physically impossible to jump over the pit without camera feature. Therefore must use it at least once.
+	- Teach players basic feature of camera (can change dynamic object to static)
+	- Number of film decreases corresponding to the number of capture - Tells capture has limit

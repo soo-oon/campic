@@ -1,0 +1,11 @@
+Player Information:
+	- Normal Size
+	- Located Left
+
+Clear Condition:
+	- Player need decrease its size to pass the narrow passage
+	- Player need increase its size to press the trigger to open the door
+
+Objective:
+	- Teach players zoom in and out
+	- Teach players certain switch need other condition to function properly
