@@ -40,6 +40,7 @@ class Collision : public Component
 public:
     Collision(CollisionType type_ = box_, vector2 size = {1.f} ) : type(type_)
     {
+		const_collision_scale_size = size;
         collision_transform.SetScale(size);
     }
 
@@ -49,7 +50,13 @@ public:
 
     void Compute_AABB(Mesh mesh, int num_point);
 
-    void ChangeCollisionBoxScale(vector2 scale) { collision_transform.SetScale(scale); }
+    void ChangeCollisionBoxScale(vector2 scale)
+    {
+		if(collision_transform.GetScale().x == 1.0f && collision_transform.GetScale().y == 1.0f)
+			const_collision_scale_size = scale;
+
+	    collision_transform.SetScale(scale);
+    }
     void ChangeCollisionBoxTranslation(vector2 translation) { collision_transform.SetTranslation(translation); }
 
     void ToggleIsDoor();
@@ -84,6 +91,7 @@ public:
     bool GetIsRightTile() { return isRightTile; }
     bool GetIsCelling() { return isCelling; }
 	bool GetIsCollideItem() {return isItem;}
+	vector2 GetConstCollisionScale() { return const_collision_scale_size; }
 
     Filter GetFilter() { return m_filter; }
     CollisionType& GetCollisionType();
@@ -97,6 +105,7 @@ public:
 
 private:
     vector2 collision_m_previous_position;
+	vector2 const_collision_scale_size;
     RestitutionType restitution_ = none;
     Transform collision_transform{};
     CollisionType type = box_;

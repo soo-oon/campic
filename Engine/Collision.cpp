@@ -25,8 +25,11 @@ bool Collision::Initialize(Object* Ob)
 		object = Ob;
 
 		collision_transform.SetTranslation(object->GetTransform().GetTranslation());
-            if(collision_transform.GetScale() == vector2({1.f,1.f}))
-		collision_transform.SetScale(object->GetTransform().GetScale());
+		if (collision_transform.GetScale() == vector2({ 1.f,1.f }))
+		{
+			const_collision_scale_size = object->GetTransform().GetScale();
+			collision_transform.SetScale(object->GetTransform().GetScale());
+		}
 		collision_transform.SetRotation(object->GetTransform().GetRotation());
 		collision_transform.SetDepth(object->GetTransform().GetDepth());
 		collision_mesh = mesh::CreateCollisionBox(type);

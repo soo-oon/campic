@@ -72,6 +72,9 @@ void Object::SetTranslation(const vector2& position)
 
 void Object::SetScale(const vector2& scale)
 {
+	if (m_transform.GetScale().x == 1.0f && m_transform.GetScale().y == 1.0f)
+		const_scale = scale;
+
 	m_transform.SetScale(scale);
 
 }

@@ -36,6 +36,7 @@ public:
 
     float GetRotation() const;
     void SetRotation(float rotation_value);
+    void SetSpecificPosition(float position, bool is_xpos = false);
 
     const Transform* GetParent() const;
     void SetParent(const Transform* transform_parent);

@@ -77,7 +77,7 @@ public:
 	//void UpdateChildPositionUpdate();
 
 	bool Isvisible();
-	bool IsDifferZoomSize() { return is_differ_zoom_size; }
+	bool IsDifferentZoomSize() { return is_differ_zoom_size; }
 	bool IsContainArea() { return is_contain_area; }
 	bool IsSlowMode() { return is_slowmode; }
 	bool IsOutSide() { return is_outsise_capture; }
@@ -93,6 +93,7 @@ public:
     Mesh& GetMesh();
     Transform& GetTransform();
 	ObjectType GetObjectType() {return object_type;}
+	vector2 GetConstScaleSize() { return const_scale; }
     void SetObjectType(ObjectType obj_type) { object_type = obj_type; }
     void SetObjectDead() { isdead = true; }
 
@@ -106,6 +107,7 @@ private:
 	bool is_differ_zoom_size = false;
 	bool is_outsise_capture = true;
 
+	vector2 const_scale{};
     Mesh m_mesh{};
     Transform m_transform{};
     std::vector<Component*> m_component;

@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Collision.hpp"
 #include "Reaction.hpp"
 #include "Tile_Map.hpp"
+#include <iostream>
 
 class Physics
 {
@@ -26,6 +27,8 @@ public:
 	void Update(float dt);
 
 	//void PhysicsObjectUpdate(Objectmanager* objectmanager);
+	std::vector<Object*> tile_list;
+
 
 	void Quit();
 
@@ -66,17 +69,337 @@ public:
         else
             return false;
     }
-
     void TileCheck(Object* object);
     void GroundCheck(Object* object);
 
+	std::vector<Object*> TileCheck_return(Object* object)
+	{
+		std::vector<Object*> temp;
+		float x_0 = object->GetTransform().GetTranslation().x;
+		float y_0 = object->GetTransform().GetTranslation().y;
+		float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+		float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+		float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
+		float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+		if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+		{
+			if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+			{
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+			}
+			else
+			{
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+				if (Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE / 2 }));
+			}
+		}
+		else
+		{
+			if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+			{
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+				if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }));
+			}
+			else
+			{
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+				if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+				if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+					temp.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+			}
+		}
+		return temp;
+	}
+    void TileCheck(Object* object)
+    {
+        float x_0 = object->GetTransform().GetTranslation().x;
+        float y_0 = object->GetTransform().GetTranslation().y;
+        float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+        float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+        float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
+        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+        if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+        {
+            if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+            {
+                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 +TILE_SIZE/2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +TILE_SIZE/2 }));
+                if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+            }
+            else
+            {
+                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_2 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }));
+                if(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }));
+                if(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }));
+                if(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }));
+            }
+        }
+        else
+        {
+            if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+            {
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }));
+                if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE/2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE/2 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE/2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +TILE_SIZE/2 }));
+            }
+            else
+            {
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }));
+                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }) != nullptr)
+                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }));
+            }
+        }
+    }
+
+	
+	 std::vector<Object*> GroundCheck_return2(Object* obj)
+    {
+		std::vector<Object*> temp;
+		Collision* collision = obj->GetComponentByTemplate<Collision>();
+
+		float min = round(((obj->GetTransform().GetTranslation().x + 10 - collision->GetCollisionTransform().GetScale().x/2.0f) / TILE_SIZE))*TILE_SIZE - 10;
+		float max = round(((obj->GetTransform().GetTranslation().x + 10 + collision->GetCollisionTransform().GetScale().x/2.0f)  / TILE_SIZE))*TILE_SIZE - 10;
+
+                for(auto& obj_ : Objectmanager_.GetObjectMap())
+                {
+                    if (auto collision_ = obj_->GetComponentByTemplate<Collision>();
+                        collision_ != nullptr && obj_.get() != obj && obj_->GetObjectType() != ObjectType::Trigger)
+                    {
+                        if (obj->GetTransform().GetTranslation().y >= obj_->GetTransform().GetTranslation().y)
+                        {
+                            if (obj_->GetTransform().GetTranslation().x >= min && obj_->GetTransform().GetTranslation().x <= max)
+                            {
+                                temp.push_back(obj_.get());
+                            }
+                        }
+                    }
+                }
+
+		for(auto tile : Tile_Map_.GetPhysicalTiles())
+		{
+			if (obj->GetTransform().GetTranslation().y >= tile.second->GetTransform().GetTranslation().y)
+			{
+				if(tile.second->GetTransform().GetTranslation().x >= min && tile.second->GetTransform().GetTranslation().x <= max)
+				{
+					temp.push_back(tile.second);
+				}
+			}
+		}
+		return temp;
+    }
+	 std::vector<Object*> GroundCheck_return_Right(Object* obj)
+	 {
+		 std::vector<Object*> temp;
+		 Collision* collision = obj->GetComponentByTemplate<Collision>();
+
+		 float min = round(((obj->GetTransform().GetTranslation().y + 10 - collision->GetCollisionTransform().GetScale().y / 2.0f) / TILE_SIZE))*TILE_SIZE - 10;
+		 float max = round(((obj->GetTransform().GetTranslation().y + 10 + collision->GetCollisionTransform().GetScale().y / 2.0f) / TILE_SIZE))*TILE_SIZE - 10;
+
+                 for (auto& obj_ : Objectmanager_.GetObjectMap())
+                 {
+                     if (auto collision_ = obj_->GetComponentByTemplate<Collision>();
+                         collision_ != nullptr && obj_.get() != obj && obj_->GetObjectType() != ObjectType::Trigger)
+                     {
+                         if (obj->GetTransform().GetTranslation().x <= obj_->GetTransform().GetTranslation().x)
+                         {
+                             if (obj_->GetTransform().GetTranslation().y >= min && obj_->GetTransform().GetTranslation().y <= max)
+                             {
+                                 //std::cout << "the tile pos: " << tile.second->GetTransform().GetTranslation();
+                                 temp.push_back(obj_.get());
+                             }
+                         }
+                     }
+                 }
+
+		 for (auto tile : Tile_Map_.GetPhysicalTiles())
+		 {
+			 if (obj->GetTransform().GetTranslation().x <= tile.second->GetTransform().GetTranslation().x)
+			 {
+				 if (tile.second->GetTransform().GetTranslation().y >= min && tile.second->GetTransform().GetTranslation().y <= max)
+				 {
+					 //std::cout << "the tile pos: " << tile.second->GetTransform().GetTranslation();
+					 temp.push_back(tile.second);
+				 }
+			 }
+		 }
+		 return temp;
+	 }
+	 std::vector<Object*> GroundCheck_return_Left(Object* obj)
+	 {
+		 std::vector<Object*> temp;
+		 Collision* collision = obj->GetComponentByTemplate<Collision>();
+
+		 float min = round(((obj->GetTransform().GetTranslation().y + 10 - collision->GetCollisionTransform().GetScale().y / 2.0f) / TILE_SIZE))*TILE_SIZE - 10;
+		 float max = round(((obj->GetTransform().GetTranslation().y + 10 + collision->GetCollisionTransform().GetScale().y / 2.0f) / TILE_SIZE))*TILE_SIZE - 10;
+
+                 for (auto& obj_ : Objectmanager_.GetObjectMap())
+                 {
+                     if (auto collision_ = obj_->GetComponentByTemplate<Collision>();
+                         collision_ != nullptr && obj_.get() != obj && obj_->GetObjectType() != ObjectType::Trigger)
+                     {
+                         if (obj->GetTransform().GetTranslation().x >= obj_->GetTransform().GetTranslation().x)
+                         {
+                             if (obj_->GetTransform().GetTranslation().y >= min && obj_->GetTransform().GetTranslation().y <= max)
+                             {
+                                 //std::cout << "the tile pos: " << tile.second->GetTransform().GetTranslation();
+                                 temp.push_back(obj_.get());
+                             }
+                         }
+                     }
+                 }
+
+		 for (auto tile : Tile_Map_.GetPhysicalTiles())
+		 {
+			 if (obj->GetTransform().GetTranslation().x >= tile.second->GetTransform().GetTranslation().x)
+			 {
+				 if (tile.second->GetTransform().GetTranslation().y >= min && tile.second->GetTransform().GetTranslation().y <= max)
+				 {
+					 //std::cout << "the tile pos: " << tile.second->GetTransform().GetTranslation();
+					 temp.push_back(tile.second);
+				 }
+			 }
+		 }
+		 return temp;
+	 }
+	 
+
+	std::vector<Object*> GroundCheck_return(Object* object)
+    {
+		std::vector<Object*> temp;
+		float x_0 = object->GetTransform().GetTranslation().x;
+		float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+		float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+		float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+		for (int i = 1; i < 10; i += 2)
+		{
+			if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - i * TILE_SIZE / 2 }) != nullptr)
+				temp.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - i * TILE_SIZE / 2 }));
+			if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - i * TILE_SIZE / 2 }) != nullptr)
+				temp.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - i * TILE_SIZE / 2 }));
+			if (Tile_Map_.GetSpecificTile({ x_0 , y_2 - i*TILE_SIZE / 2 }) != nullptr)
+				temp.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - i * TILE_SIZE / 2 }));
+		}
+		return temp;
+    }
+
+    void GroundCheck(Object* object)
+    {
+        float x_0 = object->GetTransform().GetTranslation().x;
+        float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+        float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+        if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }) != nullptr)
+            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }));
+        if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }) != nullptr)
+            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }));
+        if (Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }) != nullptr)
+            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }));
+    }
 
 
 
 private:
 	//Objectmanager* temp_obj = nullptr;
 	std::vector<Object*> collision_list;
-    std::vector<Object*> tile_list;
+    //std::vector<Object*> tile_list;
     std::vector<Object*> ground_list;
     std::vector<Object*> static_list;
     std::vector<Object*> projectile_list;
