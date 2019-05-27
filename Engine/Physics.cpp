@@ -46,6 +46,7 @@ void Physics::Update(float dt)
 			checkpoint_list.clear();
             trigger_list.clear();
             door = nullptr;
+            limit_list = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
                 if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr)
@@ -325,7 +326,12 @@ void Physics::Update(float dt)
                         }
                         if (IntersectionCheckAABB(collision_list[i], projectile_list[j]))
                         {
-                            //StopReaction(collision_list[i], projectile_list[j], false);
+                            collision_list[i]->GetTransform().SetTranslation(StateManager_.GetCurrentState()->GetStartPosition());
+                            p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetStartPosition());
+                            p_collision->ChangeCollisionBoxScale(player_scale);
+                            p_collision->SetIsGround(false);
+                            p_collision->SetIsCapobj(false);
+                            p_rigidbody->SetVelocity(0);
                         }
                         if (static_list.size() > 0)
                         {
