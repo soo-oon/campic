@@ -65,9 +65,12 @@ private:
 	void CreatePolaroidObject();
 	void CameraZoom();
 	void CameraZoomInOut();
-	void SetOrigianlSize();
+	void SetOrigianlSize(Object* ground, Object* right, Object* left);
     void ZoomObjectUpdate(float dt);
-	void CollisionChangeZoomInOut(Object* obj, Collision* collision);
+	void CollisionChangeZoomInOut_Ground(Object* obj, Collision* collision, Object* ground, Object* right, Object* left);
+	//void CollisionChangeZoomInOut_Right(Object* obj, Collision* collision, Object* temp);
+	//void CollisionChangeZoomInOut_Left(Object* obj, Collision* collision, Object* temp);
+
 
 	void SlowMode();
 
@@ -97,7 +100,12 @@ private:
 
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
-	std::vector<Object*> not_area_contian_object;
+	//std::vector<Object*> not_area_contian_object;
 	std::vector<Object*> temporary_obj_storage;
 	std::vector<Polaroid*> polaroid_object;
+        Object* ground_obj;
+        Object* left_obj;
+        Object* right_obj;
+
+
 };

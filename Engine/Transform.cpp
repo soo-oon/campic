@@ -150,6 +150,21 @@ void Transform::SetRotation(float rotation_value)
     rotation = rotation_value;
 }
 
+void Transform::SetSpecificPosition(float position, bool is_xpos)
+{
+    vector2 temp = translation;
+    if (is_xpos)
+    {
+        temp.x = position;
+        translation = temp;
+    }
+    else
+    {
+        temp.y = position;
+        translation = temp;
+    }
+}
+
 const Transform* Transform::GetParent() const
 {
 	return parent;
