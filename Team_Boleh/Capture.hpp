@@ -22,6 +22,7 @@ public:
 
 	void CaptureObjectMove();
 
+    
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
 	void SetFilter(Filter filter) { m_c_filter = filter; }

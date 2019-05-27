@@ -238,13 +238,32 @@ void Imgui_System::Editor(bool show_window)
 	}
 
 	ImGui::SameLine();
+        if (ImGui::Button("Save Object"))
+        {
+            StateManager_.GetCurrentState()->SaveObject();
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Save G-Tile"))
+        {
+            StateManager_.GetCurrentState()->SaveGTile();
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Save P-Tile"))
+        {
+            StateManager_.GetCurrentState()->SavePTile();
+        }
+
 
 	// Delete ALL Object
 	if (ImGui::Button("Clear All"))
 	{
 		StateManager_.GetCurrentState()->UnLoad();
-		Tile_Map_.GetGraphicsTiles().clear();
-		Tile_Map_.GetPhysicalTiles().clear();
+                StateManager_.GetCurrentState()->SetPlayerObjectPointer(nullptr);
+                StateManager_.GetCurrentState()->SetCaptureObjectPointer(nullptr);
+                Tile_Map_.ClearGraphicTiles();
+                Tile_Map_.ClearPhysicalTiles();
         player_existed = false;
         start_existed = false;
         capture_existed = false;
@@ -265,6 +284,8 @@ void Imgui_System::Editor(bool show_window)
 	if(ImGui::Button("Clear Objects"))
 	{
 		Objectmanager_.GetObjectMap().clear();
+                StateManager_.GetCurrentState()->SetPlayerObjectPointer(nullptr);
+                StateManager_.GetCurrentState()->SetCaptureObjectPointer(nullptr);
                 Object* camera = new Object;
                 camera->SetObjectType(ObjectType::Camera);
                 camera->AddComponent(new Camera("Level"));
@@ -428,6 +449,23 @@ void Imgui_System::ObjectCreator(bool object_creator)
 
 		Objectmanager_.AddObject(trigger);
 	}
+
+
+        ImGui::Button("falling_limit");
+        if (ImGui::IsItemActive())
+        {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+        }
+        if (ImGui::IsItemDeactivated())
+        {
+            Object* limit = new Object();
+            limit->SetTranslation(Input::GetMousePos());
+            limit->SetScale({1.f});
+            limit->SetDepth(GAME_OBJECT + 0.01f);
+            limit->SetObjectType(ObjectType::Falling_Limit);
+            limit->SetMesh(mesh::CreateBox());
+            Objectmanager_.AddObject(limit); 
+        }
 
 	/*ImGui::Separator();
 	ImGui::Text("Archetype");

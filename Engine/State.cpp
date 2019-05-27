@@ -73,6 +73,33 @@ void State::SaveLevel()
 	JSON_.GetTileDocument().SetObject();
 }
 
+void State::SaveObject()
+{
+    for (auto& i : Objectmanager_.GetObjectMap())
+    {
+        JSON_.SaveLevelObject(i.get(), level_indicator + "/", level_indicator);
+    }
+    JSON_.GetObjectDocument().SetObject();
+}
+
+void State::SaveGTile()
+{
+    for (auto& i : Tile_Map_.GetGraphicsTiles())
+    {
+        JSON_.TilesToDocument(i.first, i.second, Tile_Type::Graphical, level_indicator + "/");
+    }
+    JSON_.GetTileDocument().SetObject();
+}
+
+void State::SavePTile()
+{
+    for (auto& i : Tile_Map_.GetPhysicalTiles())
+    {
+        JSON_.TilesToDocument(i.first, i.second, Tile_Type::Physical, level_indicator + "/");
+    }
+    JSON_.GetTileDocument().SetObject();
+}
+
 void State::UnLoad()
 {
 	if (player_obj != nullptr)

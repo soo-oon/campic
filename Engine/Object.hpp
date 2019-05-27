@@ -47,6 +47,7 @@ enum class ObjectType {
     Trigger_Obj,
     Trigger,
     None,
+    Falling_Limit,
 }; 
 
 class Object

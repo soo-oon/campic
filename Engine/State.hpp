@@ -41,6 +41,9 @@ public:
 	void ResetLevelChange() { level_change = false; }
 	void ResetBackToMenu() { back_to_menu = false; }
 	void SaveLevel();
+        void SaveObject();
+        void SaveGTile();
+        void SavePTile();
 	void LoadLevel();
 	void LoadLevel(const std::string& current_level);
 	void UnLoad();
