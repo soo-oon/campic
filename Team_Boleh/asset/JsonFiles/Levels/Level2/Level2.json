@@ -6,15 +6,15 @@
         },
         "Transform": {
             "position": {
-                "x": -97.0,
-                "y": 32.0
+                "x": 75.0,
+                "y": -35.0
             },
             "scale": {
                 "x": 10.0,
                 "y": 100.0
             },
             "rotation": 0.0,
-            "depth": -0.15
+            "depth": -0.49000000953674319
         },
         "Sprite": {},
         "Animation": {},
@@ -27,73 +27,20 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Camera": {},
         "Projectile": {},
         "Trigger": {
             "translation": {
                 "x": 0.0,
-                "y": 190.0
+                "y": 0.0
             },
-            "type": 3,
-            "text": "MouseLeft",
+            "type": 0,
+            "text": "",
             "trigger": false,
-            "u_frame": 0.25,
-            "i_frame": 5.0
+            "u_frame": 0.0,
+            "i_frame": 0.0
         },
         "Moving": {},
-        "ID": {},
-        "Camera": null
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 446.0,
-                "y": 215.0
-            },
-            "scale": {
-                "x": 100.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "portal",
-                        "path": "asset/images/Portal.png"
-                    },
-                    "info": {
-                        "image_frames": 9,
-                        "update_frames": 0.009999999776482582,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Camera": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {
-            "id": "Level3"
-        },
-        "Camera": null
+        "ID": {}
     },
     "Object": {
         "Type": {
@@ -102,8 +49,8 @@
         },
         "Transform": {
             "position": {
-                "x": -237.0,
-                "y": 23.0
+                "x": -699.0,
+                "y": 7.0
             },
             "scale": {
                 "x": 75.0,
@@ -120,11 +67,47 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Camera": {},
         "Projectile": {},
         "Trigger": {},
         "Moving": {},
-        "ID": {},
-        "Camera": null
+        "ID": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 715.0,
+                "y": -15.0
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 130.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/BusStop.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "ID": {
+            "id": "Level2"
+        }
     }
 }
