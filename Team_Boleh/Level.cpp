@@ -24,12 +24,12 @@ void Level::Initialize()
 	{
 	case 1:
 	{
-		background->GetComponentByTemplate<Animation>()->ChangeAnimation("afternoon");
+		background->GetComponentByTemplate<Animation>()->ChangeAnimation("day");
 		break;
 	}
 	case 2:
 	{
-		background->GetComponentByTemplate<Animation>()->ChangeAnimation("day");
+		background->GetComponentByTemplate<Animation>()->ChangeAnimation("afternoon");
 		break;
 	}
 	case 3:
@@ -47,18 +47,13 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
-
-
 	//background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
 
 	//if (camera != nullptr)
 	//{
 	//	background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
 	//}
-#ifdef _DEBUG
-    std::cout << "(" << Input::GetMousePos().x << ", " << Input::GetMousePos().y << ")" << std::endl;
-#else 
-#endif
+
     if(camera->GetObjectType() != ObjectType::Camera)
     {
         for(auto i : Objectmanager_.GetObjectMap())
