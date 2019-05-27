@@ -854,7 +854,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		sprite.SetObject();
 		animation.SetObject();
 		rigid_body.SetObject();
-		collision.SetObject();
+		//collision.SetObject();
 		particle.SetObject();
 		sound.SetObject();
 		font.SetObject();
