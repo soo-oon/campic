@@ -291,6 +291,7 @@ void Capture::Capturing()
 			player->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(player_scale);
 			player->GetComponentByTemplate<Collision>()->SetIsGround(false);
 			player->GetComponentByTemplate<Collision>()->SetIsCapobj(false);
+                        player->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
 		}
 
 		temporary_obj_storage.push_back(temp);
@@ -338,7 +339,7 @@ void Capture::CameraZoom()
 
 	temp_zoom = zoom;
 
-	std::cout << zoom << std::endl;
+	//std::cout << zoom << std::endl;
 
 	if(zoom_ != 0)
 	{

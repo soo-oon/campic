@@ -22,6 +22,7 @@ void Trigger::Update(float dt)
     switch (m_trigger_style)
     {
     case TriggerStyle::Door:
+        MakeConnectedDoor();
         break;
     case TriggerStyle::Font:
         break;
@@ -57,7 +58,9 @@ void Trigger::ConnectObjectAction()
         switch (m_trigger_style)
         {
         case TriggerStyle::Door:
-            MakeConnectedDoor();
+        {   if (m_connected_object)
+            m_connected_object->SetIsDead(true);
+        }
             break;
         case TriggerStyle::Font:
             Text();
@@ -76,7 +79,7 @@ void Trigger::ConnectObjectAction()
 
 void Trigger::MakeConnectedDoor()
 {
-    if(!m_connected_object)
+    if (!m_connected_object)
     {
         m_connected_object = new Object;
         m_connected_object->SetTranslation(o_translation);

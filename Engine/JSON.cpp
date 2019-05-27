@@ -33,7 +33,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
     if(obj->GetObjectType() == ObjectType::Capture_Camera ||obj->GetObjectType() == ObjectType::Player
 		|| obj->GetObjectType() == ObjectType::Capture_Camera_main
         || obj->GetObjectType() == ObjectType::Capture_Obj || obj->GetObjectType() == ObjectType::Polaroid 
-        || obj->GetObjectType() == ObjectType::Trigger_Obj )
+        || obj->GetObjectType() == ObjectType::Trigger_Obj || obj->GetObjectType() == ObjectType::Camera)
         return;
 	//Trees for object info
 	Value objTree(kArrayType);
@@ -831,7 +831,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 	{
 		Value& obj_array = temp.value;
 
-		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
+                Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture;// , camera;
 		Value ui, projectile, movingobj, trigger;
 		
 		Object* obj = new Object();
@@ -846,7 +846,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		sound.SetObject();
 		font.SetObject();
 		capture.SetObject();
-		camera.SetObject();
+		//camera.SetObject();
 		ui.SetObject();
 		projectile.SetObject();
 		movingobj.SetObject();
@@ -862,7 +862,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		sound = obj_array.FindMember("Sound")->value;
 		font = obj_array.FindMember("Font")->value;
 		capture = obj_array.FindMember("Capture")->value;
-		camera = obj_array.FindMember("Camera")->value;
+		//camera = obj_array.FindMember("Camera")->value;
 		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
@@ -1030,21 +1030,21 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		}
 
 		//////////////////////////////////////////Camera
-		if(camera.HasMember("zoom"))
-		{
-			float zoom = camera.FindMember("zoom")->value.GetFloat();
-			vector2 center, up, right;
+		//if(camera.HasMember("zoom"))
+		//{
+		//	float zoom = camera.FindMember("zoom")->value.GetFloat();
+		//	vector2 center, up, right;
 
-			center.x = camera.FindMember("center")->value.FindMember("x")->value.GetFloat();
-			center.y = camera.FindMember("center")->value.FindMember("y")->value.GetFloat();
-			up.x = camera.FindMember("up")->value.FindMember("x")->value.GetFloat();
-			up.y = camera.FindMember("up")->value.FindMember("y")->value.GetFloat();
-			right.x = camera.FindMember("right")->value.FindMember("x")->value.GetFloat();
-			right.y = camera.FindMember("right")->value.FindMember("y")->value.GetFloat();
-			std::string level = camera.FindMember("level")->value.GetString();
+		//	center.x = camera.FindMember("center")->value.FindMember("x")->value.GetFloat();
+		//	center.y = camera.FindMember("center")->value.FindMember("y")->value.GetFloat();
+		//	up.x = camera.FindMember("up")->value.FindMember("x")->value.GetFloat();
+		//	up.y = camera.FindMember("up")->value.FindMember("y")->value.GetFloat();
+		//	right.x = camera.FindMember("right")->value.FindMember("x")->value.GetFloat();
+		//	right.y = camera.FindMember("right")->value.FindMember("y")->value.GetFloat();
+		//	std::string level = camera.FindMember("level")->value.GetString();
 
-			obj->AddComponent(new Camera(level));
-		}
+		//	obj->AddComponent(new Camera(level));
+		//}
 
 		////////////////////////////////////////////UI
 		if(ui.HasMember("id"))

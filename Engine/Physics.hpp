@@ -31,7 +31,7 @@ public:
 
 	void ChangeRestitutionOfOjbect(Object object1, Object object2);
 
-    void Restitution(Object* object1, Object* object2);
+        void Restitution(Object* object1, Object* object2);
 
 	// This function is used by intersection check. You do not use it for collision check.
 	bool CollisionOnAxis(vector2 Axis, std::vector<vector2> owner, std::vector<vector2> object);
@@ -67,106 +67,9 @@ public:
             return false;
     }
 
-    void TileCheck(Object* object)
-    {
-        float x_0 = object->GetTransform().GetTranslation().x;
-        float y_0 = object->GetTransform().GetTranslation().y;
-        float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
-        float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
-        float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
-        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
-        if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
-        {
-            if(object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
-            {
-                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 +TILE_SIZE/2 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +TILE_SIZE/2 }));
-                if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
-            }
-            else
-            {
-                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_1 }));
-                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_2 }));
-                if(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE/2, y_0 }));
-                if(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }));
-                if(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }));
-                if(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }));
-            }
-        }
-        else
-        {
-            if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
-            {
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }));
-                if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE/2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE/2 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE/2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 +TILE_SIZE/2 }));
-            }
-            else
-            {
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
-                if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_1 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_0 }));
-                if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }) != nullptr)
-                    tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE/2, y_2 }));
-            }
-        }
-    }
-    void GroundCheck(Object* object)
-    {
-        float x_0 = object->GetTransform().GetTranslation().x;
-        float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
-        float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
-        float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
-        if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }) != nullptr)
-            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE/2 }));
-        if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }) != nullptr)
-            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE/2 }));
-        if (Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }) != nullptr)
-            ground_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE/2 }));
-    }
+    void TileCheck(Object* object);
+    void GroundCheck(Object* object);
+
 
 
 
@@ -181,6 +84,8 @@ private:
     std::vector<Object*> dynamic_list;
 	std::vector<Object*> checkpoint_list;
 	std::vector<Object*> trigger_list;
+        vector2 reset_position = 0;
+        Object* limit_list = nullptr;
     Object* door = nullptr;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
