@@ -1,6 +1,8 @@
 {
     "Tile": {
         "grid": 1228878,
+<<<<<<< HEAD
+=======
         "tile_type": 1,
         "scale": {
             "x": 60.0,
@@ -20,146 +22,268 @@
     },
     "Tile": {
         "grid": 1369678,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         "tile_type": 1,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
+<<<<<<< HEAD
+            "x": -610.0,
+=======
+            "x": 50.0,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+            "y": -410.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+<<<<<<< HEAD
+        "grid": 1369678,
+=======
+        "grid": 1318486,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+<<<<<<< HEAD
             "x": 50.0,
             "y": -410.0
         },
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1318486,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
+=======
             "x": -190.0,
             "y": 70.0
         },
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Day/Day_Tile_DR_C.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1216078,
+<<<<<<< HEAD
+        "grid": 1318486,
+=======
+        "grid": 1433682,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         "tile_type": 1,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
+<<<<<<< HEAD
+            "x": -190.0,
+            "y": 70.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_DR_C.png"
+=======
+            "x": 350.0,
+            "y": -170.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_DL_C.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+<<<<<<< HEAD
+        "grid": 1216078,
+=======
+        "grid": 1318479,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+<<<<<<< HEAD
             "x": -670.0,
             "y": -410.0
         },
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1433679,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": 350.0,
-            "y": -350.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1203278,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -730.0,
-            "y": -410.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1305679,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -250.0,
-            "y": -350.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1318479,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
+=======
             "x": -190.0,
             "y": -350.0
         },
         "sprite": {
             "is_flip": false,
             "image_path": "asset/images/Tiles/Day/Day_Tile_UR.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1241678,
+<<<<<<< HEAD
+        "grid": 1433679,
+=======
+        "grid": 1203278,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         "tile_type": 1,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
+<<<<<<< HEAD
+            "x": 350.0,
+            "y": -350.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
+=======
+            "x": -730.0,
+            "y": -410.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+<<<<<<< HEAD
+        "grid": 1203278,
+=======
+        "grid": 1305679,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+<<<<<<< HEAD
+            "x": -730.0,
+            "y": -410.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
+=======
+            "x": -250.0,
+            "y": -350.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+<<<<<<< HEAD
+        "grid": 1305679,
+=======
+        "grid": 1216078,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+<<<<<<< HEAD
+            "x": -250.0,
+            "y": -350.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
+=======
+            "x": -670.0,
+            "y": -410.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_D.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+<<<<<<< HEAD
+        "grid": 1318479,
+=======
+        "grid": 1433679,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+<<<<<<< HEAD
+            "x": -190.0,
+=======
+            "x": 350.0,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+            "y": -350.0
+        },
+        "sprite": {
+            "is_flip": false,
+<<<<<<< HEAD
+            "image_path": "asset/images/Tiles/Day/Day_Tile_UR.png"
+=======
+            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+<<<<<<< HEAD
+        "grid": 1241678,
+=======
+        "grid": 1190478,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+<<<<<<< HEAD
             "x": -550.0,
+=======
+            "x": -790.0,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
             "y": -410.0
         },
         "sprite": {
@@ -171,14 +295,22 @@
         "collision": {}
     },
     "Tile": {
+<<<<<<< HEAD
         "grid": 1190478,
+=======
+        "grid": 1241678,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         "tile_type": 1,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
+<<<<<<< HEAD
             "x": -790.0,
+=======
+            "x": -550.0,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
             "y": -410.0
         },
         "sprite": {

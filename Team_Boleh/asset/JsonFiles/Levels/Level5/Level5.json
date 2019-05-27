@@ -1,6 +1,77 @@
 {
     "Object": {
         "Type": {
+<<<<<<< HEAD
+=======
+            "type": 6,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1780.0,
+                "y": 1150.0
+            },
+            "rotation": 0.0,
+            "depth": 0.10000000149011612
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "afternoon",
+                        "path": "asset/images/Page/BackgroundAfernoon.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "day",
+                        "path": "asset/images/Page/BackgroundDay.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "night",
+                        "path": "asset/images/Page/BackgroundNight.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
             "type": 19,
             "isDead": false
         },

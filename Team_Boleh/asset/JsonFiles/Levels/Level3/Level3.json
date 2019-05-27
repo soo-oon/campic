@@ -1,11 +1,16 @@
 {
     "Object": {
         "Type": {
+<<<<<<< HEAD
             "type": 21,
+=======
+            "type": 6,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
             "isDead": false
         },
         "Transform": {
             "position": {
+<<<<<<< HEAD
                 "x": 653.625,
                 "y": -566.75
             },
@@ -18,6 +23,56 @@
         },
         "Sprite": {},
         "Animation": {},
+=======
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1780.0,
+                "y": 1150.0
+            },
+            "rotation": 0.0,
+            "depth": 0.10000000149011612
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "afternoon",
+                        "path": "asset/images/Page/BackgroundAfernoon.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "day",
+                        "path": "asset/images/Page/BackgroundDay.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "night",
+                        "path": "asset/images/Page/BackgroundNight.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         "RigidBody": false,
         "Collision": {},
         "Particle": {},
@@ -33,6 +88,7 @@
     },
     "Object": {
         "Type": {
+<<<<<<< HEAD
             "type": 2,
             "isDead": false
         },
@@ -68,6 +124,121 @@
         "UI": {
             "id": "Level4"
         },
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 20,
+=======
+            "type": 21,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+<<<<<<< HEAD
+                "x": 0.0,
+                "y": 0.0
+=======
+                "x": 653.625,
+                "y": -566.75
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+<<<<<<< HEAD
+            "depth": -0.5
+=======
+            "depth": -0.49000000953674319
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+<<<<<<< HEAD
+        "Chapter": {
+            "chapter": 1,
+            "level": 3
+        }
+    },
+    "Object": {
+        "Type": {
+            "type": 16,
+=======
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+<<<<<<< HEAD
+                "x": -36.75,
+                "y": 140.0
+            },
+            "scale": {
+                "x": 75.0,
+                "y": 75.0
+=======
+                "x": -52.5,
+                "y": -253.75
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 130.0
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+<<<<<<< HEAD
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+=======
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/BusStop.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+<<<<<<< HEAD
+        "UI": {},
+=======
+        "UI": {
+            "id": "Level4"
+        },
+>>>>>>> 7b362af6fe280a36de24869729b49dbbc2c1df08
         "Camera": {},
         "Chapter": {}
     },
@@ -137,40 +308,5 @@
         "UI": {},
         "Camera": {},
         "Chapter": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 20,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {
-            "chapter": 1,
-            "level": 3
-        }
     }
 }
