@@ -467,7 +467,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
             Objectmanager_.AddObject(limit); 
         }
 
-	/*ImGui::Separator();
+	ImGui::Separator();
 	ImGui::Text("Archetype");
 
 	ImGui::Button("Cannon");
@@ -492,7 +492,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		cannon->GetComponentByTemplate<Projectile>()->SetFireDir({ 350, 0 });
 
 		Objectmanager_.AddObject(cannon);
-	}
+	}/*
 	ImGui::SameLine();
 
 	ImGui::Button("Weapon");

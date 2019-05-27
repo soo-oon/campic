@@ -518,27 +518,31 @@ void Capture::SetOrigianlSize()
 {
 	for (auto obj : original_scale)
 	{
-		if (obj.second->IsOutSide())
-		{
-			obj.second->SetScale(obj.first);
+            if ((obj.second->GetObjectType() == ObjectType::None || obj.second->GetObjectType() == ObjectType::Player ||
+                obj.second->GetObjectType() == ObjectType::Projectile))
+            {
+                if (obj.second->IsOutSide())
+                {
+                    obj.second->SetScale(obj.first);
 
-			if (auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
-				temp_collision != nullptr)
-			{
-				if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
-				{
-					vector2 translation = obj.second->GetTransform().GetTranslation();
-					vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
-					                                                          ->GetCollisionTransform().
-					                                                          GetScale()) / 2.0f;
+                    if (auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
+                        temp_collision != nullptr)
+                    {
+                        if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
+                        {
+                            vector2 translation = obj.second->GetTransform().GetTranslation();
+                            vector2 offset = (obj.second->GetTransform().GetScale() - temp_collision
+                                ->GetCollisionTransform().
+                                GetScale()) / 2.0f;
 
-				}
-				temp_collision->ChangeCollisionBoxScale(
-					obj.second->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
-			}
+                        }
+                        temp_collision->ChangeCollisionBoxScale(
+                            obj.second->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
+                    }
 
-			obj.second->SetZoomDifferCondition(false);
-		}
+                    obj.second->SetZoomDifferCondition(false);
+                }
+            }
 	}
 }
 

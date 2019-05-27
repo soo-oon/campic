@@ -56,6 +56,7 @@ void Bullet::MakeBullet()
 			m_object->SetMesh(mesh::CreateBox());
 			m_object->AddInitComponent(new Sprite("asset/images/Objects/cannon_bullet.png"));
 			m_object->AddInitComponent(new RigidBody());
+                        m_object->GetComponentByTemplate<RigidBody>()->SetGravity(0.f);
 			m_object->AddInitComponent(new Collision(box_));
 			m_object->SetObjectType(ObjectType::Projectile);
 
