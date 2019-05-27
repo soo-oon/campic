@@ -63,7 +63,11 @@ void StateManager::ChangeStage()
 	m_currentState->SetLevelIndicator(save);
 	SetCurrentLevelCaptureLimit();
 
+<<<<<<< HEAD
    // m_currentState->CreateCaptureCamera();
+=======
+    //m_currentState->CreateCaptureCamera();
+>>>>>>> SW
     
 	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
 	{

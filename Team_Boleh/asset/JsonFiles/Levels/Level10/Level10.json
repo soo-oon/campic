@@ -69,17 +69,17 @@
     },
     "Object": {
         "Type": {
-            "type": 19,
+            "type": 21,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 227.0625,
-                "y": -85.3125
+                "x": -165.375,
+                "y": -554.6875
             },
             "scale": {
-                "x": 10.0,
-                "y": 100.0
+                "x": 1.0,
+                "y": 1.0
             },
             "rotation": 0.0,
             "depth": -0.49000000953674319
@@ -87,26 +87,13 @@
         "Sprite": {},
         "Animation": {},
         "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
+        "Collision": {},
         "Particle": {},
         "Sound": {},
         "Font": {},
         "Capture": {},
         "Projectile": {},
-        "Trigger": {
-            "translation": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "type": 0,
-            "text": "",
-            "trigger": false,
-            "u_frame": 0.0,
-            "i_frame": 0.0
-        },
+        "Trigger": {},
         "Moving": {},
         "UI": {},
         "Camera": {},
@@ -119,8 +106,8 @@
         },
         "Transform": {
             "position": {
-                "x": -518.4375,
-                "y": 85.3125
+                "x": -762.5625,
+                "y": -212.1875
             },
             "scale": {
                 "x": 75.0,
@@ -176,7 +163,7 @@
         "Camera": {},
         "Chapter": {
             "chapter": 1,
-            "level": 6
+            "level": 10
         }
     },
     "Object": {
@@ -186,8 +173,8 @@
         },
         "Transform": {
             "position": {
-                "x": 192.9375,
-                "y": 340.15625
+                "x": 498.75,
+                "y": 280.0
             },
             "scale": {
                 "x": 256.0,
@@ -214,7 +201,7 @@
         "Trigger": {},
         "Moving": {},
         "UI": {
-            "id": "Level7"
+            "id": ""
         },
         "Camera": {},
         "Chapter": {}

@@ -1,13 +1,90 @@
 {
     "Object": {
         "Type": {
+<<<<<<< HEAD
             "type": 20,
+=======
+            "type": 6,
             "isDead": false
         },
         "Transform": {
             "position": {
                 "x": 0.0,
                 "y": 0.0
+            },
+            "scale": {
+                "x": 1780.0,
+                "y": 1150.0
+            },
+            "rotation": 0.0,
+            "depth": 0.10000000149011612
+        },
+        "Sprite": {},
+        "Animation": {
+            "maps": {
+                "map": {
+                    "path": {
+                        "id": "afternoon",
+                        "path": "asset/images/Page/BackgroundAfernoon.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "day",
+                        "path": "asset/images/Page/BackgroundDay.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                },
+                "map": {
+                    "path": {
+                        "id": "night",
+                        "path": "asset/images/Page/BackgroundNight.png"
+                    },
+                    "info": {
+                        "image_frames": 16,
+                        "update_frames": 0.15000000596046449,
+                        "is_repeats": true
+                    }
+                }
+            }
+        },
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 21,
+>>>>>>> SW
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+<<<<<<< HEAD
+                "x": 0.0,
+                "y": 0.0
+=======
+                "x": -437.0625,
+                "y": -468.125
+>>>>>>> SW
             },
             "scale": {
                 "x": 1.0,
@@ -30,6 +107,45 @@
         "UI": {},
         "Camera": {},
         "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 20,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+<<<<<<< HEAD
+                "x": 0.0,
+                "y": 0.0
+=======
+                "x": -749.4375,
+                "y": -19.6875
+>>>>>>> SW
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+<<<<<<< HEAD
+=======
     },
     "Object": {
         "Type": {
@@ -61,7 +177,11 @@
         "Moving": {},
         "UI": {},
         "Camera": {},
-        "Chapter": {}
+        "Chapter": {
+            "chapter": 1,
+            "level": 1
+        }
+>>>>>>> SW
     },
     "Object": {
         "Type": {
@@ -70,8 +190,13 @@
         },
         "Transform": {
             "position": {
+<<<<<<< HEAD
                 "x": 649.5,
                 "y": -14.625
+=======
+                "x": 662.8125,
+                "y": -13.125
+>>>>>>> SW
             },
             "scale": {
                 "x": 256.0,
@@ -102,6 +227,7 @@
         },
         "Camera": {},
         "Chapter": {}
+<<<<<<< HEAD
     },
     "Object": {
         "Type": {
@@ -204,5 +330,7 @@
             "chapter": 1,
             "level": 1
         }
+=======
+>>>>>>> SW
     }
 }

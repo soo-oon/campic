@@ -74,8 +74,8 @@
         },
         "Transform": {
             "position": {
-                "x": 227.0625,
-                "y": -85.3125
+                "x": -2.625,
+                "y": 204.53125
             },
             "scale": {
                 "x": 10.0,
@@ -119,8 +119,8 @@
         },
         "Transform": {
             "position": {
-                "x": -518.4375,
-                "y": 85.3125
+                "x": -795.375,
+                "y": -273.4375
             },
             "scale": {
                 "x": 75.0,
@@ -141,6 +141,46 @@
         "Trigger": {},
         "Moving": {},
         "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 198.1875,
+                "y": -258.125
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 130.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/BusStop.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {
+            "id": "Level10"
+        },
         "Camera": {},
         "Chapter": {}
     },
@@ -176,47 +216,7 @@
         "Camera": {},
         "Chapter": {
             "chapter": 1,
-            "level": 6
+            "level": 9
         }
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 192.9375,
-                "y": 340.15625
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 130.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/BusStop.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "UI": {
-            "id": "Level7"
-        },
-        "Camera": {},
-        "Chapter": {}
     }
 }

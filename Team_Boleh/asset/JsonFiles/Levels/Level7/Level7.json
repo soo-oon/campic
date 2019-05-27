@@ -1,80 +1,12 @@
 {
     "Object": {
         "Type": {
-            "type": 6,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1780.0,
-                "y": 1150.0
-            },
-            "rotation": 0.0,
-            "depth": 0.10000000149011612
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "afternoon",
-                        "path": "asset/images/Page/BackgroundAfernoon.png"
-                    },
-                    "info": {
-                        "image_frames": 16,
-                        "update_frames": 0.15000000596046449,
-                        "is_repeats": true
-                    }
-                },
-                "map": {
-                    "path": {
-                        "id": "day",
-                        "path": "asset/images/Page/BackgroundDay.png"
-                    },
-                    "info": {
-                        "image_frames": 16,
-                        "update_frames": 0.15000000596046449,
-                        "is_repeats": true
-                    }
-                },
-                "map": {
-                    "path": {
-                        "id": "night",
-                        "path": "asset/images/Page/BackgroundNight.png"
-                    },
-                    "info": {
-                        "image_frames": 16,
-                        "update_frames": 0.15000000596046449,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
             "type": 19,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 227.0625,
+                "x": 292.6875,
                 "y": -85.3125
             },
             "scale": {
@@ -114,13 +46,45 @@
     },
     "Object": {
         "Type": {
+            "type": 21,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -269.0625,
+                "y": -716.5625
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.49000000953674319
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
             "type": 16,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -518.4375,
-                "y": 85.3125
+                "x": -648.375,
+                "y": 324.84375
             },
             "scale": {
                 "x": 75.0,
@@ -176,7 +140,7 @@
         "Camera": {},
         "Chapter": {
             "chapter": 1,
-            "level": 6
+            "level": 7
         }
     },
     "Object": {
@@ -186,8 +150,8 @@
         },
         "Transform": {
             "position": {
-                "x": 192.9375,
-                "y": 340.15625
+                "x": 791.4375,
+                "y": 167.0625
             },
             "scale": {
                 "x": 256.0,
@@ -214,7 +178,7 @@
         "Trigger": {},
         "Moving": {},
         "UI": {
-            "id": "Level7"
+            "id": "Level8"
         },
         "Camera": {},
         "Chapter": {}
