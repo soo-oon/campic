@@ -49,6 +49,7 @@ public:
 	void SetCaptureObjectPointer(Object* obj) { capture_obj = obj; }
 	void SetLevelChange(bool change) { level_change = change; }
 	void SetCaptureLimit(int num) { capture_limit = num; }
+	void SetChapter(std::pair<int, int> input) { Chapter = input; }
 
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
@@ -60,6 +61,7 @@ public:
 	}
 	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
 	std::string GetLevelIndicator() { return level_indicator; }
+	std::pair<int, int> GetChapter() { return Chapter; }
 	State_Information GetCurrentStateInfo() { return information_; }
 	int& GetCaptureLimit() { return capture_limit; }
 
@@ -77,6 +79,7 @@ public:
 	std::string level_indicator;
 	std::string change_level;
 	int capture_limit;
+	std::pair<int, int> Chapter;
 private:
 	Object* player_obj = nullptr;
 	Object* capture_obj = nullptr;

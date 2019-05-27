@@ -18,6 +18,7 @@ public:
 
 	inline static bool IsOptionWindowOpen = false;
 private:
+	Object* h_chapter = nullptr;
 	//OPTION
 	Object* h_option_window = nullptr;
 	Object* h_fullscreen_button = nullptr;

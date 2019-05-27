@@ -14,9 +14,32 @@ void Level::Initialize()
 	background = new Object();
 	background->SetMesh(mesh::CreateBox());
 	background->SetObjectType(ObjectType::Background);
-	background->AddComponent(new Animation("asset/images/Page/BackgroundAfernoon.png", "BackGround", 16, 0.15f, true));
+	background->AddComponent(new Animation("asset/images/Page/BackgroundAfernoon.png", "afternoon", 16, 0.15f, true));
+	background->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Page/BackgroundDay.png", "day", 16, 0.15f, true);
+	background->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Page/BackgroundNight.png", "night", 16, 0.15f, true);
 	background->SetDepth(0.98f);
-	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height)});
+	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width+100), static_cast<float>(Application_.GetGLFWvidmode()->height+100)});
+
+	switch (GetChapter().first)
+	{
+	case 1:
+	{
+		background->GetComponentByTemplate<Animation>()->ChangeAnimation("afternoon");
+		break;
+	}
+	case 2:
+	{
+		background->GetComponentByTemplate<Animation>()->ChangeAnimation("day");
+		break;
+	}
+	case 3:
+	{
+		background->GetComponentByTemplate<Animation>()->ChangeAnimation("night");
+		break;
+	}
+	default:
+		break;
+	}
 	
 	Objectmanager_.AddObject(camera);
 	Objectmanager_.AddObject(background);
@@ -24,7 +47,9 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
-	//background->SetScale(Application_.GetScreenSize() + 100);
+
+
+	//background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
 
 	//if (camera != nullptr)
 	//{

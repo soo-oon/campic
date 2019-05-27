@@ -12,12 +12,9 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
-public:
 	void SetIsLock(bool islock) { IsLock = islock; }
 	void SetId(const std::string& id_) { id = id_; }
-
 	void TriggerLevelLock(std::string level_id, bool isclear = true);
-
 	bool GetIsLock() { return IsLock; }
 	std::string GetId() { return id; }
 

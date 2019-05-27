@@ -25,7 +25,6 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Tile_Map.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UI.cpp" />
     <ClCompile Include="LevelJson.cpp" />
     <ClCompile Include="Animation.cpp">
       <Filter>Component\cpp</Filter>
@@ -72,6 +71,12 @@
     <ClCompile Include="Trigger.cpp">
       <Filter>Component\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Chapter.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -95,7 +100,6 @@
     <ClInclude Include="Tile_Map.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="UI.hpp" />
     <ClInclude Include="LevelJson.hpp" />
     <ClInclude Include="ObjectDepth.hpp" />
     <ClInclude Include="Animation.hpp">
@@ -144,6 +148,12 @@
       <Filter>Component\hpp</Filter>
     </ClInclude>
     <ClInclude Include="Trigger.h">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Chapter.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
   </ItemGroup>

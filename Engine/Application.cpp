@@ -15,12 +15,8 @@ Creation date: 2018/12/14
 
 #include "Application.hpp"
 #include <iostream>
-#include <stdio.h>
 #include "Engine.hpp"
-#include "Graphics.hpp"
-#include <memory>
 #include <string>
-#include "imgui_impl_glfw.h"
 #include "Imgui_System.hpp"
 
 Application Application_;

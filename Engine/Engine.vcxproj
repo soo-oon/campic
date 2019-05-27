@@ -146,6 +146,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BitmapFont.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Chapter.cpp" />
     <ClCompile Include="Collision.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -209,6 +210,7 @@
     <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="BitmapFont.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Chapter.hpp" />
     <ClInclude Include="Collision.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

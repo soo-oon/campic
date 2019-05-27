@@ -440,17 +440,20 @@ void Capture::CameraZoomInOut()
 										obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
 							}
 							vector2 scale = obj->GetTransform().GetScale();
-							if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
+							if (obj->GetComponentByTemplate<Collision>() != nullptr)
 							{
-								if (const_zoom < zoom)
-									obj->SetScale(scale * const_zoom);
+								if (obj->GetComponentByTemplate<Collision>()->GetIsCelling())
+								{
+									if (const_zoom < zoom)
+										obj->SetScale(scale * const_zoom);
+									else
+										obj->SetScale(scale * zoom);
+								}
 								else
 									obj->SetScale(scale * zoom);
-							}
-							else
-								obj->SetScale(scale * zoom);
 
-							obj->SetZoomDifferCondition(true);
+								obj->SetZoomDifferCondition(true);
+							}
 						}
 						else
 						{

@@ -9,6 +9,7 @@
 #include "UI.hpp"
 #include "MovingObject.hpp"
 #include "Trigger.h"
+#include "Chapter.hpp"
 
 JSON JSON_;
 
@@ -53,6 +54,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objProjectileTree(kArrayType);
 	Value objTriggerTree(kArrayType);
 	Value objMovingObjectTree(kArrayType);
+	Value objChapterTree(kArrayType);
 	Value objUItree;
 	Value capture;
 	Value objUi;
@@ -75,6 +77,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	capture.SetObject();
 	objUItree.SetObject();
 	objUi.SetObject();
+	objChapterTree.SetObject();
 
 	objTransformTree = ComponentTransform(obj);
 	objStatusTree = ComponentStatus(obj);
@@ -129,6 +132,15 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 		objUItree.AddMember("id", objUi, ObjectDocument.GetAllocator());
 	}
 
+	if(obj->GetComponentByTemplate<Chapter>() != nullptr)
+	{
+		int chap = obj->GetComponentByTemplate<Chapter>()->GetChapter();
+		int lev = obj->GetComponentByTemplate<Chapter>()->GetLevel();
+
+		objChapterTree.AddMember("chapter", chap, ObjectDocument.GetAllocator());
+		objChapterTree.AddMember("level", lev, ObjectDocument.GetAllocator());
+	}
+
 	objTree.AddMember("Type", objStatusTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Transform", objTransformTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Sprite", objSpriteTree, ObjectDocument.GetAllocator());
@@ -142,8 +154,9 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
-	objTree.AddMember("ID", objUItree, ObjectDocument.GetAllocator());
-	//objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("UI", objUItree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
+	objTree.AddMember("Chapter", objChapterTree, ObjectDocument.GetAllocator());
 
 	ObjectDocument.AddMember("Object", objTree, ObjectDocument.GetAllocator());
 
@@ -807,18 +820,18 @@ void JSON::LoadTilesFromJson(Tile_Type type,const std::string& file)
 			obj->AddInitComponent(new Collision(static_cast<CollisionType>(collision_type)));
 		}
 
-                if (static_cast<int>(type) == 0)
-                {
+        if (static_cast<int>(type) == 0)
+        {
+            Tile_Map_.MakeGridTure(position.x, position.y);
+            Tile_Map_.InsertPhysicalTiles(grid_, obj);
+            Tile_Map_.SetReset(false);
+        }
+        else
+        {
                     Tile_Map_.MakeGridTure(position.x, position.y);
-                    Tile_Map_.InsertPhysicalTiles(grid_, obj);
-                    Tile_Map_.SetReset(false);
-                }
-                else
-                {
-                            Tile_Map_.MakeGridTure(position.x, position.y);
-                    Tile_Map_.InsertGraphicalTiles(grid_, obj);
-                    Tile_Map_.SetReset(false);
-                }
+            Tile_Map_.InsertGraphicalTiles(grid_, obj);
+            Tile_Map_.SetReset(false);
+        }
 	}
         TileDocument.SetObject();
 }
@@ -832,7 +845,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		Value& obj_array = temp.value;
 
 		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
-		Value ui, projectile, movingobj, trigger;
+		Value ui, projectile, movingobj, trigger, chapter;
 		
 		Object* obj = new Object();
 
@@ -851,6 +864,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		projectile.SetObject();
 		movingobj.SetObject();
         trigger.SetObject();
+		chapter.SetObject();
 		
 		status = obj_array.FindMember("Type")->value;
 		transform = obj_array.FindMember("Transform")->value;
@@ -863,10 +877,11 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		font = obj_array.FindMember("Font")->value;
 		capture = obj_array.FindMember("Capture")->value;
 		camera = obj_array.FindMember("Camera")->value;
-		ui = obj_array.FindMember("ID")->value;
 		projectile = obj_array.FindMember("Projectile")->value;
 		movingobj = obj_array.FindMember("Moving")->value;
         trigger = obj_array.FindMember("Trigger")->value;
+		chapter = obj_array.FindMember("Chapter")->value;
+		ui = obj_array.FindMember("UI")->value;
 
 		//////////////////////////////////////////// Status
 		if (status.HasMember("type"))
@@ -1092,6 +1107,16 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 	        }
                 if (obj->GetObjectType() == ObjectType::Player)
                     Objectmanager_.SetPlayer(obj);
+
+
+		////////////////////Chapter
+		if (chapter.HasMember("chapter"))
+		{
+			int chap = chapter.FindMember("chapter")->value.GetInt();
+			int lev = chapter.FindMember("level")->value.GetInt();
+
+			StateManager_.GetCurrentState()->SetChapter(std::make_pair(chap,lev));
+		}
 	}
 	ObjectDocument.SetObject();
 }

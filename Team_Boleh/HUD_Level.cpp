@@ -7,13 +7,24 @@
 
 void HUD_Level::Initialize()
 {
+	h_chapter = new Object();
+	h_chapter->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width) / 7 - 350.f, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 100.f });
+	h_chapter->SetScale({ 2.8f });
+	h_chapter->SetDepth(-0.5f);
+	h_chapter->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
+	h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+	h_chapter->SetInvisible();
+	h_chapter->GetMesh().Invisible();
+	HUD_.Add_HUD_Object(h_chapter);
+
 	h_capture_limit = new Object();
 	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -250.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
 	h_capture_limit->SetScale(vector2{ screen_size.x /10.f, screen_size.y/10.f });
 	h_capture_limit->SetDepth(-0.5f);
 	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_capture_limit->SetObjectType(ObjectType::None);
-	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimit.png"));
+	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimitBlack.png"));
+	h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
 	h_capture_limit->SetInvisible();
 	h_capture_limit->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_capture_limit);
@@ -113,6 +124,7 @@ void HUD_Level::Update(float dt)
 	{
 		if (!HUD_.isHUDActive)
 			HUD_.isHUDActive = true;
+
 		int num = StateManager_.GetCurrentState()->GetCaptureLimit();
 		std::string num_string = std::to_string(num);
 		std::wstring temp = L"";
@@ -121,6 +133,36 @@ void HUD_Level::Update(float dt)
 
 		h_capture_limit->SetVisible();
 		h_capture_number->SetVisible();
+
+		if (StateManager_.GetCurrentState()->GetChapter().first == 3)
+		{
+			h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
+			h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
+			h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
+		}
+		else
+		{
+			h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitBlack.png");
+			h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+			h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+		}
+
+		std::pair<int,int> chap = StateManager_.GetCurrentState()->GetChapter();
+		std::string chap_string = std::to_string(chap.first);
+		chap_string.append("-");
+		chap_string.append(std::to_string(chap.second));
+
+		std::wstring temp1 = L"";
+		temp1.assign(chap_string.begin(), chap_string.end());
+		h_chapter->GetComponentByTemplate<Font>()->SetString(temp1);
+
+		h_chapter->SetVisible();
+	}
+	else
+	{
+		h_capture_limit->SetInvisible();
+		h_capture_number->SetInvisible();
+		h_chapter->SetInvisible();
 	}
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash)
