@@ -69,17 +69,17 @@
     },
     "Object": {
         "Type": {
-            "type": 21,
+            "type": 19,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -437.0625,
-                "y": -468.125
+                "x": -2.625,
+                "y": 204.53125
             },
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 10.0,
+                "y": 100.0
             },
             "rotation": 0.0,
             "depth": -0.49000000953674319
@@ -87,13 +87,26 @@
         "Sprite": {},
         "Animation": {},
         "RigidBody": false,
-        "Collision": {},
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
         "Particle": {},
         "Sound": {},
         "Font": {},
         "Capture": {},
         "Projectile": {},
-        "Trigger": {},
+        "Trigger": {
+            "translation": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "type": 0,
+            "text": "",
+            "trigger": false,
+            "u_frame": 0.0,
+            "i_frame": 0.0
+        },
         "Moving": {},
         "UI": {},
         "Camera": {},
@@ -106,8 +119,8 @@
         },
         "Transform": {
             "position": {
-                "x": -749.4375,
-                "y": -19.6875
+                "x": -795.375,
+                "y": -273.4375
             },
             "scale": {
                 "x": 75.0,
@@ -128,6 +141,46 @@
         "Trigger": {},
         "Moving": {},
         "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 198.1875,
+                "y": -258.125
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 130.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/BusStop.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {
+            "id": "Level10"
+        },
         "Camera": {},
         "Chapter": {}
     },
@@ -163,47 +216,7 @@
         "Camera": {},
         "Chapter": {
             "chapter": 1,
-            "level": 1
+            "level": 9
         }
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 662.8125,
-                "y": -13.125
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 130.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/BusStop.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "UI": {
-            "id": "Level2"
-        },
-        "Camera": {},
-        "Chapter": {}
     }
 }

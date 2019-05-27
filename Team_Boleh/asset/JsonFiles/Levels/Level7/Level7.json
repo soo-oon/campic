@@ -1,67 +1,44 @@
 {
     "Object": {
         "Type": {
-            "type": 6,
+            "type": 19,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 0.0,
-                "y": 0.0
+                "x": 292.6875,
+                "y": -85.3125
             },
             "scale": {
-                "x": 1780.0,
-                "y": 1150.0
+                "x": 10.0,
+                "y": 100.0
             },
             "rotation": 0.0,
-            "depth": 0.10000000149011612
+            "depth": -0.49000000953674319
         },
         "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "afternoon",
-                        "path": "asset/images/Page/BackgroundAfernoon.png"
-                    },
-                    "info": {
-                        "image_frames": 16,
-                        "update_frames": 0.15000000596046449,
-                        "is_repeats": true
-                    }
-                },
-                "map": {
-                    "path": {
-                        "id": "day",
-                        "path": "asset/images/Page/BackgroundDay.png"
-                    },
-                    "info": {
-                        "image_frames": 16,
-                        "update_frames": 0.15000000596046449,
-                        "is_repeats": true
-                    }
-                },
-                "map": {
-                    "path": {
-                        "id": "night",
-                        "path": "asset/images/Page/BackgroundNight.png"
-                    },
-                    "info": {
-                        "image_frames": 16,
-                        "update_frames": 0.15000000596046449,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
+        "Animation": {},
         "RigidBody": false,
-        "Collision": {},
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
         "Particle": {},
         "Sound": {},
         "Font": {},
         "Capture": {},
         "Projectile": {},
-        "Trigger": {},
+        "Trigger": {
+            "translation": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "type": 0,
+            "text": "",
+            "trigger": false,
+            "u_frame": 0.0,
+            "i_frame": 0.0
+        },
         "Moving": {},
         "UI": {},
         "Camera": {},
@@ -74,8 +51,8 @@
         },
         "Transform": {
             "position": {
-                "x": -437.0625,
-                "y": -468.125
+                "x": -269.0625,
+                "y": -716.5625
             },
             "scale": {
                 "x": 1.0,
@@ -106,8 +83,8 @@
         },
         "Transform": {
             "position": {
-                "x": -749.4375,
-                "y": -19.6875
+                "x": -648.375,
+                "y": 324.84375
             },
             "scale": {
                 "x": 75.0,
@@ -163,7 +140,7 @@
         "Camera": {},
         "Chapter": {
             "chapter": 1,
-            "level": 1
+            "level": 7
         }
     },
     "Object": {
@@ -173,8 +150,8 @@
         },
         "Transform": {
             "position": {
-                "x": 662.8125,
-                "y": -13.125
+                "x": 791.4375,
+                "y": 167.0625
             },
             "scale": {
                 "x": 256.0,
@@ -201,7 +178,7 @@
         "Trigger": {},
         "Moving": {},
         "UI": {
-            "id": "Level2"
+            "id": "Level8"
         },
         "Camera": {},
         "Chapter": {}

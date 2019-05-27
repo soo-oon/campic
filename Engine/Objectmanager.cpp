@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include "Physics.hpp"
 #include "Capture.hpp"
+#include "State.hpp"
 
 Objectmanager Objectmanager_;
 
