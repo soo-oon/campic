@@ -6,8 +6,8 @@
         },
         "Transform": {
             "position": {
-                "x": 493.125,
-                "y": 448.4375
+                "x": 498.1875,
+                "y": 449.6875
             },
             "scale": {
                 "x": 10.0,
@@ -51,8 +51,8 @@
         },
         "Transform": {
             "position": {
-                "x": 486.5625,
-                "y": -142.1875
+                "x": 496.875,
+                "y": -147.5
             },
             "scale": {
                 "x": 10.0,
@@ -64,7 +64,10 @@
         "Sprite": {},
         "Animation": {},
         "RigidBody": false,
-        "Collision": {},
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
         "Particle": {},
         "Sound": {},
         "Font": {},
@@ -88,20 +91,20 @@
     },
     "Object": {
         "Type": {
-            "type": 21,
+            "type": 16,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -289.5,
-                "y": -899.90625
+                "x": -642.375,
+                "y": 20.9375
             },
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 75.0,
+                "y": 75.0
             },
             "rotation": 0.0,
-            "depth": -0.49000000953674319
+            "depth": -0.5
         },
         "Sprite": {},
         "Animation": {},
@@ -148,7 +151,10 @@
         "Moving": {},
         "UI": {},
         "Camera": {},
-        "Chapter": {}
+        "Chapter": {
+            "chapter": 1,
+            "level": 2
+        }
     },
     "Object": {
         "Type": {
@@ -157,11 +163,11 @@
         },
         "Transform": {
             "position": {
-                "x": 1599.375,
-                "y": 165.0
+                "x": 1588.125,
+                "y": 164.84375
             },
             "scale": {
-                "x": 256.0,
+                "x": 220.0,
                 "y": 130.0
             },
             "rotation": 0.0,
@@ -187,38 +193,6 @@
         "UI": {
             "id": "Level3"
         },
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 16,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -619.5,
-                "y": 18.59375
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "UI": {},
         "Camera": {},
         "Chapter": {}
     }
