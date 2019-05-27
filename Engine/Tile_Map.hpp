@@ -50,8 +50,22 @@ public:
     void InsertGraphicalTiles(int grid_, Object* tiles);
     void InsertPhysicalTiles(int grid_, Object* tiles);
 
-	void ClearGraphicTiles() { graphics_tiles.clear(); }
-	void ClearPhysicalTiles() { physical_tiles.clear(); }
+	void ClearGraphicTiles()
+	{
+            for(auto iter : graphics_tiles)
+            {
+                tile_grid[iter.first/TEMP_WIDTH][iter.first%TEMP_WIDTH] = false;
+            }
+            graphics_tiles.clear();
+	}
+	void ClearPhysicalTiles() 
+    {
+            for (auto iter : physical_tiles)
+            {
+                tile_grid[iter.first / TEMP_WIDTH][iter.first%TEMP_WIDTH] = false;
+            }
+	    physical_tiles.clear(); 
+	}
 
 private:
     void Normal_Tile(std::string& image, int x, int y, vector2 position, Tile_Type type);

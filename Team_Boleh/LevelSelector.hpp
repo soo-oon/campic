@@ -25,7 +25,7 @@ private:
 
 	Object* m_SelectLevel = nullptr;
 	Object* m_selectPage = nullptr;
-	Object* mouse_icon = nullptr;
+	//Object* mouse_icon = nullptr;
 private:
 	std::map<std::string, bool> m_LevelLock;
 	MenuPage* m_Menu1;

@@ -27,6 +27,7 @@ private:
 	Object* h_restart_button = nullptr;
 	Object* h_backtomenu_button = nullptr;
 	Object* h_quit_button = nullptr;
+	Object* mouse_icon = nullptr;
 
 	Object* h_capture_limit = nullptr;
 	Object* h_capture_number = nullptr;

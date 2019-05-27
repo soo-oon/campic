@@ -97,6 +97,11 @@ void Physics::Update(float dt)
                     else
                         ++obj;
                 }
+                else if (obj->get()->GetObjectType() == ObjectType::Falling_Limit)
+                {
+                    limit_list = obj->get();
+                    ++obj;
+                }
                 else
                     ++obj;
             }
@@ -110,6 +115,20 @@ void Physics::Update(float dt)
                 auto p_rigidbody = collision_list[i]->GetComponentByTemplate<RigidBody>();
                 //auto p_transform = collision_list[i]->GetTransform();
                 auto p_transform = collision_list[i]->GetComponentByTemplate<Collision>()->GetCollisionTransform();
+
+                if (limit_list) 
+                {
+                    if (p_transform.GetTranslation().y < limit_list->GetTransform().GetTranslation().y)
+                    {
+                        collision_list[i]->GetTransform().SetTranslation(StateManager_.GetCurrentState()->GetStartPosition());
+                        p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetStartPosition());
+                        p_collision->ChangeCollisionBoxScale(player_scale);
+                        p_collision->SetIsGround(false);
+                        p_collision->SetIsCapobj(false);
+                        p_rigidbody->SetVelocity(0);
+                    }
+                }
+
                 tile_list.clear();
                 ground_list.clear();
                 TileCheck(collision_list[i]);
@@ -791,4 +810,106 @@ bool Physics::OutOfCheckBoundary(Object* object)
         return false;
     }
     return true;
+}
+
+void Physics::TileCheck(Object * object)
+{
+    float x_0 = object->GetTransform().GetTranslation().x;
+    float y_0 = object->GetTransform().GetTranslation().y;
+    float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+    float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+    float y_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[2].y;
+    float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+    if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().x > 0)
+    {
+        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+        {
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+        }
+        else
+        {
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+            if (Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE / 2 }));
+        }
+    }
+    else
+    {
+        if (object->GetComponentByTemplate<RigidBody>()->GetViewingDirection().y > 0)
+        {
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+            if (Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_1 + TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_1 + TILE_SIZE / 2 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_1 + TILE_SIZE / 2 }));
+        }
+        else
+        {
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_2 }));
+            if (Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_1 + TILE_SIZE / 2, y_0 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_1 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_0 }));
+            if (Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }) != nullptr)
+                tile_list.push_back(Tile_Map_.GetSpecificTile({ x_2 - TILE_SIZE / 2, y_2 }));
+        }
+    }
+}
+
+void Physics::GroundCheck(Object * object)
+{
+    float x_0 = object->GetTransform().GetTranslation().x;
+    float x_1 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].x;
+    float x_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[0].x;
+    float y_2 = object->GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[1].y;
+    if (Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE / 2 }) != nullptr)
+        ground_list.push_back(Tile_Map_.GetSpecificTile({ x_1 , y_2 - TILE_SIZE / 2 }));
+    if (Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE / 2 }) != nullptr)
+        ground_list.push_back(Tile_Map_.GetSpecificTile({ x_2 , y_2 - TILE_SIZE / 2 }));
+    if (Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE / 2 }) != nullptr)
+        ground_list.push_back(Tile_Map_.GetSpecificTile({ x_0 , y_2 - TILE_SIZE / 2 }));
 }

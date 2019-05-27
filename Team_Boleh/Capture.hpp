@@ -22,6 +22,7 @@ public:
 
 	void CaptureObjectMove();
 
+    
 	void SetResetPosition(vector2 size) { reset_pos = size; }
 	vector2 GetResetPosition()const { return reset_pos; }
 	void SetFilter(Filter filter) { m_c_filter = filter; }
@@ -85,8 +86,6 @@ private:
 	float zoom = 1.0f;
 	float const_zoom = 0.f;
 	vector2 reset_pos;
-
-	vector2 temp_local_bar_pos;
 	vector2 temp_local_bar_scale;
 
 	float zoom_max_value = 0.0f;
@@ -96,7 +95,6 @@ private:
 	Object* zoomobject = nullptr;
 	Object* player = nullptr;
 	vector2 prev_mouse_pos;
-	float save_temp=0.0f;
 
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;

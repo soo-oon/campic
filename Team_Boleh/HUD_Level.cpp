@@ -4,6 +4,7 @@
 #include "UI.hpp"
 #include "ObjectDepth.hpp"
 #include "Engine.hpp"
+#include "DepthValue.hpp"
 
 void HUD_Level::Initialize()
 {
@@ -16,6 +17,15 @@ void HUD_Level::Initialize()
 	h_chapter->SetInvisible();
 	h_chapter->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_chapter);
+
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(depth::NearDepth);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
+	HUD_.Add_HUD_Object(mouse_icon);
 
 	h_capture_limit = new Object();
 	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -250.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
@@ -85,6 +95,13 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
+	mouse_icon->SetTranslation(Input::GetMousePos());
+
+	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Menu || IsOptionWindowOpen)
+		mouse_icon->SetVisible();
+	else
+		mouse_icon->SetInvisible();
+
 	if (auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
 		player != nullptr)
 	{

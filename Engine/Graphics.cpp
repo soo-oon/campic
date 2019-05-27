@@ -272,8 +272,9 @@ void Graphics::EndDraw()
 
 bool Graphics::IsDraw(Object* obj)
 {
-	float cameraRadius = 0.5f * sqrt(displaysize.x * displaysize.x +
-		displaysize.y * displaysize.y);
+	vector2 size = { static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) };
+	float cameraRadius = 0.5f * sqrt(size.x * size.x +
+		size.y * size.y);
 
 	if (game_level_camera != nullptr)
 	{

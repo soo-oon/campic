@@ -55,7 +55,10 @@ void Level::Update(float dt)
 	//{
 	//	background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
 	//}
-
+#ifdef _DEBUG
+    std::cout << "(" << Input::GetMousePos().x << ", " << Input::GetMousePos().y << ")" << std::endl;
+#else 
+#endif
     if(camera->GetObjectType() != ObjectType::Camera)
     {
         for(auto i : Objectmanager_.GetObjectMap())
