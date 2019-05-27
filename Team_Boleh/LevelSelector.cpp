@@ -9,13 +9,14 @@ void LevelSelector::Initialize()
 	m_Menu2 = new MenuPage();
 
 	m_LevelLock = LevelJson_.LoadLevelLock();
+	/*
 	mouse_icon = new Object();
 	mouse_icon->SetTranslation({ 0,0 });
 	mouse_icon->SetScale({ 50,50 });
 	mouse_icon->SetDepth(depth::NearDepth);
 	mouse_icon->SetObjectType(ObjectType::None);
 	mouse_icon->SetMesh(mesh::CreateBox());
-	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));*/
 
 	Object* background = new Object();
 	background->SetTranslation({ -0, 0 });
@@ -55,13 +56,15 @@ void LevelSelector::Initialize()
 	{
 		Objectmanager_.AddObject(i);
 	}
-	Objectmanager_.AddObject(mouse_icon);
+
+	//Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
 }
 
 void LevelSelector::Update(float dt)
 {
-	mouse_icon->SetTranslation(Input::GetMousePos());
+	//mouse_icon->SetTranslation(Input::GetMousePos());
+
 	if(selectPage)
 	{
 		for (auto& i : m_Menu1->GetButtons())

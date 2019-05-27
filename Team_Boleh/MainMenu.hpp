@@ -16,6 +16,5 @@ public:
 
 private:
 	Object* m_Select = nullptr;
-	Object* mouse_icon = nullptr;
 };
 
