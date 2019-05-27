@@ -1,49 +1,19 @@
 {
-    "Object": {
+	   "Object": {
         "Type": {
-            "type": 21,
+            "type": 20,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -624.75,
-                "y": -371.0625
+                "x": 0.0,
+                "y": 0.0
             },
             "scale": {
                 "x": 1.0,
                 "y": 1.0
             },
             "rotation": 0.0,
-            "depth": -0.49000000953674319
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 16,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -673.3125,
-                "y": 118.125
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
             "depth": -0.5
         },
         "Sprite": {},
@@ -57,44 +27,11 @@
         "Projectile": {},
         "Trigger": {},
         "Moving": {},
-        "ID": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 1059.1875,
-                "y": 44.84375
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 130.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/BusStop.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Projectile": {},
-        "Trigger": {},
-        "Moving": {},
-        "ID": {
-            "id": "Level2"
+        "UI": {},
+        "Camera": {},
+        "Chapter": {
+            "chapter": 1,
+            "level": 1
         }
     }
 }
