@@ -356,6 +356,7 @@ void Physics::Update(float dt)
 						}
 						else
 						{
+							StateManager_.GetCurrentState()->PlayTestData();
 							door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
 							StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
 							StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());

@@ -43,6 +43,9 @@ void Level::Initialize()
 	
 	Objectmanager_.AddObject(camera);
 	Objectmanager_.AddObject(background);
+
+
+	///////////For PlayTest
 }
 
 void Level::Update(float dt)
@@ -85,6 +88,8 @@ void Level::Update(float dt)
 	{
 		GetCaptureLimit() += 10;
 	}
+
+
 }
 
 void Level::ShutDown()

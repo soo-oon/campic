@@ -73,6 +73,7 @@ void Capture::Update(float dt)
 		{
 			if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 			{
+				StateManager_.GetCurrentState()->AddDataCount();
 				--StateManager_.GetCurrentState()->GetCaptureLimit();
 				cheese = true;
 				Capturing();
@@ -247,11 +248,16 @@ void Capture::Capturing()
 	for (auto obj : capture_area_contian_object)
 	{
 		Object* temp = new Object(*obj);
-		temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
-		temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(
-			obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
-		temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
-		temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
+		if (temp->GetComponentByTemplate<RigidBody>())
+		{
+			temp->GetComponentByTemplate<RigidBody>()->SetGravity(0);
+			temp->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+		}
+		if (temp->GetComponentByTemplate<Collision>()) {
+			temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxScale(
+				obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale());
+			temp->GetComponentByTemplate<Collision>()->ChangeCollisionBoxTranslation(temp->GetTransform().GetTranslation());
+		}
 
 		if (m_c_filter == Filter::Jump)
 		{

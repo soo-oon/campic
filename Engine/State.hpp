@@ -14,6 +14,9 @@ Creation date: 2018/12/14
 */
 
 #pragma once
+
+#include <iostream>
+#include <fstream>
 #include "Objectmanager.hpp"
 #include <vector2.hpp>
 #include "AudioManager.hpp"
@@ -78,6 +81,11 @@ public:
     void CreateCaptureCamera();
     void CreatePlayer();
 
+
+	//PlayTest
+	void PlayTestData();
+	void AddDataCount();
+
 public:
 	std::string level_indicator;
 	std::string change_level;
@@ -93,4 +101,8 @@ private:
 	bool iscamera = false;
 	bool level_change = false;
 	bool back_to_menu = false;
+
+
+	////// For PlayTest data, Delete This after PlayTest
+	std::pair<std::string, int> data;
 };
