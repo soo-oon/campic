@@ -24,7 +24,6 @@ bool Capture::Initialize(Object* Ob)
 		zoomobject->AddInitComponent(new Sound("asset/sounds/Camera_Capture.wav"));
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_In.wav");
 		zoomobject->GetComponentByTemplate<Sound>()->AddSound("asset/sounds/Zoom_Out.wav");
-		temp_local_bar_pos = zoomobject->GetTransform().GetTranslation();
 		temp_local_bar_scale = zoomobject->GetTransform().GetScale();
 
 		zoombutton = new Object();
@@ -35,8 +34,6 @@ bool Capture::Initialize(Object* Ob)
         zoombutton->SetObjectType(ObjectType::Capture_Camera);
         zoombutton->AddComponent(new Sprite("asset/images/Objects/ZoomDial.png"));
 
-		save_temp = zoombutton->GetTransform().GetTranslation().x;
-
 		zoomobject->SetParent(&object->GetTransform());
 		zoombutton->SetParent(&object->GetTransform());
 
@@ -45,7 +42,7 @@ bool Capture::Initialize(Object* Ob)
 	}
 
 	const_zoom = zoom;
-	zoom_min_value = 0.0f;
+	zoom_min_value = 0.5f;
 	zoom_max_value = 2.5f;
 
 	return true;
@@ -153,8 +150,10 @@ void Capture::CaptureObjectMove()
 
 void Capture::SetZoomMaxMin(float max, float min)
 {
+	if(min != 0.0f)
+		zoom_min_value = min;
+
 	zoom_max_value = max;
-	zoom_min_value = min;
 }
 
 bool Capture::IsCaptureArea()
