@@ -70,7 +70,7 @@
         },
         "Transform": {
             "position": {
-                "x": 0.0,
+                "x": 20000.0,
                 "y": 0.0
             },
             "scale": {
@@ -133,7 +133,7 @@
         "Trigger": {},
         "Moving": {},
         "UI": {
-            "id": ""
+            "id": "Level11"
         },
         "Camera": {},
         "Chapter": {}

@@ -45,7 +45,8 @@ void Physics::Update(float dt)
             dynamic_list.clear();
 			checkpoint_list.clear();
             trigger_list.clear();
-            door = nullptr;
+            doors.clear();
+            //door = nullptr;
             limit_list = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
@@ -82,7 +83,7 @@ void Physics::Update(float dt)
                     }
                     else if (obj->get()->GetObjectType() == ObjectType::Door)
                     {
-                        door = obj->get();
+                        doors.push_back(obj->get());
                         ++obj;
                     }
                     else if (obj->get()->GetObjectType() == ObjectType::Reset_Pos)
@@ -346,21 +347,24 @@ void Physics::Update(float dt)
                         }
                     }
                 }
-                if (door)
+                if (!doors.empty())
                 {
-                    if (IntersectionCheckAABB(collision_list[i], door))
+                    for (auto door : doors)
                     {
-						if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
-						{
-							StateManager_.GetCurrentState()->BackToMenu();
-						}
-						else
-						{
-							StateManager_.GetCurrentState()->PlayTestData();
-							door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
-							StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
-							StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
-						}
+                        if (IntersectionCheckAABB(collision_list[i], door))
+                        {
+                            if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
+                            {
+                                StateManager_.GetCurrentState()->BackToMenu();
+                            }
+                            else
+                            {
+                                StateManager_.GetCurrentState()->PlayTestData();
+                                door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
+                                StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
+                                StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
+                            }
+                        }
                     }
                 }
 		if(!checkpoint_list.empty())

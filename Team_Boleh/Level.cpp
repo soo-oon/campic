@@ -52,10 +52,10 @@ void Level::Update(float dt)
 {
 	//background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
 
-	//if (camera != nullptr)
-	//{
-	//	background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
-	//}
+	if (camera != nullptr)
+	{
+		background->SetTranslation(camera->GetComponentByTemplate<Camera>()->GetCenter());
+	}
 
     if(camera->GetObjectType() != ObjectType::Camera)
     {

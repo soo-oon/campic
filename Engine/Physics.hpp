@@ -307,7 +307,8 @@ private:
 	std::vector<Object*> trigger_list;
         vector2 reset_position = 0;
         Object* limit_list = nullptr;
-    Object* door = nullptr;
+        std::vector<Object*> doors;
+    //Object* door = nullptr;
         int previous_size = 0;
     //vector2 windowsize = vector2{ 1280, 960 };
 };
