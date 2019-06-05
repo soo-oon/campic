@@ -46,6 +46,7 @@ void Physics::Update(float dt)
 			checkpoint_list.clear();
             trigger_list.clear();
             doors.clear();
+            obstacle_list.clear();
             //door = nullptr;
             limit_list = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
@@ -94,6 +95,11 @@ void Physics::Update(float dt)
                     else if (obj->get()->GetObjectType() == ObjectType::Trigger)
                     {
                         trigger_list.push_back(obj->get());
+                        ++obj;
+                    }
+                    else if (obj->get()->GetObjectType() == ObjectType::Obstacle)
+                    {
+                        obstacle_list.push_back(obj->get());
                         ++obj;
                     }
                     else
@@ -305,6 +311,22 @@ void Physics::Update(float dt)
 					else
 					{
 						collision->SetIsCollideItem(false);
+					}
+				}
+
+			}
+		}
+		if (!obstacle_list.empty()) {
+			for (auto obstacle_obj : obstacle_list)
+			{
+				if (auto collision = obstacle_obj->GetComponentByTemplate<Collision>();
+					collision != nullptr)
+				{
+					if (IntersectionCheckAABB(collision_list[i], obstacle_obj))
+					{
+                                            //if you want obstacle did not dead ;
+                                            obstacle_obj->SetIsDead(true);
+                                            StateManager_.GetCurrentState()->GetCaptureLimit()--;
 					}
 				}
 
