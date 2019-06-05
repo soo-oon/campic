@@ -50,7 +50,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(h_capture_number);
 
 	h_cheese = new Object();
-	h_cheese->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
+	h_cheese->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	h_cheese->SetDepth(-0.5f);
 	h_cheese->SetMesh(mesh::CreateBox(1, Colors::Yellow));
 	h_cheese->SetObjectType(ObjectType::Background);
@@ -102,11 +102,6 @@ void HUD_Level::Update(float dt)
 	else
 		mouse_icon->SetInvisible();
 
-	if (auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
-		player != nullptr)
-	{
-		h_cheese->SetTranslation(player->GetTransform().GetTranslation());
-	}
 	if(StateManager_.GetCurrentState()->GetCaptureObjectPointer() != nullptr)
 	{
 		if(auto cheese = StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>();

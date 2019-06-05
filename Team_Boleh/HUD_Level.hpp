@@ -13,6 +13,7 @@ public:
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;
+	bool IsOptionActive() { return IsOptionWindowOpen; }
 
 	Object* CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id = "");
 

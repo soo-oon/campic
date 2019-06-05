@@ -67,6 +67,11 @@ void Level::Update(float dt)
             }
         }
     }
+
+	if (Input::IsKeyTriggered(GLFW_KEY_R))
+		StateManager_.ChangeStage();
+
+#ifdef _DEBUG
     if(Input::IsKeyPressed(GLFW_KEY_UP))
     {
         camera->GetComponentByTemplate<Camera>()->MoveUp(6.f);
@@ -83,6 +88,7 @@ void Level::Update(float dt)
     {
         camera->GetComponentByTemplate<Camera>()->MoveRight(6.f);
     }
+#endif
 
 	if(Input::IsKeyTriggered(GLFW_KEY_F1))
 	{
