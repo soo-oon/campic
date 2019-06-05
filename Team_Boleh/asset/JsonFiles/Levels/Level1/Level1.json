@@ -51,7 +51,7 @@
         },
         "Transform": {
             "position": {
-                "x": -477.0,
+                "x": -540.125,
                 "y": -163.125
             },
             "scale": {
@@ -96,7 +96,7 @@
         },
         "Transform": {
             "position": {
-                "x": -478.5,
+                "x": -540.125,
                 "y": -156.375
             },
             "scale": {
@@ -141,7 +141,7 @@
         },
         "Transform": {
             "position": {
-                "x": -376.5,
+                "x": -540.125,
                 "y": -150.75
             },
             "scale": {
@@ -173,6 +173,51 @@
             "trigger": false,
             "u_frame": 0.5,
             "i_frame": 5.0
+        },
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 19,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -540.125,
+                "y": -150.75
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 100.0
+            },
+            "rotation": 0.0,
+            "depth": -0.49000000953674319
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {
+            "translation": {
+                "x": -210.0,
+                "y": 120.0
+            },
+            "type": 2,
+            "text": "New Player =>",
+            "trigger": false,
+            "u_frame": 0.0,
+            "i_frame": 0.0
         },
         "Moving": {},
         "UI": {},
