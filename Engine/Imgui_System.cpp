@@ -320,10 +320,11 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		{
 			Object* s_pos = new Object();
 			s_pos->SetTranslation(Input::GetMousePos());
-			s_pos->SetScale({ 75.0f, 75.0f });
+			s_pos->SetScale({ 256, 130 });
 			s_pos->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
 			s_pos->SetDepth(GAME_OBJECT);
 			s_pos->SetObjectType(ObjectType::Start_Pos);
+			s_pos->AddInitComponent(new Sprite("asset/images/Objects/StartPoint.png"));
 
 			Objectmanager_.AddObject(s_pos);
 		}
@@ -345,6 +346,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
                 jump_obj->SetObjectType(ObjectType::Capture_Obj);
                 jump_obj->AddInitComponent(new Collision(box_));
                 jump_obj->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
+				jump_obj->AddComponent(new Animation("asset/images/Objects/JumpBoard.png", "obstacle", 15, 0.05f));
 
                 Objectmanager_.AddObject(jump_obj);
         }
@@ -364,6 +366,7 @@ void Imgui_System::ObjectCreator(bool object_creator)
             obstacle->SetDepth(GAME_OBJECT);
             obstacle->SetObjectType(ObjectType::Obstacle);
             obstacle->AddInitComponent(new Collision(box_));
+			obstacle->AddComponent(new Animation("asset/images/Objects/Danger.png", "obstacle", 9, 0.05f));
 
             Objectmanager_.AddObject(obstacle);
         }

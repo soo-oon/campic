@@ -1102,9 +1102,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
                 {
                     StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
                 }
-	        else{
                         Objectmanager_.AddObject(obj);
-	        }
                 if (obj->GetObjectType() == ObjectType::Player)
                     Objectmanager_.SetPlayer(obj);
 

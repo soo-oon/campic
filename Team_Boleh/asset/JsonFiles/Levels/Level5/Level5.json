@@ -175,13 +175,16 @@
                 "y": 91.09375
             },
             "scale": {
-                "x": 75.0,
-                "y": 75.0
+                "x": 256.0,
+                "y": 130.0
             },
             "rotation": 0.0,
-            "depth": -0.5
+            "depth": -0.1
         },
-        "Sprite": {},
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/StartPoint.png"
+        },
         "Animation": {},
         "RigidBody": false,
         "Collision": {},
