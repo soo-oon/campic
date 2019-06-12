@@ -61,25 +61,46 @@ void Tile_Map::Make_Tile(std::string image, Tile_Type type)
     }
 }
 
-void Tile_Map::MakeTileVertical(std::string image, Tile_Type type)
+void Tile_Map::MakeTileVertical(std::string image, Tile_Type type, int num)
 {
     int tile_x = static_cast<int>(Input::GetMousePos().x + TEMP_WIDTH / 2);
     int tile_y = static_cast<int>(Input::GetMousePos().y + TEMP_HEIGHT / 2);
 
     vector2 tile_position = { 0 };
 
-    if (!tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
+    tile_position = { (float)((2 * (floor)(tile_x / TILE_SIZE) + 1)* TILE_SIZE / 2) - TEMP_WIDTH / 2
+        , (float)((2 * (floor)(tile_y / TILE_SIZE) + 1)*TILE_SIZE) / 2 - TEMP_HEIGHT / 2 };
+    for (int i = 0; i < 10; i++)
     {
-        tile_position = { (float)((2 * (floor)(tile_x / TILE_SIZE) + 1)* TILE_SIZE / 2) - TEMP_WIDTH / 2
-            , (float)((2 * (floor)(tile_y / TILE_SIZE) + 1)*TILE_SIZE) / 2 - TEMP_HEIGHT / 2 };
-        for(int i = 0; i < 20; i++)
+        if (!tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
         {
-            Normal_Tile(image, tile_x, tile_y, tile_position, type);
-            tile_x += TILE_SIZE;
-            tile_position.x += TILE_SIZE;
-        }
+                Normal_Tile(image, tile_x, tile_y, tile_position, type);
 
-        tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = true;
+            tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = true;
+        }
+    tile_x += num * TILE_SIZE;
+    tile_position.x += num * TILE_SIZE;
+    }
+}
+void Tile_Map::MakeTileHorizontal(std::string image, Tile_Type type, int num)
+{
+    int tile_x = static_cast<int>(Input::GetMousePos().x + TEMP_WIDTH / 2);
+    int tile_y = static_cast<int>(Input::GetMousePos().y + TEMP_HEIGHT / 2);
+
+    vector2 tile_position = { 0 };
+
+    tile_position = { (float)((2 * (floor)(tile_x / TILE_SIZE) + 1)* TILE_SIZE / 2) - TEMP_WIDTH / 2
+        , (float)((2 * (floor)(tile_y / TILE_SIZE) + 1)*TILE_SIZE) / 2 - TEMP_HEIGHT / 2 };
+    for (int i = 0; i < 10; i++)
+    {
+        if (!tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE])
+        {
+                Normal_Tile(image, tile_x, tile_y, tile_position, type);
+
+            tile_grid[tile_x / TILE_SIZE][tile_y / TILE_SIZE] = true;
+        }
+    tile_y -= num * TILE_SIZE;
+    tile_position.y -= num * TILE_SIZE;
     }
 }
 

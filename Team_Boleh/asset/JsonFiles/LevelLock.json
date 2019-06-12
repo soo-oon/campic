@@ -45,7 +45,7 @@
     },
     "Level": {
         "ID:": "Level12",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level13",
@@ -57,11 +57,11 @@
     },
     "Level": {
         "ID:": "Level15",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level16",
-        "Clear": false
+        "Clear": true
     },
     "Level": {
         "ID:": "Level17",

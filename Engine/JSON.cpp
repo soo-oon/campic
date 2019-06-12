@@ -33,7 +33,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 		|| obj->GetObjectType() == ObjectType::Capture_Camera_main
         || obj->GetObjectType() == ObjectType::Capture_Obj || obj->GetObjectType() == ObjectType::Polaroid 
         || obj->GetObjectType() == ObjectType::Trigger_Obj || obj->GetObjectType() == ObjectType::Camera
-        || obj->GetObjectType() == ObjectType::Bus)
+        || obj->GetObjectType() == ObjectType::Bus || obj->GetObjectType() == ObjectType::Background)
         return;
 	//Trees for object info
 	Value objTree(kArrayType);

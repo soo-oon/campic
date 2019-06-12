@@ -124,9 +124,30 @@ void Imgui_System::Update(float dt)
 			if (Input::IsKeyPressed(GLFW_KEY_H))
 			{
 				if (graphics_tile)
-					Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Graphical);
+					Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Graphical, -1);
 				else
-					Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Physical);
+					Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Physical,-1);
+			}
+			if (Input::IsKeyPressed(GLFW_KEY_J))
+			{
+                            if (graphics_tile)
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Graphical, 1);
+                            else
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Physical, 1);
+			}
+			if (Input::IsKeyPressed(GLFW_KEY_U))
+			{
+                            if (graphics_tile)
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Graphical, -1);
+                            else
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Physical, -1);
+			}
+			if (Input::IsKeyPressed(GLFW_KEY_K))
+			{
+                                if (graphics_tile)
+                                    Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Graphical, 1);
+                                else
+                                    Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Physical, 1);
 			}
 		}
 		else
@@ -290,10 +311,7 @@ void Imgui_System::Editor(bool show_window)
 		Objectmanager_.GetObjectMap().clear();
                 StateManager_.GetCurrentState()->SetPlayerObjectPointer(nullptr);
                 StateManager_.GetCurrentState()->SetCaptureObjectPointer(nullptr);
-                Object* camera = new Object;
-                camera->SetObjectType(ObjectType::Camera);
-                camera->AddComponent(new Camera("Level"));
-                Objectmanager_.AddObject(camera);
+                StateManager_.GetCurrentState()->SetCamera();
 	}
 
 	ImGui::End();
