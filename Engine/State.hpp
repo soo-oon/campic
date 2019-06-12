@@ -37,7 +37,6 @@ public:
 
 	virtual bool IsLevelChange() { return level_change; }
 	virtual bool IsBackToMenu() { return back_to_menu; }
-	virtual bool IsToCredit() { return to_credit; }
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual void ChangeLevel(std::string ID);
 	virtual void BackToMenu();
@@ -45,9 +44,9 @@ public:
 	void ResetLevelChange() { level_change = false; }
 	void ResetBackToMenu() { back_to_menu = false; }
 	void SaveLevel();
-        void SaveObject();
-        void SaveGTile();
-        void SavePTile();
+    void SaveObject();
+    void SaveGTile();
+    void SavePTile();
 	void LoadLevel();
 	void LoadLevel(const std::string& current_level);
 	void UnLoad();
@@ -96,6 +95,9 @@ private:
 	bool level_change = false;
 	bool back_to_menu = false;
 	bool to_credit = false;
+	bool to_howtoplay = false;
+	bool to_startcutscene = false;
+	bool to_endcutscene = false;
 
 
 	////// For PlayTest data, Delete This after PlayTest

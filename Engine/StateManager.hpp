@@ -27,6 +27,8 @@ enum class State_Information
 	Game,
 	HUD,
 	Credit,
+	HowToPlay,
+	CutScene,
 	size
 };
 
@@ -42,7 +44,12 @@ public:
 	void AddStage(std::string ID, State* state);
 	void BackToMenu();
 	void BackToMainMenu();
+
 	void ToCredit();
+	void ToHowToPlay();
+	void ToStartScene();
+	void ToEndScene();
+
 	void ChangeStage();
 	void Restart();
 	void Pause();

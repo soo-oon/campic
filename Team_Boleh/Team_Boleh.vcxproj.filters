@@ -8,6 +8,9 @@
     <ClCompile Include="LevelSelector.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Credit.cpp" />
+    <ClCompile Include="HowToPlay.cpp" />
+    <ClCompile Include="StartCutScene.cpp" />
+    <ClCompile Include="EndCutScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HUD_Level.hpp" />
@@ -16,5 +19,8 @@
     <ClInclude Include="LevelSelector.hpp" />
     <ClInclude Include="Level.hpp" />
     <ClInclude Include="Credit.hpp" />
+    <ClInclude Include="HowToPlay.hpp" />
+    <ClInclude Include="StartCutScene.hpp" />
+    <ClInclude Include="EndCutScene.hpp" />
   </ItemGroup>
 </Project>

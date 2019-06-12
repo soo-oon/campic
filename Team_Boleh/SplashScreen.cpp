@@ -13,10 +13,8 @@ Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
 */
 #include "SplashScreen.hpp"
-#include <iostream>
 #include "Input.hpp"
 #include "Sprite.hpp"
-#include "Graphics.hpp"
 #include "Application.hpp"
 
 void SplashScreen::Initialize()

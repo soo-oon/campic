@@ -62,6 +62,7 @@ void Animation::Update(float dt)
 					else
 					{
 						is_done = true;
+						std::cout << "bye" << std::endl;
 						//current_animation.previous_current_coordinate.x = 0;
 						//current_animation.previous_current_coordinate.y = current_animation.frame_per_seconds;
 					}

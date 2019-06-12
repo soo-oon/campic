@@ -1,7 +1,6 @@
 #include "LevelSelector.hpp"
 #include "UI.hpp"
 #include "DepthValue.hpp"
-#include <iostream>
 
 void LevelSelector::Initialize()
 {
@@ -19,12 +18,20 @@ void LevelSelector::Initialize()
 	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));*/
 
 	Object* background = new Object();
-	background->SetTranslation({ -0, 0 });
-	background->SetScale({ 1280,960 });
-	background->SetDepth(BACKGROUND);
+	background->SetTranslation({ 0, 0 });
+	background->SetDepth(0.98f);
+	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	background->SetObjectType(ObjectType::Background);
-	background->AddComponent(new Sprite("asset/images/Page/LevelSelect.png"));
+	background->SetObjectType(ObjectType::Button);
+	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
+
+	Object* cam = new Object();
+	cam->SetTranslation({ -0, 0 });
+	cam->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
+	cam->SetDepth(BACKGROUND);
+	cam->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	cam->SetObjectType(ObjectType::Background);
+	cam->AddComponent(new Sprite("asset/images/Page/LevelSelect.png"));
 
 	CreateMenuPage();
 
@@ -59,6 +66,7 @@ void LevelSelector::Initialize()
 
 	//Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
+	Objectmanager_.AddObject(cam);
 }
 
 void LevelSelector::Update(float dt)
@@ -104,8 +112,15 @@ void LevelSelector::Update(float dt)
 		{
 			if(m_SelectLevel->GetComponentByTemplate<UI>()->GetIsLock())
 			{
-				SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
-				ChangeLevel(level_indicator);
+				if (m_SelectLevel->GetComponentByTemplate<UI>()->GetId() == "Level1")
+				{
+					StateManager_.ToStartScene();
+				}
+				else
+				{
+					SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
+					ChangeLevel(level_indicator);
+				}
 			}
 		}
 
@@ -119,11 +134,6 @@ void LevelSelector::Update(float dt)
 			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "next")
 				selectPage = !selectPage;
 		}
-	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_F10))
-	{
-		LevelJson_.CreateLevelLockDocument();
 	}
 }
 

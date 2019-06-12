@@ -166,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Credit.cpp" />
+    <ClCompile Include="EndCutScene.cpp" />
+    <ClCompile Include="StartCutScene.cpp" />
+    <ClCompile Include="HowToPlay.cpp" />
     <ClCompile Include="HUD_Level.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -185,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Credit.hpp" />
+    <ClInclude Include="EndCutScene.hpp" />
+    <ClInclude Include="StartCutScene.hpp" />
+    <ClInclude Include="HowToPlay.hpp" />
     <ClInclude Include="HUD_Level.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

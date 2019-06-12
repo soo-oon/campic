@@ -96,8 +96,6 @@ void Level::Update(float dt)
 	{
 		GetCaptureLimit() += 10;
 	}
-
-
 }
 
 void Level::ShutDown()

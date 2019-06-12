@@ -87,6 +87,17 @@ void StateManager::BackToMenu()
 	Physics_.ResetPreviousSize();
 }
 
+void StateManager::BackToMainMenu()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("MainMenu")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
 void StateManager::ToCredit()
 {
 	m_currentState->ShutDown();
@@ -98,11 +109,33 @@ void StateManager::ToCredit()
 	Physics_.ResetPreviousSize();
 }
 
-void StateManager::BackToMainMenu()
+void StateManager::ToHowToPlay()
 {
 	m_currentState->ShutDown();
 	m_currentState->ResetBackToMenu();
-	m_currentState = states.find("MainMenu")->second.get();
+	m_currentState = states.find("HowToPlay")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
+void StateManager::ToStartScene()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("StartCutScene")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
+void StateManager::ToEndScene()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("EndCutScene")->second.get();
 
 	m_currentState->Initialize();
 
@@ -155,15 +188,13 @@ void StateManager::Update(float dt)
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
 
-	if (m_currentState->IsToCredit())
-		ToCredit();
 
 	m_currentState->Update(dt);
-
+/*
 	if(Input::IsKeyTriggered(GLFW_KEY_T))
 	{
 		m_currentState->GetNextLevel();
-	}
+	}*/
 }
 
 void StateManager::Quit()

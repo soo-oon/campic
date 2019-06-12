@@ -141,8 +141,8 @@ bool BitmapFont::CanParseFile(const std::wstring& fnt_filepath)
 			characters.insert_or_assign(desc.id, desc);
 		}
 		
-		line.clear();
-		line_type.clear();
+		//line.clear();
+		//line_type.clear();
 	}
 
 	

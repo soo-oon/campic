@@ -163,7 +163,6 @@ void HUD_Level::Update(float dt)
 				ChangeCaptureLimit = true;
 			}
 		}
-
 		std::pair<int,int> chap = StateManager_.GetCurrentState()->GetChapter();
 		std::string chap_string = std::to_string(chap.first);
 		chap_string.append("-");

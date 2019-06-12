@@ -25,6 +25,9 @@ Creation date: 2018/12/14
 #include "Level.hpp"
 #include "LevelSelector.hpp"
 #include "Credit.hpp"
+#include "HowToPlay.hpp"
+#include "StartCutScene.hpp"
+#include "EndCutScene.hpp"
 
 int main()
 {
@@ -38,7 +41,10 @@ int main()
     StateManager_.AddStage("Splash_Screen", new SplashScreen());
 	StateManager_.AddStage("Credit", new Credit());
 	StateManager_.AddStage("MainMenu", new MainMenu());
+	StateManager_.AddStage("HowToPlay", new HowToPlay());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
+	StateManager_.AddStage("StartCutScene", new StartCutScene());
+	StateManager_.AddStage("EndCutScene", new EndCutScene());
 	StateManager_.AddStage("Level", new Level());
 
 	engine.Update();
