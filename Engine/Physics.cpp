@@ -324,8 +324,9 @@ void Physics::Update(float dt)
 				{
 					if (IntersectionCheckAABB(collision_list[i], obstacle_obj))
 					{
-                                            //if you want obstacle did not dead ;
                                             obstacle_obj->SetIsDead(true);
+                                            collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
+                                            p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
                                             StateManager_.GetCurrentState()->GetCaptureLimit()--;
 					}
 				}
@@ -375,16 +376,49 @@ void Physics::Update(float dt)
                     {
                         if (IntersectionCheckAABB(collision_list[i], door))
                         {
-                            if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
+                            to_next = true;
+                        }
+                        if (to_next) {
+                            p_rigidbody->SetIsStopped(true);
+                            p_rigidbody->SetVelocity(0);
+                            collision_list[i]->SetDepth(0.9f);
+                            time += dt;
+                            if (time < 2.5f)
                             {
-                                StateManager_.GetCurrentState()->BackToMenu();
+                                if (!bus_object)
+                                {
+                                    bus_object = new Object();
+                                    bus_object->SetTranslation(door->GetTransform().GetTranslation());
+                                    bus_object->SetScale({ 400, 132 });
+                                    bus_object->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
+                                    bus_object->SetDepth(-0.9f);
+                                    bus_object->SetObjectType(ObjectType::Bus);
+                                    bus_object->AddInitComponent(new Sprite("asset/images/Objects/Bus.png"));
+                                    Objectmanager_.AddObject(bus_object);
+                                    //AudioManager_.PlaySFX("asset/sounds/Bus.mp3", 1.f);
+                                }
+                                if (time > 0.5f)
+                                {
+                                    bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 5 ,bus_object->GetTransform().GetTranslation().y });
+                                    collision_list[i]->GetTransform().SetTranslation(bus_object->GetTransform().GetTranslation());
+                                }
                             }
                             else
                             {
-                                StateManager_.GetCurrentState()->PlayTestData();
-                                door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
-                                StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
-                                StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
+                                if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
+                                {
+                                    StateManager_.GetCurrentState()->BackToMenu();
+                                }
+                                else
+                                {
+                                    bus_object = nullptr;
+                                    time = 0;
+                                    StateManager_.GetCurrentState()->PlayTestData();
+                                    door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
+                                    StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
+                                    StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
+                                    to_next = false;
+                                }
                             }
                         }
                     }

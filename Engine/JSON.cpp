@@ -34,7 +34,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
     if(obj->GetObjectType() == ObjectType::Capture_Camera ||obj->GetObjectType() == ObjectType::Player
 		|| obj->GetObjectType() == ObjectType::Capture_Camera_main
         || obj->GetObjectType() == ObjectType::Capture_Obj || obj->GetObjectType() == ObjectType::Polaroid 
-        || obj->GetObjectType() == ObjectType::Trigger_Obj || obj->GetObjectType() == ObjectType::Camera)
+        || obj->GetObjectType() == ObjectType::Trigger_Obj || obj->GetObjectType() == ObjectType::Camera
+        || obj->GetObjectType() == ObjectType::Bus)
         return;
 	//Trees for object info
 	Value objTree(kArrayType);
@@ -1101,6 +1102,11 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 	        if (obj->GetObjectType() == ObjectType::Start_Pos)
                 {
                     StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
+                }
+	        if (obj->GetObjectType() == ObjectType::JumpIng)
+                {
+                    obj->SetObjectType(ObjectType::Capture_Obj);
+                    obj->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
                 }
                         Objectmanager_.AddObject(obj);
                 if (obj->GetObjectType() == ObjectType::Player)

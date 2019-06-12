@@ -307,10 +307,13 @@ private:
 	std::vector<Object*> trigger_list;
         vector2 reset_position = 0;
         Object* limit_list = nullptr;
+        Object* bus_object = nullptr;
         std::vector<Object*> doors;
         std::vector<Object*> obstacle_list;
     //Object* door = nullptr;
         int previous_size = 0;
+        float time = 0;
+        bool to_next = false;
     //vector2 windowsize = vector2{ 1280, 960 };
 };
 

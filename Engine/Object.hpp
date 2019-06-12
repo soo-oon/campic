@@ -49,6 +49,8 @@ enum class ObjectType {
     None,
     Falling_Limit,
     Obstacle,
+    Bus,
+    JumpIng,
 }; 
 
 class Object
