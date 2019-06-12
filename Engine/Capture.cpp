@@ -79,6 +79,7 @@ void Capture::Update(float dt)
         {
             if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
             {
+				StateManager_.GetCurrentState()->AddDataCount();
                 --StateManager_.GetCurrentState()->GetCaptureLimit();
                 cheese = true;
                 Capturing();
@@ -575,8 +576,17 @@ void Capture::CollisionChangeZoomInOut_Ground(Object* obj, Collision* collision,
             if (left != nullptr)
             {
                 float x_pos = left->GetTransform().GetTranslation().x;
-                float x_scale = left->GetTransform().GetScale().x / 2.0f;
                 float obj_scale_x = collision->GetCollisionTransform().GetScale().x / 2.0f;
+				float x_scale;
+				if (auto l_collision = left->GetComponentByTemplate<Collision>();
+					l_collision != nullptr)
+				{
+					x_scale = l_collision->GetCollisionTransform().GetScale().x / 2.0f;
+				}
+				else
+				{
+					x_scale = left->GetTransform().GetScale().x / 2.0f;
+				}
                 obj->SetTranslation({ x_pos + x_scale + obj_scale_x + 2.0f, y_pos + y_scale_y + obj_scale_y });
             }
         }
@@ -585,9 +595,18 @@ void Capture::CollisionChangeZoomInOut_Ground(Object* obj, Collision* collision,
             if (right != nullptr)
             {
                 float x_pos = right->GetTransform().GetTranslation().x;
-                float x_scale = right->GetTransform().GetScale().x / 2.0f;
                 float obj_scale_x = collision->GetCollisionTransform().GetScale().x / 2.0f;
-                obj->SetTranslation({ x_pos - x_scale - obj_scale_x - 2.0f, y_pos + y_scale_y + obj_scale_y });
+				float x_scale;
+				if(auto r_collision = right->GetComponentByTemplate<Collision>();
+					r_collision != nullptr)
+				{
+					x_scale = r_collision->GetCollisionTransform().GetScale().x / 2.0f;
+				}
+				else
+				{
+					x_scale = right->GetTransform().GetScale().x / 2.0f;
+				}
+                obj->SetTranslation({ x_pos - x_scale - obj_scale_x -2.0f, y_pos + y_scale_y + obj_scale_y });
             }
 
         }

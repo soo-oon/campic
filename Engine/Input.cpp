@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include <chrono>
 #include "Graphics.hpp"
 #include "HUD.hpp"
+#include "HUD_Level.hpp"
 
 bool Input::mouse_trigger;
 bool Input::key_trigger;
@@ -150,8 +151,16 @@ void Input::SetMousePos(double x_pos, double y_pos)
 	float ratio_x = viewport_size.x / windowSize.x;
 	float ratio_y = viewport_size.y / windowSize.y;
 
-    mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos)) * ratio_x + Graphics::camera_center.x;
-    mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) * ratio_y + Graphics::camera_center.y;
+	if(HUD_Level::IsOptionWindowOpen)
+	{
+		mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos)) * ratio_x;
+		mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) * ratio_y;
+	}
+	else
+	{
+		mousePos.x = static_cast<float>(-((windowSize.x / 2.0f) - x_pos)) * ratio_x + Graphics::camera_center.x;
+		mousePos.y = static_cast<float>((windowSize.y / 2.0f) - y_pos) * ratio_y + Graphics::camera_center.y;		
+	}
 }
 
 vector2 Input::GetMousePos()

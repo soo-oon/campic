@@ -38,7 +38,7 @@ enum class ObjectType {
     Capture_Obj,
     Tile,
     Button,
-	HUD_Button,
+    HUD_Button,
     Polaroid,
     Capture_Camera_main,
     Capture_Camera,
@@ -48,6 +48,7 @@ enum class ObjectType {
     Trigger,
     None,
     Falling_Limit,
+    Obstacle,
 }; 
 
 class Object

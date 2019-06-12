@@ -970,18 +970,13 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		}
 
 
-	   if (obj->GetObjectType() == ObjectType::Start_Pos)
-       {
+	    if (obj->GetObjectType() == ObjectType::Start_Pos)
+        {
             StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
-       }
-	   else
-	   {
-            Objectmanager_.AddObject(obj);
-	   }
-       
-		if (obj->GetObjectType() == ObjectType::Player)
+        }
+        Objectmanager_.AddObject(obj);
+        if (obj->GetObjectType() == ObjectType::Player)
             Objectmanager_.SetPlayer(obj);
-
 
 		////////////////////Chapter
 		if (chapter.HasMember("chapter"))

@@ -1,6 +1,38 @@
 {
     "Object": {
         "Type": {
+            "type": 21,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -437.0625,
+                "y": -600.125
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Projectile": {},
+        "Trigger": {},
+        "Moving": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
             "type": 19,
             "isDead": false
         },
@@ -53,13 +85,16 @@
                 "y": -273.4375
             },
             "scale": {
-                "x": 75.0,
-                "y": 75.0
+                "x": 256.0,
+                "y": 130.0
             },
             "rotation": 0.0,
-            "depth": -0.5
+            "depth": -0.1
         },
-        "Sprite": {},
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/StartPoint.png"
+        },
         "Animation": {},
         "RigidBody": false,
         "Collision": {},

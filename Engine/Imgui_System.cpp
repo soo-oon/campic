@@ -316,16 +316,57 @@ void Imgui_System::ObjectCreator(bool object_creator)
 		{
 			Object* s_pos = new Object();
 			s_pos->SetTranslation(Input::GetMousePos());
-			s_pos->SetScale({ 75.0f, 75.0f });
+			s_pos->SetScale({ 256, 130 });
 			s_pos->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
 			s_pos->SetDepth(GAME_OBJECT);
 			s_pos->SetObjectType(ObjectType::Start_Pos);
+			s_pos->AddInitComponent(new Sprite("asset/images/Objects/StartPoint.png"));
 
 			Objectmanager_.AddObject(s_pos);
 		}
 	}
 
 	ImGui::SameLine();
+        ImGui::Button("Jump high Object");
+        if (ImGui::IsItemActive())
+        {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+        }
+        if (ImGui::IsItemDeactivated())
+        {
+                Object* jump_obj = new Object();
+                jump_obj->SetTranslation(Input::GetMousePos());
+                jump_obj->SetScale({ 75.0f, 75.0f });
+                jump_obj->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
+                jump_obj->SetDepth(GAME_OBJECT);
+                jump_obj->SetObjectType(ObjectType::Capture_Obj);
+                jump_obj->AddInitComponent(new Collision(box_));
+                jump_obj->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
+				jump_obj->AddComponent(new Animation("asset/images/Objects/JumpBoard.png", "obstacle", 15, 0.05f));
+
+                Objectmanager_.AddObject(jump_obj);
+        }
+
+        ImGui::SameLine();
+        ImGui::Button("Obstacle");
+        if (ImGui::IsItemActive())
+        {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+        }
+        if (ImGui::IsItemDeactivated())
+        {
+            Object* obstacle = new Object();
+            obstacle->SetTranslation(Input::GetMousePos());
+            obstacle->SetScale({ 75.0f, 75.0f });
+            obstacle->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
+            obstacle->SetDepth(GAME_OBJECT);
+            obstacle->SetObjectType(ObjectType::Obstacle);
+            obstacle->AddInitComponent(new Collision(box_));
+			obstacle->AddComponent(new Animation("asset/images/Objects/Danger.png", "obstacle", 9, 0.05f));
+
+            Objectmanager_.AddObject(obstacle);
+        }
+        ImGui::SameLine();
 
 	ImGui::Button("Reset Pos");
 	if (ImGui::IsItemActive())

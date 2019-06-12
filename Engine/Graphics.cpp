@@ -111,6 +111,8 @@ void Graphics::Update(float dt)
     displaysize.y = static_cast<float>(Application_.GetScreenSize().y);
 
     glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
+	//glEnable(GL_SCISSOR_TEST);
+	//glScissor(0, 0, static_cast<int>(displaysize.x/2.0f), static_cast<int>(displaysize.y/2.0f));
 
     if (game_level_camera == nullptr)
     {
