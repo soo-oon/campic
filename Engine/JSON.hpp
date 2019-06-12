@@ -63,9 +63,7 @@ public:
 	Value ComponentParticle(Object* obj);
 	Value ComponentSound(Object* obj);
 	Value ComponentFont(Object* obj);
-	Value ComponentMovingObj(Object* obj);
-	Value ComponentProjectile(Object* obj);
-        Value ComponentTrigger(Object* obj);
+    Value ComponentTrigger(Object* obj);
 	
 	Document& GetObjectDocument() { return ObjectDocument; }
 	Document& GetTileDocument() { return TileDocument; }

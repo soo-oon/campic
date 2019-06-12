@@ -24,9 +24,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {},
         "Camera": {},
         "Chapter": {}
@@ -56,9 +54,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {},
         "Camera": {},
         "Chapter": {}
@@ -88,9 +84,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {},
         "Camera": {},
         "Chapter": {
@@ -129,9 +123,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {
             "id": "Level11"
         },

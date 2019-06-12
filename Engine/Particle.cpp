@@ -2,6 +2,12 @@
 #include "RandomFunction.hpp"
 #include <iostream>
 
+Particle::~Particle()
+{
+	delete particle_obj;
+	delete base_obj;
+}
+
 bool Particle::Initialize(Object* Ob)
 {
 	if (base_obj == nullptr)

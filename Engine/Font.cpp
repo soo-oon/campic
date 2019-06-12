@@ -48,6 +48,10 @@ void Font::Update(float dt)
 
 void Font::Delete()
 {
+	meshes.clear();
+	string.clear();
+	delete font;
+	delete[] sprite;
 }
 
 

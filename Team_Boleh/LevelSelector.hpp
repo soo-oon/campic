@@ -28,8 +28,8 @@ private:
 	//Object* mouse_icon = nullptr;
 private:
 	std::map<std::string, bool> m_LevelLock;
-	MenuPage* m_Menu1;
-	MenuPage* m_Menu2;
+	MenuPage* m_Menu1 = nullptr;
+	MenuPage* m_Menu2 = nullptr;
 
 	bool selectPage = true;
 };

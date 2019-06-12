@@ -300,6 +300,13 @@ void Graphics::Quit()
 
     Spriteshader.Delete();
     Solidshader.Delete();
+
+	shapes.clear();
+	sprite.clear();
+	animation.clear();
+	collsionboxes.clear();
+	particles.clear();
+	fontes.clear();
 }
 
 void Graphics::BeginDraw()

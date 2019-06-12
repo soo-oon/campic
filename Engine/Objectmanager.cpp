@@ -85,6 +85,13 @@ void Objectmanager::Update(float dt)
 
 void Objectmanager::Quit()
 {
+	for(auto& i : objects_)
+	{
+		for(auto& j : i->GetComponent())
+		{
+			j->Delete();
+		}
+	}
     objects_.clear();
 }
 

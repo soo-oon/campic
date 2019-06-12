@@ -110,11 +110,11 @@ void Engine::System_Quit()
 	Application_.Quit();
 	StateManager_.Quit();
 	Graphics_.Quit();
-	Objectmanager_.Quit();
 #ifdef _DEBUG
 	IMGUI_.Quit();
 #endif
 	AudioManager_.Quit();
 	Physics_.Quit();
 	HUD_.Quit();
+	Objectmanager_.Quit();
 }

@@ -28,7 +28,6 @@ public:
 		: curr_level(curr_level_)
 	{
 	}
-
 	Camera(vector2 camera_center, vector2 camera_up);
 
 	bool Initialize(Object* Ob) override;

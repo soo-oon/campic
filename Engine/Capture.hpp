@@ -11,7 +11,6 @@ class Capture : public Component
 {
 public:
 	Capture(vector2 pos) : reset_pos(pos){}
-	~Capture()  { }
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;

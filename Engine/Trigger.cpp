@@ -1,4 +1,4 @@
-#include "Trigger.h"
+#include "Trigger.hpp"
 #include "ObjectDepth.hpp"
 #include "State.hpp"
 #include "Capture.hpp"
@@ -49,6 +49,7 @@ void Trigger::Update(float dt)
 
 void Trigger::Delete()
 {
+	delete m_connected_object;
 }
 
 void Trigger::ConnectObjectAction()

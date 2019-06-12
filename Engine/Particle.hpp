@@ -42,6 +42,7 @@ public:
 			component->Initialize(particle_obj);
 		}
 	}
+	~Particle();
 
 	bool Initialize(Object* Ob);
 	void Update(float dt, vector2 random_velocity_);

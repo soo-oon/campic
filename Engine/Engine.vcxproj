@@ -22,32 +22,32 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{0306D496-E7D2-4E9E-96DD-DAFCA3688AC8}</ProjectGuid>
     <RootNamespace>Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -146,6 +146,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BitmapFont.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Capture.cpp" />
     <ClCompile Include="Chapter.cpp" />
     <ClCompile Include="Collision.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -184,14 +185,12 @@
     </ClCompile>
     <ClCompile Include="LevelJson.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MovingObject.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Objectmanager.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Particle_Generator.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -210,6 +209,7 @@
     <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="BitmapFont.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Capture.hpp" />
     <ClInclude Include="Chapter.hpp" />
     <ClInclude Include="Collision.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -246,7 +246,6 @@
     <ClInclude Include="LevelJson.hpp" />
     <ClInclude Include="MenuPage.hpp" />
     <ClInclude Include="Mesh.hpp" />
-    <ClInclude Include="MovingObject.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="ObjectDepth.hpp" />
     <ClInclude Include="Objectmanager.hpp" />
@@ -254,7 +253,6 @@
     <ClInclude Include="Particle_Generator.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Projectile.hpp" />
     <ClInclude Include="Reaction.hpp" />
     <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="Shader.hpp" />
@@ -265,7 +263,7 @@
     <ClInclude Include="Tile_Map.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="Trigger.h" />
+    <ClInclude Include="Trigger.hpp" />
     <ClInclude Include="UI.hpp" />
   </ItemGroup>
   <ItemGroup>

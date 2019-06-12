@@ -49,6 +49,7 @@ Object::Object(const Object& obj)
 	}
 }
 
+
 void Object::AddComponent(Component* component)
 {
     m_component.push_back(component);

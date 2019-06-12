@@ -57,6 +57,7 @@ void Collision::Update(float dt)
 
 void Collision::Delete()
 {
+	collision_TRS.clear();
 }
 
 void Collision::SetJumpingitutionType(RestitutionType restitution)

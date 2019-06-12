@@ -1,7 +1,7 @@
 #include "Level.hpp"
 #include "Input.hpp"
 #include "UI.hpp"
-#include <iostream>
+#include "HUD_Level.hpp"
 
 void Level::Initialize()
 {
@@ -43,6 +43,8 @@ void Level::Initialize()
 	
 	Objectmanager_.AddObject(camera);
 	Objectmanager_.AddObject(background);
+
+	HUD_Level::ChangeCaptureLimit = false;
 
 
 	///////////For PlayTest

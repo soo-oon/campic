@@ -32,11 +32,11 @@ public:
 
     Animation_Information(const std::string path_, std::string ID, int image_frame_,
         float update_frame_, bool repeat = true)
-        : path(path_), id(ID),image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
+        :  id(ID), path(path_), image_frames(image_frame_), update_frames(update_frame_), is_repeats(repeat)
     {
         sprites = new Sprite(path);
 
-        frame_per_seconds = 1.0f / image_frames;
+        frame_per_seconds = 1.0f / (float)image_frames;
     };
 
 	std::string id;
@@ -90,15 +90,13 @@ public:
 	}
 
     bool Initialize(Object* Ob) override;
-    void Update(float dt) override;
+    void Update(float dt) override;    
+	void Delete() override;
 
 	void AddAnimaition(const std::string path, const std::string ID, 
 	int image_frame_, float update_frame_, bool repeat = true);
 
 	void ResetAnimaition();
-
-    void Delete() override;
-
 	void ChangeAnimation(std::string ID, std::string original_ID = std::string{});
 	void SetIsActive(bool condition);
 

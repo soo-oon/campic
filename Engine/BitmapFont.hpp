@@ -9,6 +9,7 @@ class BitmapFont
 public:
 	struct Character
 	{
+		~Character() = default;
 		wchar_t id = wchar_t(-1);
 		unsigned short x = 0;
 		unsigned short y = 0;
@@ -22,6 +23,7 @@ public:
 
 	struct Information
 	{
+		~Information() = default;
 		short fontSize = 0;
 		std::wstring fontName{};
 		unsigned short lineHeight = 0;
@@ -33,6 +35,7 @@ public:
 
 public:
 	BitmapFont(const std::wstring& fnt_filepath);
+	~BitmapFont();
 	bool LoadFromFile(const std::wstring& fnt_filepath);
 	const Information& GetInformation() const;
 	Character GetCharacter(wchar_t character_id) const;

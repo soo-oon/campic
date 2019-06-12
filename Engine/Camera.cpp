@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include "State.hpp"
 #include <iostream>
 
+
 Camera::Camera(vector2 camera_center, vector2 camera_up)
 	: center(camera_center), up(camera_up)
 {}

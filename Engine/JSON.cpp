@@ -5,10 +5,8 @@
 #include "Particle_Generator.hpp"
 #include "Font.hpp"
 #include "Capture.hpp"
-#include "Projectile.hpp"
 #include "UI.hpp"
-#include "MovingObject.hpp"
-#include "Trigger.h"
+#include "Trigger.hpp"
 #include "Chapter.hpp"
 
 JSON JSON_;
@@ -51,9 +49,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	Value objSoundTree(kArrayType);
 	Value objFontTree(kArrayType);
 	Value objCaptureTree(kArrayType);
-	Value objProjectileTree(kArrayType);
 	Value objTriggerTree(kArrayType);
-	Value objMovingObjectTree(kArrayType);
 	Value objChapterTree(kArrayType);
 	Value objUItree;
 	Value capture;
@@ -71,9 +67,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objSoundTree.SetObject();
 	objFontTree.SetObject();
 	objCaptureTree.SetObject();
-	objProjectileTree.SetObject();
 	objTriggerTree.SetObject();
-	objMovingObjectTree.SetObject();
 	capture.SetObject();
 	objUItree.SetObject();
 	objUi.SetObject();
@@ -116,14 +110,8 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 		objCaptureTree.AddMember("pos", capture, ObjectDocument.GetAllocator());
 	}
 
-	if (obj->GetComponentByTemplate<Projectile>() != nullptr)
-		objProjectileTree = ComponentProjectile(obj);
-
     if(obj->GetComponentByTemplate<Trigger>() != nullptr)
         objTriggerTree = ComponentTrigger(obj);
-
-	if (obj->GetComponentByTemplate<MovingObject>() != nullptr)
-		objMovingObjectTree = ComponentMovingObj(obj);
 
 	if (obj->GetComponentByTemplate<UI>() != nullptr)
 	{
@@ -151,9 +139,7 @@ void JSON::ObjectsToDocument(Object* obj, const std::string& file, const std::st
 	objTree.AddMember("Sound", objSoundTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Font", objFontTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Capture", objCaptureTree, ObjectDocument.GetAllocator());
-	objTree.AddMember("Projectile", objProjectileTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Trigger", objTriggerTree, ObjectDocument.GetAllocator());
-	objTree.AddMember("Moving", objMovingObjectTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("UI", objUItree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Camera", objCameraTree, ObjectDocument.GetAllocator());
 	objTree.AddMember("Chapter", objChapterTree, ObjectDocument.GetAllocator());
@@ -475,68 +461,6 @@ Value JSON::ComponentFont(Object * obj)
 	return container;
 }
 
-Value JSON::ComponentMovingObj(Object* obj)
-{
-	Value container(kArrayType);
-	Value m_dt, m_InitPosition, m_GoalPosition, m_Distance, m_Velocity, m_MoveTime, m_WhichWay, m_MoveType;
-
-	container.SetObject();
-	m_dt.SetObject();
-	m_InitPosition.SetObject();
-	m_GoalPosition.SetObject();
-	m_Distance.SetObject();
-	m_Velocity.SetObject();
-	m_MoveTime.SetObject();
-	m_WhichWay.SetObject(); 
-	m_MoveType.SetObject();
-
-	auto info = obj->GetComponentByTemplate<MovingObject>();
-
-	m_dt.SetFloat(info->GetDt());
-	m_InitPosition.AddMember("x", info->GetInitPosition().x, ObjectDocument.GetAllocator());
-	m_InitPosition.AddMember("y", info->GetInitPosition().y, ObjectDocument.GetAllocator());
-	m_GoalPosition.AddMember("x", info->GetGoalPosition().x, ObjectDocument.GetAllocator());
-	m_GoalPosition.AddMember("y", info->GetGoalPosition().y, ObjectDocument.GetAllocator());
-	m_Distance.AddMember("distance", info->GetDistance(), ObjectDocument.GetAllocator());
-	m_Velocity.AddMember("velocity", info->GetVelocity(), ObjectDocument.GetAllocator());
-	m_MoveTime.AddMember("move_time", info->GetMoveTime(), ObjectDocument.GetAllocator());
-	m_WhichWay.AddMember("direction", static_cast<int>(info->GetDirection()), ObjectDocument.GetAllocator());
-	m_MoveType.AddMember("type", static_cast<int>(info->GetMoveType()), ObjectDocument.GetAllocator());
-
-	container.AddMember("dt", m_dt, ObjectDocument.GetAllocator());
-	container.AddMember("init_pos", m_InitPosition, ObjectDocument.GetAllocator());
-	container.AddMember("goal_pos", m_GoalPosition, ObjectDocument.GetAllocator());
-	container.AddMember("distance", m_Distance, ObjectDocument.GetAllocator());
-	container.AddMember("velocity", m_Velocity, ObjectDocument.GetAllocator());
-	container.AddMember("move_time", m_MoveTime, ObjectDocument.GetAllocator());
-	container.AddMember("direction", m_WhichWay, ObjectDocument.GetAllocator());
-	container.AddMember("type", m_MoveType, ObjectDocument.GetAllocator());
-
-	return container;
-}
-
-Value JSON::ComponentProjectile(Object * obj)
-{
-	Value container(kArrayType);
-	Value fire_time, life_time, type;
-
-	container.SetObject();
-	fire_time.SetObject();
-	life_time.SetObject();
-	type.SetObject();
-
-	auto info = obj->GetComponentByTemplate<Projectile>();
-
-	fire_time.AddMember("fire_time", info->GetFireTime(), ObjectDocument.GetAllocator());
-	life_time.AddMember("life_time", info->GetLifeTime(), ObjectDocument.GetAllocator());
-	type.AddMember("type", static_cast<int>(info->GetType()), ObjectDocument.GetAllocator());
-
-	container.AddMember("fire_time", fire_time, ObjectDocument.GetAllocator());
-	container.AddMember("life_time", life_time, ObjectDocument.GetAllocator());
-	container.AddMember("type", type, ObjectDocument.GetAllocator());
-
-	return container;
-}
 Value JSON::ComponentTrigger(Object * obj)
 {
     Value container(kArrayType);
@@ -676,7 +600,7 @@ void JSON::SaveTilesToJson(Tile_Type type, const std::string& path)
 
 	FILE* fp = fopen(filename.c_str(), "wb+");
 
-	char writeBuffer[65535];
+	char writeBuffer[16384];
 	FileWriteStream os(fp, writeBuffer, sizeof(writeBuffer));
 
 	PrettyWriter<FileWriteStream> writer(os);
@@ -845,7 +769,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		Value& obj_array = temp.value;
 
 		Value status, transform, animation, sprite, rigid_body, collision, particle, sound, font, capture, camera;
-		Value ui, projectile, movingobj, trigger, chapter;
+		Value ui, trigger, chapter;
 		
 		Object* obj = new Object();
 
@@ -859,10 +783,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		sound.SetObject();
 		font.SetObject();
 		capture.SetObject();
-		//camera.SetObject();
 		ui.SetObject();
-		projectile.SetObject();
-		movingobj.SetObject();
         trigger.SetObject();
 		chapter.SetObject();
 		
@@ -877,8 +798,6 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 		font = obj_array.FindMember("Font")->value;
 		capture = obj_array.FindMember("Capture")->value;
 		camera = obj_array.FindMember("Camera")->value;
-		projectile = obj_array.FindMember("Projectile")->value;
-		movingobj = obj_array.FindMember("Moving")->value;
         trigger = obj_array.FindMember("Trigger")->value;
 		chapter = obj_array.FindMember("Chapter")->value;
 		ui = obj_array.FindMember("UI")->value;
@@ -1044,69 +963,24 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			obj->AddComponent(new Capture(reset_pos));
 		}
 
-		//////////////////////////////////////////Camera
-		//if(camera.HasMember("zoom"))
-		//{
-		//	float zoom = camera.FindMember("zoom")->value.GetFloat();
-		//	vector2 center, up, right;
-
-		//	center.x = camera.FindMember("center")->value.FindMember("x")->value.GetFloat();
-		//	center.y = camera.FindMember("center")->value.FindMember("y")->value.GetFloat();
-		//	up.x = camera.FindMember("up")->value.FindMember("x")->value.GetFloat();
-		//	up.y = camera.FindMember("up")->value.FindMember("y")->value.GetFloat();
-		//	right.x = camera.FindMember("right")->value.FindMember("x")->value.GetFloat();
-		//	right.y = camera.FindMember("right")->value.FindMember("y")->value.GetFloat();
-		//	std::string level = camera.FindMember("level")->value.GetString();
-
-		//	obj->AddComponent(new Camera(level));
-		//}
-
 		////////////////////////////////////////////UI
 		if(ui.HasMember("id"))
 		{
 			obj->AddComponent(new UI(ui.FindMember("id")->value.GetString()));
 		}
 
-		////////////////////////////////////////////Projectile
 
-		if(projectile.HasMember("fire_time"))
-		{
-			float firetime = projectile.FindMember("fire_time")->value.FindMember("fire_time")->value.GetFloat();
-			float life_time = projectile.FindMember("life_time")->value.FindMember("life_time")->value.GetFloat();
-			Projectile_Type type = static_cast<Projectile_Type>(projectile.FindMember("type")->value.FindMember("type")->value.GetInt());
-
-			obj->AddComponent(new Projectile(firetime, life_time, type));
-		}
-
-		////////////////////////////////////////////Moving
-
-		if(movingobj.HasMember("dt"))
-		{
-			float dt = movingobj.FindMember("dt")->value.GetFloat();
-			vector2 init_pos, goal_pos;
-			init_pos.x = movingobj.FindMember("init_pos")->value.FindMember("x")->value.GetFloat();
-			init_pos.y = movingobj.FindMember("init_pos")->value.FindMember("y")->value.GetFloat();
-			goal_pos.x = movingobj.FindMember("goal_pos")->value.FindMember("x")->value.GetFloat();
-			goal_pos.y = movingobj.FindMember("goal_pos")->value.FindMember("y")->value.GetFloat();
-
-			float distance = movingobj.FindMember("distance")->value.FindMember("distance")->value.GetFloat();
-			float velocity = movingobj.FindMember("velocity")->value.FindMember("velocity")->value.GetFloat();
-			float move_time = movingobj.FindMember("move_time")->value.FindMember("move_time")->value.GetFloat();
-			Direction direction = static_cast<Direction>(movingobj.FindMember("direction")->value.FindMember("direction")->value.GetInt());
-			MovementType type = static_cast<MovementType>(movingobj.FindMember("type")->value.FindMember("type")->value.GetInt());
-
-			obj->AddComponent(new MovingObject(distance, init_pos,velocity,direction,type,move_time));
-		}
-
-	        if (obj->GetObjectType() == ObjectType::Start_Pos)
-                {
-                    StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
-                }
-	        else{
-                        Objectmanager_.AddObject(obj);
-	        }
-                if (obj->GetObjectType() == ObjectType::Player)
-                    Objectmanager_.SetPlayer(obj);
+	   if (obj->GetObjectType() == ObjectType::Start_Pos)
+       {
+            StateManager_.GetCurrentState()->SetStartPosition(obj->GetTransform().GetTranslation());
+       }
+	   else
+	   {
+            Objectmanager_.AddObject(obj);
+	   }
+       
+		if (obj->GetObjectType() == ObjectType::Player)
+            Objectmanager_.SetPlayer(obj);
 
 
 		////////////////////Chapter

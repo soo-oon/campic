@@ -13,6 +13,10 @@ Creation date: 2018/12/14
 - End Header ----------------------------------------------------------------
 */
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include "Application.hpp"
 #include "Engine.hpp"
 #include "StateManager.hpp"
@@ -20,14 +24,19 @@ Creation date: 2018/12/14
 #include "MainMenu.hpp"
 #include "Level.hpp"
 #include "LevelSelector.hpp"
+#include "Credit.hpp"
 
 int main()
 {
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(25697);
+
     Engine engine;
 
     engine.Initialize();
     
     StateManager_.AddStage("Splash_Screen", new SplashScreen());
+	StateManager_.AddStage("Credit", new Credit());
 	StateManager_.AddStage("MainMenu", new MainMenu());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
 	StateManager_.AddStage("Level", new Level());
@@ -35,6 +44,7 @@ int main()
 	engine.Update();
   
     engine.Quit();
+
 
     return 0;
 }

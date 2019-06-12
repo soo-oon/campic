@@ -28,6 +28,8 @@ void SplashScreen::Initialize()
 	logo->AddComponent(new Sprite("asset/images/Splash/DigiPen_.png"));
 
 	Objectmanager_.AddObject(logo);
+
+	//Application_.FullScreen();
 }
 
 void SplashScreen::Update(float dt)
@@ -36,19 +38,18 @@ void SplashScreen::Update(float dt)
 
 	if(ischange)
 	{
-		if (time_count < 3.0f)
+		if (time_count < 4.0f)
 		{
 			logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
 			 logo->GetTransform().GetScale().y + 55 * dt });
 		}
-		else if(time_count > 5.0f)
+		else if(time_count > 4.0f)
 			StateManager_.BackToMainMenu();
 	}
 	else
 	{
-
-		if (logo->GetTransform().GetScale().x < 920.0f &&
-			logo->GetTransform().GetScale().y < 420.0f)
+		if (logo->GetTransform().GetScale().x < 1300.0f &&
+			logo->GetTransform().GetScale().y < 700.0f)
 		{
 			logo->SetScale({ logo->GetTransform().GetScale().x + 220 * dt,
 			 logo->GetTransform().GetScale().y + 55 * dt });

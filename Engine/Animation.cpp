@@ -86,6 +86,7 @@ void Animation::ResetAnimaition()
 
 void Animation::Delete()
 {
+	animations.clear();
 }
 
 void Animation::ChangeAnimation(std::string ID, std::string original_ID)

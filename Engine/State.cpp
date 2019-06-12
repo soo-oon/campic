@@ -33,7 +33,6 @@ void State::ChangeLevel(std::string ID)
 
 	//playtest
 	data.second = 0;
-
 }
 
 void State::BackToMenu()
