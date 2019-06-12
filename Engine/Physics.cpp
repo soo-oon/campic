@@ -43,7 +43,7 @@ void Physics::Update(float dt)
             projectile_list.clear();
             static_list.clear();
             dynamic_list.clear();
-			checkpoint_list.clear();
+	    checkpoint_list.clear();
             trigger_list.clear();
             doors.clear();
             obstacle_list.clear();
