@@ -26,11 +26,11 @@ public:
 	/*Component()
 		:object(nullptr)
 	{};*/
-    virtual ~Component()
-    {};
-    Object* object;
+	
+    Object* object = nullptr;
 
     virtual bool Initialize(Object* Ob) = 0;
     virtual void Update(float dt) = 0;
-    virtual void Delete() = 0;
+    virtual void Delete() = 0; 
+	//virtual ~Component() = 0;
 };

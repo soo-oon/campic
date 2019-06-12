@@ -29,7 +29,7 @@ void HUD_Level::Initialize()
 
 	h_capture_limit = new Object();
 	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -250.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
-	h_capture_limit->SetScale(vector2{ screen_size.x /10.f, screen_size.y/10.f });
+	h_capture_limit->SetScale(vector2{ Application_.GetScreenSize().x /10.f, Application_.GetScreenSize().y/10.f });
 	h_capture_limit->SetDepth(-0.5f);
 	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_capture_limit->SetObjectType(ObjectType::None);
@@ -60,7 +60,7 @@ void HUD_Level::Initialize()
 
 	////////////OPTION WINDOW
 	h_option_window = new Object();
-	h_option_window->SetScale({ screen_size.x, screen_size.y});
+	h_option_window->SetScale({ Application_.GetScreenSize().x, Application_.GetScreenSize().y});
 	h_option_window->SetDepth(-0.6f);
 	h_option_window->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_option_window->SetObjectType(ObjectType::None);
@@ -68,27 +68,27 @@ void HUD_Level::Initialize()
 	h_option_window->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_option_window);
 
-	h_volume_scroll_button = CreateHudButton(vector2(screen_size.x - 1300.f, screen_size.y - 890.f), screen_size / 25.f,
+	h_volume_scroll_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1300.f, Application_.GetScreenSize().y - 890.f), Application_.GetScreenSize() / 25.f,
 		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "volume_button");
 	HUD_.Add_HUD_Object(h_volume_scroll_button);
 
-	h_restart_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 800.f), screen_size / 10.f,
+	h_restart_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 800.f), Application_.GetScreenSize() / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "restart");
 	HUD_.Add_HUD_Object(h_restart_button);
 
-	h_mute_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1000.f), screen_size / 10.f,
+	h_mute_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1000.f), Application_.GetScreenSize() / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "Mute");
 	HUD_.Add_HUD_Object(h_mute_button);
 
-	h_fullscreen_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1100.f), screen_size / 10.f,
+	h_fullscreen_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1100.f), Application_.GetScreenSize() / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "fullscreen");
 	HUD_.Add_HUD_Object(h_fullscreen_button);
 
-	h_backtomenu_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1200.f), screen_size / 10.f,
+	h_backtomenu_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1200.f), Application_.GetScreenSize() / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "backtomenu");
 	HUD_.Add_HUD_Object(h_backtomenu_button);
 
-	h_quit_button = CreateHudButton(vector2(screen_size.x - 1000.f, screen_size.y - 1300.f), screen_size / 10.f,
+	h_quit_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1300.f), Application_.GetScreenSize() / 10.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
 	HUD_.Add_HUD_Object(h_quit_button);
 }
@@ -146,17 +146,22 @@ void HUD_Level::Update(float dt)
 		h_capture_limit->SetVisible();
 		h_capture_number->SetVisible();
 
-		if (StateManager_.GetCurrentState()->GetChapter().first == 3)
+		if (!ChangeCaptureLimit)
 		{
-			h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
-			h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
-			h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
-		}
-		else
-		{
-			h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitBlack.png");
-			h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
-			h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+			if (StateManager_.GetCurrentState()->GetChapter().first == 3)
+			{
+				h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
+				h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
+				h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
+				ChangeCaptureLimit = true;
+			}
+			else
+			{
+				h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitBlack.png");
+				h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+				h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+				ChangeCaptureLimit = true;
+			}
 		}
 
 		std::pair<int,int> chap = StateManager_.GetCurrentState()->GetChapter();

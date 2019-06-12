@@ -17,13 +17,21 @@ void MainMenu::Initialize()
 	//mouse_icon->SetMesh(mesh::CreateBox());
 	//mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
 
+	Object* camera = new Object();
+	camera->SetTranslation({ -100, 0 });
+	camera->SetScale({ 1250,630 });
+	camera->SetDepth(BACKGROUND+0.01f);
+	camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	camera->SetObjectType(ObjectType::Button);
+	camera->AddComponent(new Sprite("asset/images/Page/TitlePage.png"));
+
 	Object* background = new Object();
-	background->SetTranslation({ -100, 0 });
-	background->SetScale({ 1250,630 });
-	background->SetDepth(BACKGROUND);
+	background->SetTranslation({ 0, 0 });
+	background->SetDepth(0.98f);
+	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
-	background->AddComponent(new Sprite("asset/images/Page/TitlePage.png"));
+	background->AddComponent(new Animation("asset/images/Page/BackgroundDay.png", "day", 16, 0.15f, true));
 
 	Object* Start = new Object();
 	Start->SetTranslation({450, 120});
@@ -49,7 +57,7 @@ void MainMenu::Initialize()
 	Credit->SetDepth(HUD_OBJECT);
 	Credit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	Credit->SetObjectType(ObjectType::Button);
-	Credit->AddComponent(new UI("LevelSelector"));
+	Credit->AddComponent(new UI("Credit"));
 	Credit->AddComponent(new Sprite("asset/images/UI/CreditButton.png"));
 
 	Object* Quit = new Object();
@@ -67,6 +75,7 @@ void MainMenu::Initialize()
 	Objectmanager_.AddObject(Credit);
 	Objectmanager_.AddObject(Quit);
 	Objectmanager_.AddObject(background);
+	Objectmanager_.AddObject(camera);
 }
 
 void MainMenu::Update(float dt)
@@ -87,6 +96,9 @@ void MainMenu::Update(float dt)
 
 			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Quit")
 				Engine::IsQuit = true;
+
+			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Credit")
+				StateManager_.ToCredit();
 		}
 	}
 }

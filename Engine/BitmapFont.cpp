@@ -4,8 +4,6 @@
 #include <fstream>
 #include "Sprite.hpp"
 
-namespace fs = std::experimental::filesystem;
-
 namespace
 {
 	template <typename Number>
@@ -19,25 +17,27 @@ BitmapFont::BitmapFont(const std::wstring& fnt_filepath)
 	LoadFromFile(fnt_filepath);
 }
 
+BitmapFont::~BitmapFont()
+{
+	characters.clear();
+	pageTextures.clear();
+}
+
 bool BitmapFont::LoadFromFile(const std::wstring& fnt_filepath)
 {
 	if (!CanParseFile(fnt_filepath))
 		return false;
 
-	//pageTextures.reserve(information.pagesCount);
-	//pageTextures.push_back(new Sprite(png_filepath));
-
-	const auto file_dir = fs::path(fnt_filepath).parent_path();
+	const auto file_dir = std::filesystem::path(fnt_filepath).parent_path();
 
 	for (const auto& page_name : information.pageNames)
 	{
 		const auto image_filepath = file_dir / page_name;
 
-		if (!fs::exists(image_filepath))
+		if (!std::filesystem::exists(image_filepath))
 			return false;
 
 		pageTextures.push_back(new Sprite(image_filepath.string()));
-		//pageTextures.emplace_back();
 		const auto loaded = pageTextures.at(pageTextures.size()-1)->Texture_Load();
 
 		if (!loaded)
@@ -89,7 +89,10 @@ bool BitmapFont::CanParseFile(const std::wstring& fnt_filepath)
 {
 	std::wifstream stream(fnt_filepath);
 	if (!stream)
+	{
+		stream.close();
 		return false;
+	}
 
 	std::wstring line;
 	std::wstring line_type;
@@ -137,7 +140,15 @@ bool BitmapFont::CanParseFile(const std::wstring& fnt_filepath)
 
 			characters.insert_or_assign(desc.id, desc);
 		}
+		
+		line.clear();
+		line_type.clear();
 	}
+
+	
+	stream.clear();
+	stream.close();
+
 	return true;
 }
 

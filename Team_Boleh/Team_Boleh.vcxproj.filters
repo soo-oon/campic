@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Capture.cpp" />
     <ClCompile Include="HUD_Level.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="LevelSelector.cpp" />
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Credit.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Capture.hpp" />
     <ClInclude Include="HUD_Level.hpp" />
     <ClInclude Include="SplashScreen.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="LevelSelector.hpp" />
-    <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="Level.hpp" />
+    <ClInclude Include="Credit.hpp" />
   </ItemGroup>
 </Project>

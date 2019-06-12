@@ -69,6 +69,8 @@ void Particle_Generator::Update(float dt)
 
 void Particle_Generator::Delete()
 {
+	particles.clear();
+	path.clear();
 }
 
 void Particle_Generator::SetEmitRate(int rate)

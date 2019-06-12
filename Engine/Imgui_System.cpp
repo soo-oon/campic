@@ -13,17 +13,14 @@ Creation date: 2018/12/14
 */
 
 #include "Imgui_System.hpp"
-#include <iostream>
 #include "stb_image.h"
 #include <imgui_internal.h>
 #include "Tile_Map.hpp"
 #include "Physics.hpp"
 #include "Capture.hpp"
-#include "MovingObject.hpp"
-#include "Projectile.hpp"
 #include "UI.hpp"
 #include "Level.hpp"
-#include "Trigger.h"
+#include "Trigger.hpp"
 #include "Chapter.hpp"
 
 Imgui_System IMGUI_;
@@ -79,8 +76,6 @@ bool Imgui_System::Initialize()
 		auto texture = ImageHelper(temp);
 		Sunset_tileList_buttons.insert(std::make_pair(temp, (void*)(intptr_t)texture));
 	}
-
-	std::cout << "IMGUI Initialization Successful" << std::endl;
 
 	return true;
 }
@@ -156,6 +151,7 @@ void Imgui_System::Quit()
 	Day_tileList_buttons.clear();
 	Night_tileList_buttons.clear();
 	Sunset_tileList_buttons.clear();
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
@@ -688,9 +684,8 @@ void Imgui_System::TileEditor(bool tile_editor)
 
 GLuint Imgui_System::ImageHelper(std::string path)
 {
-	std::vector<GLuint> texture_data;
-
 	int my_image_width, my_image_height;
+
 	unsigned char* my_image_data = stbi_load(path.c_str(),
 		&my_image_width, &my_image_height, nullptr, STBI_rgb_alpha);
 
@@ -705,6 +700,8 @@ GLuint Imgui_System::ImageHelper(std::string path)
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, my_image_width, my_image_height,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, my_image_data);
+
+	stbi_image_free(my_image_data);
 
 	return my_opengl_texture;
 }

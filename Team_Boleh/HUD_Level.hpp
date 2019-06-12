@@ -18,6 +18,7 @@ public:
 	Object* CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id = "");
 
 	inline static bool IsOptionWindowOpen = false;
+	inline static bool ChangeCaptureLimit = false;
 private:
 	Object* h_chapter = nullptr;
 	//OPTION
@@ -43,4 +44,6 @@ private:
 	bool is_game_state = false;
 	bool mute = false;
 	bool fullscreen = false;
+
+	
 };

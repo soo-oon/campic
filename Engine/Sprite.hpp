@@ -31,7 +31,6 @@ public:
 		: path(copy_sprite.path), handle_to_texture(0)
 	{}
 
-    ~Sprite() = default;
     Sprite& operator=(const Sprite& other);
 
     bool Initialize(Object* Ob) override;

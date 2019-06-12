@@ -87,6 +87,17 @@ void StateManager::BackToMenu()
 	Physics_.ResetPreviousSize();
 }
 
+void StateManager::ToCredit()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("Credit")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
 void StateManager::BackToMainMenu()
 {
 	m_currentState->ShutDown();
@@ -143,6 +154,9 @@ void StateManager::Update(float dt)
 
 	if (m_currentState->IsBackToMenu())
 		BackToMenu();
+
+	if (m_currentState->IsToCredit())
+		ToCredit();
 
 	m_currentState->Update(dt);
 

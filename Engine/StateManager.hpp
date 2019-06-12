@@ -26,7 +26,7 @@ enum class State_Information
 	Menu,
 	Game,
 	HUD,
-	MapEditor,
+	Credit,
 	size
 };
 
@@ -42,6 +42,7 @@ public:
 	void AddStage(std::string ID, State* state);
 	void BackToMenu();
 	void BackToMainMenu();
+	void ToCredit();
 	void ChangeStage();
 	void Restart();
 	void Pause();

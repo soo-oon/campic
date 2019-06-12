@@ -50,7 +50,6 @@ private:
 	bool show_window = false;
 	bool object_creator = false;
 	bool object_editor = false;
-	bool sound_editor = false;
 	bool tile_editor = false;
 
 	std::vector<std::string> imageList;
@@ -74,12 +73,10 @@ private:
 
 	bool is_normal_tile = true;
 	bool graphics_tile = false;
-
-        bool player_existed = false;
-        bool start_existed = false;
-        bool capture_existed = false;
-
-		bool set_flip = false;
+    bool player_existed = false;
+    bool start_existed = false;
+    bool capture_existed = false;
+	bool set_flip = false;
 
 	Object* selectObj = nullptr;
 	Object* player_ = nullptr;

@@ -37,6 +37,7 @@ public:
 
 	virtual bool IsLevelChange() { return level_change; }
 	virtual bool IsBackToMenu() { return back_to_menu; }
+	virtual bool IsToCredit() { return to_credit; }
 	virtual std::string GetNextLevel() { return change_level; }
 	virtual void ChangeLevel(std::string ID);
 	virtual void BackToMenu();
@@ -60,11 +61,7 @@ public:
 	void SetPlayerPosition(vector2 pos) { player_pos = pos; }
 	vector2 GetPlayerPosition() { return player_pos; }
 	void SetStartPosition(vector2 pos) { start_pos = pos; }
-	vector2 GetStartPosition()
-	{
-		int a = 5;
-		return start_pos;
-	}
+	vector2 GetStartPosition() { return start_pos;}
 	void SetLevelIndicator(const std::string& id) { level_indicator = id; }
 	std::string GetLevelIndicator() { return level_indicator; }
 	std::pair<int, int> GetChapter() { return Chapter; }
@@ -77,15 +74,12 @@ public:
 	State_Information information_ = State_Information::None;
 	vector2 camera_center{};
 
-
     void CreateCaptureCamera();
     void CreatePlayer();
-
 
 	//PlayTest
 	void PlayTestData();
 	void AddDataCount();
-
 public:
 	std::string level_indicator;
 	std::string change_level;
@@ -101,6 +95,7 @@ private:
 	bool iscamera = false;
 	bool level_change = false;
 	bool back_to_menu = false;
+	bool to_credit = false;
 
 
 	////// For PlayTest data, Delete This after PlayTest

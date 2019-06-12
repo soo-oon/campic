@@ -27,7 +27,6 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {
             "translation": {
                 "x": 0.0,
@@ -39,7 +38,6 @@
             "u_frame": 0.0,
             "i_frame": 0.0
         },
-        "Moving": {},
         "UI": {},
         "Camera": {},
         "Chapter": {}
@@ -72,9 +70,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {},
         "Camera": {},
         "Chapter": {}
@@ -104,9 +100,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {},
         "Camera": {},
         "Chapter": {
@@ -145,9 +139,7 @@
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Projectile": {},
         "Trigger": {},
-        "Moving": {},
         "UI": {
             "id": "Level7"
         },

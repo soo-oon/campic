@@ -41,9 +41,6 @@
     <ClCompile Include="Font.cpp">
       <Filter>Component\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="MovingObject.cpp">
-      <Filter>Component\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Component\cpp</Filter>
     </ClCompile>
@@ -51,9 +48,6 @@
       <Filter>Component\cpp</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Component\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
       <Filter>Component\cpp</Filter>
     </ClCompile>
     <ClCompile Include="Reaction.cpp">
@@ -75,6 +69,9 @@
       <Filter>Component\cpp</Filter>
     </ClCompile>
     <ClCompile Include="Chapter.cpp">
+      <Filter>Component\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Capture.cpp">
       <Filter>Component\cpp</Filter>
     </ClCompile>
   </ItemGroup>
@@ -120,16 +117,10 @@
     <ClInclude Include="Font.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
-    <ClInclude Include="MovingObject.hpp">
-      <Filter>Component\hpp</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
     <ClInclude Include="Particle_Generator.hpp">
-      <Filter>Component\hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
@@ -147,10 +138,13 @@
     <ClInclude Include="Sprite.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
-    <ClInclude Include="Trigger.h">
+    <ClInclude Include="UI.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
-    <ClInclude Include="UI.hpp">
+    <ClInclude Include="Trigger.hpp">
+      <Filter>Component\hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Capture.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
     <ClInclude Include="Chapter.hpp">

@@ -20,7 +20,7 @@ void LevelSelector::Initialize()
 
 	Object* background = new Object();
 	background->SetTranslation({ -0, 0 });
-	background->SetScale({ 1200,900 });
+	background->SetScale({ 1280,960 });
 	background->SetDepth(BACKGROUND);
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Background);
@@ -31,7 +31,7 @@ void LevelSelector::Initialize()
 	Object* previous = new Object();
 	previous->SetTranslation({ -300, -293 });
 	previous->SetScale({ 128,128 });
-	previous->SetDepth(HUD_BUTTON);
+	previous->SetDepth(HUD_OBJECT - 0.02f);
 	previous->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	previous->SetObjectType(ObjectType::Button);
 	previous->AddComponent(new Sprite("asset/images/UI/PrevButton.png"));
@@ -41,7 +41,7 @@ void LevelSelector::Initialize()
 	Object* next = new Object();
 	next->SetTranslation({ 200, -293 });
 	next->SetScale({ 128,128 });
-	next->SetDepth(HUD_BUTTON);
+	next->SetDepth(HUD_OBJECT - 0.02f);
 	next->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	next->SetObjectType(ObjectType::Button);
 	next->AddComponent(new Sprite("asset/images/UI/NextButton.png"));
@@ -131,8 +131,7 @@ void LevelSelector::ShutDown()
 {
 	m_Menu1->GetButtons().clear();
 	m_Menu2->GetButtons().clear();
-	delete m_Menu1;
-	delete m_Menu2;
+
 	UnLoad();
 }
 

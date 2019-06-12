@@ -13,6 +13,8 @@ void Sound::Update(float /*dt*/)
 
 void Sound::Delete()
 {
+	paths.clear();
+	path.clear();
 }
 
 void Sound::Play(std::string path)

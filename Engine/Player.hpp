@@ -27,6 +27,7 @@ const vector2 player_scale = { 50.f,65.f };
 class Player : public Component
 {
 public:
+
 	bool Initialize(Object* Ob);
 	void Update(float dt);
 	void Delete();

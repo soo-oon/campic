@@ -21,7 +21,7 @@ Creation date: 2018/12/14
 #include "Graphics.hpp"
 #include "UI.hpp"
 #include "Capture.hpp"
-#include "Trigger.h"
+#include "Trigger.hpp"
 
 Physics Physics_;
 
