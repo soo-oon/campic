@@ -970,36 +970,7 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
 			obj->AddComponent(new UI(ui.FindMember("id")->value.GetString()));
 		}
 
-		////////////////////////////////////////////Projectile
-
-		if(projectile.HasMember("fire_time"))
-		{
-			float firetime = projectile.FindMember("fire_time")->value.FindMember("fire_time")->value.GetFloat();
-			float life_time = projectile.FindMember("life_time")->value.FindMember("life_time")->value.GetFloat();
-			Projectile_Type type = static_cast<Projectile_Type>(projectile.FindMember("type")->value.FindMember("type")->value.GetInt());
-
-			obj->AddComponent(new Projectile(firetime, life_time, type));
-		}
-
 		////////////////////////////////////////////Moving
-
-		if(movingobj.HasMember("dt"))
-		{
-			float dt = movingobj.FindMember("dt")->value.GetFloat();
-			vector2 init_pos, goal_pos;
-			init_pos.x = movingobj.FindMember("init_pos")->value.FindMember("x")->value.GetFloat();
-			init_pos.y = movingobj.FindMember("init_pos")->value.FindMember("y")->value.GetFloat();
-			goal_pos.x = movingobj.FindMember("goal_pos")->value.FindMember("x")->value.GetFloat();
-			goal_pos.y = movingobj.FindMember("goal_pos")->value.FindMember("y")->value.GetFloat();
-
-			float distance = movingobj.FindMember("distance")->value.FindMember("distance")->value.GetFloat();
-			float velocity = movingobj.FindMember("velocity")->value.FindMember("velocity")->value.GetFloat();
-			float move_time = movingobj.FindMember("move_time")->value.FindMember("move_time")->value.GetFloat();
-			Direction direction = static_cast<Direction>(movingobj.FindMember("direction")->value.FindMember("direction")->value.GetInt());
-			MovementType type = static_cast<MovementType>(movingobj.FindMember("type")->value.FindMember("type")->value.GetInt());
-
-			obj->AddComponent(new MovingObject(distance, init_pos,velocity,direction,type,move_time));
-		}
 
 	        if (obj->GetObjectType() == ObjectType::Start_Pos)
                 {
