@@ -54,86 +54,77 @@ void Physics::Update(float dt)
             doors.clear();
             obstacle_list.clear();
             limit_list = nullptr;
-            for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
-            {
-                if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr)
-                {
-                    if (temp->GetisGet())
-                    {
-                        obj = Objectmanager_.GetObjectMap().erase(obj);
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Player)
-                    {
-                        collision_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Item_Dynamic)
-                    {
-                        dynamic_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Item_Static)
-                    {
-                        static_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Projectile)
-                    {
-                        projectile_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Capture_Obj)
-                    {
-                        capture_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Door)
-                    {
-                        doors.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Reset_Pos)
-                    {
-		        checkpoint_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Trigger)
-                    {
-                        trigger_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else if (obj->get()->GetObjectType() == ObjectType::Obstacle)
-                    {
-                        obstacle_list.push_back(obj->get());
-                        ++obj;
-                    }
-                    else
-                        ++obj;
-                }
-                else if (obj->get()->GetObjectType() == ObjectType::Falling_Limit)
-                {
-                    limit_list = obj->get();
-                    ++obj;
-                }
-                else
-                    ++obj;
-            }
+			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); obj++)
+			{
+				if (obj->get()->GetMesh().IsVisible())
+				{
+					if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr)
+					{
+						if (temp->GetisGet())
+						{
+							obj = Objectmanager_.GetObjectMap().erase(obj);
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Player)
+						{
+							collision_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Item_Dynamic)
+						{
+							dynamic_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Item_Static)
+						{
+							static_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Projectile)
+						{
+							projectile_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Capture_Obj)
+						{
+							capture_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Door)
+						{
+							doors.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Reset_Pos)
+						{
+							checkpoint_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Trigger)
+						{
+							trigger_list.push_back(obj->get());
+						}
+						else if (obj->get()->GetObjectType() == ObjectType::Obstacle)
+						{
+							obstacle_list.push_back(obj->get());
+						}
+					}
+					else if (obj->get()->GetObjectType() == ObjectType::Falling_Limit)
+					{
+						limit_list = obj->get();
+					}
+				}
+			}
             previous_size = static_cast<int>(Objectmanager_.GetObjectMap().size());
         }
         if (collision_list.size() > 0)
         {
 			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
 			{
-				if(obj->get()->IsChangeCollisionBoxScale())
+				if (obj->get()->GetMesh().IsVisible())
 				{
-					if(!obj->get()->IsXposOfCollisionOffset())
-						obj->get()->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetSpecificPosition(obj->get()->GetCollisionBoxOffset());
-					else
-						obj->get()->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetSpecificPosition(obj->get()->GetCollisionBoxOffset(), true);
+					if (obj->get()->IsChangeCollisionBoxScale())
+					{
+						if (!obj->get()->IsXposOfCollisionOffset())
+							obj->get()->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetSpecificPosition(obj->get()->GetCollisionBoxOffset());
+						else
+							obj->get()->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetSpecificPosition(obj->get()->GetCollisionBoxOffset(), true);
 
-					obj->get()->SetChangeCollisionBox(false);
+						obj->get()->SetChangeCollisionBox(false);
+					}
 				}
-				
 			}
 
             for (int i = 0; i < (int)collision_list.size(); i++)
@@ -358,10 +349,10 @@ void Physics::Update(float dt)
 				{
 					if (IntersectionCheckAABB(collision_list[i], obstacle_obj))
 					{
-                                            obstacle_obj->SetIsDead(true);
-                                            collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
-                                            p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
-                                            StateManager_.GetCurrentState()->GetCaptureLimit()--;
+                        obstacle_obj->SetIsDead(true);
+                        collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
+                        p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
+                        StateManager_.GetCurrentState()->GetCaptureLimit()--;
 					}
 				}
 
@@ -523,15 +514,15 @@ void Physics::Update(float dt)
 
 void Physics::Quit()
 {
-	//collision_list.clear();
-	//tile_list.clear();
-	//ground_list.clear();
-	//static_list.clear();
-	//projectile_list.clear();
-	//capture_list.clear();
-	//dynamic_list.clear();
-	//checkpoint_list.clear();
-	//trigger_list.clear();
+	collision_list.clear();
+	tile_list.clear();
+	ground_list.clear();
+	static_list.clear();
+	projectile_list.clear();
+	capture_list.clear();
+	dynamic_list.clear();
+	checkpoint_list.clear();
+	trigger_list.clear();
 }
 
 void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
