@@ -1,3 +1,6 @@
 Level6 Count : 0
 Level6 Count : 0
 Level6 Count : 0
+Level6 Count : 1
+Level6 Count : 1
+Level6 Count : 1

@@ -381,7 +381,7 @@ void Physics::Update(float dt)
                         if (to_next) {
                             p_rigidbody->SetIsStopped(true);
                             p_rigidbody->SetVelocity(0);
-                            collision_list[i]->SetDepth(0.9f);
+                            collision_list[i]->SetInvisible();
                             time += dt;
                             if (time < 2.5f)
                             {
@@ -399,7 +399,9 @@ void Physics::Update(float dt)
                                 }
                                 if (time > 0.5f)
                                 {
-                                    bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 5 ,bus_object->GetTransform().GetTranslation().y });
+                                    if (Graphics_.GetCurrentCamera())
+                                        Graphics_.GetCurrentCamera()->SetCenter(door->GetTransform().GetTranslation());
+                                    bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 20 ,bus_object->GetTransform().GetTranslation().y });
                                     collision_list[i]->GetTransform().SetTranslation(bus_object->GetTransform().GetTranslation());
                                 }
                             }

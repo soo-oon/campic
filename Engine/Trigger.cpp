@@ -98,6 +98,7 @@ void Trigger::CheckPoint()
     auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
     player_->GetComponentByTemplate<RigidBody>()->SetIsStopped(true);
     player_->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+    player_->SetInvisible();
     m_connected_object->GetComponentByTemplate<Animation>()->SetIsActive(true);
     m_connected_object->SetDepth(GAME_OBJECT - 0.1f);
 
@@ -118,6 +119,7 @@ void Trigger::CheckPoint()
             }
         }
         object->SetIsDead(true);
+        player_->SetVisible();
     }
 }
 

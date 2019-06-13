@@ -1,3 +1,4 @@
+
 {
     "Object": {
         "Type": {
@@ -6,8 +7,8 @@
         },
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": -345.0
+                "x": 22.3125,
+                "y": 5.46875
             },
             "scale": {
                 "x": 75.0,
@@ -22,10 +23,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
+                        "path": "asset/images/Objects/Danger.png"
                     },
                     "info": {
-                        "image_frames": 3,
+                        "image_frames": 9,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -53,8 +54,8 @@
         },
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": -265.0
+                "x": -129.9375,
+                "y": -145.46875
             },
             "scale": {
                 "x": 75.0,
@@ -69,10 +70,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
+                        "path": "asset/images/Objects/Danger.png"
                     },
                     "info": {
-                        "image_frames": 3,
+                        "image_frames": 9,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -100,8 +101,8 @@
         },
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": -185.0
+                "x": -53.8125,
+                "y": -70.0
             },
             "scale": {
                 "x": 75.0,
@@ -116,10 +117,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
+                        "path": "asset/images/Objects/Danger.png"
                     },
                     "info": {
-                        "image_frames": 3,
+                        "image_frames": 9,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -147,8 +148,8 @@
         },
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": -105.0
+                "x": -204.75,
+                "y": -220.9375
             },
             "scale": {
                 "x": 75.0,
@@ -163,10 +164,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
+                        "path": "asset/images/Objects/Danger.png"
                     },
                     "info": {
-                        "image_frames": 3,
+                        "image_frames": 9,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -194,8 +195,8 @@
         },
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": -25.0
+                "x": 97.125,
+                "y": 82.03125
             },
             "scale": {
                 "x": 75.0,
@@ -210,10 +211,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
+                        "path": "asset/images/Objects/Danger.png"
                     },
                     "info": {
-                        "image_frames": 3,
+                        "image_frames": 9,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -236,37 +237,26 @@
     },
     "Object": {
         "Type": {
-            "type": 22,
+            "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -65.0,
-                "y": 55.0
+                "x": 433.125,
+                "y": 224.21875
             },
             "scale": {
-                "x": 75.0,
-                "y": 75.0
+                "x": 256.0,
+                "y": 130.0
             },
             "rotation": 0.0,
             "depth": -0.5
         },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
-                    },
-                    "info": {
-                        "image_frames": 3,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/BusStop.png"
         },
+        "Animation": {},
         "RigidBody": false,
         "Collision": {
             "id": 0,
@@ -277,101 +267,9 @@
         "Font": {},
         "Capture": {},
         "Trigger": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 22,
-            "isDead": false
+        "UI": {
+            "id": "Level14"
         },
-        "Transform": {
-            "position": {
-                "x": -65.0,
-                "y": 135.0
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
-                    },
-                    "info": {
-                        "image_frames": 3,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 22,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -65.0,
-                "y": 215.0
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "obstacle",
-                        "path": "asset/images/Objects/Danger3.png"
-                    },
-                    "info": {
-                        "image_frames": 3,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {},
         "Camera": {},
         "Chapter": {}
     },
@@ -382,8 +280,8 @@
         },
         "Transform": {
             "position": {
-                "x": -628.3125,
-                "y": 163.875
+                "x": -515.8125,
+                "y": -195.78125
             },
             "scale": {
                 "x": 256.0,
@@ -410,51 +308,13 @@
     },
     "Object": {
         "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 489.9375,
-                "y": 166.0625
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 130.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/BusStop.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {
-            "id": "Level9"
-        },
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
             "type": 20,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 5000.0,
-                "y": 5000.0
+                "x": 0.0,
+                "y": 0.0
             },
             "scale": {
                 "x": 1.0,
@@ -475,55 +335,8 @@
         "UI": {},
         "Camera": {},
         "Chapter": {
-            "chapter": 1,
-            "level": 8
+            "chapter": 2,
+            "level": 5
         }
-    },
-    "Object": {
-        "Type": {
-            "type": 24,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 148.6875,
-                "y": -340.34375
-            },
-            "scale": {
-                "x": 75.0,
-                "y": 75.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {
-            "maps": {
-                "map": {
-                    "path": {
-                        "id": "obstacle",
-                        "path": "asset/images/Objects/JumpBoard.png"
-                    },
-                    "info": {
-                        "image_frames": 15,
-                        "update_frames": 0.05000000074505806,
-                        "is_repeats": true
-                    }
-                }
-            }
-        },
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
     }
 }

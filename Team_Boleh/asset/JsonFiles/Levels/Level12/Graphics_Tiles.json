@@ -1,14 +1,14 @@
 {
     "Tile": {
-        "grid": 1190483,
+        "grid": 1228881,
         "tile_type": 1,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -790.0,
-            "y": -110.0
+            "x": -610.0,
+            "y": -230.0
         },
         "sprite": {
             "is_flip": false,
@@ -19,26 +19,64 @@
         "collision": {}
     },
     "Tile": {
-        "grid": 1190491,
+        "grid": 1369681,
         "tile_type": 1,
         "scale": {
             "x": 60.0,
             "y": 60.0
         },
         "pos": {
-            "x": -790.0,
-            "y": 370.0
+            "x": 50.0,
+            "y": -230.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_DownRightCorner.png"
+            "image_path": "asset/images/Tiles/Day/Day_Tile_RightTopCorner.png"
         },
         "animation": {},
         "IsAnimated": false,
         "collision": {}
     },
     "Tile": {
-        "grid": 1408082,
+        "grid": 1536086,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": 830.0,
+            "y": 70.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_TopLeftCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1356881,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -10.0,
+            "y": -230.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_TopLeftCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1408081,
         "tile_type": 1,
         "scale": {
             "x": 60.0,
@@ -46,68 +84,11 @@
         },
         "pos": {
             "x": 230.0,
-            "y": -170.0
+            "y": -230.0
         },
         "sprite": {
             "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1292882,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": -310.0,
-            "y": -170.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_RightTopCorner.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1510483,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": 710.0,
-            "y": -110.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_UL_C.png"
-        },
-        "animation": {},
-        "IsAnimated": false,
-        "collision": {}
-    },
-    "Tile": {
-        "grid": 1510491,
-        "tile_type": 1,
-        "scale": {
-            "x": 60.0,
-            "y": 60.0
-        },
-        "pos": {
-            "x": 710.0,
-            "y": 370.0
-        },
-        "sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Tiles/Day/Day_Tile_DownLeftCorner.png"
+            "image_path": "asset/images/Tiles/Day/Day_Tile_TopLeftCorner.png"
         },
         "animation": {},
         "IsAnimated": false,
