@@ -91,6 +91,8 @@ void Input::Reset(void)
 
 void Input::SetKeyPressed(int key, int action)
 {
+    if (key <= -1 || key >= 348)
+        return;
     if (action == GLFW_PRESS)
     {
         key_trigger = true;
