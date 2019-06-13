@@ -12,6 +12,11 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 private:
+	Object* start = nullptr;
 	Object* end = nullptr;
+
+	float timer = 0.f;
+	bool is_end_start_sprite = false;
+	bool is_start_animation = false;
 };
 
