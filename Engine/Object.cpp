@@ -107,11 +107,6 @@ void Object::SetIsDead(bool condition)
 	isdead = condition;
 }
 
-void Object::SetZoomDifferCondition(bool condition)
-{
-	is_differ_zoom_size = condition;
-}
-
 void Object::SetContainAreaCondition(bool condition)
 {
 	is_contain_area = condition;

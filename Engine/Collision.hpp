@@ -35,6 +35,17 @@ enum class Filter
     Speed,
     None
 };
+
+enum Capture_Collision_Type
+{
+	Ground_Left,
+	Ground_Right,
+	Left,
+	Right,
+	Ground,
+	None
+};
+
 class Collision : public Component
 {
 public:
@@ -44,11 +55,17 @@ public:
         collision_transform.SetScale(size);
     }
 
+	void SetCaputreColiisionType(Capture_Collision_Type type)
+	{
+		c_collision_type = type;
+	}
+
     bool Initialize(Object* Ob) override;
     void Update(float dt) override;
     void Delete() override;
 
     void Compute_AABB(Mesh mesh, int num_point);
+	Capture_Collision_Type GetCaptureCollisonType() { return c_collision_type; }
 
     void ChangeCollisionBoxScale(vector2 scale)
     {
@@ -78,8 +95,16 @@ public:
     void SetJumpingitutionType(RestitutionType restitution);
     void SetFilter(Filter filter) { m_filter = filter; }
 	void SetIsCollideItem(bool condition) { isItem = condition; }
+	void SetShouldRestartPos(bool condition) { should_restart_position = condition; }
+	void SetIsFollow(bool condition, float pos, bool is_x_coordinate_ = false)
+    {
+	    isfollow = condition;
+		static_pos = pos;
+		is_x_coordinate = is_x_coordinate_;
+    }
 
 public:
+	bool GetShouldRestartPos() { return should_restart_position; }
     bool GetisGet() { return isGet; }
     bool GetIsDoor();
     bool GetIsGround() { return isGround; }
@@ -99,11 +124,10 @@ public:
     Mesh& GetCollsionMesh();
     Transform& GetCollisionTransform();
     RestitutionType& GetJumpingitutionType();
-
-
-    //void SetCollision
+	bool isfollow = true;
 
 private:
+	Capture_Collision_Type c_collision_type = None;
     vector2 collision_m_previous_position;
 	vector2 const_collision_scale_size;
     RestitutionType restitution_ = none;
@@ -124,4 +148,7 @@ private:
     bool isCelling = false;
     bool isdoor = false;
 	bool isItem = false;
+	float static_pos = 0.0f;
+	bool is_x_coordinate = false;
+	bool should_restart_position = false;
 };

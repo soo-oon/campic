@@ -48,7 +48,6 @@ public:
 	void SetKeyDPress(bool condition) { key_press_d = condition; }
 	void SetIsStopped(bool condition) { isStopped = condition; }
 
-
 public:
     vector2 GetVelocityLimit() { return m_velocity_limit; }
     vector2 GetPreviousPosition() { return m_previous_position; }
@@ -66,6 +65,7 @@ public:
     bool GetXLimited() { return isXLimited; }
 	bool GetKeyAPress() { return key_press_a; }
 	bool GetKeyDPress() { return key_press_d; }
+	
 
 private:
     vector2 m_previous_position;

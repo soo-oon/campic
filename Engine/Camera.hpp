@@ -35,6 +35,8 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
+	Object* GetBaseObject() { return base_obj; }
+
 	float GetZoomValue() { return zoom; }
 	vector2 GetCenter() const;
 	void SetCenter(vector2 camera_center);
@@ -42,19 +44,26 @@ public:
 	vector2 GetRight() const;
 	std::string GetLevelInfo() { return curr_level; }
 
-	void ResetUp(vector2 camera_up = { 0,1 });
+	void SetMinMaxSize(float size);
 
+	void ResetUp(vector2 camera_up = { 0,1 });
 	void MoveUp(float distance);
 	void MoveRight(float distnace);
 	void Rotate(float angle);
+	void SetBaseObject(Object* obj) { base_obj = obj; }
 
 	affine2d CameraToWorld() const;
 	affine2d WorldToCamera() const;
 
 private:
 	std::string curr_level;
-	float zoom = 1.0f;
+	float zoom = 1.0f
+	;
+	Object* base_obj = nullptr;
 	vector2 center{};
+	vector2 max{};
+	vector2 min{};
+
 	vector2 up{ 0,1 };
 	vector2 right{ 1,0 };
 };

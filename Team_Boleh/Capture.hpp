@@ -7,10 +7,13 @@
 #include "Collision.hpp"
 #include "ObjectDepth.hpp"
 
+
 class Capture : public Component
 {
 public:
-	Capture(vector2 pos) : reset_pos(pos){}
+	Capture(vector2 pos) : reset_pos(pos)
+	{
+	}
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
@@ -22,9 +25,8 @@ public:
 
 	void CaptureObjectMove();
 
-    
 	void SetResetPosition(vector2 size) { reset_pos = size; }
-	vector2 GetResetPosition()const { return reset_pos; }
+	vector2 GetResetPosition() const { return reset_pos; }
 	void SetFilter(Filter filter) { m_c_filter = filter; }
 
 	Filter GetFilter() { return m_c_filter; }
@@ -37,17 +39,17 @@ private:
 	class Polaroid
 	{
 	public:
-		Polaroid(Object* obj_)
+		Polaroid(Object* obj_, vector2 size)
 		{
 			float angle = RandomNumberGenerator(-45.0f, 45.0f);
 
 			obj = new Object();
 			obj->SetTranslation(obj_->GetTransform().GetTranslation());
-			obj->SetScale({ 150, 170 });
+			obj->SetScale(size * 1.3f);
 			obj->SetRotation(angle);
 			obj->SetDepth(POLAROID);
 			obj->SetObjectType(ObjectType::Polaroid);
-			obj->SetMesh(mesh::CreateBox(1, { 255,255,255,200 }));
+			obj->SetMesh(mesh::CreateBox(1, {255, 255, 255, 200}));
 			obj->AddComponent(new Sprite("asset/images/Objects/polaroid.png"));
 		}
 
@@ -66,16 +68,11 @@ private:
 	void CreatePolaroidObject();
 	void CameraZoom();
 	void CameraZoomInOut();
-	void SetOrigianlSize(Object* ground, Object* right, Object* left);
-    void ZoomObjectUpdate(float dt);
-	void CollisionChangeZoomInOut_Ground(Object* obj, Collision* collision, Object* ground, Object* right, Object* left);
-	//void CollisionChangeZoomInOut_Right(Object* obj, Collision* collision, Object* temp);
-	//void CollisionChangeZoomInOut_Left(Object* obj, Collision* collision, Object* temp);
-
-
+	void SetOrigianlSize();
+	void ZoomObjectUpdate(float dt);
 	void SlowMode();
 
-    Filter m_c_filter = Filter::None;
+	Filter m_c_filter = Filter::None;
 
 	bool iscreate = false;
 	bool cheese = false;
@@ -83,30 +80,37 @@ private:
 	bool isoutside = false;
 	bool isvisible = false;
 
-        bool isCollisionSizeBig = false;
+	bool isCollisionSizeBig = false;
 
 	float temp_zoom = 1.0f;
-	float zoom = 1.0f;
 	float const_zoom = 0.f;
 	vector2 reset_pos;
 	vector2 temp_local_bar_scale;
 
 	float zoom_max_value = 0.0f;
 	float zoom_min_value = 0.0f;
+	float zoom = 1.0f;
 
 	Object* zoombutton = nullptr;
 	Object* zoomobject = nullptr;
 	Object* player = nullptr;
 	vector2 prev_mouse_pos;
 
-	std::vector<std::pair<vector2, Object*>> original_scale;
-	std::vector<Object*> capture_area_contian_object;
-	//std::vector<Object*> not_area_contian_object;
-	std::vector<Object*> temporary_obj_storage;
-	std::vector<Polaroid*> polaroid_object;
-        Object* ground_obj;
-        Object* left_obj;
-        Object* right_obj;
+	Object* ground_object = nullptr;
+	Object* left_object = nullptr;
+	Object* right_object = nullptr;
+	Object* cap_ground_obj = nullptr;
 
+	Object* save_right_obj = nullptr;
+	Object* save_left_obj = nullptr;
+	Object* save_ground_obj = nullptr;
+	Object* save_cap_ground_obj = nullptr;
+
+
+	std::vector<std::pair<vector2, Object*>> original_scale;
+	std::vector<Object*> changing_size_object;
+	std::vector<Object*> capture_area_contian_object;
+	std::vector<std::pair<Object*, vector2>> temporary_obj_storage;
+	std::vector<Polaroid*> polaroid_object;
 
 };

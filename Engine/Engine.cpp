@@ -72,12 +72,12 @@ void Engine::System_Initialize()
 	Application_.Initialize();
 	StateManager_.Initialize();
 	Graphics_.Initialize();
+	Physics_.Initialize();
 	Objectmanager_.Initialize();
 #ifdef _DEBUG
 	IMGUI_.Initialize();
 #endif
 	AudioManager_.Initialize();
-	Physics_.Initialize();
  	HUD_.Initialize(new HUD_Level());
 	JSON_.Initialize();
 	LevelJson_.Initialize();
@@ -92,8 +92,8 @@ void Engine::System_Update()
 	StateManager_.Update(dt);
 	Graphics_.Update(dt);
 	Objectmanager_.Update(dt);
-    Tile_Map_.Update(dt);
     Physics_.Update(dt);
+    Tile_Map_.Update(dt);
 #ifdef _DEBUG
 	IMGUI_.Update(dt);
 #endif
