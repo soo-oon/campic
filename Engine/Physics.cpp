@@ -447,6 +447,8 @@ void Physics::Update(float dt)
                                 {
                                     StateManager_.GetCurrentState()->BackToMenu();
                                 }
+                                else if (door->GetComponentByTemplate<UI>()->GetId() == "EndCutScene")
+                                    StateManager_.ToEndScene();
                                 else
                                 {
                                     bus_object = nullptr;

@@ -390,7 +390,7 @@
                 "y": 130.0
             },
             "rotation": 0.0,
-            "depth": -0.5
+            "depth": -0.0
         },
         "Sprite": {
             "is_flip": false,
