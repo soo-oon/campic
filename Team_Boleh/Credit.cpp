@@ -3,6 +3,9 @@
 
 void Credit::Initialize()
 {
+	AudioManager_.LoadSong("asset/sounds/Credit.mp3");
+	AudioManager_.PlaySong("asset/sounds/Credit.mp3");
+
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
 	background->SetDepth(0.98f);

@@ -181,7 +181,10 @@ void HUD_Level::Update(float dt)
 		h_chapter->SetInvisible();
 	}
 
-	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash)
+	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash &&
+		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::CutScene &&
+		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Credit && 
+		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::HowToPlay)
 	{
 		if(!HUD_.isHUDActive)
 			HUD_.isHUDActive = true;

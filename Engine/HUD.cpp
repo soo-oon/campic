@@ -57,9 +57,9 @@ void HUD::Quit()
 	HUD_Object_Manager.clear();
 	m_HUD_State->ShutDown();
 
-	delete m_HUD_State;
-	delete m_current_game_state;
-	delete hud_camera;
+	//delete m_HUD_State;
+	//delete m_current_game_state;
+	//delete hud_camera;
 }
 
 void HUD::Add_HUD_Object(Object* obj)

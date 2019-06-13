@@ -99,6 +99,7 @@ public:
 	void ResetAnimaition();
 	void ChangeAnimation(std::string ID, std::string original_ID = std::string{});
 	void SetIsActive(bool condition);
+	void SetIsDone(bool condition) { is_done = condition; };
 
 	bool IsDone() { return is_done; }
 	bool IsActive() { return isactive; }

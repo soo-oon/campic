@@ -26,8 +26,6 @@ void SplashScreen::Initialize()
 	logo->AddComponent(new Sprite("asset/images/Splash/DigiPen_.png"));
 
 	Objectmanager_.AddObject(logo);
-
-	//Application_.FullScreen();
 }
 
 void SplashScreen::Update(float dt)

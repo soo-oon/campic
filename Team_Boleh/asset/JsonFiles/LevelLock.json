@@ -5,39 +5,39 @@
     },
     "Level": {
         "ID:": "Level2",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level3",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level4",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level5",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level6",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level7",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level8",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level9",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level10",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level11",
@@ -45,7 +45,7 @@
     },
     "Level": {
         "ID:": "Level12",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level13",
@@ -57,11 +57,11 @@
     },
     "Level": {
         "ID:": "Level15",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level16",
-        "Clear": true
+        "Clear": false
     },
     "Level": {
         "ID:": "Level17",
@@ -75,7 +75,7 @@
         "ID:": "Level19",
         "Clear": false
     },
-    "Level": {
+      "Level": {
         "ID:": "Level20",
         "Clear": false
     }

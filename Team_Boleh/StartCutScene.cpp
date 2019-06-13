@@ -2,6 +2,8 @@
 
 void StartCutScene::Initialize()
 {
+	AudioManager_.LoadSong("asset/sounds/StartCutScene.mp3");
+	AudioManager_.PlaySong("asset/sounds/StartCutScene.mp3");
 	start = new Object();
 	start->SetTranslation({ 0, 0 });
 	start->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });

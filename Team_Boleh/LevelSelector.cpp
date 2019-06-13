@@ -6,6 +6,7 @@ void LevelSelector::Initialize()
 {
 	m_Menu1 = new MenuPage();
 	m_Menu2 = new MenuPage();
+	m_Menu3 = new MenuPage();
 
 	m_LevelLock = LevelJson_.LoadLevelLock();
 	/*
@@ -25,20 +26,20 @@ void LevelSelector::Initialize()
 	background->SetObjectType(ObjectType::Button);
 	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
 
-	Object* cam = new Object();
-	cam->SetTranslation({ -0, 0 });
-	cam->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
+	cam = new Object();
+	cam->SetTranslation({ 0, 0 });
+	cam->SetScale({ Application_.GetScreenSize().x, Application_.GetScreenSize().y });
 	cam->SetDepth(BACKGROUND);
 	cam->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	cam->SetObjectType(ObjectType::Background);
-	cam->AddComponent(new Sprite("asset/images/Page/LevelSelect.png"));
+	cam->AddComponent(new Sprite("asset/images/Objects/LevelSelect1.png"));
 
 	CreateMenuPage();
 
 	Object* previous = new Object();
 	previous->SetTranslation({ -300, -293 });
 	previous->SetScale({ 128,128 });
-	previous->SetDepth(HUD_OBJECT - 0.02f);
+	previous->SetDepth(HUD_OBJECT2);
 	previous->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	previous->SetObjectType(ObjectType::Button);
 	previous->AddComponent(new Sprite("asset/images/UI/PrevButton.png"));
@@ -48,7 +49,7 @@ void LevelSelector::Initialize()
 	Object* next = new Object();
 	next->SetTranslation({ 200, -293 });
 	next->SetScale({ 128,128 });
-	next->SetDepth(HUD_OBJECT - 0.02f);
+	next->SetDepth(HUD_OBJECT2);
 	next->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	next->SetObjectType(ObjectType::Button);
 	next->AddComponent(new Sprite("asset/images/UI/NextButton.png"));
@@ -63,6 +64,10 @@ void LevelSelector::Initialize()
 	{
 		Objectmanager_.AddObject(i);
 	}
+	for (auto& i : m_Menu3->GetButtons())
+	{
+		Objectmanager_.AddObject(i);
+	}
 
 	//Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
@@ -73,37 +78,69 @@ void LevelSelector::Update(float dt)
 {
 	//mouse_icon->SetTranslation(Input::GetMousePos());
 
-	if(selectPage)
+	if (selectPage)
 	{
-		for (auto& i : m_Menu1->GetButtons())
+		switch (page_count)
 		{
-			i->GetMesh().Visible();
+		case 1:
+		{
+			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect1.png");
+			for (auto& i : m_Menu1->GetButtons())
+			{
+				i->GetMesh().Visible();
+			}
+			for (auto& i : m_Menu2->GetButtons())
+			{
+				i->GetMesh().Invisible();
+			}
+			for (auto& i : m_Menu3->GetButtons())
+			{
+				i->GetMesh().Invisible();
+			}
+			selectPage = false;
+			break;
 		}
-		for (auto& i : m_Menu2->GetButtons())
+		case 2:
 		{
-			i->GetMesh().Invisible();
+			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect2.png");
+			for (auto& i : m_Menu1->GetButtons())
+			{
+				i->GetMesh().Invisible();
+			}
+			for (auto& i : m_Menu2->GetButtons())
+			{
+				i->GetMesh().Visible();
+			}
+			for (auto& i : m_Menu3->GetButtons())
+			{
+				i->GetMesh().Invisible();
+			}
+			selectPage = false;
+			break;
 		}
-	}
-	else
-	{
-		for (auto& i : m_Menu2->GetButtons())
+		case 3:
 		{
-			i->GetMesh().Visible();
+			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect3.png");
+			for (auto& i : m_Menu1->GetButtons())
+			{
+				i->GetMesh().Invisible();
+			}
+			for (auto& i : m_Menu2->GetButtons())
+			{
+				i->GetMesh().Invisible();
+			}
+			for (auto& i : m_Menu3->GetButtons())
+			{
+				i->GetMesh().Visible();
+			}
+			selectPage = false;
+			break;
 		}
-		for (auto& i : m_Menu1->GetButtons())
-		{
-			i->GetMesh().Invisible();
+		default:
+			break;
 		}
 	}
 
-	if(Input::IsKeyTriggered(GLFW_KEY_LEFT))
-	{
-		selectPage = !selectPage;
-	}
-	if (Input::IsKeyTriggered(GLFW_KEY_RIGHT))
-	{
-		selectPage = !selectPage;
-	}
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		m_SelectLevel = Input::ClickObject(ObjectDepth::HUD_OBJECT);
@@ -124,15 +161,27 @@ void LevelSelector::Update(float dt)
 			}
 		}
 
-		m_selectPage = Input::ClickObject(ObjectDepth::HUD_BUTTON);
+		m_selectPage = Input::ClickObject(ObjectDepth::HUD_OBJECT2);
 
 		if (m_selectPage)
 		{
 			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "previous")
+			{
 				selectPage = !selectPage;
 
+				--page_count;
+				if (page_count < 1)
+					page_count = 3;
+			}
+
 			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "next")
+			{
 				selectPage = !selectPage;
+
+				++page_count;
+				if (page_count > 3)
+					page_count = 1;
+			}
 		}
 	}
 }
@@ -182,9 +231,9 @@ void LevelSelector::CreateMenuPage()
 	std::string text = "Level";
 	float base_y = 70.f;
 
-	for (int i = 1, j = 1; i <= 10; ++i, ++j)
+	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{
-		if (i == 6)
+		if (i == 4)
 		{
 			base_y -= 200;
 			j = 1;
@@ -194,14 +243,26 @@ void LevelSelector::CreateMenuPage()
 	}
 
 	base_y = 70.f;
-	for (int i = 1, j = 1; i <= 10; ++i, ++j)
+	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{
-		if (i == 6)
+		if (i == 4)
 		{
 			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-600.f + (185.f*j), base_y), vector2(150, 150), text + std::to_string(i+10), text + std::to_string(i+10), m_Menu2);
+		CreateLevelButton(vector2(-600.f + (185.f*j), base_y), vector2(150, 150), text + std::to_string(i+6), text + std::to_string(i+6), m_Menu2);
+		text = "Level";
+	}
+
+	base_y = 70.f;
+	for (int i = 1, j = 1; i <= 6; ++i, ++j)
+	{
+		if (i == 4)
+		{
+			base_y -= 200;
+			j = 1;
+		}
+		CreateLevelButton(vector2(-600.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i + 12), text + std::to_string(i + 12), m_Menu3);
 		text = "Level";
 	}
 }

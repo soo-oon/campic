@@ -298,6 +298,13 @@ Object* Input::ClickObject(ObjectDepth type)
 				break;
 			}
 
+			case ObjectDepth::HUD_OBJECT2:
+			{
+				if (obj->GetTransform().GetDepth() == -0.3f)
+					return obj.get();
+				break;
+			}
+
 			case ObjectDepth::HUD_BUTTON:
 			{
 				if (obj->GetTransform().GetDepth() == -0.65f)
