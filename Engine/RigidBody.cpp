@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include <iostream>
 #include "Input.hpp"
+#include "Physics.hpp"
 
 bool RigidBody::Initialize(Object* Ob)
 {
@@ -154,6 +155,8 @@ void RigidBody::MovePlayer()
             {
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
+                Physics::capture_ground_obj = nullptr;
+
                 o_collision->SetIsLeftTile(true);
                 o_rigidbody->SetVelocity({o_rigidbody->GetVelocity().x,m_velocity_limit.y});
                 o_rigidbody->SetJumping(true);
@@ -189,6 +192,8 @@ void RigidBody::MovePlayer()
             {
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
+                Physics::capture_ground_obj = nullptr;
+
                 o_collision->SetIsRightTile(true);
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
@@ -225,6 +230,8 @@ void RigidBody::MovePlayer()
             {
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
+                Physics::capture_ground_obj = nullptr;
+
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);

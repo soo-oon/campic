@@ -111,8 +111,6 @@ void Graphics::Update(float dt)
     displaysize.y = static_cast<float>(Application_.GetScreenSize().y);
 
     glViewport(0, 0, static_cast<int>(displaysize.x), static_cast<int>(displaysize.y));
-	//glEnable(GL_SCISSOR_TEST);
-	//glScissor(0, 0, static_cast<int>(displaysize.x/2.0f), static_cast<int>(displaysize.y/2.0f));
 
     if (game_level_camera == nullptr)
     {
@@ -143,8 +141,24 @@ void Graphics::Draw()
 					}
 				}
 
+				if (obj->GetObjectType() == ObjectType::Player)
+					int a = 5;
+
 				if (IsDraw(obj.get()))
 				{
+					if(obj->IsChangePosition())
+					{
+						if(obj->IsOffsetXpos())
+						{
+							obj->SetSpecificPosition(obj->GetChangeOffset(), true);
+						}
+						else
+						{
+							obj->SetSpecificPosition(obj->GetChangeOffset(), false);
+
+						}
+					}
+
 					#ifdef _DEBUG
 					if (auto temp = obj->GetComponentByTemplate<Collision>();
 						temp != nullptr)
@@ -277,6 +291,9 @@ bool Graphics::IsDraw(Object* obj)
 	vector2 size = { static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) };
 	float cameraRadius = 0.5f * sqrt(size.x * size.x +
 		size.y * size.y);
+
+	if (obj->GetObjectType() == ObjectType::Capture_Camera || obj->GetObjectType() == ObjectType::Capture_Camera_main)
+		return true;
 
 	if (game_level_camera != nullptr)
 	{

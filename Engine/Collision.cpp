@@ -40,13 +40,29 @@ bool Collision::Initialize(Object* Ob)
 
 void Collision::Update(float dt)
 {
-	if (object->GetTransform().GetParent() == nullptr)
+	if(isfollow)
 	{
-		collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+		if (object->GetTransform().GetParent() == nullptr)
+		{
+			collision_transform.SetTranslation(object->GetTransform().GetTranslation());
+		}
+		else
+		{
+			collision_transform.SetTranslation(object->GetTransform().GetParent()->GetTranslation());
+		}
 	}
 	else
 	{
-		collision_transform.SetTranslation(object->GetTransform().GetParent()->GetTranslation());
+		if(is_x_coordinate)
+		{
+			collision_transform.SetTranslation({ static_pos,
+				object->GetTransform().GetTranslation().y });
+		}
+		else
+		{
+			collision_transform.SetTranslation({ object->GetTransform().GetTranslation().x,
+				static_pos });
+		}
 	}
 
 	if (restitution_ != RestitutionType::exit_)
