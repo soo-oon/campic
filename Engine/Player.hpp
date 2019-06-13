@@ -33,14 +33,20 @@ public:
 	void Delete();
 
 	void SetIsMove(bool condition) { ismove = condition; }
+        void SetRelease(float re) { m_release_time = re; }
 	bool IsMove() { return ismove; }
+        void MovePlayer();
 
 	vector2 GetMouseOffset() { return offset; }
 	//void PlayerMove(vector2 mouse_position);
 
 private:
+    float m_release_time = 0;
+    bool m_twinkle = false;
 	bool ismove = false;
+        bool bus = true;
 	void MouseTest();
+        Object* bus_object = nullptr;
 	//vector2 direction;
 	vector2 prev_mouse_pos;
 	vector2 offset{};

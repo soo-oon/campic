@@ -28,19 +28,21 @@ public:
         void MakeGridTure(float pos_x, float pos_y) { tile_grid[static_cast<int>(pos_x + TEMP_WIDTH / 2 ) / TILE_SIZE ]
             [static_cast<int>(pos_y + TEMP_HEIGHT / 2) / TILE_SIZE] = true; }
     void MakeGridFalse()
+    {
+        for(int i = 0 ; i < TEMP_WIDTH/TILE_SIZE;i++)
         {
-            for(int i = 0 ; i < TEMP_WIDTH/TILE_SIZE;i++)
+            for(int j = 0; j < TEMP_HEIGHT/TILE_SIZE; j++)
             {
-                for(int j = 0; j < TEMP_HEIGHT/TILE_SIZE; j++)
-                {
-                    tile_grid[i][j] = false;
-                }
+                tile_grid[i][j] = false;
             }
         }
+    }
 
     std::unordered_map<int, Object*>& GetGraphicsTiles() { return graphics_tiles; }
     std::unordered_map<int, Object*>& GetPhysicalTiles() { return physical_tiles; }
     void Make_Tile(std::string image, Tile_Type type);
+    void MakeTileVertical(std::string image, Tile_Type type, int num);
+    void MakeTileHorizontal(std::string image, Tile_Type type, int num);
     void Make_Ani_Tile(std::string image, Tile_Type type);
     void Delete_Tile();
     void Delete_Ani_Tile();

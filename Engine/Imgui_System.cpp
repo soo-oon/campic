@@ -121,6 +121,34 @@ void Imgui_System::Update(float dt)
 				else
 					Tile_Map_.Make_Tile(tile_path, Tile_Type::Physical);
 			}
+			if (Input::IsKeyPressed(GLFW_KEY_H))
+			{
+				if (graphics_tile)
+					Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Graphical, -1);
+				else
+					Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Physical,-1);
+			}
+			if (Input::IsKeyPressed(GLFW_KEY_J))
+			{
+                            if (graphics_tile)
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Graphical, 1);
+                            else
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Physical, 1);
+			}
+			if (Input::IsKeyPressed(GLFW_KEY_U))
+			{
+                            if (graphics_tile)
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Graphical, -1);
+                            else
+                                Tile_Map_.MakeTileHorizontal(tile_path, Tile_Type::Physical, -1);
+			}
+			if (Input::IsKeyPressed(GLFW_KEY_K))
+			{
+                                if (graphics_tile)
+                                    Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Graphical, 1);
+                                else
+                                    Tile_Map_.MakeTileVertical(tile_path, Tile_Type::Physical, 1);
+			}
 		}
 		else
 		{
@@ -283,10 +311,7 @@ void Imgui_System::Editor(bool show_window)
 		Objectmanager_.GetObjectMap().clear();
                 StateManager_.GetCurrentState()->SetPlayerObjectPointer(nullptr);
                 StateManager_.GetCurrentState()->SetCaptureObjectPointer(nullptr);
-                Object* camera = new Object;
-                camera->SetObjectType(ObjectType::Camera);
-                camera->AddComponent(new Camera("Level"));
-                Objectmanager_.AddObject(camera);
+                StateManager_.GetCurrentState()->SetCamera();
 	}
 
 	ImGui::End();
@@ -339,10 +364,10 @@ void Imgui_System::ObjectCreator(bool object_creator)
                 jump_obj->SetScale({ 75.0f, 75.0f });
                 jump_obj->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
                 jump_obj->SetDepth(GAME_OBJECT);
-                jump_obj->SetObjectType(ObjectType::Capture_Obj);
+                jump_obj->SetObjectType(ObjectType::JumpIng);
                 jump_obj->AddInitComponent(new Collision(box_));
                 jump_obj->GetComponentByTemplate<Collision>()->SetFilter(Filter::Jump);
-				jump_obj->AddComponent(new Animation("asset/images/Objects/JumpBoard.png", "obstacle", 15, 0.05f));
+		jump_obj->AddComponent(new Animation("asset/images/Objects/JumpBoard.png", "obstacle", 15, 0.05f));
 
                 Objectmanager_.AddObject(jump_obj);
         }
