@@ -130,7 +130,7 @@ void Trigger::GraphicPrint()
         m_connected_object = new Object;
 
         m_connected_object->SetTranslation(o_translation);
-        m_connected_object->SetScale({ 75});
+        m_connected_object->SetScale({ 200,75 });
 		m_connected_object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
 		m_connected_object->SetDepth(GAME_OBJECT);
         m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
@@ -139,6 +139,7 @@ void Trigger::GraphicPrint()
        
         Objectmanager_.AddObject(m_connected_object);
     }
+    object->SetIsDead(true);
 }
 
 void Trigger::Text()
