@@ -20,6 +20,7 @@ Creation date: 2018/12/14
 #include "Player.hpp"
 #include "Physics.hpp"
 #include <fstream>
+#include "HUD.hpp"
 
 StateManager StateManager_;
 
@@ -70,6 +71,8 @@ void StateManager::ChangeStage()
 	{
 		m_currentState->CreatePlayer();
 	}
+
+	HUD_.SetIsChangeGameLevel(true);
 
 	m_currentState->Initialize();
 

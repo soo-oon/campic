@@ -105,7 +105,8 @@ void Level::Update(float dt)
 
 	if(Input::IsKeyTriggered(GLFW_KEY_F1))
 	{
-		GetCaptureLimit() += 10;
+		if(GetCaptureLimit() <= MAX_CAPTRUE_COUNT)
+			GetCaptureLimit() += 10;
 	}
 }
 

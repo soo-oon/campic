@@ -49,6 +49,7 @@ bool Capture::Initialize(Object* Ob)
 	const_zoom = zoom;
 	zoom_min_value = 0.5f;
 	zoom_max_value = 2.5f;
+	is_change_capture_count = true;
 
 	return true;
 }
@@ -96,6 +97,7 @@ void Capture::Update(float dt)
 				StateManager_.GetCurrentState()->AddDataCount();
 				--StateManager_.GetCurrentState()->GetCaptureLimit();
 				cheese = true;
+				is_change_capture_count = true;
 				Capturing();
 				CreatePolaroidObject();
 				CreateCaptureObject();
@@ -556,7 +558,7 @@ void Capture::CameraZoomInOut()
 							y_pos = Physics::capture_ground_obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
 							+ Physics::capture_ground_obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2.0f;
 						else if (temp_collision->GetIsGround())
-							y_pos = ground_object->GetTransform().GetTranslation().y + ground_object->GetTransform().GetScale().y / 2.0f;
+							y_pos = save_ground_obj->GetTransform().GetTranslation().y + ground_object->GetTransform().GetScale().y / 2.0f;
 
 						if(zoom < 1.0f)
 							temp_collision->SetCollisionScale(temp_collision->GetConstCollisionScale() * zoom);
@@ -566,15 +568,19 @@ void Capture::CameraZoomInOut()
 						if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
 						{
 							obj->SetChangeCollisionBox(true, y_pos + temp_collision->GetCollisionTransform().GetScale().y / 2.0f);
-							//temp_collision->SetIsFollow(false, y_pos + temp_collision->GetCollisionTransform().GetScale().y/2.0f);
 
 							if(zoom > 1.0f)
 							{
 								obj->SetIsChangePosition(true,y_pos + obj->GetTransform().GetScale().y / 2.0f -8.0f);
 							}
+							else if(zoom == 1.0f)
+							{
+								obj->SetIsChangePosition(true, y_pos + temp_collision->GetCollisionTransform().GetScale().y / 2.0f);
+
+							}
 							else
 							{
-								obj->SetIsChangePosition(true,y_pos + obj->GetTransform().GetScale().y / 2.0f);
+								obj->SetIsChangePosition(true,y_pos + temp_collision->GetCollisionTransform().GetScale().y / 2.0f);
 							}
 
 						}
@@ -622,25 +628,25 @@ void Capture::SetOrigianlSize()
 			if(auto temp_collision = obj.second->GetComponentByTemplate<Collision>();
 				temp_collision != nullptr)
 			{
-				if (zoom < 1.0f)
+				float y_pos = 0.0f;
+				if (save_ground_obj != nullptr || cap_ground_obj != nullptr)
 				{
-					if (save_ground_obj != nullptr || cap_ground_obj != nullptr)
+					if (Physics::capture_ground_obj != nullptr)
+					{
+						y_pos = Physics::capture_ground_obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
+							+ Physics::capture_ground_obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2.0f
+							+ temp_collision->GetConstCollisionScale().y / 2.0f;
+					}
+					else if (temp_collision->GetIsGround())
+					{
+						y_pos = save_ground_obj->GetTransform().GetTranslation().y
+							+ save_ground_obj->GetTransform().GetScale().y / 2.0f
+							+ temp_collision->GetConstCollisionScale().y / 2.0f;
+					}
+
+					if (zoom < 1.0f)
 					{
 						temp_collision->SetCollisionScale(temp_collision->GetConstCollisionScale());
-
-						float y_pos = 0.0f;
-						if(Physics::capture_ground_obj != nullptr)
-						{
-							y_pos = Physics::capture_ground_obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
-								+ Physics::capture_ground_obj->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2.0f
-								+ temp_collision->GetConstCollisionScale().y / 2.0f;
-						}
-						else if (temp_collision->GetIsGround())
-						{
-							y_pos = save_ground_obj->GetTransform().GetTranslation().y
-								+ save_ground_obj->GetTransform().GetScale().y / 2.0f
-									+ temp_collision->GetConstCollisionScale().y / 2.0f;
-						} 
 
 						if(Physics::capture_left_obj!= nullptr)
 						{
@@ -682,14 +688,22 @@ void Capture::SetOrigianlSize()
 
 							obj.second->SetIsChangePosition(false);
 						}
-						else if(temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
+						/*if(temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
 						{
 							obj.second->SetSpecificPosition(y_pos);
 							obj.second->SetChangeCollisionBox(true, y_pos);
 
 							obj.second->SetIsChangePosition(false);
 
-						}
+						}*/
+					}
+					if (temp_collision->GetIsGround() || temp_collision->GetIsCapobj())
+					{
+						obj.second->SetSpecificPosition(y_pos);
+						obj.second->SetChangeCollisionBox(true, y_pos);
+
+						obj.second->SetIsChangePosition(false);
+
 					}
 				}
 			}
