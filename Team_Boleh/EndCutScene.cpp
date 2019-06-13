@@ -9,6 +9,8 @@ void EndCutScene::Initialize()
 	end->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	end->SetObjectType(ObjectType::Background);
 	end->AddInitComponent(new Animation("asset/images/Page/WinPage.png", "end",15, 0.1f, false));
+
+	Objectmanager_.AddObject(end);
 }
 
 void EndCutScene::Update(float dt)
