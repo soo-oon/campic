@@ -128,9 +128,11 @@ void Capture::Delete()
 	delete zoombutton;
 	delete zoomobject;
 	delete player;
-	delete ground_obj;
-	delete left_obj;
-	delete right_obj;
+	delete ground_object;
+	delete left_object;
+	delete right_object;
+	delete cap_ground_obj;
+
 	original_scale.clear();
 	capture_area_contian_object.clear();
 	temporary_obj_storage.clear();

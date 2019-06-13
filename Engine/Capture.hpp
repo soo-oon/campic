@@ -37,13 +37,13 @@ private:
 	class Polaroid
 	{
 	public:
-		Polaroid(Object* obj_)
+		Polaroid(Object* obj_, vector2 size)
 		{
 			float angle = RandomNumberGenerator(-45.0f, 45.0f);
 
 			obj = new Object();
 			obj->SetTranslation(obj_->GetTransform().GetTranslation());
-			obj->SetScale({ 150, 170 });
+			obj->SetScale(size);
 			obj->SetRotation(angle);
 			obj->SetDepth(POLAROID);
 			obj->SetObjectType(ObjectType::Polaroid);
@@ -67,9 +67,9 @@ private:
 	void CreatePolaroidObject();
 	void CameraZoom();
 	void CameraZoomInOut();
-	void SetOrigianlSize(Object* ground, Object* right, Object* left);
+	void SetOrigianlSize();
     void ZoomObjectUpdate(float dt);
-	void CollisionChangeZoomInOut_Ground(Object* obj, Collision* collision, Object* ground, Object* right, Object* left);
+	//void CollisionChangeZoomInOut_Ground(Object* obj, Collision* collision, Object* ground, Object* right, Object* left);
 	//void CollisionChangeZoomInOut_Right(Object* obj, Collision* collision, Object* temp);
 	//void CollisionChangeZoomInOut_Left(Object* obj, Collision* collision, Object* temp);
 
@@ -103,11 +103,15 @@ private:
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
 	//std::vector<Object*> not_area_contian_object;
-	std::vector<Object*> temporary_obj_storage;
+	std::vector<std::pair<Object*,vector2>> temporary_obj_storage;
 	std::vector<Polaroid*> polaroid_object;
-        Object* ground_obj = nullptr;
-        Object* left_obj = nullptr;;
-        Object* right_obj = nullptr;;
 
+    Object* ground_object = nullptr;
+    Object* left_object = nullptr;
+    Object* right_object = nullptr;
+	Object* cap_ground_obj = nullptr;
 
+	Object* save_ground_obj = nullptr;
+	Object* save_left_obj = nullptr;
+	Object* save_right_obj = nullptr;
 };

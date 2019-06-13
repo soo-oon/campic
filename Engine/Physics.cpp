@@ -435,8 +435,8 @@ void Physics::Update(float dt)
                                 }
                                 if (time > 0.5f)
                                 {
-                                    if (Graphics_.GetCurrentCamera())
-                                        Graphics_.GetCurrentCamera()->SetCenter(door->GetTransform().GetTranslation());
+                                    //if (Graphics_.GetCurrentCamera())
+                                       // Graphics_.GetCurrentCamera()->SetCenter(door->GetTransform().GetTranslation());
                                     bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 20 ,bus_object->GetTransform().GetTranslation().y });
                                     collision_list[i]->GetTransform().SetTranslation(bus_object->GetTransform().GetTranslation());
                                 }

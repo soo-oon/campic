@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Input.hpp"
 #include "State.hpp"
 #include <iostream>
+#include "Physics.hpp"
 
 
 Camera::Camera(vector2 camera_center, vector2 camera_up)
@@ -46,27 +47,31 @@ void Camera::Update(float dt)
 		std::cout << "Camera : "<< center;
 		std::cout << "distance" << abs(center.y - base_obj->GetTransform().GetTranslation().y + min.y) << std::endl;
 
-		center.x = base_obj->GetTransform().GetTranslation().x;
 
-
-		if(base_obj->GetTransform().GetTranslation().y < min.y + center.y)
+		if (!Physics_.IsNextLevel())
 		{
-			if (center.y > base_obj->GetTransform().GetTranslation().y + max.y)
+			center.x = base_obj->GetTransform().GetTranslation().x;
+
+
+			if (base_obj->GetTransform().GetTranslation().y < min.y + center.y)
 			{
-				if (abs(center.y - base_obj->GetTransform().GetTranslation().y + min.y) > 200)
-					center.y -= 300 * dt;
-				else
-					center.y -= 100 * dt;
+				if (center.y > base_obj->GetTransform().GetTranslation().y + max.y)
+				{
+					if (abs(center.y - base_obj->GetTransform().GetTranslation().y + min.y) > 200)
+						center.y -= 300 * dt;
+					else
+						center.y -= 100 * dt;
+				}
 			}
-		}
-		else if( base_obj->GetTransform().GetTranslation().y > center.y + max.y)
-		{
-			if (center.y < base_obj->GetTransform().GetTranslation().y + min.y)
+			else if (base_obj->GetTransform().GetTranslation().y > center.y + max.y)
 			{
-				if (abs(center.y - base_obj->GetTransform().GetTranslation().y + max.y) > 200)
-					center.y += 300 * dt;
-				else
-					center.y += 100 * dt;
+				if (center.y < base_obj->GetTransform().GetTranslation().y + min.y)
+				{
+					if (abs(center.y - base_obj->GetTransform().GetTranslation().y + max.y) > 200)
+						center.y += 300 * dt;
+					else
+						center.y += 100 * dt;
+				}
 			}
 		}
 	}

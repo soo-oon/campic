@@ -33,6 +33,8 @@ public:
 	static Object* left_tile_obj;
 	static Object* right_tile_obj;
 
+	bool IsNextLevel() { return to_next; }
+
 	//void PhysicsObjectUpdate(Objectmanager* objectmanager);
 	std::vector<Object*> tile_list;
 	void Quit();
@@ -55,6 +57,10 @@ public:
 	bool IntersectionCheckNextPosition(Object* object1, Object* object2);
 	bool IntersectionCheckAABBUpperCase(Object* object1, Object* object2);
 
+	void SetNextLevel(bool condition)
+	{
+		to_next = condition;
+	}
 	void ResetPreviousSize() { previous_size = 0; }
 	// This function return true if object is out of window area. 
 	bool OutOfCheckBoundary(Object* object);

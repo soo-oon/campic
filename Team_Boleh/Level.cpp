@@ -2,10 +2,13 @@
 #include "Input.hpp"
 #include "UI.hpp"
 #include "HUD_Level.hpp"
+#include "Physics.hpp"
 
 void Level::Initialize()
 {
 	AudioManager_.PlaySong("asset/sounds/Game_BGM.mp3");
+
+	Physics_.SetNextLevel(false);
 
 	camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
