@@ -39,8 +39,8 @@ bool Camera::Initialize(Object* Ob)
 
 void Camera::Update(float dt)
 {
-//#ifdef _DEBUG
-//#else
+#ifdef _DEBUG
+#else
 	if(base_obj != nullptr)
 	{
 		std::cout << "Base obj: " << base_obj->GetTransform().GetTranslation();
@@ -75,7 +75,7 @@ void Camera::Update(float dt)
 			}
 		}
 	}
-//#endif
+#endif
 
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{
