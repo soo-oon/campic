@@ -39,6 +39,11 @@ void HowToPlay::Update(float dt)
 			}
 		}
 	}
+
+    if(Input::IsKeyAnyTriggered())
+    {
+        StateManager_.BackToMainMenu();
+    }
 }
 
 void HowToPlay::ShutDown()

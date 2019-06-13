@@ -2,6 +2,11 @@
 
 void StartCutScene::Initialize()
 {
+
+
+    timer = 0.f;
+    is_end_start_sprite = false;
+    is_start_animation = false;
 	AudioManager_.LoadSong("asset/sounds/StartCutScene.mp3");
 	AudioManager_.PlaySong("asset/sounds/StartCutScene.mp3");
 	start = new Object();
@@ -58,6 +63,12 @@ void StartCutScene::Update(float dt)
 			ChangeLevel("Level1");
 		}
 	}
+
+    if(Input::IsKeyAnyTriggered())
+    {
+        SetLevelIndicator("Level1");
+        ChangeLevel("Level1");
+    }
 }
 
 void StartCutScene::ShutDown()

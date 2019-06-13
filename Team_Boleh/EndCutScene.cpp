@@ -2,6 +2,11 @@
 
 void EndCutScene::Initialize()
 {
+
+     timer = 0.f;
+     is_end_start_sprite = false;
+     is_start_animation = false;
+
 	AudioManager_.LoadSong("asset/sounds/EndCutScene.mp3");
 	AudioManager_.PlaySong("asset/sounds/EndCutScene.mp3");
 	start = new Object();
@@ -72,6 +77,12 @@ void EndCutScene::Update(float dt)
 			StateManager_.ToCredit();
 		}
 	}
+
+    if(Input::IsKeyAnyTriggered())
+    {
+        SetLevelIndicator("Credit");
+        StateManager_.ToCredit();
+    }
 }
 
 void EndCutScene::ShutDown()

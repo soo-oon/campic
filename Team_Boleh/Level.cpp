@@ -84,6 +84,7 @@ void Level::Update(float dt)
 	if (Input::IsKeyTriggered(GLFW_KEY_R))
 		StateManager_.ChangeStage();
 
+
 #ifdef _DEBUG
     if(Input::IsKeyPressed(GLFW_KEY_UP))
     {
@@ -107,6 +108,36 @@ void Level::Update(float dt)
 	{
 		GetCaptureLimit() += 10;
 	}
+
+    if(Input::IsKeyTriggered(GLFW_KEY_F5))
+    {
+        std::string a = GetLevelIndicator();
+
+        std::string temp = a.substr(5, a.size());
+
+        int b = atoi(temp.c_str());
+        ++b;
+
+        std::string lev = "Level";
+        lev.append(std::to_string(b));
+
+        if(b == 16)
+        {
+            StateManager_.ToEndScene();
+        }
+        else
+        {
+            SetLevelIndicator(lev);
+            ChangeLevel(level_indicator);
+
+            StateManager_.ChangeStage();
+        }
+    }
+
+    if (Input::IsKeyTriggered(GLFW_KEY_F7))
+    {
+        StateManager_.ToEndScene();
+    }
 }
 
 void Level::ShutDown()

@@ -3,6 +3,11 @@
 
 void Credit::Initialize()
 {
+    timer = 0.f;
+    page1 = true;
+    page2 = false;
+    page3 = false;
+
 	AudioManager_.LoadSong("asset/sounds/Credit.mp3");
 	AudioManager_.PlaySong("asset/sounds/Credit.mp3");
 
@@ -95,9 +100,15 @@ void Credit::Update(float dt)
 	{
 		m_credit3->GetMesh().Invisible();
 	}
+
+        if (Input::IsKeyAnyTriggered())
+        {
+            StateManager_.BackToMainMenu();
+        }
 }
 
 void Credit::ShutDown()
 {
+
 	UnLoad();
 }
