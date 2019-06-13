@@ -465,10 +465,11 @@ Value JSON::ComponentFont(Object * obj)
 Value JSON::ComponentTrigger(Object * obj)
 {
     Value container(kArrayType);
-    Value translation, text, type, istrigger, i_frame, u_frame;
+    Value translation, scale, text, type, istrigger, i_frame, u_frame;
 
     container.SetObject();
     translation.SetObject();
+	scale.SetObject();
     type.SetObject();
     text.SetObject();
     istrigger.SetObject();
@@ -479,6 +480,8 @@ Value JSON::ComponentTrigger(Object * obj)
 
     translation.AddMember("x", info->GetObjectTranslation().x, ObjectDocument.GetAllocator());
     translation.AddMember("y", info->GetObjectTranslation().y, ObjectDocument.GetAllocator());
+	scale.AddMember("x", info->GetScale().x, ObjectDocument.GetAllocator());
+	scale.AddMember("y", info->GetScale().y, ObjectDocument.GetAllocator());
     type.SetInt(static_cast<int>(info->GetTriggerStyle()));
     i_frame.SetFloat(info->GetImageFrame());
     u_frame.SetFloat(info->GetUpdateFrame());
@@ -486,6 +489,7 @@ Value JSON::ComponentTrigger(Object * obj)
     istrigger.SetBool(info->GetIsTriggerd());
 
     container.AddMember("translation", translation, ObjectDocument.GetAllocator());
+	container.AddMember("scale", scale, ObjectDocument.GetAllocator());
     container.AddMember("type", type, ObjectDocument.GetAllocator());
     container.AddMember("text", text, ObjectDocument.GetAllocator());
     container.AddMember("trigger", istrigger, ObjectDocument.GetAllocator());
@@ -916,13 +920,22 @@ void JSON::LoadObjectFromJson(const std::string& file, const std::string& path)
         {
             start.x = trigger.FindMember("translation")->value.FindMember("x")->value.GetFloat();
             start.y = trigger.FindMember("translation")->value.FindMember("y")->value.GetFloat();
+
+			scale.x = trigger.FindMember("scale")->value.FindMember("x")->value.GetFloat();
+			scale.y = trigger.FindMember("scale")->value.FindMember("y")->value.GetFloat();
+
+			if(scale == vector2(0,0))
+			{
+				scale = vector2(200, 75);
+			}
+			
             auto t_style = static_cast<TriggerStyle>(trigger.FindMember("type")->value.GetInt());
             auto isTrigger = trigger.FindMember("trigger")->value.GetBool();
             auto i_frame = trigger.FindMember("i_frame")->value.GetFloat();
             auto u_frame = trigger.FindMember("u_frame")->value.GetFloat();
             path = trigger.FindMember("text")->value.GetString();
 
-            obj->AddComponent(new Trigger(start, t_style, path, false, i_frame,u_frame));
+            obj->AddComponent(new Trigger(start,scale, t_style, path, false, i_frame,u_frame));
         }
 		////////////////////////////////////////////////////Sound
 		if(sound.HasMember("map"))

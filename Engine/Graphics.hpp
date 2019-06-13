@@ -45,6 +45,7 @@ public:
 	void Draw();
 	void HUD_Draw();
     void Tile_Draw();
+    void Button_Draw();
 	void EndDraw();
 	bool IsDraw(Object* obj);
 

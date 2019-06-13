@@ -26,6 +26,7 @@ Creation date: 2018/12/14
 #include "Mesh.hpp"
 #include "Tile_Map.hpp"
 #include "BitmapFont.hpp"
+#include "Button.hpp"
 
 Graphics Graphics_;
 
@@ -278,6 +279,67 @@ void Graphics::Tile_Draw()
 			}
 		}
 	}
+}
+
+void Graphics::Button_Draw()
+{
+    if (!button_.GetContainer().empty())
+    {
+        for (auto& obj : button_.GetContainer())
+        {
+            if (obj->GetMesh().IsVisible())
+            {
+                if (Iscamera)
+                {
+                    if (auto temp = obj->GetComponentByTemplate<Camera>(); temp != nullptr)
+                    {
+                        game_level_camera = temp;
+                    }
+                }
+
+
+                if (IsDraw(obj.get()))
+                {
+                    if (obj->IsChangePosition())
+                    {
+                        if (obj->IsOffsetXpos())
+                        {
+                            obj->SetSpecificPosition(obj->GetChangeOffset(), true);
+                        }
+                        else
+                        {
+                            obj->SetSpecificPosition(obj->GetChangeOffset(), false);
+
+                        }
+                    }
+
+
+                    if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+                    {
+                        DrawSprite(obj.get(), temp_sprite);
+                    }
+                    else if (auto temp_animation = obj->GetComponentByTemplate<Animation>(); temp_animation != nullptr)
+                    {
+                        DrawAnimation(obj.get(), temp_animation);
+                    }
+                    else if (obj->GetMesh().GetPointCount())
+                    {
+                        DrawSolidShape(obj.get());
+                    }
+
+                    if (auto temp = obj->GetComponentByTemplate<Particle_Generator>(); temp != nullptr)
+                    {
+                        DrawParticle(temp);
+                    }
+
+                    if (auto temp = obj->GetComponentByTemplate<Font>(); temp != nullptr)
+                    {
+                        DrawFont(obj.get(), temp);
+                    }
+                }
+            }
+        }
+    }
 }
 
 

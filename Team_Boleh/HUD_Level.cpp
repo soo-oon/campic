@@ -11,7 +11,7 @@ void HUD_Level::Initialize()
 	h_chapter = new Object();
 	h_chapter->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width) / 7 - 350.f, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 100.f });
 	h_chapter->SetScale({ 2.8f });
-	h_chapter->SetDepth(depth::NearDepth - 0.09f);
+	h_chapter->SetDepth(depth::NearDepth);
 	h_chapter->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
 	h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 	h_chapter->SetInvisible();
@@ -30,7 +30,7 @@ void HUD_Level::Initialize()
 	h_capture_limit = new Object();
 	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -250.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
 	h_capture_limit->SetScale(vector2{ Application_.GetScreenSize().x /10.f, Application_.GetScreenSize().y/10.f });
-	h_capture_limit->SetDepth(depth::NearDepth - 0.09f);
+	h_capture_limit->SetDepth(depth::NearDepth);
 	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_capture_limit->SetObjectType(ObjectType::None);
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimitBlack.png"));
@@ -42,7 +42,7 @@ void HUD_Level::Initialize()
 	h_capture_number = new Object();
 	h_capture_number->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 - 170.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -110.f});
 	h_capture_number->SetScale({ 2.8f });
-	h_capture_number->SetDepth(depth::NearDepth - 0.09f);
+	h_capture_number->SetDepth(depth::NearDepth);
 	h_capture_number->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
 	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 	h_capture_number->SetInvisible();

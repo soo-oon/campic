@@ -74,6 +74,7 @@
     <ClCompile Include="Capture.cpp">
       <Filter>Component\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Chapter.hpp">
       <Filter>Component\hpp</Filter>
     </ClInclude>
+    <ClInclude Include="Button.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

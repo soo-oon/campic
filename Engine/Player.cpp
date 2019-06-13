@@ -27,15 +27,15 @@ bool Player::Initialize(Object * Ob)
 		object = Ob;
 		object->SetScale({ 80.0f, 80.f });
 		object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
-		object->SetDepth(GAME_OBJECT);
+		object->SetDepth(GAME_OBJECT-0.1f);
 		object->SetObjectType(ObjectType::Player);
 		object->AddInitComponent(new Animation("asset/images/Player/PlayerDynamic.png", "player", 7, 0.05f, true));
 		object->AddInitComponent(new RigidBody());
-                object->AddInitComponent(new Collision(box_, player_scale));
+        object->AddInitComponent(new Collision(box_, player_scale));
 		object->AddComponent(new Sound("asset/sounds/jump.mp3", AudioManager::CATEGORY_SFX,0.3f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerShutter.png", "capture", 10, 0.01f, false);
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerJump.png", "jump", 1, 0.01f, false);
-                object->SetInvisible();
+        object->SetInvisible();
 	}
 	return true;
 }

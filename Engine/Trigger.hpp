@@ -15,8 +15,8 @@ enum class TriggerStyle
 class Trigger : public Component
 {
 public:
-    Trigger(vector2 translation, TriggerStyle trigger_style, std::string string = " ", bool istriggered = false,
-        float image_frame_ = 0 , float update_frame_ = 0) : o_translation(translation), m_trigger_style(trigger_style)
+    Trigger(vector2 translation, vector2 scale, TriggerStyle trigger_style, std::string string = " ", bool istriggered = false,
+        float image_frame_ = 0 , float update_frame_ = 0) : o_translation(translation), o_scale(scale),m_trigger_style(trigger_style)
     {
         isTriggered = istriggered;
         text = string;
@@ -40,6 +40,7 @@ public:
     void SetImageFrame(float obj) { image_frame = obj;}
     void SetUpdateUrame(float obj) { update_frame = obj;}
 
+	vector2 GetScale() { return o_scale; }
     float GetImageFrame() { return image_frame; }
     float GetUpdateFrame() { return update_frame; }
     std::string GetText() { return text; }
@@ -58,6 +59,7 @@ private:
     void Text();
     std::string text;
     vector2 o_translation; //object_translation
+	vector2 o_scale;
     TriggerStyle m_trigger_style;
     float image_frame, update_frame;
     bool isTriggered;
