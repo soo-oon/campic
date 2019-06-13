@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Input.hpp"
 #include "State.hpp"
 #include <iostream>
+#include "Physics.hpp"
 
 
 Camera::Camera(vector2 camera_center, vector2 camera_up)
@@ -38,6 +39,44 @@ bool Camera::Initialize(Object* Ob)
 
 void Camera::Update(float dt)
 {
+//#ifdef _DEBUG
+//#else
+	if(base_obj != nullptr)
+	{
+		std::cout << "Base obj: " << base_obj->GetTransform().GetTranslation();
+		std::cout << "Camera : "<< center;
+		std::cout << "distance" << abs(center.y - base_obj->GetTransform().GetTranslation().y + min.y) << std::endl;
+
+
+		if (!Physics_.IsNextLevel())
+		{
+			center.x = base_obj->GetTransform().GetTranslation().x;
+
+
+			if (base_obj->GetTransform().GetTranslation().y < min.y + center.y)
+			{
+				if (center.y > base_obj->GetTransform().GetTranslation().y + max.y)
+				{
+					if (abs(center.y - base_obj->GetTransform().GetTranslation().y + min.y) > 200)
+						center.y -= 300 * dt;
+					else
+						center.y -= 100 * dt;
+				}
+			}
+			else if (base_obj->GetTransform().GetTranslation().y > center.y + max.y)
+			{
+				if (center.y < base_obj->GetTransform().GetTranslation().y + min.y)
+				{
+					if (abs(center.y - base_obj->GetTransform().GetTranslation().y + max.y) > 200)
+						center.y += 300 * dt;
+					else
+						center.y += 100 * dt;
+				}
+			}
+		}
+	}
+//#endif
+
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{
 		ResetUp();
@@ -66,6 +105,12 @@ vector2 Camera::GetUp() const
 vector2 Camera::GetRight() const
 {
 	return right;
+}
+
+void Camera::SetMinMaxSize(float size)
+{
+	max = vector2{ size };
+	min = vector2{ -size };
 }
 
 void Camera::ResetUp(vector2 camera_up)

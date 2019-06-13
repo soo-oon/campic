@@ -98,6 +98,7 @@ void Trigger::CheckPoint()
     auto player_ = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
     player_->GetComponentByTemplate<RigidBody>()->SetIsStopped(true);
     player_->GetComponentByTemplate<RigidBody>()->SetVelocity(0);
+    player_->SetInvisible();
     m_connected_object->GetComponentByTemplate<Animation>()->SetIsActive(true);
     m_connected_object->SetDepth(GAME_OBJECT - 0.1f);
 
@@ -118,6 +119,7 @@ void Trigger::CheckPoint()
             }
         }
         object->SetIsDead(true);
+        player_->SetVisible();
     }
 }
 
@@ -128,7 +130,7 @@ void Trigger::GraphicPrint()
         m_connected_object = new Object;
 
         m_connected_object->SetTranslation(o_translation);
-        m_connected_object->SetScale({ 75});
+        m_connected_object->SetScale({ 200,75 });
 		m_connected_object->SetMesh(mesh::CreateBox(1, { 255,255,255, 255 }));
 		m_connected_object->SetDepth(GAME_OBJECT);
         m_connected_object->SetObjectType(ObjectType::Trigger_Obj);
@@ -137,6 +139,7 @@ void Trigger::GraphicPrint()
        
         Objectmanager_.AddObject(m_connected_object);
     }
+    object->SetIsDead(true);
 }
 
 void Trigger::Text()

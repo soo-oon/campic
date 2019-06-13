@@ -6,8 +6,8 @@
         },
         "Transform": {
             "position": {
-                "x": -165.375,
-                "y": -554.6875
+                "x": 665.4375,
+                "y": -300.78125
             },
             "scale": {
                 "x": 1.0,
@@ -31,79 +31,13 @@
     },
     "Object": {
         "Type": {
-            "type": 16,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -762.5625,
-                "y": -212.1875
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 130.0
-            },
-            "rotation": 0.0,
-            "depth": -0.1
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/StartPoint.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
-            "type": 20,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 20000.0,
-                "y": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {
-            "chapter": 1,
-            "level": 10
-        }
-    },
-    "Object": {
-        "Type": {
             "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 498.75,
-                "y": 280.0
+                "x": 24.1875,
+                "y": 465.4375
             },
             "scale": {
                 "x": 256.0,
@@ -132,5 +66,71 @@
         },
         "Camera": {},
         "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 16,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -3.375,
+                "y": -16.90625
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 130.0
+            },
+            "rotation": 0.0,
+            "depth": -0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/StartPoint.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 20,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {
+            "chapter": 2,
+            "level": 2
+        }
     }
 }

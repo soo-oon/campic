@@ -1,0 +1,97 @@
+{
+    "Tile": {
+        "grid": 1228881,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -610.0,
+            "y": -230.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_RightTopCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1369681,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": 50.0,
+            "y": -230.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_RightTopCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1536086,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": 830.0,
+            "y": 70.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_TopLeftCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1356881,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": -10.0,
+            "y": -230.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_TopLeftCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    },
+    "Tile": {
+        "grid": 1408081,
+        "tile_type": 1,
+        "scale": {
+            "x": 60.0,
+            "y": 60.0
+        },
+        "pos": {
+            "x": 230.0,
+            "y": -230.0
+        },
+        "sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Tiles/Day/Day_Tile_TopLeftCorner.png"
+        },
+        "animation": {},
+        "IsAnimated": false,
+        "collision": {}
+    }
+}

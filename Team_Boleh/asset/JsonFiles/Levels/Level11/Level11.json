@@ -1,3 +1,4 @@
+
 {
     "Object": {
         "Type": {
@@ -6,8 +7,8 @@
         },
         "Transform": {
             "position": {
-                "x": 653.625,
-                "y": -566.75
+                "x": 663.0,
+                "y": -509.03125
             },
             "scale": {
                 "x": 1.0,
@@ -31,13 +32,46 @@
     },
     "Object": {
         "Type": {
+            "type": 16,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -39.375,
+                "y": 284.375
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 130.0
+            },
+            "rotation": 0.0,
+            "depth": -0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/StartPoint.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
             "type": 2,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -52.5,
-                "y": -253.75
+                "x": -31.5,
+                "y": -134.53125
             },
             "scale": {
                 "x": 256.0,
@@ -62,7 +96,7 @@
         "Capture": {},
         "Trigger": {},
         "UI": {
-            "id": "Level1"
+            "id": "Level12"
         },
         "Camera": {},
         "Chapter": {}
@@ -74,8 +108,8 @@
         },
         "Transform": {
             "position": {
-                "x": 20000.0,
-                "y": 0.0
+                "x": 5000.0,
+                "y": 5000.0
             },
             "scale": {
                 "x": 1.0,
@@ -96,41 +130,8 @@
         "UI": {},
         "Camera": {},
         "Chapter": {
-            "chapter": 1,
-            "level": 11
+            "chapter": 2,
+            "level": 3
         }
-    },
-    "Object": {
-        "Type": {
-            "type": 16,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": -36.75,
-                "y": 140.0
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 130.0
-            },
-            "rotation": 0.0,
-            "depth": -0.1
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/StartPoint.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {},
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
     }
 }

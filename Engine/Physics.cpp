@@ -24,6 +24,12 @@ Creation date: 2018/12/14
 #include "Trigger.hpp"
 
 Physics Physics_;
+Object* Physics::capture_ground_obj = nullptr;
+Object* Physics::capture_left_obj = nullptr;
+Object* Physics::capture_right_obj = nullptr;
+
+Object* Physics::left_tile_obj = nullptr;
+Object* Physics::right_tile_obj = nullptr;
 
 bool Physics::Initialize()
 {
@@ -47,7 +53,6 @@ void Physics::Update(float dt)
             trigger_list.clear();
             doors.clear();
             obstacle_list.clear();
-            //door = nullptr;
             limit_list = nullptr;
             for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end();)
             {
@@ -117,7 +122,21 @@ void Physics::Update(float dt)
         }
         if (collision_list.size() > 0)
         {
-            for (int i = 0; i < collision_list.size(); i++)
+			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
+			{
+				if(obj->get()->IsChangeCollisionBoxScale())
+				{
+					if(!obj->get()->IsXposOfCollisionOffset())
+						obj->get()->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetSpecificPosition(obj->get()->GetCollisionBoxOffset());
+					else
+						obj->get()->GetComponentByTemplate<Collision>()->GetCollisionTransform().SetSpecificPosition(obj->get()->GetCollisionBoxOffset(), true);
+
+					obj->get()->SetChangeCollisionBox(false);
+				}
+				
+			}
+
+            for (int i = 0; i < (int)collision_list.size(); i++)
             {
                 auto p_collision = collision_list[i]->GetComponentByTemplate<Collision>();
                 auto p_rigidbody = collision_list[i]->GetComponentByTemplate<RigidBody>();
@@ -132,6 +151,7 @@ void Physics::Update(float dt)
                         p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetStartPosition());
                         p_collision->ChangeCollisionBoxScale(player_scale);
                         p_collision->SetIsGround(false);
+						capture_ground_obj = nullptr;
                         p_collision->SetIsCapobj(false);
                         p_rigidbody->SetVelocity(0);
                     }
@@ -194,24 +214,30 @@ void Physics::Update(float dt)
                                     p_rigidbody->SetVelocity
                                         ({0, p_rigidbody->GetVelocity().y});
                             p_collision->SetIsLeftTile(true);
+							left_tile_obj = tile;
                             break;
                         }
                         p_collision->SetIsLeftTile(false);
+						left_tile_obj = nullptr;
 
                         if (IntersectionCheckAABBPositionRight(collision_list[i], tile))
                         {
                             p_rigidbody->SetVelocity
                             ({ 0, p_rigidbody->GetVelocity().y });
                             p_collision->SetIsRightTile(true);
+							right_tile_obj = tile;
                             break;
                         }
+						right_tile_obj = nullptr;
                         p_collision->SetIsRightTile(false);
                     }
                 }
                 else
                 {
                     p_collision->SetIsLeftTile(false);
+					left_tile_obj = nullptr;
                     p_collision->SetIsRightTile(false);
+					right_tile_obj = nullptr;
                 }
                 if (capture_list.size() > 0)
                 {
@@ -231,7 +257,10 @@ void Physics::Update(float dt)
                             < p_transform.GetTranslation().y  + capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y + p_transform.GetScale().y / 2
                             )
                         {
+
                             p_collision->SetIsCapobj(false);
+							capture_ground_obj = nullptr;
+
                             p_collision->SetIsCelling(false);
                             if (IntersectionCheckAABBUpperCase(collision_list[i], capture))
                             {
@@ -252,6 +281,7 @@ void Physics::Update(float dt)
                                 <= p_transform.GetTranslation().y - p_transform.GetScale().y / 2 )
                             {
                                 //StopReaction(collision_list[i], capture, false);
+									capture_ground_obj = capture;
                                     p_collision->SetIsCapobj(true);
                                     if(capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
                                         p_rigidbody->SetYLimited(true);
@@ -284,16 +314,20 @@ void Physics::Update(float dt)
                             p_rigidbody->SetVelocity
                                 ({0, p_rigidbody->GetVelocity().y});
                             p_collision->SetIsRight(true);
+							capture_right_obj = capture;
                             break;
                         }
                         p_collision->SetIsRight(false);
+						capture_right_obj = nullptr;
                         if (IntersectionCheckAABBPositionLeft(collision_list[i], capture))
                         {
                             p_rigidbody->SetVelocity
                                 ({0, p_rigidbody->GetVelocity().y});
                             p_collision->SetIsLeft(true);
+							capture_left_obj = capture;
                             break;
                         }
+						capture_left_obj = nullptr;
                         p_collision->SetIsLeft(false);
                     }
                 }
@@ -355,6 +389,8 @@ void Physics::Update(float dt)
                             p_collision->ChangeCollisionBoxScale(player_scale);
                             p_collision->SetIsGround(false);
                             p_collision->SetIsCapobj(false);
+							capture_ground_obj = nullptr;
+
                             p_rigidbody->SetVelocity(0);
                         }
                         if (static_list.size() > 0)
@@ -381,7 +417,7 @@ void Physics::Update(float dt)
                         if (to_next) {
                             p_rigidbody->SetIsStopped(true);
                             p_rigidbody->SetVelocity(0);
-                            collision_list[i]->SetDepth(0.9f);
+                            collision_list[i]->SetInvisible();
                             time += dt;
                             if (time < 2.5f)
                             {
@@ -399,7 +435,9 @@ void Physics::Update(float dt)
                                 }
                                 if (time > 0.5f)
                                 {
-                                    bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 5 ,bus_object->GetTransform().GetTranslation().y });
+                                    //if (Graphics_.GetCurrentCamera())
+                                       // Graphics_.GetCurrentCamera()->SetCenter(door->GetTransform().GetTranslation());
+                                    bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 20 ,bus_object->GetTransform().GetTranslation().y });
                                     collision_list[i]->GetTransform().SetTranslation(bus_object->GetTransform().GetTranslation());
                                 }
                             }
@@ -409,6 +447,8 @@ void Physics::Update(float dt)
                                 {
                                     StateManager_.GetCurrentState()->BackToMenu();
                                 }
+                                else if (door->GetComponentByTemplate<UI>()->GetId() == "EndCutScene")
+                                    StateManager_.ToEndScene();
                                 else
                                 {
                                     bus_object = nullptr;
@@ -470,6 +510,14 @@ void Physics::Update(float dt)
             }
         }
     }
+
+	if(auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+		player != nullptr)
+	{
+		if ((player->GetComponentByTemplate<Collision>()->GetIsRight() || player->GetComponentByTemplate<Collision>()->GetIsRightTile())
+			&& (player->GetComponentByTemplate<Collision>()->GetIsLeft() || player->GetComponentByTemplate<Collision>()->GetIsLeftTile()))
+			player->GetComponentByTemplate<Collision>()->SetShouldRestartPos(true);
+	}
 }
 
 
@@ -770,6 +818,17 @@ bool Physics::IntersectionCheckAABBPositionBase(Object* object1, Object* object2
         return false;
     }
     return true;
+}
+
+bool Physics::IntersectionCheckAABBPositionBase(vector2 pos1_min, vector2 pos1_max, vector2 pos2_min, vector2 pos2_max)
+{
+
+	if ((pos1_min.x >= pos2_max.x) || (pos1_max.x <= pos2_min.x) ||
+		(pos1_min.y >= pos2_max.y) || (pos1_max.y <= pos2_min.y))
+	{
+		return false;
+	}
+	return true;
 }
 
 bool Physics::IntersectionCheckAABBPositionLeft(Object* object1, Object* object2)

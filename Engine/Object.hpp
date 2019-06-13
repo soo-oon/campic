@@ -53,6 +53,12 @@ enum class ObjectType {
     JumpIng,
 }; 
 
+enum Position
+{
+	X,Y,Both,Nope
+};
+
+
 class Object
 {
 public:
@@ -66,6 +72,10 @@ public:
 
 
 public:
+	bool IsChangeCollisionBoxScale() { return should_change_collision_box; }
+	float GetCollisionBoxOffset() { return collision_box_offset; }
+	bool IsXposOfCollisionOffset() { return is_x_pos_of_collision_box; }
+	bool IsOffsetXpos() { return is_x_pos; }
     void SetMesh(Mesh mesh);
     void SetTranslation(const vector2& position);
     void SetScale(const vector2& scale);
@@ -73,17 +83,44 @@ public:
     void SetDepth(const float& depth);
 	void SetParent(const Transform* transform_);
 	void SetIsDead(bool condition);
-	void SetZoomDifferCondition(bool condition);
 	void SetContainAreaCondition(bool condition);
 	void SetSlowModeCondition(bool condition);
 	void SetIsOutSideCondition(bool condition);
-	//void UpdateChildPositionUpdate();
+	void SetChangeCollisionBox(bool condition, float offset = 0.0f , bool is_x_pos = false)
+	{
+		is_x_pos_of_collision_box = is_x_pos;
+		if(condition)
+		{
+			should_change_collision_box = condition;
+			collision_box_offset = offset;
+		}
+		else
+		{
+			should_change_collision_box = condition;
+			collision_box_offset = 0.0f;
+		}
+	}
+	void SetIsChangePosition(bool condition, float offset_ =0.0f, bool is_x_pos_ = false)
+	{
+		if(condition == true)
+		{
+			is_chagne_position = condition;
+			offset = offset_;
+			is_x_pos = is_x_pos_;
+		}
+		else
+		{
+			is_chagne_position = false;
+		}
+	}
 
 	bool Isvisible();
-	bool IsDifferentZoomSize() { return is_differ_zoom_size; }
 	bool IsContainArea() { return is_contain_area; }
 	bool IsSlowMode() { return is_slowmode; }
 	bool IsOutSide() { return is_outsise_capture; }
+
+	bool IsChangePosition() { return is_chagne_position; }
+	float GetChangeOffset() { return offset; }
 
 	void SetVisible();
 	void SetInvisible();
@@ -107,8 +144,16 @@ private:
 	bool is_slowmode = false;
 	bool is_contain_area = false;
 	bool isdead = false;
-	bool is_differ_zoom_size = false;
 	bool is_outsise_capture = true;
+
+	bool should_change_collision_box = false;
+	bool is_x_pos_of_collision_box = false;
+	float collision_box_offset = 0.0f;
+
+	bool is_chagne_position = false;
+	float offset = 0.0f;
+	bool is_x_pos = false;
+
 
 	vector2 const_scale{};
     Mesh m_mesh{};

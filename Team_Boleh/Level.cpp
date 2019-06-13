@@ -2,14 +2,18 @@
 #include "Input.hpp"
 #include "UI.hpp"
 #include "HUD_Level.hpp"
+#include "Physics.hpp"
 
 void Level::Initialize()
 {
 	AudioManager_.PlaySong("asset/sounds/Game_BGM.mp3");
 
+	Physics_.SetNextLevel(false);
+
 	camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level"));
+	camera->GetComponentByTemplate<Camera>()->SetMinMaxSize(250);
 
 	background = new Object();
 	background->SetMesh(mesh::CreateBox());
@@ -52,7 +56,14 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
-	//background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
+	if(camera->GetComponentByTemplate<Camera>()->GetBaseObject() == nullptr)
+	{
+		if(auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
+			player != nullptr)
+		{
+			camera->GetComponentByTemplate<Camera>()->SetBaseObject(player);
+		}
+	}
 
 	if (camera != nullptr)
 	{
