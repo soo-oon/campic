@@ -44,11 +44,11 @@ void Player::Update(float dt)
 {
 #ifdef _DEBUG
 #else 
-    if (auto camera = Graphics_.GetCurrentCamera();
+    /*if (auto camera = Graphics_.GetCurrentCamera();
         camera != nullptr)
     {
         camera->SetCenter(object->GetTransform().GetTranslation());
-    }
+    }*/
 
 	MouseTest();
 #endif
@@ -265,14 +265,18 @@ void Player::MouseTest()
 {
 	vector2 current_mouse_pos = Input::GetMousePos();
 
-	if (prev_mouse_pos != current_mouse_pos)
+	if (auto camera = Graphics_.GetCurrentCamera();
+		camera != nullptr)
 	{
-		offset = {};
-		save_pos = object->GetTransform().GetTranslation();
-		prev_mouse_pos = current_mouse_pos;
-	}
-	else
-	{
-		offset = object->GetTransform().GetTranslation() - save_pos;
+		if (prev_mouse_pos != current_mouse_pos)
+		{
+			offset = {};
+			save_pos = camera->GetCenter();
+			prev_mouse_pos = current_mouse_pos;
+		}
+		else
+		{
+			offset = camera->GetCenter() - save_pos;
+		}
 	}
 }
