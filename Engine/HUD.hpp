@@ -27,6 +27,7 @@ public:
 
 	std::vector<std::shared_ptr<Object>>& Get_HUD_Object_Manager() { return HUD_Object_Manager; }
 	void Add_HUD_Object(Object* obj);
+	bool IsChangeGameLevel() { return is_change_game_level; }
 
 	State* Get_HUD_State() { return m_HUD_State; }
 	State* Get_Current_Game_State() { return m_current_game_state; }
@@ -34,11 +35,13 @@ public:
 	bool isHUDActive = false;
 	Camera* Get_HUD_Camera() { return hud_camera; }
 	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
+	void SetIsChangeGameLevel(bool condition) { is_change_game_level = condition; }
 
 private:
 	void SetPlayer(Object* obj);
 	void HUD_Activing_Search();
 
+	bool is_change_game_level = false;
 	State* m_HUD_State = nullptr;
 	State* m_current_game_state = nullptr;
 	Camera* hud_camera = nullptr;

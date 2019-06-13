@@ -20,7 +20,10 @@ public:
 	inline static bool IsOptionWindowOpen = false;
 	inline static bool ChangeCaptureLimit = false;
 private:
-	Object* h_chapter = nullptr;
+	void SetCaptureNumberSprite(Object* one_, Object* double_);
+	void SetCapterNumberSprite(Object* base_, Object* sub_);
+
+	//Object* h_chapter = nullptr;
 	//OPTION
 	Object* h_option_window = nullptr;
 	Object* h_fullscreen_button = nullptr;
@@ -32,14 +35,18 @@ private:
 	Object* mouse_icon = nullptr;
 
 	Object* h_capture_limit = nullptr;
-	Object* h_capture_number = nullptr;
+	Object* m_capture_one_digits = nullptr;
+	Object* m_capture_double_digits = nullptr;
+
+	Object* m_capture_base_num = nullptr;
+	Object* m_capture_sub_num = nullptr;
+	Object* m_capture_underbar = nullptr;
+
 
 	Object* h_cheese = nullptr;
 	Object* h_select = nullptr;
 	vector2 screen_size = Application_.GetScreenSize();
 	vector2 scrollbar = vector2(screen_size.x - 1000, screen_size.y - 800);
-
-	Object* capture_camera = nullptr;
 
 	bool is_game_state = false;
 	bool mute = false;

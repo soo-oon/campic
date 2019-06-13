@@ -43,10 +43,6 @@ void Camera::Update(float dt)
 #else
 	if(base_obj != nullptr)
 	{
-		std::cout << "Base obj: " << base_obj->GetTransform().GetTranslation();
-		std::cout << "Camera : "<< center;
-		std::cout << "distance" << abs(center.y - base_obj->GetTransform().GetTranslation().y + min.y) << std::endl;
-
 
 		if (!Physics_.IsNextLevel())
 		{
