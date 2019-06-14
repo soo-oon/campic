@@ -1,8 +1,17 @@
 #include "HowToPlay.hpp"
 #include "UI.hpp"
+#include "Button.hpp"
 
 void HowToPlay::Initialize()
 {
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(-0.8f);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
+
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
 	background->SetDepth(0.98f);
@@ -21,38 +30,35 @@ void HowToPlay::Initialize()
 
 	Objectmanager_.AddObject(background);
 
-	Object* button = new Object();
-	button->SetTranslation({ 400, -400 });
-	button->SetDepth(HUD_BUTTON);
+	button = new Object();
+	button->SetTranslation({ 880, -500 });
+	button->SetScale({ 182,96 });
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
 	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
-	button->AddInitComponent(new UI("back"));
 
-	Objectmanager_.AddObject(button);
 	Objectmanager_.AddObject(cam);
+	Objectmanager_.AddObject(mouse_icon);
+	button_.AddObject(button);
 }
 
 void HowToPlay::Update(float dt)
 {
-	if(Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
-	{
-		m_select = Input::ClickHUDButton();
-
-		if(m_select)
-		{
-			if(m_select->GetComponentByTemplate<UI>()->GetId() == "Back")
-			{
-				StateManager_.BackToMainMenu();
-				m_select = nullptr;
-			}
-		}
-	}
+	mouse_icon->SetTranslation(Input::GetMousePos());
 
     if(Input::IsKeyAnyTriggered())
     {
         StateManager_.BackToMainMenu();
     }
+
+	if (button_.IntersectionCheck(Input::GetMousePos()))
+	{
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			StateManager_.BackToMainMenu();
+		}
+	}
 }
 
 void HowToPlay::ShutDown()

@@ -1,7 +1,7 @@
 #include "Button.hpp"
 
-
 Button button_;
+
 void Button::AddObject(Object* obj)
 {
     std::shared_ptr<Object> temp(obj);

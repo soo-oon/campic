@@ -19,6 +19,7 @@ Creation date: 2018/12/14
 #include "Objectmanager.hpp"
 #include "Capture.hpp"
 #include <iostream>
+#include "StartCutScene.hpp"
 
 void State::ChangeLevel(std::string ID)
 {
@@ -113,6 +114,7 @@ void State::UnLoad()
 
 	Objectmanager_.RemoveObject();
 	Tile_Map_.RemoveTiles();
+	button_.RemoveContainer();
 }
 
 void State::CreateCaptureCamera()
@@ -120,7 +122,7 @@ void State::CreateCaptureCamera()
     Object* player_camera = new Object();
 	player_camera->SetTranslation(start_pos);
     player_camera->SetScale({450,250});
-    player_camera->SetDepth(-0.90f);
+    player_camera->SetDepth(-0.8f);
     player_camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     player_camera->SetObjectType(ObjectType::Capture_Camera_main);
 	player_camera->AddComponent(new Sprite("asset/images/Objects/Capture.png"));

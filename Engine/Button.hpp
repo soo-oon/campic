@@ -16,7 +16,10 @@ public:
 
     void AddObject(Object* obj);
     void AddObject(std::shared_ptr<Object> obj);
-    void RemoveContainer() { m_button_container.clear(); }
+    void RemoveContainer()
+    {
+	    m_button_container.clear();
+    }
     std::vector<std::shared_ptr<Object>> GetContainer() { return m_button_container; }
     
     std::pair<Object*, CollisionState>& GetSelect() { return m_selected_object; }

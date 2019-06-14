@@ -11,7 +11,7 @@ void HUD_Level::Initialize()
 	mouse_icon = new Object();
 	mouse_icon->SetTranslation({ 0,0 });
 	mouse_icon->SetScale({ 50,50 });
-	mouse_icon->SetDepth(depth::NearDepth);
+	mouse_icon->SetDepth(depth::NearDepth- 0.09f);
 	mouse_icon->SetObjectType(ObjectType::None);
 	mouse_icon->SetMesh(mesh::CreateBox());
 	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
@@ -89,7 +89,7 @@ void HUD_Level::Initialize()
 	////////////OPTION WINDOW
 	h_option_window = new Object();
 	h_option_window->SetScale({ Application_.GetScreenSize().x, Application_.GetScreenSize().y});
-	h_option_window->SetDepth(-0.6f);
+	h_option_window->SetDepth(-0.90f);
 	h_option_window->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_option_window->SetObjectType(ObjectType::None);
 	h_option_window->AddComponent(new Sprite("asset/images/Page/OptionPage.png"));
@@ -378,7 +378,7 @@ Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std:
 
 	button->SetTranslation(pos);
 	button->SetScale(scale);
-	button->SetDepth(depth);
+	button->SetDepth(-0.92f);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::HUD_Button);
 	button->AddComponent(new Sprite(path));

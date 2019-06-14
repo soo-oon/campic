@@ -15,6 +15,7 @@ private:
 	Object* start = nullptr;
 	Object* end = nullptr;
 	Object* end2 = nullptr;
+	Object* mouse_icon = nullptr;
 
 	float timer = 0.f;
 	bool is_end_start_sprite = false;

@@ -29,12 +29,10 @@ bool Capture::Initialize(Object* Ob)
 		temp_local_bar_scale = zoomobject->GetTransform().GetScale();
 
 		zoombutton = new Object();
-		zoombutton->SetTranslation({
-		   object->GetTransform().GetTranslation().x + 2.5f,
-		   object->GetTransform().GetTranslation().y - size.y / 2 + 35
-			});
+		zoombutton->SetTranslation({object->GetTransform().GetTranslation().x + 2.5f,
+			object->GetTransform().GetTranslation().y - size.y / 2 + 35});
 		zoombutton->SetMesh(mesh::CreateBox());
-		zoombutton->SetDepth(object->GetTransform().GetDepth() - 0.1f);
+		zoombutton->SetDepth(object->GetTransform().GetDepth() - 0.05f);
 		zoombutton->SetScale({ 25, 30 });
 		zoombutton->SetObjectType(ObjectType::Capture_Camera);
 		zoombutton->AddComponent(new Sprite("asset/images/Objects/ZoomDial.png"));
@@ -69,7 +67,6 @@ void Capture::Update(float dt)
 			return;
 		}
 	}
-
 
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_MIDDLE))
 		zoom = 1.0f;

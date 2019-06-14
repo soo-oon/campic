@@ -18,6 +18,8 @@ public:
 	
 private:
 	Object* m_select = nullptr;
+	Object* mouse_icon = nullptr;
+	Object* button = nullptr;
 	
 };
 

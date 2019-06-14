@@ -415,7 +415,7 @@ void Physics::Update(float dt)
                                     bus_object->SetTranslation(door->GetTransform().GetTranslation());
                                     bus_object->SetScale({ 400, 132 });
                                     bus_object->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
-                                    bus_object->SetDepth(-0.9f);
+                                    bus_object->SetDepth(-0.6f);
                                     bus_object->SetObjectType(ObjectType::Bus);
                                     bus_object->AddInitComponent(new Sprite("asset/images/Objects/Bus.png"));
                                     Objectmanager_.AddObject(bus_object);

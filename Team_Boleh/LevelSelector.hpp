@@ -16,7 +16,7 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 
-	void CreateLevelButton(vector2 pos, vector2 scale, std::string level_text, std::string level_id	,MenuPage* menu);
+	void CreateLevelButton(vector2 pos, vector2 scale, std::string level_text, std::string level_id	, std::string texture_level, MenuPage* menu);
 	void CreateMenu1();
 	void CreateMenu2();
 	void CreateMenu3();
@@ -27,7 +27,6 @@ private:
 
 	Object* m_SelectLevel = nullptr;
 	Object* m_selectPage = nullptr;
-	//Object* mouse_icon = nullptr;
 private:
 	std::map<std::string, bool> m_LevelLock;
 	MenuPage* m_Menu1 = nullptr;
@@ -35,11 +34,9 @@ private:
 	MenuPage* m_Menu3 = nullptr;
 
 	Object* cam = nullptr;
-
-	bool selectPage = true;
-	int page_count = 1;
-
 	Object* previous = nullptr;
 	Object* next = nullptr;
 
+	bool selectPage = true;
+	int page_count = 1;
 };

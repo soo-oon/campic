@@ -1,5 +1,6 @@
 #include "Credit.hpp"
 #include "Objectmanager.hpp"
+#include "Button.hpp"
 
 void Credit::Initialize()
 {
@@ -10,6 +11,14 @@ void Credit::Initialize()
 
 	AudioManager_.LoadSong("asset/sounds/Credit.mp3");
 	AudioManager_.PlaySong("asset/sounds/Credit.mp3");
+
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(-0.8f);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
 
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
@@ -45,19 +54,32 @@ void Credit::Initialize()
 	m_credit3->AddComponent(new Sprite("asset/images/Page/CreditPage3.png"));
 	m_credit3->GetMesh().Invisible();
 
+	Object* button = new Object();
+	button->SetTranslation({ 880, -500 });
+	button->SetScale({ 182,96 });
+	button->SetDepth(-0.5f);
+	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	button->SetObjectType(ObjectType::Button);
+	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+
 	Objectmanager_.AddObject(m_credit1);
 	Objectmanager_.AddObject(m_credit2);
 	Objectmanager_.AddObject(m_credit3);
+	Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
+
+	button_.AddObject(button);
 }
 
 void Credit::Update(float dt)
 {
+	mouse_icon->SetTranslation(Input::GetMousePos());
+
 	timer += dt;
 
 	if(!page2 && !page3)
 	{
-		if(timer > 5.f)
+		if(timer > 3.f)
 		{
 			page2 = true;
 			page1 = false;
@@ -65,7 +87,7 @@ void Credit::Update(float dt)
 	}
 	else
 	{
-		if(timer > 10.f)
+		if(timer > 6.f)
 		{
 			page2 = false;
 			page3 = true;
@@ -93,7 +115,7 @@ void Credit::Update(float dt)
 	if(page3)
 	{
 		m_credit3->GetMesh().Visible();
-		if(timer > 15.f)
+		if(timer > 9.f)
 			StateManager_.BackToMainMenu();
 	}
 	else
@@ -101,10 +123,19 @@ void Credit::Update(float dt)
 		m_credit3->GetMesh().Invisible();
 	}
 
-        if (Input::IsKeyAnyTriggered())
-        {
-            StateManager_.BackToMainMenu();
-        }
+    if (Input::IsKeyAnyTriggered())
+    {
+        StateManager_.BackToMainMenu();
+    }
+
+	if (button_.IntersectionCheck(Input::GetMousePos()))
+	{
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			StateManager_.BackToMainMenu();
+		}
+	}
 }
 
 void Credit::ShutDown()

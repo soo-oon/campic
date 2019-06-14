@@ -19,6 +19,7 @@ private:
 	Object* m_credit1 = nullptr;
 	Object* m_credit2 = nullptr;
 	Object* m_credit3 = nullptr;
+	Object* mouse_icon = nullptr;
 
 	bool page1 = true;
 	bool page2 = false;

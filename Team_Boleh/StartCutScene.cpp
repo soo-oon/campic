@@ -1,4 +1,5 @@
 #include "StartCutScene.hpp"
+#include "UI.hpp"
 
 void StartCutScene::Initialize()
 {
@@ -7,10 +8,19 @@ void StartCutScene::Initialize()
     is_start_animation = false;
 	AudioManager_.LoadSong("asset/sounds/StartCutScene.mp3");
 	AudioManager_.PlaySong("asset/sounds/StartCutScene.mp3");
+
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(-0.9f);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
+
 	start = new Object();
 	start->SetTranslation({ 0, 0 });
 	start->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
-	start->SetDepth(-0.6f);
+	start->SetDepth(0.6f);
 	start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	start->SetObjectType(ObjectType::Background);
 	start->AddComponent(new Sprite("asset/images/Page/Start1.png"));
@@ -18,19 +28,31 @@ void StartCutScene::Initialize()
 	start1 = new Object();
 	start1->SetTranslation({ 0, 0 });
 	start1->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width), static_cast<float>(Application_.GetGLFWvidmode()->height) });
-	start1->SetDepth(-0.6f);
+	start1->SetDepth(0.6f);
 	start1->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	start1->SetObjectType(ObjectType::Background);
 	start1->AddInitComponent(new Animation("asset/images/Page/StartCutScene.png", "cut", 20, 0.1f, false));
 	start1->GetComponentByTemplate<Animation>()->SetIsActive(false);
 
+	button = new Object();
+	button->SetTranslation({ 880, -500 });
+	button->SetScale({182,96});
+	button->SetDepth(HUD_BUTTON);
+	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	button->SetObjectType(ObjectType::Button);
+	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+
 	Objectmanager_.AddObject(start);
 	Objectmanager_.AddObject(start1);
+	Objectmanager_.AddObject(mouse_icon);
+	button_.AddObject(button);
 }
 
 void StartCutScene::Update(float dt)
 {
 	timer += dt;
+
+	mouse_icon->SetTranslation(Input::GetMousePos());
 
 	if (!is_end_start_sprite)
 	{
@@ -67,6 +89,17 @@ void StartCutScene::Update(float dt)
         SetLevelIndicator("Level1");
         ChangeLevel("Level1");
     }
+
+	if (button_.IntersectionCheck(Input::GetMousePos()))
+	{
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			SetLevelIndicator("Level1");
+			ChangeLevel("Level1");
+			button_.RemoveContainer();
+		}
+	}
 }
 
 void StartCutScene::ShutDown()

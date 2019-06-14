@@ -10,14 +10,6 @@ void LevelSelector::Initialize()
 	m_Menu3 = new MenuPage();
 
 	m_LevelLock = LevelJson_.LoadLevelLock();
-	/*
-	mouse_icon = new Object();
-	mouse_icon->SetTranslation({ 0,0 });
-	mouse_icon->SetScale({ 50,50 });
-	mouse_icon->SetDepth(depth::NearDepth);
-	mouse_icon->SetObjectType(ObjectType::None);
-	mouse_icon->SetMesh(mesh::CreateBox());
-	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));*/
 
 	Object* background = new Object();
 	background->SetTranslation({ 0, 0 });
@@ -36,6 +28,10 @@ void LevelSelector::Initialize()
 	cam->AddComponent(new Sprite("asset/images/Objects/LevelSelect1.png"));
 
 	CreateMenu1();
+	for (auto& i : m_Menu1->GetButtons())
+	{
+		button_.AddObject(i);
+	}
 
 	previous = new Object();
 	previous->SetTranslation({ -300, -293 });
@@ -55,7 +51,6 @@ void LevelSelector::Initialize()
 	next->AddComponent(new Sprite("asset/images/UI/NextButton.png"));
 	next->AddInitComponent(new UI("next"));
 
-	//Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
 	Objectmanager_.AddObject(cam);
 	Objectmanager_.AddObject(previous);
@@ -64,8 +59,6 @@ void LevelSelector::Initialize()
 
 void LevelSelector::Update(float dt)
 {
-	//mouse_icon->SetTranslation(Input::GetMousePos());
-
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		m_selectPage = Input::ClickObject(ObjectDepth::HUD_OBJECT2);
@@ -163,9 +156,6 @@ void LevelSelector::Update(float dt)
 					SetLevelIndicator(temp);
 					ChangeLevel(temp);
 				}
-
-				
-				button_.RemoveContainer();
 			}
 		}
 	}
@@ -181,7 +171,7 @@ void LevelSelector::ShutDown()
 	UnLoad();
 }
 
-void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text,  std::string level_id, MenuPage* menu)
+void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string level_text,  std::string level_id, std::string texture_level,MenuPage* menu)
 {
 	Object* button = new Object();
 	button->SetTranslation(pos);
@@ -193,20 +183,8 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	auto isLocked = m_LevelLock.find(level_id)->second;
 	button->AddComponent(new UI(level_text, isLocked));
 
-	std::string a = level_id;
-	std::string temp = a.substr(5, a.size());
-	int b = atoi(temp.c_str());
-	
-	if (b > 6)
-	{
-		b -= 6;
-	}
-	std::string lev = "Level";
-	lev.append(std::to_string(b));
-
-
 	std::string path = "asset/images/UI/";
-	path.append(lev);
+	path.append(texture_level);
 	path.append(".png");
 
 	button->AddComponent(new Sprite(path));
@@ -237,7 +215,8 @@ void LevelSelector::CreateMenu1()
 			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-600.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i), text + std::to_string(i), m_Menu1);
+		CreateLevelButton(vector2(-400.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i), text + std::to_string(i), 
+			text + std::to_string(i), m_Menu1);
 		text = "Level";
 	}
 }
@@ -254,7 +233,8 @@ void LevelSelector::CreateMenu2()
 			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-600.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i + 6), text + std::to_string(i + 6), m_Menu2);
+		CreateLevelButton(vector2(-400.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i + 6), text + std::to_string(i + 6),
+			text + std::to_string(i),m_Menu2);
 		text = "Level";
 	}
 }
@@ -271,7 +251,8 @@ void LevelSelector::CreateMenu3()
 			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-600.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i + 12), text + std::to_string(i + 12), m_Menu3);
+		CreateLevelButton(vector2(-400.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i + 12),
+			text + std::to_string(i + 12), text + std::to_string(i),m_Menu3);
 		text = "Level";
 	}
 }

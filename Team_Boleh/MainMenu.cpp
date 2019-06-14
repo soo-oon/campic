@@ -102,7 +102,6 @@ void MainMenu::Update(float dt)
 			{
  				AudioManager_.PlaySFX("asset/sounds/Button.wav",0.3f);
 				BackToMenu();
-				button_.RemoveContainer();
 			}
 
 			//else if (temp == "Option")
@@ -116,21 +115,18 @@ void MainMenu::Update(float dt)
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 				Engine::IsQuit = true;
-				button_.RemoveContainer();
 			}
 
 			else if (temp == "Credit")
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 				StateManager_.ToCredit();
-				button_.RemoveContainer();
 			}
 
 			else if (temp == "HowToPlay")
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 				StateManager_.ToHowToPlay();
-				button_.RemoveContainer();
 			}
 		}
 	}
