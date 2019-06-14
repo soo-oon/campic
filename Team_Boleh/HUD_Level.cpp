@@ -130,7 +130,7 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
-	std::cout << Input::GetMousePos();
+	//std::cout << Input::GetMousePos();
 
 	mouse_icon->SetTranslation(Input::GetMousePos());
 
