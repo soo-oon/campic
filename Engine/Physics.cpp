@@ -348,7 +348,7 @@ void Physics::Update(float dt)
                         obstacle_obj->SetIsDead(true);
                         collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
                         p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
-                        StateManager_.GetCurrentState()->GetCaptureLimit()--;
+                        StateManager_.GetCurrentState()->GetCaptureLimit() -= 3;
 
 					}
 				}

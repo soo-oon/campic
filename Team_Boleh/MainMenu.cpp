@@ -94,9 +94,33 @@ void MainMenu::Update(float dt)
 
 	if (button_.IntersectionCheck(Input::GetMousePos()))
 	{
+            std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
+
+            if (temp == "LevelSelector")
+            {
+                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+                button_.GetSelect().second = CollisionState::WasCollided;
+            }
+            else if (temp == "Quit")
+            {
+                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+                button_.GetSelect().second = CollisionState::WasCollided;
+            }
+            else if (temp == "Credit")
+            {
+                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+                button_.GetSelect().second = CollisionState::WasCollided;
+            }
+            else if (temp == "HowToPlay")
+            {
+                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+                button_.GetSelect().second = CollisionState::WasCollided;
+            }
+
+
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
+			//std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
 
 			if (temp == "LevelSelector")
 			{
@@ -115,6 +139,7 @@ void MainMenu::Update(float dt)
 			else if (temp == "Quit")
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				Engine::IsQuit = true;
 				button_.RemoveContainer();
 			}
@@ -122,6 +147,7 @@ void MainMenu::Update(float dt)
 			else if (temp == "Credit")
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				StateManager_.ToCredit();
 				button_.RemoveContainer();
 			}
@@ -129,11 +155,19 @@ void MainMenu::Update(float dt)
 			else if (temp == "HowToPlay")
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                                button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				StateManager_.ToHowToPlay();
 				button_.RemoveContainer();
 			}
 		}
 	}
+        else
+        {
+            for (auto&i : button_.GetContainer())
+            {
+                i.get()->GetMesh().ChangeColor({255, 255, 255});
+            }
+        }
 }
 
 
