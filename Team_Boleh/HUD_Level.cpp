@@ -8,7 +8,7 @@
 
 void HUD_Level::Initialize()
 {
-	h_chapter = new Object();
+	/*h_chapter = new Object();
 	h_chapter->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width) / 7 - 350.f, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 100.f });
 	h_chapter->SetScale({ 2.8f });
 	h_chapter->SetDepth(depth::NearDepth);
@@ -16,7 +16,7 @@ void HUD_Level::Initialize()
 	h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 	h_chapter->SetInvisible();
 	h_chapter->GetMesh().Invisible();
-	HUD_.Add_HUD_Object(h_chapter);
+	HUD_.Add_HUD_Object(h_chapter);*/
 
 	mouse_icon = new Object();
 	mouse_icon->SetTranslation({ 0,0 });
@@ -28,27 +28,62 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(mouse_icon);
 
 	h_capture_limit = new Object();
-	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -250.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
-	h_capture_limit->SetScale(vector2{ Application_.GetScreenSize().x /10.f, Application_.GetScreenSize().y/10.f });
-	h_capture_limit->SetDepth(depth::NearDepth);
-	h_capture_limit->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	h_capture_limit->SetObjectType(ObjectType::None);
+	h_capture_limit->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 -340.0f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -70.f});
+	h_capture_limit->SetScale(vector2{ 200, 120 });
+	h_capture_limit->SetDepth(-0.5f);
+	h_capture_limit->SetMesh(mesh::CreateBox());
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimitBlack.png"));
-	h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
 	h_capture_limit->SetInvisible();
 	h_capture_limit->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_capture_limit);
 
-	h_capture_number = new Object();
-	h_capture_number->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width)/2 - 170.f, static_cast<float>(Application_.GetGLFWvidmode()->height)/2 -110.f});
-	h_capture_number->SetScale({ 2.8f });
-	h_capture_number->SetDepth(depth::NearDepth);
-	h_capture_number->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
-	h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
-	h_capture_number->SetInvisible();
-	h_capture_number->GetMesh().Invisible();
-	HUD_.Add_HUD_Object(h_capture_number);
+	m_capture_one_digits = new Object();
+	m_capture_one_digits->SetDepth(-0.5f);
+	m_capture_one_digits->SetScale({120, 80});
+	m_capture_one_digits->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width) / 2 - 60.0f, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
+	m_capture_one_digits->AddComponent(new Sprite());
+	m_capture_one_digits->SetInvisible();
+	m_capture_one_digits->SetMesh(mesh::CreateBox());
+	HUD_.Add_HUD_Object(m_capture_one_digits);
 
+	m_capture_double_digits = new Object();
+	m_capture_double_digits->SetDepth(-0.5f);
+	m_capture_double_digits->SetScale({ 120, 80 });
+	m_capture_double_digits->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width) / 2 - 180.0f, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
+	m_capture_double_digits->AddComponent(new Sprite());
+	m_capture_double_digits->SetInvisible();
+	m_capture_double_digits->SetMesh(mesh::CreateBox());
+	HUD_.Add_HUD_Object(m_capture_double_digits);
+
+	m_capture_underbar = new Object();
+	m_capture_underbar->SetDepth(-0.5f);
+	m_capture_underbar->SetScale({ 80, 80 });
+	m_capture_underbar->SetTranslation({ 0, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
+	m_capture_underbar->AddComponent(new Sprite("asset/images/UI/UnderBar.png"));
+	m_capture_underbar->SetInvisible();
+	m_capture_underbar->SetMesh(mesh::CreateBox());
+	HUD_.Add_HUD_Object(m_capture_underbar);
+
+	m_capture_base_num = new Object();
+	m_capture_base_num->SetDepth(-0.5f);
+	m_capture_base_num->SetScale({ 80, 80 });
+	m_capture_base_num->SetTranslation({ m_capture_underbar->GetTransform().GetTranslation().x - 80
+		, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
+	m_capture_base_num->AddComponent(new Sprite());
+	m_capture_base_num->SetInvisible();
+	m_capture_base_num->SetMesh(mesh::CreateBox());
+	HUD_.Add_HUD_Object(m_capture_base_num);
+
+	m_capture_sub_num = new Object();
+	m_capture_sub_num->SetDepth(-0.5f);
+	m_capture_sub_num->SetScale({ 80, 80 });
+	m_capture_sub_num->SetTranslation({ m_capture_underbar->GetTransform().GetTranslation().x + 80
+		, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
+	m_capture_sub_num->AddComponent(new Sprite());
+	m_capture_sub_num->SetInvisible();
+	m_capture_sub_num->SetMesh(mesh::CreateBox());
+	HUD_.Add_HUD_Object(m_capture_sub_num);
+	
 	h_cheese = new Object();
 	h_cheese->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	h_cheese->SetDepth(-0.5f);
@@ -95,6 +130,8 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
+	//std::cout << Input::GetMousePos();
+
 	mouse_icon->SetTranslation(Input::GetMousePos());
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Menu || IsOptionWindowOpen)
@@ -102,11 +139,22 @@ void HUD_Level::Update(float dt)
 	else
 		mouse_icon->SetInvisible();
 
+	if(HUD_.IsChangeGameLevel())
+	{
+		SetCapterNumberSprite(m_capture_base_num, m_capture_sub_num);
+		HUD_.SetIsChangeGameLevel(false);
+	}
+
 	if(StateManager_.GetCurrentState()->GetCaptureObjectPointer() != nullptr)
 	{
 		if(auto cheese = StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>();
 			cheese != nullptr)
 		{
+			if(cheese->IsChangeCaptureCount())
+			{
+				SetCaptureNumberSprite(m_capture_one_digits, m_capture_double_digits);
+				cheese->SetIsChangeCaptureCount(false);
+			}
 			if (cheese->IsCheese())
 			{
 				if (!h_cheese->Isvisible())
@@ -137,48 +185,50 @@ void HUD_Level::Update(float dt)
 		if (!HUD_.isHUDActive)
 			HUD_.isHUDActive = true;
 
-		int num = StateManager_.GetCurrentState()->GetCaptureLimit();
-		std::string num_string = std::to_string(num);
-		std::wstring temp = L"";
-		temp.assign(num_string.begin(), num_string.end());
-		h_capture_number->GetComponentByTemplate<Font>()->SetString(temp);
-
 		h_capture_limit->SetVisible();
-		h_capture_number->SetVisible();
+		m_capture_one_digits->SetVisible();
+		m_capture_double_digits->SetVisible();
+
+		m_capture_underbar->SetVisible();
+		m_capture_base_num->SetVisible();
+		m_capture_sub_num->SetVisible();
 
 		if (!ChangeCaptureLimit)
 		{
 			if (StateManager_.GetCurrentState()->GetChapter().first == 3)
 			{
 				h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
-				h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
-				h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
+				//h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
 				ChangeCaptureLimit = true;
 			}
 			else
 			{
 				h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitBlack.png");
-				h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
-				h_capture_number->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
+				//h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 				ChangeCaptureLimit = true;
 			}
 		}
-		std::pair<int,int> chap = StateManager_.GetCurrentState()->GetChapter();
+		/*std::pair<int,int> chap = StateManager_.GetCurrentState()->GetChapter();
 		std::string chap_string = std::to_string(chap.first);
 		chap_string.append("-");
 		chap_string.append(std::to_string(chap.second));
 
 		std::wstring temp1 = L"";
-		temp1.assign(chap_string.begin(), chap_string.end());
-		h_chapter->GetComponentByTemplate<Font>()->SetString(temp1);
+		temp1.assign(chap_string.begin(), chap_string.end());*/
+		//h_chapter->GetComponentByTemplate<Font>()->SetString(temp1);
 
-		h_chapter->SetVisible();
+		//h_chapter->SetVisible();
 	}
 	else
 	{
 		h_capture_limit->SetInvisible();
-		h_capture_number->SetInvisible();
-		h_chapter->SetInvisible();
+		m_capture_one_digits->SetInvisible();
+		m_capture_double_digits->SetInvisible();
+		//h_chapter->SetInvisible();
+
+		m_capture_underbar->SetInvisible();
+		m_capture_base_num->SetInvisible();
+		m_capture_sub_num->SetInvisible();
 	}
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash &&
@@ -311,6 +361,7 @@ void HUD_Level::Update(float dt)
 			h_quit_button->GetMesh().Invisible();
 			h_backtomenu_button->GetMesh().Invisible();
 			h_mute_button->GetMesh().Invisible();
+
 		}
 	}
 	else
@@ -338,4 +389,129 @@ Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std:
 	button->GetMesh().Invisible();
 
 	return button;
+}
+
+void HUD_Level::SetCaptureNumberSprite(Object* one_, Object* double_)
+{
+	int number = StateManager_.GetCurrentState()->GetCaptureLimit();
+
+	int double_digits = number / 10;
+	int one_digipts = number % 10;
+
+	switch (one_digipts)
+	{
+	case 0:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number0.png");
+		break;
+	case 1:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number1.png");
+		break;
+	case 2:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number2.png");
+		break;
+	case 3:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number3.png");
+		break;
+	case 4:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number4.png");
+		break;
+	case 5:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number5.png");
+		break;
+	case 6:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number6.png");
+		break;
+	case 7:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number7.png");
+		break;
+	case 8:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number8.png");
+		break;
+	case 9:
+		one_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number9.png");
+		break;
+	default:
+		break;
+	}
+
+	switch (double_digits)
+	{
+	case 0:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number0.png");
+		break;
+	case 1:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number1.png");
+		break;
+	case 2:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number2.png");
+		break;
+	case 3:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number3.png");
+		break;
+	case 4:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number4.png");
+		break;
+	case 5:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number5.png");
+		break;
+	case 6:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number6.png");
+		break;
+	case 7:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number7.png");
+		break;
+	case 8:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number8.png");
+		break;
+	case 9:
+		double_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number9.png");
+		break;
+	default:
+		break;
+	}
+}
+
+void HUD_Level::SetCapterNumberSprite(Object* base_, Object* sub_)
+{
+	int base = StateManager_.GetCurrentState()->GetChapter().first;
+	int sub = StateManager_.GetCurrentState()->GetChapter().second;
+
+	switch (base)
+	{
+	case 1:
+		base_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number1.png");
+		break;
+	case 2:
+		base_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number2.png");
+		break;
+	case 3:
+		base_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number3.png");
+		break;
+	default:
+		break;
+	}
+
+	switch (sub)
+	{
+	case 1:
+		sub_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number1.png");
+		break;
+	case 2:
+		sub_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number2.png");
+		break;
+	case 3:
+		sub_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number3.png");
+		break;
+	case 4:
+		sub_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number4.png");
+		break;
+	case 5:
+		sub_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number5.png");
+		break;
+	case 6:
+		sub_->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/Number6.png");
+		break;
+	default:
+		break;
+	}
 }

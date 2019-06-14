@@ -24,6 +24,7 @@ Creation date: 2018/12/14
 #include "JSON.hpp"
 
 class JSON;
+const int MAX_CAPTRUE_COUNT = 99;
 
 class State
 {

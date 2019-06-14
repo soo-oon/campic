@@ -35,7 +35,7 @@ bool Player::Initialize(Object * Ob)
 		object->AddComponent(new Sound("asset/sounds/jump.mp3", AudioManager::CATEGORY_SFX,0.3f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerShutter.png", "capture", 10, 0.01f, false);
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerJump.png", "jump", 1, 0.01f, false);
-        object->SetInvisible();
+                //object->SetInvisible();
 	}
 	return true;
 }

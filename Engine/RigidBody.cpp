@@ -160,6 +160,11 @@ void RigidBody::MovePlayer()
                 o_collision->SetIsLeftTile(true);
                 o_rigidbody->SetVelocity({o_rigidbody->GetVelocity().x,m_velocity_limit.y});
                 o_rigidbody->SetJumping(true);
+                if (isYLimited)
+                {
+                    //// 여기에 점프 높게 하는 사운드 넣어주시면 됩니다. 
+                }
+                else
 				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
                 isYLimited = false;
             }
@@ -198,6 +203,11 @@ void RigidBody::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
+                if (isYLimited)
+                {
+                    //// 여기에 점프 높게 하는 사운드 넣어주시면 됩니다. 
+                }
+                else
 				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
                 isYLimited = false;
             }
@@ -235,7 +245,13 @@ void RigidBody::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
-				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                if(isYLimited)
+                {
+                    //// 여기에 점프 높게 하는 사운드 넣어주시면 됩니다. 
+                }
+                else 
+		    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+
                 isYLimited = false;
             }
         }
