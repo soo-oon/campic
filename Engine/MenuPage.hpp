@@ -10,6 +10,7 @@ public:
 
 	std::vector<Object*>& GetButtons() { return buttons; }
 
+	void Clear() { buttons.clear(); }
 	void InsertButtons(Object* obj) { buttons.push_back(obj); }
 
 private:

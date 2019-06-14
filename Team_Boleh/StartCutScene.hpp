@@ -14,16 +14,11 @@ public:
 	void Update(float dt) override;
 	void ShutDown() override;
 private:
-    Object* check = nullptr;
-    Object* check1 = nullptr;
-    vector2 test= {0};
+	Object* start = nullptr;
+	Object* start1 = nullptr;
 
-
-	//Object* start = nullptr;
-	//Object* start1 = nullptr;
-
-	//float timer = 0.f;
-	//bool is_end_start_sprite = false;
-	//bool is_start_animation = false;
+	float timer = 0.f;
+	bool is_end_start_sprite = false;
+	bool is_start_animation = false;
 };
 

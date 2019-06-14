@@ -17,7 +17,9 @@ public:
 	void ShutDown() override;
 
 	void CreateLevelButton(vector2 pos, vector2 scale, std::string level_text, std::string level_id	,MenuPage* menu);
-	void CreateMenuPage();
+	void CreateMenu1();
+	void CreateMenu2();
+	void CreateMenu3();
 
 private:
 	std::string current_level = "LevelSelector";
@@ -35,6 +37,9 @@ private:
 	Object* cam = nullptr;
 
 	bool selectPage = true;
-
 	int page_count = 1;
+
+	Object* previous = nullptr;
+	Object* next = nullptr;
+
 };

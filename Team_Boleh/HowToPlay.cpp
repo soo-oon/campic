@@ -9,7 +9,15 @@ void HowToPlay::Initialize()
 	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
-	background->AddInitComponent(new Sprite("asset/images/Page/HowToPlay.png"));
+	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
+
+	Object* cam = new Object();
+	cam->SetTranslation({ 0, 0 });
+	cam->SetDepth(0.9f);
+	cam->SetScale({ 1200,900 });
+	cam->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	cam->SetObjectType(ObjectType::Button);
+	cam->AddInitComponent(new Sprite("asset/images/Page/HowToPlay.png"));
 
 	Objectmanager_.AddObject(background);
 
@@ -22,6 +30,7 @@ void HowToPlay::Initialize()
 	button->AddInitComponent(new UI("back"));
 
 	Objectmanager_.AddObject(button);
+	Objectmanager_.AddObject(cam);
 }
 
 void HowToPlay::Update(float dt)

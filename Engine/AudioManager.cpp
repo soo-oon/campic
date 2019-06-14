@@ -41,6 +41,8 @@ bool AudioManager::Initialize()
 	LoadSong("asset/sounds/MainMenu_BGM.mp3");
 	LoadSong("asset/sounds/Game_BGM.mp3");
     LoadSFX("asset/sounds/Bus.mp3");
+	LoadSFX("asset/sounds/Button.wav");
+	LoadSFX("asset/sounds/pain.mp3");
 
 	std::cout << "AudioManager Initialization Successful" << std::endl;
 

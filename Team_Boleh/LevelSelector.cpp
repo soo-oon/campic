@@ -1,6 +1,7 @@
 #include "LevelSelector.hpp"
 #include "UI.hpp"
 #include "DepthValue.hpp"
+#include "Button.hpp"
 
 void LevelSelector::Initialize()
 {
@@ -34,104 +35,106 @@ void LevelSelector::Initialize()
 	cam->SetObjectType(ObjectType::Background);
 	cam->AddComponent(new Sprite("asset/images/Objects/LevelSelect1.png"));
 
-	CreateMenuPage();
+	CreateMenu1();
 
-	Object* previous = new Object();
+	previous = new Object();
 	previous->SetTranslation({ -300, -293 });
 	previous->SetScale({ 128,128 });
 	previous->SetDepth(HUD_OBJECT2);
 	previous->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	previous->SetObjectType(ObjectType::Button);
 	previous->AddComponent(new Sprite("asset/images/UI/PrevButton.png"));
-	previous->AddComponent(new UI("previous"));
-	Objectmanager_.AddObject(previous);
+	previous->AddInitComponent(new UI("previous"));
 
-	Object* next = new Object();
+	next = new Object();
 	next->SetTranslation({ 200, -293 });
 	next->SetScale({ 128,128 });
 	next->SetDepth(HUD_OBJECT2);
 	next->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	next->SetObjectType(ObjectType::Button);
 	next->AddComponent(new Sprite("asset/images/UI/NextButton.png"));
-	next->AddComponent(new UI("next"));
-	Objectmanager_.AddObject(next);
-
-	for(auto& i : m_Menu1->GetButtons())
-	{
-		Objectmanager_.AddObject(i);
-	}
-	for (auto& i : m_Menu2->GetButtons())
-	{
-		Objectmanager_.AddObject(i);
-	}
-	for (auto& i : m_Menu3->GetButtons())
-	{
-		Objectmanager_.AddObject(i);
-	}
+	next->AddInitComponent(new UI("next"));
 
 	//Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
 	Objectmanager_.AddObject(cam);
+	Objectmanager_.AddObject(previous);
+	Objectmanager_.AddObject(next);
 }
 
 void LevelSelector::Update(float dt)
 {
 	//mouse_icon->SetTranslation(Input::GetMousePos());
 
+	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	{
+		m_selectPage = Input::ClickObject(ObjectDepth::HUD_OBJECT2);
+
+		if (m_selectPage)
+		{
+			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "previous")
+			{
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				selectPage = !selectPage;
+
+				if (page_count == 1)
+					page_count = 3;
+				else
+					--page_count;
+			}
+
+			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "next")
+			{
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				selectPage = !selectPage;
+
+				if (page_count == 3)
+					page_count = 1;
+				else
+					++page_count;
+			}
+		}
+	}
+
 	if (selectPage)
 	{
+		button_.RemoveContainer();
+
 		switch (page_count)
 		{
 		case 1:
 		{
 			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect1.png");
+			m_Menu1->Clear();
+			CreateMenu1();
 			for (auto& i : m_Menu1->GetButtons())
 			{
-				i->GetMesh().Visible();
-			}
-			for (auto& i : m_Menu2->GetButtons())
-			{
-				i->GetMesh().Invisible();
-			}
-			for (auto& i : m_Menu3->GetButtons())
-			{
-				i->GetMesh().Invisible();
+				button_.AddObject(i);
 			}
 			selectPage = false;
 			break;
 		}
 		case 2:
 		{
-			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect2.png");
-			for (auto& i : m_Menu1->GetButtons())
-			{
-				i->GetMesh().Invisible();
-			}
+			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect2.png");				
+			m_Menu2->Clear();
+			CreateMenu2();
 			for (auto& i : m_Menu2->GetButtons())
 			{
-				i->GetMesh().Visible();
+				button_.AddObject(i);
 			}
-			for (auto& i : m_Menu3->GetButtons())
-			{
-				i->GetMesh().Invisible();
-			}
+
 			selectPage = false;
 			break;
 		}
 		case 3:
 		{
 			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect3.png");
-			for (auto& i : m_Menu1->GetButtons())
-			{
-				i->GetMesh().Invisible();
-			}
-			for (auto& i : m_Menu2->GetButtons())
-			{
-				i->GetMesh().Invisible();
-			}
+			m_Menu3->Clear();
+			CreateMenu3();
 			for (auto& i : m_Menu3->GetButtons())
 			{
-				i->GetMesh().Visible();
+				button_.AddObject(i);
 			}
 			selectPage = false;
 			break;
@@ -141,46 +144,19 @@ void LevelSelector::Update(float dt)
 		}
 	}
 
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	if (button_.IntersectionCheck(Input::GetMousePos()))
 	{
-		m_SelectLevel = Input::ClickObject(ObjectDepth::HUD_OBJECT);
-
-		if (m_SelectLevel)
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			if(m_SelectLevel->GetComponentByTemplate<UI>()->GetIsLock())
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+
+			if(button_.GetSelect().first != previous && button_.GetSelect().first != next)
 			{
-				if (m_SelectLevel->GetComponentByTemplate<UI>()->GetId() == "Level1")
-				{
-					StateManager_.ToStartScene();
-				}
-				else
-				{
-					SetLevelIndicator(m_SelectLevel->GetComponentByTemplate<UI>()->GetId());
-					ChangeLevel(level_indicator);
-				}
-			}
-		}
+				std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
 
-		m_selectPage = Input::ClickObject(ObjectDepth::HUD_OBJECT2);
-
-		if (m_selectPage)
-		{
-			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "previous")
-			{
-				selectPage = !selectPage;
-
-				--page_count;
-				if (page_count < 1)
-					page_count = 3;
-			}
-
-			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "next")
-			{
-				selectPage = !selectPage;
-
-				++page_count;
-				if (page_count > 3)
-					page_count = 1;
+				SetLevelIndicator(temp);
+				ChangeLevel(temp);
+				button_.RemoveContainer();
 			}
 		}
 	}
@@ -190,6 +166,8 @@ void LevelSelector::ShutDown()
 {
 	m_Menu1->GetButtons().clear();
 	m_Menu2->GetButtons().clear();
+	m_Menu3->GetButtons().clear();
+	button_.RemoveContainer();
 
 	UnLoad();
 }
@@ -206,8 +184,20 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	auto isLocked = m_LevelLock.find(level_id)->second;
 	button->AddComponent(new UI(level_text, isLocked));
 
+	std::string a = level_id;
+	std::string temp = a.substr(5, a.size());
+	int b = atoi(temp.c_str());
+	
+	if (b > 6)
+	{
+		b -= 6;
+	}
+	std::string lev = "Level";
+	lev.append(std::to_string(b));
+
+
 	std::string path = "asset/images/UI/";
-	path.append(level_id);
+	path.append(lev);
 	path.append(".png");
 
 	button->AddComponent(new Sprite(path));
@@ -226,7 +216,7 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	menu->InsertButtons(button);
 }
 
-void LevelSelector::CreateMenuPage()
+void LevelSelector::CreateMenu1()
 {
 	std::string text = "Level";
 	float base_y = 70.f;
@@ -238,11 +228,16 @@ void LevelSelector::CreateMenuPage()
 			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-600.f + (185.f*j), base_y), vector2(150, 150), text + std::to_string(i), text + std::to_string(i), m_Menu1);
+		CreateLevelButton(vector2(-600.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i), text + std::to_string(i), m_Menu1);
 		text = "Level";
 	}
+}
 
-	base_y = 70.f;
+void LevelSelector::CreateMenu2()
+{
+	std::string text = "Level";
+	float base_y = 70.f;
+
 	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{
 		if (i == 4)
@@ -250,11 +245,16 @@ void LevelSelector::CreateMenuPage()
 			base_y -= 200;
 			j = 1;
 		}
-		CreateLevelButton(vector2(-600.f + (185.f*j), base_y), vector2(150, 150), text + std::to_string(i+6), text + std::to_string(i+6), m_Menu2);
+		CreateLevelButton(vector2(-600.f + (185.f * j), base_y), vector2(150, 150), text + std::to_string(i + 6), text + std::to_string(i + 6), m_Menu2);
 		text = "Level";
 	}
+}
 
-	base_y = 70.f;
+void LevelSelector::CreateMenu3()
+{
+	std::string text = "Level";
+	float base_y = 70.f;
+
 	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{
 		if (i == 4)

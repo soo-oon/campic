@@ -8,7 +8,6 @@ void Button::AddObject(Object* obj)
 
     m_button_container.push_back(temp);
 
-
     for (auto component : m_button_container[m_button_container.size() - 1]->GetComponent())
     {
         component->Initialize(m_button_container[m_button_container.size() - 1].get());
@@ -19,13 +18,11 @@ void Button::AddObject(std::shared_ptr<Object> obj)
 {
     m_button_container.push_back(obj);
 
-
     for (auto component : m_button_container[m_button_container.size() - 1]->GetComponent())
     {
         component->Initialize(m_button_container[m_button_container.size() - 1].get());
     }
 }
-
 
 bool Button::IntersectionCheck(vector2 mouse_pos)
 {

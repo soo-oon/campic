@@ -4,6 +4,7 @@
 #include "DepthValue.hpp"
 #include <iostream>
 #include "HUD_Level.hpp"
+#include "Button.hpp"
 
 void MainMenu::Initialize()
 {
@@ -34,7 +35,7 @@ void MainMenu::Initialize()
 	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
 
 	Object* Start = new Object();
-	Start->SetTranslation({600, 400});
+	Start->SetTranslation({600, 200});
 	Start->SetScale({ 300,150 });
 	Start->SetDepth(HUD_OBJECT);
 	Start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -42,14 +43,14 @@ void MainMenu::Initialize()
 	Start->AddComponent(new UI("LevelSelector"));
 	Start->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
 	
-	Object* Option = new Object();
-	Option->SetTranslation({ 600, 200 });
-	Option->SetScale({ 300,150 });
-	Option->SetDepth(HUD_OBJECT);
-	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	Option->SetObjectType(ObjectType::Button);
-	Option->AddComponent(new UI("Option"));
-	Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
+	//Object* Option = new Object();
+	//Option->SetTranslation({ 600, 200 });
+	//Option->SetScale({ 300,150 });
+	//Option->SetDepth(HUD_OBJECT);
+	//Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	//Option->SetObjectType(ObjectType::Button);
+	//Option->AddComponent(new UI("Option"));
+	//Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
 
 	Object* HowToPlay = new Object();
 	HowToPlay->SetTranslation({ 600, 0 });
@@ -79,39 +80,58 @@ void MainMenu::Initialize()
 	Quit->AddComponent(new Sprite("asset/images/UI/QuitButton.png"));
 
 	//Objectmanager_.AddObject(mouse_icon);
-	Objectmanager_.AddObject(Start);
-	Objectmanager_.AddObject(Option);
-	Objectmanager_.AddObject(Credit);
-	Objectmanager_.AddObject(Quit);
+	button_.AddObject(Start);
+	//button_.AddObject(Option);
+	button_.AddObject(Credit);
+	button_.AddObject(Quit);
 	Objectmanager_.AddObject(background);
-	Objectmanager_.AddObject(HowToPlay);
+	button_.AddObject(HowToPlay);
 	Objectmanager_.AddObject(camera);
 }
 
 void MainMenu::Update(float dt)
 {
-	//mouse_icon->SetTranslation(Input::GetMousePos());
 
-	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+	if (button_.IntersectionCheck(Input::GetMousePos()))
 	{
-		m_Select = Input::ClickObject(ObjectDepth::HUD_OBJECT);
-
-		if (m_Select)
+		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			if (m_Select->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
+			std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
+
+			if (temp == "LevelSelector")
+			{
+ 				AudioManager_.PlaySFX("asset/sounds/Button.wav",0.3f);
 				BackToMenu();
+				button_.RemoveContainer();
+			}
 
-			else if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Option")
-				HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
+			//else if (temp == "Option")
+			//{
+			//	AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			//	HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
+			//	button_.RemoveContainer();
+			//}
 
-			else if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Quit")
+			else if (temp == "Quit")
+			{
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 				Engine::IsQuit = true;
+				button_.RemoveContainer();
+			}
 
-			else if (m_Select->GetComponentByTemplate<UI>()->GetId() == "Credit")
+			else if (temp == "Credit")
+			{
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 				StateManager_.ToCredit();
+				button_.RemoveContainer();
+			}
 
-			else if (m_Select->GetComponentByTemplate<UI>()->GetId() == "HowToPlay")
+			else if (temp == "HowToPlay")
+			{
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 				StateManager_.ToHowToPlay();
+				button_.RemoveContainer();
+			}
 		}
 	}
 }
