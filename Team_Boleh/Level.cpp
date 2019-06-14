@@ -122,7 +122,7 @@ void Level::Update(float dt)
         std::string lev = "Level";
         lev.append(std::to_string(b));
 
-        if(b == 16)
+        if(b == 19)
         {
             StateManager_.ToEndScene();
         }
