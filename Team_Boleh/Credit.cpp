@@ -55,7 +55,7 @@ void Credit::Initialize()
 	m_credit3->GetMesh().Invisible();
 
 	Object* button = new Object();
-	button->SetTranslation({ 880, -500 });
+	button->SetTranslation({ Application_.GetScreenSize().x/4, Application_.GetScreenSize().y*19/60});
 	button->SetScale({ 182,96 });
 	button->SetDepth(-0.5f);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -130,12 +130,20 @@ void Credit::Update(float dt)
 
 	if (button_.IntersectionCheck(Input::GetMousePos()))
 	{
+            button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
 			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
 			StateManager_.BackToMainMenu();
 		}
 	}
+        else
+        {
+            for (auto&i : button_.GetContainer())
+            {
+                i.get()->GetMesh().ChangeColor({ 255, 255, 255 });
+            }
+        }
 }
 
 void Credit::ShutDown()
