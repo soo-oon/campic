@@ -33,14 +33,14 @@ public:
 		{
 		    Particle temp{ lifeTime_Control, sizeVariance_Control, color_duration, 
 		    	startVelocity, randomVelocity, particle_size, emitSize, m_type, path };
-		    particles.push_back(std::make_unique<Particle>(temp));
+		    particles.push_back(std::make_shared<Particle>(temp));
 		}
 	}
 
 	bool Initialize(Object* Ob) override;
 	void Update(float dt) override;
 	void Delete() override;
-	std::vector<std::unique_ptr<Particle>>& GetParticles() { return particles; }
+	std::vector<std::shared_ptr<Particle>>& GetParticles() { return particles; }
 
 	bool IsActive() const { return isActive; }
 	void ToggleActive() { isActive = !isActive; }
@@ -57,6 +57,14 @@ public:
 	void SetIsRepeat(bool condition) { is_repeat = condition; }
 	void SetDurationTime(float duration_time_) { duration_time = duration_time_; }
     void SetIsDone(bool done) { is_done = done; }
+
+	void AddAnimation(Component* com)
+	{
+		for(auto particle : particles)
+		{
+			particle->AddAnimation(com);
+		}
+	}
 
 	bool GetIsActive() { return isActive; }
 	std::string GetPath() const { return path; }
@@ -93,5 +101,5 @@ private:
 	Particle_Fire_Type m_type = Particle_Fire_Type::Divergent;
 	std::string path;
 
-	std::vector<std::unique_ptr<Particle>> particles;
+	std::vector<std::shared_ptr<Particle>> particles;
 };

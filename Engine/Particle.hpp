@@ -23,24 +23,15 @@ public:
 		random_velocity = static_random_velocity;
 		emit_size = static_emit_size;
 
-		particle_obj = new Object();
+		particle_obj = std::make_shared<Object>();
 		particle_obj->SetMesh(mesh::CreateBox(1, { 255,255,255 }));
 		particle_obj->SetScale(particle_size);
 
-		if (path.empty())
-		{
-			particle_obj->AddComponent(new Sprite());
-		}
-		else
+		if (!path.empty())
 		{
 			particle_obj->AddComponent(new Sprite(path));
-			
 		}
 
-		for(auto component : particle_obj->GetComponent())
-		{
-			component->Initialize(particle_obj);
-		}
 	}
 	~Particle();
 
@@ -49,7 +40,7 @@ public:
 
 	bool IsRespawn() { return isrespawn; }
 	void RespawnParticleObj(Object* obj);
-	Object* GetParticleObject() { return particle_obj; }
+	std::shared_ptr<Object> GetParticleObject() { return particle_obj; }
 
 	void SetStartVelocity(vector2 velocity) { startVelocity = velocity; }
 	void SetRandomVelocity(vector2 velocity) { static_random_velocity = velocity; }
@@ -58,6 +49,10 @@ public:
 	void SetLifeTime(float lifeTime_) { static_lifeTime = lifeTime_; }
 	void SetEmitSize(vector2 size);
 	void SetParticle_Fire_Type(Particle_Fire_Type type);
+	void AddAnimation(Component* com)
+	{
+		particle_obj->AddComponent(com);
+	}
 
 	float GetLifeTime() { return static_lifeTime; }
 	float GetSizeVariance() { return static_sizeVariance; }
@@ -74,7 +69,7 @@ private:
 	float color_duration;
 	vector2 random_velocity{};
 	vector2 emit_size{};
-	Object* particle_obj = nullptr;
+	std::shared_ptr<Object> particle_obj = nullptr;
 	bool isrespawn = false;
 
 //static

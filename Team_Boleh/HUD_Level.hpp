@@ -23,8 +23,6 @@ private:
 	void SetCaptureNumberSprite(Object* one_, Object* double_);
 	void SetCapterNumberSprite(Object* base_, Object* sub_);
 
-	//Object* h_chapter = nullptr;
-	//OPTION
 	Object* h_option_window = nullptr;
 	Object* h_fullscreen_button = nullptr;
 	Object* h_volume_scroll_button = nullptr;
@@ -42,7 +40,6 @@ private:
 	Object* m_capture_sub_num = nullptr;
 	Object* m_capture_underbar = nullptr;
 
-
 	Object* h_cheese = nullptr;
 	Object* h_select = nullptr;
 	vector2 screen_size = Application_.GetScreenSize();
@@ -52,5 +49,6 @@ private:
 	bool mute = false;
 	bool fullscreen = false;
 
-	
+	bool check = false;
+	float m_dt = 0.0f;
 };

@@ -8,16 +8,6 @@
 
 void HUD_Level::Initialize()
 {
-	/*h_chapter = new Object();
-	h_chapter->SetTranslation({ static_cast<float>(Application_.GetGLFWvidmode()->width) / 7 - 350.f, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 100.f });
-	h_chapter->SetScale({ 2.8f });
-	h_chapter->SetDepth(depth::NearDepth);
-	h_chapter->AddComponent(new Font(L"asset/font/sansation.fnt", L"0"));
-	h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
-	h_chapter->SetInvisible();
-	h_chapter->GetMesh().Invisible();
-	HUD_.Add_HUD_Object(h_chapter);*/
-
 	mouse_icon = new Object();
 	mouse_icon->SetTranslation({ 0,0 });
 	mouse_icon->SetScale({ 50,50 });
@@ -33,6 +23,9 @@ void HUD_Level::Initialize()
 	h_capture_limit->SetDepth(-0.5f);
 	h_capture_limit->SetMesh(mesh::CreateBox());
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimitBlack.png"));
+	h_capture_limit->AddInitComponent(new Particle_Generator(50, 5.0f, 3.0f, 5.0f, {0,-3}, {-5,0}, {45,45}, {}, {}, false));
+	h_capture_limit->GetComponentByTemplate<Particle_Generator>()->AddAnimation(new Animation("asset/images/UI/CaptureLimitRipped.png", "delete", 5, 0.1f, true));
+	h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
 	h_capture_limit->SetInvisible();
 	h_capture_limit->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_capture_limit);
@@ -130,14 +123,25 @@ void HUD_Level::Initialize()
 
 void HUD_Level::Update(float dt)
 {
-	//std::cout << Input::GetMousePos();
-
 	mouse_icon->SetTranslation(Input::GetMousePos());
 
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() == State_Information::Menu || IsOptionWindowOpen)
 		mouse_icon->SetVisible();
 	else
 		mouse_icon->SetInvisible();
+
+	//h_capture_limit->GetComponentByTemplate<Particle_Generator>()->AddAnimation(new Animation("asset/images/UI/CaptureLimitRipped.png", "delete", 5, 0.1f, true));
+
+	if(check)
+	{
+		m_dt += dt;
+
+		if (m_dt > 2.5f)
+		{
+			check = false;
+			m_dt = 0.0f;
+		}
+	}
 
 	if(HUD_.IsChangeGameLevel())
 	{
@@ -150,6 +154,12 @@ void HUD_Level::Update(float dt)
 		if(auto cheese = StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>();
 			cheese != nullptr)
 		{
+			check = true;
+
+			if (!h_capture_limit->GetComponentByTemplate<Particle_Generator>()->GetIsActive())
+				h_capture_limit->GetComponentByTemplate<Particle_Generator>()->ToggleActive();
+
+
 			if(cheese->IsChangeCaptureCount())
 			{
 				SetCaptureNumberSprite(m_capture_one_digits, m_capture_double_digits);
@@ -198,33 +208,20 @@ void HUD_Level::Update(float dt)
 			if (StateManager_.GetCurrentState()->GetChapter().first == 3)
 			{
 				h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitWhite.png");
-				//h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::White);
 				ChangeCaptureLimit = true;
 			}
 			else
 			{
 				h_capture_limit->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/CaptureLimitBlack.png");
-				//h_chapter->GetComponentByTemplate<Font>()->SetFillColor(Colors::Black);
 				ChangeCaptureLimit = true;
 			}
 		}
-		/*std::pair<int,int> chap = StateManager_.GetCurrentState()->GetChapter();
-		std::string chap_string = std::to_string(chap.first);
-		chap_string.append("-");
-		chap_string.append(std::to_string(chap.second));
-
-		std::wstring temp1 = L"";
-		temp1.assign(chap_string.begin(), chap_string.end());*/
-		//h_chapter->GetComponentByTemplate<Font>()->SetString(temp1);
-
-		//h_chapter->SetVisible();
 	}
 	else
 	{
 		h_capture_limit->SetInvisible();
 		m_capture_one_digits->SetInvisible();
 		m_capture_double_digits->SetInvisible();
-		//h_chapter->SetInvisible();
 
 		m_capture_underbar->SetInvisible();
 		m_capture_base_num->SetInvisible();
