@@ -276,8 +276,6 @@ void Physics::Update(float dt)
                                     p_collision->SetIsCapobj(true);
                                     if(capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
                                         p_rigidbody->SetYLimited(true);
-                                    if (capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Speed)
-                                        p_rigidbody->SetXLimited(true);
                                     break;
                             }
                         }
@@ -349,10 +347,17 @@ void Physics::Update(float dt)
 				{
 					if (IntersectionCheckAABB(collision_list[i], obstacle_obj))
 					{
-                        obstacle_obj->SetIsDead(true);
-                        collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
-                        p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
-                        StateManager_.GetCurrentState()->GetCaptureLimit()--;
+                                            obstacle_obj->SetIsDead(true);
+                                            collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
+                                            p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
+                                            StateManager_.GetCurrentState()->GetCaptureLimit()--;
+                                            ///////////////////////////////////////////////////////////////////////////////////////////
+                                            //////////////////                                                       //////////////////
+                                            //////////////////                                                       //////////////////
+                                            //////////////////     여기 장애물 컬리젼 사운드 넣어주시면 됩니다.         //////////////////
+                                            //////////////////                                                       //////////////////
+                                            //////////////////                                                       //////////////////
+                                            ///////////////////////////////////////////////////////////////////////////////////////////
 					}
 				}
 
