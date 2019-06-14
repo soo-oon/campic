@@ -151,22 +151,34 @@ void RigidBody::MovePlayer()
         }
         if (o_rigidbody->GetJumping() == false)
         {
-            if (Input::IsKeyPressed(GLFW_KEY_W))
+            if (isYLimited)
             {
-                o_collision->SetIsGround(false);
-                o_collision->SetIsCapobj(false);
-                Physics::capture_ground_obj = nullptr;
-
-                o_collision->SetIsLeftTile(true);
-                o_rigidbody->SetVelocity({o_rigidbody->GetVelocity().x,m_velocity_limit.y});
-                o_rigidbody->SetJumping(true);
-                if (isYLimited)
+                if (Input::IsKeyPressed(GLFW_KEY_W))
                 {
-                    //// 여기에 점프 높게 하는 사운드 넣어주시면 됩니다. 
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3");
+                    o_collision->SetIsGround(false);
+                    o_collision->SetIsCapobj(false);
+                    Physics::capture_ground_obj = nullptr;
+
+                    o_collision->SetIsLeftTile(true);
+                    o_rigidbody->SetVelocity({ o_rigidbody->GetVelocity().x,m_velocity_limit.y });
+                    o_rigidbody->SetJumping(true);
+                    isYLimited = false;
                 }
-                else
-				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
-                isYLimited = false;
+            }
+            else{
+
+                if (Input::IsKeyTriggered(GLFW_KEY_W))
+                {
+                    o_collision->SetIsGround(false);
+                    o_collision->SetIsCapobj(false);
+                    Physics::capture_ground_obj = nullptr;
+
+                    o_rigidbody->SetVelocity(
+                        { o_rigidbody->GetVelocity().x, m_velocity_limit.y });
+                    o_rigidbody->SetJumping(true);
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                }
             }
         }
     }
@@ -193,8 +205,11 @@ void RigidBody::MovePlayer()
         }
         if (o_rigidbody->GetJumping() == false)
         {
+            if (isYLimited)
+            {
             if (Input::IsKeyPressed(GLFW_KEY_W))
             {
+                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3");
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 Physics::capture_ground_obj = nullptr;
@@ -203,14 +218,22 @@ void RigidBody::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
-                if (isYLimited)
-                {
-                    //// 여기에 점프 높게 하는 사운드 넣어주시면 됩니다. 
-                }
-                else
-				object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
                 isYLimited = false;
             }
+            }
+            else{
+                if (Input::IsKeyTriggered(GLFW_KEY_W))
+                {
+                    o_collision->SetIsGround(false);
+                    o_collision->SetIsCapobj(false);
+                    Physics::capture_ground_obj = nullptr;
+
+                    o_rigidbody->SetVelocity(
+                        { o_rigidbody->GetVelocity().x, m_velocity_limit.y });
+                    o_rigidbody->SetJumping(true);
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                }
+        }
         }
     }
     else if ((!o_collision->GetIsRight() && !o_collision->GetIsLeft())
@@ -236,8 +259,11 @@ void RigidBody::MovePlayer()
         }
         if (o_rigidbody->GetJumping() == false)
         {
+            if (isYLimited)
+            {
             if (Input::IsKeyPressed(GLFW_KEY_W))
             {
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3");
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 Physics::capture_ground_obj = nullptr;
@@ -245,14 +271,23 @@ void RigidBody::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, m_velocity_limit .y});
                 o_rigidbody->SetJumping(true);
-                if(isYLimited)
-                {
-                    //// 여기에 점프 높게 하는 사운드 넣어주시면 됩니다. 
-                }
-                else 
-		    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
 
                 isYLimited = false;
+            }
+            }
+            else
+            {
+                if (Input::IsKeyTriggered(GLFW_KEY_W))
+                {
+                    o_collision->SetIsGround(false);
+                    o_collision->SetIsCapobj(false);
+                    Physics::capture_ground_obj = nullptr;
+
+                    o_rigidbody->SetVelocity(
+                        { o_rigidbody->GetVelocity().x, m_velocity_limit.y });
+                    o_rigidbody->SetJumping(true);
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                }
             }
         }
     }
