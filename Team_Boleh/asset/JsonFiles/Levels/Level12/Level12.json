@@ -1,13 +1,46 @@
 {
     "Object": {
         "Type": {
+            "type": 16,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -452.8125,
+                "y": -134.96875
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 128.0
+            },
+            "rotation": 0.0,
+            "depth": -0.0
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/StartPoint.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
             "type": 19,
             "isDead": false
         },
         "Transform": {
             "position": {
                 "x": 21.0,
-                "y": 149.84375
+                "y": 146.25
             },
             "scale": {
                 "x": 10.0,
@@ -32,9 +65,9 @@
                 "x": 0.0,
                 "y": 0.0
             },
-			 "scale": {
-                "x": 0.0,
-                "y": 0.0
+            "scale": {
+                "x": 200.0,
+                "y": 75.0
             },
             "type": 0,
             "text": "",
@@ -42,6 +75,66 @@
             "u_frame": 0.0,
             "i_frame": 0.0
         },
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 21,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -769.5,
+                "y": -401.625
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.49000000953674319
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 21,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -720.0,
+                "y": -439.875
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.49000000953674319
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
         "UI": {},
         "Camera": {},
         "Chapter": {}
@@ -462,25 +555,52 @@
     },
     "Object": {
         "Type": {
-            "type": 16,
+            "type": 20,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -452.8125,
-                "y": -134.96875
+                "x": 0.0,
+                "y": 0.0
             },
             "scale": {
-                "x": 256.0,
-                "y": 128.0
+                "x": 1.0,
+                "y": 1.0
             },
             "rotation": 0.0,
-            "depth": -0.0
+            "depth": -0.5
         },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/StartPoint.png"
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 20,
+            "isDead": false
         },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
         "Animation": {},
         "RigidBody": false,
         "Collision": {},

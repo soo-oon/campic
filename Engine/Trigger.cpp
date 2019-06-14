@@ -8,10 +8,6 @@ bool Trigger::Initialize(Object * Ob)
 {
     object = Ob;
 
-#ifdef _DEBUG
-#else
-	object->GetMesh().Invisible();
-#endif // _DEBUG
 
     return false;
 }

@@ -56,8 +56,7 @@ void Physics::Update(float dt)
             limit_list = nullptr;
 			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); obj++)
 			{
-				if (obj->get()->GetMesh().IsVisible())
-				{
+
 					if (auto temp = obj->get()->GetComponentByTemplate<Collision>(); temp != nullptr)
 					{
 						if (temp->GetisGet())
@@ -105,7 +104,7 @@ void Physics::Update(float dt)
 					{
 						limit_list = obj->get();
 					}
-				}
+
 			}
             previous_size = static_cast<int>(Objectmanager_.GetObjectMap().size());
         }
@@ -113,8 +112,6 @@ void Physics::Update(float dt)
         {
 			for (auto obj = Objectmanager_.GetObjectMap().begin(); obj != Objectmanager_.GetObjectMap().end(); ++obj)
 			{
-				if (obj->get()->GetMesh().IsVisible())
-				{
 					if (obj->get()->IsChangeCollisionBoxScale())
 					{
 						if (!obj->get()->IsXposOfCollisionOffset())
@@ -124,7 +121,7 @@ void Physics::Update(float dt)
 
 						obj->get()->SetChangeCollisionBox(false);
 					}
-				}
+
 			}
 
             for (int i = 0; i < (int)collision_list.size(); i++)

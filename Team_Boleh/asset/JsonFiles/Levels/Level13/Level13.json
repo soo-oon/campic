@@ -1,47 +1,33 @@
 {
     "Object": {
         "Type": {
-            "type": 19,
+            "type": 16,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": 98.4375,
-                "y": 208.90625
+                "x": -463.3125,
+                "y": -15.3125
             },
             "scale": {
-                "x": 10.0,
-                "y": 100.0
+                "x": 256.0,
+                "y": 128.0
             },
             "rotation": 0.0,
-            "depth": -0.49000000953674319
+            "depth": -0.0
         },
-        "Sprite": {},
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/StartPoint.png"
+        },
         "Animation": {},
         "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
+        "Collision": {},
         "Particle": {},
         "Sound": {},
         "Font": {},
         "Capture": {},
-        "Trigger": {
-            "translation": {
-                "x": 0.0,
-                "y": 0.0
-            },
-			"scale":{
-                "x": 0.0,
-                "y": 0.0
-			},
-            "type": 0,
-            "text": "",
-            "trigger": false,
-            "u_frame": 0.0,
-            "i_frame": 0.0
-        },
+        "Trigger": {},
         "UI": {},
         "Camera": {},
         "Chapter": {}
@@ -78,25 +64,69 @@
     },
     "Object": {
         "Type": {
-            "type": 16,
+            "type": 19,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -463.3125,
-                "y": -15.3125
+                "x": 105.0,
+                "y": 209.25
             },
             "scale": {
-                "x": 256.0,
-                "y": 128.0
+                "x": 10.0,
+                "y": 100.0
             },
             "rotation": 0.0,
-            "depth": -0.0
+            "depth": -0.49000000953674319
         },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/StartPoint.png"
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
         },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {
+            "translation": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "type": 0,
+            "text": "",
+            "trigger": false,
+            "u_frame": 0.0,
+            "i_frame": 0.0
+        },
+        "UI": {},
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 21,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": -672.0,
+                "y": -433.125
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.49000000953674319
+        },
+        "Sprite": {},
         "Animation": {},
         "RigidBody": false,
         "Collision": {},
@@ -137,10 +167,7 @@
         "Trigger": {},
         "UI": {},
         "Camera": {},
-        "Chapter": {
-            "chapter": 3,
-            "level": 1
-        }
+        "Chapter": {}
     },
     "Object": {
         "Type": {
@@ -179,5 +206,38 @@
         },
         "Camera": {},
         "Chapter": {}
+    },
+    "Object": {
+        "Type": {
+            "type": 20,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {},
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {},
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {},
+        "Camera": {},
+        "Chapter": {
+            "chapter": 3,
+            "level": 1
+        }
     }
 }

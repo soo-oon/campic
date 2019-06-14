@@ -154,8 +154,17 @@ void LevelSelector::Update(float dt)
 			{
 				std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
 
-				SetLevelIndicator(temp);
-				ChangeLevel(temp);
+				if(temp == "Level1")
+				{
+					StateManager_.ToStartScene();
+				}
+				else
+				{
+					SetLevelIndicator(temp);
+					ChangeLevel(temp);
+				}
+
+				
 				button_.RemoveContainer();
 			}
 		}
