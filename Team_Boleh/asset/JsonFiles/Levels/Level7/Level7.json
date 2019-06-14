@@ -457,7 +457,9 @@
         "Trigger": {},
         "UI": {},
         "Camera": {},
-        "Chapter": {}
+        "Chapter": {
+            "chapter": 2,
+            "level": 1}
     },
     "Object": {
         "Type": {

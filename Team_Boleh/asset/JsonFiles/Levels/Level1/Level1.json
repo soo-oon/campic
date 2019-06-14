@@ -128,11 +128,13 @@
         "Trigger": {},
         "UI": {},
         "Camera": {},
-        "Chapter": {}
+        "Chapter": {
+            "chapter": 1,
+            "level": 1}
     },
     "Object": {
         "Type": {
-            "type": 22,
+            "type": 20,
             "isDead": false
         },
         "Transform": {
