@@ -27,7 +27,6 @@ private:
 	Object* h_fullscreen_button = nullptr;
 	Object* h_volume_scroll_button = nullptr;
 	Object* h_mute_button = nullptr;
-	Object* h_restart_button = nullptr;
 	Object* h_backtomenu_button = nullptr;
 	Object* h_quit_button = nullptr;
 	Object* mouse_icon = nullptr;
@@ -41,7 +40,6 @@ private:
 	Object* m_capture_underbar = nullptr;
 
 	Object* h_cheese = nullptr;
-	Object* h_select = nullptr;
 	Object* UIBar[2] = { nullptr };
 	vector2 screen_size = Application_.GetScreenSize();
 	vector2 scrollbar = vector2(screen_size.x - 1000, screen_size.y - 800);

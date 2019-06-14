@@ -69,6 +69,8 @@ bool Application::Initialize()
                          (mode->height / 2) - static_cast<int>(screenSize.y / 2),
                          static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
 
+	FullScreen();
+
     title = "Engine ver 0.1 ";
 
     if (!window)
@@ -88,7 +90,7 @@ bool Application::Initialize()
 	glfwSetWindowCloseCallback(window, Window_Exit);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
-    Input::Initialize(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y));
+    Input::Initialize(static_cast<int>(real_screenSize.x), static_cast<int>(real_screenSize.y));
 
     glewExperimental = GL_TRUE;
     GLenum errorCode = glewInit();
@@ -169,6 +171,7 @@ void Application::FullScreen()
 		glfwGetWindowSize(window, &w, &h);
 		real_screenSize.x = (float)w;
 		real_screenSize.y = (float)h;
+
 		glfwSwapInterval(1);
 
                 Input::Initialize(static_cast<int>(real_screenSize.x), static_cast<int>(real_screenSize.y));

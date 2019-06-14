@@ -36,6 +36,7 @@ public:
 	const GLFWvidmode* GetGLFWvidmode() { return mode; }
 	GLFWwindow* GetWindow() { return window; }
 	vector2 GetScreenSize() { return real_screenSize; }
+	vector2 GetSavedScreenSize() { return screenSize; }
 
     void Key_Poll_Event();
     void PollEvent();

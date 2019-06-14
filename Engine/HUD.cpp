@@ -15,6 +15,7 @@ Creation date: 2018/12/14
 #include "HUD.hpp"
 #include "Graphics.hpp"
 #include <iostream>
+#include "StartCutScene.hpp"
 
 HUD HUD_;
 
@@ -47,6 +48,14 @@ void HUD::Update(float dt)
 				components->Update(dt);
 			}
 		}
+
+		for (auto obj = HUD_Button_Manager.begin(); obj != HUD_Button_Manager.end(); ++obj)
+		{
+			for (auto components : obj->get()->GetComponent())
+			{
+				components->Update(dt);
+			}
+		}
 		m_HUD_State->Update(dt);
 
 	}
@@ -55,6 +64,7 @@ void HUD::Update(float dt)
 void HUD::Quit()
 {
 	HUD_Object_Manager.clear();
+	HUD_Button_Manager.clear();
 	m_HUD_State->ShutDown();
 
 	//delete m_HUD_State;
@@ -77,6 +87,18 @@ void HUD::Add_HUD_Object(Object* obj)
         [](auto& obj1, auto& obj2) { return obj1->GetTransform().GetDepth() > obj2->GetTransform().GetDepth(); });
 }
 
+void HUD::Add_HUD_Button(Object* obj)
+{
+	std::shared_ptr<Object> temp(obj);
+
+	HUD_Button_Manager.push_back(temp);
+
+	for (auto component : HUD_Button_Manager[HUD_Button_Manager.size() - 1]->GetComponent())
+	{
+		component->Initialize(HUD_Button_Manager[HUD_Button_Manager.size() - 1].get());
+	}
+}
+
 void HUD::SetPlayer(Object* obj)
 {
 }
@@ -94,4 +116,29 @@ void HUD::HUD_Activing_Search()
 	}
 
 	isHUDActive = false;
+}
+
+bool HUD::HUDIntersectionCheck(vector2 mouse_pos)
+{
+	for (auto i : HUD_Button_Manager)
+	{
+		if (i.get()->GetTransform().GetTranslation().x - i.get()->GetTransform().GetScale().x / 2 < mouse_pos.x
+			&& i.get()->GetTransform().GetTranslation().x + i.get()->GetTransform().GetScale().x / 2 > mouse_pos.x
+			&& i.get()->GetTransform().GetTranslation().y - i.get()->GetTransform().GetScale().y / 2 < mouse_pos.y
+			&& i.get()->GetTransform().GetTranslation().y + i.get()->GetTransform().GetScale().y / 2 > mouse_pos.y)
+		{
+			if (m_selected_object.second == CollisionState::NotCollided)
+			{
+				m_selected_object.first = i.get();
+				m_selected_object.second = CollisionState::Collided;
+			}
+			return true;
+		}
+		else
+		{
+			m_selected_object.first = nullptr;
+			m_selected_object.second = CollisionState::NotCollided;
+		}
+	}
+	return false;
 }

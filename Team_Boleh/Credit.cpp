@@ -30,7 +30,7 @@ void Credit::Initialize()
 
 	m_credit1 = new Object();
 	m_credit1->SetTranslation({ 0, 0 });
-	m_credit1->SetScale(screen_size);
+	m_credit1->SetScale({ 1200,900 });
 	m_credit1->SetDepth(BACKGROUND);
 	m_credit1->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	m_credit1->SetObjectType(ObjectType::Background);
@@ -38,7 +38,7 @@ void Credit::Initialize()
 
 	m_credit2 = new Object();
 	m_credit2->SetTranslation({ 0, 0 });
-	m_credit2->SetScale(screen_size);
+	m_credit2->SetScale({ 1200,900 });
 	m_credit2->SetDepth(BACKGROUND);
 	m_credit2->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	m_credit2->SetObjectType(ObjectType::Background);
@@ -47,7 +47,7 @@ void Credit::Initialize()
 
 	m_credit3 = new Object();
 	m_credit3->SetTranslation({ 0, 0 });
-	m_credit3->SetScale(screen_size);
+	m_credit3->SetScale({ 1200,900 });
 	m_credit3->SetDepth(BACKGROUND);
 	m_credit3->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	m_credit3->SetObjectType(ObjectType::Background);
