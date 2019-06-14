@@ -4,7 +4,6 @@
 
 Particle::~Particle()
 {
-	delete particle_obj;
 	delete base_obj;
 }
 
@@ -28,6 +27,11 @@ bool Particle::Initialize(Object* Ob)
 	float temp_size = RandomNumberGenerator(1.0f, static_sizeVariance);
 	sizeVariance = temp_size;
 	particle_obj->SetScale(particle_size * sizeVariance);
+
+	for (auto component : particle_obj->GetComponent())
+	{
+		component->Initialize(particle_obj.get());
+	}
 
 	return true;
 }
