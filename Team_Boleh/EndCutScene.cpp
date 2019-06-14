@@ -47,7 +47,7 @@ void EndCutScene::Initialize()
 	end2->GetComponentByTemplate<Animation>()->SetIsActive(false);
 
 	Object* button = new Object();
-	button->SetTranslation({ 880, -500 });
+        button->SetTranslation({ Application_.GetScreenSize().x / 2, -Application_.GetScreenSize().y / 2 });
 	button->SetScale({ 182,96 });
 	button->SetDepth(-0.5f);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -107,6 +107,7 @@ void EndCutScene::Update(float dt)
 
 	if (button_.IntersectionCheck(Input::GetMousePos()))
 	{
+            button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
 			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
@@ -115,6 +116,13 @@ void EndCutScene::Update(float dt)
 			button_.RemoveContainer();
 		}
 	}
+        else
+        {
+            for (auto&i : button_.GetContainer())
+            {
+                i.get()->GetMesh().ChangeColor({ 255, 255, 255 });
+            }
+        }
 }
 
 void EndCutScene::ShutDown()
