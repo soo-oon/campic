@@ -33,6 +33,8 @@ bool Player::Initialize(Object * Ob)
 		object->AddInitComponent(new RigidBody());
         object->AddInitComponent(new Collision(box_, player_scale));
 		object->AddComponent(new Sound("asset/sounds/jump.mp3", AudioManager::CATEGORY_SFX,0.3f));
+		object->AddComponent(new Sound("asset/sounds/spring.mp3", AudioManager::CATEGORY_SFX,0.3f));
+		object->AddComponent(new Sound("asset/sounds/break.mp3", AudioManager::CATEGORY_SFX,0.3f));
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerShutter.png", "capture", 10, 0.01f, false);
 		object->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Player/PlayerJump.png", "jump", 1, 0.01f, false);
                 //object->SetInvisible();
@@ -71,6 +73,7 @@ void Player::Update(float dt)
                     bus_object->SetDepth(-0.6f);
                     bus_object->SetObjectType(ObjectType::Bus);
                     bus_object->AddInitComponent(new Sprite("asset/images/Objects/Bus.png"));
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/break.mp3");
                     //AudioManager_.PlaySFX("asset/sounds/Bus.mp3",1.f);
                     Objectmanager_.AddObject(bus_object);
                 }
