@@ -1,60 +1,13 @@
 {
     "Object": {
         "Type": {
-            "type": 19,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 98.4375,
-                "y": 208.90625
-            },
-            "scale": {
-                "x": 10.0,
-                "y": 100.0
-            },
-            "rotation": 0.0,
-            "depth": -0.49000000953674319
-        },
-        "Sprite": {},
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {
-            "translation": {
-                "x": 0.0,
-                "y": 0.0
-            },
-			"scale":{
-                "x": 0.0,
-                "y": 0.0
-			},
-            "type": 0,
-            "text": "",
-            "trigger": false,
-            "u_frame": 0.0,
-            "i_frame": 0.0
-        },
-        "UI": {},
-        "Camera": {},
-        "Chapter": {}
-    },
-    "Object": {
-        "Type": {
             "type": 21,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -160.125,
-                "y": -301.71875
+                "x": 665.4375,
+                "y": -300.78125
             },
             "scale": {
                 "x": 1.0,
@@ -78,13 +31,51 @@
     },
     "Object": {
         "Type": {
+            "type": 2,
+            "isDead": false
+        },
+        "Transform": {
+            "position": {
+                "x": 24.1875,
+                "y": 465.4375
+            },
+            "scale": {
+                "x": 256.0,
+                "y": 128.0
+            },
+            "rotation": 0.0,
+            "depth": -0.5
+        },
+        "Sprite": {
+            "is_flip": false,
+            "image_path": "asset/images/Objects/BusStop.png"
+        },
+        "Animation": {},
+        "RigidBody": false,
+        "Collision": {
+            "id": 0,
+            "enum": "box"
+        },
+        "Particle": {},
+        "Sound": {},
+        "Font": {},
+        "Capture": {},
+        "Trigger": {},
+        "UI": {
+            "id": "Level6"
+        },
+        "Camera": {},
+        "Chapter": {}
+    },
+    "Object": {
+        "Type": {
             "type": 16,
             "isDead": false
         },
         "Transform": {
             "position": {
-                "x": -463.3125,
-                "y": -15.3125
+                "x": -3.375,
+                "y": -16.90625
             },
             "scale": {
                 "x": 256.0,
@@ -117,7 +108,7 @@
         "Transform": {
             "position": {
                 "x": 0.0,
-                "y": -270.0
+                "y": 0.0
             },
             "scale": {
                 "x": 1.0,
@@ -141,43 +132,5 @@
             "chapter": 1,
             "level": 5
         }
-    },
-    "Object": {
-        "Type": {
-            "type": 2,
-            "isDead": false
-        },
-        "Transform": {
-            "position": {
-                "x": 850.125,
-                "y": 464.1875
-            },
-            "scale": {
-                "x": 256.0,
-                "y": 128.0
-            },
-            "rotation": 0.0,
-            "depth": -0.5
-        },
-        "Sprite": {
-            "is_flip": false,
-            "image_path": "asset/images/Objects/BusStop.png"
-        },
-        "Animation": {},
-        "RigidBody": false,
-        "Collision": {
-            "id": 0,
-            "enum": "box"
-        },
-        "Particle": {},
-        "Sound": {},
-        "Font": {},
-        "Capture": {},
-        "Trigger": {},
-        "UI": {
-            "id": "Level6"
-        },
-        "Camera": {},
-        "Chapter": {}
     }
 }
