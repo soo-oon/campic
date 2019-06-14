@@ -17,6 +17,7 @@ Creation date: 2018/12/14
 #include "Object.hpp"
 #include <memory>
 #include "Camera.hpp"
+#include "StartCutScene.hpp"
 
 class HUD
 {
@@ -26,7 +27,9 @@ public:
 	void Quit();
 
 	std::vector<std::shared_ptr<Object>>& Get_HUD_Object_Manager() { return HUD_Object_Manager; }
+	std::vector<std::shared_ptr<Object>>& Get_HUD_Button_Manager() { return HUD_Button_Manager; }
 	void Add_HUD_Object(Object* obj);
+	void Add_HUD_Button(Object* obj);
 	bool IsChangeGameLevel() { return is_change_game_level; }
 
 	State* Get_HUD_State() { return m_HUD_State; }
@@ -36,6 +39,9 @@ public:
 	Camera* Get_HUD_Camera() { return hud_camera; }
 	void Toggle_HUD_Active() { isHUDActive = !isHUDActive; }
 	void SetIsChangeGameLevel(bool condition) { is_change_game_level = condition; }
+	bool HUDIntersectionCheck(vector2 mouse_pos);
+	std::pair<Object*, CollisionState>& GetHUDSelect() { return m_selected_object; }
+
 
 private:
 	void SetPlayer(Object* obj);
@@ -46,8 +52,9 @@ private:
 	State* m_current_game_state = nullptr;
 	Camera* hud_camera = nullptr;
 
+	std::pair<Object*, CollisionState> m_selected_object = { nullptr, CollisionState::NotCollided };
 	std::vector<std::shared_ptr<Object>> HUD_Object_Manager;
-
+	std::vector<std::shared_ptr<Object>> HUD_Button_Manager;
 };
 
 extern HUD HUD_;

@@ -235,6 +235,29 @@ void Graphics::HUD_Draw()
 			}
 		}
 	}
+
+	if (!HUD_.Get_HUD_Button_Manager().empty() && HUD_.isHUDActive)
+	{
+		for (auto& obj : HUD_.Get_HUD_Button_Manager())
+		{
+			if (obj->GetMesh().IsVisible())
+			{
+				if (auto temp = obj->GetComponentByTemplate<Collision>();
+					temp != nullptr)
+				{
+					DrawCollisionBox(obj.get(), temp, true);
+				}
+				if (auto temp_sprite = obj->GetComponentByTemplate<Sprite>(); temp_sprite != nullptr)
+				{
+					DrawSprite(obj.get(), temp_sprite, true);
+				}
+				else if (obj->GetMesh().GetPointCount())
+				{
+					DrawSolidShape(obj.get(), true);
+				}
+			}
+		}
+	}
 }
 
 void Graphics::Tile_Draw()

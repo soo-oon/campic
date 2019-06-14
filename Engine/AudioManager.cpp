@@ -181,7 +181,7 @@ void AudioManager::PlaySong(const std::string & path)
 		StopSongs();    
 		nextSongPath = path;    
 		return;
-	} 
+	}
 
 	// Find the song in the corresponding sound map  
 	SoundMap::iterator sound = sounds[CATEGORY_SONG].find(path); 

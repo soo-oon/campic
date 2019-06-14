@@ -5,6 +5,7 @@
 #include "ObjectDepth.hpp"
 #include "Engine.hpp"
 #include "DepthValue.hpp"
+#include "Button.hpp"
 
 void HUD_Level::Initialize()
 {
@@ -106,7 +107,7 @@ void HUD_Level::Initialize()
 
 	////////////OPTION WINDOW
 	h_option_window = new Object();
-	h_option_window->SetScale({ Application_.GetScreenSize().x, Application_.GetScreenSize().y});
+	h_option_window->SetScale({ 1200,900 });
 	h_option_window->SetDepth(-0.90f);
 	h_option_window->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	h_option_window->SetObjectType(ObjectType::None);
@@ -114,29 +115,25 @@ void HUD_Level::Initialize()
 	h_option_window->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_option_window);
 
-	h_volume_scroll_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1300.f, Application_.GetScreenSize().y - 890.f), Application_.GetScreenSize() / 25.f,
+	h_volume_scroll_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1950.f, Application_.GetScreenSize().y - 921.f), Application_.GetScreenSize() / 29.f,
 		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "volume_button");
-	HUD_.Add_HUD_Object(h_volume_scroll_button);
+	HUD_.Add_HUD_Button(h_volume_scroll_button);
 
-	h_restart_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 800.f), Application_.GetScreenSize() / 10.f,
-		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "restart");
-	HUD_.Add_HUD_Object(h_restart_button);
-
-	h_mute_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1000.f), Application_.GetScreenSize() / 10.f,
+	h_mute_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1050.f), Application_.GetScreenSize() / 12.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "Mute");
-	HUD_.Add_HUD_Object(h_mute_button);
+	HUD_.Add_HUD_Button(h_mute_button);
 
-	h_fullscreen_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1100.f), Application_.GetScreenSize() / 10.f,
+	h_fullscreen_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1160.f), Application_.GetScreenSize() / 12.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "fullscreen");
-	HUD_.Add_HUD_Object(h_fullscreen_button);
+	HUD_.Add_HUD_Button(h_fullscreen_button);
 
-	h_backtomenu_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1200.f), Application_.GetScreenSize() / 10.f,
+	h_backtomenu_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1280.f), Application_.GetScreenSize() / 12.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "backtomenu");
-	HUD_.Add_HUD_Object(h_backtomenu_button);
+	HUD_.Add_HUD_Button(h_backtomenu_button);
 
-	h_quit_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1000.f, Application_.GetScreenSize().y - 1300.f), Application_.GetScreenSize() / 10.f,
+	h_quit_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1390.f), Application_.GetScreenSize() / 12.f,
 		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
-	HUD_.Add_HUD_Object(h_quit_button);
+	HUD_.Add_HUD_Button(h_quit_button);
 }
 
 void HUD_Level::Update(float dt)
@@ -256,104 +253,80 @@ void HUD_Level::Update(float dt)
 			h_option_window->GetMesh().Visible();
 			h_fullscreen_button->GetMesh().Visible();
 			h_volume_scroll_button->GetMesh().Visible();
-			h_restart_button->GetMesh().Visible();
 			h_quit_button->GetMesh().Visible();
 			h_backtomenu_button->GetMesh().Visible();
 			h_mute_button->GetMesh().Visible();
 
 			float volume = 0.f;
-			h_select = Input::ClickHUDButton();
-
-			if (h_select != nullptr)
+		
+			if (HUD_.HUDIntersectionCheck(Input::GetMousePos()))
 			{
 				if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 				{
-					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					std::string temp = HUD_.GetHUDSelect().first->GetComponentByTemplate<UI>()->GetId();
+					if (temp == "fullscreen")
 					{
-						if (h_select->GetComponentByTemplate<UI>()->GetId() == "fullscreen")
+						fullscreen = !fullscreen;
+						Application_.FullScreen();
+						if (fullscreen)
 						{
-							fullscreen = !fullscreen;
-							Application_.FullScreen();
-							if (fullscreen)
-							{
-								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
-							}
-							else
-							{
-								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
-							}
+							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
+						}
+						else
+						{
+							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
 						}
 					}
 
-					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					if (temp == "Mute")
 					{
-						if (h_select->GetComponentByTemplate<UI>()->GetId() == "Mute")
+						mute = !mute;
+						AudioManager_.GetMasterChannel()->setMute(mute);
+						if (mute)
 						{
-							mute = !mute;
-							AudioManager_.GetMasterChannel()->setMute(mute);
-							if(mute)
-							{
-								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
-							}
-							else
-							{
-								h_select->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
-							}
+							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
+						}
+						else
+						{
+							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
 						}
 					}
-
-					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					
+					if (temp == "backtomenu")
 					{
-						if (h_select->GetComponentByTemplate<UI>()->GetId() == "restart")
-						{
-							IsOptionWindowOpen = !IsOptionWindowOpen;
-							StateManager_.TogglePause();
-							StateManager_.ChangeStage();
-						}
+						IsOptionWindowOpen = !IsOptionWindowOpen;
+						StateManager_.TogglePause();
+						StateManager_.BackToMainMenu();
 					}
-
-					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					
+					if (temp == "quit")
 					{
-						if (h_select->GetComponentByTemplate<UI>()->GetId() == "backtomenu")
-						{
-							IsOptionWindowOpen = !IsOptionWindowOpen;
-							StateManager_.TogglePause();
-							StateManager_.BackToMainMenu();
-						}
-					}
-
-					if (h_select->GetComponentByTemplate<UI>() != nullptr)
-					{
-						if (h_select->GetComponentByTemplate<UI>()->GetId() == "quit")
-						{
-							Engine::IsQuit = true;
-						}
+						Engine::IsQuit = true;
 					}
 				}
 
 				if (Input::IsMousePressed(GLFW_MOUSE_BUTTON_LEFT))
 				{
-					if (h_select->GetComponentByTemplate<UI>() != nullptr)
+					std::string temp = HUD_.GetHUDSelect().first->GetComponentByTemplate<UI>()->GetId();
+					if (temp == "volume_button")
 					{
-						if (h_select->GetComponentByTemplate<UI>()->GetId() == "volume_button")
+						float save_x = Input::GetMousePos().x;
+						static float save_y = HUD_.GetHUDSelect().first->GetTransform().GetTranslation().y;
+
+						volume = 100 * (save_x + 210.f) / 365.f;
+
+						if (volume < 0.f)
+							volume = 0.f;
+						else if (volume > 100.f)
+							volume = 100.f;
+
+						if (save_x > -210.f && save_x < 155.f)
 						{
-							float save_x = Input::GetMousePos().x;
-							static float save_y = h_select->GetTransform().GetTranslation().y;
-
-							volume = (100.f / (320.f - -240.f)*save_x) - ((100 * -240.f) / (320.f - -240.f));
-
-							if (volume < 0.f)
-								volume = 0.f;
-							else if (volume > 100.f)
-								volume = 100.f;
-
-							if (save_x > -220.f && save_x < 165.f)
-							{
-								h_select->SetTranslation({ save_x, save_y });
-							}
-							AudioManager_.SetMasterVolume(volume / 100.f);
+							HUD_.GetHUDSelect().first->SetTranslation({ save_x, save_y });
 						}
+						AudioManager_.SetMasterVolume(volume / 100.f);
 					}
+					
 				}
 			}
 		}
@@ -362,11 +335,9 @@ void HUD_Level::Update(float dt)
 			h_option_window->GetMesh().Invisible();
 			h_fullscreen_button->GetMesh().Invisible();
 			h_volume_scroll_button->GetMesh().Invisible();
-			h_restart_button->GetMesh().Invisible();
 			h_quit_button->GetMesh().Invisible();
 			h_backtomenu_button->GetMesh().Invisible();
 			h_mute_button->GetMesh().Invisible();
-
 		}
 	}
 	else

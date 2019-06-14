@@ -21,7 +21,7 @@ void LevelSelector::Initialize()
 
 	cam = new Object();
 	cam->SetTranslation({ 0, 0 });
-	cam->SetScale({ Application_.GetScreenSize().x, Application_.GetScreenSize().y });
+	cam->SetScale({ 1200,900 });
 	cam->SetDepth(BACKGROUND);
 	cam->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	cam->SetObjectType(ObjectType::Background);
