@@ -42,6 +42,7 @@ private:
 
 	Object* h_cheese = nullptr;
 	Object* h_select = nullptr;
+	Object* UIBar[2] = { nullptr };
 	vector2 screen_size = Application_.GetScreenSize();
 	vector2 scrollbar = vector2(screen_size.x - 1000, screen_size.y - 800);
 

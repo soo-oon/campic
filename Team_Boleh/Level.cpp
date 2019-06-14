@@ -3,6 +3,7 @@
 #include "UI.hpp"
 #include "HUD_Level.hpp"
 #include "Physics.hpp"
+#include "Capture.hpp"
 
 void Level::Initialize()
 {
@@ -56,6 +57,9 @@ void Level::Initialize()
 
 void Level::Update(float dt)
 {
+	if (StateManager_.GetCurrentState()->GetCaptureLimit() <= 0)
+		StateManager_.GetCurrentState()->GetCaptureLimit() = 0;
+
 	if(camera->GetComponentByTemplate<Camera>()->GetBaseObject() == nullptr)
 	{
 		if(auto player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
@@ -107,7 +111,10 @@ void Level::Update(float dt)
 	if(Input::IsKeyTriggered(GLFW_KEY_F1))
 	{
 		if(GetCaptureLimit() <= MAX_CAPTRUE_COUNT)
+		{
+			Capture::IsChangeCaptureCount = true;
 			GetCaptureLimit() += 10;
+		}
 	}
 
     if(Input::IsKeyTriggered(GLFW_KEY_F5))
@@ -116,7 +123,7 @@ void Level::Update(float dt)
 
         std::string temp = a.substr(5, a.size());
 
-        int b = atoi(temp.c_str());
+        int b = std::atoi(temp.c_str());
         ++b;
 
         std::string lev = "Level";

@@ -16,9 +16,6 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
-	void SetIsChangeCaptureCount(bool condition) {is_change_capture_count = condition; }
-	bool IsChangeCaptureCount() {return is_change_capture_count; }
-
 	bool IsCaputreObjectVisible() { return isvisible; }
 	void SetVisibleCaptureObj();
 	void SetInvisibleCaptureObj();
@@ -36,6 +33,7 @@ public:
 	void SetCheese(bool condition) { cheese = condition; }
 	void SetZoomMaxMin(float max, float min = 0.0f);
 
+	static bool IsChangeCaptureCount;
 private:
 	class Polaroid
 	{
@@ -104,8 +102,6 @@ private:
 	//std::vector<Object*> not_area_contian_object;
 	std::vector<std::pair<Object*,vector2>> temporary_obj_storage;
 	std::vector<Polaroid*> polaroid_object;
-
-	bool is_change_capture_count = false;
 
     Object* ground_object = nullptr;
     Object* left_object = nullptr;
