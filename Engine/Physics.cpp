@@ -348,8 +348,8 @@ void Physics::Update(float dt)
                         obstacle_obj->SetIsDead(true);
                         collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
                         p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
+						Capture::IsChangeCaptureCount = true;
                         StateManager_.GetCurrentState()->GetCaptureLimit()--;
-
 					}
 				}
 
@@ -698,7 +698,6 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
     {
         if (!CollisionOnAxis(vector2(-i.y, i.x), owner, object))
         {
-            //std::cout << "No Intersec" << std::endl;
             return false;
         }
     }
@@ -707,7 +706,6 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
         axis.emplace_back(vector2(-i.y, i.x));
         if (!CollisionOnAxis(vector2(-i.y, i.x), owner, object))
         {
-            //std::cout << "No Intersec" << std::endl;
             return false;
         }
     }
@@ -715,7 +713,6 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
     //take projection of other function.
     //and take min and max
     //if min
-    // std::cout << "Yes, Intersection" << std::endl;
     return true;
 }
 

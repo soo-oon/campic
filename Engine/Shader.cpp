@@ -18,6 +18,7 @@ Creation date: 2018/12/14
 #include "Color.hpp"
 #include "Shader.hpp"
 #include <cassert>
+#include <assert.h>
 
 namespace
 {
@@ -168,37 +169,6 @@ int Shader::GetUniformLocation(const std::string& name)
 	uniformNameToLocation.insert(std::make_pair(name, location));
 	return location;
 }
-
-//void Shader::Compile_Check(GLuint object, std::string type)
-//{
-//    GLint success;
-//    GLchar infoLog[1024];
-//
-//    if (type != "PROGRAM")
-//    {
-//        glGetShaderiv(object, GL_COMPILE_STATUS, &success);
-//
-//        if (!success)
-//        {
-//            glGetShaderInfoLog(object, 1024, nullptr, infoLog);
-//            std::cout << "| ERROR::SHADER: Compile-time error: Type: " << type << "\n"
-//                << infoLog << "\n -- --------------------------------------------------- -- "
-//                << std::endl;
-//        }
-//    }
-//    else
-//    {
-//        glGetProgramiv(object, GL_LINK_STATUS, &success);
-//
-//        if (!success)
-//        {
-//            glGetProgramInfoLog(object, 1024, nullptr, infoLog);
-//            std::cout << "| ERROR::Shader: Link-time error: Type: " << type << "\n"
-//                << infoLog << "\n -- --------------------------------------------------- -- "
-//                << std::endl;
-//        }
-//    }
-//}
 
 namespace
 {
