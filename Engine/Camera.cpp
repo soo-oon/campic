@@ -41,13 +41,13 @@ void Camera::Update(float dt)
 {
 #ifdef _DEBUG
 #else
+#endif
 	if(base_obj != nullptr)
 	{
 
 		if (!Physics_.IsNextLevel())
 		{
 			center.x = base_obj->GetTransform().GetTranslation().x;
-
 
 			if (base_obj->GetTransform().GetTranslation().y < min.y + center.y)
 			{
@@ -71,7 +71,6 @@ void Camera::Update(float dt)
 			}
 		}
 	}
-#endif
 
 	if (Input::IsKeyTriggered(GLFW_KEY_C))
 	{

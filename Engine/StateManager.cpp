@@ -21,6 +21,7 @@ Creation date: 2018/12/14
 #include "Physics.hpp"
 #include <fstream>
 #include "HUD.hpp"
+#include "Capture.hpp"
 
 StateManager StateManager_;
 
@@ -55,6 +56,8 @@ void StateManager::ChangeStage()
 {
 	std::string next_level = "Level";
 	std::string save = m_currentState->GetLevelIndicator();
+
+	Capture::IsChangeCaptureCount = true;
 
 	m_currentState->ShutDown();
 	m_currentState->ResetLevelChange();
