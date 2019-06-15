@@ -36,6 +36,7 @@ private:
 	Object* cam = nullptr;
 	Object* previous = nullptr;
 	Object* next = nullptr;
+	Object* button = nullptr;
 
 	bool selectPage = true;
 	int page_count = 1;
