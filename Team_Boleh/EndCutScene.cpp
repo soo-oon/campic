@@ -139,4 +139,8 @@ void EndCutScene::Update(float dt)
 void EndCutScene::ShutDown()
 {
 	UnLoad();
+	start = nullptr;
+	end = nullptr;
+	end2 = nullptr;
+	mouse_icon = nullptr;
 }

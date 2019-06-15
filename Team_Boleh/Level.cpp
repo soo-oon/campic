@@ -15,6 +15,7 @@ Secondary :
 #include "HUD_Level.hpp"
 #include "Physics.hpp"
 #include "Capture.hpp"
+#include "HUD.hpp"
 
 void Level::Initialize()
 {
@@ -78,6 +79,12 @@ void Level::Initialize()
 	
 	Objectmanager_.AddObject(camera);
 	Objectmanager_.AddObject(background);
+
+	std::cout << "obj : " << Objectmanager_.GetObjectMap().size() << std::endl;
+	std::cout << "hud button: " << HUD_.Get_HUD_Button_Manager().size() << std::endl;
+	std::cout << "hud obj : " << HUD_.Get_HUD_Object_Manager().size() << std::endl;
+	std::cout << "g tile : " << Tile_Map_.GetGraphicsTiles().size() << std::endl;
+	std::cout << "p tile : " << Tile_Map_.GetPhysicalTiles().size() << std::endl;
 
 	HUD_Level::ChangeCaptureLimit = false;
 
@@ -177,4 +184,7 @@ void Level::Update(float dt)
 void Level::ShutDown()
 {
 	UnLoad();
+	background = nullptr;
+	m_door = nullptr;
+	camera = nullptr;
 }
