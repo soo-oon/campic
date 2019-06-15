@@ -1,17 +1,15 @@
-/* Start Header -------------------------------------------------------------
---
+/* Start Header ---------------------------------------------------------------
 Copyright (C) 2018 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name:  vector4.cpp
-Language: C++
-Platform: Visual Studio 2017
-Project: sword of souls
-Primary : Choi jin hyun
+File Name : vector4.hpp
+Language  : C++
+Platform  : Visual Studio 2017
+Project   : CamPic
+Primary   : JinHyun Choi
 Secondary :
-Creation date: 2018/12/14
-- End Header ----------------------------------------------------------------
-*/#pragma once
+- End Header ----------------------------------------------------------------*/
+#pragma once
 struct vector4
 {
     float x = 0.0f, y = 0.0f, z = 0.0f, w = 0.0f;
