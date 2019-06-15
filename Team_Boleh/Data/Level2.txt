@@ -1,6 +1,0 @@
-Level2 Count : 4
-Level2 Count : 11
-Level2 Count : 2
-Level2 Count : 0
-Level2 Count : 0
-Level2 Count : 4

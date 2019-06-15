@@ -1,5 +1,0 @@
-Level4 Count : 5
-Level4 Count : 2
-Level4 Count : 0
-Level4 Count : 0
-Level4 Count : 0

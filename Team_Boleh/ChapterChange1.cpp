@@ -77,4 +77,7 @@ void ChapterChange1::Update(float dt)
 void ChapterChange1::ShutDown()
 {
     UnLoad();
+	start = nullptr;
+	mouse_icon = nullptr;
+	button = nullptr;
 }

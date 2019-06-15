@@ -9,7 +9,7 @@
 
 void HUD_Level::Initialize()
 {
-	mouse_icon = new Object();
+ 	mouse_icon = new Object();
 	mouse_icon->SetTranslation({ 0,0 });
 	mouse_icon->SetScale({ 50,50 });
 	mouse_icon->SetDepth(depth::NearDepth- 0.09f);
@@ -432,6 +432,32 @@ void HUD_Level::Update(float dt)
 void HUD_Level::ShutDown()
 {
 	UnLoad();
+
+	h_option_window = nullptr;
+	h_fullscreen_button = nullptr;
+	h_volume_scroll_button = nullptr;
+	h_bgm_scroll_button = nullptr;
+	h_mute_button = nullptr;
+	h_backtomenu_button = nullptr;
+	h_quit_button = nullptr;
+	mouse_icon = nullptr;
+
+	h_capture_limit = nullptr;
+	m_capture_one_digits = nullptr;
+	m_capture_double_digits = nullptr;
+
+	m_capture_base_num = nullptr;
+	m_capture_sub_num = nullptr;
+	m_capture_underbar = nullptr;
+
+	h_cheese = nullptr;
+	UIBar[2] = { nullptr };
+
+	m_are_you_sure = nullptr;
+	m_yes = nullptr;
+	m_no = nullptr;
+
+	resume = nullptr;
 }
 
 Object* HUD_Level::CreateHudButton(vector2 pos, vector2 scale, float depth, std::string path, std::string id)

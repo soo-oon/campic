@@ -73,4 +73,7 @@ void HowToPlay::Update(float dt)
 void HowToPlay::ShutDown()
 {
 	UnLoad();
+	m_select = nullptr;
+	mouse_icon = nullptr;
+	button = nullptr;
 }

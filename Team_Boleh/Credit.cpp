@@ -148,6 +148,10 @@ void Credit::Update(float dt)
 
 void Credit::ShutDown()
 {
-
 	UnLoad();
+	m_credit1 = nullptr;
+	m_credit2 = nullptr;
+	m_credit3 = nullptr;
+	mouse_icon = nullptr;
+	button = nullptr;
 }
