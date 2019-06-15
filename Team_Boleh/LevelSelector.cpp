@@ -21,7 +21,6 @@ void LevelSelector::Initialize()
 	m_Menu3 = new MenuPage();
 
 	page_count = 1;
-	m_LevelLock = LevelJson_.LoadLevelLock();
 
 	mouse_icon = new Object();
 	mouse_icon->SetTranslation({ 0,0 });
@@ -252,26 +251,13 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
 
-	auto isLocked = m_LevelLock.find(level_id)->second;
-	button->AddComponent(new UI(level_text, isLocked));
+	button->AddComponent(new UI(level_text));
 
 	std::string path = "asset/images/UI/";
 	path.append(texture_level);
 	path.append(".png");
 
 	button->AddComponent(new Sprite(path));
-	if (!isLocked)
-	{
-		Object* lock = new Object();
-		lock->SetTranslation(pos);
-		lock->SetScale(scale-10.f);
-		lock->SetDepth(HUD_OBJECT - 0.02f);
-		lock->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-		lock->SetObjectType(ObjectType::Button);
-		lock->AddComponent(new Sprite("asset/images/UI/Lock.png"));
-
-		menu->InsertButtons(lock);
-	}
 	menu->InsertButtons(button);
 }
 

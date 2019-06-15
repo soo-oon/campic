@@ -40,7 +40,6 @@ private:
 	Object* m_SelectLevel = nullptr;
 	Object* m_selectPage = nullptr;
 private:
-	std::map<std::string, bool> m_LevelLock;
 	MenuPage* m_Menu1 = nullptr;
 	MenuPage* m_Menu2 = nullptr;
 	MenuPage* m_Menu3 = nullptr;
