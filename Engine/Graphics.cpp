@@ -698,11 +698,14 @@ void Graphics::DrawParticle(Particle_Generator* particles_, bool is_hud)
 
 				if (game_level_camera != nullptr)
 				{
-					to_ndc = CalculateModelToNDCTransform(p->GetParticleObject()->GetTransform());
+					to_ndc = CalculateModelToNDCTransform(p->GetParticleObject()->GetTransform(), is_hud);
 				}
 				else
 				{
-					to_ndc = projection * p->GetParticleObject()->GetTransform().GetModelToWorld();
+					if (!is_hud)
+						to_ndc = projection * p->GetParticleObject()->GetTransform().GetModelToWorld();
+					else
+						to_ndc = hud_projection * p->GetParticleObject()->GetTransform().GetModelToWorld();
 				}
 
 				const int texture_slot = 0;

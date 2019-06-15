@@ -44,6 +44,7 @@ public:
 
 	bool IsActive() const { return isActive; }
 	void ToggleActive() { isActive = !isActive; }
+	void SetActiveCondition(bool condition) { isActive = condition; }
 
 	void SetEmitRate(int rate);
     void SetPath(std::string path_) { path = path_; }
