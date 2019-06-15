@@ -129,10 +129,11 @@ void Physics::Update(float dt)
 
                 if (limit_list) 
                 {
+
                     if (p_transform.GetTranslation().y < limit_list->GetTransform().GetTranslation().y)
                     {
-                        collision_list[i]->GetTransform().SetTranslation(StateManager_.GetCurrentState()->GetStartPosition());
-                        p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetStartPosition());
+                        p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>()->GetResetPosition());
+                        p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>()->GetResetPosition());
                         p_collision->ChangeCollisionBoxScale(player_scale);
                         p_collision->SetIsGround(false);
 
