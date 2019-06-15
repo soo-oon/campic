@@ -31,11 +31,11 @@ void HowToPlay::Initialize()
 	Objectmanager_.AddObject(background);
 
 	button = new Object();
-        button->SetTranslation({ Application_.GetScreenSize().x / 4, Application_.GetScreenSize().y * 3 / 10 });
+        button->SetTranslation({ 310.f, 290.f });
 	button->SetScale({ 182,96 });
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
-	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+	button->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
 
 	Objectmanager_.AddObject(cam);
 	Objectmanager_.AddObject(mouse_icon);

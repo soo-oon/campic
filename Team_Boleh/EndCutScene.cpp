@@ -47,12 +47,12 @@ void EndCutScene::Initialize()
 	end2->GetComponentByTemplate<Animation>()->SetIsActive(false);
 
 	Object* button = new Object();
-        button->SetTranslation({ Application_.GetScreenSize().x / 2, -Application_.GetScreenSize().y / 2 });
+        button->SetTranslation({ 700, -450 });
 	button->SetScale({ 182,96 });
 	button->SetDepth(-0.5f);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
-	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+	button->AddInitComponent(new Sprite("asset/images/UI/Skip.png"));
 
 	Objectmanager_.AddObject(end);
 	Objectmanager_.AddObject(end2);
@@ -111,9 +111,10 @@ void EndCutScene::Update(float dt)
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
 			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+
+                        button_.RemoveContainer();
 			SetLevelIndicator("Credit");
 			StateManager_.ToCredit();
-			button_.RemoveContainer();
 		}
 	}
         else
