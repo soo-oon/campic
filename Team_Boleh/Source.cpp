@@ -32,21 +32,18 @@ Creation date: 2018/12/14
 
 int main()
 {
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(25697);
-
     Engine engine;
 
     engine.Initialize();
     
-    //StateManager_.AddStage("Splash_Screen", new SplashScreen());
+    StateManager_.AddStage("Splash_Screen", new SplashScreen());
 	
-	//StateManager_.AddStage("MainMenu", new MainMenu());
-	//StateManager_.AddStage("HowToPlay", new HowToPlay());
+	StateManager_.AddStage("MainMenu", new MainMenu());
+	StateManager_.AddStage("HowToPlay", new HowToPlay());
 	StateManager_.AddStage("LevelSelector", new LevelSelector());
-	//StateManager_.AddStage("StartCutScene", new StartCutScene());
+	StateManager_.AddStage("StartCutScene", new StartCutScene());
 	StateManager_.AddStage("EndCutScene", new EndCutScene());
-	//StateManager_.AddStage("Credit", new Credit());
+	StateManager_.AddStage("Credit", new Credit());
 	StateManager_.AddStage("Level", new Level());
 	StateManager_.AddStage("LoseScene", new LoseScene());
 

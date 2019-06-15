@@ -152,6 +152,8 @@ void StateManager::ToEndScene()
 void StateManager::ToLoseScene()
 {
     prev_level = m_currentState->GetLevelIndicator();
+	chapter = m_currentState->GetChapter().first;
+
     m_currentState->ShutDown();
     m_currentState->ResetBackToMenu();
     m_currentState = states.find("LoseScene")->second.get();
@@ -208,12 +210,12 @@ void StateManager::Update(float dt)
 		BackToMenu();
 
 
-	m_currentState->Update(dt);
-/*
-	if(Input::IsKeyTriggered(GLFW_KEY_T))
+	if (GetCurrentState()->GetCaptureLimit() < 0)
 	{
-		m_currentState->GetNextLevel();
-	}*/
+		ToLoseScene();
+	}
+
+	m_currentState->Update(dt);
 }
 
 void StateManager::Quit()

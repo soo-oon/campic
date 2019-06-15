@@ -61,6 +61,7 @@ public:
 	void TogglePause() { m_pause = !m_pause; }
 	State* GetCurrentState() { return m_currentState; }
         std::string GetPrevLevel() { return prev_level; }
+		int GetChapter() { return chapter; }
 
 	bool IsPause() { return m_pause; }
 
@@ -71,7 +72,8 @@ private:
 	std::unordered_map <std::string, std::unique_ptr<State>> states;
 
 	bool m_restart = false, m_pause = false;
-        std::string prev_level;
+    std::string prev_level;
+	int chapter;
 };
 
 extern StateManager StateManager_;

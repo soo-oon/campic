@@ -144,7 +144,7 @@ void Level::Update(float dt)
 
     if (Input::IsKeyTriggered(GLFW_KEY_F7))
     {
-        StateManager_.ToEndScene();
+       StateManager_.ToEndScene();
     }
 }
 

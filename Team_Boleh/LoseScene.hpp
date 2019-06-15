@@ -15,6 +15,7 @@ public:
     void ShutDown() override;
     void TakePrevLevel();
 private:
+	Object* background = nullptr;
     Object* m_game_over = nullptr;
     Object* m_restart = nullptr;
     Object* m_menu = nullptr;
@@ -23,6 +24,8 @@ private:
     float timer = 0.f;
     bool is_end_start_sprite = false;
     bool is_start_animation = false;
+
+	bool change = false;
 
     std::string m_this_level;
 
