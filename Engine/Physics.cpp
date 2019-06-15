@@ -139,6 +139,7 @@ void Physics::Update(float dt)
                         p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetStartPosition());
                         p_collision->ChangeCollisionBoxScale(player_scale);
                         p_collision->SetIsGround(false);
+
 						capture_ground_obj = nullptr;
                         p_collision->SetIsCapobj(false);
                         p_rigidbody->SetVelocity(0);

@@ -14,7 +14,7 @@ void Level::Initialize()
 	camera = new Object();
 	camera->SetObjectType(ObjectType::Camera);
 	camera->AddComponent(new Camera("Level"));
-	camera->GetComponentByTemplate<Camera>()->SetMinMaxSize(250);
+	camera->GetComponentByTemplate<Camera>()->SetMinMaxSize({150, 250});
 
 	background = new Object();
 	background->SetMesh(mesh::CreateBox());

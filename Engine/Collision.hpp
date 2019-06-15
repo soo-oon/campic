@@ -96,7 +96,7 @@ public:
     void SetFilter(Filter filter) { m_filter = filter; }
 	void SetIsCollideItem(bool condition) { isItem = condition; }
 	void SetShouldRestartPos(bool condition) { should_restart_position = condition; }
-	void SetIsFollow(bool condition, float pos, bool is_x_coordinate_ = false)
+	void SetIsFollow(bool condition, float pos=0.0f, bool is_x_coordinate_ = false)
     {
 	    isfollow = condition;
 		static_pos = pos;
