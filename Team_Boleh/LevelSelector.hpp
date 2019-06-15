@@ -39,6 +39,7 @@ private:
 	Object* next = nullptr;
 	Object* button = nullptr;
 	Object* background = nullptr;
+	Object* mouse_icon = nullptr;
 
 	bool selectPage = true;
 	int page_count = 1;

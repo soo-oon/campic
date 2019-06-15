@@ -17,7 +17,7 @@ void Sound::Delete()
 	path.clear();
 }
 
-void Sound::Play(std::string path)
+void Sound::Play(std::string path, float volume)
 {
 	AudioManager_.PlaySFX(path, volume);
 }

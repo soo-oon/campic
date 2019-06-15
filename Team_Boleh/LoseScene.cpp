@@ -94,14 +94,14 @@ void LoseScene::Update(float dt)
         {
             if (button_.GetSelect().first == m_restart)
             {
-                    AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                    AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
                     SetLevelIndicator(m_this_level);
                     ChangeLevel(m_this_level);
                     button_.RemoveContainer();
             }
             else if(button_.GetSelect().first == m_menu)
             {
-                AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
                 button_.RemoveContainer();
                 StateManager_.BackToMainMenu();
             }

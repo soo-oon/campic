@@ -11,6 +11,15 @@ void LevelSelector::Initialize()
 
 	m_LevelLock = LevelJson_.LoadLevelLock();
 
+	mouse_icon = new Object();
+	mouse_icon->SetTranslation({ 0,0 });
+	mouse_icon->SetScale({ 50,50 });
+	mouse_icon->SetDepth(-0.8f);
+	mouse_icon->SetObjectType(ObjectType::None);
+	mouse_icon->SetMesh(mesh::CreateBox());
+	mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
+	Objectmanager_.AddObject(mouse_icon);
+
 	background = new Object();
 	background->SetTranslation({ 0, 0 });
 	background->SetDepth(0.98f);
@@ -71,6 +80,8 @@ void LevelSelector::Initialize()
 
 void LevelSelector::Update(float dt)
 {
+	mouse_icon->SetTranslation(Input::GetMousePos());
+
 	if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 	{
 		m_selectPage = Input::ClickObject(ObjectDepth::HUD_OBJECT2);
@@ -79,7 +90,7 @@ void LevelSelector::Update(float dt)
 		{
 			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "previous")
 			{
-				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
 				selectPage = !selectPage;
 
 				if (page_count == 1)
@@ -90,7 +101,7 @@ void LevelSelector::Update(float dt)
 
 			if (m_selectPage->GetComponentByTemplate<UI>()->GetId() == "next")
 			{
-				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
 				selectPage = !selectPage;
 
 				if (page_count == 3)
@@ -159,7 +170,7 @@ void LevelSelector::Update(float dt)
             button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
 
 			if(button_.GetSelect().first != previous && button_.GetSelect().first != next)
 			{

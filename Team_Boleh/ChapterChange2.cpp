@@ -5,8 +5,6 @@
 void ChapterChange2::Initialize()
 {
     timer = 0.f;
-    AudioManager_.LoadSong("asset/sounds/StartCutScene.mp3");
-    AudioManager_.PlaySong("asset/sounds/StartCutScene.mp3");
 
     mouse_icon = new Object();
     mouse_icon->SetTranslation({ 0,0 });
@@ -62,7 +60,7 @@ void ChapterChange2::Update(float dt)
         button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
         if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
-            AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+            AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
             SetLevelIndicator("Level13");
             ChangeLevel("Level13");
             button_.RemoveContainer();

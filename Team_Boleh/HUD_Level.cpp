@@ -291,21 +291,21 @@ void HUD_Level::Update(float dt)
 
 		if (IsOptionWindowOpen)
 		{
-			StateManager_.Pause();
 			h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetActiveCondition(false);
 			h_option_window->GetMesh().Visible();
-                        resume->GetMesh().Visible();
+			resume->GetMesh().Visible();
 			h_fullscreen_button->GetMesh().Visible();
 			h_volume_scroll_button->GetMesh().Visible();
 			h_quit_button->GetMesh().Visible();
 			h_backtomenu_button->GetMesh().Visible();
 			h_mute_button->GetMesh().Visible();
-                        h_bgm_scroll_button->GetMesh().Visible();
+			h_bgm_scroll_button->GetMesh().Visible();
 
 			float volume = 0.f;
-		
+
 			if (HUD_.HUDIntersectionCheck(Input::GetMousePos()))
 			{
+				HUD_.GetHUDSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 				{
 					std::string temp = HUD_.GetHUDSelect().first->GetComponentByTemplate<UI>()->GetId();
@@ -313,14 +313,6 @@ void HUD_Level::Update(float dt)
 					{
 						fullscreen = !fullscreen;
 						Application_.FullScreen();
-						if (fullscreen)
-						{
-							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
-						}
-						else
-						{
-							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
-						}
 					}
 
 					if (temp == "resume")
@@ -334,16 +326,8 @@ void HUD_Level::Update(float dt)
 					{
 						mute = !mute;
 						AudioManager_.GetMasterChannel()->setMute(mute);
-						if (mute)
-						{
-							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOn.png");
-						}
-						else
-						{
-							HUD_.GetHUDSelect().first->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/UI/ButtonOff.png");
-						}
 					}
-					
+
 					if (temp == "backtomenu")
 					{
 						IsOptionWindowOpen = !IsOptionWindowOpen;
@@ -360,12 +344,12 @@ void HUD_Level::Update(float dt)
 						m_no->GetMesh().Visible();
 					}
 
-					if(temp == "yes")
+					if (temp == "yes")
 					{
 						Engine::IsQuit = true;
 					}
 
-					if(temp == "no")
+					if (temp == "no")
 					{
 						is_are_you_sure = !is_are_you_sure;
 						m_are_you_sure->GetMesh().Invisible();
@@ -382,7 +366,7 @@ void HUD_Level::Update(float dt)
 						float save_x = Input::GetMousePos().x;
 						static float save_y = HUD_.GetHUDSelect().first->GetTransform().GetTranslation().y;
 
-						volume = 100 * (save_x ) / 400.f;
+						volume = 100 * (save_x) / 400.f;
 
 						if (volume < 0.f)
 							volume = 0.f;
@@ -401,7 +385,7 @@ void HUD_Level::Update(float dt)
 						float save_x = Input::GetMousePos().x;
 						static float save_y = HUD_.GetHUDSelect().first->GetTransform().GetTranslation().y;
 
-						volume = 100 * (save_x ) / 400.f;
+						volume = 100 * (save_x) / 400.f;
 
 						if (volume < 0.f)
 							volume = 0.f;
@@ -414,15 +398,20 @@ void HUD_Level::Update(float dt)
 						}
 						AudioManager_.SetSongsVolume(volume / 100.f);
 					}
-
-				
+				}
+			}
+			else
+			{
+				for (auto& i : HUD_.Get_HUD_Button_Manager())
+				{
+					i.get()->GetMesh().ChangeColor({ 255,255,255 });
 				}
 			}
 		}
 		else
 		{
 			h_option_window->GetMesh().Invisible();
-                        resume->GetMesh().Invisible();
+            resume->GetMesh().Invisible();
 			h_fullscreen_button->GetMesh().Invisible();
 			h_volume_scroll_button->GetMesh().Invisible();
 			h_quit_button->GetMesh().Invisible();
@@ -431,7 +420,7 @@ void HUD_Level::Update(float dt)
 			m_no->GetMesh().Invisible();
 			m_yes->GetMesh().Invisible();
 			m_are_you_sure->GetMesh().Invisible();
-                        h_bgm_scroll_button->GetMesh().Invisible();
+            h_bgm_scroll_button->GetMesh().Invisible();
 		}
 	}
 	else

@@ -163,6 +163,28 @@ void StateManager::ToLoseScene()
     Physics_.ResetPreviousSize();
 }
 
+void StateManager::ToChapChange1()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("ChapterChange1")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
+void StateManager::ToChapChange2()
+{
+	m_currentState->ShutDown();
+	m_currentState->ResetBackToMenu();
+	m_currentState = states.find("ChapterChange2")->second.get();
+
+	m_currentState->Initialize();
+
+	Physics_.ResetPreviousSize();
+}
+
 void StateManager::Restart()
 {
 	m_restart = true;

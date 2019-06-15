@@ -5,8 +5,6 @@
 void ChapterChange1::Initialize()
 {
     timer = 0.f;
-    AudioManager_.LoadSong("asset/sounds/StartCutScene.mp3");
-    AudioManager_.PlaySong("asset/sounds/StartCutScene.mp3");
 
     mouse_icon = new Object();
     mouse_icon->SetTranslation({ 0,0 });
@@ -23,7 +21,6 @@ void ChapterChange1::Initialize()
     start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     start->SetObjectType(ObjectType::Background);
     start->AddComponent(new Sprite("asset/images/Page/DaytoEvening.png"));
-
 
     button = new Object();
     button->SetTranslation({ 700, -450 });
@@ -62,7 +59,7 @@ void ChapterChange1::Update(float dt)
         button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
         if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
         {
-            AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+            AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
             SetLevelIndicator("Level7");
             ChangeLevel("Level7");
             button_.RemoveContainer();

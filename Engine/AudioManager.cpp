@@ -46,6 +46,8 @@ bool AudioManager::Initialize()
 	LoadSFX("asset/sounds/Button.wav");
 	LoadSFX("asset/sounds/pain.mp3");
 
+
+	SetSFXsVolume(0.1f);
 	std::cout << "AudioManager Initialization Successful" << std::endl;
 
 	return true;
@@ -69,7 +71,7 @@ void AudioManager::Update(float dt)
 
 		if(time > 1)
 		{
-			PlaySFX("asset/sounds/Camera_Capture.wav", 0.8f);
+			PlaySFX("asset/sounds/Camera_Capture.wav", 0.5f);
 			timer = false;
 			time = 0.f;
 		}
@@ -162,7 +164,7 @@ void AudioManager::PlaySFX(const std::string& path, float volume)
 	// Play the sound effect with these initial values  
 	FMOD::Channel* channel = nullptr;
 	channel->setChannelGroup(groups[CATEGORY_SFX]); 
-	channel->setVolume(volume);
+	channel->setVolume(0.1f);
 
 	system->playSound(sound->second, NULL, true, &channel);
 	float frequency;  

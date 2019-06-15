@@ -437,9 +437,23 @@ void Physics::Update(float dt)
                                 if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
                                 {
                                     StateManager_.GetCurrentState()->BackToMenu();
+									time = 0;
                                 }
-                                else if (door->GetComponentByTemplate<UI>()->GetId() == "EndCutScene")
-                                    StateManager_.ToEndScene();
+								else if (door->GetComponentByTemplate<UI>()->GetId() == "EndCutScene")
+								{
+									StateManager_.ToEndScene();
+									time = 0;
+								}
+								else if (door->GetComponentByTemplate<UI>()->GetId() == "ChapterChange1")
+								{
+									StateManager_.ToChapChange1();
+									time = 0;
+								}
+								else if(door->GetComponentByTemplate<UI>()->GetId() == "ChapterChange2")
+								{
+									StateManager_.ToChapChange2();
+									time = 0;
+								}
                                 else
                                 {
                                     bus_object = nullptr;
@@ -486,7 +500,7 @@ void Physics::Update(float dt)
 										if (!AudioManager_.IsSFXPlaying())
 										{	
 											AudioManager_.SetTimer(true);
-											AudioManager_.PlaySFX("asset/sounds/curtain.mp3", 0.8f);
+											AudioManager_.PlaySFX("asset/sounds/curtain.mp3", 0.5f);
 										}
 										
 									}

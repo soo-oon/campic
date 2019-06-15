@@ -73,7 +73,7 @@ void Player::Update(float dt)
                     bus_object->SetDepth(-0.6f);
                     bus_object->SetObjectType(ObjectType::Bus);
                     bus_object->AddInitComponent(new Sprite("asset/images/Objects/Bus.png"));
-                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/break.mp3");
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/break.mp3", 0.3f);
                     //AudioManager_.PlaySFX("asset/sounds/Bus.mp3",1.f);
                     Objectmanager_.AddObject(bus_object);
                 }
@@ -147,7 +147,7 @@ void Player::MovePlayer()
                 o_collision->SetIsLeftTile(true);
                 o_rigidbody->SetVelocity({ o_rigidbody->GetVelocity().x,o_rigidbody->GetVelocityLimit().y });
                 o_rigidbody->SetJumping(true);
-                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3", 0.4f);
                 o_rigidbody->SetYLimited(false);
             }
         }
@@ -183,7 +183,7 @@ void Player::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, o_rigidbody->GetVelocityLimit().y });
                 o_rigidbody->SetJumping(true);
-                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3", 0.4f);
                 o_rigidbody->SetYLimited(false);
             }
         }
@@ -218,7 +218,7 @@ void Player::MovePlayer()
                 o_rigidbody->SetVelocity(
                     { o_rigidbody->GetVelocity().x, o_rigidbody->GetVelocityLimit().y });
                 o_rigidbody->SetJumping(true);
-                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3", 0.4f);
                 o_rigidbody->SetYLimited(false);
             }
         }

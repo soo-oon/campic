@@ -51,6 +51,8 @@ public:
 	void ToStartScene();
 	void ToEndScene();
         void ToLoseScene();
+		void ToChapChange1();
+		void ToChapChange2();
 
 	void ChangeStage();
 	void Restart();

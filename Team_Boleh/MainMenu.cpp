@@ -20,7 +20,7 @@ void MainMenu::Initialize()
 
 	Object* camera = new Object();
 	camera->SetTranslation({ -100, 0 });
-	camera->SetScale({ 1250,630 });
+	camera->SetScale({ 1280,800 });
 	camera->SetDepth(BACKGROUND + 0.01f);
 	camera->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	camera->SetObjectType(ObjectType::Button);
@@ -32,10 +32,10 @@ void MainMenu::Initialize()
 	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
-	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
+	background->AddComponent(new Animation("asset/images/Page/BackgroundDay.png", "day", 16, 0.15f, true));
 
 	Object* Start = new Object();
-	Start->SetTranslation({600, 200});
+	Start->SetTranslation({600, 400});
 	Start->SetScale({ 300,150 });
 	Start->SetDepth(HUD_OBJECT);
 	Start->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -43,14 +43,14 @@ void MainMenu::Initialize()
 	Start->AddComponent(new UI("LevelSelector"));
 	Start->AddComponent(new Sprite("asset/images/UI/StartButton.png"));
 	
-	//Object* Option = new Object();
-	//Option->SetTranslation({ 600, 200 });
-	//Option->SetScale({ 300,150 });
-	//Option->SetDepth(HUD_OBJECT);
-	//Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
-	//Option->SetObjectType(ObjectType::Button);
-	//Option->AddComponent(new UI("Option"));
-	//Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
+	Object* Option = new Object();
+	Option->SetTranslation({ 600, 200 });
+	Option->SetScale({ 300,150 });
+	Option->SetDepth(HUD_OBJECT);
+	Option->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	Option->SetObjectType(ObjectType::Button);
+	Option->AddComponent(new UI("Option"));
+	Option->AddComponent(new Sprite("asset/images/UI/OptionButton.png"));
 
 	Object* HowToPlay = new Object();
 	HowToPlay->SetTranslation({ 600, 0 });
@@ -81,11 +81,11 @@ void MainMenu::Initialize()
 
 	//Objectmanager_.AddObject(mouse_icon);
 	button_.AddObject(Start);
-	//button_.AddObject(Option);
+	button_.AddObject(Option);
 	button_.AddObject(Credit);
 	button_.AddObject(Quit);
-	Objectmanager_.AddObject(background);
 	button_.AddObject(HowToPlay);
+	Objectmanager_.AddObject(background);
 	Objectmanager_.AddObject(camera);
 }
 
@@ -116,6 +116,12 @@ void MainMenu::Update(float dt)
                 button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
                 button_.GetSelect().second = CollisionState::WasCollided;
             }
+			else if(temp == "Option")
+			{
+				button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+				button_.GetSelect().second = CollisionState::WasCollided;
+			}
+			
 
 
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
@@ -124,34 +130,33 @@ void MainMenu::Update(float dt)
 
 			if (temp == "LevelSelector")
 			{
- 				AudioManager_.PlaySFX("asset/sounds/Button.wav",0.3f);
+ 				AudioManager_.PlaySFX("asset/sounds/Button.wav",0.1f);
 				BackToMenu();
 			}
 
-			//else if (temp == "Option")
-			//{
-			//	AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
-			//	HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
-			//	button_.RemoveContainer();
-			//}
+			else if (temp == "Option")
+			{
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
+				HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
+			}
 
 			else if (temp == "Quit")
 			{
-				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
                                 button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				Engine::IsQuit = true;
 			}
 
 			else if (temp == "Credit")
 			{
-				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
                                 button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				StateManager_.ToCredit();
 			}
 
 			else if (temp == "HowToPlay")
 			{
-				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
                                 button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 				StateManager_.ToHowToPlay();
 			}

@@ -155,7 +155,7 @@ void RigidBody::MovePlayer()
             {
                 if (Input::IsKeyPressed(GLFW_KEY_W))
                 {
-                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3");
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3", 0.4f);
                     o_collision->SetIsGround(false);
                     o_collision->SetIsCapobj(false);
                     Physics::capture_ground_obj = nullptr;
@@ -177,7 +177,7 @@ void RigidBody::MovePlayer()
                     o_rigidbody->SetVelocity(
                         { o_rigidbody->GetVelocity().x, m_velocity_limit.y });
                     o_rigidbody->SetJumping(true);
-                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3", 0.4f);
                 }
             }
         }
@@ -209,7 +209,7 @@ void RigidBody::MovePlayer()
             {
             if (Input::IsKeyPressed(GLFW_KEY_W))
             {
-                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3");
+                object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3", 0.4f);
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 Physics::capture_ground_obj = nullptr;
@@ -231,7 +231,7 @@ void RigidBody::MovePlayer()
                     o_rigidbody->SetVelocity(
                         { o_rigidbody->GetVelocity().x, m_velocity_limit.y });
                     o_rigidbody->SetJumping(true);
-                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3", 0.4f);
                 }
         }
         }
@@ -263,7 +263,7 @@ void RigidBody::MovePlayer()
             {
             if (Input::IsKeyPressed(GLFW_KEY_W))
             {
-                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3");
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/spring.mp3", 0.4f);
                 o_collision->SetIsGround(false);
                 o_collision->SetIsCapobj(false);
                 Physics::capture_ground_obj = nullptr;
@@ -286,7 +286,7 @@ void RigidBody::MovePlayer()
                     o_rigidbody->SetVelocity(
                         { o_rigidbody->GetVelocity().x, m_velocity_limit.y });
                     o_rigidbody->SetJumping(true);
-                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3");
+                    object->GetComponentByTemplate<Sound>()->Play("asset/sounds/jump.mp3", 0.4f);
                 }
             }
         }

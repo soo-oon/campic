@@ -133,7 +133,7 @@ void Credit::Update(float dt)
             button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
 			StateManager_.BackToMainMenu();
 		}
 	}

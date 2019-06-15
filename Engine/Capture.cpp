@@ -89,7 +89,7 @@ void Capture::Update(float dt)
 					Capturing();
 					CreatePolaroidObject();
 					CreateCaptureObject();
-					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Camera_Capture.wav");
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Camera_Capture.wav", 0.4f);
 				}
 			}
 		}
@@ -364,14 +364,14 @@ void Capture::CameraZoom()
 	{
 		if (zoom == 1.0f && zoom_ > 0)
 		{
-			zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+			zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav", 0.4f);
 			float temp = zoom_max_value - const_zoom;
 			float t = temp / 3.0f;
 			zoom += t;
 		}
 		else if (zoom == 1.0f && zoom_ < 0)
 		{
-			zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+			zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav", 0.2f);
 			float temp = 1.0f - zoom_min_value;
 			float t = temp / 3.0f;
 			zoom -= t;
@@ -382,14 +382,14 @@ void Capture::CameraZoom()
 			{
 				if (zoom > 1.0f)
 				{
-					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav", 0.2f);
 					float temp = zoom_max_value - const_zoom;
 					float t = temp / 3.0f;
 					zoom += t;
 				}
 				else
 				{
-					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav", 0.2f);
 					float temp = 1.0f - zoom_min_value;
 					float t = temp / 3.0f;
 					zoom += t;
@@ -404,14 +404,14 @@ void Capture::CameraZoom()
 			{
 				if (zoom > 1.0f)
 				{
-					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav", 0.2f);
 					float temp = zoom_max_value - const_zoom;
 					float t = temp / 3.0f;
 					zoom -= t;
 				}
 				else
 				{
-					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav");
+					zoomobject->GetComponentByTemplate<Sound>()->Play("asset/sounds/Zoom_In.wav", 0.2f);
 					float temp = 1.0f - zoom_min_value;
 					float t = temp / 3.0f;
 					zoom -= t;

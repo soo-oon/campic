@@ -18,7 +18,7 @@ void HowToPlay::Initialize()
 	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
-	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
+	background->AddComponent(new Animation("asset/images/Page/BackgroundDay.png", "day", 16, 0.15f, true));
 
 	Object* cam = new Object();
 	cam->SetTranslation({ 0, 0 });
@@ -56,7 +56,7 @@ void HowToPlay::Update(float dt)
             button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+			AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
 			StateManager_.BackToMainMenu();
 		}
 	}

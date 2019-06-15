@@ -8,7 +8,7 @@ class Sound : public Component
 {
 public:
 	Sound(std::string path_, AudioManager::Category category_ = AudioManager::CATEGORY_SFX, float volume_ = 0.3f)
-	: path(path_), category(category_), volume(volume_)
+	: path(path_), category(category_)
 	{
 		paths.push_back(path);
 		AudioManager_.LoadSFX(path);
@@ -18,7 +18,7 @@ public:
 	void Update(float dt) override;
 	void Delete() override;
 
-	void Play(std::string path);
+	void Play(std::string path, float volume);
 	void AddSound(std::string path_);
 
 	std::vector<std::string> GetSoundPaths() const { return paths; }
@@ -29,6 +29,5 @@ private:
 	std::string path;
 
 	AudioManager::Category category;
-	float volume;
 };
 
