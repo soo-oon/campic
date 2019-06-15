@@ -315,13 +315,11 @@ void Physics::Update(float dt)
 					if (IntersectionCheckAABB(collision_list[i], obstacle_obj))
 					{
 						AudioManager_.PlaySFX("asset/sounds/pain.mp3", 0.3f);
-                        obstacle_obj->SetIsDead(true);
-                        collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
-                        p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
-
-
-						Capture::IsChangeCaptureCount = true;
-                        StateManager_.GetCurrentState()->GetCaptureLimit() -= 3;
+                                                obstacle_obj->SetIsDead(true);
+                                                collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
+                                                p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
+                                                StateManager_.GetCurrentState()->GetCaptureLimit() -= 3;
+                                                Capture::IsChangeCaptureCount = true;
 					}
 				}
 
