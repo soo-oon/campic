@@ -121,6 +121,7 @@ void State::CreateCaptureCamera()
     player_camera->SetObjectType(ObjectType::Capture_Camera_main);
 	player_camera->AddComponent(new Sprite("asset/images/Objects/Capture.png"));
     player_camera->AddInitComponent(new Capture(StateManager_.GetCurrentState()->GetStartPosition()));
+	player_camera->GetComponentByTemplate<Capture>()->SetResetPosition(StateManager_.GetCurrentState()->GetStartPosition());
 
     Objectmanager_.AddObject(player_camera);
     Objectmanager_.SetCaptureObject(player_camera);

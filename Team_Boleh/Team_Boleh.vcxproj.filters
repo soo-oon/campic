@@ -28,5 +28,12 @@
     <ClInclude Include="LoseScene.hpp" />
     <ClInclude Include="ChapterChange1.hpp" />
     <ClInclude Include="ChapterChange2.hpp" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Team_Boleh.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="CamPic_Icon.ico" />
   </ItemGroup>
 </Project>

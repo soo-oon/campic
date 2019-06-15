@@ -29,6 +29,7 @@ public:
 
 	static Object* left_tile_obj;
 	static Object* right_tile_obj;
+	static bool is_reset;
 
 	bool IsNextLevel() { return to_next; }
 

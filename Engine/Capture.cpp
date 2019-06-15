@@ -65,6 +65,8 @@ bool Capture::Initialize(Object* Ob)
 
 void Capture::Update(float dt)
 {
+	std::cout << StateManager_.GetCurrentState()->GetStartPosition();
+
 	if (player == nullptr)
 	{
 		player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
@@ -674,10 +676,17 @@ void Capture::SetOrigianlSize()
 				}
 				else
 				{
-					obj.second->SetSpecificPosition(obj.second->GetTransform().GetTranslation().y);
-					obj.second->SetChangeCollisionBox(false);
-					obj.second->SetIsChangePosition(false);
-					temp_collision->SetIsFollow(true, 0);
+					if(!Physics::is_reset)
+					{
+						obj.second->SetSpecificPosition(obj.second->GetTransform().GetTranslation().y);
+						obj.second->SetChangeCollisionBox(false);
+						obj.second->SetIsChangePosition(false);
+						temp_collision->SetIsFollow(true, 0);
+					}
+					else
+					{
+						Physics::is_reset = false;
+					}
 
 				}
 				temp_collision->SetCollisionScale(temp_collision->GetConstCollisionScale());

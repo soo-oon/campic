@@ -27,6 +27,7 @@ Object* Physics::capture_right_obj = nullptr;
 
 Object* Physics::left_tile_obj = nullptr;
 Object* Physics::right_tile_obj = nullptr;
+bool Physics::is_reset = false;
 
 bool Physics::Initialize()
 {
@@ -132,11 +133,13 @@ void Physics::Update(float dt)
 
                     if (p_transform.GetTranslation().y < limit_list->GetTransform().GetTranslation().y)
                     {
-                        p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>()->GetResetPosition());
+                        collision_list[i]->GetTransform().SetTranslation(StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>()->GetResetPosition());
                         p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>()->GetResetPosition());
                         p_collision->ChangeCollisionBoxScale(player_scale);
                         p_collision->SetIsGround(false);
+						collision_list[i]->SetIsChangePosition(false);
 
+						is_reset = true;
 						capture_ground_obj = nullptr;
                         p_collision->SetIsCapobj(false);
                         p_rigidbody->SetVelocity(0);

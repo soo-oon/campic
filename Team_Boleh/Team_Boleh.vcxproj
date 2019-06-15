@@ -200,6 +200,7 @@
     <ClInclude Include="Credit.hpp" />
     <ClInclude Include="EndCutScene.hpp" />
     <ClInclude Include="LoseScene.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="StartCutScene.hpp" />
     <ClInclude Include="HowToPlay.hpp" />
     <ClInclude Include="HUD_Level.hpp">
@@ -217,6 +218,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Team_Boleh.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="CamPic_Icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
