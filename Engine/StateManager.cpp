@@ -149,6 +149,18 @@ void StateManager::ToEndScene()
 	Physics_.ResetPreviousSize();
 }
 
+void StateManager::ToLoseScene()
+{
+    prev_level = m_currentState->GetLevelIndicator();
+    m_currentState->ShutDown();
+    m_currentState->ResetBackToMenu();
+    m_currentState = states.find("LoseScene")->second.get();
+
+    m_currentState->Initialize();
+
+    Physics_.ResetPreviousSize();
+}
+
 void StateManager::Restart()
 {
 	m_restart = true;
