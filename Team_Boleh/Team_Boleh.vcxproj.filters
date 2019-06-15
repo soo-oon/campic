@@ -12,6 +12,8 @@
     <ClCompile Include="StartCutScene.cpp" />
     <ClCompile Include="EndCutScene.cpp" />
     <ClCompile Include="LoseScene.cpp" />
+    <ClCompile Include="ChapterChange1.cpp" />
+    <ClCompile Include="ChapterChange2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HUD_Level.hpp" />
@@ -24,5 +26,7 @@
     <ClInclude Include="StartCutScene.hpp" />
     <ClInclude Include="EndCutScene.hpp" />
     <ClInclude Include="LoseScene.hpp" />
+    <ClInclude Include="ChapterChange1.hpp" />
+    <ClInclude Include="ChapterChange2.hpp" />
   </ItemGroup>
 </Project>

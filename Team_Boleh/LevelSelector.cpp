@@ -59,12 +59,12 @@ void LevelSelector::Initialize()
 	Objectmanager_.AddObject(next);
 
 	button = new Object();
-	button->SetTranslation({ Application_.GetScreenSize().x / 4, Application_.GetScreenSize().y * 19 / 60 });
+        button->SetTranslation({ 310.f, 300.f });
 	button->SetScale({ 182,96 });
 	button->SetDepth(HUD_BUTTON);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
-	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+	button->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
 	button->AddInitComponent(new UI("back"));
 	button_.AddObject(button);
 }
@@ -117,6 +117,7 @@ void LevelSelector::Update(float dt)
 			{
 				button_.AddObject(i);
 			}
+                        CreateBackButton();
 			selectPage = false;
 			break;
 		}
@@ -130,7 +131,7 @@ void LevelSelector::Update(float dt)
 			{
 				button_.AddObject(i);
 			}
-
+                        CreateBackButton();
 			selectPage = false;
 			break;
 		}
@@ -144,6 +145,7 @@ void LevelSelector::Update(float dt)
 			{
 				button_.AddObject(i);
 			}
+                        CreateBackButton();
 			selectPage = false;
 			break;
 		}
@@ -282,6 +284,19 @@ void LevelSelector::CreateMenu3()
 			text + std::to_string(i + 12), text + std::to_string(i),m_Menu3);
 		text = "Level";
 	}
+}
+
+void LevelSelector::CreateBackButton()
+{
+    button = new Object();
+    button->SetTranslation({ 310.f, 300.f });
+    button->SetScale({ 182,96 });
+    button->SetDepth(HUD_BUTTON);
+    button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    button->SetObjectType(ObjectType::Button);
+    button->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
+    button->AddInitComponent(new UI("back"));
+    button_.AddObject(button);
 }
 
 

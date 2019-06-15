@@ -29,6 +29,8 @@ Creation date: 2018/12/14
 #include "StartCutScene.hpp"
 #include "EndCutScene.hpp"
 #include "LoseScene.hpp"
+#include "ChapterChange1.hpp"
+#include "ChapterChange2.hpp"
 
 int main()
 {
@@ -46,6 +48,8 @@ int main()
 	StateManager_.AddStage("Credit", new Credit());
 	StateManager_.AddStage("Level", new Level());
 	StateManager_.AddStage("LoseScene", new LoseScene());
+	StateManager_.AddStage("ChapterChange1", new ChapterChange1());
+	StateManager_.AddStage("ChapterChange2", new ChapterChange2());
 
 	engine.Update();
   

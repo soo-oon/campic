@@ -22,7 +22,7 @@ void LoseScene::Initialize()
 
     m_restart= new Object();
     m_restart->SetTranslation({ -150, -450 });
-    m_restart->SetScale({ 182,96 });
+    m_restart->SetScale({ 200,96 });
     m_restart->SetDepth(HUD_BUTTON);
     m_restart->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     m_restart->SetObjectType(ObjectType::Button);

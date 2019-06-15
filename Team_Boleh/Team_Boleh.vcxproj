@@ -165,6 +165,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChapterChange1.cpp" />
+    <ClCompile Include="ChapterChange2.cpp" />
     <ClCompile Include="Credit.cpp" />
     <ClCompile Include="EndCutScene.cpp" />
     <ClCompile Include="LoseScene.cpp" />
@@ -188,6 +190,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChapterChange1.hpp" />
+    <ClInclude Include="ChapterChange2.hpp" />
     <ClInclude Include="Credit.hpp" />
     <ClInclude Include="EndCutScene.hpp" />
     <ClInclude Include="LoseScene.hpp" />
