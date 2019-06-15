@@ -65,8 +65,6 @@ bool Capture::Initialize(Object* Ob)
 
 void Capture::Update(float dt)
 {
-	std::cout << StateManager_.GetCurrentState()->GetStartPosition();
-
 	if (player == nullptr)
 	{
 		player = StateManager_.GetCurrentState()->GetPlayerObjectPointer();
@@ -80,8 +78,6 @@ void Capture::Update(float dt)
 			return;
 		}
 	}
-
-	//std::cout << Input::GetMousePos();
 
 	CameraZoom();
 	ZoomObjectUpdate(dt);

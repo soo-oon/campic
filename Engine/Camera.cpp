@@ -38,7 +38,6 @@ void Camera::Update(float dt)
 {
 #ifdef _DEBUG
 #else
-#endif
 	if(base_obj != nullptr)
 	{
 
@@ -86,11 +85,7 @@ void Camera::Update(float dt)
 				}
 			}
 		}
-	}
-
-	if (Input::IsKeyTriggered(GLFW_KEY_C))
-	{
-		ResetUp();
+#endif
 	}
 }
 

@@ -65,9 +65,8 @@ void StateManager::ChangeStage()
 	SetCurrentLevelCaptureLimit();
 #ifdef _DEBUG
 #else
-        
-#endif
 	m_currentState->CreateCaptureCamera();
+#endif
 	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
 	{
 		m_currentState->CreatePlayer();
