@@ -64,8 +64,8 @@ void LevelSelector::Initialize()
 
 	Objectmanager_.AddObject(background);
 	Objectmanager_.AddObject(cam);
-	Objectmanager_.AddObject(previous);
-	Objectmanager_.AddObject(next);
+        button_.AddObject(previous);
+        button_.AddObject(next);
 
 	button = new Object();
         button->SetTranslation({ 310.f, 300.f });
@@ -190,6 +190,26 @@ void LevelSelector::Update(float dt)
 					ChangeLevel(temp);
 				}
 			}
+                        else if(button_.GetSelect().first == previous)
+                        {
+                            AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                            selectPage = !selectPage;
+
+                            if (page_count == 1)
+                                page_count = 3;
+                            else
+                                --page_count;
+                        }
+                        else if(button_.GetSelect().first == next)
+                        {
+                            AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
+                            selectPage = !selectPage;
+
+                            if (page_count == 3)
+                                page_count = 1;
+                            else
+                                ++page_count;
+                        }
 		}
 	}
         else
@@ -308,6 +328,28 @@ void LevelSelector::CreateBackButton()
     button->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
     button->AddInitComponent(new UI("back"));
     button_.AddObject(button);
+
+    previous = new Object();
+    previous->SetTranslation({ -300, -293 });
+    previous->SetScale({ 128,128 });
+    previous->SetDepth(HUD_OBJECT2);
+    previous->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    previous->SetObjectType(ObjectType::Button);
+    previous->AddComponent(new Sprite("asset/images/UI/PrevButton.png"));
+    previous->AddInitComponent(new UI("previous"));
+
+    next = new Object();
+    next->SetTranslation({ 200, -293 });
+    next->SetScale({ 128,128 });
+    next->SetDepth(HUD_OBJECT2);
+    next->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+    next->SetObjectType(ObjectType::Button);
+    next->AddComponent(new Sprite("asset/images/UI/NextButton.png"));
+    next->AddInitComponent(new UI("next"));
+
+
+    button_.AddObject(previous);
+    button_.AddObject(next);
 }
 
 
