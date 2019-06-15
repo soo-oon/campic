@@ -256,6 +256,7 @@
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Reaction.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Sound.hpp" />
@@ -272,6 +273,9 @@
     <ProjectReference Include="..\Math_Library\Math_Library.vcxproj">
       <Project>{ebff4dbf-aa4c-4f9d-bb17-0cf8b3cac2e5}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

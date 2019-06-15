@@ -57,7 +57,7 @@ bool Application::Initialize()
      5 patameter : share resources*/
 
 	//TODO get fullscreen is true or false and adjust the size when make window
-    window = glfwCreateWindow(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), "Engine ver 0.1 ",
+    window = glfwCreateWindow(static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), "CamPic",
                               nullptr, nullptr);
 
 	//mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -67,8 +67,6 @@ bool Application::Initialize()
                          static_cast<int>(screenSize.x), static_cast<int>(screenSize.y), 0);
 
 	FullScreen();
-
-    title = "Engine ver 0.1 ";
 
     if (!window)
     {
@@ -116,14 +114,9 @@ void Application::Update(float dt)
 	fpsEllapsedTime += dt;
 	++fpsFrames;
 	if (fpsEllapsedTime >= 1.0f)
-	{
-		
-		fps = std::to_string(int(fpsFrames / fpsEllapsedTime));
-		title += fps;
+	{		
 		fpsEllapsedTime = 0;
 		fpsFrames = 0;
-		glfwSetWindowTitle(window, title.c_str());
-		title = "Engine ver 0.1 ";
 	}
 
 
