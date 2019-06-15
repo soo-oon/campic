@@ -465,7 +465,6 @@ void Physics::Update(float dt)
 						{
 							bus_object = nullptr;
 							time = 0;
-							door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
 							StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
 							StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
 							to_next = false;
