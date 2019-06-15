@@ -94,7 +94,6 @@ void Capture::Update(float dt)
 			{
 				if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 				{
-					StateManager_.GetCurrentState()->AddDataCount();
 					IsChangeCaptureCount = true;
 					cheese = true;
 					Capturing();

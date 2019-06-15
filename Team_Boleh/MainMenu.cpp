@@ -21,13 +21,6 @@ void MainMenu::Initialize()
 {
 	AudioManager_.PlaySong("asset/sounds/MainMenu_BGM.mp3");
 
-	//mouse_icon = new Object();
-	//mouse_icon->SetTranslation({ 0,0 });
-	//mouse_icon->SetScale({ 50,50 });
-	//mouse_icon->SetDepth(depth::NearDepth);
-	//mouse_icon->SetObjectType(ObjectType::None);
-	//mouse_icon->SetMesh(mesh::CreateBox());
-	//mouse_icon->AddComponent(new Sprite("asset/images/UI/MouseCursor.png"));
 
 	Object* camera = new Object();
 	camera->SetTranslation({ -100, 0 });
@@ -90,7 +83,6 @@ void MainMenu::Initialize()
 	Quit->AddComponent(new UI("Quit"));
 	Quit->AddComponent(new Sprite("asset/images/UI/QuitButton.png"));
 
-	//Objectmanager_.AddObject(mouse_icon);
 	button_.AddObject(Start);
 	button_.AddObject(Option);
 	button_.AddObject(Credit);
@@ -137,7 +129,6 @@ void MainMenu::Update(float dt)
 
 		if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
 		{
-			//std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
 
 			if (temp == "LevelSelector")
 			{
@@ -149,6 +140,7 @@ void MainMenu::Update(float dt)
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
 				HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
+				StateManager_.TogglePause();
 			}
 
 			else if (temp == "Quit")

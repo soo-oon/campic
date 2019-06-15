@@ -125,7 +125,6 @@ void Physics::Update(float dt)
             {
                 auto p_collision = collision_list[i]->GetComponentByTemplate<Collision>();
                 auto p_rigidbody = collision_list[i]->GetComponentByTemplate<RigidBody>();
-                //auto p_transform = collision_list[i]->GetTransform();
                 auto p_transform = collision_list[i]->GetComponentByTemplate<Collision>()->GetCollisionTransform();
 
                 if (limit_list) 
@@ -151,7 +150,6 @@ void Physics::Update(float dt)
                 {
                     for (auto ground : ground_list)
                     {
-                        //if (IntersectionCheckAABB(collision_list[i], ground))
                         if (p_transform.GetTranslation().x - p_transform.GetScale().x / 2 - ground->GetTransform().GetScale().x / 2
                             <= ground->GetTransform().GetTranslation().x - 3
                             && ground->GetTransform().GetTranslation().x + 3
@@ -181,20 +179,7 @@ void Physics::Update(float dt)
                             break;
                         }
                         p_collision->SetIsCelling(false);
-                        //if (p_rigidbody->GetVelocity().x != 0)
-                        //{
-                        //    if (IntersectionCheckNextPosition(collision_list[i], tile))
-                        //    {
-                        //        if (p_transform.GetTranslation().x > tile->GetTransform().GetTranslation().x)
-                        //        {
-                        //            p_collision->SetIsLeftTile(true);
-                        //        }
-                        //        else
-                        //        {
-                        //            p_collision->SetIsRightTile(true);
-                        //        }
-                        //    }
-                        //}
+
                         if (IntersectionCheckAABBPositionLeft(collision_list[i], tile))
                         {
                                     p_rigidbody->SetVelocity
@@ -266,7 +251,6 @@ void Physics::Update(float dt)
                                 && capture->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
                                 <= p_transform.GetTranslation().y - p_transform.GetScale().y / 2 )
                             {
-                                //StopReaction(collision_list[i], capture, false);
 									capture_ground_obj = capture;
                                     p_collision->SetIsCapobj(true);
                                     if(capture->GetComponentByTemplate<Collision>()->GetFilter() == Filter::Jump)
@@ -277,22 +261,6 @@ void Physics::Update(float dt)
                     }
                     for (auto capture : capture_list)
                     {
-                        //if (collision_list[i]->GetComponentByTemplate<RigidBody>()->GetVelocity().x != 0)
-                        //{
-                        //    if (IntersectionCheckNextPosition(collision_list[i], capture))
-                        //    {
-                        //        p_rigidbody->SetVelocity
-                        //            ({0, p_rigidbody->GetVelocity().y});
-                        //        if (p_transform.GetTranslation().x > capture->GetTransform().GetTranslation().x)
-                        //        {
-                        //            p_collision->SetIsLeft(true);
-                        //        }
-                        //        else
-                        //        {
-                        //            p_collision->SetIsRight(true);
-                        //        }
-                        //    }
-                        //}
                         if (IntersectionCheckAABBPositionRight(collision_list[i], capture))
                         {
                             p_rigidbody->SetVelocity
@@ -394,77 +362,6 @@ void Physics::Update(float dt)
                         }
                     }
                 }
-                if (!doors.empty())
-                {
-                    for (auto door : doors)
-                    {
-                        if (IntersectionCheckAABB(collision_list[i], door))
-                        {
-                            to_next = true;
-                        }
-                        if (to_next) {
-                            p_rigidbody->SetIsStopped(true);
-                            p_rigidbody->SetVelocity(0);
-                            collision_list[i]->SetInvisible();
-                            time += dt;
-                            if (time < 2.5f)
-                            {
-                                if (!bus_object)
-                                {
-                                    bus_object = new Object();
-                                    bus_object->SetTranslation(door->GetTransform().GetTranslation());
-                                    bus_object->SetScale({ 400, 132 });
-                                    bus_object->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
-                                    bus_object->SetDepth(-0.6f);
-                                    bus_object->SetObjectType(ObjectType::Bus);
-                                    bus_object->AddInitComponent(new Sprite("asset/images/Objects/Bus.png"));
-                                    Objectmanager_.AddObject(bus_object);
-                                    //AudioManager_.PlaySFX("asset/sounds/Bus.mp3", 1.f);
-                                }
-                                if (time > 0.5f)
-                                {
-                                    //if (Graphics_.GetCurrentCamera())
-                                       // Graphics_.GetCurrentCamera()->SetCenter(door->GetTransform().GetTranslation());
-                                    bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 20 ,bus_object->GetTransform().GetTranslation().y });
-                                    collision_list[i]->GetTransform().SetTranslation(bus_object->GetTransform().GetTranslation());
-                                }
-                            }
-                            else
-                            {
-                                if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
-                                {
-                                    StateManager_.GetCurrentState()->BackToMenu();
-									time = 0;
-                                }
-								else if (door->GetComponentByTemplate<UI>()->GetId() == "EndCutScene")
-								{
-									StateManager_.ToEndScene();
-									time = 0;
-								}
-								else if (door->GetComponentByTemplate<UI>()->GetId() == "ChapterChange1")
-								{
-									StateManager_.ToChapChange1();
-									time = 0;
-								}
-								else if(door->GetComponentByTemplate<UI>()->GetId() == "ChapterChange2")
-								{
-									StateManager_.ToChapChange2();
-									time = 0;
-								}
-                                else
-                                {
-                                    bus_object = nullptr;
-                                    time = 0;
-                                    StateManager_.GetCurrentState()->PlayTestData();
-                                    door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
-                                    StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
-                                    StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
-                                    to_next = false;
-                                }
-                            }
-                        }
-                    }
-                }
 		if(!checkpoint_list.empty())
 		{
 		        for (auto check : checkpoint_list)
@@ -486,7 +383,6 @@ void Physics::Update(float dt)
 		{
 		        for (auto trigger : trigger_list)
 		        {
-                            //trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
 						if (IntersectionCheckAABBCenterPosition(trigger, collision_list[i]))
 						{
 								if (trigger->GetComponentByTemplate<Trigger>()->GetIsTriggerd() == false)
@@ -502,12 +398,81 @@ void Physics::Update(float dt)
 										
 									}
 								}
-								//else
-								//{
-								//	trigger->GetComponentByTemplate<Trigger>()->SetIsTriggerd(false);
-								//}
 						}
 		        }
+		}
+		if (!doors.empty())
+		{
+			for (auto door : doors)
+			{
+				if (IntersectionCheckAABB(collision_list[i], door))
+				{
+					to_next = true;
+				}
+				if (to_next) {
+					p_rigidbody->SetIsStopped(true);
+					p_rigidbody->SetVelocity(0);
+					collision_list[i]->SetInvisible();
+					time += dt;
+					if (time < 2.5f)
+					{
+						if (!bus_object)
+						{
+							bus_object = new Object();
+							bus_object->SetTranslation(door->GetTransform().GetTranslation());
+							bus_object->SetScale({ 400, 132 });
+							bus_object->SetMesh(mesh::CreateBox(1, { 0,255,255, 255 }));
+							bus_object->SetDepth(-0.6f);
+							bus_object->SetObjectType(ObjectType::Bus);
+							bus_object->AddInitComponent(new Sprite("asset/images/Objects/Bus.png"));
+							Objectmanager_.AddObject(bus_object);
+							AudioManager_.PlaySFX("asset/sounds/bus_leave.wav", 0.3f);
+						}
+						if (time > 0.5f)
+						{
+							bus_object->SetTranslation({ bus_object->GetTransform().GetTranslation().x + 20 ,bus_object->GetTransform().GetTranslation().y });
+							collision_list[i]->GetTransform().SetTranslation(bus_object->GetTransform().GetTranslation());
+						}
+					}
+					else
+					{
+						if (door->GetComponentByTemplate<UI>()->GetId() == "LevelSelector")
+						{
+							StateManager_.GetCurrentState()->BackToMenu();
+							time = 0;
+							break;
+						}
+						else if (door->GetComponentByTemplate<UI>()->GetId() == "EndCutScene")
+						{
+							StateManager_.ToEndScene();
+							time = 0;
+							break;
+						}
+						else if (door->GetComponentByTemplate<UI>()->GetId() == "ChapterChange1")
+						{
+							StateManager_.ToChapChange1();
+							time = 0;
+							break;
+						}
+						else if (door->GetComponentByTemplate<UI>()->GetId() == "ChapterChange2")
+						{
+							StateManager_.ToChapChange2();
+							time = 0;
+							break;
+						}
+						else
+						{
+							bus_object = nullptr;
+							time = 0;
+							door->GetComponentByTemplate<UI>()->TriggerLevelLock(door->GetComponentByTemplate<UI>()->GetId());
+							StateManager_.GetCurrentState()->SetLevelIndicator(door->GetComponentByTemplate<UI>()->GetId());
+							StateManager_.GetCurrentState()->ChangeLevel(StateManager_.GetCurrentState()->GetLevelIndicator());
+							to_next = false;
+							break;
+						}
+					}
+				}
+			}
 		}
             }
         }
@@ -544,96 +509,6 @@ void Physics::ChangeRestitutionOfOjbect(Object object1, Object object2)
         object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
         object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
     }
-
-    //if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Wall)
-    //{
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword)
-    //{
-    //    if (object2.GetComponentByTemplate<Collision>()->GetIsDamaged())
-    //    {
-    //        object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(damaged);
-    //        object1.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
-    //    }
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
-    //{
-    //    if (object1.GetComponentByTemplate<Collision>()->GetIsDamaged())
-    //    {
-    //        object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(damaged);
-    //        object2.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
-    //    }
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Shooting)
-    //{
-    //    object1.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
-    //    previous_size -= 1;
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Shooting
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
-    //{
-    //    object2.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
-    //    previous_size -= 1;
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Item)
-    //{
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
-    //    previous_size -= 1;
-    //    object1.GetComponentByTemplate<Player>()->SetCardList(object2.GetComponentByTemplate<Card>()->GetName());
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Item
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
-    //{
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(get);
-    //    previous_size -= 1;
-    //    if (object1.GetComponentByTemplate<Card>() != nullptr)
-    //        object2.GetComponentByTemplate<Player>()->SetCardList(object1.GetComponentByTemplate<Card>()->GetName());
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
-    //{
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(stop);
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
-    //{
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
-    //    object2.GetComponentByTemplate<Status>()->Damaged(object1.GetComponentByTemplate<Status>()->GetDamage());
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Enemy)
-    //{
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(bounce);
-    //    object1.GetComponentByTemplate<Status>()->Damaged(object2.GetComponentByTemplate<Status>()->GetDamage());
-    //}
-    //else if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Sword)
-    //{
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(none);
-    //}
-    //if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Door
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player)
-    //{
-    //    object1.GetComponentByTemplate<Collision>()->SetJumpingitutionType(exit_);
-    //}
-    //if (object1.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Player
-    //    && object2.GetComponentByTemplate<Status>()->GetObjectType() == ObjectType::Door)
-    //{
-    //    object2.GetComponentByTemplate<Collision>()->SetJumpingitutionType(exit_);
-    //}
 }
 
 
@@ -663,9 +538,6 @@ void Physics::Interval(std::vector<vector2> vertices, vector2 Axis, float& min, 
         if (d < min) min = d;
         else if (d > max) max = d;
     }
-    //It should return projection of 2 polygon 
-    //polygon should have min max value
-    //It projection to axis of box
 }
 
 std::vector<vector2> Physics::VectorToLine(Object object)
@@ -683,26 +555,8 @@ std::vector<vector2> Physics::VectorToLine(Object object)
             - object.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS()[3]);
     }
     return object_line;
-    //std::vector<vector2> temp;
-    //if (line_.size() == 4)
-    //{
-    //	temp.push_back(line_[0] - line_[1]);
-    //	temp.push_back(line_[1] - line_[3]);
-    //	temp.push_back(line_[3] - line_[2]);
-    //	temp.push_back(line_[0] - line_[2]);
-    //}
-    //else
-    //{
-    //	for (int i = 0; i < static_cast<int>(line_.size() - 1); i++)
-    //	{
-    //		temp.push_back(line_[i] - line_[i + 1]);
-    //	}
-    //	temp.push_back(line_[static_cast<int>(line_.size() - 1)] - line_[0]);
-    //}
-    //return temp;
 }
 
-// should change take object.
 bool Physics::IntersectionCheck(Object object1, Object object2)
 {
     std::vector<vector2> owner = object1.GetComponentByTemplate<Collision>()->GetCollisionCalculateTRS();
@@ -723,10 +577,6 @@ bool Physics::IntersectionCheck(Object object1, Object object2)
             return false;
         }
     }
-    //calculate axis of length.
-    //take projection of other function.
-    //and take min and max
-    //if min
     return true;
 }
 
@@ -767,7 +617,7 @@ bool Physics::IntersectionCheckAABBUpperCase(Object* object1, Object* object2)
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
         object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 + 3,
-        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y //+ object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().y / 2
+        object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().y
     };
     max_obj = {
         object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2 - 3,
@@ -792,7 +642,6 @@ bool Physics::IntersectionCheckAABBUpperCase(Object* object1, Object* object2)
 }
 bool Physics::IntersectionCheckAABBPositionBase(Object* object1, Object* object2)
 {
-    //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
     vector2 min_obj = {
         object1->GetTransform().GetTranslation().x - object1->GetTransform().GetScale().x / 2,
         object1->GetTransform().GetTranslation().y - 2 - object1->GetTransform().GetScale().y / 2
@@ -832,7 +681,6 @@ bool Physics::IntersectionCheckAABBPositionBase(vector2 pos1_min, vector2 pos1_m
 
 bool Physics::IntersectionCheckAABBPositionLeft(Object* object1, Object* object2)
 {
-    //vector2 min_obj1 = {object2->GetTransform().GetTranslation().x - object2->GetTransform().GetScale()}
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
         object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - 3 - object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,
@@ -862,7 +710,6 @@ bool Physics::IntersectionCheckAABBPositionLeft(Object* object1, Object* object2
 
 bool Physics::IntersectionCheckAABBPositionRight(Object* object1, Object* object2)
 {
-    //vector2 min_obj1 = {object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x - object2->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale()}
     vector2 min_obj, max_obj, min_pos, max_pos;
     min_obj = {
         object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetTranslation().x + object1->GetComponentByTemplate<Collision>()->GetCollisionTransform().GetScale().x / 2,

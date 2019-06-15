@@ -39,7 +39,7 @@ bool AudioManager::Initialize()
 	LoadSong("asset/sounds/BGM_Day.mp3");
 	LoadSong("asset/sounds/BGM_Sunset.mp3");
 	LoadSong("asset/sounds/BGM_Night.mp3");
-    LoadSFX("asset/sounds/Bus.mp3");
+    LoadSFX("asset/sounds/bus_leave.wav");
 	LoadSFX("asset/sounds/Button.wav");
 	LoadSFX("asset/sounds/pain.mp3");
 
@@ -153,10 +153,6 @@ void AudioManager::PlaySFX(const std::string& path, float volume)
 	
 	if (sound == sounds[CATEGORY_SFX].end()) 
 		return;
-
-	// Calculate random volume and pitch in selected range 
-	//float volume = RandomBetween(minVolume, maxVolume);  
-	//float pitch = RandomBetween(minPitch, maxPitch);
 	
 	// Play the sound effect with these initial values  
 	FMOD::Channel* channel = nullptr;

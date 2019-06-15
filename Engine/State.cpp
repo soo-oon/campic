@@ -28,9 +28,6 @@ void State::ChangeLevel(std::string ID)
 
 	level_change = true;
 	change_level = ID;
-
-	//playtest
-	data.second = 0;
 }
 
 void State::BackToMenu()
@@ -137,29 +134,4 @@ void State::CreatePlayer()
 
     Objectmanager_.AddObject(player);
     Objectmanager_.SetPlayer(player);
-}
-
-/////////////////PlayTest
-
-void State::PlayTestData()
-{
-	std::string filename("Data/");
-	filename.append("Level");
-	filename.append(std::to_string(GetChapter().second));
-	filename.append(".txt");
-
-	std::string temp = "Level";
-	temp.append(std::to_string(GetChapter().second));
-
-	std::fstream file;
-	file.open(filename, std::ios::out | std::ios::app);
-
-	file << temp << " Count : " << data.second << std::endl;
-
-	file.close();
-}
-
-void State::AddDataCount()
-{
-	++data.second;
 }
