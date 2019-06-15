@@ -327,9 +327,9 @@ void Physics::Update(float dt)
 		}
                 if(!projectile_list.empty())
                 {
-                    for (int j = 0; j < projectile_list.size(); j++)
+                    for (int j = 0; j < (int)projectile_list.size(); j++)
                     {
-                        for (int k = j; k < projectile_list.size(); k++)
+                        for (int k = j; k < (int)projectile_list.size(); k++)
                         {
                             if (j != k)
                             {

@@ -192,7 +192,7 @@ void Application::PollEvent()
 
 namespace
 {
-    void Window_Exit(GLFWwindow* window)
+    void Window_Exit(GLFWwindow* /*window*/)
     {
         Engine::IsQuit = true;
     }
@@ -202,7 +202,7 @@ namespace
         fprintf(stderr, "Error: %s\n", errorDescription);
     }
 
-    void window_resized(GLFWwindow* window, int width, int height)
+    void window_resized(GLFWwindow* /*window*/, int /*width*/, int /*height*/)
     {
     }
 

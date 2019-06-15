@@ -87,7 +87,7 @@ void Collision::Compute_AABB(Mesh mesh, int num_point)
 {
 	vector2 maxpos = mesh.GetPoint(0) , minpos = mesh.GetPoint(0);;
 
-	for (int i = 1; i < mesh.GetPointCount(); i++)
+	for (int i = 1; i < (int)mesh.GetPointCount(); i++)
 	{
 		if (maxpos.x < mesh.GetPoint(i).x)
 			maxpos.x = mesh.GetPoint(i).x;

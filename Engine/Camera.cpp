@@ -85,8 +85,8 @@ void Camera::Update(float dt)
 				}
 			}
 		}
-#endif
 	}
+#endif
 }
 
 void Camera::Delete()
