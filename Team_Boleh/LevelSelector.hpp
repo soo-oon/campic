@@ -9,7 +9,7 @@ class LevelSelector : public State
 public:
 	LevelSelector()
 	{
-		information_ = State_Information::Menu;
+		information_ = State_Information::LevelSelect;
 	}
 
 	void Initialize() override;
@@ -37,6 +37,7 @@ private:
 	Object* previous = nullptr;
 	Object* next = nullptr;
 	Object* button = nullptr;
+	Object* background = nullptr;
 
 	bool selectPage = true;
 	int page_count = 1;

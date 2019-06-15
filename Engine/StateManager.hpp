@@ -29,6 +29,7 @@ enum class State_Information
 	Credit,
 	HowToPlay,
 	CutScene,
+	LevelSelect,
 	size
 };
 

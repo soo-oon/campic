@@ -26,6 +26,7 @@ private:
 	Object* h_option_window = nullptr;
 	Object* h_fullscreen_button = nullptr;
 	Object* h_volume_scroll_button = nullptr;
+	Object* h_bgm_scroll_button = nullptr;
 	Object* h_mute_button = nullptr;
 	Object* h_backtomenu_button = nullptr;
 	Object* h_quit_button = nullptr;
@@ -44,9 +45,16 @@ private:
 	vector2 screen_size = Application_.GetScreenSize();
 	vector2 scrollbar = vector2(screen_size.x - 1000, screen_size.y - 800);
 
+	Object* m_are_you_sure = nullptr;
+	Object* m_yes = nullptr;
+	Object* m_no = nullptr;
+
+	Object* resume = nullptr;
+
 	bool is_game_state = false;
 	bool mute = false;
 	bool fullscreen = false;
+	bool is_are_you_sure = false;
 
 	bool check = false;
 	float m_dt = 0.0f;

@@ -143,7 +143,7 @@ void Application::Update(float dt)
 
 void Application::Key_Poll_Event()
 {
-    if (Input::IsKeyTriggered(GLFW_KEY_F))
+    if (Input::IsKeyTriggered(GLFW_KEY_F11))
     {
         FullScreen();
 		glfwSwapInterval(1);

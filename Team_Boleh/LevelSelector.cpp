@@ -11,14 +11,16 @@ void LevelSelector::Initialize()
 
 	m_LevelLock = LevelJson_.LoadLevelLock();
 
-	Object* background = new Object();
+	background = new Object();
 	background->SetTranslation({ 0, 0 });
 	background->SetDepth(0.98f);
 	background->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
 	background->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	background->SetObjectType(ObjectType::Button);
-	background->AddComponent(new Animation("asset/images/Page/BackgroundNight.png", "Night", 16, 0.15f, true));
-
+	background->AddComponent(new Animation("asset/images/Page/BackgroundDay.png", "day", 16, 0.15f, true));
+	background->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Page/BackgroundAfernoon.png", "sunset", 16, 0.15f, true);
+	background->GetComponentByTemplate<Animation>()->AddAnimaition("asset/images/Page/BackgroundNight.png", "night", 16, 0.15f, true);
+	
 	cam = new Object();
 	cam->SetTranslation({ 0, 0 });
 	cam->SetScale({ 1200,900 });
@@ -107,6 +109,7 @@ void LevelSelector::Update(float dt)
 		{
 		case 1:
 		{
+			background->GetComponentByTemplate<Animation>()->ChangeAnimation("day");
 			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect1.png");
 			m_Menu1->Clear();
 			CreateMenu1();
@@ -119,6 +122,7 @@ void LevelSelector::Update(float dt)
 		}
 		case 2:
 		{
+			background->GetComponentByTemplate<Animation>()->ChangeAnimation("sunset");
 			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect2.png");				
 			m_Menu2->Clear();
 			CreateMenu2();
@@ -132,6 +136,7 @@ void LevelSelector::Update(float dt)
 		}
 		case 3:
 		{
+			background->GetComponentByTemplate<Animation>()->ChangeAnimation("night");
 			cam->GetComponentByTemplate<Sprite>()->ChangeSprite("asset/images/Objects/LevelSelect3.png");
 			m_Menu3->Clear();
 			CreateMenu3();
@@ -228,7 +233,7 @@ void LevelSelector::CreateLevelButton(vector2 pos, vector2 scale, std::string le
 void LevelSelector::CreateMenu1()
 {
 	std::string text = "Level";
-	float base_y = 70.f;
+	float base_y = 90.f;
 
 	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{
@@ -246,7 +251,7 @@ void LevelSelector::CreateMenu1()
 void LevelSelector::CreateMenu2()
 {
 	std::string text = "Level";
-	float base_y = 70.f;
+	float base_y = 90.f;
 
 	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{
@@ -264,7 +269,7 @@ void LevelSelector::CreateMenu2()
 void LevelSelector::CreateMenu3()
 {
 	std::string text = "Level";
-	float base_y = 70.f;
+	float base_y = 90.f;
 
 	for (int i = 1, j = 1; i <= 6; ++i, ++j)
 	{

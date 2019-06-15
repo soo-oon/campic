@@ -115,25 +115,71 @@ void HUD_Level::Initialize()
 	h_option_window->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_option_window);
 
-	h_volume_scroll_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1950.f, Application_.GetScreenSize().y - 921.f), Application_.GetScreenSize() / 29.f,
+	resume = CreateHudButton(vector2(Application_.GetScreenSize().x - 1950.f, Application_.GetScreenSize().y - 921.f),
+		vector2{ 280,28 },
+		HUD_BUTTON, "asset/images/UI/ResumeGame.png", "resume");
+	HUD_.Add_HUD_Button(resume);
+
+	h_volume_scroll_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1950.f, Application_.GetScreenSize().y - 921.f), 
+		vector2{ 128,128 },
 		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "volume_button");
 	HUD_.Add_HUD_Button(h_volume_scroll_button);
 
-	h_mute_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1050.f), Application_.GetScreenSize() / 12.f,
-		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "Mute");
+	h_bgm_scroll_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1950.f, Application_.GetScreenSize().y - 921.f), 
+		vector2{128,128},
+		HUD_BUTTON, "asset/images/UI/Icon_AdjustBall.png", "bgm_button");
+	HUD_.Add_HUD_Button(h_bgm_scroll_button);
+
+	h_mute_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1050.f), 
+		Application_.GetScreenSize() / 12.f,
+		HUD_BUTTON, "asset/images/UI/MuteSound.png", "Mute");
 	HUD_.Add_HUD_Button(h_mute_button);
 
-	h_fullscreen_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1160.f), Application_.GetScreenSize() / 12.f,
-		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "fullscreen");
+	h_fullscreen_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1160.f), 
+		vector2{260,28},
+		HUD_BUTTON, "asset/images/UI/FullScreen.png", "fullscreen");
 	HUD_.Add_HUD_Button(h_fullscreen_button);
 
-	h_backtomenu_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1280.f), Application_.GetScreenSize() / 12.f,
-		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "backtomenu");
+	h_backtomenu_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1280.f), 
+		vector2{284,28},
+		HUD_BUTTON, "asset/images/UI/BackToMenu.png", "backtomenu");
 	HUD_.Add_HUD_Button(h_backtomenu_button);
 
 	h_quit_button = CreateHudButton(vector2(Application_.GetScreenSize().x - 1600.f, Application_.GetScreenSize().y - 1390.f), Application_.GetScreenSize() / 12.f,
-		HUD_BUTTON, "asset/images/UI/ButtonOff.png", "quit");
+		HUD_BUTTON, "asset/images/UI/QuitGame.png", "quit");
 	HUD_.Add_HUD_Button(h_quit_button);
+
+	m_are_you_sure = new Object();
+	m_are_you_sure->SetScale({ 384,192 });
+	m_are_you_sure->SetDepth(-0.93f);
+	m_are_you_sure->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	m_are_you_sure->SetObjectType(ObjectType::None);
+	m_are_you_sure->AddComponent(new Sprite("asset/images/UI/AreYouSure.png"));
+	m_are_you_sure->GetMesh().Invisible();
+
+	m_yes = new Object();
+	m_yes->SetTranslation({ -70,-30 });
+	m_yes->SetScale({ 64,64 });
+	m_yes->SetDepth(-0.94f);
+	m_yes->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	m_yes->SetObjectType(ObjectType::None);
+	m_yes->AddComponent(new Sprite("asset/images/UI/Yes.png"));
+	m_yes->GetMesh().Invisible();
+	m_yes->AddInitComponent(new UI("yes"));
+
+	m_no = new Object();
+	m_no->SetTranslation({ 70,-30 });
+	m_no->SetScale({ 64,64 });
+	m_no->SetDepth(-0.94f);
+	m_no->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+	m_no->SetObjectType(ObjectType::None);
+	m_no->AddComponent(new Sprite("asset/images/UI/No.png"));
+	m_no->GetMesh().Invisible();
+	m_no->AddInitComponent(new UI("no"));
+
+	HUD_.Add_HUD_Button(m_yes);
+	HUD_.Add_HUD_Button(m_no);
+	HUD_.Add_HUD_Object(m_are_you_sure);	
 }
 
 void HUD_Level::Update(float dt)
@@ -236,7 +282,8 @@ void HUD_Level::Update(float dt)
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash &&
 		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::CutScene &&
 		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Credit && 
-		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::HowToPlay)
+		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::HowToPlay &&
+		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::LevelSelect)
 	{
 		if(!HUD_.isHUDActive)
 			HUD_.isHUDActive = true;
@@ -278,6 +325,13 @@ void HUD_Level::Update(float dt)
 						}
 					}
 
+					if (temp == "resume")
+					{
+						IsOptionWindowOpen = !IsOptionWindowOpen;
+						StateManager_.TogglePause();
+					}
+
+
 					if (temp == "Mute")
 					{
 						mute = !mute;
@@ -298,10 +352,27 @@ void HUD_Level::Update(float dt)
 						StateManager_.TogglePause();
 						StateManager_.BackToMainMenu();
 					}
-					
+
 					if (temp == "quit")
 					{
+						is_are_you_sure = !is_are_you_sure;
+
+						m_are_you_sure->GetMesh().Visible();
+						m_yes->GetMesh().Visible();
+						m_no->GetMesh().Visible();
+					}
+
+					if(temp == "yes")
+					{
 						Engine::IsQuit = true;
+					}
+
+					if(temp == "no")
+					{
+						is_are_you_sure = !is_are_you_sure;
+						m_are_you_sure->GetMesh().Invisible();
+						m_yes->GetMesh().Invisible();
+						m_no->GetMesh().Invisible();
 					}
 				}
 
@@ -326,7 +397,27 @@ void HUD_Level::Update(float dt)
 						}
 						AudioManager_.SetMasterVolume(volume / 100.f);
 					}
-					
+
+					if (temp == "bgm_button")
+					{
+						float save_x = Input::GetMousePos().x;
+						static float save_y = HUD_.GetHUDSelect().first->GetTransform().GetTranslation().y;
+
+						volume = 100 * (save_x + 210.f) / 365.f;
+
+						if (volume < 0.f)
+							volume = 0.f;
+						else if (volume > 100.f)
+							volume = 100.f;
+
+						if (save_x > -210.f && save_x < 155.f)
+						{
+							HUD_.GetHUDSelect().first->SetTranslation({ save_x, save_y });
+						}
+						AudioManager_.SetSongsVolume(volume / 100.f);
+					}
+
+				
 				}
 			}
 		}
@@ -338,6 +429,9 @@ void HUD_Level::Update(float dt)
 			h_quit_button->GetMesh().Invisible();
 			h_backtomenu_button->GetMesh().Invisible();
 			h_mute_button->GetMesh().Invisible();
+			m_no->GetMesh().Invisible();
+			m_yes->GetMesh().Invisible();
+			m_are_you_sure->GetMesh().Invisible();
 		}
 	}
 	else
