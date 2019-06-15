@@ -47,7 +47,26 @@ void Camera::Update(float dt)
 
 		if (!Physics_.IsNextLevel())
 		{
-			center.x = base_obj->GetTransform().GetTranslation().x;
+			if(base_obj->GetTransform().GetTranslation().x < min.x + center.x)
+			{
+				if (center.x > base_obj->GetTransform().GetTranslation().x + max.x)
+				{
+					if (abs(center.x - base_obj->GetTransform().GetTranslation().x + min.x) > 200)
+						center.x -= 300 * dt;
+					else
+						center.x -= 100 * dt;
+				}
+			}
+			else if (base_obj->GetTransform().GetTranslation().x > center.x + max.x)
+			{
+				if (center.x < base_obj->GetTransform().GetTranslation().x + min.x)
+				{
+					if (abs(center.x - base_obj->GetTransform().GetTranslation().x + max.x) > 200)
+						center.x += 300 * dt;
+					else
+						center.x += 100 * dt;
+				}
+			}
 
 			if (base_obj->GetTransform().GetTranslation().y < min.y + center.y)
 			{
@@ -102,10 +121,10 @@ vector2 Camera::GetRight() const
 	return right;
 }
 
-void Camera::SetMinMaxSize(float size)
+void Camera::SetMinMaxSize(vector2 size)
 {
-	max = vector2{ size };
-	min = vector2{ -size };
+	max = size;
+	min = -size;
 }
 
 void Camera::ResetUp(vector2 camera_up)

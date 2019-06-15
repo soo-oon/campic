@@ -99,16 +99,9 @@ private:
 
 	std::vector<std::pair<vector2, Object*>> original_scale;
 	std::vector<Object*> capture_area_contian_object;
-	//std::vector<Object*> not_area_contian_object;
 	std::vector<std::pair<Object*,vector2>> temporary_obj_storage;
 	std::vector<Polaroid*> polaroid_object;
 
     Object* ground_object = nullptr;
-    Object* left_object = nullptr;
-    Object* right_object = nullptr;
-	Object* cap_ground_obj = nullptr;
-
 	Object* save_ground_obj = nullptr;
-	Object* save_left_obj = nullptr;
-	Object* save_right_obj = nullptr;
 };
