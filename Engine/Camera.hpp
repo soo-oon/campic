@@ -43,7 +43,7 @@ public:
 	vector2 GetRight() const;
 	std::string GetLevelInfo() { return curr_level; }
 
-	void SetMinMaxSize(float size);
+	void SetMinMaxSize(vector2 size);
 
 	void ResetUp(vector2 camera_up = { 0,1 });
 	void MoveUp(float distance);

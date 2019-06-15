@@ -28,6 +28,7 @@ Creation date: 2018/12/14
 #include "HowToPlay.hpp"
 #include "StartCutScene.hpp"
 #include "EndCutScene.hpp"
+#include "LoseScene.hpp"
 
 int main()
 {
@@ -47,6 +48,7 @@ int main()
 	StateManager_.AddStage("EndCutScene", new EndCutScene());
 	//StateManager_.AddStage("Credit", new Credit());
 	StateManager_.AddStage("Level", new Level());
+	StateManager_.AddStage("LoseScene", new LoseScene());
 
 	engine.Update();
   

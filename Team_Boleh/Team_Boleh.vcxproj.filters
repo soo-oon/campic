@@ -11,6 +11,7 @@
     <ClCompile Include="HowToPlay.cpp" />
     <ClCompile Include="StartCutScene.cpp" />
     <ClCompile Include="EndCutScene.cpp" />
+    <ClCompile Include="LoseScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HUD_Level.hpp" />
@@ -22,5 +23,6 @@
     <ClInclude Include="HowToPlay.hpp" />
     <ClInclude Include="StartCutScene.hpp" />
     <ClInclude Include="EndCutScene.hpp" />
+    <ClInclude Include="LoseScene.hpp" />
   </ItemGroup>
 </Project>

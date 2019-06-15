@@ -50,14 +50,17 @@ public:
 	void ToHowToPlay();
 	void ToStartScene();
 	void ToEndScene();
+        void ToLoseScene();
 
 	void ChangeStage();
 	void Restart();
 	void Pause();
 
 	void SetCurrentLevelCaptureLimit();
+        void SetPrevLevel(std::string level) { prev_level = level; }
 	void TogglePause() { m_pause = !m_pause; }
 	State* GetCurrentState() { return m_currentState; }
+        std::string GetPrevLevel() { return prev_level; }
 
 	bool IsPause() { return m_pause; }
 
@@ -68,6 +71,7 @@ private:
 	std::unordered_map <std::string, std::unique_ptr<State>> states;
 
 	bool m_restart = false, m_pause = false;
+        std::string prev_level;
 };
 
 extern StateManager StateManager_;

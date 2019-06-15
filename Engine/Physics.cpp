@@ -139,6 +139,7 @@ void Physics::Update(float dt)
                         p_collision->ChangeCollisionBoxTranslation(StateManager_.GetCurrentState()->GetStartPosition());
                         p_collision->ChangeCollisionBoxScale(player_scale);
                         p_collision->SetIsGround(false);
+
 						capture_ground_obj = nullptr;
                         p_collision->SetIsCapobj(false);
                         p_rigidbody->SetVelocity(0);
@@ -348,6 +349,11 @@ void Physics::Update(float dt)
                         obstacle_obj->SetIsDead(true);
                         collision_list[i]->GetComponentByTemplate<Player>()->SetRelease(0.f);
                         p_rigidbody->SetVelocity(50 * normalize(collision_list[i]->GetTransform().GetTranslation() - obstacle_obj->GetTransform().GetTranslation()));
+                                        if(StateManager_.GetCurrentState()->GetCaptureLimit() < 0)
+                                        {
+                                            StateManager_.ToLoseScene();
+                                        }
+
 						Capture::IsChangeCaptureCount = true;
                         StateManager_.GetCurrentState()->GetCaptureLimit() -= 3;
 					}
