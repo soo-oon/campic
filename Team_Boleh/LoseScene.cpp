@@ -21,7 +21,7 @@ void LoseScene::Initialize()
     m_game_over->AddComponent(new Sprite("asset/images/Page/GameOver.png"));
 
     m_restart= new Object();
-    m_restart->SetTranslation({150, -450});
+    m_restart->SetTranslation({ -150, -450 });
     m_restart->SetScale({ 182,96 });
     m_restart->SetDepth(HUD_BUTTON);
     m_restart->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
@@ -29,12 +29,12 @@ void LoseScene::Initialize()
     m_restart->AddInitComponent(new Sprite("asset/images/UI/Restart.png"));
 
     m_menu = new Object();
-    m_menu->SetTranslation({ -150, -450 });
+    m_menu->SetTranslation({ 150, -450 });
     m_menu->SetScale({ 182,96 });
     m_menu->SetDepth(HUD_BUTTON);
     m_menu->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     m_menu->SetObjectType(ObjectType::Button);
-    m_menu->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+    m_menu->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
 
     mouse_icon = new Object();
     mouse_icon->SetTranslation({ 0,0 });
@@ -102,8 +102,8 @@ void LoseScene::Update(float dt)
             else if(button_.GetSelect().first == m_menu)
             {
                 AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.3f);
-                StateManager_.BackToMainMenu();
                 button_.RemoveContainer();
+                StateManager_.BackToMainMenu();
             }
         }
     }
