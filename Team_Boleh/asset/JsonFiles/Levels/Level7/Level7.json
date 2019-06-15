@@ -85,10 +85,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -132,10 +132,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -179,10 +179,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -226,10 +226,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -273,10 +273,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -320,10 +320,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -367,10 +367,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger3.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -472,7 +472,7 @@
                 "y": 99.53125
             },
             "scale": {
-                "x": 180.0,
+                "x": 200.0,
                 "y": 100.0
             },
             "rotation": 0.0,

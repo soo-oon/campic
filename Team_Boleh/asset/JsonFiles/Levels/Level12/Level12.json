@@ -162,10 +162,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -209,10 +209,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -256,10 +256,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -303,10 +303,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -350,10 +350,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -397,10 +397,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -444,10 +444,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
@@ -491,10 +491,10 @@
                 "map": {
                     "path": {
                         "id": "obstacle",
-                        "path": "asset/images/Objects/Danger.png"
+                        "path": "asset/images/Objects/Danger4.png"
                     },
                     "info": {
-                        "image_frames": 9,
+                        "image_frames": 3,
                         "update_frames": 0.05000000074505806,
                         "is_repeats": true
                     }
