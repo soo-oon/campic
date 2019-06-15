@@ -54,13 +54,13 @@ void Credit::Initialize()
 	m_credit3->AddComponent(new Sprite("asset/images/Page/CreditPage3.png"));
 	m_credit3->GetMesh().Invisible();
 
-	Object* button = new Object();
-	button->SetTranslation({ Application_.GetScreenSize().x/4, Application_.GetScreenSize().y*19/60});
+	button = new Object();
+	button->SetTranslation({ 310.f, 280.f});
 	button->SetScale({ 182,96 });
 	button->SetDepth(-0.5f);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
-	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+	button->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
 
 	Objectmanager_.AddObject(m_credit1);
 	Objectmanager_.AddObject(m_credit2);

@@ -34,7 +34,7 @@ void LoseScene::Initialize()
     m_menu->SetDepth(HUD_BUTTON);
     m_menu->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
     m_menu->SetObjectType(ObjectType::Button);
-    m_menu->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+    m_menu->AddInitComponent(new Sprite("asset/images/UI/Back.png"));
 
     mouse_icon = new Object();
     mouse_icon->SetTranslation({ 0,0 });

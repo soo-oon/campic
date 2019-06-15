@@ -35,12 +35,12 @@ void StartCutScene::Initialize()
 	start1->GetComponentByTemplate<Animation>()->SetIsActive(false);
 
 	button = new Object();
-    button->SetTranslation({ Application_.GetScreenSize().x / 2, -Application_.GetScreenSize().y / 2  });
+    button->SetTranslation({ 700, -450  });
 	button->SetScale({182,96});
 	button->SetDepth(HUD_BUTTON);
 	button->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	button->SetObjectType(ObjectType::Button);
-	button->AddInitComponent(new Sprite("asset/images/UI/BackButton.png"));
+	button->AddInitComponent(new Sprite("asset/images/UI/Skip.png"));
 	button_.AddObject(button);
 
 	Objectmanager_.AddObject(start);
