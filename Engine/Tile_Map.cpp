@@ -1,3 +1,14 @@
+/* Start Header ---------------------------------------------------------------
+Copyright (C) 2018 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name : Tile_Map.cpp
+Language  : C++
+Platform  : Visual Studio 2017
+Project   : CamPic
+Primary   : SoonWoo Jung
+Secondary :
+- End Header ----------------------------------------------------------------*/
 #include "Tile_Map.hpp"
 #include <iostream>
 #include "Physics.hpp"

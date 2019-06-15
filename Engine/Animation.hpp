@@ -1,17 +1,14 @@
-/* Start Header -------------------------------------------------------------
---
+/* Start Header ---------------------------------------------------------------
 Copyright (C) 2018 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Animation.hpp
-Language: C++
-Platform: Visual Studio 2017
-Project: sword of souls
-Primary : Choi jin hyun
-Secondary : 
-Creation date: 2018/12/14
-- End Header ----------------------------------------------------------------
-*/
+File Name : Animation.hpp
+Language  : C++
+Platform  : Visual Studio 2017
+Project   : CamPic
+Primary   : JinHyun Choi
+Secondary :
+- End Header ----------------------------------------------------------------*/
 
 #pragma once
 #include "Component.hpp"
