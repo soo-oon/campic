@@ -65,6 +65,14 @@ void Particle_Generator::Update(float dt)
 
 		}
 	}
+	else
+	{
+		for(auto particle : particles)
+		{
+			particle->GetParticleObject()->SetTranslation(object->GetTransform().GetTranslation());
+			particle->GetParticleObject()->GetMesh().SetAlphaFill();
+		}
+	}
 }
 
 void Particle_Generator::Delete()

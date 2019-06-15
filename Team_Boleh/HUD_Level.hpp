@@ -48,6 +48,6 @@ private:
 	bool mute = false;
 	bool fullscreen = false;
 
-	bool check = false;
+	bool is_active_particle = false;
 	float m_dt = 0.0f;
 };

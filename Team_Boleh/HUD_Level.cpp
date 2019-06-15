@@ -21,18 +21,17 @@ void HUD_Level::Initialize()
 	h_capture_limit = new Object();
 	h_capture_limit->SetTranslation({ -80.0f, -static_cast<float>(Application_.GetGLFWvidmode()->height)/2 + 90.0f});
 	h_capture_limit->SetScale(vector2{ 250, 150 });
-	h_capture_limit->SetDepth(-0.5f);
+	h_capture_limit->SetDepth(-0.89f);
 	h_capture_limit->SetMesh(mesh::CreateBox());
 	h_capture_limit->AddInitComponent(new Sprite("asset/images/UI/CaptureLimit.png"));
-	h_capture_limit->AddInitComponent(new Particle_Generator(50, 5.0f, 3.0f, 5.0f, {0,-3}, {-5,0}, {45,45}, {}, {}, false));
-	//h_capture_limit->GetComponentByTemplate<Particle_Generator>()->AddAnimation(new Animation("asset/images/UI/CaptureLimitRipped.png", "delete", 5, 0.1f, true));
-	//h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::OneWay);
+	h_capture_limit->AddInitComponent(new Particle_Generator(15, 2.0f, 3.0f, 5.0f, {0,3}, {-3,3}, {35,35}, {}, {"asset/images/UI/CaptureLimitRipped.png"}, false));
+	h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetParticle_Fire_Type(Particle_Fire_Type::Divergent);
 	h_capture_limit->SetInvisible();
 	h_capture_limit->GetMesh().Invisible();
 	HUD_.Add_HUD_Object(h_capture_limit);
 
 	m_capture_one_digits = new Object();
-	m_capture_one_digits->SetDepth(-0.5f);
+	m_capture_one_digits->SetDepth(-0.89f);
 	m_capture_one_digits->SetScale({180, 120});
 	m_capture_one_digits->SetTranslation({ 180.0f, -static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 + 90.0f });
 	m_capture_one_digits->AddComponent(new Sprite());
@@ -41,7 +40,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(m_capture_one_digits);
 
 	m_capture_double_digits = new Object();
-	m_capture_double_digits->SetDepth(-0.5f);
+	m_capture_double_digits->SetDepth(-0.89f);
 	m_capture_double_digits->SetScale({ 180, 120 });
 	m_capture_double_digits->SetTranslation({ 100.0f, -static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 + 90.0f });
 	m_capture_double_digits->AddComponent(new Sprite());
@@ -50,7 +49,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(m_capture_double_digits);
 
 	m_capture_underbar = new Object();
-	m_capture_underbar->SetDepth(-0.5f);
+	m_capture_underbar->SetDepth(-0.89f);
 	m_capture_underbar->SetScale({ 80, 80 });
 	m_capture_underbar->SetTranslation({ 0, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
 	m_capture_underbar->AddComponent(new Sprite("asset/images/UI/UnderBar.png"));
@@ -59,7 +58,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(m_capture_underbar);
 
 	m_capture_base_num = new Object();
-	m_capture_base_num->SetDepth(-0.5f);
+	m_capture_base_num->SetDepth(-0.89f);
 	m_capture_base_num->SetScale({ 80, 80 });
 	m_capture_base_num->SetTranslation({ m_capture_underbar->GetTransform().GetTranslation().x - 80
 		, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
@@ -69,7 +68,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(m_capture_base_num);
 
 	m_capture_sub_num = new Object();
-	m_capture_sub_num->SetDepth(-0.5f);
+	m_capture_sub_num->SetDepth(-0.89f);
 	m_capture_sub_num->SetScale({ 80, 80 });
 	m_capture_sub_num->SetTranslation({ m_capture_underbar->GetTransform().GetTranslation().x + 80
 		, static_cast<float>(Application_.GetGLFWvidmode()->height) / 2 - 70.f });
@@ -79,7 +78,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(m_capture_sub_num);
 
 	UIBar[0] = new Object();
-	UIBar[0]->SetDepth(-0.5f);
+	UIBar[0]->SetDepth(-0.89f);
 	UIBar[0]->SetMesh(mesh::CreateBox());
 	UIBar[0]->SetInvisible();
 	UIBar[0]->AddComponent(new Sprite("asset/images/UI/UIBAR.png"));
@@ -88,7 +87,7 @@ void HUD_Level::Initialize()
 	HUD_.Add_HUD_Object(UIBar[0]);
 
 	UIBar[1] = new Object();
-	UIBar[1]->SetDepth(-0.5f);
+	UIBar[1]->SetDepth(-0.89f);
 	UIBar[1]->SetMesh(mesh::CreateBox());
 	UIBar[1]->SetInvisible();
 	UIBar[1]->AddComponent(new Sprite("asset/images/UI/UIBAR.png"));
@@ -98,7 +97,7 @@ void HUD_Level::Initialize()
 
 	h_cheese = new Object();
 	h_cheese->SetScale({ static_cast<float>(Application_.GetGLFWvidmode()->width + 100), static_cast<float>(Application_.GetGLFWvidmode()->height + 100) });
-	h_cheese->SetDepth(-0.5f);
+	h_cheese->SetDepth(-0.89f);
 	h_cheese->SetMesh(mesh::CreateBox(1, Colors::Yellow));
 	h_cheese->SetObjectType(ObjectType::Background);
 	h_cheese->SetInvisible();
@@ -151,19 +150,18 @@ void HUD_Level::Update(float dt)
 		Capture::IsChangeCaptureCount = false;
 	}
 
-	//h_capture_limit->GetComponentByTemplate<Particle_Generator>()->AddAnimation(new Animation("asset/images/UI/CaptureLimitRipped.png", "delete", 5, 0.1f, true));
-
-	/*if(check)
+	if(is_active_particle)
 	{
 		m_dt += dt;
 
-		if (m_dt > 2.5f)
+		if (m_dt > 1.0f)
 		{
-			check = false;
+			h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetActiveCondition(false);
+			is_active_particle = false;
 			m_dt = 0.0f;
 		}
 	}
-*/
+
 	if(HUD_.IsChangeGameLevel())
 	{
 		SetCapterNumberSprite(m_capture_base_num, m_capture_sub_num);
@@ -175,13 +173,11 @@ void HUD_Level::Update(float dt)
 		if(auto cheese = StateManager_.GetCurrentState()->GetCaptureObjectPointer()->GetComponentByTemplate<Capture>();
 			cheese != nullptr)
 		{
-			//check = true;
-
-			//if (!h_capture_limit->GetComponentByTemplate<Particle_Generator>()->GetIsActive())
-				//h_capture_limit->GetComponentByTemplate<Particle_Generator>()->ToggleActive();
-
 			if (cheese->IsCheese())
 			{
+				is_active_particle = true;
+				h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetActiveCondition(true);
+
 				if (!h_cheese->Isvisible())
 					h_cheese->SetVisible();
 
@@ -249,7 +245,7 @@ void HUD_Level::Update(float dt)
 		if (IsOptionWindowOpen)
 		{
 			StateManager_.Pause();
-
+			h_capture_limit->GetComponentByTemplate<Particle_Generator>()->SetActiveCondition(false);
 			h_option_window->GetMesh().Visible();
 			h_fullscreen_button->GetMesh().Visible();
 			h_volume_scroll_button->GetMesh().Visible();

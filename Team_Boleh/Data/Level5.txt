@@ -1,6 +1,0 @@
-Level5 Count : 4
-Level5 Count : 3
-Level5 Count : 5
-Level5 Count : 3
-Level5 Count : 11
-Level5 Count : 3
