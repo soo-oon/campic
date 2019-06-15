@@ -7,7 +7,26 @@
 
 void Level::Initialize()
 {
-	AudioManager_.PlaySong("asset/sounds/Game_BGM.mp3");
+	switch(GetChapter().first)
+	{
+	case 1:
+		{
+		AudioManager_.PlaySong("asset/sounds/BGM_Day.mp3");
+		break;
+		}
+	case 2:
+	{
+		AudioManager_.PlaySong("asset/sounds/BGM_Sunset.mp3");
+		break;
+	}
+	case 3:
+	{
+		AudioManager_.PlaySong("asset/sounds/BGM_Night.mp3");
+		break;
+	}
+	default:
+		break;
+	}
 
 	Physics_.SetNextLevel(false);
 

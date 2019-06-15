@@ -39,7 +39,9 @@ bool AudioManager::Initialize()
 	modes[CATEGORY_SONG] = FMOD_DEFAULT | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL;
 
 	LoadSong("asset/sounds/MainMenu_BGM.mp3");
-	LoadSong("asset/sounds/Game_BGM.mp3");
+	LoadSong("asset/sounds/BGM_Day.mp3");
+	LoadSong("asset/sounds/BGM_Sunset.mp3");
+	LoadSong("asset/sounds/BGM_Night.mp3");
     LoadSFX("asset/sounds/Bus.mp3");
 	LoadSFX("asset/sounds/Button.wav");
 	LoadSFX("asset/sounds/pain.mp3");
