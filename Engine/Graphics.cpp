@@ -669,8 +669,6 @@ void Graphics::DrawAnimation(Object* obj, Animation* animation_, bool is_hud)
 	glDrawArrays(ToGLPrimitiveMode(obj->GetMesh().GetPointListType()), 0, (GLsizei)animation.size());
 }
 
-
-// TODO Fix the Particle System
 void Graphics::DrawParticle(Particle_Generator* particles_, bool is_hud)
 {
 	if (particles_->IsActive())
