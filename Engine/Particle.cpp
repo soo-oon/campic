@@ -12,8 +12,7 @@ bool Particle::Initialize(Object* Ob)
 	if (base_obj == nullptr)
 		base_obj = Ob;
 	
-	//particle_obj->SetTranslation(Ob->GetTransform().GetTranslation());
-	particle_obj->SetDepth(Ob->GetTransform().GetDepth() - 0.1);
+	particle_obj->SetDepth(Ob->GetTransform().GetDepth() - 0.1f);
 
 	SetRandomEmitSize();
 	SetRandomDirection();

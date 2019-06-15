@@ -34,8 +34,7 @@ void EndCutScene::Initialize()
 	end->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
 	end->SetObjectType(ObjectType::Background);
 	end->AddInitComponent(new Animation("asset/images/Page/EndCutScene1.png", "end1",11, 0.3f, false));
-	
-	//end->GetComponentByTemplate<Animation>()->SetIsActive(false);
+
 
 	end2 = new Object();
 	end2->SetTranslation({ 0, 0 });

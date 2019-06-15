@@ -58,8 +58,6 @@ void Engine::Update()
 		IMGUI_.Draw();
 #endif
 
-        //if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
-            //IsQuit = true;
     }
 }
 
@@ -82,8 +80,6 @@ void Engine::System_Initialize()
  	HUD_.Initialize(new HUD_Level());
 	JSON_.Initialize();
 	LevelJson_.Initialize();
-
-	//TODO make new HUD structure 
 	
 }
 
@@ -100,10 +96,6 @@ void Engine::System_Update()
 #endif
 	AudioManager_.Update(dt);
 	HUD_.Update(dt);
-
-	// Should Fix All of Update ways (Should Fix Physics class structure)
-
-	//TODO make new HUD structure 
 }
 
 void Engine::System_Quit()

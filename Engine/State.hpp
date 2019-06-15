@@ -77,9 +77,6 @@ public:
     void CreateCaptureCamera();
     void CreatePlayer();
 
-	//PlayTest
-	void PlayTestData();
-	void AddDataCount();
 public:
 	std::string level_indicator;
 	std::string change_level;
@@ -100,7 +97,4 @@ private:
 	bool to_startcutscene = false;
 	bool to_endcutscene = false;
 
-
-	////// For PlayTest data, Delete This after PlayTest
-	std::pair<std::string, int> data;
 };

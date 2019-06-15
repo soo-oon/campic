@@ -9,6 +9,7 @@ void LevelSelector::Initialize()
 	m_Menu2 = new MenuPage();
 	m_Menu3 = new MenuPage();
 
+	page_count = 1;
 	m_LevelLock = LevelJson_.LoadLevelLock();
 
 	mouse_icon = new Object();

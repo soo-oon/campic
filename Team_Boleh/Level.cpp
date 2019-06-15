@@ -70,14 +70,10 @@ void Level::Initialize()
 
 	HUD_Level::ChangeCaptureLimit = false;
 
-
-	///////////For PlayTest
 }
 
 void Level::Update(float dt)
 {
-	//if (StateManager_.GetCurrentState()->GetCaptureLimit() <= 0)
-	//	StateManager_.GetCurrentState()->GetCaptureLimit() = 0;
 
 	if(camera->GetComponentByTemplate<Camera>()->GetBaseObject() == nullptr)
 	{
