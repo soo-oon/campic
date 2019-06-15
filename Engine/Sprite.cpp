@@ -84,6 +84,8 @@ bool Sprite::Texture_Load()
     pixel = temp;
 
     LoadSprite();
+
+	stbi_image_free(temp);
     return true;
 }
 

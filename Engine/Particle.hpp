@@ -48,7 +48,7 @@ public:
 
 	bool Initialize(Object* Ob);
 	void Update(float dt, vector2 random_velocity_);
-
+	
 	bool IsRespawn() { return isrespawn; }
 	void RespawnParticleObj(Object* obj);
 	std::shared_ptr<Object> GetParticleObject() { return particle_obj; }

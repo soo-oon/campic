@@ -81,6 +81,10 @@ void Animation::ResetAnimaition()
 
 void Animation::Delete()
 {
+	for(auto temp : animations)
+	{
+		temp.second.sprites->Delete();
+	}
 	animations.clear();
 }
 
