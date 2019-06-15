@@ -152,7 +152,6 @@
       <Filter>Component\hpp</Filter>
     </ClInclude>
     <ClInclude Include="Button.hpp" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -165,8 +164,5 @@
       <UniqueIdentifier>{cdc96c6d-5e40-4570-ad54-9deddcdd5b27}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="MenuPage.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Engine.rc" />
   </ItemGroup>
 </Project>
