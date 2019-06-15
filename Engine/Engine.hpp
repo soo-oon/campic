@@ -33,16 +33,3 @@ private:
     Timer gameTimer{};
     float dt = 0;
 };
-
-//template <typename SYSTEM>
-//SYSTEM* Engine::GetSystemByTemplate() const
-//{
-//    for (auto i : systems)
-//    {
-//        if (typeid(SYSTEM) == typeid(*i))
-//        {
-//            return dynamic_cast<SYSTEM*>(i);
-//        }
-//    }
-//    return nullptr;
-//}
