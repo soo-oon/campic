@@ -12,6 +12,7 @@ Secondary :
 #include "HowToPlay.hpp"
 #include "UI.hpp"
 #include "Button.hpp"
+#include "HUD_Level.hpp"
 
 void HowToPlay::Initialize()
 {
@@ -60,6 +61,8 @@ void HowToPlay::Update(float dt)
     if(Input::IsKeyAnyTriggered())
     {
         StateManager_.BackToMainMenu();
+        if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+            HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
     }
 
 	if (button_.IntersectionCheck(Input::GetMousePos()))

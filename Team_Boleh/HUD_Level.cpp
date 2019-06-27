@@ -285,7 +285,6 @@ void HUD_Level::Update(float dt)
 		m_capture_base_num->SetInvisible();
 		m_capture_sub_num->SetInvisible();
 	}
-
 	if (StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Splash &&
 		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::CutScene &&
 		StateManager_.GetCurrentState()->GetCurrentStateInfo() != State_Information::Credit && 

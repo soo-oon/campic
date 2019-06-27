@@ -12,6 +12,7 @@ Secondary :
 #include "Credit.hpp"
 #include "Objectmanager.hpp"
 #include "Button.hpp"
+#include "HUD_Level.hpp"
 
 void Credit::Initialize()
 {
@@ -212,6 +213,8 @@ void Credit::Update(float dt)
     if (Input::IsKeyAnyTriggered())
     {
         StateManager_.BackToMainMenu();
+        if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+        HUD_Level::IsOptionWindowOpen = !HUD_Level::IsOptionWindowOpen;
     }
 
 	if (button_.IntersectionCheck(Input::GetMousePos()))
