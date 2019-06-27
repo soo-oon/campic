@@ -65,6 +65,31 @@ void Credit::Initialize()
 	m_credit3->AddComponent(new Sprite("asset/images/Page/CreditPage3.png"));
 	m_credit3->GetMesh().Invisible();
 
+	m_credit4 = new Object();
+        m_credit4->SetTranslation({ 0, 0 });
+        m_credit4->SetScale({ 1200,900 });
+        m_credit4->SetDepth(BACKGROUND);
+        m_credit4->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        m_credit4->SetObjectType(ObjectType::Background);
+        m_credit4->AddComponent(new Sprite("asset/images/Page/CreditPage4.png"));
+        m_credit4->GetMesh().Invisible();
+	m_credit5 = new Object();
+        m_credit5->SetTranslation({ 0, 0 });
+        m_credit5->SetScale({ 1200,900 });
+        m_credit5->SetDepth(BACKGROUND);
+        m_credit5->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        m_credit5->SetObjectType(ObjectType::Background);
+        m_credit5->AddComponent(new Sprite("asset/images/Page/CreditPage5.png"));
+        m_credit5->GetMesh().Invisible();
+	m_credit6 = new Object();
+        m_credit6->SetTranslation({ 0, 0 });
+        m_credit6->SetScale({ 1200,900 });
+        m_credit6->SetDepth(BACKGROUND);
+        m_credit6->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        m_credit6->SetObjectType(ObjectType::Background);
+        m_credit6->AddComponent(new Sprite("asset/images/Page/CreditPage6.png"));
+        m_credit6->GetMesh().Invisible();
+
 	button = new Object();
 	button->SetTranslation({ 310.f, 280.f});
 	button->SetScale({ 182,96 });
@@ -76,6 +101,9 @@ void Credit::Initialize()
 	Objectmanager_.AddObject(m_credit1);
 	Objectmanager_.AddObject(m_credit2);
 	Objectmanager_.AddObject(m_credit3);
+	Objectmanager_.AddObject(m_credit4);
+	Objectmanager_.AddObject(m_credit5);
+	Objectmanager_.AddObject(m_credit6);
 	Objectmanager_.AddObject(mouse_icon);
 	Objectmanager_.AddObject(background);
 
@@ -88,9 +116,9 @@ void Credit::Update(float dt)
 
 	timer += dt;
 
-	if(!page2 && !page3)
+	if(!page2 && !page3 && !page4 && !page5 && !page6)
 	{
-		if(timer > 3.f)
+		if(timer > 2.f)
 		{
 			page2 = true;
 			page1 = false;
@@ -98,11 +126,26 @@ void Credit::Update(float dt)
 	}
 	else
 	{
-		if(timer > 6.f)
+		if(timer > 4.f&& timer < 6.f)
 		{
 			page2 = false;
 			page3 = true;
 		}
+            else if(timer > 6.f && timer < 8.f)
+            {
+                page3 = false;
+                page4 = true;
+            }
+            else if(timer > 8.f&& timer < 10.f)
+            {
+                page4 = false;
+                page5 = true;
+            }
+            else if(timer > 10.f&& timer < 12.f)
+            {
+                page5 = false;
+                page6 = true;
+            }
 	}
 
 	if(page1)
@@ -126,12 +169,44 @@ void Credit::Update(float dt)
 	if(page3)
 	{
 		m_credit3->GetMesh().Visible();
-		if(timer > 9.f)
-			StateManager_.BackToMainMenu();
+	}
+        else
+        {
+            m_credit3->GetMesh().Invisible();
+        }
+	if(page4)
+	{
+		m_credit4->GetMesh().Visible();
+	}
+        else
+        {
+            m_credit4->GetMesh().Invisible();
+        }
+	if(page5)
+	{
+		m_credit5->GetMesh().Visible();
+	}
+        else
+        {
+            m_credit5->GetMesh().Invisible();
+        }
+	if(page6)
+	{
+		m_credit6->GetMesh().Visible();
+                if (timer > 14.f)
+                {
+                    page1 = true;
+                    page2 = false;
+                    page3 = false;
+                    page4 = false;
+                    page5 = false;
+                    page6 = false;
+                    StateManager_.BackToMainMenu();
+                }
 	}
 	else
 	{
-		m_credit3->GetMesh().Invisible();
+		m_credit6->GetMesh().Invisible();
 	}
 
     if (Input::IsKeyAnyTriggered())
@@ -163,6 +238,7 @@ void Credit::ShutDown()
 	m_credit1 = nullptr;
 	m_credit2 = nullptr;
 	m_credit3 = nullptr;
+	m_credit4 = nullptr;
 	mouse_icon = nullptr;
 	button = nullptr;
 }

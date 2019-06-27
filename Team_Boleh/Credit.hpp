@@ -30,12 +30,18 @@ private:
 	Object* m_credit1 = nullptr;
 	Object* m_credit2 = nullptr;
 	Object* m_credit3 = nullptr;
+	Object* m_credit4 = nullptr;
+	Object* m_credit5 = nullptr;
+	Object* m_credit6 = nullptr;
 	Object* mouse_icon = nullptr;
         Object* button = nullptr;
 
 	bool page1 = true;
 	bool page2 = false;
 	bool page3 = false;
+	bool page4 = false;
+	bool page5 = false;
+	bool page6 = false;
 
 	float timer = 0.f;
 };
