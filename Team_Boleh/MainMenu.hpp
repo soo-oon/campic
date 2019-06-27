@@ -21,11 +21,17 @@ public:
 		information_ = State_Information::Menu;
 	}
 
+        void Quitstate();
 	void Initialize() override;
 	void Update(float dt) override;
 	void ShutDown() override;
 
 private:
+
 	Object* m_Select = nullptr;
+	Object* are_you_sure = nullptr;
+	Object* m_yes = nullptr;
+	Object* m_no = nullptr;
+        bool callQuit = false;
 };
 

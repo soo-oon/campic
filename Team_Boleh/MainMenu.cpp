@@ -83,18 +83,101 @@ void MainMenu::Initialize()
 	Quit->AddComponent(new UI("Quit"));
 	Quit->AddComponent(new Sprite("asset/images/UI/QuitButton.png"));
 
+
+        are_you_sure = new Object();
+        are_you_sure->SetTranslation({ 0,34 });
+        are_you_sure->SetScale({ 384,192 });
+        are_you_sure->SetDepth(-0.93f);
+        are_you_sure->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        are_you_sure->SetObjectType(ObjectType::None);
+        are_you_sure->AddComponent(new Sprite("asset/images/UI/AreYouSure.png"));
+        are_you_sure->GetMesh().Invisible();
+
+        m_yes = new Object();
+        m_yes->SetTranslation({ -70,2 });
+        m_yes->SetScale({ 64,64 });
+        m_yes->SetDepth(-0.95f);
+        m_yes->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        m_yes->SetObjectType(ObjectType::None);
+        m_yes->AddComponent(new Sprite("asset/images/UI/Yes.png"));
+        m_yes->GetMesh().Invisible();
+        m_yes->AddInitComponent(new UI("yes."));
+
+        m_no = new Object();
+        m_no->SetTranslation({ 70,2 });
+        m_no->SetScale({ 64,64 });
+        m_no->SetDepth(-0.95f);
+        m_no->SetMesh(mesh::CreateBox(1, { 255,255,255,255 }));
+        m_no->SetObjectType(ObjectType::None);
+        m_no->AddComponent(new Sprite("asset/images/UI/No.png"));
+        m_no->GetMesh().Invisible();
+        m_no->AddInitComponent(new UI("no."));
+
+
 	button_.AddObject(Start);
 	button_.AddObject(Option);
 	button_.AddObject(Credit);
 	button_.AddObject(Quit);
 	button_.AddObject(HowToPlay);
+	button_.AddObject(m_yes);
+	button_.AddObject(m_no);
+	Objectmanager_.AddObject(are_you_sure);
 	Objectmanager_.AddObject(background);
 	Objectmanager_.AddObject(camera);
 }
 
+void MainMenu::Quitstate()
+{
+    if (!are_you_sure->Isvisible()) {
+        are_you_sure->SetVisible();
+        m_yes->SetVisible();
+        m_no->SetVisible();
+    }
+    if(button_.IntersectionCheck(Input::GetMousePos()))
+    {
+        std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
+
+
+
+        if (temp == "yes.")
+        {
+            button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+            button_.GetSelect().second = CollisionState::WasCollided;
+        }
+
+        if (temp == "no.")
+        {
+            button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
+            button_.GetSelect().second = CollisionState::WasCollided;
+        }
+
+        if (Input::IsMouseTriggered(GLFW_MOUSE_BUTTON_LEFT))
+        {
+            if (temp == "yes.")
+                Engine::IsQuit = true;
+            else if (temp == "no.")
+            {
+                are_you_sure->SetInvisible();
+                m_yes->SetInvisible();
+                m_no->SetInvisible();
+                callQuit = false;
+            }
+        }
+    }
+
+    if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
+    {
+        are_you_sure->SetInvisible();
+        m_yes->SetInvisible();
+        m_no->SetInvisible();
+        callQuit = false;
+    }
+}
+
 void MainMenu::Update(float dt)
 {
-
+    if(callQuit)
+        Quitstate();
 	if (button_.IntersectionCheck(Input::GetMousePos()))
 	{
             std::string temp = button_.GetSelect().first->GetComponentByTemplate<UI>()->GetId();
@@ -147,7 +230,7 @@ void MainMenu::Update(float dt)
 			{
 				AudioManager_.PlaySFX("asset/sounds/Button.wav", 0.1f);
                                 button_.GetSelect().first->GetMesh().ChangeColor({ 255,255,0 });
-				Engine::IsQuit = true;
+                                callQuit = true;
 			}
 
 			else if (temp == "Credit")
