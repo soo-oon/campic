@@ -297,7 +297,7 @@ void HUD_Level::Update(float dt)
 
 		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
 		{
-                    StateManager_.TogglePause();
+                        StateManager_.TogglePause();
 			IsOptionWindowOpen = !IsOptionWindowOpen;
 		}
 

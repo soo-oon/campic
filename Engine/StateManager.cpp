@@ -211,11 +211,6 @@ void StateManager::SetCurrentLevelCaptureLimit()
 
 void StateManager::Update(float dt)
 {
-	if (m_currentState->GetCurrentStateInfo() == State_Information::Game)
-	{
-		if (Input::IsKeyTriggered(GLFW_KEY_ESCAPE))
-			TogglePause();
-	}
 
      if (m_currentState->IsLevelChange())
      {
